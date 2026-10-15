@@ -191,6 +191,12 @@ public class MainActivity extends AppCompatActivity {
             runOnUiThread(() -> applyBars(parse(status, dark), parse(nav, dark), dark));
         }
 
+        /** The phone's text size setting (1.0 = default); the page scales its text with it. */
+        @JavascriptInterface
+        public float fontScale() {
+            return getResources().getConfiguration().fontScale;
+        }
+
         /** Progress backup: put the backup code on the clipboard. */
         @JavascriptInterface
         public void copyText(final String text) {

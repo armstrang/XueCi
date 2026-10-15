@@ -6,13 +6,29 @@ Needs Playwright for Python with Chromium (pip install playwright && playwright 
 Screenshots go to tests/out/ (ignored by git). Exits non-zero on any failed check or page error.
 """
 import asyncio
+import functools
+import http.server
 import os
+import socketserver
 import sys
+import threading
 
 from playwright.async_api import async_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PAGE = 'file://' + os.path.join(ROOT, 'app', 'src', 'main', 'assets', 'index.html')
+ASSETS = os.path.join(ROOT, 'app', 'src', 'main', 'assets')
+
+
+class Quiet(http.server.SimpleHTTPRequestHandler):
+    def log_message(self, *a):
+        pass
+
+
+# Serve the app's assets over http, like the app does, so the bundled fonts load too.
+SERVER = socketserver.TCPServer(('127.0.0.1', 0), functools.partial(Quiet, directory=ASSETS))
+threading.Thread(target=SERVER.serve_forever, daemon=True).start()
+HOST = f'http://127.0.0.1:{SERVER.server_address[1]}'
+PAGE = HOST + '/index.html'
 OUT = os.path.join(ROOT, 'tests', 'out')
 failures = []
 
@@ -23,15 +39,18 @@ def check(cond, what):
         failures.append(what)
 
 
-async def run_case(browser, width, locale, theme):
-    tag = f'{width}-{locale}-{theme}'
-    errors = []
+async def run_case(browser, width, locale, theme, fs=1):
+    tag = f'{width}-{locale}-{theme}' + (f'-text{fs}' if fs != 1 else '')
+    errors, outside = [], []
     ctx = await browser.new_context(viewport={'width': width, 'height': 800}, locale=locale, has_touch=True)
     await ctx.add_init_script("localStorage.setItem('hsk16_theme', JSON.stringify('%s'));" % theme)
     pg = await ctx.new_page()
     pg.on('pageerror', lambda e: errors.append(str(e)))
-    await pg.goto(PAGE)
+    pg.on('request', lambda r: r.url.startswith(HOST) or r.url.startswith('data:') or outside.append(r.url))
+    await pg.goto(PAGE + (f'?fs={fs}' if fs != 1 else ''))
     await pg.wait_for_timeout(900)
+    fonts = await pg.evaluate("""() => document.fonts.check('900 40px "Noto Serif SC"', '学') && document.fonts.check('700 16px "Plus Jakarta Sans"', 'A')""")
+    check(fonts, f'{tag}: bundled fonts are in use')
     overflow = lambda: pg.evaluate('document.documentElement.scrollWidth > innerWidth')
     shot = lambda name: pg.screenshot(path=os.path.join(OUT, f'{tag}-{name}.png'))
 
@@ -138,6 +157,7 @@ async def run_case(browser, width, locale, theme):
     check('Kiểm tra' in await pg.locator('.tiles').text_content(), f'{tag}: switch to Vietnamese')
 
     check(await pg.evaluate('mmBack()') is False, f'{tag}: back on Home leaves the app')
+    check(not outside, f'{tag}: no requests leave the app {outside[:2]}')
     check(not errors, f'{tag}: no page errors {errors[:2]}')
     await ctx.close()
 
@@ -146,8 +166,9 @@ async def main():
     os.makedirs(OUT, exist_ok=True)
     async with async_playwright() as p:
         browser = await p.chromium.launch()
-        for width, locale, theme in ((360, 'id-ID', 'light'), (412, 'en-US', 'dark'), (320, 'th-TH', 'black'), (1280, 'vi-VN', 'auto')):
-            await run_case(browser, width, locale, theme)
+        for width, locale, theme, fs in ((360, 'id-ID', 'light', 1), (412, 'en-US', 'dark', 1), (320, 'th-TH', 'black', 1),
+                                         (1280, 'vi-VN', 'auto', 1), (360, 'vi-VN', 'light', 1.6)):
+            await run_case(browser, width, locale, theme, fs)
         await browser.close()
     print(f'\n{len(failures)} failed' if failures else '\nall checks passed')
     sys.exit(1 if failures else 0)

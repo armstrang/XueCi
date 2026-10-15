@@ -11,11 +11,12 @@ Pieces (web/src):
 Data: web/data/vocab.json (HSK 1-6, one word per line).
 
 Writes:
-  app/src/main/assets/index.html   the page inside the Android app
-  web/dist/xueci-mandarin.html   the same page for the web (no doctype line)
+  app/src/main/assets/index.html   the page inside the Android app; fonts come from assets/fonts/ (web/make_fonts.py)
+  web/dist/xueci-mandarin.html     the same page for the web (no doctype line); fonts come from Google Fonts
 """
 import json
 import os
+import re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'web', 'src')
@@ -45,8 +46,31 @@ page = replace_once(page, '<script>\nconst DATA = __DATA__;',
                     "<script>window.MM_THEMES=['auto','light','dark','black'];</script>\n<script>\nconst DATA = __DATA__;")
 page = page.rstrip() + '\n' + read('web', 'src', 'glass.js.html')
 
+# Text follows the phone's text size: every font size written in px is multiplied by --fs (set from Android's
+# font scale by the first script in base.css.html). Display sizes (26px and up: big hanzi, the ring percentage)
+# use --fsd, which grows half as much, so large text never pushes the layout apart.
+def scale_font(m):
+    prop, val = m.group(1), m.group(2)
+    big = val.startswith('clamp') or float(val[:-2]) >= 26
+    return f"{prop}:calc({val}*var({'--fsd' if big else '--fs'},1))"
+page = re.sub(r'(font-size|font):\s*(clamp\([^)]*\)|[\d.]+px)', scale_font, page)
+
 data = json.loads(read('web', 'data', 'vocab.json'))
 page = replace_once(page, '__DATA__', json.dumps(data, ensure_ascii=False, separators=(',', ':')))
+
+# The app ships its own fonts: swap the Google Fonts links for local @font-face rules.
+GOOGLE_FONTS = [l for l in page.splitlines() if 'fonts.googleapis.com' in l]
+assert len(GOOGLE_FONTS) == 2, 'expected the preconnect + stylesheet links to Google Fonts'
+app_page = page
+for line in GOOGLE_FONTS:
+    app_page = replace_once(app_page, line + '\n', '')
+app_page = replace_once(app_page, '</title>', '</title>\n<style>\n' + read('web', 'fonts', 'fonts.css') + '</style>')
+with open(os.path.join(ROOT, 'web', 'fonts', 'charset.txt'), encoding='utf8') as f:
+    covered = set(f.read().strip())
+han = {c for c in app_page if 0x3400 <= ord(c) <= 0x9FFF or 0xF900 <= ord(c) <= 0xFAFF}
+missing = ''.join(sorted(han - covered))
+if missing:
+    print(f'WARNING: the bundled Chinese fonts lack {len(missing)} characters ({missing[:40]}...). Run python3 web/make_fonts.py')
 
 dist = os.path.join(ROOT, 'web', 'dist')
 os.makedirs(dist, exist_ok=True)
@@ -55,5 +79,5 @@ with open(os.path.join(dist, 'xueci-mandarin.html'), 'w', encoding='utf8') as f:
 assets = os.path.join(ROOT, 'app', 'src', 'main', 'assets')
 os.makedirs(assets, exist_ok=True)
 with open(os.path.join(assets, 'index.html'), 'w', encoding='utf8') as f:
-    f.write('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n' + page)
+    f.write('<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">\n' + app_page)
 print(f'built {len(page.encode()) / 1e6:.2f} MB, {len(data)} words')
