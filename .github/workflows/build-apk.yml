@@ -24,7 +24,7 @@ jobs:
       # Version shown to people: 1.0, 1.1, ... (matches versionName in app/build.gradle)
       - name: Version
         run: |
-          n=$(( GITHUB_RUN_NUMBER - 13 ))
+          n=$(( GITHUB_RUN_NUMBER - 1 ))
           if [ "$n" -lt 0 ]; then n=0; fi
           echo "VER=1.$n" >> "$GITHUB_ENV"
 
@@ -46,12 +46,12 @@ jobs:
             echo "::error title=Gradle build failed::$msg"
             exit 1
           fi
-          cp app/build/outputs/apk/release/app-release.apk MerdekaMandarin.apk
+          cp app/build/outputs/apk/release/app-release.apk XueCiMandarin.apk
 
       - uses: actions/upload-artifact@v4
         with:
-          name: MerdekaMandarin-apk
-          path: MerdekaMandarin.apk
+          name: XueCiMandarin-apk
+          path: XueCiMandarin.apk
 
       # Never mix a new build into an old release that happens to share its name (e.g. an old v1.3).
       - name: Check the version name is free
@@ -67,9 +67,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.VER }}
-          name: Merdeka Mandarin v${{ env.VER }}
+          name: XueCi Mandarin v${{ env.VER }}
           body: |
-            Unduh **MerdekaMandarin.apk** di bawah, lalu buka di HP Android untuk memasang.
+            Unduh **XueCiMandarin.apk** di bawah, lalu buka di HP Android untuk memasang.
             Pembaruan bisa langsung dipasang di atas versi sebelumnya; progres belajar tetap tersimpan.
-          files: MerdekaMandarin.apk
+          files: XueCiMandarin.apk
           make_latest: true

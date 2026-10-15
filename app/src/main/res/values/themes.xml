@@ -1,5 +1,5 @@
 <resources>
-    <style name="Theme.Merdeka" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="Theme.XueCi" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/mm_brand</item>
         <item name="android:windowBackground">@color/mm_bg</item>
         <item name="android:statusBarColor">@color/mm_bg</item>

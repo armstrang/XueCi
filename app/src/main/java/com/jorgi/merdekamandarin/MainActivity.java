@@ -21,7 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.webkit.WebViewAssetLoader;
 
 /**
- * Hosts the Merdeka Mandarin page (assets/index.html) in a WebView.
+ * Hosts the XueCi Mandarin page (assets/index.html) in a WebView.
  * The page is served from https://appassets.androidplatform.net so it gets a stable origin
  * and localStorage (study progress, theme, language) survives app restarts and updates.
  */

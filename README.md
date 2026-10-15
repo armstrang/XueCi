@@ -1,4 +1,4 @@
-# Merdeka Mandarin
+# XueCi Mandarin
 
 Aplikasi belajar kosakata HSK 1–6 (silabus HSK 3.0, terbit November 2025) bergaya *Liquid Glass*: daftar kata, kartu hafalan, kuis, dan progres pemahaman per kata (20 tingkat, dari merah ke hijau). Tersedia dalam bahasa Indonesia, English, ไทย, dan Tiếng Việt, dengan tema terang, gelap, dan true black. Berjalan sepenuhnya offline.
 
@@ -7,7 +7,7 @@ by Armstrang
 ## Pasang di Android
 
 1. Buka halaman **[Releases](../../releases/latest)** dari HP.
-2. Unduh `MerdekaMandarin.apk`.
+2. Unduh `XueCiMandarin.apk`.
 3. Buka file itu. Jika diminta, izinkan "Instal aplikasi tidak dikenal" untuk browser atau file manager yang dipakai.
 
 Versi baru dipasang dengan cara yang sama, langsung di atas versi sebelumnya. Progres belajar tidak hilang.

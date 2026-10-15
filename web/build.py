@@ -1,4 +1,4 @@
-"""Build Merdeka Mandarin into one self-contained HTML file.
+"""Build XueCi Mandarin into one self-contained HTML file.
 
     python3 web/build.py
 
@@ -12,7 +12,7 @@ Data: web/data/vocab.json (HSK 1-6, one word per line).
 
 Writes:
   app/src/main/assets/index.html   the page inside the Android app
-  web/dist/merdeka-mandarin.html   the same page for the web (no doctype line)
+  web/dist/xueci-mandarin.html   the same page for the web (no doctype line)
 """
 import json
 import os
@@ -50,7 +50,7 @@ page = replace_once(page, '__DATA__', json.dumps(data, ensure_ascii=False, separ
 
 dist = os.path.join(ROOT, 'web', 'dist')
 os.makedirs(dist, exist_ok=True)
-with open(os.path.join(dist, 'merdeka-mandarin.html'), 'w', encoding='utf8') as f:
+with open(os.path.join(dist, 'xueci-mandarin.html'), 'w', encoding='utf8') as f:
     f.write(page)
 assets = os.path.join(ROOT, 'app', 'src', 'main', 'assets')
 os.makedirs(assets, exist_ok=True)
