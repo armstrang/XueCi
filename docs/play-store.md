@@ -27,7 +27,7 @@ Centang item di bawah saat selesai.
   - [ ] Uji di HP/emulator Android 15 dan 16: status bar, navigation bar (gesture dan 3 tombol), keyboard di kolom cari, mode lanskap.
 - [ ] **Android App Bundle (.aab).** Play hanya menerima AAB untuk aplikasi baru. CI menjalankan `bundleRelease`, ditandatangani dengan upload key dari GitHub Secrets. Kata sandi dibaca dari environment, tidak ditulis di `build.gradle`.
 - [x] **ID baru** `com.armstrang.xueci`: `applicationId`, `namespace`, dan paket Java (v1.3).
-- [x] **Cadangkan/pulihkan progres** (v1.2): Statistik → Cadangkan menghasilkan satu kode teks untuk disalin atau dibagikan; Pulihkan menerima kode itu di aplikasi atau HP lain.
+- [x] **Cadangkan/pulihkan progres**: tombol **Cadangan** di Home (sejak v1.4; di v1.2 ada di Statistik). Cadangkan menghasilkan satu kode teks untuk disalin atau dibagikan; Pulihkan menerima kode itu di aplikasi atau HP lain.
 - [ ] **Font dibundel di dalam aplikasi.** Sekarang font diambil dari Google Fonts saat online. Kalau dibundel, izin `INTERNET` bisa dihapus, tampilan sama saat offline, dan formulir Data safety bisa diisi "tidak mengumpulkan data" dengan yakin. Cek lisensi font (umumnya OFL, boleh dibundel).
 - [ ] **Splash screen** dengan SplashScreen API (Android 12+), supaya tidak ada layar kosong saat aplikasi dibuka.
 - [ ] **Performa** (dari diskusi sebelumnya):

@@ -184,6 +184,10 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 
 /* tone colours & info */
 .toneinfo{border-radius:999px;margin-top:16px;color:var(--soft)}
+.homeacts{margin-top:16px}.homeacts .toneinfo{margin:0}
+.bkopt{background:var(--g-solid);border-color:var(--g-edge);box-shadow:var(--g-inset),var(--g-drop);transition:transform .32s var(--spring),background .2s}
+.bkopt:active{transform:scale(.98)}
+.bkopt .bi{box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
 .toneinfo .excl{color:var(--acc);box-shadow:0 0 14px -2px color-mix(in srgb,var(--acc) 60%,transparent)}
 .scrim2{background:rgba(8,10,16,.34);animation:fadeIn .22s ease both}
 .isheet{background:var(--g-head);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);border:1px solid var(--g-edge);border-radius:32px 32px 0 0;

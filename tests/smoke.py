@@ -104,14 +104,16 @@ async def run_case(browser, width, locale, theme):
 
     # progress backup -> restore round trip
     before = await pg.evaluate('JSON.stringify(stats)')
-    await pg.click('#hero')
-    await pg.wait_for_timeout(450)
-    await pg.click('#bkMakeBtn')
+    await pg.click('#bkBtn')
+    await pg.wait_for_timeout(350)
+    check(await pg.locator('.bkopt').count() == 2, f'{tag}: backup sheet offers back up and restore')
+    await pg.click('.bkopt[data-bk="make"]')
     await pg.wait_for_timeout(500)
     code = await pg.input_value('#bkCode')
     check(code.startswith('XUECI'), f'{tag}: backup code is made')
     await pg.evaluate('mmBack()')
-    await pg.click('#bkRestoreBtn')
+    check(await pg.locator('#bkOpts').is_visible(), f'{tag}: back returns to the two choices')
+    await pg.click('.bkopt[data-bk="restore"]')
     await pg.wait_for_timeout(300)
     await pg.fill('#bkCode', 'not a code')
     await pg.click('#bkCheck')
@@ -121,8 +123,12 @@ async def run_case(browser, width, locale, theme):
     await pg.click('#bkCheck')
     await pg.wait_for_timeout(300)
     await pg.click('#bkApply')
-    await pg.wait_for_timeout(1300)
+    await pg.wait_for_timeout(400)
+    check(await pg.locator('#bkSheet').is_hidden(), f'{tag}: sheet closes after restoring')
     check(await pg.evaluate('JSON.stringify(stats)') == before, f'{tag}: restore brings the same progress back')
+    tone_row = await pg.evaluate('''() => { const a = document.getElementById('toneInfo').getBoundingClientRect(), b = document.getElementById('bkBtn').getBoundingClientRect();
+        return Math.abs(a.top - b.top) < 2 && b.left >= a.right && b.right <= innerWidth - 8 }''')
+    check(tone_row, f'{tag}: backup button sits beside tone info')
 
     # language switch
     await pg.click('#langBtn')

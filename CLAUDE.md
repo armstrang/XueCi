@@ -18,7 +18,7 @@ The whole app is **one self-contained HTML page** shown in an Android WebView. N
 | `web/data/vocab.json` | 5,334 words, one per line. **Canonical data** — edit here |
 | `web/build.py` | builds `app/src/main/assets/index.html` (committed) and `web/dist/xueci-mandarin.html` (web copy, ignored) |
 | `app/` | single-module Android app, `MainActivity.java` only |
-| `art/` | icon artwork: `icon-source.jpg` (from Josh), `icon-badge.png` (cut-out), `play-icon-512.png` |
+| `art/` | icon artwork: `icon-source.jpg` (from Josh, the 学词 badge); `python3 art/make_icons.py` regenerates `icon-badge.png`, every launcher mipmap, `play-icon-512.png`, `docs/privacy/icon.png` and `icon-preview.png` |
 | `tests/smoke.py` | Playwright smoke test of the built page |
 
 After any change in `web/`: `python3 web/build.py && python3 tests/smoke.py`, then look at the screenshots in `tests/out/`.
@@ -34,7 +34,7 @@ CI also runs `web/build.py`, so a forgotten rebuild only matters for local Andro
 - Mastery: `stats[id] = [right, wrong, level]`, `MAXL = 20`; right +1, wrong −3. Bands: 0–6 red, 7–13 yellow, 14–20 green; `.m0`–`.m20` colour classes.
 - Hooks the glass layer defines: `mmTransition`, `mmHomeRendered(S)`, `mmStatsRendered()`, `mmFeedback(ok)`.
 - `window.mmBack()` is called by Android's back button: closes info sheet → backup sheet → quiz menu → lang/level/unit menus → screen; returns `false` on Home (app exits).
-- Progress backup (Stats screen → Back up / Restore, `#bkSheet`): one line `XUECI1:` + base64url(deflate-raw(JSON {app:'xueci',v,at,stats,ui,lang,theme})) (`XUECI0:` = uncompressed). Restore finds the code inside any pasted text, validates every entry against `IDX`, shows a summary, writes localStorage and reloads. Native copy/share/paste go through `MMAndroid.copyText/shareText/pasteText`; in a browser it falls back to the Clipboard/Share APIs.
+- Progress backup (Home → Backup button beside tone info → Back up / Restore, `#bkSheet`): one line `XUECI1:` + base64url(deflate-raw(JSON {app:'xueci',v,at,stats,ui,lang,theme})) (`XUECI0:` = uncompressed). Restore finds the code inside any pasted text, validates every entry against `IDX`, shows a summary, then applies it in place (stats, level/unit, language, theme) — no reload (a write-then-reload can read stale localStorage). Native copy/share/paste go through `MMAndroid.copyText/shareText/pasteText`; in a browser it falls back to the Clipboard/Share APIs.
 - Language: `langPref` = `auto` (follows the system: id/in/ms → id, th, vi, else en) or a code.
 - Themes: `auto`, `light`, `dark`, `black` (`window.MM_THEMES`, set by `build.py`). `notifyNative()` sends CSS `--bar`/`--bar2` to `MMAndroid.setBars(top, bottom, dark)`.
 - **localStorage keys hold users' progress — never rename them:** `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme` (`hsk16_known` = legacy import).
