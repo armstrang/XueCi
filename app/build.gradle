@@ -3,19 +3,19 @@ plugins {
 }
 
 // Each GitHub Actions run gets a higher versionCode, so a new APK installs over the old one (progress is kept).
-// versionCode starts at 101: the app was built as "Merdeka Mandarin" in an earlier repository up to versionCode 13,
-// and Android only installs an update with a higher code. The visible version is 1.0, 1.1, ... per run.
-// The application ID stays com.jorgi.merdekamandarin so XueCi Mandarin updates the installed app and keeps progress.
+// versionCode = 100 + run number, so it always rises; the visible version is 1.0, 1.1, ... per run.
+// The application ID is com.armstrang.xueci (the Play Store ID). Builds up to v1.2 used com.jorgi.merdekamandarin;
+// people move their progress over with Stats → Back up / Restore.
 def runNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1').toInteger()
 
 android {
-    namespace 'com.jorgi.merdekamandarin'
-    compileSdk 34
+    namespace 'com.armstrang.xueci'
+    compileSdk 36
 
     defaultConfig {
-        applicationId 'com.jorgi.merdekamandarin'
+        applicationId 'com.armstrang.xueci'
         minSdk 24
-        targetSdk 34
+        targetSdk 36
         versionCode 100 + runNumber
         versionName "1.${Math.max(0, runNumber - 1)}"
     }
@@ -60,5 +60,6 @@ dependencies {
     // Aligns kotlin-stdlib / -jdk7 / -jdk8 versions pulled in by AndroidX (avoids duplicate-class errors).
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.22')
     implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.core:core:1.13.1'
     implementation 'androidx.webkit:webkit:1.12.1'
 }

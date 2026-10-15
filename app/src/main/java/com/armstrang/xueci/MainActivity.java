@@ -1,15 +1,17 @@
-package com.jorgi.merdekamandarin;
+package com.armstrang.xueci;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
@@ -17,9 +19,16 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.LinearLayout;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.webkit.WebViewAssetLoader;
 
 import java.util.concurrent.CountDownLatch;
@@ -29,6 +38,11 @@ import java.util.concurrent.TimeUnit;
  * Hosts the XueCi Mandarin page (assets/index.html) in a WebView.
  * The page is served from https://appassets.androidplatform.net so it gets a stable origin
  * and localStorage (study progress, theme, language) survives app restarts and updates.
+ *
+ * Edge-to-edge (enforced from Android 15 for apps targeting API 35+): the window draws behind the
+ * status and navigation bars. Two coloured strips sized from the window insets sit where the bars
+ * are, so the page never slides under them, and the page picks their colours through setBars().
+ * The bottom strip also grows with the keyboard, which keeps text fields above it.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -36,15 +50,52 @@ public class MainActivity extends AppCompatActivity {
     private static final String START_URL = "https://" + HOST + "/assets/index.html";
 
     private WebView web;
+    private LinearLayout root;
+    private View topBar, bottomBar;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Window window = getWindow();
+        WindowCompat.setDecorFitsSystemWindows(window, false);
+        if (Build.VERSION.SDK_INT < 35) {
+            // Below Android 15 the bars are drawn by the system on top of the window; keep them clear.
+            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setNavigationBarColor(Color.TRANSPARENT);
+        }
+        if (Build.VERSION.SDK_INT >= 29) {
+            window.setStatusBarContrastEnforced(false);
+            window.setNavigationBarContrastEnforced(false);
+        }
+
+        int bg = ContextCompat.getColor(this, R.color.mm_bg);
+        root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setBackgroundColor(bg);
+        topBar = new View(this);
+        topBar.setBackgroundColor(bg);
+        bottomBar = new View(this);
+        bottomBar.setBackgroundColor(bg);
         web = new WebView(this);
         web.setBackgroundColor(Color.TRANSPARENT);
-        setContentView(web);
+        root.addView(topBar, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
+        root.addView(web, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0, 1f));
+        root.addView(bottomBar, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0));
+        setContentView(root);
+
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+            Insets bars = insets.getInsets(WindowInsetsCompat.Type.systemBars() | WindowInsetsCompat.Type.displayCutout());
+            Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
+            v.setPadding(bars.left, 0, bars.right, 0);
+            setHeight(topBar, bars.top);
+            setHeight(bottomBar, Math.max(bars.bottom, ime.bottom));
+            return WindowInsetsCompat.CONSUMED;
+        });
+
+        boolean night = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
+        setBarIcons(night);
 
         final WebViewAssetLoader loader = new WebViewAssetLoader.Builder()
                 .setDomain(HOST)
@@ -70,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 Uri uri = request.getUrl();
                 if (HOST.equals(uri.getHost())) return false;
-                // Outside links (e.g. the data source on GitHub) open in the browser.
+                // Outside links (GitHub, privacy policy, data source) open in the browser.
                 try {
                     startActivity(new Intent(Intent.ACTION_VIEW, uri));
                 } catch (ActivityNotFoundException ignored) {
@@ -96,6 +147,21 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private static void setHeight(View view, int height) {
+        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        if (lp.height != height) {
+            lp.height = height;
+            view.setLayoutParams(lp);
+        }
+    }
+
+    /** Dark icons on light bars, light icons on dark bars. */
+    private void setBarIcons(boolean darkBars) {
+        WindowInsetsControllerCompat c = WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        c.setAppearanceLightStatusBars(!darkBars);
+        c.setAppearanceLightNavigationBars(!darkBars);
+    }
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -111,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    /** Lets the page match the status and navigation bars to its theme. */
+    /** Called from the page as window.MMAndroid. */
     private class Bridge {
         /** Older pages: light or dark only. */
         @JavascriptInterface
@@ -177,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private static int fallback(boolean dark) {
-        return Color.parseColor(dark ? "#0F1218" : "#F4F5F7");
+        return Color.parseColor(dark ? "#23262C" : "#F4F5F7");
     }
 
     private static int parse(String hex, boolean dark) {
@@ -189,18 +255,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void applyBars(int statusColor, int navColor, boolean dark) {
-        Window w = getWindow();
-        w.setStatusBarColor(statusColor);
-        w.setNavigationBarColor(navColor);
-        View decor = w.getDecorView();
-        int flags = decor.getSystemUiVisibility();
-        if (dark) {
-            flags &= ~View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) flags &= ~View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-        } else {
-            flags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) flags |= View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-        }
-        decor.setSystemUiVisibility(flags);
+        if (root == null) return;
+        topBar.setBackgroundColor(statusColor);
+        bottomBar.setBackgroundColor(navColor);
+        root.setBackgroundColor(statusColor);
+        setBarIcons(dark);
     }
 }
