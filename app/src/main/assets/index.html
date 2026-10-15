@@ -325,6 +325,13 @@ html[lang="th"] .id{font-style:normal}
 .ans{display:flex;gap:6px}
 .ans button{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:5px 11px;font-size:12.5px;font-weight:700}
 .ans .a-no{color:var(--bad)}.ans .a-yes{color:var(--good)}
+.stbackup{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px}
+.stbackup>div{flex:1 1 220px}.stbackup b{font-size:14px;font-weight:800}.stbackup p{margin:2px 0 0;font-size:12px;color:var(--mute)}
+.bkbtns{display:flex;gap:8px}
+.bkcode{display:block;width:100%;min-height:104px;max-height:32vh;resize:vertical;border:1px solid var(--line);border-radius:14px;background:var(--sunk);color:var(--fg);padding:10px 12px;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;word-break:break-all}
+.bkmsg{margin:8px 0 0;font-size:13px;color:var(--soft);min-height:1.2em}.bkmsg.bad{color:var(--bad)}
+.bkrow{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}.bkrow button{min-width:96px}
+.ghost.pri{background:var(--acc);border-color:var(--acc);color:var(--on-acc);font-weight:800}
 .stfoot{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px dashed var(--line);padding-top:12px}
 .stfoot p{margin:0;font-size:12px;color:var(--mute);flex:1 1 220px}
 .danger{border:1.5px solid color-mix(in srgb,var(--bad) 50%,var(--line));background:transparent;color:var(--bad);border-radius:11px;padding:8px 12px;font-size:13px;font-weight:800}
@@ -540,6 +547,8 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 .tone{background:var(--g-solid);border:1px solid var(--g-edge);box-shadow:var(--g-inset);border-radius:16px}
 .isec{border-top-color:var(--line)}
 .gh{border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),var(--g-drop)}
+.bkcode{background:var(--g-solid);border-color:var(--g-edge);border-radius:16px;box-shadow:var(--g-inset)}
+.ghost.pri{background:var(--acc);border-color:transparent;color:var(--on-acc);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),var(--g-drop)}
 .plink{background:var(--g-solid);border-color:var(--g-edge);border-radius:16px;box-shadow:var(--g-inset)}
 </style>
 
@@ -634,6 +643,10 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
     <div class="scalewrap" id="stScale"></div>
     <div class="grid-wrap" id="stGrid"></div>
     <div class="stdetail" id="stDetail"></div>
+    <div class="stbackup" id="stBackup">
+      <div><b data-i18n="bkT"></b><p data-i18n="bkNote"></p></div>
+      <span class="bkbtns"><button class="ghost" id="bkMakeBtn" data-i18n="bkMake"></button><button class="ghost" id="bkRestoreBtn" data-i18n="bkRestore"></button></span>
+    </div>
     <div class="stfoot" id="stFoot"></div>
   </div>
 </section>
@@ -652,6 +665,16 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
       <a class="plink" href="https://armstrang.github.io/XueCi/privacy/" target="_blank" rel="noopener"><span data-i18n="privacy"></span><span class="ext" aria-hidden="true">↗</span></a>
       <p class="icred" id="infoCred"></p>
     </div>
+  </div>
+</div>
+<div class="sheetwrap" id="bkSheet" hidden>
+  <div class="scrim2" data-close></div>
+  <div class="isheet" role="dialog" aria-modal="true" aria-labelledby="bkTitle">
+    <div class="ihead"><h2 id="bkTitle"></h2><button class="xbtn" data-close data-i18n-aria="close">×</button></div>
+    <p class="ilead" id="bkLead"></p>
+    <textarea class="bkcode" id="bkCode" rows="5" spellcheck="false" autocomplete="off" autocapitalize="off" aria-labelledby="bkTitle"></textarea>
+    <p class="bkmsg" id="bkMsg" role="status"></p>
+    <div class="bkrow" id="bkRow"></div>
   </div>
 </div>
 <div class="toast" id="toast" hidden></div>
@@ -806,6 +829,27 @@ Object.assign(I18N.vi,{infoBtn:'Màu thanh điệu & thông tin',infoTitle:'Màu
   tones:[['Thanh 1','Cao và ngang','mẹ'],['Thanh 2','Đi lên, như khi hỏi','cây gai'],['Thanh 3','Xuống rồi lên','ngựa'],['Thanh 4','Rơi mạnh, dứt khoát','mắng'],['Thanh nhẹ','Nhẹ và ngắn','trợ từ nghi vấn']],
   dMean:'Xem chữ Hán, chọn nghĩa',dHz:'Xem nghĩa, chọn chữ Hán',dCloze:'Điền từ còn thiếu vào câu'});
 Object.assign(I18N.vi,{back:'Quay lại',statsShort:'Thống kê',subList:'Xem & tìm từ',subCard:'Luyện ghi nhớ',subQuiz:'Tự kiểm tra'});
+/* progress backup / restore */
+Object.assign(I18N.id,{bkT:'Cadangan progres',bkNote:'Simpan progres sebagai kode untuk dipindah ke aplikasi atau HP lain.',bkMake:'Cadangkan',bkRestore:'Pulihkan',
+  bkTitleMake:'Kode cadangan',bkLeadMake:n=>`${n} kata sudah dilatih. Salin atau bagikan kode ini, lalu tempel di menu Pulihkan pada aplikasi atau HP lain.`,
+  bkCopy:'Salin',bkShare:'Bagikan',bkCopied:'Kode disalin',bkTitleRestore:'Pulihkan progres',bkLeadRestore:'Tempel kode cadangan di bawah.',bkPaste:'Tempel',bkCheck:'Periksa kode',
+  bkBad:'Kode tidak dikenali. Pastikan kode tersalin lengkap.',bkConfirm:(n,dt,m)=>`Cadangan ${dt}: ${n} kata dilatih. Progres di perangkat ini (${m} kata) akan diganti.`,
+  bkApply:'Ganti progres',bkDone:'Progres dipulihkan',bkShareText:dt=>`Cadangan progres XueCi Mandarin (${dt})`});
+Object.assign(I18N.en,{bkT:'Progress backup',bkNote:'Save your progress as a code to move it to another app or phone.',bkMake:'Back up',bkRestore:'Restore',
+  bkTitleMake:'Backup code',bkLeadMake:n=>`${n} words practised. Copy or share this code, then paste it under Restore in the other app or phone.`,
+  bkCopy:'Copy',bkShare:'Share',bkCopied:'Code copied',bkTitleRestore:'Restore progress',bkLeadRestore:'Paste your backup code below.',bkPaste:'Paste',bkCheck:'Check code',
+  bkBad:'This code isn’t recognised. Make sure you copied all of it.',bkConfirm:(n,dt,m)=>`Backup from ${dt}: ${n} words practised. The progress on this device (${m} words) will be replaced.`,
+  bkApply:'Replace progress',bkDone:'Progress restored',bkShareText:dt=>`XueCi Mandarin progress backup (${dt})`});
+Object.assign(I18N.th,{bkT:'สำรองความคืบหน้า',bkNote:'บันทึกความคืบหน้าเป็นรหัส เพื่อย้ายไปยังแอปหรือโทรศัพท์เครื่องอื่น',bkMake:'สำรอง',bkRestore:'กู้คืน',
+  bkTitleMake:'รหัสสำรอง',bkLeadMake:n=>`ฝึกแล้ว ${n} คำ คัดลอกหรือแชร์รหัสนี้ แล้ววางในเมนูกู้คืนของแอปหรือโทรศัพท์อีกเครื่อง`,
+  bkCopy:'คัดลอก',bkShare:'แชร์',bkCopied:'คัดลอกรหัสแล้ว',bkTitleRestore:'กู้คืนความคืบหน้า',bkLeadRestore:'วางรหัสสำรองด้านล่าง',bkPaste:'วาง',bkCheck:'ตรวจสอบรหัส',
+  bkBad:'ไม่รู้จักรหัสนี้ ตรวจสอบว่าคัดลอกครบทั้งหมด',bkConfirm:(n,dt,m)=>`ข้อมูลสำรองวันที่ ${dt}: ฝึกแล้ว ${n} คำ ความคืบหน้าในเครื่องนี้ (${m} คำ) จะถูกแทนที่`,
+  bkApply:'แทนที่ความคืบหน้า',bkDone:'กู้คืนความคืบหน้าแล้ว',bkShareText:dt=>`ข้อมูลสำรองความคืบหน้า XueCi Mandarin (${dt})`});
+Object.assign(I18N.vi,{bkT:'Sao lưu tiến độ',bkNote:'Lưu tiến độ thành một mã để chuyển sang ứng dụng hoặc điện thoại khác.',bkMake:'Sao lưu',bkRestore:'Khôi phục',
+  bkTitleMake:'Mã sao lưu',bkLeadMake:n=>`Đã luyện ${n} từ. Sao chép hoặc chia sẻ mã này, rồi dán vào mục Khôi phục ở ứng dụng hoặc điện thoại kia.`,
+  bkCopy:'Sao chép',bkShare:'Chia sẻ',bkCopied:'Đã sao chép mã',bkTitleRestore:'Khôi phục tiến độ',bkLeadRestore:'Dán mã sao lưu vào bên dưới.',bkPaste:'Dán',bkCheck:'Kiểm tra mã',
+  bkBad:'Không nhận ra mã này. Hãy chắc rằng bạn đã sao chép đầy đủ.',bkConfirm:(n,dt,m)=>`Bản sao lưu ngày ${dt}: đã luyện ${n} từ. Tiến độ trên thiết bị này (${m} từ) sẽ bị thay thế.`,
+  bkApply:'Thay thế tiến độ',bkDone:'Đã khôi phục tiến độ',bkShareText:dt=>`Sao lưu tiến độ XueCi Mandarin (${dt})`});
 
 /* 'auto' follows the phone/browser language; unsupported languages fall back to English */
 function sysLang(){const list=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||''];
@@ -1199,6 +1243,81 @@ function closeInfo(){infoSheet.hidden=true;document.body.style.overflow='';infoO
 $('toneInfo').onclick=openInfo;
 infoSheet.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeInfo()});
 infoSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeInfo()}});
+/* ---------- progress backup / restore ----------
+   A backup is one line of text: "XUECI1:" + base64url(deflate-raw(JSON)), or "XUECI0:" + base64url(JSON)
+   where compression isn't available. It can be copied, shared, and pasted into another install. */
+const bkSheet=$('bkSheet'),bkCode=$('bkCode'),bkMsg=$('bkMsg');
+let bkMode=null,bkPending=null,bkOpener=null;
+const NATIVE=n=>!!(window.MMAndroid&&typeof MMAndroid[n]==='function');
+const canZip=typeof CompressionStream==='function'&&typeof DecompressionStream==='function';
+const B64=u=>{let s='';for(let i=0;i<u.length;i+=0x8000)s+=String.fromCharCode.apply(null,u.subarray(i,i+0x8000));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')};
+const UNB64=t=>{t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';const s=atob(t),u=new Uint8Array(s.length);for(let i=0;i<s.length;i++)u[i]=s.charCodeAt(i);return u};
+const pipeBytes=async(u,stream)=>new Uint8Array(await new Response(new Blob([u]).stream().pipeThrough(stream)).arrayBuffer());
+const practisedN=st=>Object.values(st).filter(e=>e[0]+e[1]>0).length;
+const bkDate=t=>new Date(t).toLocaleDateString(L10.loc,{day:'numeric',month:'long',year:'numeric'});
+async function makeCode(){
+  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:1,at:Date.now(),stats,ui:{level:state.level,unitBy:state.unitBy},lang:langPref,theme}));
+  if(canZip){try{return 'XUECI1:'+B64(await pipeBytes(raw,new CompressionStream('deflate-raw')))}catch(e){}}
+  return 'XUECI0:'+B64(raw)}
+async function readCode(text){
+  const m=String(text||'').replace(/\s+/g,'').match(/XUECI([01]):([A-Za-z0-9_-]+)/);if(!m)return null;
+  try{let u=UNB64(m[2]);if(m[1]==='1'){if(!canZip)return null;u=await pipeBytes(u,new DecompressionStream('deflate-raw'))}
+    const o=JSON.parse(new TextDecoder().decode(u));if(!o||o.app!=='xueci'||!o.stats||typeof o.stats!=='object')return null;
+    const st={};
+    for(const k in o.stats){const e=o.stats[k];
+      if(!IDX.has(k)||!Array.isArray(e)||e.length<2||!e.every(x=>Number.isFinite(x)&&x>=0))continue;
+      const r=Math.floor(e[0]),w=Math.floor(e[1]);st[k]=[r,w,Math.max(0,Math.min(MAXL,Math.floor(e.length>2?e[2]:r-w)))]}
+    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme}}catch(e){return null}}
+function bkRow(){
+  const r=$('bkRow');
+  if(bkMode==='make')r.innerHTML=`<button class="ghost" id="bkCopy">${L10.bkCopy}</button>${NATIVE('shareText')||navigator.share?`<button class="ghost pri" id="bkShare">${L10.bkShare}</button>`:''}`;
+  else if(bkPending)r.innerHTML=`<button class="ghost" id="bkCancel">${L10.cancel}</button><button class="danger solid" id="bkApply">${L10.bkApply}</button>`;
+  else r.innerHTML=`<button class="ghost" id="bkPaste">${L10.bkPaste}</button><button class="ghost pri" id="bkCheck">${L10.bkCheck}</button>`}
+function say(msg,bad){bkMsg.textContent=msg||'';bkMsg.classList.toggle('bad',!!bad)}
+async function openBackup(mode){
+  bkMode=mode;bkPending=null;bkOpener=document.activeElement;say('');
+  const make=mode==='make';
+  $('bkTitle').textContent=make?L10.bkTitleMake:L10.bkTitleRestore;
+  $('bkLead').textContent=make?L10.bkLeadMake(fmt(practisedN(stats))):L10.bkLeadRestore;
+  bkCode.readOnly=make;bkCode.value='';bkRow();
+  bkSheet.hidden=false;document.body.style.overflow='hidden';
+  if(make){bkCode.value=await makeCode();bkSheet.querySelector('.xbtn').focus()}else bkCode.focus()}
+function closeBk(){bkSheet.hidden=true;bkMode=null;bkPending=null;document.body.style.overflow='';bkOpener?.focus?.()}
+async function bkCopyCode(){
+  const t=bkCode.value;if(!t)return;
+  if(NATIVE('copyText')){MMAndroid.copyText(t);toast(L10.bkCopied);return}
+  try{await navigator.clipboard.writeText(t);toast(L10.bkCopied)}catch(e){bkCode.focus();bkCode.select();try{document.execCommand('copy')&&toast(L10.bkCopied)}catch(_){}}}
+async function bkShareCode(){
+  const t=bkCode.value;if(!t)return;const title=L10.bkShareText(bkDate(Date.now()));
+  if(NATIVE('shareText')){MMAndroid.shareText(title,title+':\n'+t);return}
+  try{await navigator.share({title,text:t})}catch(e){}}
+async function bkPasteCode(){
+  let t='';
+  if(NATIVE('pasteText'))t=MMAndroid.pasteText()||'';else{try{t=await navigator.clipboard.readText()}catch(e){}}
+  if(t){bkCode.value=t;bkPending=null;say('');bkRow()}else bkCode.focus()}
+async function bkCheckCode(){
+  const b=await readCode(bkCode.value);
+  if(!b){say(L10.bkBad,true);return}
+  bkPending=b;say(L10.bkConfirm(fmt(practisedN(b.stats)),bkDate(b.at),fmt(practisedN(stats))));bkRow();$('bkApply')?.focus()}
+function bkApply(){
+  const b=bkPending;if(!b)return;
+  ls.set('mm_stats',b.stats);
+  if(b.ui&&LEVELS.includes(b.ui.level))ls.set('hsk16_ui',{level:b.ui.level,unitBy:Object.assign({1:1,2:1,3:1,4:1,5:1,6:1},b.ui.unitBy||{})});
+  if(b.lang==='auto'||LANGS.includes(b.lang))ls.set('mm_lang',b.lang);
+  if(themeList().includes(b.theme))ls.set('hsk16_theme',b.theme);
+  try{sessionStorage.setItem('mm_restored','1')}catch(e){}
+  location.reload()}
+$('bkMakeBtn').onclick=()=>openBackup('make');
+$('bkRestoreBtn').onclick=()=>openBackup('restore');
+bkSheet.addEventListener('click',e=>{
+  if(e.target.closest('[data-close]')){closeBk();return}
+  const id=e.target.id;
+  if(id==='bkCopy')bkCopyCode();else if(id==='bkShare')bkShareCode();else if(id==='bkPaste')bkPasteCode();
+  else if(id==='bkCheck')bkCheckCode();else if(id==='bkApply')bkApply();
+  else if(id==='bkCancel'){bkPending=null;say('');bkRow()}});
+bkSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeBk()}});
+bkCode.addEventListener('input',()=>{if(bkMode==='restore'&&(bkPending||bkMsg.textContent)){bkPending=null;say('');bkRow()}});
+
 let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2000)}
 
 /* ---------- keyboard + Android back ---------- */
@@ -1206,6 +1325,7 @@ let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=fal
 window.mmBack=function(){
   if(window.mmBusy&&mmBusy())return true;   /* a screen animation is still running */
   if(!infoSheet.hidden){closeInfo();return true}
+  if(!bkSheet.hidden){closeBk();return true}
   if(qMenuOpen()){qMenu(false);return true}
   if(!langMenu.hidden){closeLang(false);return true}
   if(!lvMenu.hidden){closeMenu(false);return true}
@@ -1213,7 +1333,7 @@ window.mmBack=function(){
   if(state.screen!=='home'){back();return true}
   return false};
 document.addEventListener('keydown',e=>{
-  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||qMenuOpen())return;
+  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||!bkSheet.hidden||qMenuOpen())return;
   if(e.key==='Escape'&&state.screen!=='home'&&!/^(INPUT|SELECT)$/.test(e.target.tagName)){back();return}
   if(/^(INPUT|SELECT)$/.test(e.target.tagName))return;
   if(state.screen==='card'){if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();flipped=!flipped;$('flip')?.classList.toggle('on',flipped)}
@@ -1224,6 +1344,7 @@ document.addEventListener('keydown',e=>{
 /* ---------- start on Home ---------- */
 document.body.dataset.level=state.level;$('seal').textContent=NUM[state.level-1];
 applyStatic();saveStats();startCards();startQuiz();go('home');
+try{if(sessionStorage.getItem('mm_restored')){sessionStorage.removeItem('mm_restored');toast(L10.bkDone)}}catch(e){}
 </script>
 <script>
 /* ================= Liquid Glass interactions ================= */

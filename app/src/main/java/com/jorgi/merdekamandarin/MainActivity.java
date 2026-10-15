@@ -2,6 +2,8 @@ package com.jorgi.merdekamandarin;
 
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -19,6 +21,9 @@ import android.webkit.WebViewClient;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.webkit.WebViewAssetLoader;
+
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Hosts the XueCi Mandarin page (assets/index.html) in a WebView.
@@ -118,6 +123,56 @@ public class MainActivity extends AppCompatActivity {
         @JavascriptInterface
         public void setBars(final String status, final String nav, final boolean dark) {
             runOnUiThread(() -> applyBars(parse(status, dark), parse(nav, dark), dark));
+        }
+
+        /** Progress backup: put the backup code on the clipboard. */
+        @JavascriptInterface
+        public void copyText(final String text) {
+            runOnUiThread(() -> {
+                ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                if (cm != null) cm.setPrimaryClip(ClipData.newPlainText("XueCi Mandarin", text));
+            });
+        }
+
+        /** Progress backup: share the backup code with another app (notes, email, chat, ...). */
+        @JavascriptInterface
+        public void shareText(final String subject, final String text) {
+            runOnUiThread(() -> {
+                Intent send = new Intent(Intent.ACTION_SEND);
+                send.setType("text/plain");
+                send.putExtra(Intent.EXTRA_SUBJECT, subject);
+                send.putExtra(Intent.EXTRA_TEXT, text);
+                try {
+                    startActivity(Intent.createChooser(send, subject));
+                } catch (ActivityNotFoundException ignored) {
+                }
+            });
+        }
+
+        /** Progress restore: read the clipboard (the app is in front, so Android allows it). */
+        @JavascriptInterface
+        public String pasteText() {
+            final String[] out = {""};
+            final CountDownLatch done = new CountDownLatch(1);
+            runOnUiThread(() -> {
+                try {
+                    ClipboardManager cm = (ClipboardManager) getSystemService(CLIPBOARD_SERVICE);
+                    ClipData clip = cm != null ? cm.getPrimaryClip() : null;
+                    if (clip != null && clip.getItemCount() > 0) {
+                        CharSequence t = clip.getItemAt(0).coerceToText(MainActivity.this);
+                        if (t != null) out[0] = t.toString();
+                    }
+                } catch (RuntimeException ignored) {
+                } finally {
+                    done.countDown();
+                }
+            });
+            try {
+                done.await(2, TimeUnit.SECONDS);
+            } catch (InterruptedException ignored) {
+                Thread.currentThread().interrupt();
+            }
+            return out[0];
         }
     }
 

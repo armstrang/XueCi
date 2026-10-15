@@ -102,6 +102,28 @@ async def run_case(browser, width, locale, theme):
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(200)
 
+    # progress backup -> restore round trip
+    before = await pg.evaluate('JSON.stringify(stats)')
+    await pg.click('#hero')
+    await pg.wait_for_timeout(450)
+    await pg.click('#bkMakeBtn')
+    await pg.wait_for_timeout(500)
+    code = await pg.input_value('#bkCode')
+    check(code.startswith('XUECI'), f'{tag}: backup code is made')
+    await pg.evaluate('mmBack()')
+    await pg.click('#bkRestoreBtn')
+    await pg.wait_for_timeout(300)
+    await pg.fill('#bkCode', 'not a code')
+    await pg.click('#bkCheck')
+    await pg.wait_for_timeout(150)
+    check(await pg.locator('#bkApply').count() == 0, f'{tag}: a wrong code is refused')
+    await pg.fill('#bkCode', 'XueCi backup:\n' + code)
+    await pg.click('#bkCheck')
+    await pg.wait_for_timeout(300)
+    await pg.click('#bkApply')
+    await pg.wait_for_timeout(1300)
+    check(await pg.evaluate('JSON.stringify(stats)') == before, f'{tag}: restore brings the same progress back')
+
     # language switch
     await pg.click('#langBtn')
     await pg.wait_for_timeout(200)

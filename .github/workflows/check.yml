@@ -1,0 +1,44 @@
+name: Check build
+
+# Builds the APK for branches named build/... without publishing anything,
+# so changes to the Android side can be compiled before they reach main.
+on:
+  push:
+    branches: ['build/**']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Build app page
+        run: python3 web/build.py
+
+      - name: Build APK
+        shell: bash
+        run: |
+          chmod +x gradlew
+          set -o pipefail
+          if ! ./gradlew assembleRelease --no-daemon --stacktrace 2>&1 | tee build.log; then
+            msg=$(grep -A 30 "What went wrong" build.log | head -60)
+            [ -z "$msg" ] && msg=$(grep -iE "error|exception" build.log | head -40)
+            [ -z "$msg" ] && msg=$(tail -40 build.log)
+            msg="${msg//'%'/'%25'}"; msg="${msg//$'\r'/'%0D'}"; msg="${msg//$'\n'/'%0A'}"
+            echo "::error title=Gradle build failed::$msg"
+            exit 1
+          fi
+          grep -E "^w: |warning:" build.log | head -20 || true
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: check-apk
+          path: app/build/outputs/apk/release/app-release.apk
