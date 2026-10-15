@@ -227,6 +227,8 @@ buildKeys();
 const IDX=new Map(DATA.map(d=>[d.id,d]));
 function hzH(d){const c=[...d.h];return c.length===d.s.length?c.map((ch,i)=>`<span class="t${tone(d.s[i])}">${esc(ch)}</span>`).join(''):esc(d.h)}
 function pyH(d){return d.s.map((s,i)=>(i&&/^[aeoāáǎàēéěèōóǒò]/.test(s)?"'":'')+`<span class="t${tone(s)}">${esc(s)}</span>`).join('')}
+/* pinyin of the example sentence (vocab field zp; the learned word is in {braces}) */
+function zpH(d){return d.zp?`<div class="zp">${esc(d.zp).replace(/\{([^}]*)\}/,'<mark>$1</mark>')}</div>`:''}
 function exH(d){const z=esc(d.z),w=esc(d.h);return z.includes(w)?z.replace(w,`<mark>${w}</mark>`):z}
 function mH(m){const p=m.split(';').map(x=>x.trim()).filter(Boolean);return `<b>${esc(p[0])}</b>`+p.slice(1).map(x=>`<span> · ${esc(x)}</span>`).join('')}
 const chip=l=>`<span class="lvchip" style="background:var(--l${l})">HSK ${l}</span>`;
@@ -458,7 +460,7 @@ function itemH(d,q){return `<article class="item" tabindex="0">
       <div class="ihead"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div>
       <span class="nos">${q?chip(d.l):''}<i class="sd ${mcls(d)}" title="${esc(stTxt(d))}"></i><span class="no">${String(d.n).padStart(4,'0')}</span></span></div>
       <div class="mean">${mH(M(d))}</div>
-      <div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div><div class="id">${esc(TR(d))}</div></div>
+      <div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div></div>
     </article>`}
 const LATIN_ONLY=/^[\u0000-ɏḀ-ỿ\s]*$/;
 function renderList(){
@@ -488,7 +490,7 @@ function renderCard(){
    <div class="inner">
     <div class="face">${stH(d)}<div class="big">${esc(d.h)}</div>${spk(d.h,' lg')}<div class="hint">${L10.flipHint}</div></div>
     <div class="face back"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div>
-      <div class="mean">${mH(M(d))}</div><div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div><div class="id">${esc(TR(d))}</div></div></div>
+      <div class="mean">${mH(M(d))}</div><div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div></div></div>
    </div></div>
   <div class="fcbtns"><button class="no-btn" id="fcNo">${L10.notYet}</button><button class="yes-btn" id="fcYes">${L10.got}</button></div>
   <div class="fcnav"><button class="ghost" id="fcPrev">${L10.prev}</button><button class="ghost" id="fcShuf">${L10.reshuffle}</button></div>`;
@@ -522,7 +524,7 @@ function renderQuiz(){
   const cls=(o,i)=>!ans?'':o.id===d.id?' class="ok"':i===qz.pick?' class="ng"':'';
   const fb=!ans?'':`<div style="font-weight:800;color:var(${ok?'--good':'--bad'})">${ok?L10.ok:L10.ng}</div>
     <div class="head"><span class="hz" style="font-size:26px">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div><div class="mean">${mH(M(d))}</div>
-    <div class="zh">${exH(d)}${spk(d.z,' sm')}</div><div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
+    <div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
   const QT=[['meaning',L10.tMean,L10.dMean,'汉→a'],['hanzi',L10.tHz,L10.dHz,'a→汉'],['cloze',L10.tCloze,L10.dCloze,'汉＿']],cur=QT.find(q=>q[0]===T);
   view.innerHTML=`<div class="qhead"><div class="qsel" id="qsel">
       <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>

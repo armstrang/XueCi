@@ -104,6 +104,7 @@ async def run_case(browser, width, locale, theme, fs=1):
     await pg.wait_for_timeout(400)
     check(await pg.locator('.item').count() > 10 and not await overflow(), f'{tag}: list shows words')
     check(await pg.locator('.item .spk').count() >= 20, f'{tag}: list has speaker buttons for words and sentences')
+    check(await pg.locator('.item .zp').count() >= 10 and await pg.locator('.item .zp mark').count() >= 10, f'{tag}: example sentences show pinyin with the word highlighted')
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(350)
 
