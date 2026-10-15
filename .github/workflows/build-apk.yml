@@ -3,6 +3,12 @@ name: Build APK
 on:
   push:
     branches: [main]
+    # Notes, artwork and tests don't change the app, so they don't make a new release.
+    paths-ignore:
+      - '**.md'
+      - 'docs/**'
+      - 'art/**'
+      - 'tests/**'
   workflow_dispatch:
 
 permissions:

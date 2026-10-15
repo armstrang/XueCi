@@ -18,6 +18,8 @@ Versi baru dipasang dengan cara yang sama, langsung di atas versi sebelumnya. Pr
 - `web/data/vocab.json` — kosakata HSK 1–6 beserta arti dan contoh kalimat dalam 4 bahasa (satu kata per baris).
 - `web/build.py` — menggabungkan semuanya menjadi satu file HTML di `app/src/main/assets/index.html`.
 - `app/` — aplikasi Android (satu layar WebView yang memuat halaman tadi).
+- `tests/smoke.py` — uji otomatis halaman aplikasi di browser (`python3 tests/smoke.py`).
+- `art/` — gambar ikon; `docs/play-store.md` — rencana rilis di Google Play.
 
 Setelah mengubah sesuatu di `web/`, jalankan `python3 web/build.py`. GitHub Actions juga menjalankannya di setiap push ke `main`, lalu membangun APK dan menerbitkannya di Releases (v1.0, v1.1, …).
 APK ditandatangani dengan kunci di `keystore/` supaya setiap versi bisa memperbarui versi sebelumnya.
