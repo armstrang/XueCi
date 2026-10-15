@@ -9,6 +9,7 @@ on:
       - 'docs/**'
       - 'art/**'
       - 'tests/**'
+      - 'store/**'
   workflow_dispatch:
 
 permissions:

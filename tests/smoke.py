@@ -25,7 +25,7 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
 
 
 # Serve the app's assets over http, like the app does, so the bundled fonts load too.
-SERVER = socketserver.TCPServer(('127.0.0.1', 0), functools.partial(Quiet, directory=ASSETS))
+SERVER = socketserver.ThreadingTCPServer(('127.0.0.1', 0), functools.partial(Quiet, directory=ASSETS))
 threading.Thread(target=SERVER.serve_forever, daemon=True).start()
 HOST = f'http://127.0.0.1:{SERVER.server_address[1]}'
 PAGE = HOST + '/index.html'

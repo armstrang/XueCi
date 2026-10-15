@@ -21,6 +21,7 @@ The whole app is **one self-contained HTML page** shown in an Android WebView. N
 | `app/` | single-module Android app, `MainActivity.java` only |
 | `art/` | icon artwork: `icon-source.jpg` (from Josh, the 学词 badge); `python3 art/make_icons.py` regenerates `icon-badge.png`, every launcher mipmap, `play-icon-512.png`, `docs/privacy/icon.png` and `icon-preview.png` |
 | `tests/smoke.py` | Playwright smoke test of the built page |
+| `store/` | Play listing: `listing.md` (ID + EN texts and other Play Console answers), screenshots 1080×1920 and feature graphics 1024×500 per language; `python3 store/make_store_assets.py` regenerates them from the built app with sample progress (captions in the script). Re-run after visible UI changes |
 
 After any change in `web/`: `python3 web/build.py && python3 tests/smoke.py`, then look at the screenshots in `tests/out/`.
 The smoke test serves the assets over http (so fonts load), fails on any request leaving the app, and runs one case with text at 160%.

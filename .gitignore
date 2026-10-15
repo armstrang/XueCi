@@ -9,3 +9,4 @@ captures/
 web/dist/
 tests/out/
 web/fonts/src/
+store/raw/

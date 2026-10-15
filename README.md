@@ -23,6 +23,7 @@ Setelah itu aplikasi lama boleh di-uninstall.
 - `web/build.py` — menggabungkan semuanya menjadi satu file HTML di `app/src/main/assets/index.html`.
 - `app/` — aplikasi Android (satu layar WebView yang memuat halaman tadi).
 - `tests/smoke.py` — uji otomatis halaman aplikasi di browser (`python3 tests/smoke.py`).
+- `store/` — bahan halaman Google Play: teks (`listing.md`), screenshot, dan feature graphic (`python3 store/make_store_assets.py` membuatnya ulang).
 - `art/` — gambar ikon (`python3 art/make_icons.py` membuat semua ukuran ikon dari `art/icon-source.jpg`); `docs/play-store.md` — rencana rilis di Google Play.
 
 Setelah mengubah sesuatu di `web/`, jalankan `python3 web/build.py`. GitHub Actions juga menjalankannya di setiap push ke `main`, lalu membangun APK dan menerbitkannya di Releases (v1.0, v1.1, …).

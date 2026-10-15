@@ -42,16 +42,15 @@ Centang item di bawah saat selesai.
 
 ## 3. Halaman toko (Play Console → Store listing)
 
-- [ ] Nama aplikasi (maks. 30 karakter): **XueCi Mandarin**
-- [ ] Deskripsi singkat (maks. 80 karakter) dan deskripsi lengkap (maks. 4.000 karakter), bahasa Indonesia, plus terjemahan English/ไทย/Tiếng Việt kalau mau.
+Semua teks dan gambar ada di `store/` (lihat `store/listing.md`).
+
+- [x] Nama aplikasi (maks. 30 karakter): **XueCi Mandarin**
+- [x] Deskripsi singkat dan lengkap, bahasa Indonesia + English (`store/listing.md`)
 - [x] Ikon 512×512: `art/play-icon-512.png`
-- [ ] Feature graphic 1024×500
-- [ ] Screenshot HP, minimal 2 (sebaiknya 4–8): Home, Kartu, Kuis, Statistik, Warna nada; tema terang dan gelap.
-- [ ] Kategori: Pendidikan (Education). Email kontak. URL kebijakan privasi.
-- [ ] Kuesioner rating konten (IARC).
-- [ ] Target usia. Kalau memilih anak di bawah 13 tahun, berlaku aturan Families yang lebih ketat. Pilih 13+ kecuali memang ditujukan untuk anak.
-- [ ] Data safety: tidak mengumpulkan/membagikan data (setelah font dibundel dan tanpa analitik).
-- [ ] Iklan: tidak ada. Akses aplikasi: tanpa login.
+- [x] Feature graphic 1024×500: `store/feature-graphic-id.jpg`, `store/feature-graphic-en.jpg`
+- [x] Screenshot HP 1080×1920 (6 per bahasa): `store/screenshots/id/`, `store/screenshots/en/`
+- [ ] Email kontak di Play Console (wajib, tampil di halaman toko)
+- [ ] Kuesioner rating konten (IARC), target usia 13+, Data safety "tidak mengumpulkan data" — jawaban yang disarankan ada di `store/listing.md`
 
 ## 4. Urutan dan perkiraan waktu
 
