@@ -44,6 +44,7 @@ CI also runs `web/build.py`, so a forgotten rebuild only matters for local Andro
 - Hooks the glass layer defines: `mmTransition`, `mmHomeRendered(S)`, `mmStatsRendered()`, `mmFeedback(ok)`.
 - `window.mmBack()` is called by Android's back button: closes info sheet → backup sheet → quiz menu → lang/level/unit menus → screen; returns `false` on Home (app exits).
 - Progress backup (Home → Backup button beside tone info → Back up / Restore, `#bkSheet`): one line `XUECI1:` + base64url(deflate-raw(JSON {app:'xueci',v,at,stats,ui,lang,theme})) (`XUECI0:` = uncompressed). Restore finds the code inside any pasted text, validates every entry against `IDX`, shows a summary, then applies it in place (stats, level/unit, language, theme) — no reload (a write-then-reload can read stale localStorage). Native copy/share/paste go through `MMAndroid.copyText/shareText/pasteText`; in a browser it falls back to the Clipboard/Share APIs.
+- Pronunciation (test, v1.6): speaker buttons (`spk(text, cls)` → `.spk`, `.sm`, `.lg`) on card front/back, list items and quiz feedback, for the word (`d.h`) and the example sentence (`d.z`). A capture-phase click handler calls `speak()`: Android TextToSpeech (zh-CN, rate 0.9) through the bridge, or `speechSynthesis` in a browser; `ttsStatus()` `missing`/`unsupported` opens the phone's TTS settings. Manifest declares the `TTS_SERVICE` `<queries>` (needed on Android 11+). Known limit: the engine guesses polyphonic characters (行, 长, 都, 还, 重…) from context. Alternative under discussion: bundled audio generated once with a cloud neural TTS.
 - Language: `langPref` = `auto` (follows the system: id/in/ms → id, th, vi, else en) or a code.
 - Themes: `auto`, `light`, `dark`, `black` (`window.MM_THEMES`, set by `build.py`). `notifyNative()` sends CSS `--bar`/`--bar2` to `MMAndroid.setBars(top, bottom, dark)`.
 - **localStorage keys hold users' progress — never rename them:** `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme` (`hsk16_known` = legacy import).
@@ -68,7 +69,7 @@ CI also runs `web/build.py`, so a forgotten rebuild only matters for local Andro
   colour strips (`topBar`/`bottomBar`, heights from `WindowInsetsCompat` system bars + cutout; bottom = max(nav bar, keyboard)) around the WebView.
   `setBars` colours those strips and sets light/dark bar icons with `WindowInsetsControllerCompat` (window bar colours are ignored on Android 15+).
 - Signing: `keystore/merdeka.jks` with the password in `app/build.gradle`. **This repo is public, so that key is exposed.** Fine for the sideload line only; the Play release needs a new upload key kept in GitHub Secrets.
-- `MainActivity`: WebView + `WebViewAssetLoader`, JS bridge `MMAndroid` (`setTheme`, `setBars`, `fontScale`, `copyText`, `shareText`, `pasteText`), back button → `mmBack()`, outside links open in the browser, VIBRATE for haptics.
+- `MainActivity`: WebView + `WebViewAssetLoader`, JS bridge `MMAndroid` (`setTheme`, `setBars`, `fontScale`, `copyText`, `shareText`, `pasteText`, `ttsStatus`, `speak`, `stopSpeaking`, `openTtsSettings`), back button → `mmBack()`, outside links open in the browser, VIBRATE for haptics.
 
 ## CI (`.github/workflows/build-apk.yml`)
 Push to `main` → `web/build.py` → `./gradlew assembleRelease` → GitHub release `v1.N` with `XueCiMandarin.apk` (marked latest).

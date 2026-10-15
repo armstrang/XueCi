@@ -281,6 +281,15 @@ html[lang="th"] .id{font-style:normal}
 .toneinfo .tl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toneinfo .chev{color:var(--mute);font-size:calc(16px*var(--fs,1));line-height:1}
 .toneinfo:hover{border-color:var(--acc)}
+.spk{display:inline-grid;place-items:center;width:32px;height:32px;flex:none;padding:0;border:0;border-radius:50%;vertical-align:middle;
+  background:color-mix(in srgb,var(--acc) 13%,transparent);color:var(--acc);margin-left:8px}
+.spk svg{width:17px;height:17px}
+.spk.sm{width:26px;height:26px;margin-left:6px}.spk.sm svg{width:14px;height:14px}
+.spk.lg{width:46px;height:46px;margin:6px auto 0;display:grid}.spk.lg svg{width:22px;height:22px}
+.spk.on{background:var(--acc);color:var(--on-acc)}
+.spk.on .w1{animation:spkw .9s ease-in-out infinite}.spk.on .w2{animation:spkw .9s ease-in-out .15s infinite}
+@keyframes spkw{50%{opacity:.25}}
+.head .spk{align-self:center}
 .homeacts{display:flex;justify-content:center;align-items:stretch;gap:8px;margin-top:14px;max-width:100%}
 .homeacts .toneinfo{margin:0;min-width:0}
 .bkbtn{flex:none;gap:7px;padding-left:13px}
@@ -559,6 +568,7 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 
 /* tone colours & info */
 .toneinfo{border-radius:999px;margin-top:16px;color:var(--soft)}
+.spk{box-shadow:var(--g-inset);transition:transform .25s var(--spring),background .2s}.spk:active{transform:scale(.9)}
 .homeacts{margin-top:16px}.homeacts .toneinfo{margin:0}
 .bkopt{background:var(--g-solid);border-color:var(--g-edge);box-shadow:var(--g-inset),var(--g-drop);transition:transform .32s var(--spring),background .2s}
 .bkopt:active{transform:scale(.98)}
@@ -863,22 +873,22 @@ Object.assign(I18N.vi,{infoBtn:'Màu thanh điệu & thông tin',infoTitle:'Màu
   dMean:'Xem chữ Hán, chọn nghĩa',dHz:'Xem nghĩa, chọn chữ Hán',dCloze:'Điền từ còn thiếu vào câu'});
 Object.assign(I18N.vi,{back:'Quay lại',statsShort:'Thống kê',subList:'Xem & tìm từ',subCard:'Luyện ghi nhớ',subQuiz:'Tự kiểm tra'});
 /* progress backup / restore */
-Object.assign(I18N.id,{bkBtn:'Cadangan',bkMakeSub:'Buat kode dari progres di perangkat ini',bkRestoreSub:'Masukkan kode dari aplikasi atau HP lain',bkT:'Cadangan progres',bkNote:'Simpan progres sebagai kode untuk dipindah ke aplikasi atau HP lain.',bkMake:'Cadangkan',bkRestore:'Pulihkan',
+Object.assign(I18N.id,{listen:'Dengarkan',ttsMissing:'Pasang suara Mandarin di pengaturan TTS',ttsNone:'HP ini tidak punya mesin suara',bkBtn:'Cadangan',bkMakeSub:'Buat kode dari progres di perangkat ini',bkRestoreSub:'Masukkan kode dari aplikasi atau HP lain',bkT:'Cadangan progres',bkNote:'Simpan progres sebagai kode untuk dipindah ke aplikasi atau HP lain.',bkMake:'Cadangkan',bkRestore:'Pulihkan',
   bkTitleMake:'Kode cadangan',bkLeadMake:n=>`${n} kata sudah dilatih. Salin atau bagikan kode ini, lalu tempel di menu Pulihkan pada aplikasi atau HP lain.`,
   bkCopy:'Salin',bkShare:'Bagikan',bkCopied:'Kode disalin',bkTitleRestore:'Pulihkan progres',bkLeadRestore:'Tempel kode cadangan di bawah.',bkPaste:'Tempel',bkCheck:'Periksa kode',
   bkBad:'Kode tidak dikenali. Pastikan kode tersalin lengkap.',bkConfirm:(n,dt,m)=>`Cadangan ${dt}: ${n} kata dilatih. Progres di perangkat ini (${m} kata) akan diganti.`,
   bkApply:'Ganti progres',bkDone:'Progres dipulihkan',bkShareText:dt=>`Cadangan progres XueCi Mandarin (${dt})`});
-Object.assign(I18N.en,{bkBtn:'Backup',bkMakeSub:'Make a code from the progress on this device',bkRestoreSub:'Enter a code from another app or phone',bkT:'Progress backup',bkNote:'Save your progress as a code to move it to another app or phone.',bkMake:'Back up',bkRestore:'Restore',
+Object.assign(I18N.en,{listen:'Listen',ttsMissing:'Install a Chinese voice in TTS settings',ttsNone:'No text-to-speech engine on this phone',bkBtn:'Backup',bkMakeSub:'Make a code from the progress on this device',bkRestoreSub:'Enter a code from another app or phone',bkT:'Progress backup',bkNote:'Save your progress as a code to move it to another app or phone.',bkMake:'Back up',bkRestore:'Restore',
   bkTitleMake:'Backup code',bkLeadMake:n=>`${n} words practised. Copy or share this code, then paste it under Restore in the other app or phone.`,
   bkCopy:'Copy',bkShare:'Share',bkCopied:'Code copied',bkTitleRestore:'Restore progress',bkLeadRestore:'Paste your backup code below.',bkPaste:'Paste',bkCheck:'Check code',
   bkBad:'This code isn’t recognised. Make sure you copied all of it.',bkConfirm:(n,dt,m)=>`Backup from ${dt}: ${n} words practised. The progress on this device (${m} words) will be replaced.`,
   bkApply:'Replace progress',bkDone:'Progress restored',bkShareText:dt=>`XueCi Mandarin progress backup (${dt})`});
-Object.assign(I18N.th,{bkBtn:'สำรองข้อมูล',bkMakeSub:'สร้างรหัสจากความคืบหน้าในเครื่องนี้',bkRestoreSub:'ใส่รหัสจากแอปหรือโทรศัพท์เครื่องอื่น',bkT:'สำรองความคืบหน้า',bkNote:'บันทึกความคืบหน้าเป็นรหัส เพื่อย้ายไปยังแอปหรือโทรศัพท์เครื่องอื่น',bkMake:'สำรอง',bkRestore:'กู้คืน',
+Object.assign(I18N.th,{listen:'ฟังเสียง',ttsMissing:'ติดตั้งเสียงภาษาจีนในการตั้งค่า TTS',ttsNone:'เครื่องนี้ไม่มีระบบอ่านออกเสียง',bkBtn:'สำรองข้อมูล',bkMakeSub:'สร้างรหัสจากความคืบหน้าในเครื่องนี้',bkRestoreSub:'ใส่รหัสจากแอปหรือโทรศัพท์เครื่องอื่น',bkT:'สำรองความคืบหน้า',bkNote:'บันทึกความคืบหน้าเป็นรหัส เพื่อย้ายไปยังแอปหรือโทรศัพท์เครื่องอื่น',bkMake:'สำรอง',bkRestore:'กู้คืน',
   bkTitleMake:'รหัสสำรอง',bkLeadMake:n=>`ฝึกแล้ว ${n} คำ คัดลอกหรือแชร์รหัสนี้ แล้ววางในเมนูกู้คืนของแอปหรือโทรศัพท์อีกเครื่อง`,
   bkCopy:'คัดลอก',bkShare:'แชร์',bkCopied:'คัดลอกรหัสแล้ว',bkTitleRestore:'กู้คืนความคืบหน้า',bkLeadRestore:'วางรหัสสำรองด้านล่าง',bkPaste:'วาง',bkCheck:'ตรวจสอบรหัส',
   bkBad:'ไม่รู้จักรหัสนี้ ตรวจสอบว่าคัดลอกครบทั้งหมด',bkConfirm:(n,dt,m)=>`ข้อมูลสำรองวันที่ ${dt}: ฝึกแล้ว ${n} คำ ความคืบหน้าในเครื่องนี้ (${m} คำ) จะถูกแทนที่`,
   bkApply:'แทนที่ความคืบหน้า',bkDone:'กู้คืนความคืบหน้าแล้ว',bkShareText:dt=>`ข้อมูลสำรองความคืบหน้า XueCi Mandarin (${dt})`});
-Object.assign(I18N.vi,{bkBtn:'Sao lưu',bkMakeSub:'Tạo mã từ tiến độ trên thiết bị này',bkRestoreSub:'Nhập mã từ ứng dụng hoặc điện thoại khác',bkT:'Sao lưu tiến độ',bkNote:'Lưu tiến độ thành một mã để chuyển sang ứng dụng hoặc điện thoại khác.',bkMake:'Sao lưu',bkRestore:'Khôi phục',
+Object.assign(I18N.vi,{listen:'Nghe',ttsMissing:'Hãy cài giọng tiếng Trung trong cài đặt TTS',ttsNone:'Máy này không có công cụ đọc văn bản',bkBtn:'Sao lưu',bkMakeSub:'Tạo mã từ tiến độ trên thiết bị này',bkRestoreSub:'Nhập mã từ ứng dụng hoặc điện thoại khác',bkT:'Sao lưu tiến độ',bkNote:'Lưu tiến độ thành một mã để chuyển sang ứng dụng hoặc điện thoại khác.',bkMake:'Sao lưu',bkRestore:'Khôi phục',
   bkTitleMake:'Mã sao lưu',bkLeadMake:n=>`Đã luyện ${n} từ. Sao chép hoặc chia sẻ mã này, rồi dán vào mục Khôi phục ở ứng dụng hoặc điện thoại kia.`,
   bkCopy:'Sao chép',bkShare:'Chia sẻ',bkCopied:'Đã sao chép mã',bkTitleRestore:'Khôi phục tiến độ',bkLeadRestore:'Dán mã sao lưu vào bên dưới.',bkPaste:'Dán',bkCheck:'Kiểm tra mã',
   bkBad:'Không nhận ra mã này. Hãy chắc rằng bạn đã sao chép đầy đủ.',bkConfirm:(n,dt,m)=>`Bản sao lưu ngày ${dt}: đã luyện ${n} từ. Tiến độ trên thiết bị này (${m} từ) sẽ bị thay thế.`,
@@ -1134,10 +1144,10 @@ window.addEventListener('languagechange',()=>{if(langPref==='auto'&&sysLang()!==
 /* ---------- list ---------- */
 const view=$('view');
 function itemH(d,q){return `<article class="item" tabindex="0">
-      <div class="ihead"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span></div>
+      <div class="ihead"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div>
       <span class="nos">${q?chip(d.l):''}<i class="sd ${mcls(d)}" title="${esc(stTxt(d))}"></i><span class="no">${String(d.n).padStart(4,'0')}</span></span></div>
       <div class="mean">${mH(M(d))}</div>
-      <div class="ex"><div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div></div>
+      <div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div><div class="id">${esc(TR(d))}</div></div>
     </article>`}
 const LATIN_ONLY=/^[\u0000-ɏḀ-ỿ\s]*$/;
 function renderList(){
@@ -1165,9 +1175,9 @@ function renderCard(){
   view.innerHTML=`<div class="fcmeta"><span>${L10.cardN(di+1,deck.length)}</span><span class="mbar"><span class="stack"><i style="width:${di/deck.length*100}%;background:var(--acc)"></i></span></span></div>
   <div class="flip ${flipped?'on':''}" id="flip" role="button" tabindex="0" aria-label="${L10.flip}">
    <div class="inner">
-    <div class="face">${stH(d)}<div class="big">${esc(d.h)}</div><div class="hint">${L10.flipHint}</div></div>
-    <div class="face back"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span></div>
-      <div class="mean">${mH(M(d))}</div><div class="ex"><div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div></div></div>
+    <div class="face">${stH(d)}<div class="big">${esc(d.h)}</div>${spk(d.h,' lg')}<div class="hint">${L10.flipHint}</div></div>
+    <div class="face back"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div>
+      <div class="mean">${mH(M(d))}</div><div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div><div class="id">${esc(TR(d))}</div></div></div>
    </div></div>
   <div class="fcbtns"><button class="no-btn" id="fcNo">${L10.notYet}</button><button class="yes-btn" id="fcYes">${L10.got}</button></div>
   <div class="fcnav"><button class="ghost" id="fcPrev">${L10.prev}</button><button class="ghost" id="fcShuf">${L10.reshuffle}</button></div>`;
@@ -1200,8 +1210,8 @@ function renderQuiz(){
   const lab=o=>T==='meaning'?esc(M1(o)):`<span style="font-family:var(--f-hz);font-weight:900;font-size:calc(20px*var(--fs,1))">${esc(o.h)}</span>`;
   const cls=(o,i)=>!ans?'':o.id===d.id?' class="ok"':i===qz.pick?' class="ng"':'';
   const fb=!ans?'':`<div style="font-weight:800;color:var(${ok?'--good':'--bad'})">${ok?L10.ok:L10.ng}</div>
-    <div class="head"><span class="hz" style="font-size:calc(26px*var(--fsd,1))">${hzH(d)}</span><span class="py">${pyH(d)}</span></div><div class="mean">${mH(M(d))}</div>
-    <div class="zh">${exH(d)}</div><div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
+    <div class="head"><span class="hz" style="font-size:calc(26px*var(--fsd,1))">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div><div class="mean">${mH(M(d))}</div>
+    <div class="zh">${exH(d)}${spk(d.z,' sm')}</div><div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
   const QT=[['meaning',L10.tMean,L10.dMean,'汉→a'],['hanzi',L10.tHz,L10.dHz,'a→汉'],['cloze',L10.tCloze,L10.dCloze,'汉＿']],cur=QT.find(q=>q[0]===T);
   view.innerHTML=`<div class="qhead"><div class="qsel" id="qsel">
       <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>
@@ -1276,6 +1286,26 @@ function closeInfo(){infoSheet.hidden=true;document.body.style.overflow='';infoO
 $('toneInfo').onclick=openInfo;
 infoSheet.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeInfo()});
 infoSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeInfo()}});
+/* ---------- pronunciation: the phone's text-to-speech (MMAndroid.speak), or the browser's speechSynthesis ---------- */
+const SPK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.5L12 19V5L7.5 9.5z" fill="currentColor" stroke-width="1.6"/><path class="w1" d="M15.5 9a4 4 0 0 1 0 6"/><path class="w2" d="M18 6.5a7.5 7.5 0 0 1 0 11"/></svg>';
+const canSpeak=()=>(window.MMAndroid&&typeof MMAndroid.speak==='function')||('speechSynthesis' in window&&typeof SpeechSynthesisUtterance==='function');
+function spk(text,cls){return canSpeak()?`<button class="spk${cls||''}" data-say="${esc(text)}" aria-label="${esc(L10.listen)}" title="${esc(L10.listen)}">${SPK}</button>`:''}
+let spkOn=null;
+function spkMark(b){spkUnmark();if(b&&b.isConnected){b.classList.add('on');spkOn=b}}
+function spkUnmark(){if(spkOn){spkOn.classList.remove('on');spkOn=null}}
+window.mmSpeakEnd=spkUnmark;
+function speak(text,btn){
+  if(window.MMAndroid&&typeof MMAndroid.speak==='function'){
+    const st=MMAndroid.ttsStatus?MMAndroid.ttsStatus():'ready';
+    if(st==='missing'||st==='unsupported'){toast(L10.ttsMissing);if(MMAndroid.openTtsSettings)setTimeout(()=>MMAndroid.openTtsSettings(),1200);return}
+    if(st==='none'){toast(L10.ttsNone);return}
+    MMAndroid.speak(text,.9);spkMark(btn);return}
+  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='zh-CN';u.rate=.9;
+    const v=speechSynthesis.getVoices().find(v=>/^zh[-_]?(CN|Hans)?/i.test(v.lang)&&!/TW|HK/i.test(v.lang));if(v)u.voice=v;
+    u.onend=u.onerror=spkUnmark;speechSynthesis.speak(u);spkMark(btn)}catch(e){}}
+/* capture phase, so tapping the speaker never flips a card or opens anything else */
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.spk');if(!b)return;e.preventDefault();e.stopPropagation();speak(b.dataset.say,b)},true);
+
 /* ---------- progress backup / restore ----------
    A backup is one line of text: "XUECI1:" + base64url(deflate-raw(JSON)), or "XUECI0:" + base64url(JSON)
    where compression isn't available. It can be copied, shared, and pasted into another install. */

@@ -6,6 +6,13 @@
     <!-- Light haptic feedback on taps and quiz answers -->
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!-- Android 11+: lets the app find the phone's text-to-speech engine (pronunciation) -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

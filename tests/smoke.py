@@ -70,6 +70,10 @@ async def run_case(browser, width, locale, theme, fs=1):
         await pg.click('#fcYes' if ok else '#fcNo')
         await pg.wait_for_timeout(40)
     check(await pg.evaluate('Object.keys(stats).length') >= 3, f'{tag}: card answers are recorded')
+    flipped = await pg.evaluate("document.getElementById('flip').classList.contains('on')")
+    await pg.click('#flip .spk.lg')
+    await pg.wait_for_timeout(150)
+    check(await pg.evaluate("document.getElementById('flip').classList.contains('on')") == flipped, f'{tag}: speaker on the card does not flip it')
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(350)
 
@@ -99,6 +103,7 @@ async def run_case(browser, width, locale, theme, fs=1):
     await pg.click('.tile[data-go="list"]')
     await pg.wait_for_timeout(400)
     check(await pg.locator('.item').count() > 10 and not await overflow(), f'{tag}: list shows words')
+    check(await pg.locator('.item .spk').count() >= 20, f'{tag}: list has speaker buttons for words and sentences')
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(350)
 

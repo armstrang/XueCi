@@ -272,6 +272,15 @@ html[lang="th"] .id{font-style:normal}
 .toneinfo .tl{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .toneinfo .chev{color:var(--mute);font-size:16px;line-height:1}
 .toneinfo:hover{border-color:var(--acc)}
+.spk{display:inline-grid;place-items:center;width:32px;height:32px;flex:none;padding:0;border:0;border-radius:50%;vertical-align:middle;
+  background:color-mix(in srgb,var(--acc) 13%,transparent);color:var(--acc);margin-left:8px}
+.spk svg{width:17px;height:17px}
+.spk.sm{width:26px;height:26px;margin-left:6px}.spk.sm svg{width:14px;height:14px}
+.spk.lg{width:46px;height:46px;margin:6px auto 0;display:grid}.spk.lg svg{width:22px;height:22px}
+.spk.on{background:var(--acc);color:var(--on-acc)}
+.spk.on .w1{animation:spkw .9s ease-in-out infinite}.spk.on .w2{animation:spkw .9s ease-in-out .15s infinite}
+@keyframes spkw{50%{opacity:.25}}
+.head .spk{align-self:center}
 .homeacts{display:flex;justify-content:center;align-items:stretch;gap:8px;margin-top:14px;max-width:100%}
 .homeacts .toneinfo{margin:0;min-width:0}
 .bkbtn{flex:none;gap:7px;padding-left:13px}

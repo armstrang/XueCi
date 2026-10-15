@@ -10,6 +10,8 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.UtteranceProgressListener;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -31,6 +33,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.webkit.WebViewAssetLoader;
 
+import java.util.Locale;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -52,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
     private WebView web;
     private LinearLayout root;
     private View topBar, bottomBar;
+
+    // Pronunciation with the phone's own text-to-speech engine (Mandarin voice).
+    private TextToSpeech tts;
+    private volatile String ttsState = "init";   // init | ready | missing | unsupported | none
+    private String pendingText;
+    private float pendingRate = 1f;
+    private int utterance;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -110,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         s.setTextZoom(100);
 
         web.addJavascriptInterface(new Bridge(), "MMAndroid");
+        startTts();
 
         web.setWebViewClient(new WebViewClient() {
             @Override
@@ -147,6 +158,43 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void startTts() {
+        tts = new TextToSpeech(this, status -> {
+            if (status != TextToSpeech.SUCCESS || tts == null) {
+                ttsState = "none";
+                return;
+            }
+            int r = tts.setLanguage(Locale.SIMPLIFIED_CHINESE);
+            if (r == TextToSpeech.LANG_MISSING_DATA) ttsState = "missing";
+            else if (r == TextToSpeech.LANG_NOT_SUPPORTED) ttsState = "unsupported";
+            else {
+                ttsState = "ready";
+                if (pendingText != null) {
+                    speakNow(pendingText, pendingRate);
+                    pendingText = null;
+                }
+            }
+        });
+        tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
+            @Override public void onStart(String id) { }
+            @Override public void onDone(String id) { speakEnded(); }
+            @Override public void onError(String id) { speakEnded(); }
+            @Override public void onStop(String id, boolean interrupted) { if (!interrupted) speakEnded(); }
+        });
+    }
+
+    private void speakNow(String text, float rate) {
+        if (tts == null) return;
+        tts.setSpeechRate(rate);
+        tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, "xc" + (++utterance));
+    }
+
+    private void speakEnded() {
+        runOnUiThread(() -> {
+            if (web != null) web.evaluateJavascript("window.mmSpeakEnd&&mmSpeakEnd()", null);
+        });
+    }
+
     private static void setHeight(View view, int height) {
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         if (lp.height != height) {
@@ -169,7 +217,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onPause() {
+        if (tts != null) tts.stop();
+        super.onPause();
+    }
+
+    @Override
     protected void onDestroy() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+            tts = null;
+        }
         if (web != null) {
             web.destroy();
             web = null;
@@ -195,6 +254,41 @@ public class MainActivity extends AppCompatActivity {
         @JavascriptInterface
         public float fontScale() {
             return getResources().getConfiguration().fontScale;
+        }
+
+        /** Pronunciation: init | ready | missing (Chinese voice not installed) | unsupported | none (no engine). */
+        @JavascriptInterface
+        public String ttsStatus() {
+            return ttsState;
+        }
+
+        /** Pronunciation: say a word or sentence in Mandarin; rate 1.0 = normal speed. */
+        @JavascriptInterface
+        public void speak(final String text, final float rate) {
+            runOnUiThread(() -> {
+                if ("ready".equals(ttsState)) speakNow(text, rate);
+                else if ("init".equals(ttsState)) { pendingText = text; pendingRate = rate; }
+            });
+        }
+
+        @JavascriptInterface
+        public void stopSpeaking() {
+            runOnUiThread(() -> { if (tts != null) tts.stop(); });
+        }
+
+        /** Opens the phone's text-to-speech settings, where a Chinese voice can be installed. */
+        @JavascriptInterface
+        public void openTtsSettings() {
+            runOnUiThread(() -> {
+                try {
+                    startActivity(new Intent("com.android.settings.TTS_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                } catch (ActivityNotFoundException e) {
+                    try {
+                        startActivity(new Intent(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA));
+                    } catch (ActivityNotFoundException ignored) {
+                    }
+                }
+            });
         }
 
         /** Progress backup: put the backup code on the clipboard. */
