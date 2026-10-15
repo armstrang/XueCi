@@ -21,7 +21,7 @@ Hafalkan 5.334 kosakata HSK 1–6 dengan kartu, kuis, dan warna nada. Offline.
 
 **Deskripsi lengkap** (maks. 4.000):
 
-XueCi Mandarin (学词, "belajar kata") membantu kamu menghafal seluruh kosakata HSK 1–6 versi terbaru (silabus HSK 3.0, November 2025): 5.334 kata, lengkap dengan pinyin, arti, dan contoh kalimat.
+XueCi Mandarin (学词, "belajar kata") membantu kamu menghafal seluruh kosakata HSK 1–6 versi terbaru (silabus HSK 3.0, November 2025): 5.334 kata, lengkap dengan pinyin, arti, dan contoh kalimat berpinyin.
 
 BELAJAR DENGAN TIGA CARA
 • Daftar: cari kata lewat hanzi, pinyin, atau arti.
@@ -44,6 +44,8 @@ NYAMAN DIPAKAI
 PRIVASI
 Progres hanya tersimpan di perangkatmu. Aplikasi tidak mengumpulkan atau membagikan data apa pun.
 
+Setiap contoh kalimat dilengkapi pinyin.
+
 Daftar kata dan pinyin berdasarkan data terbuka hsk30. XueCi Mandarin adalah aplikasi independen dan tidak berafiliasi dengan penyelenggara ujian HSK.
 
 **Catatan rilis pertama** (maks. 500):
@@ -60,7 +62,7 @@ Learn 5,334 HSK 1–6 words with flashcards, quizzes and tone colours. Offline.
 
 **Full description** (max 4,000):
 
-XueCi Mandarin (学词, "learn words") helps you learn the complete HSK 1–6 vocabulary of the latest syllabus (HSK 3.0, November 2025): 5,334 words, each with pinyin, meaning and an example sentence.
+XueCi Mandarin (学词, "learn words") helps you learn the complete HSK 1–6 vocabulary of the latest syllabus (HSK 3.0, November 2025): 5,334 words, each with pinyin, meaning and an example sentence with pinyin.
 
 THREE WAYS TO LEARN
 • List: find any word by hanzi, pinyin or meaning.
@@ -82,6 +84,8 @@ MADE FOR DAILY USE
 
 PRIVACY
 Your progress stays on your device. The app does not collect or share any data.
+
+Every example sentence comes with its pinyin.
 
 Word list and pinyin based on the open hsk30 data. XueCi Mandarin is an independent app and is not affiliated with the organisers of the HSK exam.
 

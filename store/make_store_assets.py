@@ -30,7 +30,7 @@ CAPTIONS = {
         'locale': 'id-ID',
         'shots': [
             ('home', 'Kuasai 5.334 kata HSK 1–6', 'Progres tiap level terlihat jelas'),
-            ('card', 'Kartu hafalan', 'Lengkap dengan contoh kalimat'),
+            ('card', 'Kartu hafalan', 'Dengan contoh kalimat dan pinyinnya'),
             ('quiz', 'Kuis tiga cara', 'Arti, hanzi, atau isi kalimat'),
             ('stats', 'Lihat kata makin matang', 'Dari merah ke kuning ke hijau'),
             ('tones', 'Warna nada', 'Ucapkan setiap kata dengan nada yang tepat'),
@@ -42,7 +42,7 @@ CAPTIONS = {
         'locale': 'en-US',
         'shots': [
             ('home', 'Master 5,334 HSK 1–6 words', 'See your progress at every level'),
-            ('card', 'Flashcards', 'With an example sentence for every word'),
+            ('card', 'Flashcards', 'With an example sentence and its pinyin'),
             ('quiz', 'Quiz three ways', 'Meaning, hanzi, or fill the gap'),
             ('stats', 'Watch words mature', 'From red to yellow to green'),
             ('tones', 'Tone colours', 'Say every word with the right tone'),
