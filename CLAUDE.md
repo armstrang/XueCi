@@ -33,7 +33,8 @@ CI also runs `web/build.py`, so a forgotten rebuild only matters for local Andro
 - Screens: `#scr-home`, `#scr-focus` (`data-mode` = list / card / quiz), `#scr-stats`. `go(s)` → `window.mmTransition(run, from, to)` when defined.
 - Mastery: `stats[id] = [right, wrong, level]`, `MAXL = 20`; right +1, wrong −3. Bands: 0–6 red, 7–13 yellow, 14–20 green; `.m0`–`.m20` colour classes.
 - Hooks the glass layer defines: `mmTransition`, `mmHomeRendered(S)`, `mmStatsRendered()`, `mmFeedback(ok)`.
-- `window.mmBack()` is called by Android's back button: closes info sheet → quiz menu → lang/level/unit menus → screen; returns `false` on Home (app exits).
+- `window.mmBack()` is called by Android's back button: closes info sheet → backup sheet → quiz menu → lang/level/unit menus → screen; returns `false` on Home (app exits).
+- Progress backup (Stats screen → Back up / Restore, `#bkSheet`): one line `XUECI1:` + base64url(deflate-raw(JSON {app:'xueci',v,at,stats,ui,lang,theme})) (`XUECI0:` = uncompressed). Restore finds the code inside any pasted text, validates every entry against `IDX`, shows a summary, writes localStorage and reloads. Native copy/share/paste go through `MMAndroid.copyText/shareText/pasteText`; in a browser it falls back to the Clipboard/Share APIs.
 - Language: `langPref` = `auto` (follows the system: id/in/ms → id, th, vi, else en) or a code.
 - Themes: `auto`, `light`, `dark`, `black` (`window.MM_THEMES`, set by `build.py`). `notifyNative()` sends CSS `--bar`/`--bar2` to `MMAndroid.setBars(top, bottom, dark)`.
 - **localStorage keys hold users' progress — never rename them:** `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme` (`hsk16_known` = legacy import).
@@ -51,15 +52,18 @@ CI also runs `web/build.py`, so a forgotten rebuild only matters for local Andro
 - Footer credit is "by Armstrang".
 
 ## Android
-- `applicationId com.jorgi.merdekamandarin` — kept from the Merdeka days so the sideloaded app updates in place with its progress.
-  Decided: the Play Store version will be **`com.armstrang.xueci`**, switched together with a progress backup/restore feature (`docs/play-store.md`). Never change the ID casually.
-- `versionCode = 100 + GITHUB_RUN_NUMBER` (the old repo reached 13), `versionName = 1.(run − 1)`.
-- `targetSdk 34` — **too low for Play** (new apps must target 36 since 31 Aug 2026). Raising it turns on edge-to-edge; the WebView then needs system-bar insets handled. See the plan.
+- `applicationId` / package **`com.armstrang.xueci`** (from v1.3 — the Play Store ID; it can never change once on Play).
+  Up to v1.2 the app was `com.jorgi.merdekamandarin`; v1.2 is the last build of that ID and has Back up, so people can move their progress.
+- `versionCode = 100 + GITHUB_RUN_NUMBER`, `versionName = 1.(run − 1)`.
+- `compileSdk`/`targetSdk 36`, Android Gradle Plugin 8.13.2, Gradle 8.13. **Edge-to-edge**: `MainActivity` draws behind the system bars and puts two
+  colour strips (`topBar`/`bottomBar`, heights from `WindowInsetsCompat` system bars + cutout; bottom = max(nav bar, keyboard)) around the WebView.
+  `setBars` colours those strips and sets light/dark bar icons with `WindowInsetsControllerCompat` (window bar colours are ignored on Android 15+).
 - Signing: `keystore/merdeka.jks` with the password in `app/build.gradle`. **This repo is public, so that key is exposed.** Fine for the sideload line only; the Play release needs a new upload key kept in GitHub Secrets.
-- `MainActivity`: WebView + `WebViewAssetLoader`, JS bridge `MMAndroid` (`setTheme`, `setBars`), back button → `mmBack()`, outside links open in the browser, VIBRATE for haptics.
+- `MainActivity`: WebView + `WebViewAssetLoader`, JS bridge `MMAndroid` (`setTheme`, `setBars`, `copyText`, `shareText`, `pasteText`), back button → `mmBack()`, outside links open in the browser, VIBRATE for haptics.
 
 ## CI (`.github/workflows/build-apk.yml`)
 Push to `main` → `web/build.py` → `./gradlew assembleRelease` → GitHub release `v1.N` with `XueCiMandarin.apk` (marked latest).
 Docs/art/tests-only changes do not trigger a build (`paths-ignore`); add `[skip ci]` to a commit message to skip one otherwise.
 A guard step refuses to publish into an existing release tag.
+`check.yml` compiles any `build/**` branch without publishing (its own run counter, so release numbers stay in sequence) — push Android changes there first, then fast-forward `main`. CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets can.
 In Claude's cloud sessions the GitHub proxy refuses API writes to releases/tags (HTTP 403), so let CI do the publishing.

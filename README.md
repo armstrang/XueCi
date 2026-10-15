@@ -12,6 +12,10 @@ by Armstrang
 
 Versi baru dipasang dengan cara yang sama, langsung di atas versi sebelumnya. Progres belajar tidak hilang.
 
+**Pindah dari versi lama (v1.2 atau sebelumnya).** Mulai v1.3 aplikasinya memakai nama paket baru (`com.armstrang.xueci`), jadi terpasang sebagai aplikasi terpisah.
+Untuk memindahkan progres: perbarui aplikasi lama ke v1.2, buka **Statistik → Cadangkan → Salin**, lalu di aplikasi baru buka **Statistik → Pulihkan → Tempel → Periksa kode → Ganti progres**.
+Setelah itu aplikasi lama boleh di-uninstall.
+
 ## Struktur
 
 - `web/src/` — sumber halaman aplikasi: `base.css.html` (tata letak), `app.html` (tampilan + logika), `i18n.js` (teks antarmuka 4 bahasa), `glass.css.html` dan `glass.js.html` (tampilan dan interaksi Liquid Glass).

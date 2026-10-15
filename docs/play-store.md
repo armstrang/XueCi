@@ -6,8 +6,7 @@ Centang item di bawah saat selesai.
 ## 1. Keputusan dulu (sebelum kode diubah)
 
 - [x] **Nama paket (application ID): `com.armstrang.xueci`** (diputuskan 15 Okt 2026). Nama paket di Play Store tidak bisa diganti setelah terbit.
-  - Versi Play terpasang sebagai aplikasi terpisah dari APK GitHub (`com.jorgi.merdekamandarin`), jadi progres tidak pindah otomatis.
-  - Karena itu, ganti ID **bersamaan** dengan fitur cadangkan/pulihkan progres (tugas teknis 4), jangan sebelumnya.
+  - Sudah diterapkan mulai **v1.3**. v1.2 adalah versi terakhir dengan ID lama (`com.jorgi.merdekamandarin`) dan sudah punya fitur Cadangkan, jadi progres bisa dipindah ke aplikasi baru.
 - [ ] **Kunci tanda tangan.** `keystore/merdeka.jks` beserta kata sandinya ada di repo publik, jadi siapa pun bisa menandatangani APK atas nama aplikasi ini. Untuk Play:
   - buat *upload key* baru;
   - simpan di GitHub Secrets, jangan di repo;
@@ -22,14 +21,13 @@ Centang item di bawah saat selesai.
 
 ## 2. Pekerjaan teknis
 
-- [ ] **Target SDK 36.** Sejak 31 Agustus 2026, aplikasi baru wajib menargetkan Android 16 (API 36). Sekarang `targetSdk 34`.
-  - Naikkan `compileSdk`/`targetSdk` ke 36, dan Android Gradle Plugin/Gradle kalau perlu.
-  - Android 15+ memaksa tampilan *edge-to-edge*. Isi WebView harus diberi jarak dari status bar dan navigation bar (window insets ke padding WebView, atau ke variabel CSS).
-  - `setStatusBarColor` sudah tidak berlaku. Warna bar mengikuti latar halaman, dan ikon terang/gelap diatur lewat `WindowInsetsControllerCompat`.
-  - Uji di emulator Android 15 dan 16.
+- [x] **Target SDK 36** (v1.3). Sejak 31 Agustus 2026, aplikasi baru wajib menargetkan Android 16 (API 36).
+  - [x] `compileSdk`/`targetSdk` 36, Android Gradle Plugin 8.13.2, Gradle 8.13.
+  - [x] *Edge-to-edge*: jalur berwarna di bawah status bar dan navigation bar, mengikuti tema halaman, dan ikut naik saat keyboard muncul.
+  - [ ] Uji di HP/emulator Android 15 dan 16: status bar, navigation bar (gesture dan 3 tombol), keyboard di kolom cari, mode lanskap.
 - [ ] **Android App Bundle (.aab).** Play hanya menerima AAB untuk aplikasi baru. CI menjalankan `bundleRelease`, ditandatangani dengan upload key dari GitHub Secrets. Kata sandi dibaca dari environment, tidak ditulis di `build.gradle`.
-- [ ] **ID baru** (kalau diputuskan begitu): ganti `applicationId` dan `namespace`/paket Java. `versionCode` untuk ID baru boleh mulai dari 1.
-- [ ] **Cadangkan/pulihkan progres.** Ekspor progres (`mm_stats` dan pengaturan) ke file atau kode teks, lalu impor di aplikasi lain. Ini untuk pindah dari APK GitHub ke versi Play, dan juga berguna untuk ganti HP.
+- [x] **ID baru** `com.armstrang.xueci`: `applicationId`, `namespace`, dan paket Java (v1.3).
+- [x] **Cadangkan/pulihkan progres** (v1.2): Statistik → Cadangkan menghasilkan satu kode teks untuk disalin atau dibagikan; Pulihkan menerima kode itu di aplikasi atau HP lain.
 - [ ] **Font dibundel di dalam aplikasi.** Sekarang font diambil dari Google Fonts saat online. Kalau dibundel, izin `INTERNET` bisa dihapus, tampilan sama saat offline, dan formulir Data safety bisa diisi "tidak mengumpulkan data" dengan yakin. Cek lisensi font (umumnya OFL, boleh dibundel).
 - [ ] **Splash screen** dengan SplashScreen API (Android 12+), supaya tidak ada layar kosong saat aplikasi dibuka.
 - [ ] **Performa** (dari diskusi sebelumnya):
