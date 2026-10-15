@@ -291,6 +291,8 @@ html[lang="th"] .id{font-style:normal}
 .isec p{margin:0 0 10px;font-size:13px;color:var(--soft)}
 .gh{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:14px;background:var(--fg);color:var(--bg);text-decoration:none;font-weight:800;font-size:14px}
 .gh svg{width:20px;height:20px;flex:none}.gh span:nth-child(2){flex:1}.gh .ext{opacity:.7}
+.plink{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;padding:10px 14px;border-radius:14px;border:1px solid var(--line);color:var(--fg);text-decoration:none;font-weight:700;font-size:14px}
+.plink .ext{opacity:.6}
 .isec .icred{margin:12px 0 0;font-size:11.5px;color:var(--mute)}
 .isec .icred a{color:var(--soft)}
 @media (max-width:400px){.tone{grid-template-columns:30px 34px 34px minmax(0,1fr);gap:8px}.tone .tm{display:none}}
@@ -538,6 +540,7 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 .tone{background:var(--g-solid);border:1px solid var(--g-edge);box-shadow:var(--g-inset);border-radius:16px}
 .isec{border-top-color:var(--line)}
 .gh{border-radius:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.25),var(--g-drop)}
+.plink{background:var(--g-solid);border-color:var(--g-edge);border-radius:16px;box-shadow:var(--g-inset)}
 </style>
 
 
@@ -646,6 +649,7 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
       <h3 data-i18n="aboutT"></h3>
       <p data-i18n="about"></p>
       <a class="gh" href="https://github.com/armstrang" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg><span>github.com/armstrang</span><span class="ext" aria-hidden="true">↗</span></a>
+      <a class="plink" href="https://armstrang.github.io/XueCi/privacy/" target="_blank" rel="noopener"><span data-i18n="privacy"></span><span class="ext" aria-hidden="true">↗</span></a>
       <p class="icred" id="infoCred"></p>
     </div>
   </div>
@@ -789,16 +793,16 @@ I18N.id.th.black='Hitam pekat';I18N.en.th.black='True black';I18N.th.th.black='�
 Object.assign(I18N.id,{back:'Kembali',statsShort:'Statistik',subList:'Lihat & cari kata',subCard:'Latihan menghafal',subQuiz:'Uji pemahaman'});
 Object.assign(I18N.en,{back:'Back',statsShort:'Stats',subList:'Browse & search',subCard:'Practice recall',subQuiz:'Test yourself'});
 Object.assign(I18N.th,{back:'กลับ',statsShort:'สถิติ',subList:'ดูและค้นหาคำ',subCard:'ฝึกจำคำศัพท์',subQuiz:'ทดสอบความเข้าใจ'});
-Object.assign(I18N.id,{infoBtn:'Warna nada & info',infoTitle:'Warna nada',infoLead:'Warna hanzi dan pinyin menunjukkan nadanya. Ucapkan sesuai warnanya:',aboutT:'Tentang',about:'XueCi Mandarin dibuat oleh Armstrang.',
+Object.assign(I18N.id,{infoBtn:'Warna nada & info',infoTitle:'Warna nada',infoLead:'Warna hanzi dan pinyin menunjukkan nadanya. Ucapkan sesuai warnanya:',aboutT:'Tentang',privacy:'Kebijakan privasi',about:'XueCi Mandarin dibuat oleh Armstrang.',
   tones:[['Nada 1','Tinggi dan datar','ibu'],['Nada 2','Naik, seperti bertanya','rami'],['Nada 3','Turun lalu naik','kuda'],['Nada 4','Turun tajam, tegas','memarahi'],['Netral','Ringan dan pendek','partikel tanya']],
   dMean:'Lihat hanzi, pilih artinya',dHz:'Lihat arti, pilih hanzinya',dCloze:'Isi kata yang hilang di kalimat'});
-Object.assign(I18N.en,{infoBtn:'Tone colours & info',infoTitle:'Tone colours',infoLead:'The colour of each hanzi and its pinyin shows the tone. Say it the way the colour tells you:',aboutT:'About',about:'XueCi Mandarin is made by Armstrang.',
+Object.assign(I18N.en,{infoBtn:'Tone colours & info',infoTitle:'Tone colours',infoLead:'The colour of each hanzi and its pinyin shows the tone. Say it the way the colour tells you:',aboutT:'About',privacy:'Privacy policy',about:'XueCi Mandarin is made by Armstrang.',
   tones:[['Tone 1','High and level','mother'],['Tone 2','Rising, like a question','hemp'],['Tone 3','Dips, then rises','horse'],['Tone 4','Sharp fall, firm','to scold'],['Neutral','Light and short','question particle']],
   dMean:'See the hanzi, pick its meaning',dHz:'See the meaning, pick the hanzi',dCloze:'Fill the missing word in a sentence'});
-Object.assign(I18N.th,{infoBtn:'สีวรรณยุกต์และข้อมูล',infoTitle:'สีวรรณยุกต์',infoLead:'สีของอักษรจีนและพินอินบอกวรรณยุกต์ ออกเสียงตามสีที่เห็น:',aboutT:'เกี่ยวกับ',about:'XueCi Mandarin สร้างโดย Armstrang',
+Object.assign(I18N.th,{infoBtn:'สีวรรณยุกต์และข้อมูล',infoTitle:'สีวรรณยุกต์',infoLead:'สีของอักษรจีนและพินอินบอกวรรณยุกต์ ออกเสียงตามสีที่เห็น:',aboutT:'เกี่ยวกับ',privacy:'นโยบายความเป็นส่วนตัว',about:'XueCi Mandarin สร้างโดย Armstrang',
   tones:[['เสียง 1','สูงและเรียบ','แม่'],['เสียง 2','ขึ้น เหมือนถามคำถาม','ป่าน'],['เสียง 3','ลงแล้วขึ้น','ม้า'],['เสียง 4','ลงเร็วและหนักแน่น','ดุด่า'],['เสียงเบา','เบาและสั้น','คำช่วยคำถาม']],
   dMean:'ดูอักษรจีน เลือกความหมาย',dHz:'ดูความหมาย เลือกอักษรจีน',dCloze:'เติมคำที่หายไปในประโยค'});
-Object.assign(I18N.vi,{infoBtn:'Màu thanh điệu & thông tin',infoTitle:'Màu thanh điệu',infoLead:'Màu của chữ Hán và pinyin cho biết thanh điệu. Hãy đọc theo màu:',aboutT:'Giới thiệu',about:'XueCi Mandarin do Armstrang thực hiện.',
+Object.assign(I18N.vi,{infoBtn:'Màu thanh điệu & thông tin',infoTitle:'Màu thanh điệu',infoLead:'Màu của chữ Hán và pinyin cho biết thanh điệu. Hãy đọc theo màu:',aboutT:'Giới thiệu',privacy:'Chính sách quyền riêng tư',about:'XueCi Mandarin do Armstrang thực hiện.',
   tones:[['Thanh 1','Cao và ngang','mẹ'],['Thanh 2','Đi lên, như khi hỏi','cây gai'],['Thanh 3','Xuống rồi lên','ngựa'],['Thanh 4','Rơi mạnh, dứt khoát','mắng'],['Thanh nhẹ','Nhẹ và ngắn','trợ từ nghi vấn']],
   dMean:'Xem chữ Hán, chọn nghĩa',dHz:'Xem nghĩa, chọn chữ Hán',dCloze:'Điền từ còn thiếu vào câu'});
 Object.assign(I18N.vi,{back:'Quay lại',statsShort:'Thống kê',subList:'Xem & tìm từ',subCard:'Luyện ghi nhớ',subQuiz:'Tự kiểm tra'});

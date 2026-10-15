@@ -98,6 +98,7 @@ async def run_case(browser, width, locale, theme):
     await pg.click('#toneInfo')
     await pg.wait_for_timeout(450)
     check(await pg.locator('.tone').count() == 5, f'{tag}: tone sheet lists 5 tones')
+    check(await pg.get_attribute('.plink', 'href') == 'https://armstrang.github.io/XueCi/privacy/' and bool((await pg.locator('.plink').text_content()).strip()), f'{tag}: privacy policy link in About')
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(200)
 

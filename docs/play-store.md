@@ -5,20 +5,19 @@ Centang item di bawah saat selesai.
 
 ## 1. Keputusan dulu (sebelum kode diubah)
 
-- [ ] **Nama paket (application ID).** Nama paket di Play Store **tidak bisa diganti** setelah terbit.
-  - Sekarang: `com.jorgi.merdekamandarin` (sisa nama lama dan "jorgi").
-  - Saran: ganti ke ID baru, misalnya `com.armstrang.xueci`. Versi Play akan ditandatangani dengan kunci baru (lihat poin berikut), jadi pengguna APK GitHub memang tidak bisa memperbarui ke versi Play. Itu berlaku apa pun ID-nya, jadi sekalian pakai ID yang rapi.
-  - Akibatnya: versi Play terpasang sebagai aplikasi terpisah, dan progres tidak pindah otomatis. Karena itu perlu fitur **cadangkan/pulihkan progres** (tugas teknis 4).
+- [x] **Nama paket (application ID): `com.armstrang.xueci`** (diputuskan 15 Okt 2026). Nama paket di Play Store tidak bisa diganti setelah terbit.
+  - Versi Play terpasang sebagai aplikasi terpisah dari APK GitHub (`com.jorgi.merdekamandarin`), jadi progres tidak pindah otomatis.
+  - Karena itu, ganti ID **bersamaan** dengan fitur cadangkan/pulihkan progres (tugas teknis 4), jangan sebelumnya.
 - [ ] **Kunci tanda tangan.** `keystore/merdeka.jks` beserta kata sandinya ada di repo publik, jadi siapa pun bisa menandatangani APK atas nama aplikasi ini. Untuk Play:
   - buat *upload key* baru;
   - simpan di GitHub Secrets, jangan di repo;
   - aktifkan Play App Signing.
 
   Kunci lama hanya untuk jalur APK GitHub, dan sebaiknya jalur itu dihentikan setelah versi Play terbit.
-- [ ] **Jenis akun developer.**
-  - Pribadi: biaya pendaftaran sekali dan verifikasi identitas. Akun pribadi yang dibuat setelah 13 November 2023 wajib uji tertutup dengan **minimal 12 tester selama 14 hari berturut-turut** sebelum boleh rilis ke publik.
-  - Organisasi: perlu nomor D-U-N-S, tanpa syarat 12 tester.
-- [ ] **Alamat kebijakan privasi (privacy policy).** Wajib ada, walau aplikasi tidak mengumpulkan data. Bisa dibuat sebagai halaman GitHub Pages dari repo ini.
+- [x] **Jenis akun developer: pribadi.** Ada biaya pendaftaran sekali dan verifikasi identitas. Karena akunnya dibuat setelah 13 November 2023, wajib uji tertutup dengan **minimal 12 tester selama 14 hari berturut-turut** sebelum boleh rilis ke publik. Kumpulkan calon tester dari sekarang.
+- [x] **Kebijakan privasi** sudah dibuat di `docs/privacy/index.html` (bahasa Indonesia + English). Tautannya juga ada di aplikasi, di bagian Tentang.
+  - [ ] Aktifkan GitHub Pages: repo XueCi → **Settings → Pages** → *Deploy from a branch* → `main` dan folder `/docs` → Save. Alamatnya nanti: **https://armstrang.github.io/XueCi/privacy/**. Alamat ini yang diisi di Play Console.
+  - [ ] Perbarui halaman itu setiap kali perilaku data berubah. Contohnya setelah font dibundel: hapus bagian Google Fonts dan izin Internet, lalu ganti tanggal berlakunya.
 - [ ] **APK di GitHub tetap dibagikan atau tidak?** Mulai 30 September 2026, Indonesia termasuk negara yang mewajibkan aplikasi didaftarkan oleh developer terverifikasi. Itu menurut berita; cek detailnya di Android Developer Console. Kalau APK GitHub tetap dibagikan, daftarkan nama paketnya juga.
 
 ## 2. Pekerjaan teknis
