@@ -21,7 +21,8 @@ import java.util.Locale;
  * Daily study reminder. The page chooses the time and the text (in the study language) through the
  * MMAndroid bridge; this class keeps them in SharedPreferences, sets one inexact alarm for the next
  * reminder time, and shows the notification when it fires — unless the learner already practised
- * that day (the page calls markStudied() on the first answer of a day). Nothing leaves the phone.
+ * that day (the page calls markStudied() on the first answer of a day) or the day is one of the learner's
+ * meditation days (闭关, a chosen rest day; the page sends them with setRestDays()). Nothing leaves the phone.
  */
 final class Reminder {
     static final String ACTION = "com.armstrang.xueci.REMIND";
@@ -60,6 +61,29 @@ final class Reminder {
         NotificationManagerCompat.from(c).cancel(NOTIFICATION_ID);
     }
 
+    /** Rest weekdays as "0,3" (0 = Sunday … 6 = Saturday, the page's numbering); empty = none. */
+    static void setRestDays(Context c, String days) {
+        StringBuilder clean = new StringBuilder();
+        if (days != null) {
+            for (String d : days.split(",")) {
+                String t = d.trim();
+                if (t.length() == 1 && t.charAt(0) >= '0' && t.charAt(0) <= '6' && clean.indexOf(t) < 0) {
+                    if (clean.length() > 0) clean.append(',');
+                    clean.append(t);
+                }
+            }
+        }
+        prefs(c).edit().putString("rest", clean.toString()).apply();
+    }
+
+    private static boolean restToday(SharedPreferences p) {
+        String rest = p.getString("rest", "");
+        if (rest.isEmpty()) return false;
+        String today = String.valueOf(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1);   // Calendar: Sunday = 1
+        for (String d : rest.split(",")) if (d.equals(today)) return true;
+        return false;
+    }
+
     private static PendingIntent alarmIntent(Context c) {
         Intent i = new Intent(c, ReminderReceiver.class).setAction(ACTION);
         return PendingIntent.getBroadcast(c, 0, i, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
@@ -89,7 +113,7 @@ final class Reminder {
     /** Called when the alarm fires. */
     static void show(Context c) {
         SharedPreferences p = prefs(c);
-        if (!p.getBoolean("on", false) || today().equals(p.getString("studied", ""))) return;
+        if (!p.getBoolean("on", false) || today().equals(p.getString("studied", "")) || restToday(p)) return;
         NotificationManagerCompat nm = NotificationManagerCompat.from(c);
         if (!nm.areNotificationsEnabled()) return;
         if (Build.VERSION.SDK_INT >= 26) {

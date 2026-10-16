@@ -4,6 +4,64 @@ Every push of app changes to `main` makes a new release on [GitHub Releases](htt
 (v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
 before pushing.
 
+## v1.10 — 17 October 2026
+
+**Cultivation realms, the Sea of Consciousness, and rest as part of learning.**
+
+### New
+- **Realms (境界)** replace the plain level. Your realm is set only by a test: 凡人 *Mortal* (not tested yet) →
+  炼气 *Qi Refining* (HSK 1) → 筑基 *Foundation Establishment* (HSK 2) → 金丹 *Golden Core* (HSK 3) → 元婴 *Nascent Soul*
+  (HSK 4) → 化神 *Spirit Transformation* (HSK 5) → 渡劫 *Tribulation Crossing* (HSK 6) → 飞升 *Ascension* (HSK 6
+  mastered). The meaning is shown in your study language. The chip beside the language button shows your realm.
+- **Stages** inside a realm follow the share of *solid* words at that level (level 10+ with a passed Recall and Tones
+  question): 初期 under 25%, 中期 25–50%, 后期 50–80%, 圆满 80% and up.
+- **Breakthrough (突破)**: at 圆满 you can try for the next realm. 20 questions on the level's words with no feedback
+  until the end, passed with 75% right (80% for HSK 5–6). If it fails, you see the words to strengthen and can practise
+  them straight away.
+- **One test a week**: the placement test and the breakthrough share one test every 7 days, counted from the last
+  one. Leaving a test after 10 answers still counts.
+- **Sea of Consciousness (识海)**: tap the realm chip → *See more*. A soul orb drawn from your own word memory (one point
+  per word, lines between words that share a character, brightness = how well you remember it now, colour = HSK
+  level; turn it with a finger, tap a point to see the word), with a core that changes with your realm. Around it the
+  **five elements (五行)**: 土 Foundation (solid words at your realm), 木 Cultivation (days of memory stored), 水 Spirit
+  Sense (recall right now), 金 Dao Heart (how often "I know it" was right) and 火 Insight (how fast new words become
+  solid). The weakest element gets advice, the strongest gives you a title. The page also has your breakthrough
+  progress, today's trial, cultivation days, the numbers behind rest, and your realm history.
+- **Today's trial (今日试炼)**: one target a day for your weakest skill over the last 7 days, a little above your own
+  level. A chip on the Today card shows the progress. No random rewards, no countdowns.
+- **Cultivation days (修炼天数)**: days of practice in a row. Meditation days and one free day a week don't break it.
+- **Rest is part of learning**:
+  - A **调息 break** is offered (never forced) when your accuracy drops, your answers slow down, or you have practised for
+    25 minutes. It has a 5-minute breathing guide, and the summary afterwards shows how you did after the break.
+  - **Meditation days (闭关)**: choose 0–2 days a week in the goal sheet. No plan and no reminder on those days, and
+    reviews due then are pulled one day earlier.
+  - After extra practice, the summary shows from your memory model how little repeating the same words now adds
+    compared with tomorrow after sleep. After 11 pm there is one note a night about sleep.
+  - Coming back after two or more days off shows how much you still remember.
+- **Help guide** in the help & info sheet: nine topics (daily plan, cards, quiz, word levels, realms, Sea of
+  Consciousness, rest, backup, sound & display) in all four languages.
+
+### Changed
+- **The manual level pick is gone**: realms come only from tests. A level picked by hand in v1.9 keeps steering your
+  daily plan until you take a test.
+- **Sentence questions** hide the translation until you answer (it was a giveaway). HSK 1–3 sentences show their
+  pinyin with the gap. *Show translation* is still there as a hint, but a hinted answer doesn't raise your skill levels.
+  If your wrong pick also fits the sentence, *My choice fits too* (up to 3 times a day) takes the answer back and never
+  offers those two words together again. Gap options now prefer words of the same word class.
+- **Cards come in random order** (interleaving), and two look-alike words are never shown one after the other. Which
+  words go in is still the memory model's choice.
+- **Word difficulty**: each word's difficulty within its level now comes from how common it is in written Chinese
+  (word frequencies from the open-source jieba dictionary) and whether it brings new characters. It shapes the first
+  memory estimate, the order of new words and the placement test.
+- Extra practice no longer repeats words you already reviewed today.
+- The backup code also carries your meditation days and test dates.
+
+### Privacy
+- New data, all kept on the phone: the dates of your tests, your meditation days, today's trial and the number of
+  trials done, sentence-word pairs you reported as both fitting, and which once-a-day notes were shown. Android gets
+  your meditation days so the reminder stays quiet on them. The
+  [privacy policy](https://armstrang.github.io/XueCi/privacy/) is updated.
+
 ## v1.9 — 16 October 2026
 
 **Placement test, a current level, daily study reminders, and a Home screen that fits on one screen.**

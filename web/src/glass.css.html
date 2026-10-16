@@ -221,5 +221,12 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 .gsegs.lv .gseg[aria-pressed="true"]{background:var(--lc)}
 .gfc{background:color-mix(in srgb,var(--fg) 6%,transparent)}
 .res{animation:fbIn .3s var(--ease)}
+/* v1.10: realm chip, Soul Sea cards, trial chip, help topics */
+.curlv b{text-shadow:0 0 14px color-mix(in srgb,var(--lc) 35%,transparent)}
+.scard,.chalchip{background:var(--g-fill);border:1px solid var(--g-edge);box-shadow:var(--g-inset),var(--g-drop)}
+.scard{border-radius:26px}
+.chalchip{transition:transform .32s var(--spring)}.chalchip:active{transform:scale(1.05)}
+.hlp{background:var(--g-solid);border-color:var(--g-edge);box-shadow:var(--g-inset)}
+.wheel .elg circle{fill:color-mix(in srgb,var(--bg) 80%,transparent)}
 @media (prefers-reduced-motion:reduce){.res{animation:none}}
 </style>

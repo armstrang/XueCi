@@ -33,6 +33,7 @@ HOST = f'http://127.0.0.1:{SERVER.server_address[1]}'
 PAGE = HOST + '/index.html'
 OUT = os.path.join(ROOT, 'tests', 'out')
 failures = []
+RN = ['凡人', '炼气', '筑基', '金丹', '元婴', '化神', '渡劫', '飞升']
 
 
 def check(cond, what):
@@ -83,18 +84,26 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         check(await pg.locator('.gfc.bad [data-fix="min"]').count() == 1, f'{tag}: too little time is flagged with a fix')
         await pg.click('.gfc [data-fix="min"]')
         check(await pg.locator('.gfc.good').count() == 1, f'{tag}: the fix puts the goal on track')
+        for w in ('0', '6', '3'):
+            await pg.click(f'[data-wk="{w}"]')
+        check(await pg.locator('[data-wk][aria-pressed="true"]').count() == 2, f'{tag}: at most two meditation days')
+        await pg.click('[data-wk="3"]')
+        await pg.click('[data-wk="0"]')
         await pg.click('#gSave')
         await pg.wait_for_timeout(300)
         g = await pg.evaluate('LM.goal')
         check(g and g['t'] == 'exam' and g['lv'] == 3 and g['pace'] == 'min' and g['n'] > 5, f'{tag}: goal saved {g}')
+        check(sorted(await pg.evaluate('LM.rest')) == [0, 6], f'{tag}: meditation days saved')
+        await pg.evaluate('LM.setRest([])')
         check(await pg.locator('#goalSheet').is_hidden() and 'HSK 3' in await pg.locator('#goalBtn').text_content(), f'{tag}: plan card shows the goal')
     else:
         check(await pg.locator('#goalSheet').is_hidden(), f'{tag}: no goal sheet after the first start')
 
     check(await pg.evaluate('state.screen') == 'home' and not await overflow(), f'{tag}: home, no sideways scroll')
     check(await pg.locator('#planGo').is_visible(), f'{tag}: plan card with a start button')
-    check(await pg.locator('#curLvName').text_content() == 'HSK 1' and 'Armstrang' not in await pg.locator('header.top').text_content(),
-          f'{tag}: header shows the current level and no "by Armstrang"')
+    check(await pg.locator('#curLvName').text_content() == '凡人' and 'Armstrang' not in await pg.locator('header.top').text_content(),
+          f'{tag}: header shows the realm (凡人 before any test) and no "by Armstrang"')
+    check(await pg.locator('#chalBtn').is_visible(), f'{tag}: plan card shows today\'s trial')
     if fs == 1 and width >= 360:
         await pg.set_viewport_size({'width': width, 'height': 680})
         await pg.wait_for_timeout(250)
@@ -160,6 +169,39 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     await pg.wait_for_timeout(200)
     check(await pg.locator('.fbv.good').count() == 1, f'{tag}: right tone answer')
     await shot('quiz-tone')
+    # sentence gaps: no translation before answering, sentence pinyin with a gap (HSK 1–3), optional translation hint
+    await pg.click('#qTypeBtn')
+    await pg.wait_for_timeout(250)
+    await pg.click('.qtrow[data-qt="c"]')
+    await pg.wait_for_timeout(200)
+    check(await pg.locator('.qt-c .id').count() == 0 and await pg.locator('#qTr').count() == 1, f'{tag}: sentence question hides the translation')
+    check('＿＿' in (await pg.locator('.qt-c .zp').text_content() or ''), f'{tag}: sentence pinyin is shown with a gap')
+    await pg.click('#qTr')
+    await pg.wait_for_timeout(100)
+    check(await pg.locator('.qt-c .id').count() == 1 and await pg.evaluate('run.items[run.i].hint') is True, f'{tag}: the translation hint can be opened')
+    await step(False)
+    await pg.wait_for_timeout(150)
+    check(await pg.evaluate('LM.allLog().slice(-1)[0][6] & 32') == 32, f'{tag}: a hinted answer is logged as hinted')
+    if await pg.locator('#qAmb').count():
+        tot, logn = await pg.evaluate('run.tot'), await pg.evaluate('LM.allLog().length')
+        await pg.click('#qAmb')
+        await pg.wait_for_timeout(100)
+        check(await pg.locator('.fbv.amb').count() == 1 and await pg.evaluate('run.tot') == tot - 1 and await pg.evaluate('LM.allLog().length') == logn - 1,
+              f'{tag}: "my choice fits too" takes the answer back')
+    await shot('quiz-cloze')
+    # a tired sitting (25 min, accuracy falling) is offered a short break before the next question
+    await pg.evaluate("sit = {t0: Date.now() - 26*6e4, last: Date.now(), ans: Array.from({length: 20}, (_, i) => [i < 10 ? 1 : i % 2, 3000]), shown: false, brk: null}")
+    await pg.click('#qNext')
+    await pg.wait_for_timeout(150)
+    check(await pg.locator('.restcard').count() == 1 and await pg.locator('#brGo').count() == 1, f'{tag}: tiredness offers a 调息 break')
+    await pg.click('#brGo')
+    await pg.wait_for_timeout(150)
+    check(await pg.locator('.bcirc').count() == 1 and (await pg.locator('#brTime').text_content()).startswith('5:00') or (await pg.locator('#brTime').text_content()).startswith('4:5'),
+          f'{tag}: the break counts down with a breathing guide')
+    await shot('rest-break')
+    await pg.click('#brSkip')
+    await pg.wait_for_timeout(150)
+    check(await pg.evaluate('run.brk') is None and await pg.locator('.qcard .opts button').count() == 4, f'{tag}: the round carries on after the break')
     await pg.click('#ubtn')
     await pg.wait_for_timeout(250)
     check(await pg.locator('#uMenu').is_visible(), f'{tag}: unit menu opens')
@@ -230,11 +272,13 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(350)
 
-    # current level: placement test (an HSK 1–2 learner who says "don't know" honestly), then a manual pick
+    # realm: the sheet has only tests (no manual pick); placement test (an HSK 1–2 learner who says "don't know" honestly)
     if width == 360:
         await pg.click('#curLvBtn')
         await pg.wait_for_timeout(350)
-        check(await pg.locator('#lvlSheet').is_visible() and await pg.locator('[data-lvset]').count() == 6, f'{tag}: level sheet with test and manual pick')
+        check(await pg.locator('#lvlSheet').is_visible() and await pg.locator('[data-lvset]').count() == 0 and await pg.locator('#soulGo').count() == 1,
+              f'{tag}: realm sheet with the test and "see more", no manual pick')
+        await shot('realm-sheet')
         await pg.click('#ptGo')
         await pg.wait_for_timeout(450)
         check(await pg.evaluate('state.screen') == 'placement' and await pg.locator('#ptBegin').count() == 1, f'{tag}: placement test intro')
@@ -254,27 +298,45 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         res = await pg.evaluate('pt && pt.res')
         await shot('placement-result', True)
         check(res and res['n'] == 50 and 2 <= res['lv'] <= 3, f'{tag}: placement test of 50 places an HSK 1–2 learner at HSK 2–3 ({res and res["lv"]})')
-        check(await pg.evaluate('LM.level.src') == 'test' and await pg.locator('#curLvName').text_content() == f'HSK {res["lv"]}', f'{tag}: the chip shows the tested level')
+        check(await pg.evaluate('LM.level.src') == 'test' and await pg.evaluate('LM.realm()') == res['lv'] and await pg.locator('#curLvName').text_content() == RN[res['lv']],
+              f'{tag}: the chip shows the tested realm ({RN[res["lv"]]})')
         check(await pg.evaluate("LM.allLog().filter(e => e[6] & 16).length") >= 1, f'{tag}: placement answers are logged as placement')
         await pg.click('#ptHome')
         await pg.wait_for_timeout(400)
         await pg.click('#curLvBtn')
         await pg.wait_for_timeout(300)
-        await pg.click('[data-lvset="4"]')
+        check(await pg.locator('#ptGo').is_disabled() and await pg.locator('#lvlSheet .lockn').count() == 1, f'{tag}: one test a week (the next test is locked)')
+        await pg.click('#soulGo')
+        await pg.wait_for_timeout(500)
+        check(await pg.evaluate('state.screen') == 'soul' and await pg.locator('.wheel .petal').count() == 5 and await pg.locator('.elrow').count() == 5,
+              f'{tag}: Soul Sea shows the orb with the five elements')
+        check(await pg.evaluate("document.getElementById('orb').width") > 0 and await pg.locator('#soulBody .hrow').count() == 1, f'{tag}: soul orb drawn, realm history')
+        check(not await overflow(), f'{tag}: Soul Sea, no sideways scroll')
+        await shot('soul', True)
+        await pg.click('#soulHelp')
         await pg.wait_for_timeout(300)
-        check(await pg.evaluate('LM.baseLevel()') == 4 and await pg.evaluate("LM.session(false).filter(i => i.k === 'card').every(i => i.d.l >= 4)"),
-              f'{tag}: a manual level steers the daily plan')
+        check(await pg.locator('details.hlp[data-k="soul"][open]').count() == 1, f'{tag}: "?" opens the help topic')
+        await pg.evaluate('mmBack()')
+        await pg.wait_for_timeout(200)
+        await pg.evaluate('mmBack()')
+        await pg.wait_for_timeout(350)
 
     # tone info sheet
     await pg.click('#toneInfo')
     await pg.wait_for_timeout(450)
     check(await pg.locator('.tone').count() == 5, f'{tag}: tone sheet lists 5 tones')
+    check(await pg.locator('details.hlp').count() == 9, f'{tag}: help guide has 9 topics')
+    await pg.click('details.hlp[data-k="realm"] summary')
+    await pg.wait_for_timeout(150)
+    check(await pg.locator('details.hlp[data-k="realm"][open] p').count() >= 3, f'{tag}: a help topic opens')
+    await shot('help', False)
     check(await pg.get_attribute('.plink', 'href') == 'https://armstrang.github.io/XueCi/privacy/' and bool((await pg.locator('.plink').text_content()).strip()), f'{tag}: privacy policy link in About')
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(200)
 
     # progress backup -> restore round trip (levels, memory states and goal)
-    before = await pg.evaluate('[stats, LM.exportMem(), LM.goal]')
+    await pg.evaluate('LM.setRest([2])')
+    before = await pg.evaluate('[stats, LM.exportMem(), LM.goal, LM.rest, LM.tests]')
     await pg.click('#bkBtn')
     await pg.wait_for_timeout(350)
     check(await pg.locator('.bkopt').count() == 2, f'{tag}: backup sheet offers back up and restore')
@@ -297,7 +359,7 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     await pg.click('#bkApply')
     await pg.wait_for_timeout(400)
     check(await pg.locator('#bkSheet').is_hidden(), f'{tag}: sheet closes after restoring')
-    check(await pg.evaluate('[stats, LM.exportMem(), LM.goal]') == before, f'{tag}: restore brings the same progress, memory and goal back')
+    check(await pg.evaluate('[stats, LM.exportMem(), LM.goal, LM.rest, LM.tests]') == before, f'{tag}: restore brings the same progress, memory, goal, meditation days and tests back')
     tone_row = await pg.evaluate('''() => { const a = document.getElementById('toneInfo').getBoundingClientRect(), b = document.getElementById('bkBtn').getBoundingClientRect();
         return Math.abs(a.top - b.top) < 2 && b.left >= a.right && b.right <= innerWidth - 8 }''')
     check(tone_row, f'{tag}: backup button sits beside tone info')
@@ -354,9 +416,96 @@ async def legacy_case(browser):
     await ctx.close()
 
 
+async def realm_case(browser):
+    """Realms: a v1.9 manual level, the breakthrough (fail, then pass), the weekly lock, a meditation day, welcome back."""
+    tag = 'realm'
+    errors = []
+    # 1) a level picked by hand in v1.9 is no test: 凡人, but the daily plan keeps starting at that level
+    ctx = await browser.new_context(viewport={'width': 390, 'height': 800}, locale='en-US')
+    await ctx.add_init_script("localStorage.setItem('xc_onb','1');localStorage.setItem('xc_lvl',JSON.stringify({lv:4,src:'manual',at:1000}))")
+    pg = await ctx.new_page()
+    pg.on('pageerror', lambda e: errors.append(str(e)))
+    await pg.goto(PAGE)
+    await pg.wait_for_timeout(800)
+    check(await pg.locator('#curLvName').text_content() == '凡人' and await pg.evaluate('LM.baseLevel()') == 4
+          and await pg.evaluate("LM.session(false).filter(i => i.k === 'card').every(i => i.d.l >= 4)"), f'{tag}: a v1.9 manual level keeps steering the plan, realm 凡人')
+    await ctx.close()
+    # 2) every HSK 1 word solid → 炼气 圆满 → breakthrough
+    ctx = await browser.new_context(viewport={'width': 360, 'height': 780}, locale='id-ID')
+    await ctx.add_init_script("localStorage.setItem('xc_onb','1')")
+    pg = await ctx.new_page()
+    pg.on('pageerror', lambda e: errors.append(str(e)))
+    await pg.goto(PAGE)
+    await pg.wait_for_timeout(800)
+    await pg.evaluate('''() => { const t = LM.now(), m = {}; for (const d of BY[1]) m[d.id] = {w: [4, 40, t - 60], i: t - 30*1440, k: t - 20*1440,
+        m: [4, 40, t - 60, 3, 2], f: [4, 40, t - 60, 3, 2], s: [4, 40, t - 60, 3, 2]};
+      LM.replace(m); LM.restoreLevel({lv: 1, src: 'test', at: t - 8*1440, r: 1, hist: [[1, t - 8*1440]]}); renderHome() }''')
+    st = await pg.evaluate('LM.stage()')
+    check(st['i'] == 3 and await pg.evaluate('LM.btOpen()') and await pg.locator('#curLvBtn.btready').count() == 1, f'{tag}: 圆满 opens the breakthrough {st["share"]:.2f}')
+    await pg.click('#curLvBtn')
+    await pg.wait_for_timeout(350)
+    check(await pg.locator('#btGo').is_enabled(), f'{tag}: breakthrough button in the realm sheet')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-sheet.png'))
+    await pg.click('#btGo')
+    await pg.wait_for_timeout(450)
+    check(await pg.evaluate('state.screen') == 'bt' and await pg.locator('.btpath').count() == 1, f'{tag}: breakthrough intro 炼气 → 筑基')
+    await pg.click('#btBegin')
+    await pg.wait_for_timeout(150)
+    check(await pg.evaluate('bt.st.items.length') == 20, f'{tag}: 20 breakthrough questions')
+    for _ in range(20):
+        await pg.click('#btIdk')
+        await pg.wait_for_timeout(190)
+    await pg.wait_for_timeout(200)
+    check(await pg.locator('.btres').count() == 1 and await pg.locator('.btres.pass').count() == 0 and await pg.evaluate('LM.realm()') == 1,
+          f'{tag}: a failed breakthrough keeps the realm')
+    check(await pg.locator('.btres .wchip').count() >= 10 and await pg.locator('.btres .lockn').count() == 1, f'{tag}: the words to strengthen and the next test date')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-bt-fail.png'), full_page=True)
+    await pg.click('#btPractice')
+    await pg.wait_for_timeout(450)
+    check(await pg.evaluate('state.screen') == 'quiz' and await pg.evaluate('run.items.length') == 12, f'{tag}: the words to strengthen become a quiz round')
+    await pg.evaluate('LM.testsReset()')
+    await pg.evaluate("go('bt')")
+    await pg.wait_for_timeout(450)
+    await pg.click('#btBegin')
+    for _ in range(20):
+        ans = await pg.evaluate('bt.st.items[bt.st.i].ans')
+        await pg.click(f'#btOpts [data-b="{ans}"]')
+        await pg.wait_for_timeout(190)
+    await pg.wait_for_timeout(450)
+    check(await pg.locator('.btres.pass').count() == 1 and await pg.evaluate('LM.realm()') == 2 and await pg.locator('#curLvName').text_content() == '筑基',
+          f'{tag}: a passed breakthrough rises to 筑基')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-bt-pass.png'))
+    await pg.evaluate("go('placement')")
+    await pg.wait_for_timeout(450)
+    check(await pg.locator('#ptBegin').count() == 0 and await pg.locator('#tHome').count() == 1, f'{tag}: the placement test waits a week after a breakthrough')
+    await pg.evaluate("go('soul')")
+    await pg.wait_for_timeout(500)
+    check(await pg.locator('#soulBody .hrow').count() == 2, f'{tag}: realm history lists 炼气 and 筑基')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-soul.png'), full_page=True)
+    # a meditation day: no plan today
+    await pg.evaluate("LM.setRest([new Date().getDay()]); go('home')")
+    await pg.wait_for_timeout(450)
+    check(await pg.locator('#plan .medz').count() == 1 and await pg.evaluate('LM.plan().todayLeft') == 0, f'{tag}: a meditation day has no plan')
+    fits = await pg.evaluate('document.documentElement.scrollHeight <= innerHeight + 1')
+    check(fits, f'{tag}: Home with a realm still fits one screen')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-home.png'))
+    await ctx.close()
+    # 3) back after three days off: a welcome-back note with how much is still remembered
+    ctx = await browser.new_context(viewport={'width': 390, 'height': 800}, locale='en-US')
+    await ctx.add_init_script('''localStorage.setItem('xc_onb','1'); const t = Math.round((Date.now() - Date.UTC(2026,0,1)) / 6e4) - 3*1440;
+      localStorage.setItem('xc_log', JSON.stringify([[t, '1:学生', 'm', 3, 30, 0, 0]])); localStorage.setItem('xc_mem', JSON.stringify({'1:学生': {w: [5, 10, t], i: t}}))''')
+    pg = await ctx.new_page()
+    pg.on('pageerror', lambda e: errors.append(str(e)))
+    await pg.goto(PAGE)
+    await pg.wait_for_timeout(1300)
+    check(await pg.locator('.toast.long').is_visible() and '3 days' in await pg.locator('.toast').text_content(), f'{tag}: welcome back after 3 days')
+    await ctx.close()
+    check(not errors, f'{tag}: no page errors {errors[:2]}')
+
+
 STUB = '''window.__calls = []; window.MMAndroid = {fontScale: () => 1, setBars() {}, setTheme() {}, ttsStatus: () => 'none', speak() {}, stopSpeaking() {},
   openTtsSettings() {}, copyText() {}, shareText() {}, pasteText: () => '', openNotifSettings() {},
-  setReminder(...a) { __calls.push(['setReminder', ...a]) }, markStudied() { __calls.push(['markStudied']) },
+  setReminder(...a) { __calls.push(['setReminder', ...a]) }, markStudied() { __calls.push(['markStudied']) }, setRestDays(d) { __calls.push(['setRestDays', d]) },
   notifStatus: () => window.__notif || 'off',
   requestNotifications() { __calls.push(['request']); setTimeout(() => { window.__notif = 'granted'; window.mmNotifResult && mmNotifResult(true) }, 30) }};'''
 
@@ -374,9 +523,11 @@ async def reminder_case(browser):
     check(await pg.locator('#gTime').count() == 1 and await pg.get_attribute('[data-rem="1"]', 'aria-pressed') == 'true', f'{tag}: reminder suggested on first start')
     await pg.fill('#gTime', '20:30')
     await pg.dispatch_event('#gTime', 'change')
+    await pg.click('[data-wk="3"]')
     await pg.click('#gSave')
     await pg.wait_for_timeout(300)
     calls = await pg.evaluate('__calls')
+    check(['setRestDays', '3'] in calls, f'{tag}: meditation days go to Android (no reminder on those days)')
     sets = [c for c in calls if c[0] == 'setReminder']
     check(['request'] in calls and sets and sets[-1][1:4] == [True, 20, 30] and 'Mandarin' in sets[-1][4], f'{tag}: permission asked, reminder set for 20:30 {sets[-1:]}')
     await pg.click('.tile[data-go="quiz"]')
@@ -395,6 +546,7 @@ async def main():
                                               (1280, 'vi-VN', 'auto', 1, False), (360, 'vi-VN', 'light', 1.6, True)):
             await run_case(browser, width, locale, theme, fs, onb)
         await legacy_case(browser)
+        await realm_case(browser)
         await reminder_case(browser)
         await browser.close()
     print(f'\n{len(failures)} failed' if failures else '\nall checks passed')

@@ -33,31 +33,33 @@ CAPTIONS = {
         'locale': 'id-ID',
         'shots': [
             ('home', 'Kuasai 5.334 kata HSK 1–6', 'Rencana harian sesuai tujuanmu'),
+            ('soul', 'Lautan Jiwa', 'Ranah kultivasi & lima elemen dari ingatanmu'),
             ('card', 'Bilang tahu? Buktikan', 'Kartu dengan cek kilat sebelum dibalik'),
             ('quiz', 'Kuis terarah', 'Arti, hanzi, nada, dengar, dan kalimat'),
             ('stats', 'Kenali kelemahanmu', 'Dihitung di HP, tanpa server'),
             ('tones', 'Warna nada', 'Ucapkan setiap kata dengan nada yang tepat'),
             ('list', 'Terang, gelap, hitam pekat', 'Dalam 4 bahasa · tanpa internet'),
-            ('placement', 'Tes penempatan 50 soal', 'Mulai dari level yang tepat'),
+            ('placement', 'Tes penempatan 50 soal', 'Temukan ranah awalmu'),
         ],
-        'feature': ('Kosakata HSK 1–6', 'Rencana harian · Kartu · Kuis terarah · Offline'),
+        'feature': ('Kosakata HSK 1–6', 'Ranah kultivasi · Kartu · Kuis terarah · Offline'),
     },
     'en': {
         'locale': 'en-US',
         'shots': [
             ('home', 'Master 5,334 HSK 1–6 words', 'A daily plan built from your goal'),
+            ('soul', 'Your Sea of Consciousness', 'Cultivation realms and five elements from your memory'),
             ('card', 'Say you know it? Prove it', 'Cards with a quick check before they flip'),
             ('quiz', 'A guided quiz', 'Meaning, hanzi, tones, listening, sentences'),
             ('stats', 'Know your weak spots', 'Worked out on your phone, no server'),
             ('tones', 'Tone colours', 'Say every word with the right tone'),
             ('list', 'Light, dark, true black', 'In 4 languages · no internet needed'),
-            ('placement', 'A 50-question placement test', 'Start at the right level'),
+            ('placement', 'A 50-question placement test', 'Find your starting realm'),
         ],
-        'feature': ('HSK 1–6 vocabulary', 'Daily plan · Flashcards · Guided quiz · Offline'),
+        'feature': ('HSK 1–6 vocabulary', 'Cultivation realms · Flashcards · Guided quiz · Offline'),
     },
 }
-THEME = {'home': 'light', 'card': 'light', 'quiz': 'light', 'stats': 'light', 'tones': 'dark', 'list': 'black', 'placement': 'light'}
-LEVEL = {'home': 2, 'card': 2, 'quiz': 2, 'stats': 1, 'tones': 2, 'list': 1, 'placement': 2}
+THEME = {'home': 'light', 'soul': 'dark', 'card': 'light', 'quiz': 'light', 'stats': 'light', 'tones': 'dark', 'list': 'black', 'placement': 'light'}
+LEVEL = {'home': 2, 'soul': 2, 'card': 2, 'quiz': 2, 'stats': 1, 'tones': 2, 'list': 1, 'placement': 2}
 
 
 class Quiet(http.server.SimpleHTTPRequestHandler):
@@ -107,8 +109,8 @@ def sample_progress():
                 x = f"{o['l']}:{o['h']}"
         log.append([now - int((640 - k) / 640 * 14 * 1440), f"{d['l']}:{d['h']}", q, 3 if ok else 1, rnd.randint(25, 90), x, 2 if q[0] == 'c' else 0])
     goal = {'t': 'exam', 'lv': 3, 'date': (datetime.date.today() + datetime.timedelta(days=150)).isoformat(), 'pace': 'min', 'n': 25}
-    lvl = {'lv': 2, 'src': 'test', 'at': now - 20 * 1440, 'm': 1, 'per': [97, 64, 14, 4, 1, 0]}
-    return {'mm_stats': stats, 'xc_mem': mem, 'xc_log': log, 'xc_goal': goal, 'xc_onb': 1, 'xc_lvl': lvl}
+    lvl = {'r': 2, 'lv': 2, 'src': 'test', 'at': now - 20 * 1440, 'm': 1, 'per': [97, 64, 14, 4, 1, 0], 'hist': [[1, now - 60 * 1440], [2, now - 20 * 1440]]}
+    return {'mm_stats': stats, 'xc_mem': mem, 'xc_log': log, 'xc_goal': goal, 'xc_onb': 1, 'xc_lvl': lvl, 'xc_tests': [now - 20 * 1440]}
 
 
 FRAME = """<!doctype html><meta charset="utf-8"><style>
@@ -172,6 +174,12 @@ async def app_shot(browser, base, lang, locale, kind, sample, out):
         i = await pg.evaluate('run.items[run.i].ans')
         await pg.click(f'.opts button >> nth={i}')
         await pg.wait_for_timeout(900)
+    if kind == 'soul':
+        await pg.click('#curLvBtn')
+        await pg.wait_for_timeout(400)
+        await pg.click('#soulGo')
+        await pg.wait_for_timeout(1600)
+        await pg.mouse.move(0, 0)
     if kind == 'stats':
         await pg.click('#hero')
         await pg.wait_for_timeout(900)

@@ -59,9 +59,9 @@ window.mmStatsRendered=()=>statLens.sync(true);
 
 /* 3. opening a screen: it zooms out of the tile you tapped in one quick, smooth motion (opacity + scale only,
       on the compositor); going back, Home settles into place around the tile you came from. */
-const scrOf=s=>s==='home'?document.getElementById('scr-home'):s==='stats'?document.getElementById('scr-stats'):document.getElementById('scr-focus');
+const scrOf=s=>s==='home'?document.getElementById('scr-home'):s==='stats'?document.getElementById('scr-stats'):s==='soul'?document.getElementById('scr-soul'):document.getElementById('scr-focus');
 let lastTap=null,anim=null;
-document.addEventListener('pointerdown',e=>{lastTap=e.target.closest?e.target.closest('.tile,#hero,.mstats,.planbtn'):null},{capture:true,passive:true});
+document.addEventListener('pointerdown',e=>{lastTap=e.target.closest?e.target.closest('.tile,#hero,.mstats,.planbtn,.chalchip'):null},{capture:true,passive:true});
 function originIn(sec,el){
   const s=sec.getBoundingClientRect();
   if(!el||!el.isConnected||!el.offsetParent)return '50% 120px';
@@ -69,7 +69,7 @@ function originIn(sec,el){
   return `${Math.round(r.left+r.width/2-s.left)}px ${Math.round(r.top+r.height/2-s.top)}px`;
 }
 window.mmTransition=(run,from,to)=>{
-  const fwd=from==='home'||to==='stats';
+  const fwd=from==='home'||to==='stats'||(from==='soul'&&to!=='home');
   const tapped=fwd?lastTap:null;lastTap=null;
   const tapRect=tapped&&tapped.isConnected?tapped.getBoundingClientRect():null;
   lenses.forEach(l=>l.reset());
@@ -82,7 +82,7 @@ window.mmTransition=(run,from,to)=>{
     const s=sec.getBoundingClientRect();
     origin=tapRect?`${Math.round(tapRect.left+tapRect.width/2-s.left)}px ${Math.round(tapRect.top+tapRect.height/2-s.top)}px`:'50% 120px';
   }else{
-    const el=to==='home'?(from==='session'?document.getElementById('planGo'):FOCUS.includes(from)?document.querySelector(`.tile[data-go="${from}"]`):document.getElementById('hero')):null;
+    const el=to==='home'?(from==='session'?document.getElementById('planGo'):['soul','bt','placement'].includes(from)?document.getElementById('curLvBtn'):FOCUS.includes(from)?document.querySelector(`.tile[data-go="${from}"]`):document.getElementById('hero')):null;
     origin=originIn(sec,el);
   }
   sec.style.transformOrigin=origin;

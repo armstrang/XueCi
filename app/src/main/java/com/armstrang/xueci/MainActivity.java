@@ -340,6 +340,12 @@ public class MainActivity extends AppCompatActivity {
             Reminder.markStudied(getApplicationContext());
         }
 
+        /** Meditation days (闭关) as weekday numbers "0,3" (0 = Sunday): no reminder on those days. */
+        @JavascriptInterface
+        public void setRestDays(String days) {
+            Reminder.setRestDays(getApplicationContext(), days);
+        }
+
         /** granted | off */
         @JavascriptInterface
         public String notifStatus() {

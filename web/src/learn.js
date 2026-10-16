@@ -15,10 +15,15 @@
    Storage (localStorage, this device only; the old keys mm_stats/hsk16_* are untouched):
      xc_mem   {id: {w:[d,s,t], m|f|s:[d,s,t,lastGrade,timesRight], i:firstSeen, L:1 legacy unconfirmed|2 confirmed, p:1 first seen in exam practice}}
      xc_log   recent answers, xc_logA older answers (capped): [t, id, type, grade 1–4, tenths of a second, wrong pick id|0, flags]
-              flags: 1 unchecked claim, 2 said "I know", 4 sure but wrong, 8 exam practice, 16 placement test
+              flags: 1 unchecked claim, 2 said "I know", 4 sure but wrong, 8 exam practice or breakthrough, 16 placement test,
+                     32 translation shown before answering (no skill credit, at most "Hard")
      xc_goal  {t:'level'|'exam'|'none', lv, date:'YYYY-MM-DD', pace:'min'|'new'|'auto', n}
-     xc_lvl   {lv, src:'test'|'manual', at, m: mastered level, per:[6 shares]}  the learner's starting level (default HSK 1);
-              the guided plan starts there and moves on by itself once every word of a level has been introduced
+     xc_lvl   {r: realm 0–7, lv: HSK 1–6, src:'test'|'bt'|'manual' (v1.9), at, m: mastered level, per:[6 shares], hist:[[realm, time]]}
+              the realm (cultivation level) and the level the guided plan starts at; it moves on by itself once every
+              word of a level has been introduced
+     xc_tests times of the placement tests and breakthroughs (one a week)
+     xc_rest  meditation weekdays (0 Sunday … 6 Saturday, at most 2) · xc_game {chal: today's challenge, chalN: challenges done}
+     xc_amb   sentence-gap pairs the learner reported as both fitting
      xc_w     {w:[19 parameters], n, at, ll, ll0}   parameters fitted to this learner's own answers (optimize())
    Progress made before this engine existed is kept: each old [right, wrong, level] becomes a state with the same
    level, marked "needs confirming" (L:1) until one form and one sound question have been answered. */
@@ -28,6 +33,14 @@ const now=()=>Math.round((Date.now()-EPOCH)/6e4);
 const TZ=new Date().getTimezoneOffset();
 const dayOf=t=>Math.floor((t-TZ)/1440);
 const cl=(x,a,b)=>Math.min(b,Math.max(a,x));
+/* A word's difficulty inside its HSK level, from how common it is in written Chinese (field f, Zipf frequency from
+   jieba's dictionary) and whether it brings characters that are new at its level: −0.6 (easy) … +0.6 (hard). */
+let WD=null;
+function wdiff(d){if(!WD){WD=new Map();const seen=new Set();
+    for(const l of LEVELS){const W=BY[l],nov=W.map(x=>{const c=[...x.h];return c.filter(y=>!seen.has(y)).length/c.length}),
+      fm=W.reduce((a,x)=>a+(x.f||0),0)/W.length,fs=Math.sqrt(W.reduce((a,x)=>a+((x.f||fm)-fm)**2,0)/W.length)||1,nm=nov.reduce((a,b)=>a+b,0)/W.length;
+      W.forEach((x,i)=>WD.set(x.id,cl(-.28*((x.f||fm)-fm)/fs+.35*(nov[i]-nm),-.6,.6)));W.forEach(x=>{for(const c of x.h)seen.add(c)})}}
+  return WD.get(d.id)||0}
 const r2=x=>Math.round(x*100)/100,r3=x=>Math.round(x*1000)/1000;
 
 /* ---- FSRS-5 ---- */
@@ -39,9 +52,10 @@ const Rt=(days,s)=>Math.pow(1+FACTOR*Math.max(0,days)/s,DECAY);
 const ivl=(s,r)=>s/FACTOR*(Math.pow(r,1/DECAY)-1);
 const D0=(w,g)=>cl(w[4]-Math.exp(w[5]*(g-1))+1,1,10);
 const sameDay=(t,t0)=>t-t0<240||dayOf(t)===dayOf(t0);
-/* st = [d, s, t] or null for a first answer; prior = share of the word's characters already known (0–1) */
-function step(w,st,g,t,prior){
-  if(!st){const k=prior||0;return [cl(D0(w,g)-(g>1?1.2*k:0),1,10),Math.max(.1,w[g-1]*(g>2?1+.6*k:1)),t]}
+/* st = [d, s, t] or null for a first answer; prior = share of the word's characters already known (0–1);
+   dd = the word's own difficulty within its level (−0.6 easy … +0.6 hard, see wdiff) */
+function step(w,st,g,t,prior,dd){
+  if(!st){const k=prior||0,x=dd||0;return [cl(D0(w,g)-(g>1?1.2*k:0)+1.5*x,1,10),Math.max(.1,w[g-1]*(g>2?1+.6*k:1)*(1-.35*x)),t]}
   const d=st[0],s=st[1],el=(t-st[2])/1440;
   const d2=cl(w[7]*D0(w,4)+(1-w[7])*(d-w[6]*(g-3)*(10-d)/9),1,10);
   let s2;
@@ -72,13 +86,15 @@ const okS=se=>!!se&&se[3]>1;
 const LN121=Math.log(121);
 function levelOf(e){if(!e||!e.w)return -1;let L=cl(Math.round(20*Math.log(1+e.w[1])/LN121),0,20);
   if(L>13&&e.L!==1&&!(okS(e.f)&&okS(e.s)))L=13;return L}
+/* a solid word (kata kokoh): level 10+ (remembered for about a week) and a passed recall and tone question */
+const solid=e=>!!e&&levelOf(e)>=10&&okS(e.f)&&okS(e.s);
 const skLevel=se=>se?cl(Math.round(20*Math.log(1+se[1])/LN121),0,20):-1;
 const isState=a=>Array.isArray(a)&&a.length>=3&&a.slice(0,3).every(Number.isFinite)&&a[0]>=1&&a[0]<=10&&a[1]>0;
 function cleanEntry(e){
   if(!e||typeof e!=='object'||!isState(e.w))return null;
   const o={w:[r2(e.w[0]),r3(e.w[1]),Math.round(e.w[2])],i:Number.isFinite(e.i)?Math.round(e.i):0};
   for(const k of ['m','f','s'])if(isState(e[k]))o[k]=[r2(e[k][0]),r3(e[k][1]),Math.round(e[k][2]),cl(e[k][3]|0,1,4),Math.max(0,e[k][4]|0)];
-  if(e.L===1||e.L===2)o.L=e.L;if(e.p===1)o.p=1;return o}
+  if(e.L===1||e.L===2)o.L=e.L;if(e.p===1)o.p=1;if(Number.isFinite(e.k))o.k=Math.round(e.k);return o}
 for(const id in mem){const c=IDX.has(id)?cleanEntry(mem[id]):null;if(c)mem[id]=c;else delete mem[id]}
 
 /* Keep the old per-word records (stats) and the memory states in step: old progress becomes a state with the
@@ -97,7 +113,7 @@ const QUIZ=new Set(['m','f','s','l','c']);
 let last=null;
 function medMs(q){const L=allLog(),a=[];for(let i=L.length-1;i>=0&&a.length<40&&i>L.length-800;i--){const e=L[i];if(e[2]===q&&e[3]>1)a.push(e[4]*100)}
   if(a.length<8)return DEFMS[q]||6000;a.sort((x,y)=>x-y);return a[a.length>>1]}
-function grade(o,e){const med=medMs(o.q);let g=o.ms<=med*1.8?3:2;
+function grade(o,e){const med=medMs(o.q);let g=o.ms<=med*1.8&&!o.hint?3:2;
   if(g===3&&o.ms<med*.6&&e.w&&e.w[1]>=3&&!/^(m|cm|cu)$/.test(o.q))g=4;return g}
 function knownShare(d){
   if(!charS){charS=new Map();for(const id in mem){const x=IDX.get(id),s=mem[id].w[1];for(const c of x.h){if((charS.get(c)||0)<s)charS.set(c,s)}}}
@@ -106,17 +122,18 @@ function knownShare(d){
 function answer(d,o){
   const t=now(),id=d.id,had=mem[id];
   if(o.placement)o.exam=true;
-  const flags=(o.unchecked?1:0)|(o.claim?2:0)|(o.over?4:0)|(o.exam?8:0)|(o.placement?16:0),ms=Math.min(9999,Math.round((o.ms||0)/100));
+  const flags=(o.unchecked?1:0)|(o.claim?2:0)|(o.over?4:0)|(o.exam?8:0)|(o.placement?16:0)|(o.hint?32:0),ms=Math.min(9999,Math.round((o.ms||0)/100));
   if(o.exam&&!had&&!o.ok){logPush([t,id,o.q,1,ms,o.x||0,flags]);if(o.x)addConf(id,o.x);return {g:1,before:-1,after:-1}}
   last={id,mem:had?JSON.parse(JSON.stringify(had)):null,st:stats[id]?stats[id].slice():null,n:logR.length};
   const e=had||{i:t},before=levelOf(had),g=o.ok?grade(o,e):1;
   if(!had&&o.exam)e.p=1;                             /* known already (exam practice): not one of today's new words */
-  e.w=step(W,e.w,g,t,had?0:knownShare(d));
+  e.w=step(W,e.w,g,t,had?0:knownShare(d),had?0:wdiff(d));
   if(o.over)e.w[0]=Math.min(10,e.w[0]+1);            /* sure but wrong: the word becomes harder */
   e.w=[r2(e.w[0]),r3(e.w[1]),t];
-  const k=o.unchecked?null:SK[o.q];
+  const k=o.unchecked||o.hint?null:SK[o.q];
   if(k){const se=e[k],ns=step(W,se?se.slice(0,3):null,g,t,0);e[k]=[r2(ns[0]),r3(ns[1]),t,g,(se?se[4]:0)+(g>1?1:0)]}
   if(e.L===1&&e.f&&e.s)e.L=2;
+  if(!e.k&&solid(e))e.k=t;                            /* first time the word became solid (for 悟性, how fast you learn) */
   mem[id]=e;
   const st=stats[id]||[0,0,0];if(o.ok)st[0]++;else st[1]++;st[2]=levelOf(e);stats[id]=st;
   logPush([t,id,o.q,g,ms,o.x||0,flags]);
@@ -129,8 +146,11 @@ function undo(){if(!last)return false;const L=last;last=null;
   if(L.mem)mem[L.id]=L.mem;else delete mem[L.id];
   if(L.st)stats[L.id]=L.st;else delete stats[L.id];
   if(logR.length>L.n){logR.length=L.n;ls.set('xc_log',logR);logCache=null}
-  charS=null;saveMem();saveStats();return true}
+  charS=null;confMap=null;saveMem();saveStats();return true}
 
+/* sentence-gap pairs the learner reported as both fitting: never offered together again */
+let amb=new Set(ls.get('xc_amb',[]));
+function markAmbiguous(a,b){amb.add(pairKey(a,b));ls.set('xc_amb',[...amb].slice(-500))}
 /* ---- confusions: which words get mixed up (from wrong picks) ---- */
 const pairKey=(a,b)=>a<b?a+'|'+b:b+'|'+a;
 function confs(){if(!confMap){confMap=new Map();for(const e of allLog())if(e[5]&&IDX.has(e[5])){const k=pairKey(e[1],e[5]);confMap.set(k,(confMap.get(k)||0)+1)}}return confMap}
@@ -172,7 +192,8 @@ function wordOpts(d,type,hard){
   const take=x=>{picks.push(x);used.add(type==='m'?M1(x).toLowerCase():x.h)};
   const h=type==='c'?0:hard!=null?hard:hardness(d),sim=type==='c'?[]:similar(d),n=[...d.h].length;
   const near=BY[d.l].filter(x=>Math.abs(x.u-d.u)<=3);
-  const rnd=shuf(near.length>=12?near:BY[d.l]).map(x=>[(type==='m'?0:Math.abs([...x.h].length-n))+Math.random()*1.5,x]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]);
+  const sameClass=x=>type==='c'&&d.g&&x.g&&x.g[0]===d.g[0]?0:type==='c'?1.2:0;   /* sentence gaps: options of the same word class */
+  const rnd=shuf(near.length>=12?near:BY[d.l]).filter(x=>!amb.has(pairKey(d.id,x.id))).map(x=>[(type==='m'?0:Math.abs([...x.h].length-n))+sameClass(x)+Math.random()*1.5,x]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]);
   let si=0,ri=0;
   while(picks.length<3&&(si<sim.length||ri<rnd.length)){
     let x=null;
@@ -224,7 +245,7 @@ const rNow=(e,t)=>e&&e.w?Rt((t-e.w[2])/1440,e.w[1]):0;
 /* words in curriculum order that haven't been seen yet; ones whose characters you already know come a little earlier,
    and two look-alikes (shared character or same syllables) are never introduced together */
 function pickNew(n,src){if(n<=0)return [];const cand=[];for(const d of src){if(!mem[d.id])cand.push(d);if(cand.length>=60)break}
-  const sc=cand.map((d,i)=>[i-14*knownShare(d),d]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]),out=[],chars=new Set(),pks=new Set();
+  const sc=cand.map((d,i)=>[i-14*knownShare(d)+12*wdiff(d),d]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]),out=[],chars=new Set(),pks=new Set();   /* common, familiar-looking words a little earlier */
   for(const d of sc){if(out.length>=n)break;if([...d.h].some(c=>chars.has(c))||pks.has(d.pk))continue;out.push(d);[...d.h].forEach(c=>chars.add(c));pks.add(d.pk)}
   for(const d of sc){if(out.length>=n)break;if(!out.includes(d))out.push(d)}
   return out}
@@ -236,7 +257,13 @@ function cardDeck(pool,n){const t=now(),r=dr(),due=[],rest=[];
   const out=due.slice(0,n).map(p=>p[1]);
   if(out.length<n)out.push(...pickNew(Math.min(n-out.length,Math.max(4,Math.round(n/2))),tsort(pool)));
   for(const p of rest){if(out.length>=n)break;out.push(p[1])}
-  return out.slice(0,n)}
+  return spread(out.slice(0,n))}
+/* which words go in a round is the model's choice; the order is random (interleaving), and two look-alikes
+   (a shared character, the same syllables, or a known mix-up) are never shown one after the other */
+const alike=(a,b)=>!!a&&!!b&&([...a.h].some(c=>b.h.includes(c))||a.pk===b.pk||confs().has(pairKey(a.id,b.id)));
+function spread(words){const a=shuf(words);
+  for(let i=1;i<a.length;i++)if(alike(a[i],a[i-1])){const j=a.findIndex((x,k)=>k>i&&!alike(x,a[i-1])&&!alike(x,a[i+1]));if(j>0)[a[i],a[j]]=[a[j],a[i]]}
+  return a}
 /* Quiz round inside the chosen level/unit; type null = the app chooses per word */
 function quizRound(pool,n,type){const t=now(),r=dr(),sc=[];
   const src=type==='c'?pool.filter(clozeOK):pool;
@@ -265,10 +292,17 @@ function exam(lv,n){const src=DATA.filter(d=>d.l<=lv),out=[];const seen=new Set(
    least that level with 80 % certainty (90 % for HSK 5 and 6, which also need at least 5 questions of that level,
    70 % right), and every level below it is mastered too. Strong learners get HSK 5 and 6 questions in turn. */
 let lvInfo=ls.get('xc_lvl',null);if(!lvInfo||!LEVELS.includes(lvInfo.lv))lvInfo=null;
-const baseLevel=()=>lvInfo?lvInfo.lv:1;
+/* realm (cultivation level): 0 凡人 not tested yet, 1–6 = studying HSK 1–6, 7 飞升 = HSK 6 mastered.
+   It changes only through a test: the placement test or a breakthrough (突破). */
+/* a level picked by hand in v1.9 is no test: the realm stays 凡人 until a test, but the plan keeps starting at that level */
+const realm=()=>!lvInfo?0:Number.isInteger(lvInfo.r)?lvInfo.r:lvInfo.src==='manual'?0:lvInfo.m===6?7:lvInfo.lv;
+const baseLevel=()=>{const r=realm();return r<1?(lvInfo&&lvInfo.src==='manual'?lvInfo.lv:1):Math.min(6,r)};
 function curLevel(){for(let l=baseLevel();l<=6;l++)if(BY[l].some(d=>!mem[d.id]))return l;return 6}
 function setLevel(lv,src,extra){lvInfo=Object.assign({lv,src,at:now()},extra||{});ls.set('xc_lvl',lvInfo)}
-function restoreLevel(o){if(o&&LEVELS.includes(o.lv)&&['test','manual'].includes(o.src)){lvInfo={lv:o.lv,src:o.src,at:Number.isFinite(o.at)?o.at:now(),
+function setRealm(r,src,extra){const hist=(lvInfo&&lvInfo.hist||[]).concat([[r,now()]]).slice(-20);
+  lvInfo=Object.assign({},lvInfo||{},extra||{},{r,lv:Math.max(1,Math.min(6,r)),src,at:now(),hist});ls.set('xc_lvl',lvInfo)}
+function restoreLevel(o){if(o&&LEVELS.includes(o.lv)&&['test','manual','bt'].includes(o.src)){lvInfo={lv:o.lv,src:o.src,at:Number.isFinite(o.at)?o.at:now(),
+  r:Number.isInteger(o.r)&&o.r>=0&&o.r<=7?o.r:undefined,hist:Array.isArray(o.hist)?o.hist.filter(h=>Array.isArray(h)&&h.length===2&&h.every(Number.isFinite)).slice(-20):undefined,
   m:Number.isInteger(o.m)&&o.m>=0&&o.m<=6?o.m:undefined,per:Array.isArray(o.per)&&o.per.length===6&&o.per.every(Number.isFinite)?o.per:undefined};ls.set('xc_lvl',lvInfo)}}
 const PT={N:50,K:2.4,G:.25,SLIP:.04,IDK:.6,DQ:{m:-.3,f:0,s:.1,c:.2},TYPES:{1:'mfs',2:'mfs',3:'mfsc',4:'mfsc',5:'fsc',6:'fsc'}};
 const GRID=Array.from({length:71},(_,i)=>i/10);
@@ -278,13 +312,13 @@ function placementBank(){if(PB)return PB;PB={};const seen=new Set();
     BY[l].forEach(d=>{for(const c of d.h)seen.add(c)})}
   return PB}
 const pKnow=(th,b)=>1/(1+Math.exp(-PT.K*(th-b)));
-const itemB=(l,q)=>l-.5+PT.DQ[q]+(l>=5?.15:0);
+const itemB=(l,q,d)=>l-.5+PT.DQ[q]+(l>=5?.15:0)+(d?wdiff(d)*.8:0);
 /* idk = how often this learner presses "Don't know" instead of guessing, estimated from their own answers, so a
    learner who guesses everything doesn't get credit for lucky guesses */
 function likelihood(r,pk,idk){const nk=1-pk;return r==='ok'?pk*(1-PT.SLIP)+nk*(1-idk)*PT.G:r==='idk'?pk*.01+nk*idk:pk*(PT.SLIP-.01)+nk*(1-idk)*(1-PT.G)}
 function posterior(st){const n=r=>st.items.filter(x=>x.r===r).length,a=n('idk')*(1-PT.G),idk=cl((a+PT.IDK*2)/(a+n('ng')+2),.03,.95);
   let post=GRID.map(t=>-t/3.5);
-  for(const it of st.items){const b=itemB(it.l,it.q);post=post.map((p,i)=>p+Math.log(likelihood(it.r,pKnow(GRID[i],b),idk)))}
+  for(const it of st.items){const b=itemB(it.l,it.q,it.d);post=post.map((p,i)=>p+Math.log(likelihood(it.r,pKnow(GRID[i],b),idk)))}
   const mx=Math.max(...post);post=post.map(p=>Math.exp(p-mx));const s=post.reduce((x,y)=>x+y,0);return post.map(p=>p/s)}
 function ptStats(st){const post=st.post=posterior(st);let m=0,v=0;GRID.forEach((t,i)=>m+=t*post[i]);GRID.forEach((t,i)=>v+=(t-m)*(t-m)*post[i]);return {mean:m,sd:Math.sqrt(v)}}
 function ptStart(){placementBank();return {post:null,items:[],used:new Set(),chars:new Set()}}
@@ -307,6 +341,82 @@ function ptResult(st){const {mean,sd}=ptStats(st),ge=l=>GRID.reduce((a,t,i)=>a+(
   const per=LEVELS.map(l=>Math.round(GRID.reduce((a,t,i)=>a+st.post[i]*pKnow(t,l-.5),0)*100));
   const right=st.items.filter(x=>x.r==='ok').length,idk=st.items.filter(x=>x.r==='idk').length;
   return {m,lv:Math.min(6,m+1),mean,sd,per,right,idk,n:st.items.length}}
+
+/* ---- realms, stages, breakthrough, weekly test ----
+   Stage inside the realm = share of that HSK level's words that are solid: 初期 <25 %, 中期 25–50 %, 后期 50–80 %,
+   圆满 ≥80 %. At 圆满 the breakthrough opens: 20 questions on words of the level (hard types from HSK 4), passed with
+   75 % right (80 % for HSK 5 and 6). One test a week — placement or breakthrough — counted from the last one. */
+const WEEK=7*1440;
+let tests=ls.get('xc_tests',[]);if(!Array.isArray(tests))tests=[];
+if(!tests.length&&lvInfo&&lvInfo.src==='test'&&Number.isFinite(lvInfo.at))tests=[lvInfo.at];   /* a placement test taken in v1.9 counts */
+function restoreExtra(o){if(!o)return;if(Array.isArray(o.tests)){tests=o.tests.filter(Number.isFinite).map(Math.round).slice(-30);ls.set('xc_tests',tests)}
+  if(Array.isArray(o.rest))setRest(o.rest)}
+const nextTestAt=()=>tests.length?Math.max(...tests)+WEEK:0;
+const canTest=()=>now()>=nextTestAt();
+function noteTest(){tests=tests.concat(now()).slice(-30);ls.set('xc_tests',tests)}
+function stage(r=realm()){if(r<1)return null;const L=Math.min(6,r),W=BY[L];let n=0;for(const d of W)if(solid(mem[d.id]))n++;
+  const share=r===7?1:n/W.length,need=Math.max(0,Math.ceil(W.length*.8)-n);
+  return {i:share>=.8?3:share>=.5?2:share>=.25?1:0,share,solid:n,total:W.length,need:r===7?0:need}}
+const btOpen=()=>{const r=realm();return r>=1&&r<=6&&stage(r).i===3};
+function btStart(){placementBank();const r=realm(),L=Math.min(6,Math.max(1,r)),pool=shuf(PB[L].length>=20?PB[L]:BY[L]).slice(0,20);
+  return {r,L,items:pool.map((d,i)=>{const types=PT.TYPES[L],q=types[i%types.length];const it={d,l:L,q:q==='c'&&!clozeOK(d)?'f':q};Object.assign(it,question(d,it.q,L>=4?.85:.6));return it}),i:0,right:0}}
+function btFinish(st){const need=st.L>=5?.8:.75,pass=st.right/st.items.length>=need;noteTest();
+  if(pass)setRealm(st.r+1,'bt');return {pass,need,right:st.right,n:st.items.length,r:realm(),weak:st.items.filter(x=>x.r!=='ok').map(x=>x.d)}}
+function placementDone(res){noteTest();setRealm(res.m===6?7:res.m+1,'test',{m:res.m,per:res.per})}
+
+/* ---- cultivation days (streak), meditation days, daily challenge ---- */
+let rest=ls.get('xc_rest',[]);if(!Array.isArray(rest))rest=[];rest=rest.filter(x=>Number.isInteger(x)&&x>=0&&x<=6).slice(0,2);
+const weekday=day=>new Date((day*1440+TZ)*6e4+EPOCH).getDay();
+const isRest=day=>rest.includes(weekday(day));
+function setRest(a){rest=a.filter(x=>Number.isInteger(x)&&x>=0&&x<=6).slice(0,2);ls.set('xc_rest',rest)}
+function studyDays(){const s=new Set();for(const e of allLog())if(!(e[6]&16))s.add(dayOf(e[0]));return s}
+/* consecutive days of cultivation: a day with practice counts; a chosen meditation day (闭关) and one free day off
+   a week keep the run going, so one missed day never wipes it out */
+function streak(){const S=studyDays();if(!S.size)return {days:0,today:false};const today=dayOf(now());let d=S.has(today)?today:today-1,n=0,grace=-99;
+  for(let k=0;k<3650;k++,d--){if(S.has(d)){n++;continue}if(isRest(d)){n++;continue}if(grace-d>=7||grace===-99){grace=d;n++;continue}break}
+  /* free days at the very start of the run don't count */
+  while(n>0&&!S.has(d+1)&&d+1<today){d++;n--}
+  return {days:n,today:S.has(today)}}
+let game=ls.get('xc_game',{});if(!game||typeof game!=='object')game={};
+/* today's challenge: the learner's weakest skill, with a target a bit above their own last-7-days level
+   (number of answers ×1.15, accuracy +10 points) — hard enough to stretch, close enough to reach */
+const SKQ={m:['m','cm'],f:['f','c'],s:['s','l','cs']};
+function challenge(){const today=dayOf(now());
+  if(!game.chal||game.chal.day!==today){const L=allLog(),cnt={m:0,f:0,s:0},ok={m:0,f:0,s:0},days=new Set();
+    for(let i=L.length-1;i>=0;i--){const e=L[i],d=dayOf(e[0]);if(d>=today)continue;if(today-d>7)break;if(e[6]&24)continue;
+      for(const k in SKQ)if(SKQ[k].includes(e[2])){cnt[k]++;if(e[3]>1)ok[k]++;days.add(d)}}
+    const acc=k=>cnt[k]>=8?ok[k]/cnt[k]:null;let k='m';
+    const cand=['s','f','m'].filter(x=>acc(x)!==null).sort((a,b)=>acc(a)-acc(b));if(cand.length)k=cand[0];else if(cnt.m>=8)k='f';
+    const perDay=days.size?cnt[k]/days.size:0;
+    game.chal={day:today,k,n:cl(Math.round(perDay*1.15/5)*5||10,10,30),a:acc(k)===null?75:cl(Math.round((acc(k)*100+10)/5)*5,70,95),done:false};ls.set('xc_game',game)}
+  const c=game.chal,L=allLog();let n=0,o=0;
+  for(let i=L.length-1;i>=0;i--){const e=L[i];if(dayOf(e[0])!==today)break;if(e[6]&24)continue;if(SKQ[c.k].includes(e[2])){n++;if(e[3]>1)o++}}
+  const acc=n?Math.round(o/n*100):0,done=n>=c.n&&acc>=c.a;
+  if(done&&!c.done){c.done=true;game.chalN=(game.chalN||0)+1;ls.set('xc_game',game)}
+  return Object.assign({},c,{cnt:n,acc,done:c.done||done,total:game.chalN||0})}
+
+/* ---- rest: the memory model's own numbers ---- */
+/* what one more right answer adds to a word's memory now vs after a night's sleep vs after 2 days (in days) */
+function restGain(){const e=Object.values(mem).filter(x=>x.w[1]>=1);if(!e.length)return null;
+  const med=a=>{a=a.slice().sort((x,y)=>x-y);return a[a.length>>1]},D=med(e.map(x=>x.w[0])),S=med(e.map(x=>x.w[1])),t0=1e6;
+  const g=dt=>step(W,[D,S,t0],3,t0+dt)[1]-S;return {now:g(10),day:g(1440),two:g(2880),S}}
+function gainList(words){let a=0,b=0,n=0;const t=now();for(const d of words){const e=mem[d.id];if(!e||dayOf(e.w[2])!==dayOf(t))continue;
+  n++;a+=step(W,e.w,3,t)[1]-e.w[1];b+=step(W,e.w,3,e.w[2]+1440*1.5)[1]-e.w[1]}return {n,now:a,later:b}}
+/* days since the last practice and how much is still remembered (shown after a break) */
+function sinceLast(){const L=allLog();for(let i=L.length-1;i>=0;i--)if(!(L[i][6]&16)){const gap=dayOf(now())-dayOf(L[i][0]);
+  let rs=0,rn=0;const t=now();for(const id in mem){rs+=rNow(mem[id],t);rn++}return {gap,recall:rn?Math.round(rs/rn*100):null}}return null}
+
+/* ---- the five elements of the soul (五行), each 0–100 for the wheel ----
+   土 根基 foundation = solid share of the realm's level · 木 修为 cultivation = memory days stored (log scale) ·
+   水 神识 spiritual sense = recall right now · 金 道心 dao heart = how often "I know it" was right ·
+   火 悟性 comprehension = how fast new words become solid (median days; 4 days = 100, 30 = 0) */
+function soul(){const t=now(),st=stage(Math.max(1,realm())),es=Object.values(mem);
+  let X=0,rs=0;for(const e of es){X+=Math.min(e.w[1],365);rs+=rNow(e,t)}
+  const ks=es.filter(e=>e.k&&e.i).map(e=>(e.k-e.i)/1440).filter(x=>x>=0).sort((a,b)=>a-b),cal=calib();
+  const v=(x)=>x===null?null:Math.round(cl(x,0,100));
+  return {root:v(st?st.share*100:es.length?0:null),cult:v(100*Math.log(1+X/100)/Math.log(1+5334*120/100)),cultDays:Math.round(X),
+    sense:v(es.length?rs/es.length*100:null),dao:v(cal.n>=5?cal.acc*100:null),
+    insight:v(ks.length>=5?100*(30-ks[ks.length>>1])/26:null),insightDays:ks.length>=5?Math.round(ks[ks.length>>1]):null,words:es.length}}
 
 /* ---- goals and the daily plan ---- */
 function validGoal(g){return !!g&&typeof g==='object'&&['level','exam','none'].includes(g.t)&&
@@ -332,7 +442,8 @@ function minutesFor(remaining,load,sp,limit){const fd=m=>finishDays({pace:'min',
 function plan(g=goal){
   const t=now(),today=dayOf(t),r=dr(g),sp=pace();
   let due=0,load=0,introT=0;
-  for(const id in mem){const e=mem[id];if(rNow(e,t)<r)due++;load+=1/Math.max(1,ivl(e.w[1],r));if(e.i&&!e.p&&dayOf(e.i)===today)introT++}
+  const pre=isRest(today+1)?1440:0;   /* before a meditation day, tomorrow's reviews are pulled into today */
+  for(const id in mem){const e=mem[id];if(rNow(e,t+pre)<r)due++;load+=1/Math.max(1,ivl(e.w[1],r));if(e.i&&!e.p&&dayOf(e.i)===today)introT++}
   let ansT=0,secT=0;const L=allLog();for(let i=L.length-1;i>=0;i--){const e=L[i];if(dayOf(e[0])!==today)break;ansT++;secT+=e[4]/10+4}
   const P={t:g?g.t:'none',due,introT,ansT,minT:Math.round(secT/60),sp};
   let remaining=null,need=0,days=null,buffer=0;
@@ -365,6 +476,7 @@ function plan(g=goal){
     P.status=fd!==null&&fd<=days-buffer?'ok':'behind';
     /* a later date that works: at this pace, or (if the reviews would fill the time first) at 20 new words a day */
     if(P.status==='behind'){const fdays=fd===null?Math.ceil(remaining/20)+buffer:fd+buffer;P.fixDate=fdays>days?dayAfter(fdays):null}}
+  if(isRest(today)){P.rest=true;P.newToday=0;P.revToday=0}   /* 闭关: a meditation day has no plan */
   P.todayLeft=P.newToday*2+P.revToday;return P}
 /* today's session: due reviews (most at risk first), up to three old green words to confirm, new words as cards
    (in curriculum order from the current level up to the goal's level) */
@@ -374,8 +486,8 @@ function session(extra){
   let rev=[],conf=[];
   const all=[];for(const id in mem){const e=mem[id];all.push([rNow(e,t),IDX.get(id),e])}
   all.sort((a,b)=>a[0]-b[0]);
-  if(extra)rev=all.slice(0,12).map(p=>p[1]);
-  else{rev=all.filter(p=>p[0]<r).slice(0,P.revToday).map(p=>p[1]);
+  if(extra){const td=dayOf(t);rev=all.filter(p=>dayOf(p[2].w[2])!==td).slice(0,12).map(p=>p[1])}   /* reviewing the same word again today adds little */
+  else{const pre=isRest(dayOf(t)+1)?1440:0;rev=all.filter(p=>rNow(p[2],t+pre)<r).slice(0,P.revToday).map(p=>p[1]);
     conf=all.filter(p=>p[2].L===1&&levelOf(p[2])>13&&!rev.includes(p[1])).sort((a,b)=>levelOf(b[2])-levelOf(a[2])).slice(0,3).map(p=>p[1])}
   const fresh=pickNew(extra?5:P.newToday,src);
   const q=rev.map(d=>({k:'q',d,q:pickType(d)}));
@@ -439,7 +551,9 @@ function clearLog(){logR=[];logA=[];logCache=null;confMap=null;last=null;ls.set(
 
 sync();updWeak();
 return {now,dayOf,Rt,step,W0,get W(){return W},levelOf,skLevel,okS,answer,undo,checkP,checkType,question,pickType,cardDeck,quizRound,exam,session,
-  plan,dr,isoDay,dayAfter,daysTo,validGoal,curLevel,baseLevel,get level(){return lvInfo},setLevel,restoreLevel,ptStart,ptNext,ptAnswer,ptResult,PT,placementBank,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
+  plan,dr,isoDay,dayAfter,daysTo,validGoal,curLevel,baseLevel,realm,stage,btOpen,btStart,btFinish,placementDone,canTest,nextTestAt,
+  streak,studyDays,noteTest,challenge,setRest,get rest(){return rest},isRest,restGain,gainList,sinceLast,soul,solid,wdiff,markAmbiguous,
+  testsReset(){tests=[];ls.set('xc_tests',tests)},get tests(){return tests},restoreExtra,get level(){return lvInfo},setLevel,restoreLevel,ptStart,ptNext,ptAnswer,ptResult,PT,placementBank,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
   mem:id=>mem[id],has:id=>!!mem[id],rNow:id=>rNow(mem[id],now()),nextDue(id){const e=mem[id];if(!e)return null;return (e.w[2]+ivl(e.w[1],dr())*1440-now())/1440},
   insights,updWeak,optimize,maybeOptimize,lossOf,seqs,exportMem,importMem,replace,forget,clearLog,sync,flush,allLog,partners,
   setTts(f){ttsReady=f},clozeOK,markTone,bareSyl,get params(){return wMeta?W:null}}})();

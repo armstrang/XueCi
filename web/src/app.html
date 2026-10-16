@@ -7,7 +7,7 @@
       <div class="seal" id="seal" aria-hidden="true">一</div>
       <h1 class="wm"><span class="wm1">Xue<i>Ci</i></span> <span class="wm2">Mandarin</span></h1>
     </div>
-    <button class="curlv" id="curLvBtn" aria-haspopup="dialog"><i aria-hidden="true"></i><b id="curLvName">HSK 1</b></button>
+    <button class="curlv" id="curLvBtn" aria-haspopup="dialog"><i aria-hidden="true"></i><b id="curLvName" lang="zh-CN">凡人</b><small id="curLvSub">HSK 1</small></button>
     <div class="langwrap" id="langwrap">
       <button class="langbtn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="langMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3C9.5 5.6 8.2 8.6 8.2 12s1.3 6.4 3.8 9"/></svg><b id="langCode">ID</b></button>
       <div class="menu langmenu" id="langMenu" hidden>
@@ -97,13 +97,27 @@
   </div>
 </section>
 
+<!-- ===== Soul Sea (识海): realm and stage, the soul orb, the five elements, today's trial, cultivation days, rest ===== -->
+<section class="screen soul" id="scr-soul" hidden>
+  <div class="fbar">
+    <div class="frow">
+      <button class="backbtn" id="soulBack" data-i18n-aria="back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <h2 id="soulTitle" tabindex="-1"></h2>
+      <button class="pchip helpchip" id="soulHelp" aria-haspopup="dialog" data-i18n-aria="helpT">?</button>
+    </div>
+  </div>
+  <div class="soulbody" id="soulBody"></div>
+</section>
+
 </div>
 <div class="sheetwrap" id="infoSheet" hidden>
   <div class="scrim2" data-close></div>
   <div class="isheet" role="dialog" aria-modal="true" aria-labelledby="infoTitle">
     <div class="ihead"><span class="excl" aria-hidden="true">!</span><h2 id="infoTitle" data-i18n="infoTitle"></h2><button class="xbtn" data-close data-i18n-aria="close">×</button></div>
+    <h3 class="toneh" data-i18n="toneT"></h3>
     <p class="ilead" data-i18n="infoLead"></p>
     <div class="tones" id="infoTones"></div>
+    <div class="isec"><h3 data-i18n="helpT"></h3><div class="help" id="helpList"></div></div>
     <div class="isec">
       <h3 data-i18n="aboutT"></h3>
       <p data-i18n="about"></p>
@@ -252,6 +266,13 @@ function exH(d){const z=esc(d.z),w=esc(d.h);return z.includes(w)?z.replace(w,`<m
 function mH(m){const p=m.split(';').map(x=>x.trim()).filter(Boolean);return `<b>${esc(p[0])}</b>`+p.slice(1).map(x=>`<span> · ${esc(x)}</span>`).join('')}
 const chip=l=>`<span class="lvchip" style="background:var(--l${l})">HSK ${l}</span>`;
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+/* realms (境界): 0 凡人 not tested yet · 1–6 studying HSK 1–6 · 7 飞升 HSK 6 mastered; four stages inside a realm */
+const RN=['凡人','炼气','筑基','金丹','元婴','化神','渡劫','飞升'],RPY=['fánrén','liànqì','zhùjī','jīndān','yuányīng','huàshén','dùjié','fēishēng'];
+const SN=['初期','中期','后期','圆满'];
+const realmLv=r=>Math.max(1,Math.min(6,r)),rc=r=>r<1?'var(--mute)':r>6?'var(--gold)':`var(--l${r})`;
+const tDate=t=>new Date(Date.UTC(2026,0,1)+t*6e4);
+const LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+const WK=[1,2,3,4,5,6,0],wkName=(w,st)=>new Date(2026,0,4+w).toLocaleDateString(L10.loc,{weekday:st});   /* 4 Jan 2026 was a Sunday */
 
 /* Mastery: every word has a level 0–20, worked out by the learning engine (learn.js) from how long the word is
    expected to stay remembered. Levels 0–6 are red, 7–13 yellow, 14–20 green; inside each colour a light shade
@@ -282,6 +303,7 @@ function stH(d){return `<span class="st"><i class="sd ${mcls(d)}"></i>${stTxt(d)
 const masteredAll=()=>DATA.filter(isKnown).length;
 
 __LEARN__
+__SOUL__
 
 const ui=ls.get('hsk16_ui',{});
 let state={level:LEVELS.includes(ui.level)?ui.level:1,unitBy:Object.assign({1:1,2:1,3:1,4:1,5:1,6:1},ui.unitBy||{}),q:'',shown:60,hide:false,weak:false,screen:'home'};
@@ -289,7 +311,8 @@ let qType=['auto','m','f','s','l','c','exam'].includes(ui.qt)?ui.qt:'auto';
 const saveUI=()=>ls.set('hsk16_ui',{level:state.level,unitBy:state.unitBy,qt:qType});
 const unit=()=>state.unitBy[state.level];
 const pad=n=>String(n).padStart(2,'0');
-const FOCUS=['list','card','quiz','session','placement'];
+const FOCUS=['list','card','quiz','session','placement','bt'];
+const fTitleOf=s=>L10[s==='placement'?'ptT':s==='bt'?'btT':s];
 
 /* theme: one button cycles auto → light → dark */
 const TH_ICON={
@@ -313,13 +336,14 @@ function applyTheme(t,persist){
   if(t!=='auto')r.setAttribute('data-theme',t);else if(persist)r.removeAttribute('data-theme');
   themeBtn.innerHTML=TH_ICON[t];themeLabels();notifyNative();
   if(persist){ls.set('hsk16_theme',t);toast(L10.theme+': '+L10.th[t])}
+  if(state.screen==='soul')requestAnimationFrame(()=>renderSoul());
 }
 themeBtn.onclick=()=>{const L=themeList();applyTheme(L[(L.indexOf(theme)+1)%L.length],true)};
 try{darkMQ&&darkMQ.addEventListener('change',notifyNative)}catch(e){}
 {const t=ls.get('hsk16_theme',null);if(t)applyTheme(t,false);else{const cur=document.documentElement.getAttribute('data-theme');applyTheme(cur==='light'||cur==='dark'?cur:'auto',false)}}
 
 /* ---------- screens ---------- */
-const scrHome=$('scr-home'),scrFocus=$('scr-focus'),scrStats=$('scr-stats');
+const scrHome=$('scr-home'),scrFocus=$('scr-focus'),scrStats=$('scr-stats'),scrSoul=$('scr-soul');
 let prevScreen='home';
 /* design hooks defined by the Liquid Glass layer (glass.js): mmTransition, mmHomeRendered, mmStatsRendered, mmFeedback */
 function go(s){
@@ -329,14 +353,14 @@ function go(s){
 function show(s){
   closeMenu(false);closeUMenu(false);closeLang(false);
   if(s==='stats'){if(state.screen!=='stats')prevScreen=state.screen;stLevel=state.level;stSel=null;stConfirm=false}
-  resetRun();if(s==='placement'||state.screen==='placement')pt=null;
+  leaveTest();resetRun();if(s==='placement'||state.screen==='placement')pt=null;if(s==='bt'||state.screen==='bt')bt=null;
   if(s==='stats')stHist=false;
   state.screen=s;document.body.dataset.screen=s;
-  scrHome.hidden=s!=='home';scrFocus.hidden=!FOCUS.includes(s);scrStats.hidden=s!=='stats';
-  if(FOCUS.includes(s)){scrFocus.dataset.mode=s;$('fTitle').textContent=L10[s==='placement'?'ptT':s];$('listTools').hidden=s!=='list';$('footNote').hidden=s!=='list'}
+  scrHome.hidden=s!=='home';scrFocus.hidden=!FOCUS.includes(s);scrStats.hidden=s!=='stats';scrSoul.hidden=s!=='soul';
+  if(FOCUS.includes(s)){scrFocus.dataset.mode=s;$('fTitle').textContent=fTitleOf(s);$('listTools').hidden=s!=='list';$('footNote').hidden=s!=='list'}
   window.scrollTo(0,0);
   refresh();
-  const h=s==='stats'?$('stTitle'):FOCUS.includes(s)?$('fTitle'):null;
+  const h=s==='stats'?$('stTitle'):s==='soul'?$('soulTitle'):FOCUS.includes(s)?$('fTitle'):null;
   try{h&&h.focus({preventScroll:true})}catch(e){}
 }
 function back(){go(state.screen==='stats'?prevScreen:'home')}
@@ -351,6 +375,8 @@ function refresh(){
   else if(state.screen==='list')renderList();
   else if(state.screen==='card'||state.screen==='quiz'||state.screen==='session')renderRun();
   else if(state.screen==='placement')renderPlacement();
+  else if(state.screen==='bt')renderBt();
+  else if(state.screen==='soul')renderSoul();
   else renderStats();
 }
 function afterChange(){
@@ -462,7 +488,7 @@ function applyStatic(){
   langBtn.title=L10.langHead+': '+L10.name;langBtn.setAttribute('aria-label',L10.langHead+': '+L10.name);
   $('legend').innerHTML=[['妈','mā',1],['麻','má',2],['马','mǎ',3],['骂','mà',4],['吗','ma',5]].map(([h,p,n])=>`<span><b class="t${n}">${h}</b> ${p} ${n<5?L10.tone(n):L10.neutral}</span>`).join('');
   $('footP').innerHTML=esc(L10.foot).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
-  if(FOCUS.includes(state.screen))$('fTitle').textContent=L10[state.screen==='placement'?'ptT':state.screen];
+  if(FOCUS.includes(state.screen))$('fTitle').textContent=fTitleOf(state.screen);
   themeLabels();
 }
 function setLang(pref,silent){
@@ -504,16 +530,17 @@ weakBtn.onclick=()=>{state.weak=!state.weak;weakBtn.setAttribute('aria-pressed',
 /* ---------- practice: Cards, Quiz and today's session share one runner ----------
    A run is a list of items: cards ({k:'card'}) and questions ({k:'q', q: m|f|s|l|c}). Answers go to LM.answer,
    which updates the memory model, the 0–20 level and the answer log. Wrong answers come back a few items later. */
-let run=null,sessionExtra=false;
+let run=null,sessionExtra=false,pendingRun=null;   /* pendingRun {mode, items}: a ready-made round (today's trial, words to strengthen) */
 const EXAM_N=20,EXAM_SEC=300,ROUND_Q=12,ROUND_C=20;
-function resetRun(){if(run&&run.timer)clearInterval(run.timer);run=null}
+function resetRun(){if(run&&run.timer)clearInterval(run.timer);if(run&&run.brT)clearInterval(run.brT);run=null}
 const startCards=resetRun,startQuiz=resetRun;      /* level/unit change, restore and reset start a fresh run */
 function ttsOK(){try{if(window.MMAndroid&&typeof MMAndroid.ttsStatus==='function')return MMAndroid.ttsStatus()==='ready';
   return 'speechSynthesis' in window&&speechSynthesis.getVoices().some(v=>/^zh[-_]?(CN|Hans)?/i.test(v.lang)&&!/TW|HK/i.test(v.lang))}catch(e){return false}}
 LM.setTts(ttsOK);
 function makeRun(mode){
   resetRun();let items,exam=false,lv=state.level;
-  if(mode==='card')items=LM.cardDeck(pool(),ROUND_C).map(d=>({k:'card',d}));
+  if(pendingRun&&pendingRun.mode===mode){items=pendingRun.items;pendingRun=null}
+  else if(mode==='card')items=LM.cardDeck(pool(),ROUND_C).map(d=>({k:'card',d}));
   else if(mode==='session')items=LM.session(sessionExtra);
   else if(qType==='exam'){exam=true;items=LM.exam(lv,EXAM_N)}
   else items=LM.quizRound(pool(),ROUND_Q,qType==='auto'?null:qType);
@@ -521,11 +548,41 @@ function makeRun(mode){
   if(exam){run.end=Date.now()+EXAM_SEC*1000;run.timer=setInterval(tick,1000)}}
 function renderRun(){
   if(!run)makeRun(state.screen);
+  if(run.brk){renderBreak();return}
   const it=run.items[run.i];
   if(!it){renderSummary();return}
+  if(!run.exam&&!it.st&&!it.opts){const f=fatigue();if(f){sit.shown=true;run.brk={f};renderBreak();return}}
   if(!run.before.has(it.d.id))run.before.set(it.d.id,lvl(it.d));
   if(it.k==='card')renderCardItem(it);else renderQItem(it)}
 function nextItem(){run.i++;renderRun();window.scrollTo(0,0)}
+
+/* ---- rest (调息): a "sitting" is a run of answers with no gap over 10 minutes. Tiredness shows as falling accuracy
+   (last 10 answers 15+ points below the first 10), slower answers (median time ×1.4) or a long sitting (25 min);
+   then, once per sitting, a short break is offered — never forced. */
+let sit={t0:0,last:0,ans:[],shown:false,brk:null};
+const accOf=a=>a.length?Math.round(a.reduce((x,y)=>x+y[0],0)/a.length*100):0;
+function noteAns(ok,ms){const t=Date.now();if(!sit.last||t-sit.last>6e5)sit={t0:t,last:t,ans:[],shown:false,brk:null};sit.last=t;sit.ans.push([ok?1:0,Math.min(6e4,ms||0)])}
+function fatigue(){const a=sit.ans;if(sit.shown||a.length<20||Date.now()-sit.last>6e5)return null;
+  const f=a.slice(0,10),l=a.slice(-10),med=x=>{const m=x.map(y=>y[1]).sort((p,q)=>p-q);return (m[4]+m[5])/2},A=accOf(f),B=accOf(l);
+  if(A-B>=15)return {k:'acc',a:A,b:B};
+  if(med(l)>=1.4*Math.max(1500,med(f)))return {k:'slow'};
+  const m=Math.round((Date.now()-sit.t0)/6e4);return m>=25?{k:'time',m}:null}
+const mmss=x=>`${x/60|0}:${String(x%60).padStart(2,'0')}`;
+function renderBreak(){const b=run.brk,f=b.f,left=b.end?Math.max(0,Math.ceil((b.end-Date.now())/1000)):300,done=!!b.end&&left<=0;
+  const why=f.k==='acc'?L10.brAcc(f.a,f.b):f.k==='slow'?L10.brSlow:L10.brTime(f.m);
+  view.innerHTML=`<div class="qcard sum restcard"><div class="big t4" lang="zh-CN">调息</div><h3>${b.end?(done?L10.brDone:L10.brT2):L10.brT}</h3>
+    ${b.end?`<div class="breath">${done?'':'<div class="bcirc" aria-hidden="true"></div>'}<div class="btime" id="brTime" role="timer">${mmss(left)}</div><div class="bcue" id="brCue" aria-live="polite">${done?'':L10.brIn}</div></div>${done?'':`<p class="sumnote">${L10.brHow}</p>`}`
+      :`<p class="sumnote">${why}</p><p class="sumnote">${L10.brWhy}</p>`}
+    <div class="sumbtns${b.end?'':' three'}"><button class="ghost" id="brStop">${L10.brStop}</button>${b.end?'':`<button class="ghost" id="brGo">${L10.brGo}</button>`}<button class="next" id="brSkip">${b.end?L10.brCont:L10.brSkip}</button></div></div>`;
+  $('brSkip')?.focus({preventScroll:true})}
+function breakStart(){const b=run.brk;b.end=Date.now()+300000;b.t0=Date.now();renderBreak();
+  run.brT=setInterval(()=>{if(!run||run.brk!==b)return;const left=Math.max(0,Math.ceil((b.end-Date.now())/1000));
+    if(left<=0){clearInterval(run.brT);run.brT=0;renderBreak();window.mmFeedback&&mmFeedback(true);return}
+    const el=$('brTime'),cue=$('brCue');if(el)el.textContent=mmss(left);if(cue)cue.textContent=Math.floor((Date.now()-b.t0)/4000)%2?L10.brOut:L10.brIn},1000)}
+function breakEnd(stop){if(run.brT){clearInterval(run.brT);run.brT=0}const b=run.brk;run.brk=null;
+  if(b&&b.end)sit.brk={at:sit.ans.length,acc:accOf(sit.ans.slice(-10))};
+  if(stop)run.i=run.items.length;
+  renderRun();window.scrollTo(0,0)}
 /* bring a word back a few items later (at most twice per word in a run) */
 function again(item,copy){const n=run.again.get(item.d.id)||0;if(n>=2||run.exam)return;run.again.set(item.d.id,n+1);
   run.items.splice(Math.min(run.items.length,run.i+4),0,copy)}
@@ -566,7 +623,7 @@ function cardAct(it){
 /* keep the buttons under the card in view (small screens, large text) */
 function inView(el){if(!el)return;const r=el.getBoundingClientRect();if(r.bottom>innerHeight-8)el.scrollIntoView({block:'end',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
 function cardShow(it,ok){
-  it.st='back';run.tot++;if(ok)run.ok++;else run.wrong.set(it.d.id,it.d);
+  it.st='back';run.tot++;if(ok)run.ok++;else run.wrong.set(it.d.id,it.d);noteAns(ok,performance.now()-it.t0);
   window.mmFeedback&&mmFeedback(ok);afterChange();studied();$('flip')?.classList.remove('checking');$('flip')?.classList.add('on');$('fcAct').innerHTML=cardAct(it);$('fcNext')?.focus({preventScroll:true});inView($('fcAct'))}
 /* in today's session a new word that was proven also gets a tone question a few items later */
 function cardFollow(it,ok){
@@ -584,23 +641,25 @@ function cardCheck(it,i){
   if(!ok){run.over++;if(x)run.conf.push([it.d.id,x])}
   it.res=ok?'ok':'over';cardShow(it,ok);cardFollow(it,ok)}
 /* "I was wrong" after an unchecked claim: the claim is taken back and counted as not known (no extra penalty) */
-function cardOops(it){LM.undo();LM.answer(it.d,{q:'cn',ok:false,ms:it.claimMs});run.ok--;run.wrong.set(it.d.id,it.d);it.res='no';
+function cardOops(it){LM.undo();LM.answer(it.d,{q:'cn',ok:false,ms:it.claimMs});run.ok--;run.wrong.set(it.d.id,it.d);it.res='no';if(sit.ans.length)sit.ans[sit.ans.length-1][0]=0;
   $('fcAct').innerHTML=cardAct(it);$('fcNext')?.focus({preventScroll:true});cardFollow(it,false)}
 
 /* ---- questions ---- */
-function qPrompt(d,T){return T==='m'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
+/* o: {tr: show the translation, hint: offer "Show translation"} — sentence gaps hide the translation until answered */
+function qPrompt(d,T,o){return T==='m'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
     :T==='f'?`<div class="q">${L10.qHz}</div><div style="font-size:22px;font-weight:800">${esc(M1(d))}</div><div class="id">${esc(M(d).split(';').slice(1).join(';'))}</div>`
     :T==='s'?`<div class="q">${L10.qTone}</div><div class="big">${esc(d.h)}</div><div class="id">${esc(M1(d))}</div>`
     :T==='l'?`<div class="q">${L10.qListen}</div><button class="spk xl" id="qSay" data-say="${esc(d.h)}" aria-label="${esc(L10.replay)}" title="${esc(L10.replay)}">${SPK}</button>`
-    :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div><div class="id">${esc(TR(d))}</div>`}
+    :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div>${d.l<=3&&d.zp?`<div class="zp">${esc(d.zp).replace(/\{[^}]*\}/,'＿＿')}</div>`:''}${o&&o.tr?`<div class="id">${esc(TR(d))}</div>`:o&&o.hint?`<button class="linkbtn trbtn" id="qTr">${L10.showTr}</button>`:''}`}
 const qLab=(o,T)=>T==='m'?esc(M1(o)):T==='s'?`<span class="pyo">${pyOpt(o)}</span>`:`<span class="hzo">${esc(o.h)}</span>`;
 function renderQItem(it){
   const d=it.d,T=it.q;if(!it.opts){Object.assign(it,LM.question(d,T));it.t0=performance.now()}
-  const ans=it.done&&!run.exam,ok=it.ok,prompt=qPrompt(d,T),lab=o=>qLab(o,T);
+  const ans=it.done&&!run.exam,ok=it.ok,prompt=qPrompt(d,T,{tr:it.hint&&!ans,hint:!run.exam&&!it.done}),lab=o=>qLab(o,T);
   const cls=i=>!ans?'':i===it.ans?' class="ok"':i===it.pick?' class="ng"':'';
   const picked=ans&&!ok&&T!=='s'?it.opts[it.pick]:null;
-  const fb=!ans?'':`<div class="fbv ${ok?'good':'bad'}">${ok?L10.ok:L10.ng}</div>
-    ${picked?`<div class="picked">${L10.picked} <b class="hzs">${esc(picked.h)}</b> ${esc(picked.p)} · ${esc(M1(picked))}</div>`:''}
+  const amb=T==='c'&&ans&&!ok&&picked&&!it.amb&&ambLeft()>0;
+  const fb=!ans?'':`${it.amb?`<div class="fbv amb">${L10.ambDone}</div>`:`<div class="fbv ${ok?'good':'bad'}">${ok?L10.ok:L10.ng}</div>`}
+    ${picked?`<div class="picked">${L10.picked} <b class="hzs">${esc(picked.h)}</b> ${esc(picked.p)} · ${esc(M1(picked))}</div>`:''}${amb?`<button class="linkbtn ambbtn" id="qAmb">${L10.ambBtn}</button>`:''}
     <div class="head"><span class="hz" style="font-size:26px">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div><div class="mean">${mH(M(d))}</div>
     <div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.next}</button>`;
   view.innerHTML=runHead()+`<div class="qcard qt-${T}">${prompt}<div class="opts">${it.opts.map((o,i)=>`<button data-i="${i}"${cls(i)} ${ans?'disabled':''}>${i+1}. ${lab(o)}</button>`).join('')}</div><div class="feedback" id="fb">${fb}</div></div>`;
@@ -608,16 +667,35 @@ function renderQItem(it){
 function qAnswer(it,i){
   if(it.done)return;it.done=true;it.pick=i;const ok=i===it.ans;it.ok=ok;
   const x=!ok&&it.q!=='s'?it.opts[i].id:0;
-  LM.answer(it.d,{q:it.q,ok,ms:performance.now()-it.t0,x,exam:run.exam});run.tot++;
+  LM.answer(it.d,{q:it.q,ok,ms:performance.now()-it.t0,x,exam:run.exam,hint:!!it.hint});run.tot++;if(!run.exam)noteAns(ok,performance.now()-it.t0);
   if(ok)run.ok++;else{run.wrong.set(it.d.id,it.d);if(x)run.conf.push([it.d.id,x]);again(it,{k:'q',d:it.d,q:it.q})}
   window.mmFeedback&&mmFeedback(ok);afterChange();studied();
   if(run.exam){run.i++;renderRun();return}
   renderQItem(it)}
 
+/* the learner says their wrong pick also fits the sentence: the answer is taken back, and the two words are never
+   offered together again (at most 3 times a day, so it can't be used to skip questions) */
+const ambLeft=()=>{const d=new Date().toDateString();return note.amb&&note.amb.d===d?3-note.amb.n:3};
+function qAmbig(it){const d=it.d,p=it.opts[it.pick];if(!p||it.amb||it.ok)return;
+  LM.undo();LM.markAmbiguous(d.id,p.id);it.amb=true;run.tot--;run.wrong.delete(d.id);
+  const k=run.conf.findIndex(c=>c[0]===d.id&&c[1]===p.id);if(k>=0)run.conf.splice(k,1);
+  const j=run.items.findIndex((x,i)=>i>run.i&&x.d===d&&x.q===it.q&&!x.opts);if(j>0){run.items.splice(j,1);run.again.set(d.id,Math.max(0,(run.again.get(d.id)||1)-1))}
+  if(sit.ans.length)sit.ans.pop();
+  const day=new Date().toDateString();note.amb={d:day,n:(note.amb&&note.amb.d===day?note.amb.n:0)+1};saveNote();
+  afterChange();renderQItem(it)}
+
 /* ---- end of a run ---- */
+/* notes under the summary: how the answers went after a break, the gain of repeating now vs tomorrow, and a late-night note */
+function sumNotes(){const out=[];if(run.exam||!run.tot)return out;
+  if(sit.brk&&!sit.brk.told&&sit.ans.length-sit.brk.at>=5){const a=sit.ans.slice(sit.brk.at);sit.brk.told=true;out.push(L10.brAfter(a.reduce((x,y)=>x+y[0],0),a.length,sit.brk.acc))}
+  const P=LM.plan();
+  if((run.mode==='session'&&sessionExtra)||(run.mode!=='session'&&P.todayLeft===0)){const g=LM.gainList([...run.before.keys()].map(id=>IDX.get(id)));
+    if(g.n>=5&&g.later>g.now*1.5){const f=x=>(x/g.n).toLocaleString(L10.loc,{maximumFractionDigits:1});out.push(L10.capNote(g.n,f(g.now),f(g.later)))}}
+  if(lateNow()&&note.night!==nightKey()){note.night=nightKey();saveNote();out.push(L10.nightNote)}
+  return out}
 function renderSummary(){
   if(run.timer){clearInterval(run.timer);run.timer=0}
-  if(!run.closed){run.closed=true;LM.updWeak()}
+  if(!run.closed){run.closed=true;LM.updWeak();run.notes=sumNotes()}
   const n=run.tot,ok=run.ok,pct=n?Math.round(ok/n*100):0;
   const up=[...run.before].filter(([id,b])=>lvl(IDX.get(id))>Math.max(b,0)).length,wrong=[...run.wrong.values()];
   const seen=new Set(),pairs=run.conf.filter(([a,b])=>{const k=a<b?a+b:b+a;if(seen.has(k))return false;seen.add(k);return true}).slice(0,3);
@@ -629,6 +707,7 @@ function renderSummary(){
     ${n?`<div class="sumgrid"><div><b>${ok}/${n}</b><small>${L10.sumRight}</small></div><div><b>${up}</b><small>${L10.sumUp}</small></div><div><b>${wrong.length}</b><small>${L10.sumAgain}</small></div></div>`:`<p class="sumnote">${L10.sumEmpty}</p>`}
     ${note}
     ${run.over?`<p class="sumnote">${L10.sumOver(run.over)}</p>`:''}
+    ${(run.notes||[]).map(x=>`<p class="sumnote rnote">${x}</p>`).join('')}
     ${pairs.length?`<div class="sumrow"><span>${L10.sumConf}</span>${pairs.map(([a,b])=>`<span class="pair"><b>${esc(IDX.get(a).h)}</b>↔<b>${esc(IDX.get(b).h)}</b></span>`).join('')}</div>`:''}
     ${wrong.length?`<div class="sumwords"><div class="lbl">${L10.sumWrong}</div>${wrong.slice(0,12).map(d=>`<span class="wchip"><b>${hzH(d)}</b>${esc(M1(d))}</span>`).join('')}</div>`:''}
     <div class="sumbtns"><button class="ghost" id="sumHome">${L10.sumHome}</button><button class="next" id="sumMore">${run.mode==='session'?L10.sumSessionMore:L10.sumMore}</button></div></div>`}
@@ -640,6 +719,7 @@ view.addEventListener('click',e=>{
   const id=e.target.closest('[id]')?.id;
   if(id==='sumHome'){go('home');return}
   if(id==='sumMore'){if(run.mode==='session')sessionExtra=true;resetRun();renderRun();window.scrollTo(0,0);return}
+  if(run.brk){if(id==='brGo')breakStart();else if(id==='brSkip')breakEnd(false);else if(id==='brStop')breakEnd(true);return}
   const it=run.items[run.i];if(!it)return;
   if(it.k==='card'){
     if(id==='fcNo'&&it.st==='front')cardDont(it);
@@ -649,6 +729,8 @@ view.addEventListener('click',e=>{
     else{const c=e.target.closest('[data-c]');if(c&&it.st==='check')cardCheck(it,+c.dataset.c)}
     return}
   if(id==='qNext'){nextItem();return}
+  if(id==='qTr'&&!it.done){it.hint=true;renderQItem(it);return}
+  if(id==='qAmb'){qAmbig(it);return}
   const b=e.target.closest('.opts button');if(b&&!it.done)qAnswer(it,+b.dataset.i);
 });
 const qMenuOpen=()=>{const m=$('qTypeMenu');return !!m&&!m.hidden};
@@ -719,11 +801,15 @@ function renderInfo(){
   $('infoTones').innerHTML=L10.tones.map(([n,dsc,ex],i)=>{const t=i+1,[h,p]=[['妈','mā'],['麻','má'],['马','mǎ'],['骂','mà'],['吗','ma']][i];
     return `<div class="tone"><span class="tz t${t}">${h}</span><span class="tp t${t}">${p}</span><svg class="tc t${t}" viewBox="0 0 40 24" aria-hidden="true">${TONE_PATH[i]?`<path d="${TONE_PATH[i]}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`:'<circle cx="20" cy="14" r="3.2" fill="currentColor"/>'}</svg><span class="tn"><b>${n}</b><small>${dsc}</small></span><span class="tm">${esc(ex)}</span></div>`}).join('');
   $('infoCred').innerHTML=esc(L10.credit).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
+  /* help guide: one <details> per topic (keyboard and TalkBack open them like any button) */
+  $('helpList').innerHTML=L10.help.map(([k,t,ps])=>`<details class="hlp" data-k="${k}"><summary>${t}</summary>${ps.map(x=>`<p>${x}</p>`).join('')}</details>`).join('');
 }
 let infoOpener=null;
-function openInfo(){renderInfo();infoOpener=document.activeElement;infoSheet.hidden=false;document.body.style.overflow='hidden';infoSheet.querySelector('.xbtn').focus()}
+function openInfo(topic){renderInfo();infoOpener=document.activeElement;infoSheet.hidden=false;document.body.style.overflow='hidden';
+  const d=topic&&infoSheet.querySelector(`details[data-k="${topic}"]`);
+  if(d){d.open=true;d.querySelector('summary').focus({preventScroll:true});requestAnimationFrame(()=>d.scrollIntoView({block:'start'}))}else infoSheet.querySelector('.xbtn').focus()}
 function closeInfo(){infoSheet.hidden=true;document.body.style.overflow='';infoOpener?.focus?.()}
-$('toneInfo').onclick=openInfo;
+$('toneInfo').onclick=()=>openInfo();
 infoSheet.addEventListener('click',e=>{if(e.target.closest('[data-close]'))closeInfo()});
 infoSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeInfo()}});
 /* ---------- pronunciation: the phone's text-to-speech (MMAndroid.speak), or the browser's speechSynthesis ---------- */
@@ -761,7 +847,7 @@ const pipeBytes=async(u,stream)=>new Uint8Array(await new Response(new Blob([u])
 const practisedN=st=>Object.values(st).filter(e=>e[0]+e[1]>0).length;
 const bkDate=t=>new Date(t).toLocaleDateString(L10.loc,{day:'numeric',month:'long',year:'numeric'});
 async function makeCode(){
-  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:2,at:Date.now(),stats,mem:LM.exportMem(),goal:LM.goal,w:LM.params,lvl:LM.level,ui:{level:state.level,unitBy:state.unitBy,qt:qType},lang:langPref,theme}));
+  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:2,at:Date.now(),stats,mem:LM.exportMem(),goal:LM.goal,w:LM.params,lvl:LM.level,rest:LM.rest,tests:LM.tests,ui:{level:state.level,unitBy:state.unitBy,qt:qType},lang:langPref,theme}));
   if(canZip){try{return 'XUECI1:'+B64(await pipeBytes(raw,new CompressionStream('deflate-raw')))}catch(e){}}
   return 'XUECI0:'+B64(raw)}
 async function readCode(text){
@@ -772,7 +858,7 @@ async function readCode(text){
     for(const k in o.stats){const e=o.stats[k];
       if(!IDX.has(k)||!Array.isArray(e)||e.length<2||!e.every(x=>Number.isFinite(x)&&x>=0))continue;
       const r=Math.floor(e[0]),w=Math.floor(e[1]);st[k]=[r,w,Math.max(0,Math.min(MAXL,Math.floor(e.length>2?e[2]:r-w)))]}
-    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme,mem:o.mem?LM.importMem(o.mem):null,goal:'goal' in o?o.goal:undefined,w:o.w,lvl:o.lvl}}catch(e){return null}}
+    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme,mem:o.mem?LM.importMem(o.mem):null,goal:'goal' in o?o.goal:undefined,w:o.w,lvl:o.lvl,rest:o.rest,tests:o.tests}}catch(e){return null}}
 function bkRow(){
   const r=$('bkRow');
   if(bkMode==='make')r.innerHTML=`<button class="ghost" id="bkCopy">${L10.bkCopy}</button>${NATIVE('shareText')||navigator.share?`<button class="ghost pri" id="bkShare">${L10.bkShare}</button>`:''}`;
@@ -810,7 +896,7 @@ async function bkCheckCode(){
   bkPending=b;say(L10.bkConfirm(fmt(practisedN(b.stats)),bkDate(b.at),fmt(practisedN(stats))));bkRow();$('bkApply')?.focus()}
 function bkApply(){
   const b=bkPending;if(!b)return;
-  stats=b.stats;LM.replace(b.mem||{},b.goal,b.w);LM.restoreLevel(b.lvl);       /* older codes (v1) have no memory states: their levels are kept as "needs confirming" */
+  stats=b.stats;LM.replace(b.mem||{},b.goal,b.w);LM.restoreLevel(b.lvl);LM.restoreExtra({tests:b.tests,rest:b.rest});syncRest();       /* older codes (v1) have no memory states: their levels are kept as "needs confirming" */
   if(b.ui&&LEVELS.includes(b.ui.level)){
     const ub=b.ui.unitBy||{};LEVELS.forEach(l=>{const u=ub[l];state.unitBy[l]=Number.isInteger(u)&&u>=0&&u<=UNITS[l]?u:1});
     state.level=b.ui.level;if(['auto','m','f','s','l','c','exam'].includes(b.ui.qt))qType=b.ui.qt}
@@ -833,32 +919,37 @@ bkCode.addEventListener('input',()=>{if(bkMode==='restore'&&(bkPending||bkMsg.te
 const PLAY='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.6-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
 function dateS(x){const d=typeof x==='string'?(([y,m,dd])=>new Date(y,m-1,dd))(x.split('-').map(Number)):x;
   return d.toLocaleDateString(L10.loc,d.getFullYear()===new Date().getFullYear()?{day:'numeric',month:'short'}:{day:'numeric',month:'short',year:'numeric'})}
+const skName=k=>({m:L10.skM,f:L10.skF,s:L10.skS})[k];
 function renderPlan(){
-  const P=LM.plan(),g=LM.goal,el=$('plan');
+  const P=LM.plan(),g=LM.goal,el=$('plan'),c=LM.challenge();
   const chip=!g?L10.planSet:g.t==='none'?L10.gNone:g.t==='exam'?L10.gExamChip(g.lv,dateS(g.date)):L10.gLvChip(g.lv,dateS(g.date));
-  const todo=P.newToday+P.revToday>0,min=Math.max(1,Math.round((P.revToday*P.sp.rev+P.newToday*P.sp.neu)/60));
-  const line=todo?[P.revToday?L10.planRev(fmt(P.revToday)):'',P.newToday?L10.planNew(fmt(P.newToday)):'',`<span>${L10.planMin(min)}</span>`].filter(Boolean).join(' · ')
+  let todo=P.newToday+P.revToday>0;const min=Math.max(1,Math.round((P.revToday*P.sp.rev+P.newToday*P.sp.neu)/60));
+  let line=todo?[P.revToday?L10.planRev(fmt(P.revToday)):'',P.newToday?L10.planNew(fmt(P.newToday)):'',`<span>${L10.planMin(min)}</span>`].filter(Boolean).join(' · ')
     :`${L10.planDone} ✓`;
-  const st=P.status==='free'?['none',L10.stFree(P.newPerDay)]:P.status==='ok'?['green',L10.stOk(P.finish?dateS(P.finish):'–')]
+  let st=P.status==='free'?['none',L10.stFree(P.newPerDay)]:P.status==='ok'?['green',L10.stOk(P.finish?dateS(P.finish):'–')]
     :P.status==='behind'?['red',P.needMin?L10.stBehind(P.needMin):L10.stBehindDate(P.fixDate?dateS(P.fixDate):'–')]:P.status==='review'?['green',L10.stReview]:P.status==='examweek'?['yellow',L10.stExamWeek]:['red',L10.stPast];
-  el.innerHTML=`<div class="ptop"><h2 id="planT">${L10.planT}</h2><button class="gchip" id="goalBtn" aria-haspopup="dialog">${esc(chip)} ›</button></div>
+  if(P.rest){todo=false;line=`<b class="medz" lang="zh-CN">闭关</b> ${L10.planRestT}`;st=['none',L10.planRest]}   /* a meditation day: no plan */
+  const cc=Math.min(c.cnt,c.n),cl=L10.chalT+': '+(c.done?L10.chalDone:`${L10.chalTxt(skName(c.k),c.n,c.a)} · ${cc}/${c.n}`);
+  el.innerHTML=`<div class="ptop"><h2 id="planT">${L10.planT}</h2><button class="chalchip${c.done?' done':''}" id="chalBtn" aria-label="${esc(cl)}"><span lang="zh-CN" aria-hidden="true">试</span>${c.done?'✓':`${cc}/${c.n}`}</button><button class="gchip" id="goalBtn" aria-haspopup="dialog">${esc(chip)} ›</button></div>
     <div class="pmain"><div class="ptxt"><div class="pline">${line}</div><div class="pst"><i class="sd s-${st[0]}"></i><span>${st[1]}</span></div></div>
     <button class="planbtn" id="planGo" aria-label="${esc(todo?(P.ansT?L10.planCont:L10.planGo):L10.planExtra)}">${PLAY}<span>${todo?(P.ansT?L10.planContS:L10.planGoS):L10.planExtraS}</span></button></div>`;
   el.dataset.todo=todo?'1':'0'}
 $('plan').addEventListener('click',e=>{
   if(e.target.closest('#goalBtn')){openGoal(false);return}
+  if(e.target.closest('#chalBtn')){go('soul');setTimeout(()=>document.querySelector('#soulBody .chal')?.scrollIntoView({block:'center',behavior:'smooth'}),360);return}
   if(e.target.closest('#planGo')){sessionExtra=$('plan').dataset.todo!=='1';go('session')}});
 
 /* ---------- goal sheet: target (level + date, HSK exam, or none) and daily amount (minutes, new words, or automatic) ---------- */
-const goalSheet=$('goalSheet');let gDraft=null,gRem=null,gOpener=null,gFirst=false;
+const goalSheet=$('goalSheet');let gDraft=null,gRem=null,gRest=[],gOpener=null,gFirst=false;
 const MIN_CHIPS=[5,10,15,20,30,45,60],NEW_CHIPS=[3,5,10,15,20,30];
-function openGoal(first,minLv){
-  gOpener=document.activeElement;gFirst=!!first;const g=LM.goal;
+function openGoal(first,minLv,focus){
+  gOpener=document.activeElement;gFirst=!!first;const g=LM.goal;gRest=LM.rest.slice();
   gDraft=g?JSON.parse(JSON.stringify(g)):{t:'level',lv:LM.curLevel(),date:LM.isoDay(LM.dayAfter(90)),pace:'auto',n:15};
   if(!gDraft.lv)gDraft.lv=LM.curLevel();
   if(minLv&&gDraft.t!=='none'&&gDraft.lv<minLv)gDraft.lv=minLv;   /* after the placement test: a goal at least at the new level */
   gRem=Object.assign({},rem);if(first&&canRemind()&&!ls.get('xc_rem',null))gRem.on=true;   /* first start: daily reminder suggested */if(!gDraft.date)gDraft.date=LM.isoDay(LM.dayAfter(90));if(!gDraft.n)gDraft.n=gDraft.pace==='new'?10:15;
-  renderGoal();goalSheet.hidden=false;document.body.style.overflow='hidden';goalSheet.querySelector('.xbtn').focus()}
+  renderGoal();goalSheet.hidden=false;document.body.style.overflow='hidden';goalSheet.querySelector('.xbtn').focus();
+  if(focus==='rest')requestAnimationFrame(()=>$('gMed')?.scrollIntoView({block:'center'}))}
 function closeGoal(){goalSheet.hidden=true;document.body.style.overflow='';ls.set('xc_onb',1);gOpener?.focus?.()}
 function renderGoal(){
   const g=gDraft,P=LM.plan(g),tgt=g.t!=='none',bad=tgt&&LM.daysTo(g.date)<1;
@@ -879,7 +970,8 @@ function renderGoal(){
       <div class="remrow"><button class="gseg" data-rem="1" aria-pressed="${!!gRem.on}">${L10.remOn}</button><button class="gseg" data-rem="0" aria-pressed="${!gRem.on}">${L10.remOff}</button>
       <input type="time" class="gdate gtime" id="gTime" value="${hhmm(gRem)}" aria-label="${L10.remT}"${gRem.on?'':' disabled'}></div>
       <p class="gnote">${L10.remNote}${rem.on&&gRem.on&&!notifOK()?` <button class="linkbtn" id="gNotifSet">${L10.remOpen}</button>`:''}</p></div>`;
-  $('gBody').innerHTML=`${gFirst&&!LM.level?`<button class="ptsug" id="gPt">${L10.ptSuggest}</button>`:''}
+  const medH=`<div class="gsec" id="gMed"><div class="glbl">${L10.medT}</div><div class="gsegs wk">${WK.map(w=>`<button class="gseg" data-wk="${w}" aria-pressed="${gRest.includes(w)}" aria-label="${esc(wkName(w,'long'))}">${esc(wkName(w,'short'))}</button>`).join('')}</div><p class="gnote">${L10.medNote}</p></div>`;
+  $('gBody').innerHTML=`${gFirst&&!LM.level&&LM.canTest()?`<button class="ptsug" id="gPt">${L10.ptSuggest}</button>`:''}
     <div class="gsec"><div class="glbl">${L10.gWhat}</div><div class="gsegs">${seg('t','level',L10.gLevel)}${seg('t','exam',L10.gExam)}${seg('t','none',L10.gNone)}</div></div>
     ${tgt?`<div class="gsec"><div class="glbl">${L10.gLv}</div><div class="gsegs lv">${LEVELS.map(l=>seg('lv',l,'HSK '+l,` style="--lc:var(--l${l})"`)).join('')}</div></div>
     <div class="gsec"><label class="glbl" for="gDate">${g.t==='exam'?L10.gDateExam:L10.gDate}</label><input type="date" class="gdate" id="gDate" value="${g.date}" min="${LM.isoDay(LM.dayAfter(1))}"></div>`:''}
@@ -887,12 +979,14 @@ function renderGoal(){
       ${g.pace!=='auto'?`<div class="gchips">${list.map(n=>`<button class="gnum" data-n="${n}" aria-pressed="${g.n===n}">${g.pace==='min'?L10.gMinN(n):L10.gNewN(n)}</button>`).join('')}</div>`:''}</div>
     <div class="gfc ${cls}" role="status">${fc}${fix}</div>
     ${remH}
+    ${medH}
     <div class="bkrow"><button class="ghost" id="gCancel">${gFirst?L10.gSkip:L10.cancel}</button><button class="ghost pri" id="gSave"${bad?' disabled':''}>${L10.gSave}</button></div>`}
 goalSheet.addEventListener('click',e=>{
   if(e.target.closest('[data-close]')||e.target.id==='gCancel'){closeGoal();return}
   if(e.target.id==='gPt'){closeGoal();go('placement');return}
   if(e.target.id==='gNotifSet'){try{MMAndroid.openNotifSettings()}catch(_){}return}
   const rb=e.target.closest('[data-rem]');if(rb){gRem.on=rb.dataset.rem==='1';renderGoal();return}
+  const wk=e.target.closest('[data-wk]');if(wk){const w=+wk.dataset.wk,i=gRest.indexOf(w);if(i>=0)gRest.splice(i,1);else{gRest.push(w);if(gRest.length>2)gRest.shift()}renderGoal();return}
   const g=gDraft,s=e.target.closest('[data-g]');
   if(s){const k=s.dataset.g;g[k]=k==='lv'?+s.dataset.v:s.dataset.v;
     if(k==='t'&&g.t==='none'&&g.pace==='auto'){g.pace='new';g.n=10}
@@ -902,48 +996,66 @@ goalSheet.addEventListener('click',e=>{
   if(f){if(f.dataset.fix==='date')g.date=f.dataset.d;else{g.pace=f.dataset.fix;g.n=+f.dataset.n}renderGoal();return}
   const n=e.target.closest('.gnum');if(n){g.n=+n.dataset.n;renderGoal();return}
   if(e.target.id==='gSave'){
-    const r=gRem,done=()=>{rem=r;ls.set('xc_rem',rem);LM.setGoal(g);closeGoal();resetRun();if(state.screen==='home')renderHome();else syncReminder()};
+    const r=gRem,done=()=>{rem=r;ls.set('xc_rem',rem);LM.setGoal(g);LM.setRest(gRest);syncRest();closeGoal();resetRun();if(state.screen==='home')renderHome();else{syncReminder();if(state.screen==='soul')renderSoul()}};
     if(r.on&&canRemind()&&!notifOK())askNotif(ok=>{if(!ok){r.on=false;toast(L10.remDenied)}else toast(L10.gSaved);done()});
     else{done();toast(L10.gSaved)}}});
 goalSheet.addEventListener('change',e=>{if(e.target.id==='gDate'&&e.target.value){gDraft.date=e.target.value;renderGoal()}
   if(e.target.id==='gTime'&&/^\d\d:\d\d/.test(e.target.value)){const [h,m]=e.target.value.split(':').map(Number);gRem.h=h;gRem.m=m}});
 goalSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeGoal()}});
 
-/* ---------- current level (chip beside the language button) ----------
-   HSK 1 by default; the placement test or a manual pick sets it, and it moves up by itself once every word of the
-   level has been introduced. It only steers the daily plan — every level stays open in List, Cards and Quiz. */
+/* ---------- realm chip (beside the language button) and the realm sheet ----------
+   The realm changes only through a test: the placement test, or a breakthrough (突破) once the stage is 圆满. One test a
+   week. The realm only steers the daily plan — every level stays open in List, Cards and Quiz. */
 const lvlSheet=$('lvlSheet');let lvlOpener=null;
-function renderCurLv(){const l=LM.curLevel(),b=$('curLvBtn');$('curLvName').textContent='HSK '+l;b.style.setProperty('--lc',`var(--l${l})`);
-  b.setAttribute('aria-label',`${L10.lvT}: HSK ${l}`)}
+function renderCurLv(){const r=LM.realm(),b=$('curLvBtn'),st=LM.stage(),open=LM.btOpen()&&LM.canTest();
+  $('curLvName').textContent=RN[r];$('curLvSub').textContent=r?'HSK '+realmLv(r):L10.chipTest;
+  b.style.setProperty('--lc',rc(r));b.classList.toggle('mortal',!r);b.classList.toggle('btready',open);
+  b.setAttribute('aria-label',`${L10.realmL}: ${RN[r]}, ${L10.realmM[r]}${st?`, ${SN[st.i]} ${L10.stageM[st.i]}`:''}${r?`, HSK ${realmLv(r)}`:''}${open?'. '+L10.stOpen:''}`)}
 const perBars=per=>`<div class="lvper">${per.map((p,i)=>`<div class="skrow"><span>HSK ${i+1}</span><span class="mbar"><span class="stack"><i style="width:${p}%;background:var(--l${i+1})"></i></span></span><b>${p}%</b></div>`).join('')}</div>`;
+const realmHead=(r,big)=>`<div class="rhead${big?' lg':''}" style="--lc:${rc(r)}"><span class="rname" lang="zh-CN">${RN[r]}</span><span class="rpy">${RPY[r]}</span><span class="rmean">${esc(L10.realmM[r])}${r?` · HSK ${realmLv(r)}`:''}</span></div>`;
+/* the stage bar fills up to 圆满 (80 % of the level's words solid); marks at 初期→中期 (25 %) and 中期→后期 (50 %) */
+function stageH(r){const st=LM.stage(r);if(!st)return '';const T=[.25,.5,.8],i=st.i,next=i<3?Math.max(0,Math.ceil(st.total*T[i])-st.solid):0;
+  return `<div class="stage" style="--lc:${rc(r)}"><div class="stl"><b lang="zh-CN">${SN[i]}</b><span>${esc(L10.stageM[i])}</span><small>${L10.stShare(fmt(st.solid),fmt(st.total))}</small></div>
+    <span class="sgbar"><i style="width:${Math.min(100,st.share/.8*100)}%"></i><u style="left:31.25%"></u><u style="left:62.5%"></u></span>
+    <div class="stn">${r>6?L10.stAll:i===3?L10.stOpen:L10.stNext(fmt(next),SN[i+1])}</div></div>`}
+function testH(){const r=LM.realm(),can=LM.canTest();let h='';
+  if(LM.btOpen())h+=`<button class="planbtn wide btbtn" id="btGo"${can?'':' disabled'} style="--lc:${rc(r+1)}"><span lang="zh-CN">突破</span><span>${esc(L10.btGo(RN[r+1]))}</span></button>`;
+  h+=r?`<button class="ghost wide" id="ptGo"${can?'':' disabled'}>${L10.ptAgain}</button>`:`<button class="planbtn wide" id="ptGo"${can?'':' disabled'}>${PLAY}<span>${L10.ptStart}</span></button>`;
+  if(!can)h+=`<p class="gnote lockn">${LOCK}<span>${esc(L10.testNext(dateS(tDate(LM.nextTestAt()))))}</span></p>`;
+  return h}
 function renderLvl(){
-  const info=LM.level,cur=LM.curLevel(),base=LM.baseLevel();
-  const src=!info?L10.lvSrcDefault:info.src==='test'?L10.lvSrcTest(dateS(new Date(Date.UTC(2026,0,1)+info.at*6e4)),info.m):L10.lvSrcManual;
-  $('lvlBody').innerHTML=`<div class="lvnow" style="--lc:var(--l${cur})"><span class="lvbig">HSK ${cur}</span><span class="lvsrc">${esc(src)}${cur>base?' '+esc(L10.lvAuto(cur-1)):''}</span></div>
-    ${info&&info.per?`<div class="glbl">${L10.ptPer}</div>${perBars(info.per)}`:''}
-    <button class="planbtn wide" id="ptGo">${PLAY}<span>${L10.ptStart}</span></button>
-    <div class="gsec"><div class="glbl">${L10.lvManual}</div><div class="gsegs lv">${LEVELS.map(l=>`<button class="gseg" data-lvset="${l}" aria-pressed="${l===base&&!!info&&info.src==='manual'}" style="--lc:var(--l${l})">HSK ${l}</button>`).join('')}</div></div>
+  const info=LM.level,r=LM.realm(),cur=LM.curLevel();
+  const src=!info?L10.lvSrcDefault:!r&&info.src==='manual'?L10.lvSrcOld(info.lv):info.src==='bt'?L10.lvSrcBt(dateS(tDate(info.at))):L10.lvSrcTest(dateS(tDate(info.at)));
+  $('lvlBody').innerHTML=`${realmHead(r,true)}<p class="lvsrc">${esc(src)}${r&&cur>realmLv(r)?' '+esc(L10.lvAhead(cur)):''}</p>${stageH(r)}${testH()}
+    <button class="ghost wide soulbtn" id="soulGo"><span lang="zh-CN">识海</span> ${L10.soulMore} ›</button>
     <p class="gnote">${L10.lvNote}</p>`}
 function openLvl(){lvlOpener=document.activeElement;renderLvl();lvlSheet.hidden=false;document.body.style.overflow='hidden';lvlSheet.querySelector('.xbtn').focus()}
 function closeLvl(){lvlSheet.hidden=true;document.body.style.overflow='';lvlOpener?.focus?.()}
 $('curLvBtn').onclick=openLvl;
 lvlSheet.addEventListener('click',e=>{
   if(e.target.closest('[data-close]')){closeLvl();return}
-  if(e.target.closest('#ptGo')){closeLvl();go('placement');return}
-  const b=e.target.closest('[data-lvset]');
-  if(b){const l=+b.dataset.lvset;LM.setLevel(l,'manual');closeLvl();resetRun();if(l!==state.level)setLevel(l);else refresh();toast(L10.lvSet(l))}});
+  const id=e.target.closest('[id]')?.id;
+  if(id==='ptGo'){closeLvl();go('placement');return}
+  if(id==='btGo'){closeLvl();go('bt');return}
+  if(id==='soulGo'){closeLvl();go('soul')}});
 lvlSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeLvl()}});
+/* leaving a test after 10 answers still uses this week's test (so a test going badly can't simply be restarted) */
+function leaveTest(){if(state.screen==='placement'&&pt&&pt.st&&!pt.res&&pt.st.items.length>=10)LM.noteTest();
+  if(state.screen==='bt'&&bt&&bt.st&&!bt.res&&bt.st.i>=10)LM.noteTest()}
+const lockedH=()=>`<div class="qcard ptintro"><div class="big t5" lang="zh-CN">静</div><h3>${L10.testLocked}</h3><p class="sumnote">${esc(L10.testNext(dateS(tDate(LM.nextTestAt()))))}</p><p class="sumnote">${L10.testWhy}</p><button class="next" id="tHome">${L10.sumHome}</button></div>`;
 
 /* ---------- placement test: 50 quick questions that adapt to the answers (LM.ptStart/ptNext/ptAnswer/ptResult) ---------- */
 let pt=null;
 function renderPlacement(){
   if(!pt)pt={st:null,it:null,res:null};
-  if(pt.res){const r=pt.res;
-    view.innerHTML=`<div class="qcard sum ptres" style="--lc:var(--l${r.lv})"><div class="q">${L10.ptResT}</div><div class="lvbig">HSK ${r.lv}</div>
+  if(pt.res){const r=pt.res,R=LM.realm();
+    view.innerHTML=`<div class="qcard sum ptres"><div class="q">${L10.ptResT}</div>${realmHead(R,true)}
       <p class="sumnote">${r.m?L10.ptResM(r.m):L10.ptRes0}</p><div class="glbl">${L10.ptPer}</div>${perBars(r.per)}
       <p class="sumnote">${L10.ptResN(r.right,r.n,r.idk)}</p>
-      <div class="sumbtns"><button class="ghost" id="ptHome">${L10.sumHome}</button><button class="next" id="ptGoal">${L10.ptGoal}</button></div></div>`;return}
-  if(!pt.st){view.innerHTML=`<div class="qcard ptintro"><div class="big t3">测</div><h3>${L10.ptIntroT}</h3><p class="sumnote">${L10.ptIntro}</p><p class="sumnote">${L10.ptIntro2}</p>
+      <div class="sumbtns"><button class="ghost" id="ptHome">${L10.sumHome}</button><button class="next" id="ptGoal">${L10.ptGoal}</button></div>
+      <button class="ghost wide soulbtn" id="ptSoul"><span lang="zh-CN">识海</span> ${L10.soulGo} ›</button></div>`;return}
+  if(!pt.st){if(!LM.canTest()){view.innerHTML=lockedH();return}
+    view.innerHTML=`<div class="qcard ptintro"><div class="big t3">测</div><h3>${L10.ptIntroT}</h3><p class="sumnote">${L10.ptIntro}</p><p class="sumnote">${L10.ptIntro2}</p>
       <button class="next" id="ptBegin">${L10.ptBegin}</button></div>`;return}
   if(!pt.it){pt.it=LM.ptNext(pt.st);if(!pt.it){ptFinish();return}pt.it.t0=performance.now()}
   const it=pt.it,n=pt.st.items.length,N=LM.PT.N;
@@ -956,16 +1068,107 @@ function ptPick(i){
   LM.answer(it.d,{q:it.q,ok:r==='ok',ms,x,placement:true});LM.ptAnswer(pt.st,it,r);studied();
   if(i>=0)document.querySelector(`#ptOpts [data-p="${i}"]`)?.classList.add('pick');else $('ptIdk')?.classList.add('pick');
   setTimeout(()=>{if(!pt||pt.it!==it)return;pt.it=null;if(pt.st.items.length>=LM.PT.N)ptFinish();else renderPlacement()},160)}
-function ptFinish(){const r=pt.res=LM.ptResult(pt.st);LM.setLevel(r.lv,'test',{m:r.m,per:r.per});resetRun();renderCurLv();
-  if(r.lv!==state.level)setLevel(r.lv);else refresh();toast(L10.ptDone(r.lv))}
+function ptFinish(){const r=pt.res=LM.ptResult(pt.st);LM.placementDone(r);resetRun();renderCurLv();
+  const l=LM.baseLevel();if(l!==state.level)setLevel(l);else refresh();toast(L10.ptDone(RN[LM.realm()]))}
 view.addEventListener('click',e=>{
   if(state.screen!=='placement')return;
   const id=e.target.closest('[id]')?.id;
-  if(id==='ptBegin'){pt.st=LM.ptStart();renderPlacement();return}
-  if(id==='ptHome'){go('home');return}
-  if(id==='ptGoal'){const lv=pt.res.lv;go('home');setTimeout(()=>openGoal(false,lv),300);return}
+  if(id==='ptBegin'){if(LM.canTest())pt.st=LM.ptStart();renderPlacement();return}
+  if(id==='ptHome'||id==='tHome'){go('home');return}
+  if(id==='ptSoul'){go('soul');return}
+  if(id==='ptGoal'){const lv=LM.baseLevel();go('home');setTimeout(()=>openGoal(false,lv),300);return}
   if(id==='ptIdk'){ptPick(-1);return}
   const b=e.target.closest('[data-p]');if(b)ptPick(+b.dataset.p)});
+
+/* ---------- breakthrough (突破): 20 questions on the realm's words, no feedback until the end (LM.btStart/btFinish) ---------- */
+let bt=null;
+function renderBt(){
+  if(!bt)bt={st:null,res:null};
+  const r=LM.realm();
+  if(bt.res){const x=bt.res;
+    view.innerHTML=x.pass?`<div class="qcard sum btres pass"><div class="q">突破 · ${L10.btPassT}</div>${realmHead(x.r,true)}<p class="sumnote">${L10.btPass(RN[x.r],esc(L10.realmM[x.r]))}</p><p class="sumnote">${L10.btScore(x.right,x.n)}</p>
+        <div class="sumbtns"><button class="ghost" id="btHome">${L10.sumHome}</button><button class="next" id="btSoul">${L10.soulGo}</button></div></div>`
+      :`<div class="qcard sum btres"><div class="big t5" lang="zh-CN">未破</div><h3>${L10.btFailT}</h3><p class="sumnote">${L10.btFail(x.right,x.n,Math.round(x.need*100))}</p><p class="sumnote">${L10.btGrow}</p>
+        ${x.weak.length?`<div class="sumwords"><div class="lbl">${L10.btWeak}</div>${x.weak.slice(0,12).map(d=>`<span class="wchip"><b>${hzH(d)}</b>${esc(M1(d))}</span>`).join('')}</div>`:''}
+        <p class="gnote lockn">${LOCK}<span>${esc(L10.testNext(dateS(tDate(LM.nextTestAt()))))}</span></p>
+        <div class="sumbtns"><button class="ghost" id="btHome">${L10.sumHome}</button>${x.weak.length?`<button class="next" id="btPractice">${L10.btPractice}</button>`:`<button class="next" id="btSoul">${L10.soulGo}</button>`}</div></div>`;
+    return}
+  if(!bt.st){
+    if(!LM.btOpen()){view.innerHTML=`<div class="qcard ptintro">${realmHead(r)}${stageH(r)}<p class="sumnote">${L10.btNotOpen}</p><button class="next" id="btHome">${L10.sumHome}</button></div>`;return}
+    if(!LM.canTest()){view.innerHTML=lockedH();return}
+    view.innerHTML=`<div class="qcard ptintro btintro"><div class="btpath"><span lang="zh-CN" style="color:${rc(r)}">${RN[r]}</span><i aria-hidden="true">→</i><span lang="zh-CN" style="color:${rc(r+1)}">${RN[r+1]}</span></div>
+      <h3>${esc(L10.btIntroT(L10.realmM[r+1]))}</h3><p class="sumnote">${L10.btIntro(realmLv(r)>=5?80:75)}</p><p class="sumnote">${L10.btIntro2}</p>
+      <button class="next" id="btBegin">${L10.btBegin}</button></div>`;return}
+  const st=bt.st,it=st.items[st.i];if(!it){btDone();return}
+  if(!it.t0)it.t0=performance.now();
+  view.innerHTML=`<div class="fcmeta"><span>${L10.qN(st.i+1,st.items.length)}</span>${progH(st.i,st.items.length)}</div>
+    <div class="qcard qt-${it.q}">${qPrompt(it.d,it.q)}<div class="opts" id="btOpts">${it.opts.map((o,i)=>`<button data-b="${i}">${i+1}. ${qLab(o,it.q)}</button>`).join('')}</div>
+    <button class="idkbtn" id="btIdk">${L10.idk}</button></div>`}
+function btPick(i){const st=bt&&bt.st,it=st&&st.items[st.i];if(!it||it.busy)return;it.busy=true;
+  const r=i<0?'idk':i===it.ans?'ok':'ng',x=r==='ng'&&it.q!=='s'?it.opts[i].id:0;it.r=r;if(r==='ok')st.right++;
+  LM.answer(it.d,{q:it.q,ok:r==='ok',ms:performance.now()-it.t0,x,exam:true});studied();
+  (i>=0?document.querySelector(`#btOpts [data-b="${i}"]`):$('btIdk'))?.classList.add('pick');
+  setTimeout(()=>{if(!bt||bt.st!==st)return;st.i++;if(st.i>=st.items.length)btDone();else{renderBt();window.scrollTo(0,0)}},160)}
+function btDone(){bt.res=LM.btFinish(bt.st);renderCurLv();
+  if(bt.res.pass){window.mmFeedback&&mmFeedback(true);const l=LM.baseLevel();if(l!==state.level)setLevel(l);else refresh();toast(L10.btToast(RN[bt.res.r]))}
+  else refresh();window.scrollTo(0,0)}
+view.addEventListener('click',e=>{
+  if(state.screen!=='bt')return;
+  const id=e.target.closest('[id]')?.id;
+  if(id==='btBegin'){if(LM.btOpen()&&LM.canTest())bt.st=LM.btStart();renderBt();return}
+  if(id==='btHome'||id==='tHome'){go('home');return}
+  if(id==='btSoul'){go('soul');return}
+  if(id==='btPractice'){pendingRun={mode:'quiz',items:bt.res.weak.slice(0,12).map(d=>({k:'q',d,q:LM.pickType(d)}))};go('quiz');return}
+  if(id==='btIdk'){btPick(-1);return}
+  const b=e.target.closest('[data-b]');if(b)btPick(+b.dataset.b)});
+
+/* ---------- Soul Sea (识海): the realm, the soul orb, the five elements (五行), today's trial, cultivation days, rest ----------
+   Every number comes from the memory model and the answer log on this phone (LM.soul, LM.challenge, LM.streak, LM.restGain). */
+const EL5=[['earth','土','root'],['wood','木','cult'],['water','水','sense'],['metal','金','dao'],['fire','火','insight']];
+const ATZ={root:'根基',cult:'修为',sense:'神识',dao:'道心',insight:'悟性'};
+function soulRows(S){const known=EL5.filter(e=>S[e[2]]!==null),mn=known.length>1?known.reduce((a,b)=>S[b[2]]<S[a[2]]?b:a):null,
+    mx=known.length>1?known.reduce((a,b)=>S[b[2]]>S[a[2]]?b:a):null,flat=mn&&mx&&S[mn[2]]===S[mx[2]];
+  return EL5.map(e=>{const [k,g,a]=e,v=S[a],weak=!flat&&e===mn,strong=!flat&&e===mx&&v>=60;
+    const val=v===null?L10.unknownV:a==='cult'?L10.cultV(fmt(S.cultDays)):a==='insight'?L10.insightV(S.insightDays):v+'%';
+    return `<div class="elrow el-${k}${weak?' weak':''}"><span class="elg" lang="zh-CN" aria-hidden="true">${g}</span><div class="elt">
+      <div class="eln"><b lang="zh-CN">${ATZ[a]}</b><span>${esc(L10.attrN[a])}</span><em>${esc(val)}</em></div>
+      <span class="elbar"><i style="width:${v===null?0:Math.max(2,v)}%"></i></span><small>${esc(L10.attrD[a])}</small>
+      ${weak?`<p class="eltip">${esc(L10.attrTip[a])}</p>`:''}${strong?`<p class="eltitle">${esc(L10.titleL(L10.attrTitle[a]))}</p>`:''}</div></div>`}).join('')}
+function weekH(){const S=LM.studyDays(),today=LM.dayOf(LM.now());let h='';
+  for(let d=today-6;d<=today;d++){const w=new Date(Date.now()-(today-d)*864e5).getDay(),c=S.has(d)?'on':LM.isRest(d)?'rest':d===today?'today':'off';
+    h+=`<span class="wd ${c}"><i aria-hidden="true">${c==='rest'?'闭':''}</i><small>${esc(wkName(w,'short'))}</small></span>`}return h}
+function restH(g){if(!g)return `<p class="gnote">${L10.restEmpty}</p>`;
+  const mx=Math.max(g.now,g.day,g.two)||1,f=x=>x<10?x.toLocaleString(L10.loc,{maximumFractionDigits:1}):fmt(Math.round(x));
+  return `<p class="sumnote">${L10.restWhy(f(g.S))}</p><div class="rgain">${[[L10.restNow,g.now],[L10.restDay,g.day],[L10.restTwo,g.two]].map(([n,v])=>
+    `<div class="skrow"><span>${n}</span><span class="mbar"><span class="stack"><i style="width:${Math.max(2,v/mx*100)}%;background:var(--el-water)"></i></span></span><b>+${f(v)}</b></div>`).join('')}</div>
+    <p class="gnote">${L10.restNote}</p>`}
+function renderSoul(){
+  const r=LM.realm(),st=LM.stage(),S=LM.soul(),c=LM.challenge(),k=LM.streak(),info=LM.level,rest=LM.rest;
+  $('soulTitle').textContent=L10.soulT;
+  let hist=(info&&info.hist||[]).slice();if(!hist.length&&info&&info.src==='test')hist=[[r,info.at]];hist.reverse();
+  const cc=Math.min(c.cnt,c.n);
+  $('soulBody').innerHTML=`<div class="soulhero" style="--lc:${rc(r)}">
+      <div class="orbwrap">${SOUL.wheel(S,300)}<canvas class="orb" id="orb" role="img" aria-label="${esc(L10.orbL(fmt(S.words)))}"></canvas></div>
+      ${realmHead(r,true)}<p class="orbpick" id="orbPick" aria-live="polite">${S.words?L10.orbHint:L10.orbEmpty}</p></div>
+    <section class="scard">${st?stageH(r):`<p class="sumnote">${L10.lvSrcDefault}</p>`}${testH()}</section>
+    <section class="scard"><h3>${L10.elT}</h3>${soulRows(S)}</section>
+    <section class="scard chal${c.done?' done':''}"><h3>${L10.chalT}</h3><p class="chtxt">${L10.chalTxt(skName(c.k),c.n,c.a)}</p>
+      <div class="skrow"><span>${cc}/${c.n}</span><span class="mbar"><span class="stack"><i style="width:${Math.min(100,c.cnt/c.n*100)}%;background:var(--acc)"></i></span></span><b>${c.cnt?c.acc+'%':'–'}</b></div>
+      <p class="gnote">${c.done?L10.chalDone:L10.chalWhy}${c.total?' · '+L10.chalTot(c.total):''}</p>${c.done?'':`<button class="ghost wide" id="chalGo">${L10.chalGo}</button>`}</section>
+    <section class="scard"><h3>${L10.strT}</h3><div class="strk"><b>${L10.strDays(k.days)}</b><div class="week">${weekH()}</div></div>
+      <p class="gnote">${L10.strNote}</p><p class="gnote">${rest.length?esc(L10.medDays(WK.filter(w=>rest.includes(w)).map(w=>wkName(w,'long')).join(', '))):L10.medNone} <button class="linkbtn" id="medSet">${L10.medSet}</button></p></section>
+    <section class="scard"><h3>${L10.restT}</h3>${restH(LM.restGain())}</section>
+    <section class="scard"><h3>${L10.histT}</h3>${hist.length?`<div class="hist">${hist.map(([hr,t])=>`<div class="hrow" style="--lc:${rc(hr)}"><b lang="zh-CN">${RN[hr]}</b><span>${esc(L10.realmM[hr])}</span><small>${dateS(tDate(t))}</small></div>`).join('')}</div>`:`<p class="gnote">${L10.histEmpty}</p>`}
+      ${info&&info.per?`<div class="glbl">${L10.ptPer}</div>${perBars(info.per)}`:''}</section>`;
+  SOUL.mount($('orb'),{realm:r,stage:st?st.i:0,onPick:d=>{const el=$('orbPick');if(!el)return;
+    el.innerHTML=d?`<b class="hzs">${hzH(d)}</b> ${pyH(d)} · ${esc(M1(d))} · <span class="st">${stTxt(d)}</span>`:L10.orbHint}})}
+scrSoul.addEventListener('click',e=>{const id=e.target.closest('[id]')?.id;
+  if(id==='soulBack'){back();return}
+  if(id==='soulHelp'){openInfo('soul');return}
+  if(id==='btGo'){go('bt');return}
+  if(id==='ptGo'){go('placement');return}
+  if(id==='medSet'){openGoal(false,null,'rest');return}
+  if(id==='chalGo'){const c=LM.challenge();pendingRun={mode:'quiz',items:LM.quizRound(pool(),ROUND_Q,c.k)};go('quiz')}});
 
 /* ---------- daily study reminder (Android): one notification a day at the chosen time, skipped on days with practice ---------- */
 const canRemind=()=>NATIVE('setReminder');
@@ -974,13 +1177,19 @@ function remBody(){const P=LM.plan(),g=LM.goal,min=Math.max(5,P.minutes);
   return g&&g.t!=='none'?L10.remGoal(min,g.t==='exam'?L10.gExamChip(g.lv,dateS(g.date)):'HSK '+g.lv):L10.remFree(min)}
 function syncReminder(){if(!canRemind())return;const body=remBody(),k=JSON.stringify([rem,body,L10.remTitle,L10.remChannel]);if(k===remKey)return;remKey=k;
   try{MMAndroid.setReminder(!!rem.on,rem.h|0,rem.m|0,L10.remTitle,body,L10.remChannel)}catch(e){}}
+function syncRest(){if(NATIVE('setRestDays'))try{MMAndroid.setRestDays(LM.rest.join(','))}catch(e){}}
 function studied(){if(!NATIVE('markStudied'))return;const d=new Date().toDateString();if(d===studiedMark)return;studiedMark=d;try{MMAndroid.markStudied()}catch(e){}}
 const notifOK=()=>!NATIVE('notifStatus')||MMAndroid.notifStatus()==='granted';
 function askNotif(cb){if(notifOK()){cb(true);return}
   window.mmNotifResult=g=>{window.mmNotifResult=null;cb(!!g)};try{MMAndroid.requestNotifications()}catch(e){window.mmNotifResult=null;cb(false)}}
 const hhmm=r=>`${String(r.h).padStart(2,'0')}:${String(r.m).padStart(2,'0')}`;
 
-let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2000)}
+let toastT;function toast(msg,ms){const t=$('toast');t.textContent=msg;t.hidden=false;t.classList.toggle('long',!!ms);clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,ms||2000)}
+$('toast').onclick=()=>{$('toast').hidden=true};
+/* xc_note: which once-only notes were shown {night, back, amb:{d, n}} */
+const note=(()=>{const o=ls.get('xc_note',{});return o&&typeof o==='object'&&!Array.isArray(o)?o:{}})(),saveNote=()=>ls.set('xc_note',note);
+const lateNow=()=>{const h=new Date().getHours();return h>=23||h<4};
+const nightKey=()=>new Date(Date.now()-4*36e5).toDateString();   /* 23:00–04:00 is one night */
 
 /* ---------- keyboard + Android back ---------- */
 /* Back closes the topmost layer: a menu, then the focused screen (back to Home). false lets the app exit. */
@@ -1002,7 +1211,10 @@ document.addEventListener('keydown',e=>{
   if(/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName))return;
   if(state.screen==='placement'){if(/^[1-4]$/.test(e.key))document.querySelectorAll('#ptOpts button')[+e.key-1]?.click();
     else if(e.key==='0'||e.key==='5')$('ptIdk')?.click();else if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('ptBegin')?.click();return}
+  if(state.screen==='bt'){if(/^[1-4]$/.test(e.key))document.querySelectorAll('#btOpts button')[+e.key-1]?.click();
+    else if(e.key==='0'||e.key==='5')$('btIdk')?.click();else if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('btBegin')?.click();return}
   if(!run||!['card','quiz','session'].includes(state.screen))return;
+  if(run.brk){if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('brSkip')?.click();return}
   const it=run.items[run.i],pick=(sel,k)=>document.querySelectorAll(sel)[+k-1]?.click();
   if(!it){if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('sumMore')?.click();return}
   if(it.k==='card'){
@@ -1016,7 +1228,9 @@ document.addEventListener('keydown',e=>{
 
 /* ---------- start on Home ---------- */
 document.body.dataset.level=state.level;$('seal').textContent=NUM[state.level-1];
-applyStatic();saveStats();document.body.dataset.screen='home';go('home');
+applyStatic();saveStats();document.body.dataset.screen='home';go('home');syncRest();
+/* back after two or more days off: how much is still remembered (once a day) */
+{const s=LM.sinceLast(),day=new Date().toDateString();if(s&&s.gap>=2&&s.recall!==null&&note.back!==day){note.back=day;saveNote();setTimeout(()=>toast(L10.backMsg(s.gap,s.recall),6500),900)}}
 /* first start: ask for a goal once (can be skipped); later, fit the memory model to this learner when enough answers exist */
 if(!LM.goal&&!ls.get('xc_onb',0))setTimeout(()=>{if(state.screen==='home'&&goalSheet.hidden&&bkSheet.hidden&&infoSheet.hidden)openGoal(true)},500);
 setTimeout(()=>LM.maybeOptimize(),6000);

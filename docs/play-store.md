@@ -33,6 +33,7 @@ Centang item di bawah saat selesai.
 - [x] **Ukuran huruf mengikuti pengaturan HP** (v1.5), dari 85% sampai 160%. Hanzi besar dan bagian ringkas (header, pilihan HSK) membesar setengahnya supaya tata letak tetap rapi.
 - [x] **Belajar terarah** (v1.8): tujuan belajar, rencana harian, kartu dengan cek kilat, kuis terarah, simulasi ujian, wawasan belajar, model memori FSRS yang disesuaikan di HP. Semua data tetap di perangkat, jadi jawaban Data safety tidak berubah ("tidak mengumpulkan data"). Kebijakan privasi sudah diperbarui (riwayat jawaban, rekomendasi di perangkat, isi kode cadangan).
 - [x] **Tes penempatan, level saat ini, pengingat harian** (v1.9). Izin baru: `POST_NOTIFICATIONS` (diminta saat pengingat diaktifkan) dan `RECEIVE_BOOT_COMPLETED` (memasang ulang pengingat setelah restart). Data safety tetap "tidak mengumpulkan data"; kebijakan privasi sudah diperbarui.
+- [x] **Ranah kultivasi, terobosan, Lautan Jiwa, istirahat** (v1.10). Level hanya lewat tes (satu per minggu), hari meditasi dikirim ke pengingat Android. Tidak ada izin baru; semua data baru (tanggal tes, hari meditasi, ujian harian, pasangan kata yang dilaporkan) tetap di perangkat, jadi Data safety tetap "tidak mengumpulkan data". Kebijakan privasi sudah diperbarui.
   - [ ] Uji di HP: notifikasi muncul di jam yang dipilih, tidak muncul setelah latihan di hari itu, dan tetap ada setelah HP restart.
 - [ ] **Login Google opsional + sinkron ke Google Drive pengguna** (dibahas, belum dibuat). Butuh dari Josh: project Google Cloud, layar izin OAuth (nama, logo, beranda, kebijakan privasi), Google Drive API aktif, dan OAuth client Android dengan nama paket + SHA-1 (termasuk SHA-1 dari Play App Signing). Setelah itu: izin `INTERNET` dipakai sungguhan, kebijakan privasi dan Data safety diperbarui.
 - [ ] **Splash screen** dengan SplashScreen API (Android 12+), supaya tidak ada layar kosong saat aplikasi dibuka.
@@ -52,7 +53,7 @@ Semua teks dan gambar ada di `store/` (lihat `store/listing.md`).
 - [x] Deskripsi singkat dan lengkap, bahasa Indonesia + English (`store/listing.md`)
 - [x] Ikon 512×512: `art/play-icon-512.png`
 - [x] Feature graphic 1024×500: `store/feature-graphic-id.jpg`, `store/feature-graphic-en.jpg`
-- [x] Screenshot HP 1080×1920 (7 per bahasa): `store/screenshots/id/`, `store/screenshots/en/`
+- [x] Screenshot HP 1080×1920 (8 per bahasa, termasuk Lautan Jiwa): `store/screenshots/id/`, `store/screenshots/en/`
 - [ ] Email kontak di Play Console (wajib, tampil di halaman toko)
 - [ ] Kuesioner rating konten (IARC), target usia 13+, Data safety "tidak mengumpulkan data" — jawaban yang disarankan ada di `store/listing.md`
 

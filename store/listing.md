@@ -27,8 +27,15 @@ BELAJAR SESUAI TUJUANMU
 • Pilih tujuan: capai level tertentu sebelum tanggal tertentu, siapkan ujian HSK, atau belajar tanpa target.
 • Atur porsi harian dalam menit atau jumlah kata baru. Aplikasi menghitung apakah targetmu realistis dan memberi saran kalau belum.
 • Setiap hari ada sesi berisi ulangan kata yang paling berisiko terlupa, kata baru, dan latihan untuk kelemahanmu.
-• Tes penempatan 50 soal menentukan level awalmu. Tesnya adaptif dan ketat: untuk lulus HSK 5–6 kamu harus benar-benar menguasainya.
+• Tes penempatan 50 soal menentukan ranah awalmu. Tesnya adaptif dan ketat: untuk lulus HSK 5–6 kamu harus benar-benar menguasainya.
 • Pengingat harian di jam pilihanmu, dan tidak muncul kalau hari itu kamu sudah belajar.
+
+RANAH KULTIVASI
+Level kamu adalah ranah kultivasi: 凡人, 炼气 (HSK 1), 筑基, 金丹, 元婴, 化神, 渡劫 (HSK 6), sampai 飞升. Ranah hanya naik lewat tes: kuatkan kata di levelmu sampai tahap 圆满, lalu tempuh terobosan (突破). Satu tes per minggu.
+Di Lautan Jiwa (识海) ingatanmu tampil sebagai bola jaringan kata, dikelilingi lima elemen: fondasi, kultivasi, indra jiwa, hati dao, dan pencerahan. Ada juga ujian harian untuk keterampilan terlemahmu.
+
+ISTIRAHAT JUGA BELAJAR
+Saat kamu mulai lelah, aplikasi menawarkan jeda 5 menit. Pilih hari meditasi tanpa rencana dan tanpa pengingat; hari kultivasimu tidak putus. Angka dari model memori menunjukkan kenapa kembali besok lebih kuat daripada mengulang terus sekarang.
 
 KARTU YANG MENGUJI
 Bilang "Saya tahu"? Buktikan dulu dengan cek kilat (pilih arti atau pinyin yang benar) sebelum kartu dibalik. Yakin tapi keliru membuat kata itu lebih cepat muncul lagi.
@@ -58,7 +65,7 @@ Progres dan riwayat belajar hanya tersimpan di perangkatmu. Aplikasi tidak mengu
 Daftar kata dan pinyin berdasarkan data terbuka hsk30. XueCi Mandarin adalah aplikasi independen dan tidak berafiliasi dengan penyelenggara ujian HSK.
 
 **Catatan rilis pertama** (maks. 500):
-Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, tes penempatan, rencana harian sesuai tujuan, pengingat harian, kartu dengan cek kilat, kuis terarah (arti, hanzi, nada, dengar, kalimat), simulasi ujian, wawasan belajar, warna nada, 4 bahasa, dan tema terang/gelap/hitam pekat. Semua berjalan offline di HP.
+Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, ranah kultivasi dan Lautan Jiwa, tes penempatan, rencana harian sesuai tujuan, jeda istirahat, pengingat harian, kartu dengan cek kilat, kuis terarah (arti, hanzi, nada, dengar, kalimat), simulasi ujian, wawasan belajar, warna nada, 4 bahasa, dan tema terang/gelap/hitam pekat. Semua berjalan offline di HP.
 
 ---
 
@@ -77,8 +84,15 @@ LEARN TOWARDS YOUR GOAL
 • Choose a goal: reach a level by a date, prepare for an HSK exam, or study without a target.
 • Set a daily amount in minutes or new words. The app works out whether your target is realistic and suggests a fix if it isn't.
 • Every day there is a session with the words you are most likely to forget, new words, and practice on your weak spots.
-• A 50-question placement test finds your starting level. It adapts to you and is strict: to pass HSK 5–6 you really have to know them.
+• A 50-question placement test finds your starting realm. It adapts to you and is strict: to pass HSK 5–6 you really have to know them.
 • A daily reminder at the time you choose, which stays quiet on days you have already studied.
+
+CULTIVATION REALMS
+Your level is a cultivation realm: 凡人, 炼气 (HSK 1), 筑基, 金丹, 元婴, 化神, 渡劫 (HSK 6), up to 飞升. Realms rise only through tests: make your level's words solid until the 圆满 stage, then attempt a breakthrough (突破). One test a week.
+In the Sea of Consciousness (识海) your memory appears as an orb of connected words, ringed by five elements: foundation, cultivation, spirit sense, dao heart and insight. A daily trial targets your weakest skill.
+
+REST IS PART OF LEARNING
+When you start to tire, the app offers a 5-minute break. Choose meditation days with no plan and no reminder; your cultivation days don't break. Numbers from the memory model show why coming back tomorrow beats repeating everything now.
 
 FLASHCARDS THAT CHECK YOU
 Say "I know it"? Prove it first with a quick check (pick the right meaning or pinyin) before the card flips. Being sure but wrong brings the word back sooner.
@@ -108,7 +122,7 @@ Your progress and study history stay on your device. The app does not collect or
 Word list and pinyin based on the open hsk30 data. XueCi Mandarin is an independent app and is not affiliated with the organisers of the HSK exam.
 
 **First release notes** (max 500):
-First release of XueCi Mandarin: 5,334 HSK 1–6 words, a placement test, a daily plan built from your goal, daily reminders, flashcards with a quick check, a guided quiz (meaning, hanzi, tones, listening, sentences), exam practice, learning insights, tone colours, 4 languages, and light/dark/true black themes. Everything runs offline on your phone.
+First release of XueCi Mandarin: 5,334 HSK 1–6 words, cultivation realms and the Sea of Consciousness, a placement test, a daily plan built from your goal, rest breaks, daily reminders, flashcards with a quick check, a guided quiz (meaning, hanzi, tones, listening, sentences), exam practice, learning insights, tone colours, 4 languages, and light/dark/true black themes. Everything runs offline on your phone.
 
 ---
 
