@@ -761,7 +761,7 @@ const pipeBytes=async(u,stream)=>new Uint8Array(await new Response(new Blob([u])
 const practisedN=st=>Object.values(st).filter(e=>e[0]+e[1]>0).length;
 const bkDate=t=>new Date(t).toLocaleDateString(L10.loc,{day:'numeric',month:'long',year:'numeric'});
 async function makeCode(){
-  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:2,at:Date.now(),stats,mem:LM.exportMem(),goal:LM.goal,w:LM.params,ui:{level:state.level,unitBy:state.unitBy,qt:qType},lang:langPref,theme}));
+  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:2,at:Date.now(),stats,mem:LM.exportMem(),goal:LM.goal,w:LM.params,lvl:LM.level,ui:{level:state.level,unitBy:state.unitBy,qt:qType},lang:langPref,theme}));
   if(canZip){try{return 'XUECI1:'+B64(await pipeBytes(raw,new CompressionStream('deflate-raw')))}catch(e){}}
   return 'XUECI0:'+B64(raw)}
 async function readCode(text){
@@ -772,7 +772,7 @@ async function readCode(text){
     for(const k in o.stats){const e=o.stats[k];
       if(!IDX.has(k)||!Array.isArray(e)||e.length<2||!e.every(x=>Number.isFinite(x)&&x>=0))continue;
       const r=Math.floor(e[0]),w=Math.floor(e[1]);st[k]=[r,w,Math.max(0,Math.min(MAXL,Math.floor(e.length>2?e[2]:r-w)))]}
-    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme,mem:o.mem?LM.importMem(o.mem):null,goal:'goal' in o?o.goal:undefined,w:o.w}}catch(e){return null}}
+    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme,mem:o.mem?LM.importMem(o.mem):null,goal:'goal' in o?o.goal:undefined,w:o.w,lvl:o.lvl}}catch(e){return null}}
 function bkRow(){
   const r=$('bkRow');
   if(bkMode==='make')r.innerHTML=`<button class="ghost" id="bkCopy">${L10.bkCopy}</button>${NATIVE('shareText')||navigator.share?`<button class="ghost pri" id="bkShare">${L10.bkShare}</button>`:''}`;
@@ -810,7 +810,7 @@ async function bkCheckCode(){
   bkPending=b;say(L10.bkConfirm(fmt(practisedN(b.stats)),bkDate(b.at),fmt(practisedN(stats))));bkRow();$('bkApply')?.focus()}
 function bkApply(){
   const b=bkPending;if(!b)return;
-  stats=b.stats;LM.replace(b.mem||{},b.goal,b.w);       /* older codes (v1) have no memory states: their levels are kept as "needs confirming" */
+  stats=b.stats;LM.replace(b.mem||{},b.goal,b.w);LM.restoreLevel(b.lvl);       /* older codes (v1) have no memory states: their levels are kept as "needs confirming" */
   if(b.ui&&LEVELS.includes(b.ui.level)){
     const ub=b.ui.unitBy||{};LEVELS.forEach(l=>{const u=ub[l];state.unitBy[l]=Number.isInteger(u)&&u>=0&&u<=UNITS[l]?u:1});
     state.level=b.ui.level;if(['auto','m','f','s','l','c','exam'].includes(b.ui.qt))qType=b.ui.qt}
@@ -956,7 +956,7 @@ function ptPick(i){
   LM.answer(it.d,{q:it.q,ok:r==='ok',ms,x,placement:true});LM.ptAnswer(pt.st,it,r);studied();
   if(i>=0)document.querySelector(`#ptOpts [data-p="${i}"]`)?.classList.add('pick');else $('ptIdk')?.classList.add('pick');
   setTimeout(()=>{if(!pt||pt.it!==it)return;pt.it=null;if(pt.st.items.length>=LM.PT.N)ptFinish();else renderPlacement()},160)}
-function ptFinish(){const r=pt.res=LM.ptResult(pt.st);LM.setLevel(r.lv,'test',{m:r.m,per:r.per});resetRun();
+function ptFinish(){const r=pt.res=LM.ptResult(pt.st);LM.setLevel(r.lv,'test',{m:r.m,per:r.per});resetRun();renderCurLv();
   if(r.lv!==state.level)setLevel(r.lv);else refresh();toast(L10.ptDone(r.lv))}
 view.addEventListener('click',e=>{
   if(state.screen!=='placement')return;

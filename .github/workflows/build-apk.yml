@@ -76,9 +76,9 @@ jobs:
           awk -v v="## v$VER" 'index($0,"## ")==1{if(p)exit; p=($0==v||index($0,v" ")==1)} p' CHANGELOG.md | tail -n +2 > notes.md
           if ! grep -q '[^[:space:]]' notes.md; then
             echo "::warning title=No changelog entry::CHANGELOG.md has no section for v$VER"
-            echo "Lihat [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)." > notes.md
+            echo "See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)." > notes.md
           fi
-          printf '\n---\n\nUnduh **XueCiMandarin.apk** di bawah, lalu buka di HP Android untuk memasang.\nPembaruan bisa langsung dipasang di atas versi sebelumnya; progres belajar tetap tersimpan.\n' >> notes.md
+          printf '\n---\n\nDownload **XueCiMandarin.apk** below and open it on an Android phone to install.\nUpdates install over the previous version; your study progress is kept.\n' >> notes.md
           cat notes.md
 
       - name: Publish release

@@ -476,7 +476,7 @@ body[data-screen="home"]{padding-bottom:calc(10px + env(safe-area-inset-bottom,0
 .lvbig{font-size:calc(42px*var(--fsd,1));font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--lc)}
 .lvsrc{font-size:calc(13px*var(--fs,1));color:var(--soft);line-height:1.45;max-width:420px}
 .lvper{display:flex;flex-direction:column;gap:6px;margin:2px 0 12px}
-.lvper .skrow{grid-template-columns:52px minmax(0,1fr) 40px}
+.lvper .skrow{grid-template-columns:auto minmax(0,1fr) 44px}.lvper .skrow>span:first-child{white-space:nowrap}
 .gnote{margin:8px 0 0;font-size:calc(12px*var(--fs,1));color:var(--soft);line-height:1.45}
 .linkbtn{border:0;background:none;padding:0;color:var(--acc);font-weight:800;font-size:calc(12px*var(--fs,1));text-decoration:underline}
 .ptres .lvbig{margin:2px 0 8px}.ptres .glbl{text-align:left;margin-top:12px}.ptres .lvper{text-align:left}
@@ -1605,6 +1605,8 @@ let lvInfo=ls.get('xc_lvl',null);if(!lvInfo||!LEVELS.includes(lvInfo.lv))lvInfo=
 const baseLevel=()=>lvInfo?lvInfo.lv:1;
 function curLevel(){for(let l=baseLevel();l<=6;l++)if(BY[l].some(d=>!mem[d.id]))return l;return 6}
 function setLevel(lv,src,extra){lvInfo=Object.assign({lv,src,at:now()},extra||{});ls.set('xc_lvl',lvInfo)}
+function restoreLevel(o){if(o&&LEVELS.includes(o.lv)&&['test','manual'].includes(o.src)){lvInfo={lv:o.lv,src:o.src,at:Number.isFinite(o.at)?o.at:now(),
+  m:Number.isInteger(o.m)&&o.m>=0&&o.m<=6?o.m:undefined,per:Array.isArray(o.per)&&o.per.length===6&&o.per.every(Number.isFinite)?o.per:undefined};ls.set('xc_lvl',lvInfo)}}
 const PT={N:50,K:2.4,G:.25,SLIP:.04,IDK:.6,DQ:{m:-.3,f:0,s:.1,c:.2},TYPES:{1:'mfs',2:'mfs',3:'mfsc',4:'mfsc',5:'fsc',6:'fsc'}};
 const GRID=Array.from({length:71},(_,i)=>i/10);
 let PB=null;
@@ -1774,7 +1776,7 @@ function clearLog(){logR=[];logA=[];logCache=null;confMap=null;last=null;ls.set(
 
 sync();updWeak();
 return {now,dayOf,Rt,step,W0,get W(){return W},levelOf,skLevel,okS,answer,undo,checkP,checkType,question,pickType,cardDeck,quizRound,exam,session,
-  plan,dr,isoDay,dayAfter,daysTo,validGoal,curLevel,baseLevel,get level(){return lvInfo},setLevel,ptStart,ptNext,ptAnswer,ptResult,PT,placementBank,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
+  plan,dr,isoDay,dayAfter,daysTo,validGoal,curLevel,baseLevel,get level(){return lvInfo},setLevel,restoreLevel,ptStart,ptNext,ptAnswer,ptResult,PT,placementBank,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
   mem:id=>mem[id],has:id=>!!mem[id],rNow:id=>rNow(mem[id],now()),nextDue(id){const e=mem[id];if(!e)return null;return (e.w[2]+ivl(e.w[1],dr())*1440-now())/1440},
   insights,updWeak,optimize,maybeOptimize,lossOf,seqs,exportMem,importMem,replace,forget,clearLog,sync,flush,allLog,partners,
   setTts(f){ttsReady=f},clozeOK,markTone,bareSyl,get params(){return wMeta?W:null}}})();
@@ -2258,7 +2260,7 @@ const pipeBytes=async(u,stream)=>new Uint8Array(await new Response(new Blob([u])
 const practisedN=st=>Object.values(st).filter(e=>e[0]+e[1]>0).length;
 const bkDate=t=>new Date(t).toLocaleDateString(L10.loc,{day:'numeric',month:'long',year:'numeric'});
 async function makeCode(){
-  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:2,at:Date.now(),stats,mem:LM.exportMem(),goal:LM.goal,w:LM.params,ui:{level:state.level,unitBy:state.unitBy,qt:qType},lang:langPref,theme}));
+  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:2,at:Date.now(),stats,mem:LM.exportMem(),goal:LM.goal,w:LM.params,lvl:LM.level,ui:{level:state.level,unitBy:state.unitBy,qt:qType},lang:langPref,theme}));
   if(canZip){try{return 'XUECI1:'+B64(await pipeBytes(raw,new CompressionStream('deflate-raw')))}catch(e){}}
   return 'XUECI0:'+B64(raw)}
 async function readCode(text){
@@ -2269,7 +2271,7 @@ async function readCode(text){
     for(const k in o.stats){const e=o.stats[k];
       if(!IDX.has(k)||!Array.isArray(e)||e.length<2||!e.every(x=>Number.isFinite(x)&&x>=0))continue;
       const r=Math.floor(e[0]),w=Math.floor(e[1]);st[k]=[r,w,Math.max(0,Math.min(MAXL,Math.floor(e.length>2?e[2]:r-w)))]}
-    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme,mem:o.mem?LM.importMem(o.mem):null,goal:'goal' in o?o.goal:undefined,w:o.w}}catch(e){return null}}
+    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme,mem:o.mem?LM.importMem(o.mem):null,goal:'goal' in o?o.goal:undefined,w:o.w,lvl:o.lvl}}catch(e){return null}}
 function bkRow(){
   const r=$('bkRow');
   if(bkMode==='make')r.innerHTML=`<button class="ghost" id="bkCopy">${L10.bkCopy}</button>${NATIVE('shareText')||navigator.share?`<button class="ghost pri" id="bkShare">${L10.bkShare}</button>`:''}`;
@@ -2307,7 +2309,7 @@ async function bkCheckCode(){
   bkPending=b;say(L10.bkConfirm(fmt(practisedN(b.stats)),bkDate(b.at),fmt(practisedN(stats))));bkRow();$('bkApply')?.focus()}
 function bkApply(){
   const b=bkPending;if(!b)return;
-  stats=b.stats;LM.replace(b.mem||{},b.goal,b.w);       /* older codes (v1) have no memory states: their levels are kept as "needs confirming" */
+  stats=b.stats;LM.replace(b.mem||{},b.goal,b.w);LM.restoreLevel(b.lvl);       /* older codes (v1) have no memory states: their levels are kept as "needs confirming" */
   if(b.ui&&LEVELS.includes(b.ui.level)){
     const ub=b.ui.unitBy||{};LEVELS.forEach(l=>{const u=ub[l];state.unitBy[l]=Number.isInteger(u)&&u>=0&&u<=UNITS[l]?u:1});
     state.level=b.ui.level;if(['auto','m','f','s','l','c','exam'].includes(b.ui.qt))qType=b.ui.qt}
@@ -2453,7 +2455,7 @@ function ptPick(i){
   LM.answer(it.d,{q:it.q,ok:r==='ok',ms,x,placement:true});LM.ptAnswer(pt.st,it,r);studied();
   if(i>=0)document.querySelector(`#ptOpts [data-p="${i}"]`)?.classList.add('pick');else $('ptIdk')?.classList.add('pick');
   setTimeout(()=>{if(!pt||pt.it!==it)return;pt.it=null;if(pt.st.items.length>=LM.PT.N)ptFinish();else renderPlacement()},160)}
-function ptFinish(){const r=pt.res=LM.ptResult(pt.st);LM.setLevel(r.lv,'test',{m:r.m,per:r.per});resetRun();
+function ptFinish(){const r=pt.res=LM.ptResult(pt.st);LM.setLevel(r.lv,'test',{m:r.m,per:r.per});resetRun();renderCurLv();
   if(r.lv!==state.level)setLevel(r.lv);else refresh();toast(L10.ptDone(r.lv))}
 view.addEventListener('click',e=>{
   if(state.screen!=='placement')return;

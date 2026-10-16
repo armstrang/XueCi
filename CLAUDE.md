@@ -20,10 +20,10 @@ The whole app is **one self-contained HTML page** shown in an Android WebView. N
 | `web/data/vocab.json` | 5,334 words, one per line. **Canonical data** — edit here |
 | `web/build.py` | builds `app/src/main/assets/index.html` (committed; local fonts) and `web/dist/xueci-mandarin.html` (web copy, ignored; Google Fonts) |
 | `web/make_fonts.py` | makes `app/src/main/assets/fonts/*.woff` (+ OFL licences), `web/fonts/fonts.css`, `web/fonts/charset.txt` from the original fonts (see its docstring for where to get them; `web/fonts/src/` is not committed). Chinese fonts are cut to the ~2,000 characters the app uses — **re-run after adding words**; `build.py` warns about missing characters |
-| `app/` | single-module Android app, `MainActivity.java` only |
+| `app/` | single-module Android app: `MainActivity.java`, `Reminder.java` + `ReminderReceiver.java` (daily study reminder), `res/drawable/ic_stat_xueci.xml` (notification icon) |
 | `art/` | icon artwork: `icon-source.jpg` (from Josh, the 学词 badge); `python3 art/make_icons.py` regenerates `icon-badge.png`, every launcher mipmap, `play-icon-512.png`, `docs/privacy/icon.png` and `icon-preview.png` |
 | `tests/smoke.py` | Playwright smoke test of the built page (all flows, 5 sizes/themes/languages, legacy-progress case) |
-| `CHANGELOG.md` | release notes (Indonesian). CI publishes the `## v1.N` section as the GitHub release text, so **add the section before pushing app changes** |
+| `CHANGELOG.md` | release notes, **in English** (Josh asked, Oct 2026). CI publishes the `## v1.N` section as the GitHub release text, so **add the section before pushing app changes** |
 | `store/` | Play listing: `listing.md` (ID + EN texts and other Play Console answers), screenshots 1080×1920 and feature graphics 1024×500 per language; `python3 store/make_store_assets.py` regenerates them from the built app with sample progress (captions in the script). Re-run after visible UI changes |
 
 After any change in `web/`: `python3 web/build.py && python3 tests/smoke.py`, then look at the screenshots in `tests/out/`.
@@ -48,7 +48,11 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 ### App logic worth knowing (`app.html`)
 - Screens: `#scr-home`, `#scr-focus` (`data-mode` = list / card / quiz), `#scr-stats`. `go(s)` → `window.mmTransition(run, from, to)` when defined.
 - Mastery: `stats[id] = [right, wrong, level]`, `MAXL = 20`. Since v1.8 the level comes from the learning engine (below), not from +1/−3. Bands: 0–6 red, 7–13 yellow, 14–20 green; `.m0`–`.m20` colour classes.
-- Screens: Home has the **plan card** (`#plan`, `renderPlan()`, goal chip → `#goalSheet`) above the HSK pills. `#scr-focus` modes: `list`, `card`, `quiz`, `session` (today's session; HSK/unit chips hidden).
+- Screens: Home has the **plan card** (`#plan`, `renderPlan()`, goal chip → `#goalSheet`) above the HSK pills. `#scr-focus` modes: `list`, `card`, `quiz`, `session` (today's session) and `placement` (placement test); HSK/unit chips are hidden in the last two. `body[data-screen]` mirrors the screen.
+- **Home must fit one screen** (Josh, v1.9): checked at 360×680, 412×680, 1280×680 in the smoke test. Ring and tiles size with `vh` (`clamp`), larger phone text hides tile subtitles. Don't add rows to Home without taking space elsewhere.
+- Header: wordmark `.wm` (XueCi, *Ci* in the level colour, over spaced MANDARIN), the **current level chip** `#curLvBtn` (→ `#lvlSheet`: test or manual pick), language, theme. No "by Armstrang" in the header — the credit lives in About only.
+- **Placement test** (`renderPlacement()`, engine `LM.ptStart/ptNext/ptAnswer/ptResult`): 50 adaptive questions with a "Don't know" button; Bayesian ability over a 0–7 grid, item model with guessing (guess rate estimated from the learner's own don't-knows), bank = words with characters new at their level, HSK 5–6 only hard types and a 90% + 5-questions-at-70% rule. Simulated in Node (`learn.js` with stub globals): pure guessers → HSK 1. Answers are logged with flag 16. Result sets `xc_lvl`; `LM.curLevel()` = first level ≥ the stored one that still has unseen words. The plan and the session skip words below it; a goal below it counts as reached.
+- **Daily reminder** (Android only, `canRemind()`): settings in the goal sheet (`xc_rem` {on,h,m}); `syncReminder()` sends time + localised title/text to `MMAndroid.setReminder` when they change; `studied()` calls `MMAndroid.markStudied()` once a day so the reminder stays quiet; permission via `MMAndroid.requestNotifications()` → `window.mmNotifResult(granted)`.
 - **Runner** (`app.html`, "practice" section): Cards, Quiz and the session share one `run` = list of items (`{k:'card'}` or `{k:'q', q:'m'|'f'|'s'|'l'|'c'}`), `renderRun()`, summary at the end. Cards: front → `#fcNo` "Don't know" / `#fcYes` "I know it" → quick check (`LM.checkP`, adaptive) → back with `.res` ok/over/no/trust; "I was wrong" (`#fcOops`) undoes an unchecked claim. Quiz types: `qType` (`auto` guided, `m`, `f`, `s` tones, `l` listening, `c` sentence, `exam` = 20 questions, 5 min). Wrong items come back 4 items later (max twice). `show()` resets the run.
 - Hooks the glass layer defines: `mmTransition`, `mmHomeRendered(S)`, `mmStatsRendered()`, `mmFeedback(ok)`.
 - `window.mmBack()` is called by Android's back button: closes info sheet → backup sheet → quiz menu → lang/level/unit menus → screen; returns `false` on Home (app exits).
@@ -59,7 +63,8 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 - Language: `langPref` = `auto` (follows the system: id/in/ms → id, th, vi, else en) or a code.
 - Themes: `auto`, `light`, `dark`, `black` (`window.MM_THEMES`, set by `build.py`). `notifyNative()` sends CSS `--bar`/`--bar2` to `MMAndroid.setBars(top, bottom, dark)`.
 - **localStorage keys hold users' progress — never rename them:** `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme` (`hsk16_known` = legacy import),
-  and since v1.8 `xc_mem` (memory states), `xc_log` + `xc_logA` (answer log, capped at 30,000), `xc_goal`, `xc_w` (fitted parameters), `xc_fit`, `xc_onb` (goal sheet shown once).
+  and since v1.8 `xc_mem` (memory states), `xc_log` + `xc_logA` (answer log, capped at 30,000), `xc_goal`, `xc_w` (fitted parameters), `xc_fit`, `xc_onb` (goal sheet shown once),
+  since v1.9 `xc_lvl` (current level / placement result) and `xc_rem` (reminder settings). Native side: SharedPreferences `reminder`.
 - The WebView origin is `https://appassets.androidplatform.net` (WebViewAssetLoader). Changing it would also lose progress.
 
 ### Design rules (from Josh's feedback — he notices)
@@ -73,7 +78,7 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 - Guided-learning UI (v1.8, Josh asked for it): plan card on Home, goal sheet asked once on first start, card shrinks (`.flip.checking`) during the quick check so the options fit, no self-report buttons anywhere (Stats word detail shows skill levels instead).
 - Planned next (discussed, not built): optional Google sign-in with progress in the user's own Google Drive app folder (`drive.appdata`, no server). Needs Josh's Google Cloud project (OAuth consent branding, Drive API, Android OAuth client with package + SHA-1s incl. Play App Signing), then a privacy policy and Data safety update.
 - The About section must not say who wrote the meanings/examples. (They were generated by Claude; the README says so.)
-- Footer credit is "by Armstrang".
+- Credit "by Armstrang" appears only in About (tone colours & info sheet), not in the header (Josh, v1.9).
 
 ## Android
 - `applicationId` / package **`com.armstrang.xueci`** (from v1.3 — the Play Store ID; it can never change once on Play).
@@ -83,10 +88,11 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
   colour strips (`topBar`/`bottomBar`, heights from `WindowInsetsCompat` system bars + cutout; bottom = max(nav bar, keyboard)) around the WebView.
   `setBars` colours those strips and sets light/dark bar icons with `WindowInsetsControllerCompat` (window bar colours are ignored on Android 15+).
 - Signing: `keystore/merdeka.jks` with the password in `app/build.gradle`. **This repo is public, so that key is exposed.** Fine for the sideload line only; the Play release needs a new upload key kept in GitHub Secrets.
-- `MainActivity`: WebView + `WebViewAssetLoader`, JS bridge `MMAndroid` (`setTheme`, `setBars`, `fontScale`, `copyText`, `shareText`, `pasteText`, `ttsStatus`, `speak`, `stopSpeaking`, `openTtsSettings`), back button → `mmBack()`, outside links open in the browser, VIBRATE for haptics.
+- `MainActivity`: WebView + `WebViewAssetLoader`, JS bridge `MMAndroid` (`setTheme`, `setBars`, `fontScale`, `copyText`, `shareText`, `pasteText`, `ttsStatus`, `speak`, `stopSpeaking`, `openTtsSettings`, `setReminder`, `markStudied`, `notifStatus`, `requestNotifications`, `openNotifSettings`), back button → `mmBack()`, outside links open in the browser, VIBRATE for haptics.
+- Reminder: `Reminder.java` keeps the settings in SharedPreferences, sets one inexact `AlarmManager.setAndAllowWhileIdle` alarm for the next time, shows a `NotificationCompat` notification (channel `study`) unless `markStudied` was called that day. `ReminderReceiver` handles the alarm and re-schedules on BOOT_COMPLETED, MY_PACKAGE_REPLACED, TIME_SET, TIMEZONE_CHANGED; `onResume` re-schedules too. Permissions: POST_NOTIFICATIONS (asked with an ActivityResult launcher), RECEIVE_BOOT_COMPLETED.
 
 ## CI (`.github/workflows/build-apk.yml`)
-Push to `main` → `web/build.py` → `./gradlew assembleRelease` → GitHub release `v1.N` with `XueCiMandarin.apk` (marked latest); the release text is the `## v1.N` section of `CHANGELOG.md` (a warning and a link if missing). v1.N = run number − 1 of this workflow, so the next release is one more than the latest tag.
+Push to `main` → `web/build.py` → `./gradlew assembleRelease` → GitHub release `v1.N` with `XueCiMandarin.apk` (marked latest); the release text is the `## v1.N` section of `CHANGELOG.md` (a warning and a link if missing). v1.N = run number − 1 of this workflow, so the next release is one more than the latest tag. The install footer of the release text is English too.
 Docs/art/tests-only changes do not trigger a build (`paths-ignore`); add `[skip ci]` to a commit message to skip one otherwise.
 A guard step refuses to publish into an existing release tag.
 `check.yml` compiles any `build/**` branch without publishing (its own run counter, so release numbers stay in sequence) — push Android changes there first, then fast-forward `main`. CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets can.

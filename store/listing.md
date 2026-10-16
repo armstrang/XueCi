@@ -8,7 +8,7 @@ Bahasa utama: **Indonesia**; tambahkan **English** sebagai terjemahan. Gambar ad
 |---|---|
 | Ikon aplikasi (512 × 512) | `art/play-icon-512.png` |
 | Feature graphic (1024 × 500) | `store/feature-graphic-id.jpg`, `store/feature-graphic-en.jpg` |
-| Screenshot ponsel (1080 × 1920) | `store/screenshots/id/*.jpg`, `store/screenshots/en/*.jpg` (urutan 01–06) |
+| Screenshot ponsel (1080 × 1920) | `store/screenshots/id/*.jpg`, `store/screenshots/en/*.jpg` (urutan 01–07) |
 
 ---
 
@@ -27,6 +27,8 @@ BELAJAR SESUAI TUJUANMU
 • Pilih tujuan: capai level tertentu sebelum tanggal tertentu, siapkan ujian HSK, atau belajar tanpa target.
 • Atur porsi harian dalam menit atau jumlah kata baru. Aplikasi menghitung apakah targetmu realistis dan memberi saran kalau belum.
 • Setiap hari ada sesi berisi ulangan kata yang paling berisiko terlupa, kata baru, dan latihan untuk kelemahanmu.
+• Tes penempatan 50 soal menentukan level awalmu. Tesnya adaptif dan ketat: untuk lulus HSK 5–6 kamu harus benar-benar menguasainya.
+• Pengingat harian di jam pilihanmu, dan tidak muncul kalau hari itu kamu sudah belajar.
 
 KARTU YANG MENGUJI
 Bilang "Saya tahu"? Buktikan dulu dengan cek kilat (pilih arti atau pinyin yang benar) sebelum kartu dibalik. Yakin tapi keliru membuat kata itu lebih cepat muncul lagi.
@@ -56,7 +58,7 @@ Progres dan riwayat belajar hanya tersimpan di perangkatmu. Aplikasi tidak mengu
 Daftar kata dan pinyin berdasarkan data terbuka hsk30. XueCi Mandarin adalah aplikasi independen dan tidak berafiliasi dengan penyelenggara ujian HSK.
 
 **Catatan rilis pertama** (maks. 500):
-Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, rencana harian sesuai tujuan, kartu dengan cek kilat, kuis terarah (arti, hanzi, nada, dengar, kalimat), simulasi ujian, wawasan belajar, warna nada, 4 bahasa, dan tema terang/gelap/hitam pekat. Semua berjalan offline di HP.
+Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, tes penempatan, rencana harian sesuai tujuan, pengingat harian, kartu dengan cek kilat, kuis terarah (arti, hanzi, nada, dengar, kalimat), simulasi ujian, wawasan belajar, warna nada, 4 bahasa, dan tema terang/gelap/hitam pekat. Semua berjalan offline di HP.
 
 ---
 
@@ -75,6 +77,8 @@ LEARN TOWARDS YOUR GOAL
 • Choose a goal: reach a level by a date, prepare for an HSK exam, or study without a target.
 • Set a daily amount in minutes or new words. The app works out whether your target is realistic and suggests a fix if it isn't.
 • Every day there is a session with the words you are most likely to forget, new words, and practice on your weak spots.
+• A 50-question placement test finds your starting level. It adapts to you and is strict: to pass HSK 5–6 you really have to know them.
+• A daily reminder at the time you choose, which stays quiet on days you have already studied.
 
 FLASHCARDS THAT CHECK YOU
 Say "I know it"? Prove it first with a quick check (pick the right meaning or pinyin) before the card flips. Being sure but wrong brings the word back sooner.
@@ -104,7 +108,7 @@ Your progress and study history stay on your device. The app does not collect or
 Word list and pinyin based on the open hsk30 data. XueCi Mandarin is an independent app and is not affiliated with the organisers of the HSK exam.
 
 **First release notes** (max 500):
-First release of XueCi Mandarin: 5,334 HSK 1–6 words, a daily plan built from your goal, flashcards with a quick check, a guided quiz (meaning, hanzi, tones, listening, sentences), exam practice, learning insights, tone colours, 4 languages, and light/dark/true black themes. Everything runs offline on your phone.
+First release of XueCi Mandarin: 5,334 HSK 1–6 words, a placement test, a daily plan built from your goal, daily reminders, flashcards with a quick check, a guided quiz (meaning, hanzi, tones, listening, sentences), exam practice, learning insights, tone colours, 4 languages, and light/dark/true black themes. Everything runs offline on your phone.
 
 ---
 
@@ -115,6 +119,7 @@ First release of XueCi Mandarin: 5,334 HSK 1–6 words, a daily plan built from 
 - **Kebijakan privasi:** https://armstrang.github.io/XueCi/privacy/ (aktifkan GitHub Pages dulu, lihat `docs/play-store.md`).
 - **Akses aplikasi:** semua fitur bisa dipakai tanpa login.
 - **Iklan:** tidak ada.
+- **Izin aplikasi:** notifikasi (pengingat harian, Android 13+ meminta izin), mulai saat HP dinyalakan (memasang ulang jadwal pengingat), getar.
 - **Data safety:** tidak mengumpulkan data, tidak membagikan data. Riwayat jawaban dan rekomendasi belajar diproses di perangkat saja; menurut definisi Play, data yang tidak keluar dari perangkat tidak termasuk "dikumpulkan".
 - **Rating konten (IARC):** kuesioner dijawab "tidak" untuk kekerasan, konten seksual, bahasa kasar, obat-obatan, judi, interaksi pengguna, dan pembelian. Hasilnya biasanya rating untuk semua umur.
 - **Target usia:** 13 tahun ke atas (memilih di bawah 13 tahun membuat aturan Families berlaku).

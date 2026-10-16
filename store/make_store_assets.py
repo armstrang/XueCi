@@ -38,6 +38,7 @@ CAPTIONS = {
             ('stats', 'Kenali kelemahanmu', 'Dihitung di HP, tanpa server'),
             ('tones', 'Warna nada', 'Ucapkan setiap kata dengan nada yang tepat'),
             ('list', 'Terang, gelap, hitam pekat', 'Dalam 4 bahasa · tanpa internet'),
+            ('placement', 'Tes penempatan 50 soal', 'Mulai dari level yang tepat'),
         ],
         'feature': ('Kosakata HSK 1–6', 'Rencana harian · Kartu · Kuis terarah · Offline'),
     },
@@ -50,12 +51,13 @@ CAPTIONS = {
             ('stats', 'Know your weak spots', 'Worked out on your phone, no server'),
             ('tones', 'Tone colours', 'Say every word with the right tone'),
             ('list', 'Light, dark, true black', 'In 4 languages · no internet needed'),
+            ('placement', 'A 50-question placement test', 'Start at the right level'),
         ],
         'feature': ('HSK 1–6 vocabulary', 'Daily plan · Flashcards · Guided quiz · Offline'),
     },
 }
-THEME = {'home': 'light', 'card': 'light', 'quiz': 'light', 'stats': 'light', 'tones': 'dark', 'list': 'black'}
-LEVEL = {'home': 2, 'card': 2, 'quiz': 2, 'stats': 1, 'tones': 2, 'list': 1}
+THEME = {'home': 'light', 'card': 'light', 'quiz': 'light', 'stats': 'light', 'tones': 'dark', 'list': 'black', 'placement': 'light'}
+LEVEL = {'home': 2, 'card': 2, 'quiz': 2, 'stats': 1, 'tones': 2, 'list': 1, 'placement': 2}
 
 
 class Quiet(http.server.SimpleHTTPRequestHandler):
@@ -105,7 +107,8 @@ def sample_progress():
                 x = f"{o['l']}:{o['h']}"
         log.append([now - int((640 - k) / 640 * 14 * 1440), f"{d['l']}:{d['h']}", q, 3 if ok else 1, rnd.randint(25, 90), x, 2 if q[0] == 'c' else 0])
     goal = {'t': 'exam', 'lv': 3, 'date': (datetime.date.today() + datetime.timedelta(days=150)).isoformat(), 'pace': 'min', 'n': 25}
-    return {'mm_stats': stats, 'xc_mem': mem, 'xc_log': log, 'xc_goal': goal, 'xc_onb': 1}
+    lvl = {'lv': 2, 'src': 'test', 'at': now - 20 * 1440, 'm': 1, 'per': [97, 64, 14, 4, 1, 0]}
+    return {'mm_stats': stats, 'xc_mem': mem, 'xc_log': log, 'xc_goal': goal, 'xc_onb': 1, 'xc_lvl': lvl}
 
 
 FRAME = """<!doctype html><meta charset="utf-8"><style>
@@ -172,6 +175,23 @@ async def app_shot(browser, base, lang, locale, kind, sample, out):
     if kind == 'stats':
         await pg.click('#hero')
         await pg.wait_for_timeout(900)
+    if kind == 'placement':
+        # a fresh learner who knows HSK 1–2 well and HSK 3 a little, honest with "Don't know"
+        await pg.evaluate("localStorage.removeItem('xc_lvl')")
+        await pg.click('#curLvBtn')
+        await pg.wait_for_timeout(400)
+        await pg.click('#ptGo')
+        await pg.wait_for_timeout(500)
+        await pg.click('#ptBegin')
+        rnd = random.Random(4)
+        for _ in range(50):
+            it = await pg.evaluate('pt && pt.it ? {l: pt.it.l, ans: pt.it.ans} : null')
+            if not it:
+                break
+            known = rnd.random() < [.98, .94, .55, .12, .03, .01][it['l'] - 1]
+            await pg.click(f'#ptOpts [data-p="{it["ans"]}"]' if known else '#ptIdk')
+            await pg.wait_for_timeout(180)
+        await pg.wait_for_timeout(900)
     if kind == 'tones':
         await pg.click('#toneInfo')
         await pg.wait_for_timeout(900)
@@ -195,6 +215,7 @@ async def compose(browser, html, w, h, out, base):
 
 async def main():
     srv = socketserver.ThreadingTCPServer(('127.0.0.1', 0), functools.partial(Quiet, directory=ROOT))
+    srv.handle_error = lambda *a: None   # a closed page can drop a connection mid-file; that's fine
     threading.Thread(target=srv.serve_forever, daemon=True).start()
     base = f'http://127.0.0.1:{srv.server_address[1]}'
     sample = sample_progress()
@@ -221,7 +242,7 @@ async def main():
             await compose(browser, html, 1024, 500, fg, base)
             # preview sheet
             thumbs = [Image.open(f).resize((270, 480)) for f in done]
-            sheet = Image.new('RGB', (20 + 290 * len(thumbs), 520 + 260), (235, 238, 236))
+            sheet = Image.new('RGB', (20 + 290 * len(thumbs), 520 + 260), (235, 238, 236))   # all screenshots in one row
             for i, t in enumerate(thumbs):
                 sheet.paste(t, (20 + 290 * i, 20))
             sheet.paste(Image.open(fg).resize((512, 250)), (20, 515))

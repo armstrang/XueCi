@@ -268,6 +268,8 @@ let lvInfo=ls.get('xc_lvl',null);if(!lvInfo||!LEVELS.includes(lvInfo.lv))lvInfo=
 const baseLevel=()=>lvInfo?lvInfo.lv:1;
 function curLevel(){for(let l=baseLevel();l<=6;l++)if(BY[l].some(d=>!mem[d.id]))return l;return 6}
 function setLevel(lv,src,extra){lvInfo=Object.assign({lv,src,at:now()},extra||{});ls.set('xc_lvl',lvInfo)}
+function restoreLevel(o){if(o&&LEVELS.includes(o.lv)&&['test','manual'].includes(o.src)){lvInfo={lv:o.lv,src:o.src,at:Number.isFinite(o.at)?o.at:now(),
+  m:Number.isInteger(o.m)&&o.m>=0&&o.m<=6?o.m:undefined,per:Array.isArray(o.per)&&o.per.length===6&&o.per.every(Number.isFinite)?o.per:undefined};ls.set('xc_lvl',lvInfo)}}
 const PT={N:50,K:2.4,G:.25,SLIP:.04,IDK:.6,DQ:{m:-.3,f:0,s:.1,c:.2},TYPES:{1:'mfs',2:'mfs',3:'mfsc',4:'mfsc',5:'fsc',6:'fsc'}};
 const GRID=Array.from({length:71},(_,i)=>i/10);
 let PB=null;
@@ -437,7 +439,7 @@ function clearLog(){logR=[];logA=[];logCache=null;confMap=null;last=null;ls.set(
 
 sync();updWeak();
 return {now,dayOf,Rt,step,W0,get W(){return W},levelOf,skLevel,okS,answer,undo,checkP,checkType,question,pickType,cardDeck,quizRound,exam,session,
-  plan,dr,isoDay,dayAfter,daysTo,validGoal,curLevel,baseLevel,get level(){return lvInfo},setLevel,ptStart,ptNext,ptAnswer,ptResult,PT,placementBank,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
+  plan,dr,isoDay,dayAfter,daysTo,validGoal,curLevel,baseLevel,get level(){return lvInfo},setLevel,restoreLevel,ptStart,ptNext,ptAnswer,ptResult,PT,placementBank,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
   mem:id=>mem[id],has:id=>!!mem[id],rNow:id=>rNow(mem[id],now()),nextDue(id){const e=mem[id];if(!e)return null;return (e.w[2]+ivl(e.w[1],dr())*1440-now())/1440},
   insights,updWeak,optimize,maybeOptimize,lossOf,seqs,exportMem,importMem,replace,forget,clearLog,sync,flush,allLog,partners,
   setTts(f){ttsReady=f},clozeOK,markTone,bareSyl,get params(){return wMeta?W:null}}})();

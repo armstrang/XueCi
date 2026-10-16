@@ -1,90 +1,126 @@
-# Catatan perubahan
+# Changelog
 
-Setiap push perubahan aplikasi ke `main` membuat rilis baru di [GitHub Releases](https://github.com/armstrang/XueCi/releases)
-(v1.0, v1.1, …). Bagian `## v1.N` di bawah dipakai CI sebagai catatan rilis untuk versi itu, jadi tulis bagiannya
-sebelum push.
+Every push of app changes to `main` makes a new release on [GitHub Releases](https://github.com/armstrang/XueCi/releases)
+(v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
+before pushing.
 
-## v1.8 — 16 Oktober 2026
+## v1.9 — 16 October 2026
 
-**Belajar terarah.** Aplikasi kini menyusun rencana harian dari tujuanmu, menguji setiap "Saya tahu", dan memilih
-soal sesuai kelemahanmu. Semua perhitungan dilakukan di HP; tidak ada data yang dikirim ke mana pun.
+**Placement test, a current level, daily study reminders, and a Home screen that fits on one screen.**
 
-### Baru
-- **Tujuan belajar.** Pilih *Capai level* (misalnya HSK 3 sebelum tanggal tertentu), *Ujian HSK*, atau *Tanpa target*,
-  lalu porsi harian dalam menit atau jumlah kata baru (atau otomatis). Aplikasi langsung menghitung apakah target
-  realistis. Kalau belum, ada tombol saran: tambah menit, tambah kata per hari, atau mundurkan tanggal. Ditanyakan sekali
-  saat aplikasi pertama dibuka (bisa dilewati), dan bisa diubah kapan saja dari Home.
-- **Rencana "Hari ini" di Home**: jumlah ulangan dan kata baru hari ini, perkiraan menit, status (*sesuai jadwal* atau
-  *tertinggal*), dan tombol **Mulai sesi**.
-- **Sesi hari ini**: ulangan kata yang paling berisiko terlupa, kata baru (dikenalkan lewat kartu), dan konfirmasi kata
-  hijau lama, dicampur dalam satu sesi. Jawaban yang salah muncul lagi beberapa soal kemudian. Kalau absen beberapa
-  hari, rencana disusun ulang tanpa tumpukan utang. Setelah selesai ada **Latihan tambahan**.
-- **Kartu dirombak**: *Belum tahu* atau *Saya tahu*. "Saya tahu" harus dibuktikan dengan cek kilat (pilih arti atau
-  pinyin yang benar) sebelum kartu dibalik. *Yakin tapi keliru* dihitung lebih berat daripada jujur bilang belum tahu.
-  Cek ini adaptif: pengguna yang terbukti jujur lebih jarang dicek, dan setelah klaim yang tidak dicek ada tombol
-  **Ternyata keliru**.
-- **Kuis terarah** (bawaan): aplikasi memilih kata dan jenis soal sesuai kelemahanmu. Ada lima jenis soal, berurutan
-  seperti tangga: *Kenali* (hanzi → arti), *Ingat* (arti → hanzi), *Nada* (pilih pinyin yang benar), *Dengar*
-  (suara → hanzi; hanya kalau suara Mandarin tersedia di HP), dan *Kalimat* (isi kata yang hilang). Pilihan jawaban
-  makin mirip saat kata makin dikuasai, supaya tingkat benar tetap sekitar 80–85%. Satu ronde berisi 12 soal dan
-  diakhiri ringkasan. Setiap jenis soal juga bisa dipilih manual.
-- **Simulasi ujian**: 20 soal campuran dari HSK 1 sampai level yang dipilih, dengan batas waktu 5 menit. Skornya
-  dikoreksi dari peluang menebak.
-- **Wawasan belajar** di Statistik: ingatan saat ini, jumlah jawaban 7 hari terakhir, ketepatan "Saya tahu",
-  akurasi per jenis soal (yang paling lemah ditandai dan lebih sering dilatih), dan kata yang sering tertukar.
-  Ketuk sebuah kata untuk melihat tingkat arti, hanzi, dan nadanya, serta kapan kata itu diulang lagi.
-- **Model memori FSRS** (open source) menghitung kapan setiap kata perlu diulang. Setelah 400 ulangan berjarak,
-  parameternya disesuaikan otomatis dengan pola ingatanmu sendiri, di HP.
+### New
+- **Placement test**: 50 quick questions that adapt to your answers, with a **Don't know** button so you don't have
+  to guess. The questions come from a selected bank of words that bring characters new at their level, so they
+  can't be worked out from easier words. HSK 5–6 only get the hard question types (recall the hanzi among look-alike
+  options, tones, fill the gap in a sentence). To be placed at HSK 5 or 6 the test has to be 90% sure, and you need
+  at least 5 questions of that level with 70% right. Lucky guesses don't count for much: the test estimates how
+  often you guess and allows for it. The result shows your level and an estimate of how many words of each level
+  you know.
+- **Current level** beside the language button. It is HSK 1 by default; the placement test or your own pick sets
+  it, and it moves up by itself once every word of the level has been introduced. It only steers the daily plan:
+  words below your level are skipped there, and every level stays open in List, Cards and Quiz.
+- **Daily study reminder** (Android): one notification a day at the time you choose (7 pm by default), in your
+  study language, with today's estimated minutes. It stays quiet on days you have already practised. Set it in the
+  goal sheet. Android 13 and newer ask for the notification permission first; the reminder is set again after
+  the phone restarts.
 
-### Berubah
-- **Arti tingkat 0–20 berubah.** Tingkat kini menunjukkan berapa lama kata itu diperkirakan tetap kamu ingat
-  (sekitar 1 bulan = hijau, 4 bulan = 20). Mengulang kata yang sama berkali-kali di hari yang sama tidak lagi bisa
-  membuatnya hijau. Untuk hijau, kata juga harus lulus soal *Ingat* dan *Nada*.
-- **Progres lama tetap utuh.** Setiap kata tetap di tingkatnya. Kata yang sudah hijau ditandai *perlu dikonfirmasi*
-  dan diuji singkat (soal Ingat dan Nada) di sesi-sesi berikutnya.
-- Tombol **Tahu/Belum** di halaman Statistik dihapus, karena memberi tingkat tanpa bukti.
-- **Kode cadangan** kini juga membawa model memori, tujuan, dan parameter yang sudah disesuaikan (tanpa riwayat
-  jawaban). Kode dari versi lama tetap bisa dipulihkan.
-- Ubin Kartu dan Kuis di Home punya keterangan baru.
+### Changed
+- **Home fits on one screen** on most phones: a compact plan card with the start button beside today's numbers,
+  a progress ring that follows the screen height, and smaller tiles. The "all levels" line moved to the HSK menu.
+- **New wordmark**: *XueCi* (with *Ci* in the level colour) over a spaced-out *MANDARIN*. "by Armstrang" left the
+  header; the credit stays in About (the tone colours & info sheet).
+- On first start the goal sheet suggests the placement test, and a goal set right after the test starts at your
+  new level. A goal below your level counts as reached.
+- Quiz: a wrong option can no longer have a meaning that contains the right one (or the other way round), so each
+  question has exactly one right answer.
+- The changelog and the GitHub release notes are now in English.
 
-### Privasi
-- Riwayat jawaban (kata, waktu, jenis soal, benar/salah, pilihan yang keliru, lama menjawab) dan tujuan belajar
-  disimpan **hanya di HP**. Riwayatnya bisa dihapus lewat **Statistik → Hapus riwayat jawaban**; progres kata tetap ada.
-- [Kebijakan privasi](https://armstrang.github.io/XueCi/privacy/) diperbarui.
+### Privacy
+- Two new permissions: **notifications** (only for the reminder) and **run at startup** (only to set the reminder
+  again after a restart). The reminder time and text stay on the phone. The
+  [privacy policy](https://armstrang.github.io/XueCi/privacy/) is updated.
 
-## v1.7 — 15 Oktober 2026
-- Pinyin untuk setiap contoh kalimat, dengan kata yang dipelajari disorot. Pinyin dibaca sesuai konteks, termasuk
-  perubahan nada 一/不, 得/地/着, kata satuan, dan erhua; nama orang dan tempat ditulis dengan huruf kapital.
-- Perbaikan pinyin 11 kata: 目的 mùdì, 充分 chōngfèn, 更换 gēnghuàn, 尽力 jìnlì, 牛仔裤 niúzǎikù, 适当 shìdàng,
+## v1.8 — 16 October 2026
+
+**Guided learning.** The app builds a daily plan from your goal, checks every "I know it", and picks questions
+for your weak spots. Everything is worked out on the phone; no data is sent anywhere.
+
+### New
+- **Study goal**: *Reach a level* (for example HSK 3 by a date), *HSK exam*, or *No target*, plus a daily amount in
+  minutes or new words (or automatic). The app works out straight away whether the target is realistic and offers
+  fixes if it isn't: more minutes, more words a day, or a later date. Asked once on first start (can be skipped)
+  and changeable any time from Home.
+- **"Today" plan on Home**: today's reviews and new words, estimated minutes, status (*on track* or *behind*), and
+  a **Start session** button.
+- **Today's session**: reviews of the words you are most likely to forget, new words (introduced as cards) and
+  confirmations of old green words, mixed in one session. Wrong answers come back a few questions later. After days
+  off the plan is rebuilt without a pile of overdue work. **Extra practice** afterwards.
+- **Cards reworked**: *Don't know* or *I know it*. "I know it" has to be proven with a quick check (pick the right
+  meaning or pinyin) before the card flips. Being sure but wrong counts more than honestly not knowing. The check is
+  adaptive: learners who prove honest are checked less often, and after an unchecked claim there is an
+  **I was wrong** button.
+- **Guided quiz** (default): the app picks the words and question types for your weak spots. Five question types
+  in steps: *Recognise* (hanzi → meaning), *Recall* (meaning → hanzi), *Tones* (pick the right pinyin), *Listen*
+  (sound → hanzi; only when a Chinese voice is installed) and *Sentence* (fill the gap). Options get more alike as a
+  word is better known, to keep you at about 80–85% right. A round is 12 questions with a summary. Every type can
+  also be chosen by hand.
+- **Exam practice**: 20 mixed questions from HSK 1 up to the chosen level in 5 minutes, scored with lucky guesses
+  taken into account.
+- **Learning insights** on Stats: recall right now, answers in the last 7 days, how often "I know it" was right,
+  accuracy per question type (the weakest is marked and practised more), and words you mix up. Tap a word to see
+  its meaning, hanzi and tone levels and when it comes back.
+- **FSRS memory model** (open source) decides when each word is due. After 400 spaced reviews its parameters are
+  fitted to how you remember, on the phone.
+
+### Changed
+- **Level 0–20 means something new**: how long you are expected to keep remembering the word (about a month =
+  green, four months = 20). Repeating a word many times on the same day can no longer make it green, and green also
+  needs a passed *Recall* and *Tones* question.
+- **Earlier progress is kept**: every word keeps its level. Green words are marked *needs confirming* and get a short
+  check (Recall and Tones) in the next sessions.
+- The **Know it / Not yet** buttons on Stats are gone, because they gave levels without proof.
+- The **backup code** also carries the memory model, the goal and the fitted parameters (not the answer history).
+  Codes from earlier versions still restore.
+- New subtitles for the Cards and Quiz tiles.
+
+### Privacy
+- The answer history (word, time, question type, right/wrong, wrong option picked, time taken) and the study goal
+  are kept **on the phone only**. The history can be deleted with **Stats → Delete answer history**; word progress
+  stays. The privacy policy is updated.
+
+## v1.7 — 15 October 2026
+- Pinyin for every example sentence, with the learned word highlighted. The pinyin is read in context, including the
+  tone changes of 一/不, 得/地/着, measure words and erhua; names are capitalised.
+- Pinyin fixed for 11 words: 目的 mùdì, 充分 chōngfèn, 更换 gēnghuàn, 尽力 jìnlì, 牛仔裤 niúzǎikù, 适当 shìdàng,
   水分 shuǐfèn, 挑战 tiǎozhàn, 相册 xiàngcè, 行业 hángyè, 背包 bēibāo.
 
-## v1.6 — 15 Oktober 2026
-- Uji coba suara pelafalan: tombol speaker di Kartu, Daftar, dan Kuis, untuk kata dan contoh kalimat. Memakai mesin
-  suara (TTS) bawaan HP. Kalau suara Mandarin belum terpasang, aplikasi membuka pengaturan TTS.
+## v1.6 — 15 October 2026
+- Pronunciation test: speaker buttons in Cards, List and Quiz for the word and the example sentence, using the
+  phone's own text-to-speech engine. If no Chinese voice is installed, the app opens the TTS settings.
 
-## v1.5 — 15 Oktober 2026
-- Font dibundel di dalam aplikasi (Plus Jakarta Sans, Noto Sans/Serif SC, Noto Sans Thai), jadi aplikasi tidak lagi
-  memakai internet.
-- Ukuran huruf mengikuti pengaturan HP (85–160%). Hanzi besar dan bagian ringkas membesar setengahnya supaya tata
-  letak tetap rapi.
+## v1.5 — 15 October 2026
+- Fonts are bundled in the app (Plus Jakarta Sans, Noto Sans/Serif SC, Noto Sans Thai), so the app no longer uses
+  the internet.
+- Text size follows the phone's setting (85–160%). Large hanzi and compact controls grow half as much so the layout
+  stays tidy.
 
-## v1.4 — 15 Oktober 2026
-- Tombol **Cadangan** pindah ke Home, di samping tombol warna nada.
-- Ikon baru 学词.
+## v1.4 — 15 October 2026
+- The **Backup** button moved to Home, beside the tone colours button.
+- New 学词 icon.
 
-## v1.3 — 15 Oktober 2026
-- Target Android 16 (API 36) dengan tampilan *edge-to-edge*: warna status bar dan navigation bar mengikuti tema, dan
-  ikut naik saat keyboard muncul.
-- Nama paket baru `com.armstrang.xueci` untuk Google Play, sehingga terpasang sebagai aplikasi terpisah. Pindahkan
-  progres dari aplikasi lama lewat **Cadangan → Pulihkan**.
+## v1.3 — 15 October 2026
+- Targets Android 16 (API 36) with an edge-to-edge layout: the status and navigation bars follow the theme and move
+  up with the keyboard.
+- New package name `com.armstrang.xueci` for Google Play, so the app installs separately. Move your progress from
+  the old app with **Backup → Restore**.
 
-## v1.2 — 15 Oktober 2026
-- **Cadangkan dan pulihkan progres** sebagai satu kode teks untuk disalin atau dibagikan. Ini versi terakhir dengan
-  nama paket lama (`com.jorgi.merdekamandarin`).
+## v1.2 — 15 October 2026
+- **Back up and restore progress** as one text code to copy or share. This is the last version with the old package
+  name (`com.jorgi.merdekamandarin`).
 
-## v1.1 — 15 Oktober 2026
-- Kebijakan privasi (bahasa Indonesia dan English) dan tautannya di bagian Tentang.
+## v1.1 — 15 October 2026
+- Privacy policy (Indonesian and English), linked from About.
 
-## v1.0 — 15 Oktober 2026
-- Nama baru **XueCi Mandarin** (sebelumnya Merdeka Mandarin) di repository baru.
-- Hanya versi Liquid Glass yang dipertahankan, dan nomor versi dimulai lagi dari 1.0.
+## v1.0 — 15 October 2026
+- New name **XueCi Mandarin** (formerly Merdeka Mandarin) in a new repository.
+- Only the Liquid Glass version is kept, and version numbers start again at 1.0.

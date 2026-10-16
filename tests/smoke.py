@@ -73,6 +73,7 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     # first start: the goal sheet opens once; set an exam goal with too little time, take the suggested fix, save
     if onboarding:
         check(await pg.locator('#goalSheet').is_visible(), f'{tag}: goal sheet opens on first start')
+        check(await pg.locator('#gPt').count() == 1, f'{tag}: first start suggests the placement test')
         await pg.click('.gseg[data-g="t"][data-v="exam"]')
         await pg.click('.gseg[data-g="lv"][data-v="3"]')
         await pg.click('.gseg[data-g="pace"][data-v="min"]')
@@ -92,6 +93,16 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
 
     check(await pg.evaluate('state.screen') == 'home' and not await overflow(), f'{tag}: home, no sideways scroll')
     check(await pg.locator('#planGo').is_visible(), f'{tag}: plan card with a start button')
+    check(await pg.locator('#curLvName').text_content() == 'HSK 1' and 'Armstrang' not in await pg.locator('header.top').text_content(),
+          f'{tag}: header shows the current level and no "by Armstrang"')
+    if fs == 1 and width >= 360:
+        await pg.set_viewport_size({'width': width, 'height': 680})
+        await pg.wait_for_timeout(250)
+        fits = await pg.evaluate('document.documentElement.scrollHeight <= innerHeight + 1')
+        await shot('home-680')
+        check(fits, f'{tag}: Home fits one screen at {width}x680')
+        await pg.set_viewport_size({'width': width, 'height': 800})
+        await pg.wait_for_timeout(150)
     await shot('home')
 
     # level pills (Home lens)
@@ -219,6 +230,41 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(350)
 
+    # current level: placement test (an HSK 1–2 learner who says "don't know" honestly), then a manual pick
+    if width == 360:
+        await pg.click('#curLvBtn')
+        await pg.wait_for_timeout(350)
+        check(await pg.locator('#lvlSheet').is_visible() and await pg.locator('[data-lvset]').count() == 6, f'{tag}: level sheet with test and manual pick')
+        await pg.click('#ptGo')
+        await pg.wait_for_timeout(450)
+        check(await pg.evaluate('state.screen') == 'placement' and await pg.locator('#ptBegin').count() == 1, f'{tag}: placement test intro')
+        await pg.click('#ptBegin')
+        await pg.wait_for_timeout(200)
+        await shot('placement')
+        rnd = random.Random(11)
+        for _ in range(50):
+            it = await pg.evaluate('pt && pt.it ? {l: pt.it.l, ans: pt.it.ans, n: pt.it.opts.length} : null')
+            if not it:
+                break
+            check(it['n'] == 4, f'{tag}: placement question has 4 options') if _ == 0 else None
+            known = rnd.random() < [.97, .9, .2, .05, .02, .01][it['l'] - 1]
+            await pg.click(f'#ptOpts [data-p="{it["ans"]}"]' if known else '#ptIdk')
+            await pg.wait_for_timeout(190)
+        await pg.wait_for_timeout(300)
+        res = await pg.evaluate('pt && pt.res')
+        await shot('placement-result', True)
+        check(res and res['n'] == 50 and 2 <= res['lv'] <= 3, f'{tag}: placement test of 50 places an HSK 1–2 learner at HSK 2–3 ({res and res["lv"]})')
+        check(await pg.evaluate('LM.level.src') == 'test' and await pg.locator('#curLvName').text_content() == f'HSK {res["lv"]}', f'{tag}: the chip shows the tested level')
+        check(await pg.evaluate("LM.allLog().filter(e => e[6] & 16).length") >= 1, f'{tag}: placement answers are logged as placement')
+        await pg.click('#ptHome')
+        await pg.wait_for_timeout(400)
+        await pg.click('#curLvBtn')
+        await pg.wait_for_timeout(300)
+        await pg.click('[data-lvset="4"]')
+        await pg.wait_for_timeout(300)
+        check(await pg.evaluate('LM.baseLevel()') == 4 and await pg.evaluate("LM.session(false).filter(i => i.k === 'card').every(i => i.d.l >= 4)"),
+              f'{tag}: a manual level steers the daily plan')
+
     # tone info sheet
     await pg.click('#toneInfo')
     await pg.wait_for_timeout(450)
@@ -308,6 +354,39 @@ async def legacy_case(browser):
     await ctx.close()
 
 
+STUB = '''window.__calls = []; window.MMAndroid = {fontScale: () => 1, setBars() {}, setTheme() {}, ttsStatus: () => 'none', speak() {}, stopSpeaking() {},
+  openTtsSettings() {}, copyText() {}, shareText() {}, pasteText: () => '', openNotifSettings() {},
+  setReminder(...a) { __calls.push(['setReminder', ...a]) }, markStudied() { __calls.push(['markStudied']) },
+  notifStatus: () => window.__notif || 'off',
+  requestNotifications() { __calls.push(['request']); setTimeout(() => { window.__notif = 'granted'; window.mmNotifResult && mmNotifResult(true) }, 30) }};'''
+
+
+async def reminder_case(browser):
+    """Android bridge (stubbed): the first-start goal sheet suggests a daily reminder, asks for permission, sets it."""
+    tag = 'reminder'
+    ctx = await browser.new_context(viewport={'width': 360, 'height': 780}, locale='id-ID')
+    await ctx.add_init_script(STUB)
+    pg = await ctx.new_page()
+    errors = []
+    pg.on('pageerror', lambda e: errors.append(str(e)))
+    await pg.goto(PAGE)
+    await pg.wait_for_timeout(900)
+    check(await pg.locator('#gTime').count() == 1 and await pg.get_attribute('[data-rem="1"]', 'aria-pressed') == 'true', f'{tag}: reminder suggested on first start')
+    await pg.fill('#gTime', '20:30')
+    await pg.dispatch_event('#gTime', 'change')
+    await pg.click('#gSave')
+    await pg.wait_for_timeout(300)
+    calls = await pg.evaluate('__calls')
+    sets = [c for c in calls if c[0] == 'setReminder']
+    check(['request'] in calls and sets and sets[-1][1:4] == [True, 20, 30] and 'Mandarin' in sets[-1][4], f'{tag}: permission asked, reminder set for 20:30 {sets[-1:]}')
+    await pg.click('.tile[data-go="quiz"]')
+    await pg.wait_for_timeout(400)
+    await pg.evaluate(STEP, True)
+    check(['markStudied'] in await pg.evaluate('__calls'), f'{tag}: practising today keeps the reminder quiet')
+    check(not errors, f'{tag}: no page errors {errors[:2]}')
+    await ctx.close()
+
+
 async def main():
     os.makedirs(OUT, exist_ok=True)
     async with async_playwright() as p:
@@ -316,6 +395,7 @@ async def main():
                                               (1280, 'vi-VN', 'auto', 1, False), (360, 'vi-VN', 'light', 1.6, True)):
             await run_case(browser, width, locale, theme, fs, onb)
         await legacy_case(browser)
+        await reminder_case(browser)
         await browser.close()
     print(f'\n{len(failures)} failed' if failures else '\nall checks passed')
     sys.exit(1 if failures else 0)
