@@ -104,6 +104,7 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     check(await pg.locator('#curLvName').text_content() == '凡人' and 'Armstrang' not in await pg.locator('header.top').text_content(),
           f'{tag}: header shows the realm (凡人 before any test) and no "by Armstrang"')
     check(await pg.locator('#chalBtn').is_visible(), f'{tag}: plan card shows today\'s trial')
+    check(await pg.evaluate("getComputedStyle(document.getElementById('curLvBtn')).getPropertyValue('--p').trim()") == '0', f'{tag}: the realm chip has a progress ring')
     if fs == 1 and width >= 360:
         await pg.set_viewport_size({'width': width, 'height': 680})
         await pg.wait_for_timeout(250)
@@ -308,9 +309,17 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         check(await pg.locator('#ptGo').is_disabled() and await pg.locator('#lvlSheet .lockn').count() == 1, f'{tag}: one test a week (the next test is locked)')
         await pg.click('#soulGo')
         await pg.wait_for_timeout(500)
-        check(await pg.evaluate('state.screen') == 'soul' and await pg.locator('.wheel .petal').count() == 5 and await pg.locator('.elrow').count() == 5,
+        check(await pg.evaluate('state.screen') == 'soul' and await pg.locator('.wheel .ghost').count() == 5 and await pg.locator('.elrow').count() == 5,
               f'{tag}: Soul Sea shows the orb with the five elements')
         check(await pg.evaluate("document.getElementById('orb').width") > 0 and await pg.locator('#soulBody .hrow').count() == 1, f'{tag}: soul orb drawn, realm history')
+        check(await pg.locator('#soulBody .rpath .rp').count() == 8 and await pg.locator('#soulBody .rp.cur').count() == 1 and await pg.locator('#soulBody .sgtrack .sg').count() == 4,
+              f'{tag}: realm path and stage progress are shown')
+        check(await pg.locator('#soulBody .advs .adv').count() >= 1, f'{tag}: guidance lists what to improve')
+        inside = await pg.evaluate('''() => { const w = document.querySelector('.wheel').getBoundingClientRect();
+            return [...document.querySelectorAll('.wheel .elg circle')].every(c => { const r = c.getBoundingClientRect(); return r.top >= w.top - .5 && r.left >= w.left - .5 && r.right <= w.right + .5 && r.bottom <= w.bottom + .5 }) }''')
+        check(inside, f'{tag}: every element badge sits inside the wheel (none cut off)')
+        await pg.click('#soulBody .rp[data-rp="5"]')
+        check('huàshén' in await pg.locator('#soulBody .rpinfo').text_content(), f'{tag}: tapping a realm on the path explains it')
         check(not await overflow(), f'{tag}: Soul Sea, no sideways scroll')
         await shot('soul', True)
         await pg.click('#soulHelp')
@@ -325,10 +334,14 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     await pg.click('#toneInfo')
     await pg.wait_for_timeout(450)
     check(await pg.locator('.tone').count() == 5, f'{tag}: tone sheet lists 5 tones')
-    check(await pg.locator('details.hlp').count() == 9, f'{tag}: help guide has 9 topics')
+    check(await pg.locator('details.hlp').count() == 10, f'{tag}: help guide has 10 topics')
     await pg.click('details.hlp[data-k="realm"] summary')
     await pg.wait_for_timeout(150)
     check(await pg.locator('details.hlp[data-k="realm"][open] p').count() >= 3, f'{tag}: a help topic opens')
+    rows = await pg.locator('details.hlp[data-k="realm"] .hrow2').all_text_contents()
+    check(len(rows) == 12 and 'liànqì' in rows[1] and 'yuánmǎn' in rows[11], f'{tag}: help lists every realm and stage with pinyin and meaning ({len(rows)} rows)')
+    check(await pg.locator('details.hlp[data-k="gloss"] .hrow2').count() == 11 and await pg.locator('details.hlp[data-k="soul"] .hrow2').count() == 5,
+          f'{tag}: glossary and the five elements are explained one by one')
     await shot('help', False)
     check(await pg.get_attribute('.plink', 'href') == 'https://armstrang.github.io/XueCi/privacy/' and bool((await pg.locator('.plink').text_content()).strip()), f'{tag}: privacy policy link in About')
     await pg.evaluate('mmBack()')
@@ -441,6 +454,7 @@ async def realm_case(browser):
         m: [4, 40, t - 60, 3, 2], f: [4, 40, t - 60, 3, 2], s: [4, 40, t - 60, 3, 2]};
       LM.replace(m); LM.restoreLevel({lv: 1, src: 'test', at: t - 8*1440, r: 1, hist: [[1, t - 8*1440]]}); renderHome() }''')
     st = await pg.evaluate('LM.stage()')
+    check(await pg.evaluate("getComputedStyle(document.getElementById('curLvBtn')).getPropertyValue('--p').trim()") == '100', f'{tag}: the chip ring is full at 圆满')
     check(st['i'] == 3 and await pg.evaluate('LM.btOpen()') and await pg.locator('#curLvBtn.btready').count() == 1, f'{tag}: 圆满 opens the breakthrough {st["share"]:.2f}')
     await pg.click('#curLvBtn')
     await pg.wait_for_timeout(350)
@@ -481,6 +495,13 @@ async def realm_case(browser):
     await pg.evaluate("go('soul')")
     await pg.wait_for_timeout(500)
     check(await pg.locator('#soulBody .hrow').count() == 2, f'{tag}: realm history lists 炼气 and 筑基')
+    adv = await pg.evaluate('LM.advice().items.map(x => x.k)')
+    check(len(adv) >= 1 and await pg.locator('#soulBody [data-adv]').count() >= 1, f'{tag}: guidance with actions {adv}')
+    await pg.click('#soulBody [data-adv="0"]')
+    await pg.wait_for_timeout(450)
+    check(await pg.evaluate('state.screen') in ('quiz', 'session'), f'{tag}: a guidance button starts the practice ({await pg.evaluate("state.screen")})')
+    await pg.evaluate("go('soul')")
+    await pg.wait_for_timeout(450)
     await pg.screenshot(path=os.path.join(OUT, f'{tag}-soul.png'), full_page=True)
     # a meditation day: no plan today
     await pg.evaluate("LM.setRest([new Date().getDay()]); go('home')")

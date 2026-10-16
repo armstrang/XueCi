@@ -268,7 +268,7 @@ const chip=l=>`<span class="lvchip" style="background:var(--l${l})">HSK ${l}</sp
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 /* realms (境界): 0 凡人 not tested yet · 1–6 studying HSK 1–6 · 7 飞升 HSK 6 mastered; four stages inside a realm */
 const RN=['凡人','炼气','筑基','金丹','元婴','化神','渡劫','飞升'],RPY=['fánrén','liànqì','zhùjī','jīndān','yuányīng','huàshén','dùjié','fēishēng'];
-const SN=['初期','中期','后期','圆满'];
+const SN=['初期','中期','后期','圆满'],SPY=['chūqī','zhōngqī','hòuqī','yuánmǎn'],RS='凡炼筑金元化渡飞';
 const realmLv=r=>Math.max(1,Math.min(6,r)),rc=r=>r<1?'var(--mute)':r>6?'var(--gold)':`var(--l${r})`;
 const tDate=t=>new Date(Date.UTC(2026,0,1)+t*6e4);
 const LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
@@ -802,8 +802,18 @@ function renderInfo(){
     return `<div class="tone"><span class="tz t${t}">${h}</span><span class="tp t${t}">${p}</span><svg class="tc t${t}" viewBox="0 0 40 24" aria-hidden="true">${TONE_PATH[i]?`<path d="${TONE_PATH[i]}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`:'<circle cx="20" cy="14" r="3.2" fill="currentColor"/>'}</svg><span class="tn"><b>${n}</b><small>${dsc}</small></span><span class="tm">${esc(ex)}</span></div>`}).join('');
   $('infoCred').innerHTML=esc(L10.credit).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
   /* help guide: one <details> per topic (keyboard and TalkBack open them like any button) */
-  $('helpList').innerHTML=L10.help.map(([k,t,ps])=>`<details class="hlp" data-k="${k}"><summary>${t}</summary>${ps.map(x=>`<p>${x}</p>`).join('')}</details>`).join('');
+  $('helpList').innerHTML=L10.help.map(([k,t,ps])=>`<details class="hlp" data-k="${k}"><summary>${t}</summary>${ps.map(helpBlock).join('')}</details>`).join('');
 }
+/* '@realms', '@stages', '@elements' and '@gloss' in a help topic become tables: hanzi, pinyin, meaning, explanation */
+const GL=[['境界','jìngjiè','jj'],['突破','tūpò','tp'],['识海','shíhǎi','sh'],['五行','wǔxíng','wx'],['指点','zhǐdiǎn','zd'],['今日试炼','jīnrì shìliàn','sl'],
+  ['修炼天数','xiūliàn tiānshù','xl'],['闭关','bìguān','bg'],['调息','tiáoxī','tx'],['休息之道','xiūxi zhī dào','xd'],['境界历程','jìngjiè lìchéng','lc']];
+const hrow2=(hz,py,main,sub,lc)=>`<div class="hrow2"${lc?` style="--lc:${lc}"`:''}><span class="hz2"><b lang="zh-CN">${hz}</b><small>${py}</small></span><span class="hm"><em>${main}</em>${sub?`<small>${sub}</small>`:''}</span></div>`;
+function helpBlock(x){
+  if(x==='@realms')return `<div class="htab">${RN.map((n,i)=>hrow2(n,RPY[i],`${esc(L10.realmM[i])} · ${i?(i>6?'HSK 6 ✓':'HSK '+i):esc(L10.notTested)}`,esc(L10.realmD[i]),rc(i))).join('')}</div>`;
+  if(x==='@stages')return `<div class="htab">${SN.map((n,i)=>hrow2(n,SPY[i],esc(L10.stageM[i]),esc(L10.stageD[i]),'var(--acc)')).join('')}</div>`;
+  if(x==='@elements')return `<div class="htab">${EL5.map(([k,g,a])=>hrow2(`${g} ${ATZ[a][0]}`,`${ELP[k]} · ${ATZ[a][1]}`,`${esc(L10.elName[k])} · ${esc(L10.attrN[a])}`,esc(L10.attrD[a]),`var(--el-${k})`)).join('')}</div>`;
+  if(x==='@gloss')return `<div class="htab">${GL.map(([h,py,k])=>{const [m,...more]=L10.gloss[k].split(': ');return hrow2(h,py,esc(m),esc(more.join(': ')),'var(--acc)')}).join('')}</div>`;
+  return `<p>${x}</p>`}
 let infoOpener=null;
 function openInfo(topic){renderInfo();infoOpener=document.activeElement;infoSheet.hidden=false;document.body.style.overflow='hidden';
   const d=topic&&infoSheet.querySelector(`details[data-k="${topic}"]`);
@@ -1007,26 +1017,69 @@ goalSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault()
    The realm changes only through a test: the placement test, or a breakthrough (突破) once the stage is 圆满. One test a
    week. The realm only steers the daily plan — every level stays open in List, Cards and Quiz. */
 const lvlSheet=$('lvlSheet');let lvlOpener=null;
-function renderCurLv(){const r=LM.realm(),b=$('curLvBtn'),st=LM.stage(),open=LM.btOpen()&&LM.canTest();
+const realmPct=r=>{const st=LM.stage(r<1?LM.baseLevel():r);return st?Math.round(Math.min(1,st.share/.8)*100):0};
+/* the chip: realm name, HSK, and a small ring that fills up to 圆满 (share of solid words ÷ 80 %) */
+function renderCurLv(){const r=LM.realm(),b=$('curLvBtn'),st=LM.stage(r<1?LM.baseLevel():r),open=LM.btOpen()&&LM.canTest(),p=realmPct(r);
   $('curLvName').textContent=RN[r];$('curLvSub').textContent=r?'HSK '+realmLv(r):L10.chipTest;
-  b.style.setProperty('--lc',rc(r));b.classList.toggle('mortal',!r);b.classList.toggle('btready',open);
-  b.setAttribute('aria-label',`${L10.realmL}: ${RN[r]}, ${L10.realmM[r]}${st?`, ${SN[st.i]} ${L10.stageM[st.i]}`:''}${r?`, HSK ${realmLv(r)}`:''}${open?'. '+L10.stOpen:''}`)}
+  b.style.setProperty('--lc',rc(r));b.style.setProperty('--p',p);b.classList.toggle('mortal',!r);b.classList.toggle('btready',open);
+  b.setAttribute('aria-label',`${L10.realmL}: ${RN[r]} ${RPY[r]}, ${L10.realmM[r]}${r&&st?`, ${SN[st.i]} ${L10.stageM[st.i]}`:''}${r?`, HSK ${realmLv(r)}`:''}, ${L10.chipProg(p)}${open?'. '+L10.stOpen:''}`)}
 const perBars=per=>`<div class="lvper">${per.map((p,i)=>`<div class="skrow"><span>HSK ${i+1}</span><span class="mbar"><span class="stack"><i style="width:${p}%;background:var(--l${i+1})"></i></span></span><b>${p}%</b></div>`).join('')}</div>`;
 const realmHead=(r,big)=>`<div class="rhead${big?' lg':''}" style="--lc:${rc(r)}"><span class="rname" lang="zh-CN">${RN[r]}</span><span class="rpy">${RPY[r]}</span><span class="rmean">${esc(L10.realmM[r])}${r?` · HSK ${realmLv(r)}`:''}</span></div>`;
-/* the stage bar fills up to 圆满 (80 % of the level's words solid); marks at 初期→中期 (25 %) and 中期→后期 (50 %) */
-function stageH(r){const st=LM.stage(r);if(!st)return '';const T=[.25,.5,.8],i=st.i,next=i<3?Math.max(0,Math.ceil(st.total*T[i])-st.solid):0;
-  return `<div class="stage" style="--lc:${rc(r)}"><div class="stl"><b lang="zh-CN">${SN[i]}</b><span>${esc(L10.stageM[i])}</span><small>${L10.stShare(fmt(st.solid),fmt(st.total))}</small></div>
-    <span class="sgbar"><i style="width:${Math.min(100,st.share/.8*100)}%"></i><u style="left:31.25%"></u><u style="left:62.5%"></u></span>
-    <div class="stn">${r>6?L10.stAll:i===3?L10.stOpen:L10.stNext(fmt(next),SN[i+1])}</div></div>`}
+const hd=(hz,py,t)=>`<h3 class="shd"><span lang="zh-CN">${hz}</span> <small class="hpy">${py}</small> <span class="hsep">·</span> ${esc(t)}</h3>`;
+/* the path of the eight realms: passed ones filled, the current one ringed; tap any to read its name, pinyin and meaning */
+function rpInfo(i,r){return `<b lang="zh-CN" style="color:${rc(i)}">${RN[i]}</b> <span class="rpy2">${RPY[i]}</span> · ${esc(L10.realmM[i])} · ${i?(i>6?'HSK 6 ✓':'HSK '+i):esc(L10.notTested)}${i===r?` · <em>${L10.youHere}</em>`:''}<br><small>${esc(L10.realmD[i])}</small>`}
+function pathH(r){return `<div class="rpath">${RN.map((n,i)=>`${i?`<span class="rpl${i<=r?' done':''}" aria-hidden="true"></span>`:''}<button class="rp${i<r?' done':i===r?' cur':''}" data-rp="${i}" style="--lc:${rc(i)}" aria-pressed="${i===r}" aria-label="${n} ${RPY[i]}, ${esc(L10.realmM[i])}"><span lang="zh-CN">${RS[i]}</span></button>`).join('')}</div><p class="rpinfo" aria-live="polite">${rpInfo(r,r)}</p>`}
+function rpPick(p){const box=p.closest('.rpath');box.querySelectorAll('.rp').forEach(x=>x.setAttribute('aria-pressed',String(x===p)));const info=box.nextElementSibling;if(info)info.innerHTML=rpInfo(+p.dataset.rp,LM.realm())}
+/* progress inside the realm: four stage segments (初期 <25 %, 中期 25–50 %, 后期 50–80 %, 圆满 ≥80 % of the level's words
+   solid), the next step, and the engine's forecast (pace of the last 14 days) or, at 圆满, the chance to pass a breakthrough */
+const TH=[0,.25,.5,.8,1];
+function stageH(r){const L=r<1?LM.baseLevel():r,st=LM.stage(L);if(!st)return '';
+  const i=st.i,pct=Math.round(Math.min(1,st.share/.8)*100),fc=r>=1&&r<=6?LM.forecast():null;
+  const segs=[0,1,2,3].map(k=>{const f=Math.max(0,Math.min(1,(st.share-TH[k])/(TH[k+1]-TH[k])));return `<span class="sg"><i style="width:${(f*100).toFixed(1)}%"></i></span>`}).join('');
+  const labs=SN.map((n,k)=>`<span class="sgl${k===i?' cur':''}"><b lang="zh-CN">${n}</b><small>${SPY[k]}</small></span>`).join('');
+  let note;
+  if(r<1)note=L10.prepNote;
+  else if(r>6)note=L10.stAll;
+  else if(i===3){const p=LM.btChance();note=L10.stOpen+(p===null?'':' '+L10.btChance(p<5?'<5':p>95?'>95':p))}
+  else note=L10.stNext(fmt(fc?fc.next:0),SN[i+1]);
+  const eta=fc&&i<3?(fc.dNext?`<div class="steta"><b>${L10.etaL}:</b> ${L10.etaNext(dateS(LM.dayAfter(fc.dNext)))}${fc.dFull&&fc.dFull>fc.dNext?' · '+L10.etaFull(dateS(LM.dayAfter(fc.dFull))):''} · ${L10.perWeek(fmt(fc.week))}</div>`:`<div class="steta">${L10.etaNone}</div>`):'';
+  return `<div class="stage" style="--lc:${rc(r<1?L:r)}"><div class="sthd"><span>${r<1?esc(L10.prepT(RN[L],L)):L10.progT}</span><b>${pct}%</b></div>
+    <div class="sgtrack" role="img" aria-label="${pct}%, ${SN[i]} ${esc(L10.stageM[i])}">${segs}</div><div class="sglabels" aria-hidden="true">${labs}</div>
+    <div class="stl2"><b lang="zh-CN">${SN[i]}</b> ${esc(L10.stageM[i])} · ${L10.stShare(fmt(st.solid),fmt(st.total))}</div>
+    <div class="stn">${note}</div>${eta}</div>`}
 function testH(){const r=LM.realm(),can=LM.canTest();let h='';
   if(LM.btOpen())h+=`<button class="planbtn wide btbtn" id="btGo"${can?'':' disabled'} style="--lc:${rc(r+1)}"><span lang="zh-CN">突破</span><span>${esc(L10.btGo(RN[r+1]))}</span></button>`;
   h+=r?`<button class="ghost wide" id="ptGo"${can?'':' disabled'}>${L10.ptAgain}</button>`:`<button class="planbtn wide" id="ptGo"${can?'':' disabled'}>${PLAY}<span>${L10.ptStart}</span></button>`;
   if(!can)h+=`<p class="gnote lockn">${LOCK}<span>${esc(L10.testNext(dateS(tDate(LM.nextTestAt()))))}</span></p>`;
   return h}
+/* guidance (指点): what to work on, ranked by LM.advice(); each with a button that starts the right practice */
+let advCur=null,advL=1;
+function advText(x){const h='HSK '+x.L;switch(x.k){
+  case 'test':return [L10.advTest,L10.advTestWhy,L10.advStart];
+  case 'f':return [L10.advF(fmt(x.n),h),L10.advFWhy,L10.advGo];
+  case 's':return [L10.advS(fmt(x.n),h),L10.advSWhy,L10.advGo];
+  case 'due':return [L10.advDue(fmt(x.n),h),L10.advDueWhy,L10.advStart];
+  case 'skill':return [L10.advSkill(TNAME()[x.q],x.p),L10.advSkillWhy,L10.advGo];
+  case 'young':return [L10.advYoung(fmt(x.n),h),L10.advYoungWhy(x.days),''];
+  case 'new':return [L10.advNew(fmt(x.n),h),L10.advNewWhy,L10.advStart];
+  case 'conf':return [L10.advConf(esc(x.a.h),esc(x.b.h),x.n),L10.advConfWhy,L10.advGo];
+  default:return [L10.advDao(x.p),L10.advDaoWhy,'']}}
+function adviceH(max){const A=LM.advice();advCur=A.items;advL=A.L;
+  if(!A.items.length)return `<p class="gnote">${L10.advNone}</p>`;
+  return `<ol class="advs">${A.items.slice(0,max).map((x,i)=>{const [t,w,b]=advText(x);
+    return `<li class="adv adv-${x.k}"><span class="advn" aria-hidden="true">${i+1}</span><div class="advt"><b>${t}</b><small>${w}</small></div>${b?`<button class="ghost advgo" data-adv="${i}">${b}</button>`:''}</li>`}).join('')}</ol>`}
+function advGo(i){const x=advCur&&advCur[i];if(!x)return;
+  if(x.k==='test'){go('placement');return}
+  if(x.k==='f'||x.k==='s'){pendingRun={mode:'quiz',items:x.words.map(d=>({k:'q',d,q:x.k}))};go('quiz');return}
+  if(x.k==='skill'){pendingRun={mode:'quiz',items:LM.quizRound(BY[advL],ROUND_Q,x.q)};go('quiz');return}
+  if(x.k==='conf'){pendingRun={mode:'quiz',items:[{k:'q',d:x.a,q:'m'},{k:'q',d:x.b,q:'m'},{k:'q',d:x.a,q:'f'},{k:'q',d:x.b,q:'f'}]};go('quiz');return}
+  sessionExtra=LM.plan().todayLeft===0;go('session')}
 function renderLvl(){
   const info=LM.level,r=LM.realm(),cur=LM.curLevel();
   const src=!info?L10.lvSrcDefault:!r&&info.src==='manual'?L10.lvSrcOld(info.lv):info.src==='bt'?L10.lvSrcBt(dateS(tDate(info.at))):L10.lvSrcTest(dateS(tDate(info.at)));
-  $('lvlBody').innerHTML=`${realmHead(r,true)}<p class="lvsrc">${esc(src)}${r&&cur>realmLv(r)?' '+esc(L10.lvAhead(cur)):''}</p>${stageH(r)}${testH()}
+  $('lvlBody').innerHTML=`${realmHead(r,true)}<p class="lvsrc">${esc(src)}${r&&cur>realmLv(r)?' '+esc(L10.lvAhead(cur)):''}</p>
+    ${pathH(r)}${stageH(r)}${testH()}
+    <div class="lvadv">${hd('指点','zhǐdiǎn',L10.advM)}${adviceH(2)}</div>
     <button class="ghost wide soulbtn" id="soulGo"><span lang="zh-CN">识海</span> ${L10.soulMore} ›</button>
     <p class="gnote">${L10.lvNote}</p>`}
 function openLvl(){lvlOpener=document.activeElement;renderLvl();lvlSheet.hidden=false;document.body.style.overflow='hidden';lvlSheet.querySelector('.xbtn').focus()}
@@ -1034,6 +1087,8 @@ function closeLvl(){lvlSheet.hidden=true;document.body.style.overflow='';lvlOpen
 $('curLvBtn').onclick=openLvl;
 lvlSheet.addEventListener('click',e=>{
   if(e.target.closest('[data-close]')){closeLvl();return}
+  const rp=e.target.closest('[data-rp]');if(rp){rpPick(rp);return}
+  const ad=e.target.closest('[data-adv]');if(ad){closeLvl();advGo(+ad.dataset.adv);return}
   const id=e.target.closest('[id]')?.id;
   if(id==='ptGo'){closeLvl();go('placement');return}
   if(id==='btGo'){closeLvl();go('bt');return}
@@ -1125,15 +1180,17 @@ view.addEventListener('click',e=>{
 /* ---------- Soul Sea (识海): the realm, the soul orb, the five elements (五行), today's trial, cultivation days, rest ----------
    Every number comes from the memory model and the answer log on this phone (LM.soul, LM.challenge, LM.streak, LM.restGain). */
 const EL5=[['earth','土','root'],['wood','木','cult'],['water','水','sense'],['metal','金','dao'],['fire','火','insight']];
-const ATZ={root:'根基',cult:'修为',sense:'神识',dao:'道心',insight:'悟性'};
+const ATZ={root:['根基','gēnjī'],cult:['修为','xiūwéi'],sense:['神识','shénshí'],dao:['道心','dàoxīn'],insight:['悟性','wùxìng']};
+const TTL={root:['磐石','pánshí'],cult:['苦修','kǔxiū'],sense:['明镜','míngjìng'],dao:['剑心','jiànxīn'],insight:['慧根','huìgēn']};
+const ELP={earth:'tǔ',wood:'mù',water:'shuǐ',metal:'jīn',fire:'huǒ'};
 function soulRows(S){const known=EL5.filter(e=>S[e[2]]!==null),mn=known.length>1?known.reduce((a,b)=>S[b[2]]<S[a[2]]?b:a):null,
     mx=known.length>1?known.reduce((a,b)=>S[b[2]]>S[a[2]]?b:a):null,flat=mn&&mx&&S[mn[2]]===S[mx[2]];
   return EL5.map(e=>{const [k,g,a]=e,v=S[a],weak=!flat&&e===mn,strong=!flat&&e===mx&&v>=60;
     const val=v===null?L10.unknownV:a==='cult'?L10.cultV(fmt(S.cultDays)):a==='insight'?L10.insightV(S.insightDays):v+'%';
-    return `<div class="elrow el-${k}${weak?' weak':''}"><span class="elg" lang="zh-CN" aria-hidden="true">${g}</span><div class="elt">
-      <div class="eln"><b lang="zh-CN">${ATZ[a]}</b><span>${esc(L10.attrN[a])}</span><em>${esc(val)}</em></div>
+    return `<div class="elrow el-${k}${weak?' weak':''}"><span class="elg" aria-hidden="true"><b lang="zh-CN">${g}</b><small>${ELP[k]}</small></span><div class="elt">
+      <div class="eln"><b lang="zh-CN">${ATZ[a][0]}</b><small class="hpy">${ATZ[a][1]}</small><span>${esc(L10.attrN[a])}</span><em>${esc(val)}</em></div>
       <span class="elbar"><i style="width:${v===null?0:Math.max(2,v)}%"></i></span><small>${esc(L10.attrD[a])}</small>
-      ${weak?`<p class="eltip">${esc(L10.attrTip[a])}</p>`:''}${strong?`<p class="eltitle">${esc(L10.titleL(L10.attrTitle[a]))}</p>`:''}</div></div>`}).join('')}
+      ${weak?`<p class="eltip">${esc(L10.attrTip[a])}</p>`:''}${strong?`<p class="eltitle">${L10.titleL(`<span lang="zh-CN">${TTL[a][0]}</span> ${TTL[a][1]} · ${esc(L10.attrTitle[a])}`)}</p>`:''}</div></div>`}).join('')}
 function weekH(){const S=LM.studyDays(),today=LM.dayOf(LM.now());let h='';
   for(let d=today-6;d<=today;d++){const w=new Date(Date.now()-(today-d)*864e5).getDay(),c=S.has(d)?'on':LM.isRest(d)?'rest':d===today?'today':'off';
     h+=`<span class="wd ${c}"><i aria-hidden="true">${c==='rest'?'闭':''}</i><small>${esc(wkName(w,'short'))}</small></span>`}return h}
@@ -1150,19 +1207,23 @@ function renderSoul(){
   $('soulBody').innerHTML=`<div class="soulhero" style="--lc:${rc(r)}">
       <div class="orbwrap">${SOUL.wheel(S,300)}<canvas class="orb" id="orb" role="img" aria-label="${esc(L10.orbL(fmt(S.words)))}"></canvas></div>
       ${realmHead(r,true)}<p class="orbpick" id="orbPick" aria-live="polite">${S.words?L10.orbHint:L10.orbEmpty}</p></div>
-    <section class="scard">${st?stageH(r):`<p class="sumnote">${L10.lvSrcDefault}</p>`}${testH()}</section>
-    <section class="scard"><h3>${L10.elT}</h3>${soulRows(S)}</section>
-    <section class="scard chal${c.done?' done':''}"><h3>${L10.chalT}</h3><p class="chtxt">${L10.chalTxt(skName(c.k),c.n,c.a)}</p>
+    <section class="scard prog">${hd('修炼之路','xiūliàn zhī lù',L10.pathM)}${pathH(r)}${stageH(r)}${testH()}</section>
+    <section class="scard advc">${hd('指点','zhǐdiǎn',L10.advM)}<p class="gnote advintro">${L10.advIntro}</p>${adviceH(6)}</section>
+    <section class="scard">${hd('五行','wǔxíng',L10.elM)}${soulRows(S)}</section>
+    <section class="scard chal${c.done?' done':''}">${hd('今日试炼','jīnrì shìliàn',L10.chalM)}<p class="chtxt">${L10.chalTxt(skName(c.k),c.n,c.a)}</p>
       <div class="skrow"><span>${cc}/${c.n}</span><span class="mbar"><span class="stack"><i style="width:${Math.min(100,c.cnt/c.n*100)}%;background:var(--acc)"></i></span></span><b>${c.cnt?c.acc+'%':'–'}</b></div>
       <p class="gnote">${c.done?L10.chalDone:L10.chalWhy}${c.total?' · '+L10.chalTot(c.total):''}</p>${c.done?'':`<button class="ghost wide" id="chalGo">${L10.chalGo}</button>`}</section>
-    <section class="scard"><h3>${L10.strT}</h3><div class="strk"><b>${L10.strDays(k.days)}</b><div class="week">${weekH()}</div></div>
+    <section class="scard">${hd('修炼天数','xiūliàn tiānshù',L10.strM)}<div class="strk"><b>${L10.strDays(k.days)}</b><div class="week">${weekH()}</div></div>
       <p class="gnote">${L10.strNote}</p><p class="gnote">${rest.length?esc(L10.medDays(WK.filter(w=>rest.includes(w)).map(w=>wkName(w,'long')).join(', '))):L10.medNone} <button class="linkbtn" id="medSet">${L10.medSet}</button></p></section>
-    <section class="scard"><h3>${L10.restT}</h3>${restH(LM.restGain())}</section>
-    <section class="scard"><h3>${L10.histT}</h3>${hist.length?`<div class="hist">${hist.map(([hr,t])=>`<div class="hrow" style="--lc:${rc(hr)}"><b lang="zh-CN">${RN[hr]}</b><span>${esc(L10.realmM[hr])}</span><small>${dateS(tDate(t))}</small></div>`).join('')}</div>`:`<p class="gnote">${L10.histEmpty}</p>`}
+    <section class="scard">${hd('休息之道','xiūxi zhī dào',L10.restM)}${restH(LM.restGain())}</section>
+    <section class="scard">${hd('境界历程','jìngjiè lìchéng',L10.histM)}${hist.length?`<div class="hist">${hist.map(([hr,t])=>`<div class="hrow" style="--lc:${rc(hr)}"><b lang="zh-CN">${RN[hr]}</b><small class="hpy">${RPY[hr]}</small><span>${esc(L10.realmM[hr])}</span><small>${dateS(tDate(t))}</small></div>`).join('')}</div>`:`<p class="gnote">${L10.histEmpty}</p>`}
       ${info&&info.per?`<div class="glbl">${L10.ptPer}</div>${perBars(info.per)}`:''}</section>`;
   SOUL.mount($('orb'),{realm:r,stage:st?st.i:0,onPick:d=>{const el=$('orbPick');if(!el)return;
     el.innerHTML=d?`<b class="hzs">${hzH(d)}</b> ${pyH(d)} · ${esc(M1(d))} · <span class="st">${stTxt(d)}</span>`:L10.orbHint}})}
-scrSoul.addEventListener('click',e=>{const id=e.target.closest('[id]')?.id;
+scrSoul.addEventListener('click',e=>{
+  const rp=e.target.closest('[data-rp]');if(rp){rpPick(rp);return}
+  const ad=e.target.closest('[data-adv]');if(ad){advGo(+ad.dataset.adv);return}
+  const id=e.target.closest('[id]')?.id;
   if(id==='soulBack'){back();return}
   if(id==='soulHelp'){openInfo('soul');return}
   if(id==='btGo'){go('bt');return}

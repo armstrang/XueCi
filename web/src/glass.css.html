@@ -227,6 +227,8 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 .scard{border-radius:26px}
 .chalchip{transition:transform .32s var(--spring)}.chalchip:active{transform:scale(1.05)}
 .hlp{background:var(--g-solid);border-color:var(--g-edge);box-shadow:var(--g-inset)}
-.wheel .elg circle{fill:color-mix(in srgb,var(--bg) 80%,transparent)}
+.wheel .elg:not(.strong):not(.weak) circle{fill:color-mix(in srgb,var(--bg) 80%,transparent)}
+.adv,.hrow2{box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.rp.cur{box-shadow:0 0 0 3px color-mix(in srgb,var(--lc) 25%,transparent),inset 0 1px 0 rgba(255,255,255,.35)}
 @media (prefers-reduced-motion:reduce){.res{animation:none}}
 </style>

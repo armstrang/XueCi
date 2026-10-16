@@ -548,7 +548,7 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 /* rest break (调息) */
 .restcard .big{font-size:calc(52px*var(--fsd,1))}
 .breath{display:flex;flex-direction:column;align-items:center;gap:6px;margin:10px 0 4px}
-.bcirc{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--el-water) 42%,transparent),color-mix(in srgb,var(--el-water) 8%,transparent) 72%);animation:breathe 8s ease-in-out infinite;transform:scale(.62)}
+.bcirc{width:120px;height:120px;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--el-water) 42%,transparent),color-mix(in srgb,var(--el-water) 8%,transparent) 72%);animation:breathe 8s ease-in-out infinite;transform:scale(.62);will-change:transform}
 @keyframes breathe{0%,100%{transform:scale(.62)}50%{transform:scale(1)}}
 .btime{font-size:calc(24px*var(--fs,1));font-weight:800;font-variant-numeric:tabular-nums}
 .bcue{font-size:calc(13.5px*var(--fs,1));color:var(--soft);font-weight:700;min-height:1.4em}
@@ -572,15 +572,15 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 .soulbody{display:flex;flex-direction:column;gap:12px}
 .soulhero{display:flex;flex-direction:column;align-items:center;gap:2px}
 .orbwrap{position:relative;width:min(100%,340px);aspect-ratio:1/1}
-.orbwrap::before{content:"";position:absolute;inset:20%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--lc) 18%,transparent),transparent 70%)}
+
 .orbwrap .wheel{position:absolute;inset:0;width:100%;height:100%}
-.orb{position:absolute;left:21%;top:21%;width:58%;height:58%;touch-action:none;cursor:grab;border-radius:50%}
+
 .wheel .ring{fill:none;stroke:color-mix(in srgb,var(--fg) 12%,transparent);stroke-width:1;stroke-dasharray:2 5}
-.wheel .petal{fill:color-mix(in srgb,var(--ec) 62%,transparent);stroke:var(--ec);stroke-width:1}
-.wheel .petal.unk{fill:none;stroke-dasharray:3 3;opacity:.55}
-.wheel .petal.weak{animation:petalPulse 2.4s ease-in-out infinite}
-@keyframes petalPulse{50%{opacity:.45}}
-.wheel .elg circle{fill:var(--surface);stroke:var(--ec);stroke-width:1.5}
+
+
+
+
+
 .wheel .elg text{fill:var(--ec);font-family:var(--f-hz);font-weight:900}
 .orbpick{min-height:1.5em;margin:4px 0 0;font-size:calc(13px*var(--fs,1));color:var(--soft);text-align:center;line-height:1.5}
 .orbpick .hzs{font-family:var(--f-hz);font-size:calc(18px*var(--fs,1));font-weight:900}
@@ -588,9 +588,9 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 .scard{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:13px 14px}
 .scard h3{margin:0 0 10px;font-size:calc(14px*var(--fs,1));font-weight:800}
 .scard .sumnote{text-align:left}
-.elrow{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px dashed var(--line)}
+
 .scard h3+.elrow{border-top:0;padding-top:0}
-.elrow .elg{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:var(--f-hz);font-weight:900;font-size:calc(17px*var(--fs,1));color:var(--ec);background:color-mix(in srgb,var(--ec) 15%,transparent)}
+
 .eln{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
 .eln b{font-family:var(--f-hz);font-weight:900;font-size:calc(15px*var(--fs,1))}
 .eln span{font-size:calc(13px*var(--fs,1));font-weight:700}
@@ -613,7 +613,7 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 .rgain{display:flex;flex-direction:column;gap:6px;margin:4px 0 2px}
 .rgain .skrow{grid-template-columns:minmax(64px,auto) minmax(0,1fr) 52px}
 .hist{display:flex;flex-direction:column;gap:7px;margin-bottom:8px}
-.hrow{display:flex;align-items:baseline;gap:8px}
+
 .hrow b{font-family:var(--f-hz);font-weight:900;color:var(--lc);font-size:calc(17px*var(--fs,1))}
 .hrow span{font-size:calc(13px*var(--fs,1))}
 .hrow small{margin-left:auto;font-size:calc(12px*var(--fs,1));color:var(--soft);white-space:nowrap}
@@ -627,6 +627,76 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 .isec .hlp p{margin:0 13px 10px;font-size:calc(13px*var(--fs,1));color:var(--soft);line-height:1.5}
 .isec .hlp p b{color:var(--fg)}
 .toast.long{white-space:normal;text-align:center;width:max-content;max-width:min(440px,calc(100vw - 32px));line-height:1.45;cursor:pointer}
+/* ---------- v1.11: realm path, stage progress, guidance, help tables; the wheel fits its box ---------- */
+.orbwrap::before{content:"";position:absolute;inset:22%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--lc) 18%,transparent),transparent 70%)}
+.orb{position:absolute;left:23%;top:23%;width:54%;height:54%;touch-action:none;cursor:grab;border-radius:50%}
+.orbwrap .wheel{overflow:visible}
+.wheel .ghost{fill:color-mix(in srgb,var(--ec) 7%,transparent);stroke:color-mix(in srgb,var(--ec) 50%,transparent);stroke-width:1;stroke-dasharray:3 3}
+.wheel .petal{fill:color-mix(in srgb,var(--ec) 72%,transparent);stroke:var(--ec);stroke-width:1}
+.wheel .elg circle{fill:var(--surface);stroke:var(--ec);stroke-width:1.5}
+.wheel .elg.weak circle{stroke-width:2.2;stroke-dasharray:3 2.5;fill:color-mix(in srgb,var(--ec) 14%,var(--surface))}
+.wheel .elg.strong circle{fill:var(--ec)}
+.wheel .elg.strong text{fill:var(--surface)}
+.curlv i{width:13px;height:13px;box-shadow:none;background:conic-gradient(var(--lc) calc(var(--p,0)*1%),color-mix(in srgb,var(--lc) 24%,transparent) 0);
+  -webkit-mask:radial-gradient(circle,transparent 3.2px,#000 3.8px);mask:radial-gradient(circle,transparent 3.2px,#000 3.8px)}
+.shd{display:flex;align-items:baseline;gap:5px;flex-wrap:wrap}
+.hpy{font-size:calc(11.5px*var(--fs,1));font-weight:600;color:var(--soft);font-family:var(--f-ui)}
+.hsep{color:var(--mute)}
+.rpath{display:flex;align-items:center;margin:4px 2px 4px}
+.rp{flex:none;width:28px;height:28px;border-radius:50%;padding:0;border:1.5px solid color-mix(in srgb,var(--lc) 45%,var(--line));background:transparent;display:grid;place-items:center;
+  color:color-mix(in srgb,var(--lc) 75%,var(--soft));font-family:var(--f-hz);font-weight:900;font-size:calc(13px*var(--fsd,1));line-height:1;transition:transform .2s var(--ease,ease)}
+.rp.done{background:color-mix(in srgb,var(--lc) 22%,transparent);border-color:var(--lc);color:var(--lc)}
+.rp.cur{background:var(--lc);border-color:var(--lc);color:var(--on-acc);transform:scale(1.16);box-shadow:0 0 0 3px color-mix(in srgb,var(--lc) 25%,transparent)}
+.rp[aria-pressed="true"]:not(.cur){outline:2px solid var(--lc);outline-offset:2px}
+.rpl{flex:1 1 auto;min-width:3px;height:2px;background:var(--line);margin:0 1px}
+.rpl.done{background:color-mix(in srgb,var(--acc) 60%,transparent)}
+.rpinfo{margin:8px 0 12px;font-size:calc(13px*var(--fs,1));line-height:1.5;min-height:3em}
+.rpinfo b{font-family:var(--f-hz);font-weight:900;font-size:calc(16px*var(--fs,1))}
+.rpy2{color:var(--soft);font-size:calc(12.5px*var(--fs,1))}
+.rpinfo small{color:var(--soft);font-size:calc(12.5px*var(--fs,1))}
+.rpinfo em{font-style:normal;font-weight:800;color:var(--acc)}
+.sthd{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:calc(13px*var(--fs,1));font-weight:800;color:var(--soft)}
+.sthd b{font-size:calc(22px*var(--fs,1));color:var(--lc);font-variant-numeric:tabular-nums}
+.sgtrack,.sglabels{display:grid;grid-template-columns:25fr 25fr 30fr 20fr;gap:3px}
+.sgtrack{margin:6px 0 4px}
+.sg{display:block;height:9px;border-radius:99px;background:var(--sunk);overflow:hidden}
+.sg i{display:block;height:100%;background:var(--lc);border-radius:inherit}
+.sgl{display:flex;flex-direction:column;align-items:center;line-height:1.15;color:var(--mute);min-width:0}
+.sgl b{font-family:var(--f-hz);font-weight:900;font-size:calc(13px*var(--fs,1))}
+.sgl small{font-size:calc(10px*var(--fs,1));white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.sgl.cur{color:var(--lc)}
+.stl2{margin-top:9px;font-size:calc(13.5px*var(--fs,1));font-weight:700}
+.stl2 b{font-family:var(--f-hz);font-weight:900;color:var(--lc)}
+.steta{margin-top:4px;font-size:calc(12.5px*var(--fs,1));color:var(--soft);line-height:1.45}
+.steta b{color:var(--fg)}
+.advs{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+.adv{display:grid;grid-template-columns:22px minmax(0,1fr) auto;gap:10px;align-items:center;padding:9px 10px;border-radius:16px;background:color-mix(in srgb,var(--fg) 4%,transparent)}
+.advn{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:calc(11.5px*var(--fs,1));font-weight:800;background:color-mix(in srgb,var(--acc) 16%,transparent);color:var(--acc)}
+.advt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.advt b{font-size:calc(13.5px*var(--fs,1));line-height:1.35}
+.advt small{font-size:calc(12px*var(--fs,1));color:var(--soft);line-height:1.4}
+.advgo{white-space:nowrap;font-weight:800;padding:8px 12px;border-radius:12px}
+.bigtext .adv{grid-template-columns:22px minmax(0,1fr)}.bigtext .advgo{grid-column:2;justify-self:start}
+@media (max-width:340px){.adv{grid-template-columns:22px minmax(0,1fr)}.advgo{grid-column:2;justify-self:start}}
+.advintro{margin:-4px 0 10px}
+.lvadv{margin:4px 0 10px}
+.lvadv .shd{margin:0 0 8px;font-size:calc(14px*var(--fs,1));font-weight:800}
+.elrow{display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px dashed var(--line)}
+.elrow .elg{width:38px;height:38px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;color:var(--ec);background:color-mix(in srgb,var(--ec) 15%,transparent)}
+.elrow .elg b{font-family:var(--f-hz);font-weight:900;font-size:calc(16px*var(--fs,1))}
+.elrow .elg small{font-size:calc(9px*var(--fs,1));font-weight:700;margin-top:2px}
+.eln .hpy{margin-left:-2px}
+.hrow{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.htab{display:flex;flex-direction:column;gap:6px;margin:2px 13px 10px}
+.hrow2{display:grid;grid-template-columns:minmax(64px,auto) minmax(0,1fr);gap:10px;align-items:start;padding:7px 9px;border-radius:12px;background:color-mix(in srgb,var(--lc,var(--acc)) 8%,transparent)}
+.hz2{display:flex;flex-direction:column;line-height:1.25}
+.hz2 b{font-family:var(--f-hz);font-weight:900;font-size:calc(17px*var(--fs,1));color:var(--lc,var(--acc));white-space:nowrap}
+.hz2 small{font-size:calc(11.5px*var(--fs,1));color:var(--soft);white-space:nowrap}
+.hm{display:flex;flex-direction:column;font-size:calc(13px*var(--fs,1));line-height:1.4;min-width:0}
+.hm em{font-style:normal;font-weight:800;color:var(--fg)}
+.hm small{color:var(--soft);font-size:calc(12px*var(--fs,1))}
+/* smooth scrolling on the long Soul Sea page: cards below the fold are laid out and painted only when they come near */
+.soulbody>.scard:not(.prog):not(.advc){content-visibility:auto;contain-intrinsic-size:auto 280px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 <style>
@@ -858,7 +928,9 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 .scard{border-radius:26px}
 .chalchip{transition:transform .32s var(--spring)}.chalchip:active{transform:scale(1.05)}
 .hlp{background:var(--g-solid);border-color:var(--g-edge);box-shadow:var(--g-inset)}
-.wheel .elg circle{fill:color-mix(in srgb,var(--bg) 80%,transparent)}
+.wheel .elg:not(.strong):not(.weak) circle{fill:color-mix(in srgb,var(--bg) 80%,transparent)}
+.adv,.hrow2{box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
+.rp.cur{box-shadow:0 0 0 3px color-mix(in srgb,var(--lc) 25%,transparent),inset 0 1px 0 rgba(255,255,255,.35)}
 @media (prefers-reduced-motion:reduce){.res{animation:none}}
 </style>
 
@@ -1786,6 +1858,169 @@ Object.assign(I18N.vi,{
     ['voice','Âm thanh & hiển thị',[
       'Nút loa dùng công cụ đọc văn bản của điện thoại. Nếu chưa có giọng tiếng Trung, ứng dụng mở cài đặt TTS.',
       'Cỡ chữ theo cài đặt của điện thoại. Nút giao diện đổi lần lượt tự động → sáng → tối → đen tuyền.']]]});
+/* v1.11: realm path and progress, guidance (指点), help tables with pinyin and meaning */
+Object.assign(I18N.id,{
+  realmD:['Belum dites. Tes penempatan membuka jalan kultivasi.','Menyerap qi pertama: kosakata dasar HSK 1.','Fondasi kokoh dari kata sehari-hari HSK 2.','Pengetahuan memadat menjadi inti emas: HSK 3.',
+    'Jiwa bahasa lahir: kamu mulai memahami teks yang lebih panjang (HSK 4).','Roh berubah: kosakata abstrak dan formal HSK 5.','Ujian terberat: kata langka dan bernuansa HSK 6.','Semua ranah dilalui: HSK 6 dikuasai.'],
+  stageD:['di bawah 25% kata level ini kokoh','25–50% kata kokoh','50–80% kata kokoh','80% ke atas kokoh: terobosan terbuka'],
+  notTested:'belum dites',youHere:'kamu di sini',
+  progT:'Progres ranah',prepT:(n,l)=>`Persiapan ${n} (HSK ${l})`,prepNote:'Ranah resmi dimulai setelah tes penempatan; kata yang sudah kokoh tetap dihitung.',
+  etaNext:d=>`tahap berikutnya ±${d}`,etaFull:d=>`圆满 ±${d}`,perWeek:n=>`+${n} kata kokoh/minggu`,etaL:'Perkiraan',
+  etaNone:'Perkiraan tanggal muncul setelah beberapa kata menjadi kokoh.',btChance:p=>`Perkiraan peluang lulus terobosan sekarang: ${p}%.`,chipProg:p=>`${p}% menuju 圆满`,
+  elM:'Lima Elemen',chalM:'Ujian Hari Ini',strM:'Hari Kultivasi',restM:'Jalan Istirahat',histM:'Riwayat Ranah',advM:'Petunjuk Guru',pathM:'Jalan Kultivasi',
+  advIntro:'Dihitung dari model ingatanmu, diurutkan dari yang paling cepat membawamu ke tahap berikutnya.',
+  advTest:'Ambil tes penempatan',advTestWhy:'Tes menentukan ranah awalmu, jadi rencana harian mulai dari level yang tepat.',
+  advF:(n,h)=>`${n} kata ${h} tinggal lulus soal Ingat`,advFWhy:'Satu jawaban benar (arti → hanzi) membuat setiap kata ini kokoh.',
+  advS:(n,h)=>`${n} kata ${h} tinggal lulus soal Nada`,advSWhy:'Satu jawaban nada yang benar membuat setiap kata ini kokoh.',
+  advDue:(n,h)=>`${n} kata ${h} jatuh tempo`,advDueWhy:'Ulang selagi masih ingat; setelah lewat waktunya, ingatan turun lebih cepat.',
+  advSkill:(k,p)=>`${k}: ${p}% benar`,advSkillWhy:'Keterampilan terlemahmu. Latihan khusus jenis soal ini menaikkannya paling cepat.',
+  advYoung:(n,h)=>`${n} kata ${h} masih muda`,advYoungWhy:d=>`Dengan ulangan tepat waktu, rata-rata kokoh dalam ±${d} hari. Waktu dan tidur yang menguatkannya, jadi tidak bisa dipaksa dalam sehari.`,
+  advNew:(n,h)=>`${n} kata ${h} belum dikenalkan`,advNewWhy:'Sesi harian mengenalkannya sedikit demi sedikit sesuai tujuanmu.',
+  advConf:(a,b,n)=>`Sering tertukar: ${a} ↔ ${b} (${n}×)`,advConfWhy:'Latih keduanya berdampingan supaya perbedaannya jelas.',
+  advDao:p=>`“Saya tahu” terbukti benar ${p}%`,advDaoWhy:'Tekan “Saya tahu” hanya kalau yakin; jujur “Belum tahu” membuat jadwalmu lebih tepat.',
+  advNone:'Tidak ada yang mendesak. Lanjutkan sesi harian.',advGo:'Latih',advStart:'Mulai',
+  attrTitle:{root:'Batu Karang',cult:'Pertapa Tekun',sense:'Cermin Jernih',dao:'Hati Pedang',insight:'Akar Kebijaksanaan'},
+  elName:{earth:'Tanah',wood:'Kayu',water:'Air',metal:'Logam',fire:'Api'},
+  gloss:{jj:'Ranah: tingkat kultivasi, di aplikasi ini sama dengan level HSK.',tp:'Terobosan: tes 20 soal untuk naik ke ranah berikutnya.',
+    sh:'Lautan Jiwa: halaman ingatanmu, berisi bola jiwa, lima elemen, dan progres.',wx:'Lima Elemen: lima ukuran kemampuanmu (tanah, kayu, air, logam, api).',
+    sl:'Ujian Hari Ini: satu target harian untuk keterampilan terlemah.',xl:'Hari Kultivasi: hari berlatih berturut-turut.',bg:'Meditasi tertutup: hari istirahat yang kamu pilih.',
+    tx:'Atur napas: jeda 5 menit saat mulai lelah.',xd:'Jalan Istirahat: angka yang menunjukkan kenapa istirahat membantu ingatan.',zd:'Petunjuk guru: saran apa yang perlu ditingkatkan.',
+    lc:'Riwayat Ranah: catatan tes dan terobosanmu.'}});
+Object.assign(I18N.en,{
+  realmD:['Not tested yet. The placement test opens the path of cultivation.','Drawing in the first qi: the basic HSK 1 words.','A firm foundation of everyday HSK 2 words.','Knowledge condenses into a golden core: HSK 3.',
+    'The soul of the language is born: you start to follow longer texts (HSK 4).','The spirit transforms: abstract and formal HSK 5 words.','The hardest trial: rare and subtle HSK 6 words.','Every realm crossed: HSK 6 mastered.'],
+  stageD:['under 25% of the level’s words solid','25–50% solid','50–80% solid','80% or more solid: the breakthrough opens'],
+  notTested:'not tested',youHere:'you are here',
+  progT:'Realm progress',prepT:(n,l)=>`Preparing for ${n} (HSK ${l})`,prepNote:'Your realm starts after the placement test; words already solid still count.',
+  etaNext:d=>`next stage ~${d}`,etaFull:d=>`圆满 ~${d}`,perWeek:n=>`+${n} solid words a week`,etaL:'Estimate',
+  etaNone:'A date estimate appears once some words have become solid.',btChance:p=>`Estimated chance to pass a breakthrough now: ${p}%.`,chipProg:p=>`${p}% of the way to 圆满`,
+  elM:'Five Elements',chalM:'Today’s Trial',strM:'Cultivation Days',restM:'The Way of Rest',histM:'Realm History',advM:'Master’s Guidance',pathM:'Path of Cultivation',
+  advIntro:'Worked out from your memory model, ordered by what moves you to the next stage fastest.',
+  advTest:'Take the placement test',advTestWhy:'It finds your starting realm, so your daily plan starts at the right level.',
+  advF:(n,h)=>`${n} ${h} words only need a Recall pass`,advFWhy:'One right answer (meaning → hanzi) makes each of them solid.',
+  advS:(n,h)=>`${n} ${h} words only need a Tones pass`,advSWhy:'One right tone answer makes each of them solid.',
+  advDue:(n,h)=>`${n} ${h} words are due`,advDueWhy:'Review them while you still remember; once overdue, memory drops faster.',
+  advSkill:(k,p)=>`${k}: ${p}% right`,advSkillWhy:'Your weakest skill. Practising this question type raises it fastest.',
+  advYoung:(n,h)=>`${n} ${h} words are still young`,advYoungWhy:d=>`With reviews on time they become solid in about ${d} days on average. Time and sleep strengthen them, so it can’t be forced in one day.`,
+  advNew:(n,h)=>`${n} ${h} words not introduced yet`,advNewWhy:'Your daily session introduces them a few at a time, paced to your goal.',
+  advConf:(a,b,n)=>`Often mixed up: ${a} ↔ ${b} (${n}×)`,advConfWhy:'Practise the two side by side so the difference sticks.',
+  advDao:p=>`“I know it” was right ${p}% of the time`,advDaoWhy:'Tap “I know it” only when you’re sure; an honest “Don’t know” makes your schedule more accurate.',
+  advNone:'Nothing urgent. Carry on with your daily session.',advGo:'Practise',advStart:'Start',
+  attrTitle:{root:'Bedrock',cult:'Ascetic',sense:'Clear Mirror',dao:'Sword Heart',insight:'Root of Wisdom'},
+  elName:{earth:'Earth',wood:'Wood',water:'Water',metal:'Metal',fire:'Fire'},
+  gloss:{jj:'Realm: a level of cultivation; in this app the same as an HSK level.',tp:'Breakthrough: a 20-question test to rise to the next realm.',
+    sh:'Sea of Consciousness: the page of your memory, with the soul orb, five elements and progress.',wx:'Five Elements: five measures of your skill (earth, wood, water, metal, fire).',
+    sl:'Today’s Trial: one daily target for your weakest skill.',xl:'Cultivation Days: days of practice in a row.',bg:'Secluded meditation: a rest day you choose.',
+    tx:'Regulating the breath: a 5-minute break when you tire.',xd:'The Way of Rest: numbers that show why rest helps memory.',zd:'A master’s guidance: advice on what to improve.',
+    lc:'Realm History: the record of your tests and breakthroughs.'}});
+Object.assign(I18N.th,{
+  realmD:['ยังไม่ได้ทดสอบ แบบทดสอบวัดระดับจะเปิดเส้นทางการบำเพ็ญ','ดูดซับลมปราณแรก: คำศัพท์พื้นฐาน HSK 1','รากฐานที่มั่นคงจากคำในชีวิตประจำวัน HSK 2','ความรู้ควบแน่นเป็นแก่นทองคำ: HSK 3',
+    'วิญญาณของภาษาถือกำเนิด: เริ่มเข้าใจข้อความที่ยาวขึ้น (HSK 4)','วิญญาณแปรเปลี่ยน: คำศัพท์นามธรรมและทางการ HSK 5','บททดสอบที่ยากที่สุด: คำหายากและละเอียดอ่อน HSK 6','ผ่านครบทุกขั้น: เชี่ยวชาญ HSK 6'],
+  stageD:['คำในระดับนี้มั่นคงไม่ถึง 25%','มั่นคง 25–50%','มั่นคง 50–80%','มั่นคง 80% ขึ้นไป: เปิดการทะลวงขั้น'],
+  notTested:'ยังไม่ทดสอบ',youHere:'คุณอยู่ที่นี่',
+  progT:'ความคืบหน้าขั้นพลัง',prepT:(n,l)=>`เตรียมสู่ ${n} (HSK ${l})`,prepNote:'ขั้นพลังจะเริ่มหลังทำแบบทดสอบวัดระดับ คำที่มั่นคงแล้วยังนับอยู่',
+  etaNext:d=>`ระยะถัดไปราว ${d}`,etaFull:d=>`圆满 ราว ${d}`,perWeek:n=>`+${n} คำมั่นคงต่อสัปดาห์`,etaL:'ประมาณการ',
+  etaNone:'วันที่โดยประมาณจะแสดงเมื่อมีคำที่มั่นคงแล้วจำนวนหนึ่ง',btChance:p=>`โอกาสผ่านการทะลวงขั้นตอนนี้โดยประมาณ: ${p}%`,chipProg:p=>`ความคืบหน้า ${p}% สู่ 圆满`,
+  elM:'ห้าธาตุ',chalM:'บททดสอบวันนี้',strM:'วันบำเพ็ญ',restM:'วิถีแห่งการพัก',histM:'เส้นทางขั้นพลัง',advM:'คำชี้แนะของอาจารย์',pathM:'เส้นทางการบำเพ็ญ',
+  advIntro:'คำนวณจากแบบจำลองความจำของคุณ เรียงตามสิ่งที่พาคุณไปยังระยะถัดไปได้เร็วที่สุด',
+  advTest:'ทำแบบทดสอบวัดระดับ',advTestWhy:'แบบทดสอบจะกำหนดขั้นเริ่มต้น แผนรายวันจึงเริ่มที่ระดับที่เหมาะสม',
+  advF:(n,h)=>`${n} คำของ ${h} เหลือแค่ผ่านคำถามนึกตัวอักษร`,advFWhy:'ตอบถูกหนึ่งครั้ง (ความหมาย → อักษรจีน) ก็ทำให้แต่ละคำมั่นคง',
+  advS:(n,h)=>`${n} คำของ ${h} เหลือแค่ผ่านคำถามวรรณยุกต์`,advSWhy:'ตอบวรรณยุกต์ถูกหนึ่งครั้งก็ทำให้แต่ละคำมั่นคง',
+  advDue:(n,h)=>`${n} คำของ ${h} ถึงกำหนดทบทวน`,advDueWhy:'ทบทวนขณะที่ยังจำได้ เมื่อเลยกำหนด ความจำจะลดลงเร็วขึ้น',
+  advSkill:(k,p)=>`${k}: ถูก ${p}%`,advSkillWhy:'ทักษะที่อ่อนที่สุดของคุณ การฝึกคำถามประเภทนี้จะช่วยได้เร็วที่สุด',
+  advYoung:(n,h)=>`${n} คำของ ${h} ยังใหม่อยู่`,advYoungWhy:d=>`ถ้าทบทวนตรงเวลา โดยเฉลี่ยจะมั่นคงในราว ${d} วัน เวลาและการนอนหลับทำให้แข็งแรงขึ้น จึงเร่งให้เสร็จในวันเดียวไม่ได้`,
+  advNew:(n,h)=>`${n} คำของ ${h} ยังไม่ได้เริ่มเรียน`,advNewWhy:'เซสชันรายวันจะค่อย ๆ แนะนำคำเหล่านี้ตามเป้าหมายของคุณ',
+  advConf:(a,b,n)=>`มักสับสน: ${a} ↔ ${b} (${n} ครั้ง)`,advConfWhy:'ฝึกสองคำนี้คู่กันเพื่อให้เห็นความต่างชัดเจน',
+  advDao:p=>`“รู้แล้ว” ถูกจริง ${p}%`,advDaoWhy:'แตะ “รู้แล้ว” เมื่อมั่นใจเท่านั้น การตอบ “ยังไม่รู้” อย่างซื่อตรงทำให้ตารางทบทวนแม่นยำขึ้น',
+  advNone:'ไม่มีอะไรเร่งด่วน ทำเซสชันรายวันต่อไป',advGo:'ฝึก',advStart:'เริ่ม',
+  attrTitle:{root:'ศิลาผา',cult:'ผู้บำเพ็ญเพียร',sense:'กระจกใส',dao:'จิตกระบี่',insight:'รากแห่งปัญญา'},
+  elName:{earth:'ดิน',wood:'ไม้',water:'น้ำ',metal:'โลหะ',fire:'ไฟ'},
+  gloss:{jj:'ขั้นพลัง: ระดับการบำเพ็ญ ในแอปนี้เท่ากับระดับ HSK',tp:'ทะลวงขั้น: แบบทดสอบ 20 ข้อเพื่อขึ้นสู่ขั้นถัดไป',
+    sh:'ทะเลจิต: หน้าแสดงความจำของคุณ มีลูกแก้ววิญญาณ ห้าธาตุ และความคืบหน้า',wx:'ห้าธาตุ: ห้าตัววัดความสามารถของคุณ (ดิน ไม้ น้ำ โลหะ ไฟ)',
+    sl:'บททดสอบวันนี้: เป้าหมายรายวันสำหรับทักษะที่อ่อนที่สุด',xl:'วันบำเพ็ญ: จำนวนวันที่ฝึกต่อเนื่อง',bg:'เข้าฌาน: วันพักที่คุณเลือก',
+    tx:'ปรับลมหายใจ: พัก 5 นาทีเมื่อเริ่มเหนื่อย',xd:'วิถีแห่งการพัก: ตัวเลขที่แสดงว่าทำไมการพักช่วยความจำ',zd:'คำชี้แนะ: คำแนะนำว่าควรพัฒนาอะไร',
+    lc:'เส้นทางขั้นพลัง: บันทึกการทดสอบและการทะลวงขั้นของคุณ'}});
+Object.assign(I18N.vi,{
+  realmD:['Chưa kiểm tra. Bài kiểm tra xếp cấp mở ra con đường tu luyện.','Hấp thu luồng khí đầu tiên: từ vựng cơ bản HSK 1.','Nền móng vững từ những từ thường ngày HSK 2.','Kiến thức ngưng tụ thành kim đan: HSK 3.',
+    'Linh hồn ngôn ngữ ra đời: bạn bắt đầu theo được các đoạn văn dài hơn (HSK 4).','Linh hồn biến hóa: từ vựng trừu tượng và trang trọng HSK 5.','Thử thách khó nhất: từ hiếm và nhiều sắc thái HSK 6.','Vượt qua mọi cảnh giới: nắm vững HSK 6.'],
+  stageD:['dưới 25% từ của cấp này vững chắc','25–50% vững chắc','50–80% vững chắc','từ 80% vững chắc: mở đột phá'],
+  notTested:'chưa kiểm tra',youHere:'bạn ở đây',
+  progT:'Tiến độ cảnh giới',prepT:(n,l)=>`Chuẩn bị cho ${n} (HSK ${l})`,prepNote:'Cảnh giới bắt đầu sau bài kiểm tra xếp cấp; những từ đã vững chắc vẫn được tính.',
+  etaNext:d=>`giai đoạn tiếp theo khoảng ${d}`,etaFull:d=>`圆满 khoảng ${d}`,perWeek:n=>`+${n} từ vững chắc mỗi tuần`,etaL:'Dự kiến',
+  etaNone:'Ngày dự kiến sẽ hiện khi đã có vài từ vững chắc.',btChance:p=>`Khả năng đột phá thành công lúc này (ước tính): ${p}%.`,chipProg:p=>`tiến độ ${p}% đến 圆满`,
+  elM:'Ngũ Hành',chalM:'Thử Luyện Hôm Nay',strM:'Ngày Tu Luyện',restM:'Đạo Nghỉ Ngơi',histM:'Hành Trình Cảnh Giới',advM:'Chỉ Điểm',pathM:'Con Đường Tu Luyện',
+  advIntro:'Tính từ mô hình trí nhớ của bạn, xếp theo điều đưa bạn đến giai đoạn tiếp theo nhanh nhất.',
+  advTest:'Làm bài kiểm tra xếp cấp',advTestWhy:'Bài kiểm tra xác định cảnh giới khởi đầu, nên kế hoạch mỗi ngày bắt đầu đúng cấp.',
+  advF:(n,h)=>`${n} từ ${h} chỉ còn cần qua câu Nhớ lại`,advFWhy:'Một câu trả lời đúng (nghĩa → chữ Hán) làm mỗi từ vững chắc.',
+  advS:(n,h)=>`${n} từ ${h} chỉ còn cần qua câu Thanh điệu`,advSWhy:'Một câu thanh điệu đúng làm mỗi từ vững chắc.',
+  advDue:(n,h)=>`${n} từ ${h} đến hạn ôn`,advDueWhy:'Ôn khi còn nhớ; quá hạn rồi trí nhớ giảm nhanh hơn.',
+  advSkill:(k,p)=>`${k}: đúng ${p}%`,advSkillWhy:'Kỹ năng yếu nhất của bạn. Luyện riêng loại câu này giúp tiến nhanh nhất.',
+  advYoung:(n,h)=>`${n} từ ${h} còn non`,advYoungWhy:d=>`Nếu ôn đúng hạn, trung bình sẽ vững chắc sau khoảng ${d} ngày. Thời gian và giấc ngủ làm chúng vững, nên không thể ép trong một ngày.`,
+  advNew:(n,h)=>`${n} từ ${h} chưa được giới thiệu`,advNewWhy:'Buổi học mỗi ngày giới thiệu dần theo mục tiêu của bạn.',
+  advConf:(a,b,n)=>`Hay nhầm: ${a} ↔ ${b} (${n} lần)`,advConfWhy:'Luyện hai từ cạnh nhau để thấy rõ khác biệt.',
+  advDao:p=>`“Tôi biết” đúng ${p}%`,advDaoWhy:'Chỉ chạm “Tôi biết” khi chắc chắn; thành thật “Chưa biết” giúp lịch ôn chính xác hơn.',
+  advNone:'Không có gì gấp. Tiếp tục buổi học mỗi ngày.',advGo:'Luyện',advStart:'Bắt đầu',
+  attrTitle:{root:'Bàn Thạch',cult:'Khổ Tu',sense:'Minh Kính',dao:'Kiếm Tâm',insight:'Tuệ Căn'},
+  elName:{earth:'Thổ',wood:'Mộc',water:'Thủy',metal:'Kim',fire:'Hỏa'},
+  gloss:{jj:'Cảnh giới: cấp độ tu luyện; trong ứng dụng này tương ứng một cấp HSK.',tp:'Đột phá: bài kiểm tra 20 câu để lên cảnh giới tiếp theo.',
+    sh:'Thức Hải: trang trí nhớ của bạn, có quả cầu linh hồn, ngũ hành và tiến độ.',wx:'Ngũ Hành: năm thước đo năng lực của bạn (thổ, mộc, thủy, kim, hỏa).',
+    sl:'Thử luyện hôm nay: một mục tiêu mỗi ngày cho kỹ năng yếu nhất.',xl:'Ngày tu luyện: số ngày luyện tập liên tiếp.',bg:'Bế quan: ngày nghỉ bạn chọn.',
+    tx:'Điều tức: nghỉ 5 phút khi bắt đầu mệt.',xd:'Đạo nghỉ ngơi: những con số cho thấy vì sao nghỉ ngơi giúp trí nhớ.',zd:'Chỉ điểm: lời khuyên nên cải thiện điều gì.',
+    lc:'Hành trình cảnh giới: ghi lại các bài kiểm tra và lần đột phá.'}});
+/* help topics: the realm and soul topics now list every term one by one ('@…' = a table built by the app), plus a glossary */
+{const H=(l,k,v)=>{const a=I18N[l].help,i=a.findIndex(x=>x[0]===k);if(i>=0)a[i]=v;else a.splice(a.findIndex(x=>x[0]==='rest'),0,v)};
+H('id','realm',['realm','Ranah, tahap & terobosan',[
+  'Ranahmu hanya ditentukan lewat tes. Delapan ranah, dari bawah ke atas (hanzi, pinyin, arti):','@realms',
+  'Setiap ranah punya empat tahap, mengikuti bagian kata <b>kokoh</b> di level itu (kokoh = tingkat 10+ dan lulus soal Ingat serta Nada):','@stages',
+  'Di 圆满 terbuka <b>terobosan (突破 tūpò)</b>: 20 soal kata level itu tanpa umpan balik, lulus dengan 75% benar (80% untuk HSK 5–6). Lulus berarti naik ke ranah berikutnya.',
+  'Progresmu terlihat di lingkaran kecil pada chip ranah, di lembar ranah, dan di Lautan Jiwa: persen menuju 圆满, jumlah kata kokoh, perkiraan tanggal tahap berikutnya, dan peluang lulus terobosan.',
+  'Satu tes per minggu, tes penempatan atau terobosan, dihitung dari tes terakhir. Keluar setelah 10 soal tetap dihitung sebagai percobaan.',
+  'Ranah hanya menentukan arah rencana harian. Semua level tetap terbuka di Daftar, Kartu, dan Kuis.']]);
+H('id','soul',['soul','Lautan Jiwa, lima elemen & petunjuk',[
+  'Ketuk chip ranah di atas, lalu <b>Lihat lebih lanjut</b>. Bola jiwa adalah jaringan kata yang sudah kamu pelajari: satu titik per kata, garis di antara kata yang berbagi karakter, terang = masih kamu ingat sekarang, warna = level HSK. Putar dengan jari, ketuk titik untuk melihat katanya.',
+  'Lima elemen (五行 wǔxíng). Daun yang terisi tumbuh sesuai nilainya; garis putus-putus menunjukkan ukuran penuh. Elemen terlemah diberi saran, yang terkuat memberi gelar.','@elements',
+  '<b>Petunjuk Guru (指点 zhǐdiǎn)</b>: daftar yang perlu ditingkatkan, dihitung dari model ingatanmu — kata yang tinggal satu jawaban lagi menjadi kokoh, kata jatuh tempo, keterampilan terlemah, kata yang sering tertukar — dengan tombol latihan langsung.',
+  '<b>Ujian hari ini (今日试炼 jīnrì shìliàn)</b>: satu target per hari untuk keterampilanmu yang terlemah, sedikit di atas kemampuanmu 7 hari terakhir. Tanpa hadiah acak dan tanpa hitung mundur.']]);
+H('id','gloss',['gloss','Istilah kultivasi: hanzi, pinyin & arti',['@gloss']]);
+H('en','realm',['realm','Realms, stages & breakthrough',[
+  'Your realm is set only by tests. The eight realms, from the bottom up (hanzi, pinyin, meaning):','@realms',
+  'Each realm has four stages, set by the share of <b>solid</b> words at that level (solid = level 10+ with a passed Recall and Tones question):','@stages',
+  'At 圆满 the <b>breakthrough (突破 tūpò)</b> opens: 20 questions on that level’s words with no feedback, passed with 75% right (80% for HSK 5–6). Passing lifts you to the next realm.',
+  'Your progress shows in the small ring on the realm chip, in the realm sheet and in the Sea of Consciousness: percent to 圆满, solid words, an estimated date for the next stage, and the chance to pass a breakthrough.',
+  'One test a week, placement or breakthrough, counted from your last test. Leaving after 10 questions still counts as an attempt.',
+  'Your realm only steers the daily plan. Every level stays open in List, Cards and Quiz.']]);
+H('en','soul',['soul','Sea of Consciousness, five elements & guidance',[
+  'Tap the realm chip at the top, then <b>See more</b>. The soul orb is the network of words you have learned: one point per word, lines between words that share a character, brightness = still remembered now, colour = HSK level. Turn it with your finger; tap a point to see its word.',
+  'The five elements (五行 wǔxíng). Each filled leaf grows with its value; the dashed outline shows the full size. The weakest element gets advice; the strongest gives you a title.','@elements',
+  '<b>Master’s guidance (指点 zhǐdiǎn)</b>: what to improve, worked out from your memory model — words one answer away from solid, due words, your weakest skill, words you mix up — each with a button to practise it straight away.',
+  '<b>Today’s trial (今日试炼 jīnrì shìliàn)</b>: one target a day for your weakest skill, a little above your level over the last 7 days. No random rewards and no countdowns.']]);
+H('en','gloss',['gloss','Cultivation terms: hanzi, pinyin & meaning',['@gloss']]);
+H('th','realm',['realm','ขั้นพลัง ระยะ และการทะลวงขั้น',[
+  'ขั้นพลังกำหนดได้ด้วยการทดสอบเท่านั้น แปดขั้นจากล่างขึ้นบน (อักษรจีน พินอิน ความหมาย):','@realms',
+  'แต่ละขั้นมีสี่ระยะ ตามสัดส่วนคำ<b>มั่นคง</b>ในระดับนั้น (มั่นคง = ระดับ 10 ขึ้นไป และผ่านคำถามนึกตัวอักษรกับวรรณยุกต์):','@stages',
+  'ที่ระยะ 圆满 จะเปิด<b>การทะลวงขั้น (突破 tūpò)</b>: 20 ข้อจากคำในระดับนั้นโดยไม่มีการเฉลย ผ่านเมื่อถูก 75% (HSK 5–6 ต้อง 80%) ผ่านแล้วจะขึ้นสู่ขั้นถัดไป',
+  'ความคืบหน้าแสดงที่วงแหวนเล็กบนชิปขั้นพลัง ในหน้าขั้นพลัง และในทะเลจิต: เปอร์เซ็นต์สู่ 圆满 จำนวนคำมั่นคง วันที่โดยประมาณของระยะถัดไป และโอกาสผ่านการทะลวงขั้น',
+  'ทดสอบได้สัปดาห์ละครั้ง ไม่ว่าวัดระดับหรือทะลวงขั้น นับจากการทดสอบครั้งล่าสุด ออกกลางคันหลังทำไป 10 ข้อยังนับเป็นหนึ่งครั้ง',
+  'ขั้นพลังใช้กำหนดทิศทางของแผนรายวันเท่านั้น ทุกระดับยังเรียนได้ในรายการ บัตรคำ และแบบทดสอบ']]);
+H('th','soul',['soul','ทะเลจิต ห้าธาตุ และคำชี้แนะ',[
+  'แตะชิปขั้นพลังด้านบน แล้วแตะ <b>ดูเพิ่มเติม</b> ลูกแก้ววิญญาณคือเครือข่ายคำที่คุณเรียนแล้ว: หนึ่งจุดต่อหนึ่งคำ เส้นเชื่อมคำที่มีอักษรร่วมกัน ความสว่าง = ยังจำได้ตอนนี้ สี = ระดับ HSK หมุนด้วยนิ้ว แตะจุดเพื่อดูคำ',
+  'ห้าธาตุ (五行 wǔxíng) ใบที่เติมสีจะโตตามค่า เส้นประแสดงขนาดเต็ม ธาตุที่อ่อนที่สุดจะมีคำแนะนำ ธาตุที่แข็งแกร่งที่สุดจะให้ฉายา','@elements',
+  '<b>คำชี้แนะของอาจารย์ (指点 zhǐdiǎn)</b>: สิ่งที่ควรพัฒนา คำนวณจากแบบจำลองความจำ เช่น คำที่เหลืออีกหนึ่งคำตอบก็จะมั่นคง คำที่ถึงกำหนด ทักษะที่อ่อนที่สุด คำที่มักสับสน พร้อมปุ่มฝึกทันที',
+  '<b>บททดสอบวันนี้ (今日试炼 jīnrì shìliàn)</b>: เป้าหมายวันละหนึ่งอย่างสำหรับทักษะที่อ่อนที่สุด สูงกว่าระดับของคุณใน 7 วันที่ผ่านมาเล็กน้อย ไม่มีรางวัลสุ่มและไม่มีการนับถอยหลัง']]);
+H('th','gloss',['gloss','คำศัพท์การบำเพ็ญ: อักษรจีน พินอิน และความหมาย',['@gloss']]);
+H('vi','realm',['realm','Cảnh giới, giai đoạn & đột phá',[
+  'Cảnh giới chỉ được xác định qua bài kiểm tra. Tám cảnh giới từ thấp đến cao (chữ Hán, pinyin, nghĩa):','@realms',
+  'Mỗi cảnh giới có bốn giai đoạn, theo tỉ lệ từ <b>vững chắc</b> ở cấp đó (vững chắc = mức 10 trở lên và đã qua câu Nhớ lại và Thanh điệu):','@stages',
+  'Ở 圆满 sẽ mở <b>đột phá (突破 tūpò)</b>: 20 câu về từ của cấp đó, không có phản hồi, đạt khi đúng 75% (80% với HSK 5–6). Đạt nghĩa là lên cảnh giới tiếp theo.',
+  'Tiến độ hiện ở vòng nhỏ trên chip cảnh giới, trong bảng cảnh giới và trong Thức Hải: phần trăm đến 圆满, số từ vững chắc, ngày dự kiến của giai đoạn tiếp theo và khả năng đột phá thành công.',
+  'Mỗi tuần một bài kiểm tra, xếp cấp hoặc đột phá, tính từ lần kiểm tra gần nhất. Thoát ra sau 10 câu vẫn tính là một lượt.',
+  'Cảnh giới chỉ định hướng kế hoạch mỗi ngày. Mọi cấp vẫn học được trong Danh sách, Thẻ và Kiểm tra.']]);
+H('vi','soul',['soul','Thức Hải, Ngũ Hành & chỉ điểm',[
+  'Chạm vào chip cảnh giới ở trên, rồi <b>Xem thêm</b>. Quả cầu linh hồn là mạng lưới các từ bạn đã học: mỗi từ một điểm, đường nối giữa các từ có chung chữ, độ sáng = còn nhớ lúc này, màu = cấp HSK. Xoay bằng ngón tay; chạm vào một điểm để xem từ.',
+  'Ngũ Hành (五行 wǔxíng). Mỗi chiếc lá tô màu lớn theo giá trị; đường nét đứt cho thấy kích thước đầy đủ. Hành yếu nhất có lời khuyên; hành mạnh nhất cho bạn một danh hiệu.','@elements',
+  '<b>Chỉ điểm (指点 zhǐdiǎn)</b>: những điều cần cải thiện, tính từ mô hình trí nhớ của bạn — từ chỉ còn một câu trả lời nữa là vững chắc, từ đến hạn, kỹ năng yếu nhất, từ hay nhầm — kèm nút luyện ngay.',
+  '<b>Thử luyện hôm nay (今日试炼 jīnrì shìliàn)</b>: mỗi ngày một mục tiêu cho kỹ năng yếu nhất của bạn, cao hơn trình độ 7 ngày qua một chút. Không có phần thưởng ngẫu nhiên và không đếm ngược.']]);
+H('vi','gloss',['gloss','Thuật ngữ tu luyện: chữ Hán, pinyin & nghĩa',['@gloss']]);}
 
 
 /* 'auto' follows the phone/browser language; unsupported languages fall back to English */
@@ -1818,7 +2053,7 @@ const chip=l=>`<span class="lvchip" style="background:var(--l${l})">HSK ${l}</sp
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 /* realms (境界): 0 凡人 not tested yet · 1–6 studying HSK 1–6 · 7 飞升 HSK 6 mastered; four stages inside a realm */
 const RN=['凡人','炼气','筑基','金丹','元婴','化神','渡劫','飞升'],RPY=['fánrén','liànqì','zhùjī','jīndān','yuányīng','huàshén','dùjié','fēishēng'];
-const SN=['初期','中期','后期','圆满'];
+const SN=['初期','中期','后期','圆满'],SPY=['chūqī','zhōngqī','hòuqī','yuánmǎn'],RS='凡炼筑金元化渡飞';
 const realmLv=r=>Math.max(1,Math.min(6,r)),rc=r=>r<1?'var(--mute)':r>6?'var(--gold)':`var(--l${r})`;
 const tDate=t=>new Date(Date.UTC(2026,0,1)+t*6e4);
 const LOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
@@ -2272,6 +2507,46 @@ function soul(){const t=now(),st=stage(Math.max(1,realm())),es=Object.values(mem
     sense:v(es.length?rs/es.length*100:null),dao:v(cal.n>=5?cal.acc*100:null),
     insight:v(ks.length>=5?100*(30-ks[ks.length>>1])/26:null),insightDays:ks.length>=5?Math.round(ks[ks.length>>1]):null,words:es.length}}
 
+/* ---- guidance (指点): what to work on to move up, and when the next stage is likely ----
+   Everything is read from the memory model: a word is solid at level 10+ with a passed recall (f) and tone (s)
+   question, so the quickest wins are words already at level 10 that miss one of those answers. Young words need time:
+   their expected days to solid come from simulating FSRS with right answers on the due dates. */
+const SOLID_S=Math.pow(121,.5)-1;   /* stability (days) that gives level 10 */
+function daysToSolid(e,t){let D=e.w[0],S=e.w[1],d=Math.max(0,(e.w[2]+ivl(S,.9)*1440-t)/1440),n=0;
+  while(S<SOLID_S&&n<30){const gap=Math.max(1,ivl(S,.9));const st=step(W,[D,S,0],3,gap*1440);D=st[0];S=st[1];if(S>=SOLID_S)break;d+=gap;n++}
+  return Math.min(365,d)}
+function advice(){
+  const t=now(),r=realm(),L=r<1?baseLevel():Math.min(6,r),Wd=BY[L],R0=dr(),out=[];
+  const neu=[],young=[],needF=[],needS=[],due=[];
+  for(const d of Wd){const e=mem[d.id];if(!e){neu.push(d);continue}
+    if(rNow(e,t)<R0)due.push(d);
+    if(solid(e))continue;
+    if(levelOf(e)>=10||e.w[1]>=SOLID_S){if(!okS(e.f))needF.push(d);else if(!okS(e.s))needS.push(d)}
+    else young.push(e)}
+  if(r<1&&canTest())out.push({k:'test'});
+  if(needF.length)out.push({k:'f',n:needF.length,words:needF.slice(0,12),L});
+  if(needS.length)out.push({k:'s',n:needS.length,words:needS.slice(0,12),L});
+  if(due.length)out.push({k:'due',n:due.length,L});
+  const I=insights();if(I.weak)out.push({k:'skill',q:I.weak,p:I.skills[I.weak].p});
+  if(young.length){const ds=young.slice(0,300).map(e=>daysToSolid(e,t)).sort((a,b)=>a-b);out.push({k:'young',n:young.length,days:Math.max(1,Math.round(ds[ds.length>>1])),L})}
+  if(neu.length)out.push({k:'new',n:neu.length,L});
+  const pr=[...confs()].filter(p=>p[1]>=2).sort((a,b)=>b[1]-a[1])[0];
+  if(pr){const [a,b]=pr[0].split('|');if(IDX.has(a)&&IDX.has(b))out.push({k:'conf',a:IDX.get(a),b:IDX.get(b),n:pr[1]})}
+  const c=calib();if(c.n>=8&&c.acc<.75)out.push({k:'dao',p:Math.round(c.acc*100)});
+  return {L,items:out}}
+/* when the next stage (and 圆满) is likely: new solid words of the level over the last 14 days */
+function forecast(){const r=realm(),L=r<1?baseLevel():Math.min(6,r),st=stage(r<1?L:r);if(!st||r>6)return null;
+  const t=now();let n=0;for(const d of BY[L]){const e=mem[d.id];if(e&&e.k&&t-e.k<14*1440&&solid(e))n++}
+  const rate=n/14,T=[.25,.5,.8],next=st.i<3?Math.max(0,Math.ceil(st.total*T[st.i])-st.solid):0;
+  return {rate,week:Math.round(rate*7),next,need:st.need,dNext:rate>0&&next?Math.ceil(next/rate):null,dFull:rate>0&&st.need?Math.ceil(st.need/rate):null}}
+/* chance to pass a breakthrough now: every bank word is answered right with its recall chance (plus a little
+   guessing when it is forgotten); the score of 20 is about normal, so P(score ≥ needed) follows from mean and spread */
+function btChance(){const r=realm();if(r<1||r>6)return null;placementBank();const t=now(),bank=PB[r].length>=20?PB[r]:BY[r],hard=r>=4?.9:.95;
+  let s=0,v=0;for(const d of bank){const e=mem[d.id],R=e?rNow(e,t):0,p=Math.min(.99,R*hard+(1-R*hard)*.12);s+=p;v+=p*(1-p)}
+  const n=bank.length,N=20,m=N*s/n,sd=Math.sqrt(Math.max(.25,N*v/n)),need=Math.ceil(N*(r>=5?.8:.75)),z=(need-.5-m)/sd;
+  const phi=x=>{const k=1/(1+.2316419*Math.abs(x)),y=.3989423*Math.exp(-x*x/2)*k*(.3193815+k*(-.3565638+k*(1.781478+k*(-1.821256+k*1.330274))));return x>0?1-y:y};
+  return Math.round(100*(1-phi(z)))}
+
 /* ---- goals and the daily plan ---- */
 function validGoal(g){return !!g&&typeof g==='object'&&['level','exam','none'].includes(g.t)&&
   (g.t==='none'||(LEVELS.includes(g.lv)&&/^\d{4}-\d\d-\d\d$/.test(g.date||'')))&&['min','new','auto'].includes(g.pace)&&(g.pace==='auto'||g.n>0)}
@@ -2406,7 +2681,7 @@ function clearLog(){logR=[];logA=[];logCache=null;confMap=null;last=null;ls.set(
 sync();updWeak();
 return {now,dayOf,Rt,step,W0,get W(){return W},levelOf,skLevel,okS,answer,undo,checkP,checkType,question,pickType,cardDeck,quizRound,exam,session,
   plan,dr,isoDay,dayAfter,daysTo,validGoal,curLevel,baseLevel,realm,stage,btOpen,btStart,btFinish,placementDone,canTest,nextTestAt,
-  streak,studyDays,noteTest,challenge,setRest,get rest(){return rest},isRest,restGain,gainList,sinceLast,soul,solid,wdiff,markAmbiguous,
+  advice,forecast,btChance,daysToSolid,streak,studyDays,noteTest,challenge,setRest,get rest(){return rest},isRest,restGain,gainList,sinceLast,soul,solid,wdiff,markAmbiguous,
   testsReset(){tests=[];ls.set('xc_tests',tests)},get tests(){return tests},restoreExtra,get level(){return lvInfo},setLevel,restoreLevel,ptStart,ptNext,ptAnswer,ptResult,PT,placementBank,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
   mem:id=>mem[id],has:id=>!!mem[id],rNow:id=>rNow(mem[id],now()),nextDue(id){const e=mem[id];if(!e)return null;return (e.w[2]+ivl(e.w[1],dr())*1440-now())/1440},
   insights,updWeak,optimize,maybeOptimize,lossOf,seqs,exportMem,importMem,replace,forget,clearLog,sync,flush,allLog,partners,
@@ -2414,86 +2689,115 @@ return {now,dayOf,Rt,step,W0,get W(){return W},levelOf,skLevel,okS,answer,undo,c
 
 /* ================= Soul Sea (识海): the soul orb and the wheel of five elements =================
    The orb is the learner's word memory drawn as a network on a sphere: one point per learned word (up to 900, the
-   strongest and most recent), lines between words that share a character, brightness = chance of recalling the word
-   now, colour = its HSK level. The core in the middle shows the realm (凡人 mist … 飞升 radiance), its size the stage.
-   Drawn on a 2D canvas with a simple 3D projection; it turns slowly, can be turned with a finger, and stops after
-   10 s without a touch, when the page is hidden, or always when the phone asks for reduced motion.
-   The wheel around it has five petals (五行), one per attribute from LM.soul(); petal length = value. */
+   strongest), lines between words that share a character, brightness = chance of recalling the word now, colour = its
+   HSK level. The core in the middle shows the realm (凡人 mist … 飞升 radiance), its size the stage.
+   Drawn on a 2D canvas with a simple 3D projection. To stay smooth on phones every frame is a handful of draw calls:
+   points are sorted into colour × brightness buckets (one path each) and lines into a back and a front path; the
+   positions live in typed arrays, so nothing is allocated per frame. It turns slowly, can be spun with a finger (it
+   keeps the spin and slows down), eases to a stop after 10 s without a touch, and doesn't draw while the page is
+   hidden, scrolled out of view, during the screen transition, or when the phone asks for reduced motion.
+   The wheel around it has five leaves (五行), one per attribute from LM.soul(): a faint outline shows the full size,
+   the filled leaf grows from the orb with the value. */
 const SOUL=(()=>{
 const EL=[['wood','木','cult'],['fire','火','insight'],['earth','土','root'],['metal','金','dao'],['water','水','sense']];   /* clockwise from the top, generating cycle */
-let cv=null,ctx=null,nodes=[],edges=[],rot=0,tilt=.38,raf=0,last=0,idle=0,drag=null,realmN=0,stageI=0,colors={},onPick=null,flash=0,bolt=null;
+const BASE=.00018,AB=[.14,.3,.5,.72,.95],NB=6*AB.length;   /* base spin (rad/ms); brightness buckets */
+let cv=null,ctx=null,N=0,nodes=[],X,Y,Z,PX,PY,PZ,BK,ORD,CNT=new Int32Array(2*NB+1),edges=new Int32Array(0),
+  rot=0,tilt=.38,vel=BASE,raf=0,last=0,idle=0,drag=null,realmN=0,stageI=0,colors={},onPick=null,flash=0,bolt=null,inView=true,io=null,startT=0;
 const reduce=()=>{try{return matchMedia('(prefers-reduced-motion: reduce)').matches}catch(e){return false}};
+const DPR=()=>Math.min(2,window.devicePixelRatio||1);
 function hash(s){let h=2166136261;for(const c of s){h^=c.charCodeAt(0);h=Math.imul(h,16777619)}return (h>>>0)/4294967296}
 function build(){
   const t=LM.now(),list=[];for(const d of DATA){const e=LM.mem(d.id);if(e)list.push([d,e])}
   list.sort((a,b)=>b[1].w[1]-a[1].w[1]);const keep=list.slice(0,900).sort((a,b)=>a[0].l-b[0].l||a[0].n-b[0].n);
-  const N=keep.length,ga=Math.PI*(3-Math.sqrt(5));
+  N=keep.length;const ga=Math.PI*(3-Math.sqrt(5)),week=t-7*1440;
+  X=new Float32Array(N);Y=new Float32Array(N);Z=new Float32Array(N);PX=new Float32Array(N);PY=new Float32Array(N);PZ=new Float32Array(N);BK=new Uint8Array(N);ORD=new Int32Array(N);
   nodes=keep.map(([d,e],i)=>{const y=N>1?1-2*(i+.5)/N:0,r=Math.sqrt(1-y*y),th=i*ga+hash(d.id)*.6;
     const mist=realmN===0?.55+.45*hash(d.id+'r'):1;   /* before the first test the points are a loose mist */
-    return {d,x:Math.cos(th)*r*mist,y:y*mist,z:Math.sin(th)*r*mist,R:LM.Rt((t-e.w[2])/1440,e.w[1]),s:Math.min(1,Math.log(1+e.w[1])/Math.log(121)),l:d.l}});
+    X[i]=Math.cos(th)*r*mist;Y[i]=y*mist;Z[i]=Math.sin(th)*r*mist;
+    return {d,R:LM.Rt((t-e.w[2])/1440,e.w[1]),s:Math.min(1,Math.log(1+e.w[1])/Math.log(121)),l:d.l,flash:!!(e.k&&e.k>week)}});
   const byChar=new Map();nodes.forEach((n,i)=>{for(const c of new Set(n.d.h)){let a=byChar.get(c);if(!a)byChar.set(c,a=[]);a.push(i)}});
-  const deg=new Array(N).fill(0);edges=[];
-  for(const a of byChar.values()){for(let k=1;k<a.length&&edges.length<700;k++){const i=a[k-1],j=a[k];if(deg[i]<3&&deg[j]<3){edges.push([i,j]);deg[i]++;deg[j]++}}}}
+  const deg=new Uint8Array(N),E=[];
+  for(const a of byChar.values()){for(let k=1;k<a.length&&E.length<1400;k++){const i=a[k-1],j=a[k];if(deg[i]<3&&deg[j]<3){E.push(i,j);deg[i]++;deg[j]++}}}
+  edges=Int32Array.from(E)}
 function readColors(){const cs=getComputedStyle(document.body);for(let l=1;l<=6;l++)colors[l]=cs.getPropertyValue('--l'+l).trim()||'#888';
-  colors.fg=cs.getPropertyValue('--fg').trim();colors.acc=cs.getPropertyValue('--acc').trim();colors.dark=typeof isDark==='function'&&isDark()}
+  colors.fg=cs.getPropertyValue('--fg').trim()||'#888';colors.acc=cs.getPropertyValue('--acc').trim();colors.dark=typeof isDark==='function'&&isDark()}
 function rgba(hex,a){const m=/^#?([0-9a-f]{6})$/i.exec(hex);if(!m)return `rgba(128,128,128,${a})`;const v=parseInt(m[1],16);return `rgba(${v>>16&255},${v>>8&255},${v&255},${a})`}
 function core(c,cx,cy,R,time){
   const k=.75+.09*stageI,gold=['#fff3c4','#ffd76a','#c9922b'];
+  if(realmN===0){const g=c.createRadialGradient(cx,cy,0,cx,cy,R*.5);g.addColorStop(0,rgba(colors.fg,.10));g.addColorStop(1,rgba(colors.fg,0));c.fillStyle=g;c.beginPath();c.arc(cx,cy,R*.5,0,7);c.fill();return}
   if(realmN>=5){const g=c.createRadialGradient(cx,cy,R*.2,cx,cy,R*1.35);g.addColorStop(0,rgba(colors.acc,.22));g.addColorStop(1,rgba(colors.acc,0));c.fillStyle=g;c.beginPath();c.arc(cx,cy,R*1.35,0,7);c.fill()}
-  if(realmN===7){c.save();c.translate(cx,cy);c.rotate(time/9000);for(let i=0;i<12;i++){c.rotate(Math.PI/6);const g=c.createLinearGradient(0,0,R*1.3,0);g.addColorStop(0,'rgba(255,240,190,.55)');g.addColorStop(1,'rgba(255,240,190,0)');c.fillStyle=g;c.beginPath();c.moveTo(0,-2);c.lineTo(R*1.3,-.5);c.lineTo(R*1.3,.5);c.lineTo(0,2);c.fill()}c.restore()}
-  if(realmN===0)return;
-  const glow=c.createRadialGradient(cx,cy,0,cx,cy,R*.55*k);glow.addColorStop(0,rgba(realmN>=3?'#ffd76a':colors.acc,.55));glow.addColorStop(1,rgba(realmN>=3?'#ffd76a':colors.acc,0));
+  if(realmN===7){c.save();c.translate(cx,cy);c.rotate(time/9000);c.fillStyle='rgba(255,240,190,.22)';c.beginPath();
+    for(let i=0;i<12;i++){c.rotate(Math.PI/6);c.moveTo(0,-2);c.lineTo(R*1.3,-.5);c.lineTo(R*1.3,.5);c.lineTo(0,2)}c.fill();c.restore()}
+  const glow=c.createRadialGradient(cx,cy,0,cx,cy,R*.55*k),gc=realmN>=3?'#ffd76a':colors.acc;glow.addColorStop(0,rgba(gc,.55));glow.addColorStop(1,rgba(gc,0));
   c.fillStyle=glow;c.beginPath();c.arc(cx,cy,R*.55*k,0,7);c.fill();
-  if(realmN>=2){c.save();c.strokeStyle=realmN>=3?'rgba(214,170,70,.75)':rgba(colors.acc,.6);c.lineWidth=1.6;c.beginPath();c.ellipse(cx,cy+R*.32,R*.42*k,R*.09*k,0,0,7);c.stroke();c.restore()}
+  if(realmN>=2){c.strokeStyle=realmN>=3?'rgba(214,170,70,.75)':rgba(colors.acc,.6);c.lineWidth=1.6;c.beginPath();c.ellipse(cx,cy+R*.32,R*.42*k,R*.09*k,0,0,7);c.stroke()}
   if(realmN>=3){const pulse=realmN>=4?1+.05*Math.sin(time/500):1,r=R*.16*k*pulse,g=c.createRadialGradient(cx-r*.3,cy-r*.3,r*.1,cx,cy,r);
     g.addColorStop(0,gold[0]);g.addColorStop(.45,gold[1]);g.addColorStop(1,gold[2]);c.fillStyle=g;c.beginPath();c.arc(cx,cy,r,0,7);c.fill()}
   if(realmN>=4){c.fillStyle='rgba(255,255,255,.9)';c.beginPath();c.arc(cx,cy,R*.055*k,0,7);c.fill()}
-  if(realmN===1||realmN===2){for(let i=0;i<3;i++){const a=time/1400+i*2.1,rr=R*(.3+.06*i);c.fillStyle=rgba(colors.acc,.8);c.beginPath();c.arc(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr*.45,2.2,0,7);c.fill()}}}
-function frame(time){
-  raf=0;if(!cv||!cv.isConnected)return;
-  const w=cv.width,h=cv.height,cx=w/2,cy=h/2,R=w*.44,dpr=window.devicePixelRatio||1,c=ctx;
+  if(realmN===1||realmN===2){c.fillStyle=rgba(colors.acc,.8);c.beginPath();for(let i=0;i<3;i++){const a=time/1400+i*2.1,rr=R*(.3+.06*i),x=cx+Math.cos(a)*rr,y=cy+Math.sin(a)*rr*.45;c.moveTo(x+2.2,y);c.arc(x,y,2.2,0,7)}c.fill()}}
+/* one half of the sphere: lines, then points by colour and brightness bucket */
+function half(c,front,r0){
+  c.globalAlpha=front?(colors.dark?.16:.12):(colors.dark?.07:.05);c.strokeStyle=colors.fg;c.beginPath();
+  for(let k=0;k<edges.length;k+=2){const i=edges[k],j=edges[k+1];if((PZ[i]+PZ[j]>=0)!==front)continue;c.moveTo(PX[i],PY[i]);c.lineTo(PX[j],PY[j])}c.stroke();
+  const off=front?NB:0;
+  for(let b=0;b<NB;b++){const s=CNT[off+b],e=CNT[off+b+1];if(s===e)continue;c.globalAlpha=AB[b%AB.length];c.fillStyle=colors[1+(b/AB.length|0)];c.beginPath();
+    for(let q=s;q<e;q++){const i=ORD[q],dep=(PZ[i]+1)/2,r=r0*(.9+1.9*nodes[i].s)*(.7+.5*dep);c.moveTo(PX[i]+r,PY[i]);c.arc(PX[i],PY[i],r,0,6.2832)}c.fill()}
+  c.globalAlpha=1}
+function draw(time){
+  const w=cv.width,h=cv.height,cx=w/2,cy=h/2,R=w*.44,dpr=DPR(),c=ctx;
   c.clearRect(0,0,w,h);
   const ca=Math.cos(rot),sa=Math.sin(rot),ct=Math.cos(tilt),st=Math.sin(tilt);
-  const P=nodes.map(n=>{const x=n.x*ca+n.z*sa,z1=-n.x*sa+n.z*ca,y=n.y*ct-z1*st,z=n.y*st+z1*ct;return [cx+x*R,cy+y*R,z]});
+  CNT.fill(0);
+  for(let i=0;i<N;i++){const x=X[i]*ca+Z[i]*sa,z1=-X[i]*sa+Z[i]*ca,y=Y[i]*ct-z1*st,z=Y[i]*st+z1*ct;PX[i]=cx+x*R;PY[i]=cy+y*R;PZ[i]=z;
+    const n=nodes[i],a=(.18+.82*n.R)*(.3+.7*(z+1)/2);let ab=0;while(ab<AB.length-1&&a>(AB[ab]+AB[ab+1])/2)ab++;
+    const b=(z>=0?NB:0)+(n.l-1)*AB.length+ab;BK[i]=b;CNT[b+1]++}
+  for(let b=0;b<2*NB;b++)CNT[b+1]+=CNT[b];
+  {const pos=CNT.slice(0,2*NB);for(let i=0;i<N;i++)ORD[pos[BK[i]]++]=i}
   c.lineWidth=dpr*.7;
-  for(const [i,j] of edges){const a=P[i],b=P[j],dz=(a[2]+b[2])/2;c.strokeStyle=rgba(colors.fg,(.035+.09*(dz+1)/2)*(colors.dark?1.2:1));c.beginPath();c.moveTo(a[0],a[1]);c.lineTo(b[0],b[1]);c.stroke()}
-  const order=P.map((p,i)=>i).sort((a,b)=>P[a][2]-P[b][2]);
-  let drewCore=false;
-  for(const i of order){const p=P[i],n=nodes[i];if(!drewCore&&p[2]>0){core(c,cx,cy,R,time);drewCore=true}
-    const depth=(p[2]+1)/2,a=(.18+.82*n.R)*(.3+.7*depth),r=dpr*(.9+1.9*n.s)*(.7+.5*depth);
-    c.fillStyle=rgba(colors[n.l],a);c.beginPath();c.arc(p[0],p[1],r,0,7);c.fill();
-    if(flash&&n.flash){c.strokeStyle=rgba(colors[n.l],.6*flash);c.lineWidth=dpr;c.beginPath();c.arc(p[0],p[1],r+4*dpr*(1-flash),0,7);c.stroke()}}
-  if(!drewCore)core(c,cx,cy,R,time);
-  if(realmN===6){if(!bolt&&Math.random()<.006){const a=Math.random()*6.28,pts=[];let x=cx+Math.cos(a)*R*.95,y=cy+Math.sin(a)*R*.95;for(let k=0;k<7;k++){pts.push([x,y]);x+=(cx-x)*.18+(Math.random()-.5)*R*.18;y+=(cy-y)*.18+(Math.random()-.5)*R*.18}bolt={pts,until:time+240}}
-    if(bolt){c.strokeStyle='rgba(205,190,255,.85)';c.lineWidth=1.6*dpr;c.beginPath();bolt.pts.forEach((q,k)=>k?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();if(time>bolt.until)bolt=null}}
-  cv._P=P;
-  if(flash>0)flash=Math.max(0,flash-.02);
+  half(c,false,dpr);core(c,cx,cy,R,time);half(c,true,dpr);
+  if(flash>0){c.lineWidth=dpr;for(let i=0;i<N;i++){if(!nodes[i].flash||PZ[i]<0)continue;c.globalAlpha=.6*flash;c.strokeStyle=colors[nodes[i].l];c.beginPath();c.arc(PX[i],PY[i],dpr*(3+5*(1-flash)),0,6.2832);c.stroke()}c.globalAlpha=1}
+  if(realmN===6&&time){if(!bolt&&Math.random()<.006){const a=Math.random()*6.28,pts=[];let x=cx+Math.cos(a)*R*.95,y=cy+Math.sin(a)*R*.95;for(let k=0;k<7;k++){pts.push([x,y]);x+=(cx-x)*.18+(Math.random()-.5)*R*.18;y+=(cy-y)*.18+(Math.random()-.5)*R*.18}bolt={pts,until:time+240}}
+    if(bolt){c.strokeStyle='rgba(205,190,255,.85)';c.lineWidth=1.6*dpr;c.beginPath();bolt.pts.forEach((q,k)=>k?c.lineTo(q[0],q[1]):c.moveTo(q[0],q[1]));c.stroke();if(time>bolt.until)bolt=null}}}
+const running=()=>!reduce()&&!document.hidden&&inView&&state.screen==='soul'&&cv&&cv.isConnected;
+function frame(time){
+  raf=0;if(!cv||!cv.isConnected)return;
   const dt=last?Math.min(50,time-last):16;last=time;
-  if(!drag)rot+=dt*.00018;
-  if(!reduce()&&!document.hidden&&state.screen==='soul'&&(time-idle<10000||drag))raf=requestAnimationFrame(frame);else last=0}
-function wake(){idle=performance.now();if(!raf&&cv&&!reduce())raf=requestAnimationFrame(frame)}
+  /* spin: a flick keeps turning and settles back to the slow base speed; after 8 s without a touch it eases to a stop */
+  const calm=drag?0:Math.max(0,Math.min(1,(10000-(time-idle))/2000));
+  if(!drag){vel+=(BASE*calm-vel)*Math.min(1,dt/450);rot+=vel*dt}
+  if(flash>0)flash=Math.max(0,flash-dt/900);
+  draw(time);
+  if(running()&&(drag||calm>0||Math.abs(vel)>2e-6||flash>0))raf=requestAnimationFrame(frame);else last=0}
+function wake(){idle=performance.now();if(!raf&&running())raf=requestAnimationFrame(frame)}
 function mount(canvas,opts){
+  cancelAnimationFrame(raf);raf=0;last=0;clearTimeout(startT);if(io)io.disconnect();
   cv=canvas;ctx=cv.getContext('2d');realmN=opts.realm;stageI=opts.stage;onPick=opts.onPick;readColors();build();
-  const dpr=window.devicePixelRatio||1,size=cv.clientWidth||220;cv.width=Math.round(size*dpr);cv.height=Math.round(size*dpr);
-  const week=LM.now()-7*1440;nodes.forEach(n=>{const e=LM.mem(n.d.id);n.flash=!!(e&&e.k&&e.k>week)});flash=1;   /* words that became solid this week light up once */
-  idle=performance.now();cancelAnimationFrame(raf);raf=0;
-  if(reduce())frame(0);else raf=requestAnimationFrame(frame);
-  cv.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,moved:false};try{cv.setPointerCapture(e.pointerId)}catch(_){}wake()};
-  cv.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y;if(Math.abs(dx)+Math.abs(dy)>4)drag.moved=true;
-    rot+=dx*.01;tilt=Math.max(-1.1,Math.min(1.1,tilt+dy*.006));drag.x=e.clientX;drag.y=e.clientY;wake();if(reduce())frame(0)};
-  cv.onpointerup=e=>{const d=drag;drag=null;wake();if(d&&!d.moved&&cv._P){const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*cv.width/r.width,y=(e.clientY-r.top)*cv.height/r.height;
-    let best=-1,bd=(16*(window.devicePixelRatio||1))**2;cv._P.forEach((p,i)=>{if(p[2]<0)return;const q=(p[0]-x)**2+(p[1]-y)**2;if(q<bd){bd=q;best=i}});onPick&&onPick(best>=0?nodes[best].d:null)}};
-  cv.onpointercancel=()=>{drag=null}}
+  const size=cv.clientWidth||200;cv.width=Math.round(size*DPR());cv.height=Math.round(size*DPR());
+  flash=nodes.some(n=>n.flash)?1:0;vel=BASE;inView=true;
+  draw(0);   /* a still first frame; the motion starts after the screen transition, so the zoom stays smooth */
+  if(!reduce())startT=setTimeout(wake,330);
+  if('IntersectionObserver' in window){io=new IntersectionObserver(es=>{inView=es[0].isIntersecting;if(inView)wake()});io.observe(cv)}
+  let vx=0,lt=0;
+  cv.onpointerdown=e=>{drag={x:e.clientX,y:e.clientY,moved:false};vx=0;lt=performance.now();try{cv.setPointerCapture(e.pointerId)}catch(_){}wake()};
+  cv.onpointermove=e=>{if(!drag)return;const dx=e.clientX-drag.x,dy=e.clientY-drag.y,t=performance.now();if(Math.abs(dx)+Math.abs(dy)>4)drag.moved=true;
+    rot+=dx*.01;tilt=Math.max(-1.1,Math.min(1.1,tilt+dy*.006));vx=.7*vx+.3*(dx*.01/Math.max(8,t-lt));lt=t;drag.x=e.clientX;drag.y=e.clientY;
+    wake();if(reduce())draw(0)};
+  cv.onpointerup=e=>{const d=drag;drag=null;vel=Math.max(-.012,Math.min(.012,performance.now()-lt<80?vx:0))||BASE;wake();
+    if(d&&!d.moved){const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*cv.width/r.width,y=(e.clientY-r.top)*cv.height/r.height;
+      let best=-1,bd=(16*DPR())**2;for(let i=0;i<N;i++){if(PZ[i]<0)continue;const q=(PX[i]-x)**2+(PY[i]-y)**2;if(q<bd){bd=q;best=i}}onPick&&onPick(best>=0?nodes[best].d:null)}};
+  cv.onpointercancel=()=>{drag=null;wake()}}
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&state.screen==='soul')wake()});
-/* the five petals: SVG, W×W; null values are drawn as a dashed outline */
-function wheel(S,W){const c=W/2,r0=W*.3,lmax=W*.12,ring=W*.455,vals=EL.map(e=>S[e[2]]),known=vals.filter(v=>v!==null),min=known.length?Math.min(...known):null;
-  let h=`<svg class="wheel" viewBox="0 0 ${W} ${W}" aria-hidden="true"><circle class="ring" cx="${c}" cy="${c}" r="${ring}"/><g class="petals">`;
-  EL.forEach(([k,g,key],i)=>{const v=S[key],a=-90+i*72,L=lmax*(.18+.82*(v===null?.35:v/100)),b=W*.05;
-    const path=`M0,0 C${-b*1.15},${L*.22} ${-b*1.05},${L*.78} 0,${L} C${b*1.05},${L*.78} ${b*1.15},${L*.22} 0,0 Z`;   /* a leaf: narrow at the orb, round in the middle */
-    h+=`<g transform="translate(${c},${c}) rotate(${a+90}) translate(0,${-r0}) scale(1,-1)"><path class="petal el-${k}${v===null?' unk':''}${v!==null&&v===min&&known.length>1?' weak':''}" d="${path}"/></g>`});
-  h+=`</g>`;
-  EL.forEach(([k,g],i)=>{const a=(-90+i*72)*Math.PI/180,x=c+Math.cos(a)*ring,y=c+Math.sin(a)*ring;
-    h+=`<g class="elg el-${k}"><circle cx="${x}" cy="${y}" r="${W*.05}"/><text x="${x}" y="${y}" dy=".36em" text-anchor="middle" font-size="${W*.055}">${g}</text></g>`});
+/* the five leaves, SVG W×W. Geometry (fractions of W): orb canvas radius .27 · leaves .28–.39 · element badges on a
+   ring of .44 with radius .046, so every badge stays inside the picture (the top one used to be cut off). */
+function wheel(S,W){const c=W/2,r0=W*.28,lmax=W*.11,ring=W*.44,gr=W*.046,known=EL.filter(e=>S[e[2]]!==null);
+  const lo=known.length>1?known.reduce((a,b)=>S[b[2]]<S[a[2]]?b:a):null,hi=known.length>1?known.reduce((a,b)=>S[b[2]]>S[a[2]]?b:a):null,flat=lo&&hi&&S[lo[2]]===S[hi[2]];
+  const leaf=L=>{const b=L*.34;return `M0,0 C${-b*1.25},${L*.24} ${-b*1.15},${L*.8} 0,${L} C${b*1.15},${L*.8} ${b*1.25},${L*.24} 0,0 Z`};
+  let h=`<svg class="wheel" viewBox="0 0 ${W} ${W}" aria-hidden="true"><circle class="ring" cx="${c}" cy="${c}" r="${ring}"/>`;
+  EL.forEach((e,i)=>{const [k,,key]=e,v=S[key],a=-90+i*72,cls=`el-${k}${!flat&&e===lo?' weak':''}${!flat&&e===hi?' strong':''}`;
+    h+=`<g class="${cls}" transform="translate(${c},${c}) rotate(${a+90}) translate(0,${-r0}) scale(1,-1)"><path class="ghost" d="${leaf(lmax)}" vector-effect="non-scaling-stroke"/>`+
+      (v===null?'':`<path class="petal" d="${leaf(lmax)}" transform="scale(${Math.max(.16,v/100).toFixed(3)})" vector-effect="non-scaling-stroke"/>`)+'</g>'});
+  EL.forEach((e,i)=>{const [k,g]=e,a=(-90+i*72)*Math.PI/180,x=(c+Math.cos(a)*ring).toFixed(1),y=(c+Math.sin(a)*ring).toFixed(1);
+    h+=`<g class="elg el-${k}${!flat&&e===lo?' weak':''}${!flat&&e===hi?' strong':''}"><circle cx="${x}" cy="${y}" r="${gr}"/><text x="${x}" y="${y}" dy=".36em" text-anchor="middle" font-size="${(W*.05).toFixed(1)}">${g}</text></g>`});
   return h+'</svg>'}
 return {mount,wheel,wake,EL,flashAll(){flash=1;wake()}}})();
 
@@ -2995,8 +3299,18 @@ function renderInfo(){
     return `<div class="tone"><span class="tz t${t}">${h}</span><span class="tp t${t}">${p}</span><svg class="tc t${t}" viewBox="0 0 40 24" aria-hidden="true">${TONE_PATH[i]?`<path d="${TONE_PATH[i]}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>`:'<circle cx="20" cy="14" r="3.2" fill="currentColor"/>'}</svg><span class="tn"><b>${n}</b><small>${dsc}</small></span><span class="tm">${esc(ex)}</span></div>`}).join('');
   $('infoCred').innerHTML=esc(L10.credit).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
   /* help guide: one <details> per topic (keyboard and TalkBack open them like any button) */
-  $('helpList').innerHTML=L10.help.map(([k,t,ps])=>`<details class="hlp" data-k="${k}"><summary>${t}</summary>${ps.map(x=>`<p>${x}</p>`).join('')}</details>`).join('');
+  $('helpList').innerHTML=L10.help.map(([k,t,ps])=>`<details class="hlp" data-k="${k}"><summary>${t}</summary>${ps.map(helpBlock).join('')}</details>`).join('');
 }
+/* '@realms', '@stages', '@elements' and '@gloss' in a help topic become tables: hanzi, pinyin, meaning, explanation */
+const GL=[['境界','jìngjiè','jj'],['突破','tūpò','tp'],['识海','shíhǎi','sh'],['五行','wǔxíng','wx'],['指点','zhǐdiǎn','zd'],['今日试炼','jīnrì shìliàn','sl'],
+  ['修炼天数','xiūliàn tiānshù','xl'],['闭关','bìguān','bg'],['调息','tiáoxī','tx'],['休息之道','xiūxi zhī dào','xd'],['境界历程','jìngjiè lìchéng','lc']];
+const hrow2=(hz,py,main,sub,lc)=>`<div class="hrow2"${lc?` style="--lc:${lc}"`:''}><span class="hz2"><b lang="zh-CN">${hz}</b><small>${py}</small></span><span class="hm"><em>${main}</em>${sub?`<small>${sub}</small>`:''}</span></div>`;
+function helpBlock(x){
+  if(x==='@realms')return `<div class="htab">${RN.map((n,i)=>hrow2(n,RPY[i],`${esc(L10.realmM[i])} · ${i?(i>6?'HSK 6 ✓':'HSK '+i):esc(L10.notTested)}`,esc(L10.realmD[i]),rc(i))).join('')}</div>`;
+  if(x==='@stages')return `<div class="htab">${SN.map((n,i)=>hrow2(n,SPY[i],esc(L10.stageM[i]),esc(L10.stageD[i]),'var(--acc)')).join('')}</div>`;
+  if(x==='@elements')return `<div class="htab">${EL5.map(([k,g,a])=>hrow2(`${g} ${ATZ[a][0]}`,`${ELP[k]} · ${ATZ[a][1]}`,`${esc(L10.elName[k])} · ${esc(L10.attrN[a])}`,esc(L10.attrD[a]),`var(--el-${k})`)).join('')}</div>`;
+  if(x==='@gloss')return `<div class="htab">${GL.map(([h,py,k])=>{const [m,...more]=L10.gloss[k].split(': ');return hrow2(h,py,esc(m),esc(more.join(': ')),'var(--acc)')}).join('')}</div>`;
+  return `<p>${x}</p>`}
 let infoOpener=null;
 function openInfo(topic){renderInfo();infoOpener=document.activeElement;infoSheet.hidden=false;document.body.style.overflow='hidden';
   const d=topic&&infoSheet.querySelector(`details[data-k="${topic}"]`);
@@ -3200,26 +3514,69 @@ goalSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault()
    The realm changes only through a test: the placement test, or a breakthrough (突破) once the stage is 圆满. One test a
    week. The realm only steers the daily plan — every level stays open in List, Cards and Quiz. */
 const lvlSheet=$('lvlSheet');let lvlOpener=null;
-function renderCurLv(){const r=LM.realm(),b=$('curLvBtn'),st=LM.stage(),open=LM.btOpen()&&LM.canTest();
+const realmPct=r=>{const st=LM.stage(r<1?LM.baseLevel():r);return st?Math.round(Math.min(1,st.share/.8)*100):0};
+/* the chip: realm name, HSK, and a small ring that fills up to 圆满 (share of solid words ÷ 80 %) */
+function renderCurLv(){const r=LM.realm(),b=$('curLvBtn'),st=LM.stage(r<1?LM.baseLevel():r),open=LM.btOpen()&&LM.canTest(),p=realmPct(r);
   $('curLvName').textContent=RN[r];$('curLvSub').textContent=r?'HSK '+realmLv(r):L10.chipTest;
-  b.style.setProperty('--lc',rc(r));b.classList.toggle('mortal',!r);b.classList.toggle('btready',open);
-  b.setAttribute('aria-label',`${L10.realmL}: ${RN[r]}, ${L10.realmM[r]}${st?`, ${SN[st.i]} ${L10.stageM[st.i]}`:''}${r?`, HSK ${realmLv(r)}`:''}${open?'. '+L10.stOpen:''}`)}
+  b.style.setProperty('--lc',rc(r));b.style.setProperty('--p',p);b.classList.toggle('mortal',!r);b.classList.toggle('btready',open);
+  b.setAttribute('aria-label',`${L10.realmL}: ${RN[r]} ${RPY[r]}, ${L10.realmM[r]}${r&&st?`, ${SN[st.i]} ${L10.stageM[st.i]}`:''}${r?`, HSK ${realmLv(r)}`:''}, ${L10.chipProg(p)}${open?'. '+L10.stOpen:''}`)}
 const perBars=per=>`<div class="lvper">${per.map((p,i)=>`<div class="skrow"><span>HSK ${i+1}</span><span class="mbar"><span class="stack"><i style="width:${p}%;background:var(--l${i+1})"></i></span></span><b>${p}%</b></div>`).join('')}</div>`;
 const realmHead=(r,big)=>`<div class="rhead${big?' lg':''}" style="--lc:${rc(r)}"><span class="rname" lang="zh-CN">${RN[r]}</span><span class="rpy">${RPY[r]}</span><span class="rmean">${esc(L10.realmM[r])}${r?` · HSK ${realmLv(r)}`:''}</span></div>`;
-/* the stage bar fills up to 圆满 (80 % of the level's words solid); marks at 初期→中期 (25 %) and 中期→后期 (50 %) */
-function stageH(r){const st=LM.stage(r);if(!st)return '';const T=[.25,.5,.8],i=st.i,next=i<3?Math.max(0,Math.ceil(st.total*T[i])-st.solid):0;
-  return `<div class="stage" style="--lc:${rc(r)}"><div class="stl"><b lang="zh-CN">${SN[i]}</b><span>${esc(L10.stageM[i])}</span><small>${L10.stShare(fmt(st.solid),fmt(st.total))}</small></div>
-    <span class="sgbar"><i style="width:${Math.min(100,st.share/.8*100)}%"></i><u style="left:31.25%"></u><u style="left:62.5%"></u></span>
-    <div class="stn">${r>6?L10.stAll:i===3?L10.stOpen:L10.stNext(fmt(next),SN[i+1])}</div></div>`}
+const hd=(hz,py,t)=>`<h3 class="shd"><span lang="zh-CN">${hz}</span> <small class="hpy">${py}</small> <span class="hsep">·</span> ${esc(t)}</h3>`;
+/* the path of the eight realms: passed ones filled, the current one ringed; tap any to read its name, pinyin and meaning */
+function rpInfo(i,r){return `<b lang="zh-CN" style="color:${rc(i)}">${RN[i]}</b> <span class="rpy2">${RPY[i]}</span> · ${esc(L10.realmM[i])} · ${i?(i>6?'HSK 6 ✓':'HSK '+i):esc(L10.notTested)}${i===r?` · <em>${L10.youHere}</em>`:''}<br><small>${esc(L10.realmD[i])}</small>`}
+function pathH(r){return `<div class="rpath">${RN.map((n,i)=>`${i?`<span class="rpl${i<=r?' done':''}" aria-hidden="true"></span>`:''}<button class="rp${i<r?' done':i===r?' cur':''}" data-rp="${i}" style="--lc:${rc(i)}" aria-pressed="${i===r}" aria-label="${n} ${RPY[i]}, ${esc(L10.realmM[i])}"><span lang="zh-CN">${RS[i]}</span></button>`).join('')}</div><p class="rpinfo" aria-live="polite">${rpInfo(r,r)}</p>`}
+function rpPick(p){const box=p.closest('.rpath');box.querySelectorAll('.rp').forEach(x=>x.setAttribute('aria-pressed',String(x===p)));const info=box.nextElementSibling;if(info)info.innerHTML=rpInfo(+p.dataset.rp,LM.realm())}
+/* progress inside the realm: four stage segments (初期 <25 %, 中期 25–50 %, 后期 50–80 %, 圆满 ≥80 % of the level's words
+   solid), the next step, and the engine's forecast (pace of the last 14 days) or, at 圆满, the chance to pass a breakthrough */
+const TH=[0,.25,.5,.8,1];
+function stageH(r){const L=r<1?LM.baseLevel():r,st=LM.stage(L);if(!st)return '';
+  const i=st.i,pct=Math.round(Math.min(1,st.share/.8)*100),fc=r>=1&&r<=6?LM.forecast():null;
+  const segs=[0,1,2,3].map(k=>{const f=Math.max(0,Math.min(1,(st.share-TH[k])/(TH[k+1]-TH[k])));return `<span class="sg"><i style="width:${(f*100).toFixed(1)}%"></i></span>`}).join('');
+  const labs=SN.map((n,k)=>`<span class="sgl${k===i?' cur':''}"><b lang="zh-CN">${n}</b><small>${SPY[k]}</small></span>`).join('');
+  let note;
+  if(r<1)note=L10.prepNote;
+  else if(r>6)note=L10.stAll;
+  else if(i===3){const p=LM.btChance();note=L10.stOpen+(p===null?'':' '+L10.btChance(p<5?'<5':p>95?'>95':p))}
+  else note=L10.stNext(fmt(fc?fc.next:0),SN[i+1]);
+  const eta=fc&&i<3?(fc.dNext?`<div class="steta"><b>${L10.etaL}:</b> ${L10.etaNext(dateS(LM.dayAfter(fc.dNext)))}${fc.dFull&&fc.dFull>fc.dNext?' · '+L10.etaFull(dateS(LM.dayAfter(fc.dFull))):''} · ${L10.perWeek(fmt(fc.week))}</div>`:`<div class="steta">${L10.etaNone}</div>`):'';
+  return `<div class="stage" style="--lc:${rc(r<1?L:r)}"><div class="sthd"><span>${r<1?esc(L10.prepT(RN[L],L)):L10.progT}</span><b>${pct}%</b></div>
+    <div class="sgtrack" role="img" aria-label="${pct}%, ${SN[i]} ${esc(L10.stageM[i])}">${segs}</div><div class="sglabels" aria-hidden="true">${labs}</div>
+    <div class="stl2"><b lang="zh-CN">${SN[i]}</b> ${esc(L10.stageM[i])} · ${L10.stShare(fmt(st.solid),fmt(st.total))}</div>
+    <div class="stn">${note}</div>${eta}</div>`}
 function testH(){const r=LM.realm(),can=LM.canTest();let h='';
   if(LM.btOpen())h+=`<button class="planbtn wide btbtn" id="btGo"${can?'':' disabled'} style="--lc:${rc(r+1)}"><span lang="zh-CN">突破</span><span>${esc(L10.btGo(RN[r+1]))}</span></button>`;
   h+=r?`<button class="ghost wide" id="ptGo"${can?'':' disabled'}>${L10.ptAgain}</button>`:`<button class="planbtn wide" id="ptGo"${can?'':' disabled'}>${PLAY}<span>${L10.ptStart}</span></button>`;
   if(!can)h+=`<p class="gnote lockn">${LOCK}<span>${esc(L10.testNext(dateS(tDate(LM.nextTestAt()))))}</span></p>`;
   return h}
+/* guidance (指点): what to work on, ranked by LM.advice(); each with a button that starts the right practice */
+let advCur=null,advL=1;
+function advText(x){const h='HSK '+x.L;switch(x.k){
+  case 'test':return [L10.advTest,L10.advTestWhy,L10.advStart];
+  case 'f':return [L10.advF(fmt(x.n),h),L10.advFWhy,L10.advGo];
+  case 's':return [L10.advS(fmt(x.n),h),L10.advSWhy,L10.advGo];
+  case 'due':return [L10.advDue(fmt(x.n),h),L10.advDueWhy,L10.advStart];
+  case 'skill':return [L10.advSkill(TNAME()[x.q],x.p),L10.advSkillWhy,L10.advGo];
+  case 'young':return [L10.advYoung(fmt(x.n),h),L10.advYoungWhy(x.days),''];
+  case 'new':return [L10.advNew(fmt(x.n),h),L10.advNewWhy,L10.advStart];
+  case 'conf':return [L10.advConf(esc(x.a.h),esc(x.b.h),x.n),L10.advConfWhy,L10.advGo];
+  default:return [L10.advDao(x.p),L10.advDaoWhy,'']}}
+function adviceH(max){const A=LM.advice();advCur=A.items;advL=A.L;
+  if(!A.items.length)return `<p class="gnote">${L10.advNone}</p>`;
+  return `<ol class="advs">${A.items.slice(0,max).map((x,i)=>{const [t,w,b]=advText(x);
+    return `<li class="adv adv-${x.k}"><span class="advn" aria-hidden="true">${i+1}</span><div class="advt"><b>${t}</b><small>${w}</small></div>${b?`<button class="ghost advgo" data-adv="${i}">${b}</button>`:''}</li>`}).join('')}</ol>`}
+function advGo(i){const x=advCur&&advCur[i];if(!x)return;
+  if(x.k==='test'){go('placement');return}
+  if(x.k==='f'||x.k==='s'){pendingRun={mode:'quiz',items:x.words.map(d=>({k:'q',d,q:x.k}))};go('quiz');return}
+  if(x.k==='skill'){pendingRun={mode:'quiz',items:LM.quizRound(BY[advL],ROUND_Q,x.q)};go('quiz');return}
+  if(x.k==='conf'){pendingRun={mode:'quiz',items:[{k:'q',d:x.a,q:'m'},{k:'q',d:x.b,q:'m'},{k:'q',d:x.a,q:'f'},{k:'q',d:x.b,q:'f'}]};go('quiz');return}
+  sessionExtra=LM.plan().todayLeft===0;go('session')}
 function renderLvl(){
   const info=LM.level,r=LM.realm(),cur=LM.curLevel();
   const src=!info?L10.lvSrcDefault:!r&&info.src==='manual'?L10.lvSrcOld(info.lv):info.src==='bt'?L10.lvSrcBt(dateS(tDate(info.at))):L10.lvSrcTest(dateS(tDate(info.at)));
-  $('lvlBody').innerHTML=`${realmHead(r,true)}<p class="lvsrc">${esc(src)}${r&&cur>realmLv(r)?' '+esc(L10.lvAhead(cur)):''}</p>${stageH(r)}${testH()}
+  $('lvlBody').innerHTML=`${realmHead(r,true)}<p class="lvsrc">${esc(src)}${r&&cur>realmLv(r)?' '+esc(L10.lvAhead(cur)):''}</p>
+    ${pathH(r)}${stageH(r)}${testH()}
+    <div class="lvadv">${hd('指点','zhǐdiǎn',L10.advM)}${adviceH(2)}</div>
     <button class="ghost wide soulbtn" id="soulGo"><span lang="zh-CN">识海</span> ${L10.soulMore} ›</button>
     <p class="gnote">${L10.lvNote}</p>`}
 function openLvl(){lvlOpener=document.activeElement;renderLvl();lvlSheet.hidden=false;document.body.style.overflow='hidden';lvlSheet.querySelector('.xbtn').focus()}
@@ -3227,6 +3584,8 @@ function closeLvl(){lvlSheet.hidden=true;document.body.style.overflow='';lvlOpen
 $('curLvBtn').onclick=openLvl;
 lvlSheet.addEventListener('click',e=>{
   if(e.target.closest('[data-close]')){closeLvl();return}
+  const rp=e.target.closest('[data-rp]');if(rp){rpPick(rp);return}
+  const ad=e.target.closest('[data-adv]');if(ad){closeLvl();advGo(+ad.dataset.adv);return}
   const id=e.target.closest('[id]')?.id;
   if(id==='ptGo'){closeLvl();go('placement');return}
   if(id==='btGo'){closeLvl();go('bt');return}
@@ -3318,15 +3677,17 @@ view.addEventListener('click',e=>{
 /* ---------- Soul Sea (识海): the realm, the soul orb, the five elements (五行), today's trial, cultivation days, rest ----------
    Every number comes from the memory model and the answer log on this phone (LM.soul, LM.challenge, LM.streak, LM.restGain). */
 const EL5=[['earth','土','root'],['wood','木','cult'],['water','水','sense'],['metal','金','dao'],['fire','火','insight']];
-const ATZ={root:'根基',cult:'修为',sense:'神识',dao:'道心',insight:'悟性'};
+const ATZ={root:['根基','gēnjī'],cult:['修为','xiūwéi'],sense:['神识','shénshí'],dao:['道心','dàoxīn'],insight:['悟性','wùxìng']};
+const TTL={root:['磐石','pánshí'],cult:['苦修','kǔxiū'],sense:['明镜','míngjìng'],dao:['剑心','jiànxīn'],insight:['慧根','huìgēn']};
+const ELP={earth:'tǔ',wood:'mù',water:'shuǐ',metal:'jīn',fire:'huǒ'};
 function soulRows(S){const known=EL5.filter(e=>S[e[2]]!==null),mn=known.length>1?known.reduce((a,b)=>S[b[2]]<S[a[2]]?b:a):null,
     mx=known.length>1?known.reduce((a,b)=>S[b[2]]>S[a[2]]?b:a):null,flat=mn&&mx&&S[mn[2]]===S[mx[2]];
   return EL5.map(e=>{const [k,g,a]=e,v=S[a],weak=!flat&&e===mn,strong=!flat&&e===mx&&v>=60;
     const val=v===null?L10.unknownV:a==='cult'?L10.cultV(fmt(S.cultDays)):a==='insight'?L10.insightV(S.insightDays):v+'%';
-    return `<div class="elrow el-${k}${weak?' weak':''}"><span class="elg" lang="zh-CN" aria-hidden="true">${g}</span><div class="elt">
-      <div class="eln"><b lang="zh-CN">${ATZ[a]}</b><span>${esc(L10.attrN[a])}</span><em>${esc(val)}</em></div>
+    return `<div class="elrow el-${k}${weak?' weak':''}"><span class="elg" aria-hidden="true"><b lang="zh-CN">${g}</b><small>${ELP[k]}</small></span><div class="elt">
+      <div class="eln"><b lang="zh-CN">${ATZ[a][0]}</b><small class="hpy">${ATZ[a][1]}</small><span>${esc(L10.attrN[a])}</span><em>${esc(val)}</em></div>
       <span class="elbar"><i style="width:${v===null?0:Math.max(2,v)}%"></i></span><small>${esc(L10.attrD[a])}</small>
-      ${weak?`<p class="eltip">${esc(L10.attrTip[a])}</p>`:''}${strong?`<p class="eltitle">${esc(L10.titleL(L10.attrTitle[a]))}</p>`:''}</div></div>`}).join('')}
+      ${weak?`<p class="eltip">${esc(L10.attrTip[a])}</p>`:''}${strong?`<p class="eltitle">${L10.titleL(`<span lang="zh-CN">${TTL[a][0]}</span> ${TTL[a][1]} · ${esc(L10.attrTitle[a])}`)}</p>`:''}</div></div>`}).join('')}
 function weekH(){const S=LM.studyDays(),today=LM.dayOf(LM.now());let h='';
   for(let d=today-6;d<=today;d++){const w=new Date(Date.now()-(today-d)*864e5).getDay(),c=S.has(d)?'on':LM.isRest(d)?'rest':d===today?'today':'off';
     h+=`<span class="wd ${c}"><i aria-hidden="true">${c==='rest'?'闭':''}</i><small>${esc(wkName(w,'short'))}</small></span>`}return h}
@@ -3343,19 +3704,23 @@ function renderSoul(){
   $('soulBody').innerHTML=`<div class="soulhero" style="--lc:${rc(r)}">
       <div class="orbwrap">${SOUL.wheel(S,300)}<canvas class="orb" id="orb" role="img" aria-label="${esc(L10.orbL(fmt(S.words)))}"></canvas></div>
       ${realmHead(r,true)}<p class="orbpick" id="orbPick" aria-live="polite">${S.words?L10.orbHint:L10.orbEmpty}</p></div>
-    <section class="scard">${st?stageH(r):`<p class="sumnote">${L10.lvSrcDefault}</p>`}${testH()}</section>
-    <section class="scard"><h3>${L10.elT}</h3>${soulRows(S)}</section>
-    <section class="scard chal${c.done?' done':''}"><h3>${L10.chalT}</h3><p class="chtxt">${L10.chalTxt(skName(c.k),c.n,c.a)}</p>
+    <section class="scard prog">${hd('修炼之路','xiūliàn zhī lù',L10.pathM)}${pathH(r)}${stageH(r)}${testH()}</section>
+    <section class="scard advc">${hd('指点','zhǐdiǎn',L10.advM)}<p class="gnote advintro">${L10.advIntro}</p>${adviceH(6)}</section>
+    <section class="scard">${hd('五行','wǔxíng',L10.elM)}${soulRows(S)}</section>
+    <section class="scard chal${c.done?' done':''}">${hd('今日试炼','jīnrì shìliàn',L10.chalM)}<p class="chtxt">${L10.chalTxt(skName(c.k),c.n,c.a)}</p>
       <div class="skrow"><span>${cc}/${c.n}</span><span class="mbar"><span class="stack"><i style="width:${Math.min(100,c.cnt/c.n*100)}%;background:var(--acc)"></i></span></span><b>${c.cnt?c.acc+'%':'–'}</b></div>
       <p class="gnote">${c.done?L10.chalDone:L10.chalWhy}${c.total?' · '+L10.chalTot(c.total):''}</p>${c.done?'':`<button class="ghost wide" id="chalGo">${L10.chalGo}</button>`}</section>
-    <section class="scard"><h3>${L10.strT}</h3><div class="strk"><b>${L10.strDays(k.days)}</b><div class="week">${weekH()}</div></div>
+    <section class="scard">${hd('修炼天数','xiūliàn tiānshù',L10.strM)}<div class="strk"><b>${L10.strDays(k.days)}</b><div class="week">${weekH()}</div></div>
       <p class="gnote">${L10.strNote}</p><p class="gnote">${rest.length?esc(L10.medDays(WK.filter(w=>rest.includes(w)).map(w=>wkName(w,'long')).join(', '))):L10.medNone} <button class="linkbtn" id="medSet">${L10.medSet}</button></p></section>
-    <section class="scard"><h3>${L10.restT}</h3>${restH(LM.restGain())}</section>
-    <section class="scard"><h3>${L10.histT}</h3>${hist.length?`<div class="hist">${hist.map(([hr,t])=>`<div class="hrow" style="--lc:${rc(hr)}"><b lang="zh-CN">${RN[hr]}</b><span>${esc(L10.realmM[hr])}</span><small>${dateS(tDate(t))}</small></div>`).join('')}</div>`:`<p class="gnote">${L10.histEmpty}</p>`}
+    <section class="scard">${hd('休息之道','xiūxi zhī dào',L10.restM)}${restH(LM.restGain())}</section>
+    <section class="scard">${hd('境界历程','jìngjiè lìchéng',L10.histM)}${hist.length?`<div class="hist">${hist.map(([hr,t])=>`<div class="hrow" style="--lc:${rc(hr)}"><b lang="zh-CN">${RN[hr]}</b><small class="hpy">${RPY[hr]}</small><span>${esc(L10.realmM[hr])}</span><small>${dateS(tDate(t))}</small></div>`).join('')}</div>`:`<p class="gnote">${L10.histEmpty}</p>`}
       ${info&&info.per?`<div class="glbl">${L10.ptPer}</div>${perBars(info.per)}`:''}</section>`;
   SOUL.mount($('orb'),{realm:r,stage:st?st.i:0,onPick:d=>{const el=$('orbPick');if(!el)return;
     el.innerHTML=d?`<b class="hzs">${hzH(d)}</b> ${pyH(d)} · ${esc(M1(d))} · <span class="st">${stTxt(d)}</span>`:L10.orbHint}})}
-scrSoul.addEventListener('click',e=>{const id=e.target.closest('[id]')?.id;
+scrSoul.addEventListener('click',e=>{
+  const rp=e.target.closest('[data-rp]');if(rp){rpPick(rp);return}
+  const ad=e.target.closest('[data-adv]');if(ad){advGo(+ad.dataset.adv);return}
+  const id=e.target.closest('[id]')?.id;
   if(id==='soulBack'){back();return}
   if(id==='soulHelp'){openInfo('soul');return}
   if(id==='btGo'){go('bt');return}

@@ -4,6 +4,48 @@ Every push of app changes to `main` makes a new release on [GitHub Releases](htt
 (v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
 before pushing.
 
+## v1.11 — 17 October 2026
+
+**v1.10 rebuilt: realms explained one by one, visible realm progress, guidance on what to improve, and a smoother
+Sea of Consciousness.**
+
+### New
+- **Realm progress you can see**:
+  - The realm chip has a small ring that fills up to 圆满.
+  - The realm sheet and the Sea of Consciousness show the **path of the eight realms** (tap any realm to read its
+    hanzi, pinyin, meaning and HSK level).
+  - A **stage bar** with 初期 chūqī · 中期 zhōngqī · 后期 hòuqī · 圆满 yuánmǎn, the percent to 圆满 and the solid words
+    still needed.
+  - An **estimate** of when you reach the next stage and 圆满, from your pace over the last 14 days.
+  - At 圆满, the **chance to pass a breakthrough** now, worked out from how well you remember the level's words.
+  - Before the placement test the same bar shows your preparation for 炼气.
+- **Master's guidance (指点 zhǐdiǎn)**: a ranked list of what to improve, worked out from your memory model, each with a
+  button to practise it straight away:
+  - words one right answer away from solid (a missing Recall or Tones pass);
+  - due words;
+  - your weakest skill;
+  - young words, with how many days they need on average (from simulating the memory model);
+  - words not introduced yet;
+  - words you often mix up;
+  - how reliable your "I know it" is.
+  The top two also appear in the realm sheet.
+- **Help explains every term one by one**: tables of the eight realms and four stages (hanzi, pinyin, meaning,
+  what it stands for), the five elements, and a new glossary of cultivation terms (突破 tūpò, 识海 shíhǎi, 闭关 bìguān,
+  调息 tiáoxī, …). The Sea of Consciousness shows pinyin beside every heading and element.
+
+### Fixed
+- The 木 badge at the top of the five-element wheel was cut off. Every badge now sits inside the picture.
+- Small values drew flat, clipped-looking leaves. Each leaf now has a dashed outline of its full size, and the
+  filled leaf grows from the orb with the value.
+- The weakest element is marked with a dashed badge instead of a blinking leaf, and the strongest with a filled one.
+
+### Smoother
+- The soul orb draws about 5× faster: a handful of draw calls per frame instead of more than a thousand, and nothing
+  allocated per frame.
+- The orb starts moving only after the screen has opened, pauses when scrolled out of view, keeps a flick's spin and
+  slows down gently, and eases to a stop after 10 seconds.
+- Cards further down the Sea of Consciousness are drawn only when you scroll near them.
+
 ## v1.10 — 17 October 2026
 
 **Cultivation realms, the Sea of Consciousness, and rest as part of learning.**

@@ -418,6 +418,46 @@ function soul(){const t=now(),st=stage(Math.max(1,realm())),es=Object.values(mem
     sense:v(es.length?rs/es.length*100:null),dao:v(cal.n>=5?cal.acc*100:null),
     insight:v(ks.length>=5?100*(30-ks[ks.length>>1])/26:null),insightDays:ks.length>=5?Math.round(ks[ks.length>>1]):null,words:es.length}}
 
+/* ---- guidance (指点): what to work on to move up, and when the next stage is likely ----
+   Everything is read from the memory model: a word is solid at level 10+ with a passed recall (f) and tone (s)
+   question, so the quickest wins are words already at level 10 that miss one of those answers. Young words need time:
+   their expected days to solid come from simulating FSRS with right answers on the due dates. */
+const SOLID_S=Math.pow(121,.5)-1;   /* stability (days) that gives level 10 */
+function daysToSolid(e,t){let D=e.w[0],S=e.w[1],d=Math.max(0,(e.w[2]+ivl(S,.9)*1440-t)/1440),n=0;
+  while(S<SOLID_S&&n<30){const gap=Math.max(1,ivl(S,.9));const st=step(W,[D,S,0],3,gap*1440);D=st[0];S=st[1];if(S>=SOLID_S)break;d+=gap;n++}
+  return Math.min(365,d)}
+function advice(){
+  const t=now(),r=realm(),L=r<1?baseLevel():Math.min(6,r),Wd=BY[L],R0=dr(),out=[];
+  const neu=[],young=[],needF=[],needS=[],due=[];
+  for(const d of Wd){const e=mem[d.id];if(!e){neu.push(d);continue}
+    if(rNow(e,t)<R0)due.push(d);
+    if(solid(e))continue;
+    if(levelOf(e)>=10||e.w[1]>=SOLID_S){if(!okS(e.f))needF.push(d);else if(!okS(e.s))needS.push(d)}
+    else young.push(e)}
+  if(r<1&&canTest())out.push({k:'test'});
+  if(needF.length)out.push({k:'f',n:needF.length,words:needF.slice(0,12),L});
+  if(needS.length)out.push({k:'s',n:needS.length,words:needS.slice(0,12),L});
+  if(due.length)out.push({k:'due',n:due.length,L});
+  const I=insights();if(I.weak)out.push({k:'skill',q:I.weak,p:I.skills[I.weak].p});
+  if(young.length){const ds=young.slice(0,300).map(e=>daysToSolid(e,t)).sort((a,b)=>a-b);out.push({k:'young',n:young.length,days:Math.max(1,Math.round(ds[ds.length>>1])),L})}
+  if(neu.length)out.push({k:'new',n:neu.length,L});
+  const pr=[...confs()].filter(p=>p[1]>=2).sort((a,b)=>b[1]-a[1])[0];
+  if(pr){const [a,b]=pr[0].split('|');if(IDX.has(a)&&IDX.has(b))out.push({k:'conf',a:IDX.get(a),b:IDX.get(b),n:pr[1]})}
+  const c=calib();if(c.n>=8&&c.acc<.75)out.push({k:'dao',p:Math.round(c.acc*100)});
+  return {L,items:out}}
+/* when the next stage (and 圆满) is likely: new solid words of the level over the last 14 days */
+function forecast(){const r=realm(),L=r<1?baseLevel():Math.min(6,r),st=stage(r<1?L:r);if(!st||r>6)return null;
+  const t=now();let n=0;for(const d of BY[L]){const e=mem[d.id];if(e&&e.k&&t-e.k<14*1440&&solid(e))n++}
+  const rate=n/14,T=[.25,.5,.8],next=st.i<3?Math.max(0,Math.ceil(st.total*T[st.i])-st.solid):0;
+  return {rate,week:Math.round(rate*7),next,need:st.need,dNext:rate>0&&next?Math.ceil(next/rate):null,dFull:rate>0&&st.need?Math.ceil(st.need/rate):null}}
+/* chance to pass a breakthrough now: every bank word is answered right with its recall chance (plus a little
+   guessing when it is forgotten); the score of 20 is about normal, so P(score ≥ needed) follows from mean and spread */
+function btChance(){const r=realm();if(r<1||r>6)return null;placementBank();const t=now(),bank=PB[r].length>=20?PB[r]:BY[r],hard=r>=4?.9:.95;
+  let s=0,v=0;for(const d of bank){const e=mem[d.id],R=e?rNow(e,t):0,p=Math.min(.99,R*hard+(1-R*hard)*.12);s+=p;v+=p*(1-p)}
+  const n=bank.length,N=20,m=N*s/n,sd=Math.sqrt(Math.max(.25,N*v/n)),need=Math.ceil(N*(r>=5?.8:.75)),z=(need-.5-m)/sd;
+  const phi=x=>{const k=1/(1+.2316419*Math.abs(x)),y=.3989423*Math.exp(-x*x/2)*k*(.3193815+k*(-.3565638+k*(1.781478+k*(-1.821256+k*1.330274))));return x>0?1-y:y};
+  return Math.round(100*(1-phi(z)))}
+
 /* ---- goals and the daily plan ---- */
 function validGoal(g){return !!g&&typeof g==='object'&&['level','exam','none'].includes(g.t)&&
   (g.t==='none'||(LEVELS.includes(g.lv)&&/^\d{4}-\d\d-\d\d$/.test(g.date||'')))&&['min','new','auto'].includes(g.pace)&&(g.pace==='auto'||g.n>0)}
@@ -552,7 +592,7 @@ function clearLog(){logR=[];logA=[];logCache=null;confMap=null;last=null;ls.set(
 sync();updWeak();
 return {now,dayOf,Rt,step,W0,get W(){return W},levelOf,skLevel,okS,answer,undo,checkP,checkType,question,pickType,cardDeck,quizRound,exam,session,
   plan,dr,isoDay,dayAfter,daysTo,validGoal,curLevel,baseLevel,realm,stage,btOpen,btStart,btFinish,placementDone,canTest,nextTestAt,
-  streak,studyDays,noteTest,challenge,setRest,get rest(){return rest},isRest,restGain,gainList,sinceLast,soul,solid,wdiff,markAmbiguous,
+  advice,forecast,btChance,daysToSolid,streak,studyDays,noteTest,challenge,setRest,get rest(){return rest},isRest,restGain,gainList,sinceLast,soul,solid,wdiff,markAmbiguous,
   testsReset(){tests=[];ls.set('xc_tests',tests)},get tests(){return tests},restoreExtra,get level(){return lvInfo},setLevel,restoreLevel,ptStart,ptNext,ptAnswer,ptResult,PT,placementBank,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
   mem:id=>mem[id],has:id=>!!mem[id],rNow:id=>rNow(mem[id],now()),nextDue(id){const e=mem[id];if(!e)return null;return (e.w[2]+ivl(e.w[1],dr())*1440-now())/1440},
   insights,updWeak,optimize,maybeOptimize,lossOf,seqs,exportMem,importMem,replace,forget,clearLog,sync,flush,allLog,partners,

@@ -587,3 +587,166 @@ Object.assign(I18N.vi,{
     ['voice','Âm thanh & hiển thị',[
       'Nút loa dùng công cụ đọc văn bản của điện thoại. Nếu chưa có giọng tiếng Trung, ứng dụng mở cài đặt TTS.',
       'Cỡ chữ theo cài đặt của điện thoại. Nút giao diện đổi lần lượt tự động → sáng → tối → đen tuyền.']]]});
+/* v1.11: realm path and progress, guidance (指点), help tables with pinyin and meaning */
+Object.assign(I18N.id,{
+  realmD:['Belum dites. Tes penempatan membuka jalan kultivasi.','Menyerap qi pertama: kosakata dasar HSK 1.','Fondasi kokoh dari kata sehari-hari HSK 2.','Pengetahuan memadat menjadi inti emas: HSK 3.',
+    'Jiwa bahasa lahir: kamu mulai memahami teks yang lebih panjang (HSK 4).','Roh berubah: kosakata abstrak dan formal HSK 5.','Ujian terberat: kata langka dan bernuansa HSK 6.','Semua ranah dilalui: HSK 6 dikuasai.'],
+  stageD:['di bawah 25% kata level ini kokoh','25–50% kata kokoh','50–80% kata kokoh','80% ke atas kokoh: terobosan terbuka'],
+  notTested:'belum dites',youHere:'kamu di sini',
+  progT:'Progres ranah',prepT:(n,l)=>`Persiapan ${n} (HSK ${l})`,prepNote:'Ranah resmi dimulai setelah tes penempatan; kata yang sudah kokoh tetap dihitung.',
+  etaNext:d=>`tahap berikutnya ±${d}`,etaFull:d=>`圆满 ±${d}`,perWeek:n=>`+${n} kata kokoh/minggu`,etaL:'Perkiraan',
+  etaNone:'Perkiraan tanggal muncul setelah beberapa kata menjadi kokoh.',btChance:p=>`Perkiraan peluang lulus terobosan sekarang: ${p}%.`,chipProg:p=>`${p}% menuju 圆满`,
+  elM:'Lima Elemen',chalM:'Ujian Hari Ini',strM:'Hari Kultivasi',restM:'Jalan Istirahat',histM:'Riwayat Ranah',advM:'Petunjuk Guru',pathM:'Jalan Kultivasi',
+  advIntro:'Dihitung dari model ingatanmu, diurutkan dari yang paling cepat membawamu ke tahap berikutnya.',
+  advTest:'Ambil tes penempatan',advTestWhy:'Tes menentukan ranah awalmu, jadi rencana harian mulai dari level yang tepat.',
+  advF:(n,h)=>`${n} kata ${h} tinggal lulus soal Ingat`,advFWhy:'Satu jawaban benar (arti → hanzi) membuat setiap kata ini kokoh.',
+  advS:(n,h)=>`${n} kata ${h} tinggal lulus soal Nada`,advSWhy:'Satu jawaban nada yang benar membuat setiap kata ini kokoh.',
+  advDue:(n,h)=>`${n} kata ${h} jatuh tempo`,advDueWhy:'Ulang selagi masih ingat; setelah lewat waktunya, ingatan turun lebih cepat.',
+  advSkill:(k,p)=>`${k}: ${p}% benar`,advSkillWhy:'Keterampilan terlemahmu. Latihan khusus jenis soal ini menaikkannya paling cepat.',
+  advYoung:(n,h)=>`${n} kata ${h} masih muda`,advYoungWhy:d=>`Dengan ulangan tepat waktu, rata-rata kokoh dalam ±${d} hari. Waktu dan tidur yang menguatkannya, jadi tidak bisa dipaksa dalam sehari.`,
+  advNew:(n,h)=>`${n} kata ${h} belum dikenalkan`,advNewWhy:'Sesi harian mengenalkannya sedikit demi sedikit sesuai tujuanmu.',
+  advConf:(a,b,n)=>`Sering tertukar: ${a} ↔ ${b} (${n}×)`,advConfWhy:'Latih keduanya berdampingan supaya perbedaannya jelas.',
+  advDao:p=>`“Saya tahu” terbukti benar ${p}%`,advDaoWhy:'Tekan “Saya tahu” hanya kalau yakin; jujur “Belum tahu” membuat jadwalmu lebih tepat.',
+  advNone:'Tidak ada yang mendesak. Lanjutkan sesi harian.',advGo:'Latih',advStart:'Mulai',
+  attrTitle:{root:'Batu Karang',cult:'Pertapa Tekun',sense:'Cermin Jernih',dao:'Hati Pedang',insight:'Akar Kebijaksanaan'},
+  elName:{earth:'Tanah',wood:'Kayu',water:'Air',metal:'Logam',fire:'Api'},
+  gloss:{jj:'Ranah: tingkat kultivasi, di aplikasi ini sama dengan level HSK.',tp:'Terobosan: tes 20 soal untuk naik ke ranah berikutnya.',
+    sh:'Lautan Jiwa: halaman ingatanmu, berisi bola jiwa, lima elemen, dan progres.',wx:'Lima Elemen: lima ukuran kemampuanmu (tanah, kayu, air, logam, api).',
+    sl:'Ujian Hari Ini: satu target harian untuk keterampilan terlemah.',xl:'Hari Kultivasi: hari berlatih berturut-turut.',bg:'Meditasi tertutup: hari istirahat yang kamu pilih.',
+    tx:'Atur napas: jeda 5 menit saat mulai lelah.',xd:'Jalan Istirahat: angka yang menunjukkan kenapa istirahat membantu ingatan.',zd:'Petunjuk guru: saran apa yang perlu ditingkatkan.',
+    lc:'Riwayat Ranah: catatan tes dan terobosanmu.'}});
+Object.assign(I18N.en,{
+  realmD:['Not tested yet. The placement test opens the path of cultivation.','Drawing in the first qi: the basic HSK 1 words.','A firm foundation of everyday HSK 2 words.','Knowledge condenses into a golden core: HSK 3.',
+    'The soul of the language is born: you start to follow longer texts (HSK 4).','The spirit transforms: abstract and formal HSK 5 words.','The hardest trial: rare and subtle HSK 6 words.','Every realm crossed: HSK 6 mastered.'],
+  stageD:['under 25% of the level’s words solid','25–50% solid','50–80% solid','80% or more solid: the breakthrough opens'],
+  notTested:'not tested',youHere:'you are here',
+  progT:'Realm progress',prepT:(n,l)=>`Preparing for ${n} (HSK ${l})`,prepNote:'Your realm starts after the placement test; words already solid still count.',
+  etaNext:d=>`next stage ~${d}`,etaFull:d=>`圆满 ~${d}`,perWeek:n=>`+${n} solid words a week`,etaL:'Estimate',
+  etaNone:'A date estimate appears once some words have become solid.',btChance:p=>`Estimated chance to pass a breakthrough now: ${p}%.`,chipProg:p=>`${p}% of the way to 圆满`,
+  elM:'Five Elements',chalM:'Today’s Trial',strM:'Cultivation Days',restM:'The Way of Rest',histM:'Realm History',advM:'Master’s Guidance',pathM:'Path of Cultivation',
+  advIntro:'Worked out from your memory model, ordered by what moves you to the next stage fastest.',
+  advTest:'Take the placement test',advTestWhy:'It finds your starting realm, so your daily plan starts at the right level.',
+  advF:(n,h)=>`${n} ${h} words only need a Recall pass`,advFWhy:'One right answer (meaning → hanzi) makes each of them solid.',
+  advS:(n,h)=>`${n} ${h} words only need a Tones pass`,advSWhy:'One right tone answer makes each of them solid.',
+  advDue:(n,h)=>`${n} ${h} words are due`,advDueWhy:'Review them while you still remember; once overdue, memory drops faster.',
+  advSkill:(k,p)=>`${k}: ${p}% right`,advSkillWhy:'Your weakest skill. Practising this question type raises it fastest.',
+  advYoung:(n,h)=>`${n} ${h} words are still young`,advYoungWhy:d=>`With reviews on time they become solid in about ${d} days on average. Time and sleep strengthen them, so it can’t be forced in one day.`,
+  advNew:(n,h)=>`${n} ${h} words not introduced yet`,advNewWhy:'Your daily session introduces them a few at a time, paced to your goal.',
+  advConf:(a,b,n)=>`Often mixed up: ${a} ↔ ${b} (${n}×)`,advConfWhy:'Practise the two side by side so the difference sticks.',
+  advDao:p=>`“I know it” was right ${p}% of the time`,advDaoWhy:'Tap “I know it” only when you’re sure; an honest “Don’t know” makes your schedule more accurate.',
+  advNone:'Nothing urgent. Carry on with your daily session.',advGo:'Practise',advStart:'Start',
+  attrTitle:{root:'Bedrock',cult:'Ascetic',sense:'Clear Mirror',dao:'Sword Heart',insight:'Root of Wisdom'},
+  elName:{earth:'Earth',wood:'Wood',water:'Water',metal:'Metal',fire:'Fire'},
+  gloss:{jj:'Realm: a level of cultivation; in this app the same as an HSK level.',tp:'Breakthrough: a 20-question test to rise to the next realm.',
+    sh:'Sea of Consciousness: the page of your memory, with the soul orb, five elements and progress.',wx:'Five Elements: five measures of your skill (earth, wood, water, metal, fire).',
+    sl:'Today’s Trial: one daily target for your weakest skill.',xl:'Cultivation Days: days of practice in a row.',bg:'Secluded meditation: a rest day you choose.',
+    tx:'Regulating the breath: a 5-minute break when you tire.',xd:'The Way of Rest: numbers that show why rest helps memory.',zd:'A master’s guidance: advice on what to improve.',
+    lc:'Realm History: the record of your tests and breakthroughs.'}});
+Object.assign(I18N.th,{
+  realmD:['ยังไม่ได้ทดสอบ แบบทดสอบวัดระดับจะเปิดเส้นทางการบำเพ็ญ','ดูดซับลมปราณแรก: คำศัพท์พื้นฐาน HSK 1','รากฐานที่มั่นคงจากคำในชีวิตประจำวัน HSK 2','ความรู้ควบแน่นเป็นแก่นทองคำ: HSK 3',
+    'วิญญาณของภาษาถือกำเนิด: เริ่มเข้าใจข้อความที่ยาวขึ้น (HSK 4)','วิญญาณแปรเปลี่ยน: คำศัพท์นามธรรมและทางการ HSK 5','บททดสอบที่ยากที่สุด: คำหายากและละเอียดอ่อน HSK 6','ผ่านครบทุกขั้น: เชี่ยวชาญ HSK 6'],
+  stageD:['คำในระดับนี้มั่นคงไม่ถึง 25%','มั่นคง 25–50%','มั่นคง 50–80%','มั่นคง 80% ขึ้นไป: เปิดการทะลวงขั้น'],
+  notTested:'ยังไม่ทดสอบ',youHere:'คุณอยู่ที่นี่',
+  progT:'ความคืบหน้าขั้นพลัง',prepT:(n,l)=>`เตรียมสู่ ${n} (HSK ${l})`,prepNote:'ขั้นพลังจะเริ่มหลังทำแบบทดสอบวัดระดับ คำที่มั่นคงแล้วยังนับอยู่',
+  etaNext:d=>`ระยะถัดไปราว ${d}`,etaFull:d=>`圆满 ราว ${d}`,perWeek:n=>`+${n} คำมั่นคงต่อสัปดาห์`,etaL:'ประมาณการ',
+  etaNone:'วันที่โดยประมาณจะแสดงเมื่อมีคำที่มั่นคงแล้วจำนวนหนึ่ง',btChance:p=>`โอกาสผ่านการทะลวงขั้นตอนนี้โดยประมาณ: ${p}%`,chipProg:p=>`ความคืบหน้า ${p}% สู่ 圆满`,
+  elM:'ห้าธาตุ',chalM:'บททดสอบวันนี้',strM:'วันบำเพ็ญ',restM:'วิถีแห่งการพัก',histM:'เส้นทางขั้นพลัง',advM:'คำชี้แนะของอาจารย์',pathM:'เส้นทางการบำเพ็ญ',
+  advIntro:'คำนวณจากแบบจำลองความจำของคุณ เรียงตามสิ่งที่พาคุณไปยังระยะถัดไปได้เร็วที่สุด',
+  advTest:'ทำแบบทดสอบวัดระดับ',advTestWhy:'แบบทดสอบจะกำหนดขั้นเริ่มต้น แผนรายวันจึงเริ่มที่ระดับที่เหมาะสม',
+  advF:(n,h)=>`${n} คำของ ${h} เหลือแค่ผ่านคำถามนึกตัวอักษร`,advFWhy:'ตอบถูกหนึ่งครั้ง (ความหมาย → อักษรจีน) ก็ทำให้แต่ละคำมั่นคง',
+  advS:(n,h)=>`${n} คำของ ${h} เหลือแค่ผ่านคำถามวรรณยุกต์`,advSWhy:'ตอบวรรณยุกต์ถูกหนึ่งครั้งก็ทำให้แต่ละคำมั่นคง',
+  advDue:(n,h)=>`${n} คำของ ${h} ถึงกำหนดทบทวน`,advDueWhy:'ทบทวนขณะที่ยังจำได้ เมื่อเลยกำหนด ความจำจะลดลงเร็วขึ้น',
+  advSkill:(k,p)=>`${k}: ถูก ${p}%`,advSkillWhy:'ทักษะที่อ่อนที่สุดของคุณ การฝึกคำถามประเภทนี้จะช่วยได้เร็วที่สุด',
+  advYoung:(n,h)=>`${n} คำของ ${h} ยังใหม่อยู่`,advYoungWhy:d=>`ถ้าทบทวนตรงเวลา โดยเฉลี่ยจะมั่นคงในราว ${d} วัน เวลาและการนอนหลับทำให้แข็งแรงขึ้น จึงเร่งให้เสร็จในวันเดียวไม่ได้`,
+  advNew:(n,h)=>`${n} คำของ ${h} ยังไม่ได้เริ่มเรียน`,advNewWhy:'เซสชันรายวันจะค่อย ๆ แนะนำคำเหล่านี้ตามเป้าหมายของคุณ',
+  advConf:(a,b,n)=>`มักสับสน: ${a} ↔ ${b} (${n} ครั้ง)`,advConfWhy:'ฝึกสองคำนี้คู่กันเพื่อให้เห็นความต่างชัดเจน',
+  advDao:p=>`“รู้แล้ว” ถูกจริง ${p}%`,advDaoWhy:'แตะ “รู้แล้ว” เมื่อมั่นใจเท่านั้น การตอบ “ยังไม่รู้” อย่างซื่อตรงทำให้ตารางทบทวนแม่นยำขึ้น',
+  advNone:'ไม่มีอะไรเร่งด่วน ทำเซสชันรายวันต่อไป',advGo:'ฝึก',advStart:'เริ่ม',
+  attrTitle:{root:'ศิลาผา',cult:'ผู้บำเพ็ญเพียร',sense:'กระจกใส',dao:'จิตกระบี่',insight:'รากแห่งปัญญา'},
+  elName:{earth:'ดิน',wood:'ไม้',water:'น้ำ',metal:'โลหะ',fire:'ไฟ'},
+  gloss:{jj:'ขั้นพลัง: ระดับการบำเพ็ญ ในแอปนี้เท่ากับระดับ HSK',tp:'ทะลวงขั้น: แบบทดสอบ 20 ข้อเพื่อขึ้นสู่ขั้นถัดไป',
+    sh:'ทะเลจิต: หน้าแสดงความจำของคุณ มีลูกแก้ววิญญาณ ห้าธาตุ และความคืบหน้า',wx:'ห้าธาตุ: ห้าตัววัดความสามารถของคุณ (ดิน ไม้ น้ำ โลหะ ไฟ)',
+    sl:'บททดสอบวันนี้: เป้าหมายรายวันสำหรับทักษะที่อ่อนที่สุด',xl:'วันบำเพ็ญ: จำนวนวันที่ฝึกต่อเนื่อง',bg:'เข้าฌาน: วันพักที่คุณเลือก',
+    tx:'ปรับลมหายใจ: พัก 5 นาทีเมื่อเริ่มเหนื่อย',xd:'วิถีแห่งการพัก: ตัวเลขที่แสดงว่าทำไมการพักช่วยความจำ',zd:'คำชี้แนะ: คำแนะนำว่าควรพัฒนาอะไร',
+    lc:'เส้นทางขั้นพลัง: บันทึกการทดสอบและการทะลวงขั้นของคุณ'}});
+Object.assign(I18N.vi,{
+  realmD:['Chưa kiểm tra. Bài kiểm tra xếp cấp mở ra con đường tu luyện.','Hấp thu luồng khí đầu tiên: từ vựng cơ bản HSK 1.','Nền móng vững từ những từ thường ngày HSK 2.','Kiến thức ngưng tụ thành kim đan: HSK 3.',
+    'Linh hồn ngôn ngữ ra đời: bạn bắt đầu theo được các đoạn văn dài hơn (HSK 4).','Linh hồn biến hóa: từ vựng trừu tượng và trang trọng HSK 5.','Thử thách khó nhất: từ hiếm và nhiều sắc thái HSK 6.','Vượt qua mọi cảnh giới: nắm vững HSK 6.'],
+  stageD:['dưới 25% từ của cấp này vững chắc','25–50% vững chắc','50–80% vững chắc','từ 80% vững chắc: mở đột phá'],
+  notTested:'chưa kiểm tra',youHere:'bạn ở đây',
+  progT:'Tiến độ cảnh giới',prepT:(n,l)=>`Chuẩn bị cho ${n} (HSK ${l})`,prepNote:'Cảnh giới bắt đầu sau bài kiểm tra xếp cấp; những từ đã vững chắc vẫn được tính.',
+  etaNext:d=>`giai đoạn tiếp theo khoảng ${d}`,etaFull:d=>`圆满 khoảng ${d}`,perWeek:n=>`+${n} từ vững chắc mỗi tuần`,etaL:'Dự kiến',
+  etaNone:'Ngày dự kiến sẽ hiện khi đã có vài từ vững chắc.',btChance:p=>`Khả năng đột phá thành công lúc này (ước tính): ${p}%.`,chipProg:p=>`tiến độ ${p}% đến 圆满`,
+  elM:'Ngũ Hành',chalM:'Thử Luyện Hôm Nay',strM:'Ngày Tu Luyện',restM:'Đạo Nghỉ Ngơi',histM:'Hành Trình Cảnh Giới',advM:'Chỉ Điểm',pathM:'Con Đường Tu Luyện',
+  advIntro:'Tính từ mô hình trí nhớ của bạn, xếp theo điều đưa bạn đến giai đoạn tiếp theo nhanh nhất.',
+  advTest:'Làm bài kiểm tra xếp cấp',advTestWhy:'Bài kiểm tra xác định cảnh giới khởi đầu, nên kế hoạch mỗi ngày bắt đầu đúng cấp.',
+  advF:(n,h)=>`${n} từ ${h} chỉ còn cần qua câu Nhớ lại`,advFWhy:'Một câu trả lời đúng (nghĩa → chữ Hán) làm mỗi từ vững chắc.',
+  advS:(n,h)=>`${n} từ ${h} chỉ còn cần qua câu Thanh điệu`,advSWhy:'Một câu thanh điệu đúng làm mỗi từ vững chắc.',
+  advDue:(n,h)=>`${n} từ ${h} đến hạn ôn`,advDueWhy:'Ôn khi còn nhớ; quá hạn rồi trí nhớ giảm nhanh hơn.',
+  advSkill:(k,p)=>`${k}: đúng ${p}%`,advSkillWhy:'Kỹ năng yếu nhất của bạn. Luyện riêng loại câu này giúp tiến nhanh nhất.',
+  advYoung:(n,h)=>`${n} từ ${h} còn non`,advYoungWhy:d=>`Nếu ôn đúng hạn, trung bình sẽ vững chắc sau khoảng ${d} ngày. Thời gian và giấc ngủ làm chúng vững, nên không thể ép trong một ngày.`,
+  advNew:(n,h)=>`${n} từ ${h} chưa được giới thiệu`,advNewWhy:'Buổi học mỗi ngày giới thiệu dần theo mục tiêu của bạn.',
+  advConf:(a,b,n)=>`Hay nhầm: ${a} ↔ ${b} (${n} lần)`,advConfWhy:'Luyện hai từ cạnh nhau để thấy rõ khác biệt.',
+  advDao:p=>`“Tôi biết” đúng ${p}%`,advDaoWhy:'Chỉ chạm “Tôi biết” khi chắc chắn; thành thật “Chưa biết” giúp lịch ôn chính xác hơn.',
+  advNone:'Không có gì gấp. Tiếp tục buổi học mỗi ngày.',advGo:'Luyện',advStart:'Bắt đầu',
+  attrTitle:{root:'Bàn Thạch',cult:'Khổ Tu',sense:'Minh Kính',dao:'Kiếm Tâm',insight:'Tuệ Căn'},
+  elName:{earth:'Thổ',wood:'Mộc',water:'Thủy',metal:'Kim',fire:'Hỏa'},
+  gloss:{jj:'Cảnh giới: cấp độ tu luyện; trong ứng dụng này tương ứng một cấp HSK.',tp:'Đột phá: bài kiểm tra 20 câu để lên cảnh giới tiếp theo.',
+    sh:'Thức Hải: trang trí nhớ của bạn, có quả cầu linh hồn, ngũ hành và tiến độ.',wx:'Ngũ Hành: năm thước đo năng lực của bạn (thổ, mộc, thủy, kim, hỏa).',
+    sl:'Thử luyện hôm nay: một mục tiêu mỗi ngày cho kỹ năng yếu nhất.',xl:'Ngày tu luyện: số ngày luyện tập liên tiếp.',bg:'Bế quan: ngày nghỉ bạn chọn.',
+    tx:'Điều tức: nghỉ 5 phút khi bắt đầu mệt.',xd:'Đạo nghỉ ngơi: những con số cho thấy vì sao nghỉ ngơi giúp trí nhớ.',zd:'Chỉ điểm: lời khuyên nên cải thiện điều gì.',
+    lc:'Hành trình cảnh giới: ghi lại các bài kiểm tra và lần đột phá.'}});
+/* help topics: the realm and soul topics now list every term one by one ('@…' = a table built by the app), plus a glossary */
+{const H=(l,k,v)=>{const a=I18N[l].help,i=a.findIndex(x=>x[0]===k);if(i>=0)a[i]=v;else a.splice(a.findIndex(x=>x[0]==='rest'),0,v)};
+H('id','realm',['realm','Ranah, tahap & terobosan',[
+  'Ranahmu hanya ditentukan lewat tes. Delapan ranah, dari bawah ke atas (hanzi, pinyin, arti):','@realms',
+  'Setiap ranah punya empat tahap, mengikuti bagian kata <b>kokoh</b> di level itu (kokoh = tingkat 10+ dan lulus soal Ingat serta Nada):','@stages',
+  'Di 圆满 terbuka <b>terobosan (突破 tūpò)</b>: 20 soal kata level itu tanpa umpan balik, lulus dengan 75% benar (80% untuk HSK 5–6). Lulus berarti naik ke ranah berikutnya.',
+  'Progresmu terlihat di lingkaran kecil pada chip ranah, di lembar ranah, dan di Lautan Jiwa: persen menuju 圆满, jumlah kata kokoh, perkiraan tanggal tahap berikutnya, dan peluang lulus terobosan.',
+  'Satu tes per minggu, tes penempatan atau terobosan, dihitung dari tes terakhir. Keluar setelah 10 soal tetap dihitung sebagai percobaan.',
+  'Ranah hanya menentukan arah rencana harian. Semua level tetap terbuka di Daftar, Kartu, dan Kuis.']]);
+H('id','soul',['soul','Lautan Jiwa, lima elemen & petunjuk',[
+  'Ketuk chip ranah di atas, lalu <b>Lihat lebih lanjut</b>. Bola jiwa adalah jaringan kata yang sudah kamu pelajari: satu titik per kata, garis di antara kata yang berbagi karakter, terang = masih kamu ingat sekarang, warna = level HSK. Putar dengan jari, ketuk titik untuk melihat katanya.',
+  'Lima elemen (五行 wǔxíng). Daun yang terisi tumbuh sesuai nilainya; garis putus-putus menunjukkan ukuran penuh. Elemen terlemah diberi saran, yang terkuat memberi gelar.','@elements',
+  '<b>Petunjuk Guru (指点 zhǐdiǎn)</b>: daftar yang perlu ditingkatkan, dihitung dari model ingatanmu — kata yang tinggal satu jawaban lagi menjadi kokoh, kata jatuh tempo, keterampilan terlemah, kata yang sering tertukar — dengan tombol latihan langsung.',
+  '<b>Ujian hari ini (今日试炼 jīnrì shìliàn)</b>: satu target per hari untuk keterampilanmu yang terlemah, sedikit di atas kemampuanmu 7 hari terakhir. Tanpa hadiah acak dan tanpa hitung mundur.']]);
+H('id','gloss',['gloss','Istilah kultivasi: hanzi, pinyin & arti',['@gloss']]);
+H('en','realm',['realm','Realms, stages & breakthrough',[
+  'Your realm is set only by tests. The eight realms, from the bottom up (hanzi, pinyin, meaning):','@realms',
+  'Each realm has four stages, set by the share of <b>solid</b> words at that level (solid = level 10+ with a passed Recall and Tones question):','@stages',
+  'At 圆满 the <b>breakthrough (突破 tūpò)</b> opens: 20 questions on that level’s words with no feedback, passed with 75% right (80% for HSK 5–6). Passing lifts you to the next realm.',
+  'Your progress shows in the small ring on the realm chip, in the realm sheet and in the Sea of Consciousness: percent to 圆满, solid words, an estimated date for the next stage, and the chance to pass a breakthrough.',
+  'One test a week, placement or breakthrough, counted from your last test. Leaving after 10 questions still counts as an attempt.',
+  'Your realm only steers the daily plan. Every level stays open in List, Cards and Quiz.']]);
+H('en','soul',['soul','Sea of Consciousness, five elements & guidance',[
+  'Tap the realm chip at the top, then <b>See more</b>. The soul orb is the network of words you have learned: one point per word, lines between words that share a character, brightness = still remembered now, colour = HSK level. Turn it with your finger; tap a point to see its word.',
+  'The five elements (五行 wǔxíng). Each filled leaf grows with its value; the dashed outline shows the full size. The weakest element gets advice; the strongest gives you a title.','@elements',
+  '<b>Master’s guidance (指点 zhǐdiǎn)</b>: what to improve, worked out from your memory model — words one answer away from solid, due words, your weakest skill, words you mix up — each with a button to practise it straight away.',
+  '<b>Today’s trial (今日试炼 jīnrì shìliàn)</b>: one target a day for your weakest skill, a little above your level over the last 7 days. No random rewards and no countdowns.']]);
+H('en','gloss',['gloss','Cultivation terms: hanzi, pinyin & meaning',['@gloss']]);
+H('th','realm',['realm','ขั้นพลัง ระยะ และการทะลวงขั้น',[
+  'ขั้นพลังกำหนดได้ด้วยการทดสอบเท่านั้น แปดขั้นจากล่างขึ้นบน (อักษรจีน พินอิน ความหมาย):','@realms',
+  'แต่ละขั้นมีสี่ระยะ ตามสัดส่วนคำ<b>มั่นคง</b>ในระดับนั้น (มั่นคง = ระดับ 10 ขึ้นไป และผ่านคำถามนึกตัวอักษรกับวรรณยุกต์):','@stages',
+  'ที่ระยะ 圆满 จะเปิด<b>การทะลวงขั้น (突破 tūpò)</b>: 20 ข้อจากคำในระดับนั้นโดยไม่มีการเฉลย ผ่านเมื่อถูก 75% (HSK 5–6 ต้อง 80%) ผ่านแล้วจะขึ้นสู่ขั้นถัดไป',
+  'ความคืบหน้าแสดงที่วงแหวนเล็กบนชิปขั้นพลัง ในหน้าขั้นพลัง และในทะเลจิต: เปอร์เซ็นต์สู่ 圆满 จำนวนคำมั่นคง วันที่โดยประมาณของระยะถัดไป และโอกาสผ่านการทะลวงขั้น',
+  'ทดสอบได้สัปดาห์ละครั้ง ไม่ว่าวัดระดับหรือทะลวงขั้น นับจากการทดสอบครั้งล่าสุด ออกกลางคันหลังทำไป 10 ข้อยังนับเป็นหนึ่งครั้ง',
+  'ขั้นพลังใช้กำหนดทิศทางของแผนรายวันเท่านั้น ทุกระดับยังเรียนได้ในรายการ บัตรคำ และแบบทดสอบ']]);
+H('th','soul',['soul','ทะเลจิต ห้าธาตุ และคำชี้แนะ',[
+  'แตะชิปขั้นพลังด้านบน แล้วแตะ <b>ดูเพิ่มเติม</b> ลูกแก้ววิญญาณคือเครือข่ายคำที่คุณเรียนแล้ว: หนึ่งจุดต่อหนึ่งคำ เส้นเชื่อมคำที่มีอักษรร่วมกัน ความสว่าง = ยังจำได้ตอนนี้ สี = ระดับ HSK หมุนด้วยนิ้ว แตะจุดเพื่อดูคำ',
+  'ห้าธาตุ (五行 wǔxíng) ใบที่เติมสีจะโตตามค่า เส้นประแสดงขนาดเต็ม ธาตุที่อ่อนที่สุดจะมีคำแนะนำ ธาตุที่แข็งแกร่งที่สุดจะให้ฉายา','@elements',
+  '<b>คำชี้แนะของอาจารย์ (指点 zhǐdiǎn)</b>: สิ่งที่ควรพัฒนา คำนวณจากแบบจำลองความจำ เช่น คำที่เหลืออีกหนึ่งคำตอบก็จะมั่นคง คำที่ถึงกำหนด ทักษะที่อ่อนที่สุด คำที่มักสับสน พร้อมปุ่มฝึกทันที',
+  '<b>บททดสอบวันนี้ (今日试炼 jīnrì shìliàn)</b>: เป้าหมายวันละหนึ่งอย่างสำหรับทักษะที่อ่อนที่สุด สูงกว่าระดับของคุณใน 7 วันที่ผ่านมาเล็กน้อย ไม่มีรางวัลสุ่มและไม่มีการนับถอยหลัง']]);
+H('th','gloss',['gloss','คำศัพท์การบำเพ็ญ: อักษรจีน พินอิน และความหมาย',['@gloss']]);
+H('vi','realm',['realm','Cảnh giới, giai đoạn & đột phá',[
+  'Cảnh giới chỉ được xác định qua bài kiểm tra. Tám cảnh giới từ thấp đến cao (chữ Hán, pinyin, nghĩa):','@realms',
+  'Mỗi cảnh giới có bốn giai đoạn, theo tỉ lệ từ <b>vững chắc</b> ở cấp đó (vững chắc = mức 10 trở lên và đã qua câu Nhớ lại và Thanh điệu):','@stages',
+  'Ở 圆满 sẽ mở <b>đột phá (突破 tūpò)</b>: 20 câu về từ của cấp đó, không có phản hồi, đạt khi đúng 75% (80% với HSK 5–6). Đạt nghĩa là lên cảnh giới tiếp theo.',
+  'Tiến độ hiện ở vòng nhỏ trên chip cảnh giới, trong bảng cảnh giới và trong Thức Hải: phần trăm đến 圆满, số từ vững chắc, ngày dự kiến của giai đoạn tiếp theo và khả năng đột phá thành công.',
+  'Mỗi tuần một bài kiểm tra, xếp cấp hoặc đột phá, tính từ lần kiểm tra gần nhất. Thoát ra sau 10 câu vẫn tính là một lượt.',
+  'Cảnh giới chỉ định hướng kế hoạch mỗi ngày. Mọi cấp vẫn học được trong Danh sách, Thẻ và Kiểm tra.']]);
+H('vi','soul',['soul','Thức Hải, Ngũ Hành & chỉ điểm',[
+  'Chạm vào chip cảnh giới ở trên, rồi <b>Xem thêm</b>. Quả cầu linh hồn là mạng lưới các từ bạn đã học: mỗi từ một điểm, đường nối giữa các từ có chung chữ, độ sáng = còn nhớ lúc này, màu = cấp HSK. Xoay bằng ngón tay; chạm vào một điểm để xem từ.',
+  'Ngũ Hành (五行 wǔxíng). Mỗi chiếc lá tô màu lớn theo giá trị; đường nét đứt cho thấy kích thước đầy đủ. Hành yếu nhất có lời khuyên; hành mạnh nhất cho bạn một danh hiệu.','@elements',
+  '<b>Chỉ điểm (指点 zhǐdiǎn)</b>: những điều cần cải thiện, tính từ mô hình trí nhớ của bạn — từ chỉ còn một câu trả lời nữa là vững chắc, từ đến hạn, kỹ năng yếu nhất, từ hay nhầm — kèm nút luyện ngay.',
+  '<b>Thử luyện hôm nay (今日试炼 jīnrì shìliàn)</b>: mỗi ngày một mục tiêu cho kỹ năng yếu nhất của bạn, cao hơn trình độ 7 ngày qua một chút. Không có phần thưởng ngẫu nhiên và không đếm ngược.']]);
+H('vi','gloss',['gloss','Thuật ngữ tu luyện: chữ Hán, pinyin & nghĩa',['@gloss']]);}
