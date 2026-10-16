@@ -97,7 +97,10 @@ html.app .liquid-bg::after{content:"";position:absolute;left:0;right:0;top:0;hei
 
 /* ---- home ---- */
 header.top .seal{position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -6px 12px -8px rgba(0,0,0,.2),0 8px 22px -6px color-mix(in srgb,var(--acc) 75%,transparent),0 0 46px 6px color-mix(in srgb,var(--acc) 32%,transparent)}
-.langbtn,.iconbtn{border-radius:999px}
+.langbtn,.iconbtn,.curlv{border-radius:999px}
+.curlv{position:relative;background:var(--g-fill);border:1px solid var(--g-edge);box-shadow:var(--g-inset),var(--g-drop);height:42px;transition:transform .32s var(--spring)}
+.curlv:active{transform:scale(1.06)}
+.idkbtn{transition:transform .25s var(--spring)}.idkbtn:active{transform:scale(.97)}
 .iconbtn{width:42px;height:42px}.langbtn{height:42px;padding:0 13px}
 .lvseg{position:relative;border-radius:22px;padding:4px;margin-bottom:12px}
 .stbody .lvseg{margin-bottom:0}
@@ -116,7 +119,6 @@ header.top .seal{position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.5)
 .hfoot{border-top-color:var(--line)}
 .tile{border-radius:26px}
 .tile .ic{border-radius:15px;background:color-mix(in srgb,var(--acc) 16%,transparent);border:1px solid var(--g-edge);box-shadow:var(--g-inset);color:var(--acc)}
-.allnote{color:var(--soft)}
 
 /* ---- focused screens: one floating glass capsule (back · title · HSK · unit), nothing stacked on top of it ---- */
 .fbar{background:none;border-bottom:0;padding-bottom:6px;margin-bottom:10px}
@@ -185,7 +187,7 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 /* tone colours & info */
 .toneinfo{border-radius:999px;margin-top:16px;color:var(--soft)}
 .spk{box-shadow:var(--g-inset);transition:transform .25s var(--spring),background .2s}.spk:active{transform:scale(.9)}
-.homeacts{margin-top:16px}.homeacts .toneinfo{margin:0}
+.homeacts{margin-top:10px}.homeacts .toneinfo{margin:0}
 .bkopt{background:var(--g-solid);border-color:var(--g-edge);box-shadow:var(--g-inset),var(--g-drop);transition:transform .32s var(--spring),background .2s}
 .bkopt:active{transform:scale(.98)}
 .bkopt .bi{box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}

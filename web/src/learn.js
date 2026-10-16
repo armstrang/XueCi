@@ -15,8 +15,10 @@
    Storage (localStorage, this device only; the old keys mm_stats/hsk16_* are untouched):
      xc_mem   {id: {w:[d,s,t], m|f|s:[d,s,t,lastGrade,timesRight], i:firstSeen, L:1 legacy unconfirmed|2 confirmed, p:1 first seen in exam practice}}
      xc_log   recent answers, xc_logA older answers (capped): [t, id, type, grade 1–4, tenths of a second, wrong pick id|0, flags]
-              flags: 1 unchecked claim, 2 said "I know", 4 sure but wrong, 8 exam
+              flags: 1 unchecked claim, 2 said "I know", 4 sure but wrong, 8 exam practice, 16 placement test
      xc_goal  {t:'level'|'exam'|'none', lv, date:'YYYY-MM-DD', pace:'min'|'new'|'auto', n}
+     xc_lvl   {lv, src:'test'|'manual', at, m: mastered level, per:[6 shares]}  the learner's starting level (default HSK 1);
+              the guided plan starts there and moves on by itself once every word of a level has been introduced
      xc_w     {w:[19 parameters], n, at, ll, ll0}   parameters fitted to this learner's own answers (optimize())
    Progress made before this engine existed is kept: each old [right, wrong, level] becomes a state with the same
    level, marked "needs confirming" (L:1) until one form and one sound question have been answered. */
@@ -103,7 +105,8 @@ function knownShare(d){
 /* o: {q: type, ok, ms, x: wrong pick id, claim, over: sure but wrong, unchecked, exam} */
 function answer(d,o){
   const t=now(),id=d.id,had=mem[id];
-  const flags=(o.unchecked?1:0)|(o.claim?2:0)|(o.over?4:0)|(o.exam?8:0),ms=Math.min(9999,Math.round((o.ms||0)/100));
+  if(o.placement)o.exam=true;
+  const flags=(o.unchecked?1:0)|(o.claim?2:0)|(o.over?4:0)|(o.exam?8:0)|(o.placement?16:0),ms=Math.min(9999,Math.round((o.ms||0)/100));
   if(o.exam&&!had&&!o.ok){logPush([t,id,o.q,1,ms,o.x||0,flags]);if(o.x)addConf(id,o.x);return {g:1,before:-1,after:-1}}
   last={id,mem:had?JSON.parse(JSON.stringify(had)):null,st:stats[id]?stats[id].slice():null,n:logR.length};
   const e=had||{i:t},before=levelOf(had),g=o.ok?grade(o,e):1;
@@ -159,12 +162,15 @@ function hardness(d){const L=levelOf(mem[d.id]);let h=L<0?.15:L<7?.3:L<14?.6:.85
   if(a.n>=10){if(a.acc>.88)h+=.15;else if(a.acc<.72)h-=.25}return cl(h,0,1)}
 function shuf(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
 /* four options: the word plus three others (wrong options never share the word's meaning, and never sound the same in a listening question) */
-function wordOpts(d,type){
+function wordOpts(d,type,hard){
   const used=new Set([type==='m'?M1(d).toLowerCase():d.h]),fp=fullPy(d),picks=[];
+  const dm=M1(d).toLowerCase();
   const okX=x=>{if(x.id===d.id)return false;if(type==='m'){const m=M1(x).toLowerCase();return !!m&&!used.has(m)}
-    if(used.has(x.h))return false;if(type==='l'&&fullPy(x)===fp)return false;if(M1(x).toLowerCase()===M1(d).toLowerCase())return false;return true};
+    if(used.has(x.h))return false;if(type==='l'&&fullPy(x)===fp)return false;
+    const xm=M1(x).toLowerCase();if(xm===dm||xm.length>2&&dm.length>2&&(xm.includes(dm)||dm.includes(xm)))return false;   /* near-synonyms would make two right answers */
+    return true};
   const take=x=>{picks.push(x);used.add(type==='m'?M1(x).toLowerCase():x.h)};
-  const h=type==='c'?0:hardness(d),sim=type==='c'?[]:similar(d),n=[...d.h].length;
+  const h=type==='c'?0:hard!=null?hard:hardness(d),sim=type==='c'?[]:similar(d),n=[...d.h].length;
   const near=BY[d.l].filter(x=>Math.abs(x.u-d.u)<=3);
   const rnd=shuf(near.length>=12?near:BY[d.l]).map(x=>[(type==='m'?0:Math.abs([...x.h].length-n))+Math.random()*1.5,x]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]);
   let si=0,ri=0;
@@ -198,9 +204,9 @@ function toneOpts(d){
 const clozeOK=d=>d.z.includes(d.h);
 let ttsReady=()=>false;
 /* material for one question: {opts, ans} — ans is the index of the right option */
-function question(d,q){
+function question(d,q,hard){
   if(q==='s'||q==='cs')return toneOpts(d);
-  const opts=wordOpts(d,q==='cm'?'m':q);return {opts,ans:opts.indexOf(d)}}
+  const opts=wordOpts(d,q==='cm'?'m':q,hard);return {opts,ans:opts.indexOf(d)}}
 
 /* ---- what to ask next ---- */
 const has=(e,k)=>!!e&&!!e[k]&&e[k][4]>0;
@@ -248,6 +254,58 @@ function exam(lv,n){const src=DATA.filter(d=>d.l<=lv),out=[];const seen=new Set(
     out.push({k:'q',d,q})}
   return out}
 
+/* ---- current level and the placement test ----
+   The placement test is 50 quick questions that adapt to the answers. Ability θ (0–7, "knows the words of HSK levels
+   up to θ") has a probability over a grid; each answer updates it with an item-response model:
+     P(knows a level-l word | θ) = 1 / (1 + e^(−2.4·(θ − b))),  b = l − 0.5 + type offset
+   A learner who knows the word answers right 95 % of the time; one who doesn't presses "Don't know" or guesses one of
+   four options (25 % right). The next question aims at the current estimate. Words come from a bank of words that
+   bring characters new at their level (so they can't be worked out from easier words); HSK 5–6 only get the hard
+   question types (recall with look-alike options, tones, sentence gaps). A level counts as mastered when θ is at
+   least that level with 80 % certainty (90 % for HSK 5 and 6, which also need at least 5 questions of that level,
+   70 % right), and every level below it is mastered too. Strong learners get HSK 5 and 6 questions in turn. */
+let lvInfo=ls.get('xc_lvl',null);if(!lvInfo||!LEVELS.includes(lvInfo.lv))lvInfo=null;
+const baseLevel=()=>lvInfo?lvInfo.lv:1;
+function curLevel(){for(let l=baseLevel();l<=6;l++)if(BY[l].some(d=>!mem[d.id]))return l;return 6}
+function setLevel(lv,src,extra){lvInfo=Object.assign({lv,src,at:now()},extra||{});ls.set('xc_lvl',lvInfo)}
+const PT={N:50,K:2.4,G:.25,SLIP:.04,IDK:.6,DQ:{m:-.3,f:0,s:.1,c:.2},TYPES:{1:'mfs',2:'mfs',3:'mfsc',4:'mfsc',5:'fsc',6:'fsc'}};
+const GRID=Array.from({length:71},(_,i)=>i/10);
+let PB=null;
+function placementBank(){if(PB)return PB;PB={};const seen=new Set();
+  for(const l of LEVELS){PB[l]=BY[l].filter(d=>{const c=[...d.h];return c.length<=4&&(l<3||c.length>=2)&&(l===1||c.some(x=>!seen.has(x)))&&d.m.split(';')[0].length<=28&&clozeOK(d)});
+    BY[l].forEach(d=>{for(const c of d.h)seen.add(c)})}
+  return PB}
+const pKnow=(th,b)=>1/(1+Math.exp(-PT.K*(th-b)));
+const itemB=(l,q)=>l-.5+PT.DQ[q]+(l>=5?.15:0);
+/* idk = how often this learner presses "Don't know" instead of guessing, estimated from their own answers, so a
+   learner who guesses everything doesn't get credit for lucky guesses */
+function likelihood(r,pk,idk){const nk=1-pk;return r==='ok'?pk*(1-PT.SLIP)+nk*(1-idk)*PT.G:r==='idk'?pk*.01+nk*idk:pk*(PT.SLIP-.01)+nk*(1-idk)*(1-PT.G)}
+function posterior(st){const n=r=>st.items.filter(x=>x.r===r).length,a=n('idk')*(1-PT.G),idk=cl((a+PT.IDK*2)/(a+n('ng')+2),.03,.95);
+  let post=GRID.map(t=>-t/3.5);
+  for(const it of st.items){const b=itemB(it.l,it.q);post=post.map((p,i)=>p+Math.log(likelihood(it.r,pKnow(GRID[i],b),idk)))}
+  const mx=Math.max(...post);post=post.map(p=>Math.exp(p-mx));const s=post.reduce((x,y)=>x+y,0);return post.map(p=>p/s)}
+function ptStats(st){const post=st.post=posterior(st);let m=0,v=0;GRID.forEach((t,i)=>m+=t*post[i]);GRID.forEach((t,i)=>v+=(t-m)*(t-m)*post[i]);return {mean:m,sd:Math.sqrt(v)}}
+function ptStart(){placementBank();return {post:null,items:[],used:new Set(),chars:new Set()}}
+/* the next question: three warm-ups (HSK 1, 2, 3), then aimed at the estimate, with a little spread */
+function ptNext(st){const n=st.items.length;if(n>=PT.N)return null;
+  const {mean,sd}=ptStats(st);
+  let l=n<3?n+1:Math.round(mean+.5+(Math.random()-.5)*Math.min(1.2,sd));l=cl(l,1,6);
+  if(n>=3&&mean>=4.3){const c5=st.items.filter(x=>x.l===5).length,c6=st.items.filter(x=>x.l===6).length;l=c5===c6?(mean>=5.5?6:5):c5<c6?5:6}   /* strong learners: test HSK 5 and 6 evenly */
+  const types=PT.TYPES[l],cnt=q=>st.items.filter(x=>x.q===q).length;
+  const q=[...types].sort((a,b)=>cnt(a)-cnt(b)+(Math.random()-.5)*.5)[0];
+  const pool=PB[l].filter(d=>!st.used.has(d.id)&&!(q==='c'&&!clozeOK(d)));
+  const fresh=pool.filter(d=>![...d.h].some(c=>st.chars.has(c)));   /* no shared characters with earlier questions (no hints) */
+  const src=fresh.length?fresh:pool,d=src[Math.random()*src.length|0];
+  st.used.add(d.id);[...d.h].forEach(c=>st.chars.add(c));
+  const it={d,l,q};Object.assign(it,question(d,q,l>=4?.85:.5));return it}
+function ptAnswer(st,it,r){it.r=r;st.items.push(it)}
+function ptResult(st){const {mean,sd}=ptStats(st),ge=l=>GRID.reduce((a,t,i)=>a+(t>=l-1e-9?st.post[i]:0),0);
+  const pass=l=>{if(ge(l)<(l>=5?.9:.8))return false;if(l<5)return true;const it=st.items.filter(x=>x.l===l),ok=it.filter(x=>x.r==='ok').length;return it.length>=5&&ok/it.length>=.7};
+  let m=0;for(const l of LEVELS){if(pass(l))m=l;else break}
+  const per=LEVELS.map(l=>Math.round(GRID.reduce((a,t,i)=>a+st.post[i]*pKnow(t,l-.5),0)*100));
+  const right=st.items.filter(x=>x.r==='ok').length,idk=st.items.filter(x=>x.r==='idk').length;
+  return {m,lv:Math.min(6,m+1),mean,sd,per,right,idk,n:st.items.length}}
+
 /* ---- goals and the daily plan ---- */
 function validGoal(g){return !!g&&typeof g==='object'&&['level','exam','none'].includes(g.t)&&
   (g.t==='none'||(LEVELS.includes(g.lv)&&/^\d{4}-\d\d-\d\d$/.test(g.date||'')))&&['min','new','auto'].includes(g.pace)&&(g.pace==='auto'||g.n>0)}
@@ -276,7 +334,8 @@ function plan(g=goal){
   let ansT=0,secT=0;const L=allLog();for(let i=L.length-1;i>=0;i--){const e=L[i];if(dayOf(e[0])!==today)break;ansT++;secT+=e[4]/10+4}
   const P={t:g?g.t:'none',due,introT,ansT,minT:Math.round(secT/60),sp};
   let remaining=null,need=0,days=null,buffer=0;
-  if(g&&g.t!=='none'){const tw=DATA.filter(d=>d.l<=g.lv);remaining=tw.filter(d=>!mem[d.id]).length;
+  /* words below the starting level count as known; a goal below it is already reached */
+  if(g&&g.t!=='none'){const lo=baseLevel(),tw=g.lv>=lo?DATA.filter(d=>d.l<=g.lv&&d.l>=lo):[];remaining=tw.filter(d=>!mem[d.id]).length;
     days=daysTo(g.date);buffer=g.t==='exam'?Math.min(7,Math.floor(Math.max(0,days)/4)):Math.min(3,Math.floor(Math.max(0,days)/5));
     need=remaining?Math.ceil(remaining/Math.max(1,days-buffer)):0;P.lv=g.lv;P.date=g.date}
   P.remaining=remaining;P.need=need;P.days=days;
@@ -305,10 +364,11 @@ function plan(g=goal){
     /* a later date that works: at this pace, or (if the reviews would fill the time first) at 20 new words a day */
     if(P.status==='behind'){const fdays=fd===null?Math.ceil(remaining/20)+buffer:fd+buffer;P.fixDate=fdays>days?dayAfter(fdays):null}}
   P.todayLeft=P.newToday*2+P.revToday;return P}
-/* today's session: due reviews (most at risk first), up to three old green words to confirm, new words as cards */
+/* today's session: due reviews (most at risk first), up to three old green words to confirm, new words as cards
+   (in curriculum order from the current level up to the goal's level) */
 function session(extra){
   const P=plan(),t=now(),r=dr();
-  const src=goal&&goal.t!=='none'?tsort(DATA.filter(d=>d.l<=goal.lv)):tsort(unit()?BY[state.level].filter(d=>d.u===unit()):BY[state.level]).concat(tsort(DATA));
+  const lo=curLevel(),src=tsort(DATA.filter(d=>d.l>=lo&&(!goal||goal.t==='none'||d.l<=Math.max(goal.lv,lo))));
   let rev=[],conf=[];
   const all=[];for(const id in mem){const e=mem[id];all.push([rNow(e,t),IDX.get(id),e])}
   all.sort((a,b)=>a[0]-b[0]);
@@ -377,7 +437,7 @@ function clearLog(){logR=[];logA=[];logCache=null;confMap=null;last=null;ls.set(
 
 sync();updWeak();
 return {now,dayOf,Rt,step,W0,get W(){return W},levelOf,skLevel,okS,answer,undo,checkP,checkType,question,pickType,cardDeck,quizRound,exam,session,
-  plan,dr,isoDay,dayAfter,daysTo,validGoal,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
+  plan,dr,isoDay,dayAfter,daysTo,validGoal,curLevel,baseLevel,get level(){return lvInfo},setLevel,ptStart,ptNext,ptAnswer,ptResult,PT,placementBank,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
   mem:id=>mem[id],has:id=>!!mem[id],rNow:id=>rNow(mem[id],now()),nextDue(id){const e=mem[id];if(!e)return null;return (e.w[2]+ivl(e.w[1],dr())*1440-now())/1440},
   insights,updWeak,optimize,maybeOptimize,lossOf,seqs,exportMem,importMem,replace,forget,clearLog,sync,flush,allLog,partners,
   setTts(f){ttsReady=f},clozeOK,markTone,bareSyl,get params(){return wMeta?W:null}}})();

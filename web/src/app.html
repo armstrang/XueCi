@@ -5,8 +5,9 @@
   <header class="top">
     <div class="brand">
       <div class="seal" id="seal" aria-hidden="true">一</div>
-      <h1>XueCi Mandarin <span class="by">by <em>Armstrang</em></span></h1>
+      <h1 class="wm"><span class="wm1">Xue<i>Ci</i></span> <span class="wm2">Mandarin</span></h1>
     </div>
+    <button class="curlv" id="curLvBtn" aria-haspopup="dialog"><i aria-hidden="true"></i><b id="curLvName">HSK 1</b></button>
     <div class="langwrap" id="langwrap">
       <button class="langbtn" id="langBtn" aria-haspopup="listbox" aria-expanded="false" aria-controls="langMenu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3C9.5 5.6 8.2 8.6 8.2 12s1.3 6.4 3.8 9"/></svg><b id="langCode">ID</b></button>
       <div class="menu langmenu" id="langMenu" hidden>
@@ -29,8 +30,8 @@
       </svg>
       <div class="rc"><b id="heroPct">0%</b><small id="heroLbl"></small></div>
     </div>
-    <div class="hinfo"><div class="hlv" id="heroLv"></div><div class="hkeys" id="heroKeys"></div></div>
-    <div class="hfoot"><span class="cnt" id="heroCnt"></span><span class="go" id="heroGo"></span></div>
+    <div class="hinfo"><div class="hlv" id="heroLv"></div><div class="hkeys" id="heroKeys"></div>
+      <div class="hfoot"><span class="cnt" id="heroCnt"></span><span class="go" id="heroGo"></span></div></div>
   </div>
 
   <nav class="tiles" data-i18n-aria="modesL">
@@ -39,7 +40,6 @@
     <button class="tile" data-go="quiz"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.9.8c0 1.7-2.5 2.1-2.5 3.6"/><circle cx="12" cy="17.2" r="1.1" fill="currentColor" stroke="none"/></svg></span><b data-i18n="quiz"></b><small data-i18n="subQuiz"></small></button>
   </nav>
 
-  <p class="allnote" id="allNote"></p>
   <div class="homeacts">
   <button class="toneinfo" id="toneInfo" aria-haspopup="dialog" data-i18n-aria="infoBtn"><span class="excl" aria-hidden="true">!</span><span class="tz"><b class="t1">妈</b><b class="t2">麻</b><b class="t3">马</b><b class="t4">骂</b><b class="t5">吗</b></span><span class="tl" data-i18n="infoBtn"></span><span class="chev" aria-hidden="true">›</span></button>
     <button class="toneinfo bkbtn" id="bkBtn" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 0 0-14.6-4.5L4 8"/><path d="M4 3.5V8h4.5"/><path d="M4 13a8 8 0 0 0 14.6 4.5L20 16"/><path d="M20 20.5V16h-4.5"/></svg><span class="tl" data-i18n="bkBtn"></span></button>
@@ -127,6 +127,13 @@
       <p class="bkmsg" id="bkMsg" role="status"></p>
       <div class="bkrow" id="bkRow"></div>
     </div>
+  </div>
+</div>
+<div class="sheetwrap" id="lvlSheet" hidden>
+  <div class="scrim2" data-close></div>
+  <div class="isheet" role="dialog" aria-modal="true" aria-labelledby="lvlTitle">
+    <div class="ihead"><h2 id="lvlTitle" data-i18n="lvT"></h2><button class="xbtn" data-close data-i18n-aria="close">×</button></div>
+    <div id="lvlBody"></div>
   </div>
 </div>
 <div class="sheetwrap" id="goalSheet" hidden>
@@ -282,7 +289,7 @@ let qType=['auto','m','f','s','l','c','exam'].includes(ui.qt)?ui.qt:'auto';
 const saveUI=()=>ls.set('hsk16_ui',{level:state.level,unitBy:state.unitBy,qt:qType});
 const unit=()=>state.unitBy[state.level];
 const pad=n=>String(n).padStart(2,'0');
-const FOCUS=['list','card','quiz','session'];
+const FOCUS=['list','card','quiz','session','placement'];
 
 /* theme: one button cycles auto → light → dark */
 const TH_ICON={
@@ -322,11 +329,11 @@ function go(s){
 function show(s){
   closeMenu(false);closeUMenu(false);closeLang(false);
   if(s==='stats'){if(state.screen!=='stats')prevScreen=state.screen;stLevel=state.level;stSel=null;stConfirm=false}
-  resetRun();
+  resetRun();if(s==='placement'||state.screen==='placement')pt=null;
   if(s==='stats')stHist=false;
-  state.screen=s;
+  state.screen=s;document.body.dataset.screen=s;
   scrHome.hidden=s!=='home';scrFocus.hidden=!FOCUS.includes(s);scrStats.hidden=s!=='stats';
-  if(FOCUS.includes(s)){scrFocus.dataset.mode=s;$('fTitle').textContent=L10[s];$('listTools').hidden=s!=='list';$('footNote').hidden=s!=='list'}
+  if(FOCUS.includes(s)){scrFocus.dataset.mode=s;$('fTitle').textContent=L10[s==='placement'?'ptT':s];$('listTools').hidden=s!=='list';$('footNote').hidden=s!=='list'}
   window.scrollTo(0,0);
   refresh();
   const h=s==='stats'?$('stTitle'):FOCUS.includes(s)?$('fTitle'):null;
@@ -343,6 +350,7 @@ function refresh(){
   if(state.screen==='home')renderHome();
   else if(state.screen==='list')renderList();
   else if(state.screen==='card'||state.screen==='quiz'||state.screen==='session')renderRun();
+  else if(state.screen==='placement')renderPlacement();
   else renderStats();
 }
 function afterChange(){
@@ -367,8 +375,7 @@ function renderHome(){
   $('heroCnt').innerHTML=L10.lvCount(fmt(S.mature),fmt(S.n));
   $('heroGo').textContent=L10.statsShort+' ›';
   hero.setAttribute('aria-label',`${L10.stTitle} · HSK ${L} · ${pc}`);
-  $('allNote').innerHTML=L10.allLv(fmt(masteredAll()),fmt(DATA.length));
-  renderPlan();
+  renderPlan();renderCurLv();syncReminder();
   if(window.mmHomeRendered)window.mmHomeRendered(S);
 }
 $('lvPills').onclick=e=>{const p=e.target.closest('.lvpill');if(p&&+p.dataset.l!==state.level)setLevel(+p.dataset.l)};
@@ -455,7 +462,7 @@ function applyStatic(){
   langBtn.title=L10.langHead+': '+L10.name;langBtn.setAttribute('aria-label',L10.langHead+': '+L10.name);
   $('legend').innerHTML=[['妈','mā',1],['麻','má',2],['马','mǎ',3],['骂','mà',4],['吗','ma',5]].map(([h,p,n])=>`<span><b class="t${n}">${h}</b> ${p} ${n<5?L10.tone(n):L10.neutral}</span>`).join('');
   $('footP').innerHTML=esc(L10.foot).replace('{src}','<a href="https://github.com/harukicoder/hsk30" target="_blank" rel="noopener">hsk30</a>');
-  if(FOCUS.includes(state.screen))$('fTitle').textContent=L10[state.screen];
+  if(FOCUS.includes(state.screen))$('fTitle').textContent=L10[state.screen==='placement'?'ptT':state.screen];
   themeLabels();
 }
 function setLang(pref,silent){
@@ -560,7 +567,7 @@ function cardAct(it){
 function inView(el){if(!el)return;const r=el.getBoundingClientRect();if(r.bottom>innerHeight-8)el.scrollIntoView({block:'end',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
 function cardShow(it,ok){
   it.st='back';run.tot++;if(ok)run.ok++;else run.wrong.set(it.d.id,it.d);
-  window.mmFeedback&&mmFeedback(ok);afterChange();$('flip')?.classList.remove('checking');$('flip')?.classList.add('on');$('fcAct').innerHTML=cardAct(it);$('fcNext')?.focus({preventScroll:true});inView($('fcAct'))}
+  window.mmFeedback&&mmFeedback(ok);afterChange();studied();$('flip')?.classList.remove('checking');$('flip')?.classList.add('on');$('fcAct').innerHTML=cardAct(it);$('fcNext')?.focus({preventScroll:true});inView($('fcAct'))}
 /* in today's session a new word that was proven also gets a tone question a few items later */
 function cardFollow(it,ok){
   if(!ok){again(it,{k:'card',d:it.d});return}
@@ -581,15 +588,15 @@ function cardOops(it){LM.undo();LM.answer(it.d,{q:'cn',ok:false,ms:it.claimMs});
   $('fcAct').innerHTML=cardAct(it);$('fcNext')?.focus({preventScroll:true});cardFollow(it,false)}
 
 /* ---- questions ---- */
-function renderQItem(it){
-  const d=it.d,T=it.q;if(!it.opts){Object.assign(it,LM.question(d,T));it.t0=performance.now()}
-  const ans=it.done&&!run.exam,ok=it.ok;
-  const prompt=T==='m'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
+function qPrompt(d,T){return T==='m'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
     :T==='f'?`<div class="q">${L10.qHz}</div><div style="font-size:22px;font-weight:800">${esc(M1(d))}</div><div class="id">${esc(M(d).split(';').slice(1).join(';'))}</div>`
     :T==='s'?`<div class="q">${L10.qTone}</div><div class="big">${esc(d.h)}</div><div class="id">${esc(M1(d))}</div>`
     :T==='l'?`<div class="q">${L10.qListen}</div><button class="spk xl" id="qSay" data-say="${esc(d.h)}" aria-label="${esc(L10.replay)}" title="${esc(L10.replay)}">${SPK}</button>`
-    :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div><div class="id">${esc(TR(d))}</div>`;
-  const lab=o=>T==='m'?esc(M1(o)):T==='s'?`<span class="pyo">${pyOpt(o)}</span>`:`<span class="hzo">${esc(o.h)}</span>`;
+    :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div><div class="id">${esc(TR(d))}</div>`}
+const qLab=(o,T)=>T==='m'?esc(M1(o)):T==='s'?`<span class="pyo">${pyOpt(o)}</span>`:`<span class="hzo">${esc(o.h)}</span>`;
+function renderQItem(it){
+  const d=it.d,T=it.q;if(!it.opts){Object.assign(it,LM.question(d,T));it.t0=performance.now()}
+  const ans=it.done&&!run.exam,ok=it.ok,prompt=qPrompt(d,T),lab=o=>qLab(o,T);
   const cls=i=>!ans?'':i===it.ans?' class="ok"':i===it.pick?' class="ng"':'';
   const picked=ans&&!ok&&T!=='s'?it.opts[it.pick]:null;
   const fb=!ans?'':`<div class="fbv ${ok?'good':'bad'}">${ok?L10.ok:L10.ng}</div>
@@ -603,7 +610,7 @@ function qAnswer(it,i){
   const x=!ok&&it.q!=='s'?it.opts[i].id:0;
   LM.answer(it.d,{q:it.q,ok,ms:performance.now()-it.t0,x,exam:run.exam});run.tot++;
   if(ok)run.ok++;else{run.wrong.set(it.d.id,it.d);if(x)run.conf.push([it.d.id,x]);again(it,{k:'q',d:it.d,q:it.q})}
-  window.mmFeedback&&mmFeedback(ok);afterChange();
+  window.mmFeedback&&mmFeedback(ok);afterChange();studied();
   if(run.exam){run.i++;renderRun();return}
   renderQItem(it)}
 
@@ -832,26 +839,25 @@ function renderPlan(){
   const todo=P.newToday+P.revToday>0,min=Math.max(1,Math.round((P.revToday*P.sp.rev+P.newToday*P.sp.neu)/60));
   const line=todo?[P.revToday?L10.planRev(fmt(P.revToday)):'',P.newToday?L10.planNew(fmt(P.newToday)):'',`<span>${L10.planMin(min)}</span>`].filter(Boolean).join(' · ')
     :`${L10.planDone} ✓`;
-  const tot=P.ansT+P.todayLeft;
   const st=P.status==='free'?['none',L10.stFree(P.newPerDay)]:P.status==='ok'?['green',L10.stOk(P.finish?dateS(P.finish):'–')]
     :P.status==='behind'?['red',P.needMin?L10.stBehind(P.needMin):L10.stBehindDate(P.fixDate?dateS(P.fixDate):'–')]:P.status==='review'?['green',L10.stReview]:P.status==='examweek'?['yellow',L10.stExamWeek]:['red',L10.stPast];
   el.innerHTML=`<div class="ptop"><h2 id="planT">${L10.planT}</h2><button class="gchip" id="goalBtn" aria-haspopup="dialog">${esc(chip)} ›</button></div>
-    <div class="pline">${line}</div>
-    ${todo&&!P.ansT?'':`<div class="pbar"><span class="stack"><i style="width:${tot?P.ansT/tot*100:100}%;background:var(--acc)"></i></span><small>${L10.doneToday(fmt(P.ansT))}</small></div>`}
-    <div class="pst"><i class="sd s-${st[0]}"></i><span>${st[1]}</span></div>
-    <button class="planbtn" id="planGo">${PLAY}<span>${todo?(P.ansT?L10.planCont:L10.planGo):L10.planExtra}</span></button>`;
+    <div class="pmain"><div class="ptxt"><div class="pline">${line}</div><div class="pst"><i class="sd s-${st[0]}"></i><span>${st[1]}</span></div></div>
+    <button class="planbtn" id="planGo" aria-label="${esc(todo?(P.ansT?L10.planCont:L10.planGo):L10.planExtra)}">${PLAY}<span>${todo?(P.ansT?L10.planContS:L10.planGoS):L10.planExtraS}</span></button></div>`;
   el.dataset.todo=todo?'1':'0'}
 $('plan').addEventListener('click',e=>{
   if(e.target.closest('#goalBtn')){openGoal(false);return}
   if(e.target.closest('#planGo')){sessionExtra=$('plan').dataset.todo!=='1';go('session')}});
 
 /* ---------- goal sheet: target (level + date, HSK exam, or none) and daily amount (minutes, new words, or automatic) ---------- */
-const goalSheet=$('goalSheet');let gDraft=null,gOpener=null,gFirst=false;
+const goalSheet=$('goalSheet');let gDraft=null,gRem=null,gOpener=null,gFirst=false;
 const MIN_CHIPS=[5,10,15,20,30,45,60],NEW_CHIPS=[3,5,10,15,20,30];
-function openGoal(first){
+function openGoal(first,minLv){
   gOpener=document.activeElement;gFirst=!!first;const g=LM.goal;
-  gDraft=g?JSON.parse(JSON.stringify(g)):{t:'level',lv:state.level,date:LM.isoDay(LM.dayAfter(90)),pace:'auto',n:15};
-  if(!gDraft.lv)gDraft.lv=state.level;if(!gDraft.date)gDraft.date=LM.isoDay(LM.dayAfter(90));if(!gDraft.n)gDraft.n=gDraft.pace==='new'?10:15;
+  gDraft=g?JSON.parse(JSON.stringify(g)):{t:'level',lv:LM.curLevel(),date:LM.isoDay(LM.dayAfter(90)),pace:'auto',n:15};
+  if(!gDraft.lv)gDraft.lv=LM.curLevel();
+  if(minLv&&gDraft.t!=='none'&&gDraft.lv<minLv)gDraft.lv=minLv;   /* after the placement test: a goal at least at the new level */
+  gRem=Object.assign({},rem);if(first&&canRemind()&&!ls.get('xc_rem',null))gRem.on=true;   /* first start: daily reminder suggested */if(!gDraft.date)gDraft.date=LM.isoDay(LM.dayAfter(90));if(!gDraft.n)gDraft.n=gDraft.pace==='new'?10:15;
   renderGoal();goalSheet.hidden=false;document.body.style.overflow='hidden';goalSheet.querySelector('.xbtn').focus()}
 function closeGoal(){goalSheet.hidden=true;document.body.style.overflow='';ls.set('xc_onb',1);gOpener?.focus?.()}
 function renderGoal(){
@@ -869,16 +875,24 @@ function renderGoal(){
     if(g.pace!=='min'&&P.need<=60)fx.push(`<button class="ghost" data-fix="new" data-n="${P.need}">${L10.fcFixNew(P.need)}</button>`);
     if(P.fixDate)fx.push(`<button class="ghost" data-fix="date" data-d="${LM.isoDay(P.fixDate)}">${L10.fcFixDate(dateS(P.fixDate))}</button>`);
     fix=fx.length?`<div class="gfix">${fx.join('')}</div>`:''}
-  $('gBody').innerHTML=`
+  const remH=!canRemind()?'':`<div class="gsec"><div class="glbl">${L10.remT}</div>
+      <div class="remrow"><button class="gseg" data-rem="1" aria-pressed="${!!gRem.on}">${L10.remOn}</button><button class="gseg" data-rem="0" aria-pressed="${!gRem.on}">${L10.remOff}</button>
+      <input type="time" class="gdate gtime" id="gTime" value="${hhmm(gRem)}" aria-label="${L10.remT}"${gRem.on?'':' disabled'}></div>
+      <p class="gnote">${L10.remNote}${rem.on&&gRem.on&&!notifOK()?` <button class="linkbtn" id="gNotifSet">${L10.remOpen}</button>`:''}</p></div>`;
+  $('gBody').innerHTML=`${gFirst&&!LM.level?`<button class="ptsug" id="gPt">${L10.ptSuggest}</button>`:''}
     <div class="gsec"><div class="glbl">${L10.gWhat}</div><div class="gsegs">${seg('t','level',L10.gLevel)}${seg('t','exam',L10.gExam)}${seg('t','none',L10.gNone)}</div></div>
     ${tgt?`<div class="gsec"><div class="glbl">${L10.gLv}</div><div class="gsegs lv">${LEVELS.map(l=>seg('lv',l,'HSK '+l,` style="--lc:var(--l${l})"`)).join('')}</div></div>
     <div class="gsec"><label class="glbl" for="gDate">${g.t==='exam'?L10.gDateExam:L10.gDate}</label><input type="date" class="gdate" id="gDate" value="${g.date}" min="${LM.isoDay(LM.dayAfter(1))}"></div>`:''}
     <div class="gsec"><div class="glbl">${L10.gPace}</div><div class="gsegs">${seg('pace','min',L10.gMin)}${seg('pace','new',L10.gNew)}${tgt?seg('pace','auto',L10.gAuto):''}</div>
       ${g.pace!=='auto'?`<div class="gchips">${list.map(n=>`<button class="gnum" data-n="${n}" aria-pressed="${g.n===n}">${g.pace==='min'?L10.gMinN(n):L10.gNewN(n)}</button>`).join('')}</div>`:''}</div>
     <div class="gfc ${cls}" role="status">${fc}${fix}</div>
+    ${remH}
     <div class="bkrow"><button class="ghost" id="gCancel">${gFirst?L10.gSkip:L10.cancel}</button><button class="ghost pri" id="gSave"${bad?' disabled':''}>${L10.gSave}</button></div>`}
 goalSheet.addEventListener('click',e=>{
   if(e.target.closest('[data-close]')||e.target.id==='gCancel'){closeGoal();return}
+  if(e.target.id==='gPt'){closeGoal();go('placement');return}
+  if(e.target.id==='gNotifSet'){try{MMAndroid.openNotifSettings()}catch(_){}return}
+  const rb=e.target.closest('[data-rem]');if(rb){gRem.on=rb.dataset.rem==='1';renderGoal();return}
   const g=gDraft,s=e.target.closest('[data-g]');
   if(s){const k=s.dataset.g;g[k]=k==='lv'?+s.dataset.v:s.dataset.v;
     if(k==='t'&&g.t==='none'&&g.pace==='auto'){g.pace='new';g.n=10}
@@ -887,9 +901,84 @@ goalSheet.addEventListener('click',e=>{
   const f=e.target.closest('[data-fix]');
   if(f){if(f.dataset.fix==='date')g.date=f.dataset.d;else{g.pace=f.dataset.fix;g.n=+f.dataset.n}renderGoal();return}
   const n=e.target.closest('.gnum');if(n){g.n=+n.dataset.n;renderGoal();return}
-  if(e.target.id==='gSave'){LM.setGoal(g);closeGoal();resetRun();if(state.screen==='home')renderHome();toast(L10.gSaved)}});
-goalSheet.addEventListener('change',e=>{if(e.target.id==='gDate'&&e.target.value){gDraft.date=e.target.value;renderGoal()}});
+  if(e.target.id==='gSave'){
+    const r=gRem,done=()=>{rem=r;ls.set('xc_rem',rem);LM.setGoal(g);closeGoal();resetRun();if(state.screen==='home')renderHome();else syncReminder()};
+    if(r.on&&canRemind()&&!notifOK())askNotif(ok=>{if(!ok){r.on=false;toast(L10.remDenied)}else toast(L10.gSaved);done()});
+    else{done();toast(L10.gSaved)}}});
+goalSheet.addEventListener('change',e=>{if(e.target.id==='gDate'&&e.target.value){gDraft.date=e.target.value;renderGoal()}
+  if(e.target.id==='gTime'&&/^\d\d:\d\d/.test(e.target.value)){const [h,m]=e.target.value.split(':').map(Number);gRem.h=h;gRem.m=m}});
 goalSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeGoal()}});
+
+/* ---------- current level (chip beside the language button) ----------
+   HSK 1 by default; the placement test or a manual pick sets it, and it moves up by itself once every word of the
+   level has been introduced. It only steers the daily plan — every level stays open in List, Cards and Quiz. */
+const lvlSheet=$('lvlSheet');let lvlOpener=null;
+function renderCurLv(){const l=LM.curLevel(),b=$('curLvBtn');$('curLvName').textContent='HSK '+l;b.style.setProperty('--lc',`var(--l${l})`);
+  b.setAttribute('aria-label',`${L10.lvT}: HSK ${l}`)}
+const perBars=per=>`<div class="lvper">${per.map((p,i)=>`<div class="skrow"><span>HSK ${i+1}</span><span class="mbar"><span class="stack"><i style="width:${p}%;background:var(--l${i+1})"></i></span></span><b>${p}%</b></div>`).join('')}</div>`;
+function renderLvl(){
+  const info=LM.level,cur=LM.curLevel(),base=LM.baseLevel();
+  const src=!info?L10.lvSrcDefault:info.src==='test'?L10.lvSrcTest(dateS(new Date(Date.UTC(2026,0,1)+info.at*6e4)),info.m):L10.lvSrcManual;
+  $('lvlBody').innerHTML=`<div class="lvnow" style="--lc:var(--l${cur})"><span class="lvbig">HSK ${cur}</span><span class="lvsrc">${esc(src)}${cur>base?' '+esc(L10.lvAuto(cur-1)):''}</span></div>
+    ${info&&info.per?`<div class="glbl">${L10.ptPer}</div>${perBars(info.per)}`:''}
+    <button class="planbtn wide" id="ptGo">${PLAY}<span>${L10.ptStart}</span></button>
+    <div class="gsec"><div class="glbl">${L10.lvManual}</div><div class="gsegs lv">${LEVELS.map(l=>`<button class="gseg" data-lvset="${l}" aria-pressed="${l===base&&!!info&&info.src==='manual'}" style="--lc:var(--l${l})">HSK ${l}</button>`).join('')}</div></div>
+    <p class="gnote">${L10.lvNote}</p>`}
+function openLvl(){lvlOpener=document.activeElement;renderLvl();lvlSheet.hidden=false;document.body.style.overflow='hidden';lvlSheet.querySelector('.xbtn').focus()}
+function closeLvl(){lvlSheet.hidden=true;document.body.style.overflow='';lvlOpener?.focus?.()}
+$('curLvBtn').onclick=openLvl;
+lvlSheet.addEventListener('click',e=>{
+  if(e.target.closest('[data-close]')){closeLvl();return}
+  if(e.target.closest('#ptGo')){closeLvl();go('placement');return}
+  const b=e.target.closest('[data-lvset]');
+  if(b){const l=+b.dataset.lvset;LM.setLevel(l,'manual');closeLvl();resetRun();if(l!==state.level)setLevel(l);else refresh();toast(L10.lvSet(l))}});
+lvlSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeLvl()}});
+
+/* ---------- placement test: 50 quick questions that adapt to the answers (LM.ptStart/ptNext/ptAnswer/ptResult) ---------- */
+let pt=null;
+function renderPlacement(){
+  if(!pt)pt={st:null,it:null,res:null};
+  if(pt.res){const r=pt.res;
+    view.innerHTML=`<div class="qcard sum ptres" style="--lc:var(--l${r.lv})"><div class="q">${L10.ptResT}</div><div class="lvbig">HSK ${r.lv}</div>
+      <p class="sumnote">${r.m?L10.ptResM(r.m):L10.ptRes0}</p><div class="glbl">${L10.ptPer}</div>${perBars(r.per)}
+      <p class="sumnote">${L10.ptResN(r.right,r.n,r.idk)}</p>
+      <div class="sumbtns"><button class="ghost" id="ptHome">${L10.sumHome}</button><button class="next" id="ptGoal">${L10.ptGoal}</button></div></div>`;return}
+  if(!pt.st){view.innerHTML=`<div class="qcard ptintro"><div class="big t3">测</div><h3>${L10.ptIntroT}</h3><p class="sumnote">${L10.ptIntro}</p><p class="sumnote">${L10.ptIntro2}</p>
+      <button class="next" id="ptBegin">${L10.ptBegin}</button></div>`;return}
+  if(!pt.it){pt.it=LM.ptNext(pt.st);if(!pt.it){ptFinish();return}pt.it.t0=performance.now()}
+  const it=pt.it,n=pt.st.items.length,N=LM.PT.N;
+  view.innerHTML=`<div class="fcmeta"><span>${L10.qN(n+1,N)}</span>${progH(n,N)}</div>
+    <div class="qcard qt-${it.q}">${qPrompt(it.d,it.q)}<div class="opts" id="ptOpts">${it.opts.map((o,i)=>`<button data-p="${i}">${i+1}. ${qLab(o,it.q)}</button>`).join('')}</div>
+    <button class="idkbtn" id="ptIdk">${L10.idk}</button></div>`}
+function ptPick(i){
+  const it=pt&&pt.it;if(!it||it.busy)return;it.busy=true;
+  const r=i<0?'idk':i===it.ans?'ok':'ng',ms=performance.now()-it.t0,x=r==='ng'&&it.q!=='s'?it.opts[i].id:0;
+  LM.answer(it.d,{q:it.q,ok:r==='ok',ms,x,placement:true});LM.ptAnswer(pt.st,it,r);studied();
+  if(i>=0)document.querySelector(`#ptOpts [data-p="${i}"]`)?.classList.add('pick');else $('ptIdk')?.classList.add('pick');
+  setTimeout(()=>{if(!pt||pt.it!==it)return;pt.it=null;if(pt.st.items.length>=LM.PT.N)ptFinish();else renderPlacement()},160)}
+function ptFinish(){const r=pt.res=LM.ptResult(pt.st);LM.setLevel(r.lv,'test',{m:r.m,per:r.per});resetRun();
+  if(r.lv!==state.level)setLevel(r.lv);else refresh();toast(L10.ptDone(r.lv))}
+view.addEventListener('click',e=>{
+  if(state.screen!=='placement')return;
+  const id=e.target.closest('[id]')?.id;
+  if(id==='ptBegin'){pt.st=LM.ptStart();renderPlacement();return}
+  if(id==='ptHome'){go('home');return}
+  if(id==='ptGoal'){const lv=pt.res.lv;go('home');setTimeout(()=>openGoal(false,lv),300);return}
+  if(id==='ptIdk'){ptPick(-1);return}
+  const b=e.target.closest('[data-p]');if(b)ptPick(+b.dataset.p)});
+
+/* ---------- daily study reminder (Android): one notification a day at the chosen time, skipped on days with practice ---------- */
+const canRemind=()=>NATIVE('setReminder');
+let rem=Object.assign({on:false,h:19,m:0},ls.get('xc_rem',{})),remKey='',studiedMark='';
+function remBody(){const P=LM.plan(),g=LM.goal,min=Math.max(5,P.minutes);
+  return g&&g.t!=='none'?L10.remGoal(min,g.t==='exam'?L10.gExamChip(g.lv,dateS(g.date)):'HSK '+g.lv):L10.remFree(min)}
+function syncReminder(){if(!canRemind())return;const body=remBody(),k=JSON.stringify([rem,body,L10.remTitle,L10.remChannel]);if(k===remKey)return;remKey=k;
+  try{MMAndroid.setReminder(!!rem.on,rem.h|0,rem.m|0,L10.remTitle,body,L10.remChannel)}catch(e){}}
+function studied(){if(!NATIVE('markStudied'))return;const d=new Date().toDateString();if(d===studiedMark)return;studiedMark=d;try{MMAndroid.markStudied()}catch(e){}}
+const notifOK=()=>!NATIVE('notifStatus')||MMAndroid.notifStatus()==='granted';
+function askNotif(cb){if(notifOK()){cb(true);return}
+  window.mmNotifResult=g=>{window.mmNotifResult=null;cb(!!g)};try{MMAndroid.requestNotifications()}catch(e){window.mmNotifResult=null;cb(false)}}
+const hhmm=r=>`${String(r.h).padStart(2,'0')}:${String(r.m).padStart(2,'0')}`;
 
 let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2000)}
 
@@ -897,6 +986,7 @@ let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=fal
 /* Back closes the topmost layer: a menu, then the focused screen (back to Home). false lets the app exit. */
 window.mmBack=function(){
   if(window.mmBusy&&mmBusy())return true;   /* a screen animation is still running */
+  if(!lvlSheet.hidden){closeLvl();return true}
   if(!goalSheet.hidden){closeGoal();return true}
   if(!infoSheet.hidden){closeInfo();return true}
   if(!bkSheet.hidden){bkBack();return true}
@@ -907,9 +997,11 @@ window.mmBack=function(){
   if(state.screen!=='home'){back();return true}
   return false};
 document.addEventListener('keydown',e=>{
-  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||!bkSheet.hidden||!goalSheet.hidden||qMenuOpen())return;
+  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||!bkSheet.hidden||!goalSheet.hidden||!lvlSheet.hidden||qMenuOpen())return;
   if(e.key==='Escape'&&state.screen!=='home'&&!/^(INPUT|SELECT)$/.test(e.target.tagName)){back();return}
   if(/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName))return;
+  if(state.screen==='placement'){if(/^[1-4]$/.test(e.key))document.querySelectorAll('#ptOpts button')[+e.key-1]?.click();
+    else if(e.key==='0'||e.key==='5')$('ptIdk')?.click();else if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('ptBegin')?.click();return}
   if(!run||!['card','quiz','session'].includes(state.screen))return;
   const it=run.items[run.i],pick=(sel,k)=>document.querySelectorAll(sel)[+k-1]?.click();
   if(!it){if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('sumMore')?.click();return}
@@ -924,7 +1016,7 @@ document.addEventListener('keydown',e=>{
 
 /* ---------- start on Home ---------- */
 document.body.dataset.level=state.level;$('seal').textContent=NUM[state.level-1];
-applyStatic();saveStats();go('home');
+applyStatic();saveStats();document.body.dataset.screen='home';go('home');
 /* first start: ask for a goal once (can be skipped); later, fit the memory model to this learner when enough answers exist */
 if(!LM.goal&&!ls.get('xc_onb',0))setTimeout(()=>{if(state.screen==='home'&&goalSheet.hidden&&bkSheet.hidden&&infoSheet.hidden)openGoal(true)},500);
 setTimeout(()=>LM.maybeOptimize(),6000);

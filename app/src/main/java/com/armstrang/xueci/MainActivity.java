@@ -1,15 +1,18 @@
 package com.armstrang.xueci;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.view.View;
@@ -24,7 +27,10 @@ import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -62,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
     private String pendingText;
     private float pendingRate = 1f;
     private int utterance;
+
+    // Daily study reminder: Android 13+ asks the learner before an app may post notifications.
+    private ActivityResultLauncher<String> notifPermission;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
@@ -121,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
 
         web.addJavascriptInterface(new Bridge(), "MMAndroid");
         startTts();
+        notifPermission = registerForActivityResult(new ActivityResultContracts.RequestPermission(),
+                granted -> notifResult(granted && notificationsAllowed()));
 
         web.setWebViewClient(new WebViewClient() {
             @Override
@@ -217,6 +228,32 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        Reminder.schedule(this);   // keeps the daily reminder alarm in place (no-op when reminders are off)
+    }
+
+    private boolean notificationsAllowed() {
+        boolean permitted = Build.VERSION.SDK_INT < 33
+                || ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED;
+        return permitted && NotificationManagerCompat.from(this).areNotificationsEnabled();
+    }
+
+    private void notifResult(boolean allowed) {
+        if (web != null) web.evaluateJavascript("window.mmNotifResult&&mmNotifResult(" + allowed + ")", null);
+    }
+
+    private void openNotificationSettings() {
+        Intent i = Build.VERSION.SDK_INT >= 26
+                ? new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).putExtra(Settings.EXTRA_APP_PACKAGE, getPackageName())
+                : new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:" + getPackageName()));
+        try {
+            startActivity(i);
+        } catch (ActivityNotFoundException ignored) {
+        }
+    }
+
+    @Override
     protected void onPause() {
         if (tts != null) tts.stop();
         super.onPause();
@@ -289,6 +326,45 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+        }
+
+        /** Daily study reminder: on/off, time, and the text to show (already in the study language). */
+        @JavascriptInterface
+        public void setReminder(boolean on, int hour, int minute, String title, String text, String channel) {
+            Reminder.save(getApplicationContext(), on, hour, minute, title, text, channel);
+        }
+
+        /** The learner answered something today, so today's reminder is not needed. */
+        @JavascriptInterface
+        public void markStudied() {
+            Reminder.markStudied(getApplicationContext());
+        }
+
+        /** granted | off */
+        @JavascriptInterface
+        public String notifStatus() {
+            return notificationsAllowed() ? "granted" : "off";
+        }
+
+        /** Asks for the notification permission (Android 13+) or opens the settings; answers through mmNotifResult(). */
+        @JavascriptInterface
+        public void requestNotifications() {
+            runOnUiThread(() -> {
+                if (notificationsAllowed()) {
+                    notifResult(true);
+                } else if (Build.VERSION.SDK_INT >= 33
+                        && ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    notifPermission.launch(Manifest.permission.POST_NOTIFICATIONS);
+                } else {
+                    openNotificationSettings();
+                    notifResult(false);
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void openNotifSettings() {
+            runOnUiThread(MainActivity.this::openNotificationSettings);
         }
 
         /** Progress backup: put the backup code on the clipboard. */
