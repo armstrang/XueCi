@@ -4,8 +4,10 @@
 
 Pieces (web/src):
   base.css.html   layout and base styles
-  app.html        markup + app logic (placeholders __I18N__ and __DATA__)
+  app.html        markup + app logic (placeholders __I18N__, __I18N_LEARN__, __LEARN__ and __DATA__)
   i18n.js         interface text in Indonesian, English, Thai and Vietnamese
+  i18n-learn.js   text for guided learning (daily plan, goals, cards, quiz, insights), same four languages
+  learn.js        learning engine: memory model (FSRS), answer log, goals and daily plan, question choice
   glass.css.html  the Liquid Glass look (overrides base styles)
   glass.js.html   Liquid Glass interactions: HSK lens, screen zoom, theme reveal, haptics
 Data: web/data/vocab.json (HSK 1-6, one word per line).
@@ -34,6 +36,8 @@ def replace_once(text, old, new):
 
 base = read('web', 'src', 'base.css.html')
 app = replace_once(read('web', 'src', 'app.html'), '__I18N__', read('web', 'src', 'i18n.js'))
+app = replace_once(app, '__I18N_LEARN__', read('web', 'src', 'i18n-learn.js'))
+app = replace_once(app, '__LEARN__', read('web', 'src', 'learn.js'))
 page = base + '\n' + app
 
 # Liquid Glass look goes right after the base styles, so its rules win.

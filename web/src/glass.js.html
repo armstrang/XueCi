@@ -61,7 +61,7 @@ window.mmStatsRendered=()=>statLens.sync(true);
       on the compositor); going back, Home settles into place around the tile you came from. */
 const scrOf=s=>s==='home'?document.getElementById('scr-home'):s==='stats'?document.getElementById('scr-stats'):document.getElementById('scr-focus');
 let lastTap=null,anim=null;
-document.addEventListener('pointerdown',e=>{lastTap=e.target.closest?e.target.closest('.tile,#hero,.mstats'):null},{capture:true,passive:true});
+document.addEventListener('pointerdown',e=>{lastTap=e.target.closest?e.target.closest('.tile,#hero,.mstats,.planbtn'):null},{capture:true,passive:true});
 function originIn(sec,el){
   const s=sec.getBoundingClientRect();
   if(!el||!el.isConnected||!el.offsetParent)return '50% 120px';
@@ -82,7 +82,7 @@ window.mmTransition=(run,from,to)=>{
     const s=sec.getBoundingClientRect();
     origin=tapRect?`${Math.round(tapRect.left+tapRect.width/2-s.left)}px ${Math.round(tapRect.top+tapRect.height/2-s.top)}px`:'50% 120px';
   }else{
-    const el=to==='home'?(FOCUS.includes(from)?document.querySelector(`.tile[data-go="${from}"]`):document.getElementById('hero')):null;
+    const el=to==='home'?(from==='session'?document.getElementById('planGo'):FOCUS.includes(from)?document.querySelector(`.tile[data-go="${from}"]`):document.getElementById('hero')):null;
     origin=originIn(sec,el);
   }
   sec.style.transformOrigin=origin;
@@ -102,7 +102,7 @@ tb.onclick=e=>{
 
 /* 5. light haptics (Android app) */
 window.mmFeedback=ok=>buzz(ok?14:[16,60,26]);
-document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('.tile,.lvpill,#hero'))buzz(7)},{capture:true});
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('.tile,.lvpill,#hero,.planbtn'))buzz(7)},{capture:true});
 
 /* 6. the HSK/unit menus live beside the floating header, not inside it, so their own blur sees the page */
 {const fb=document.querySelector('#scr-focus .fbar');['lvMenu','uMenu'].forEach(id=>fb.appendChild(document.getElementById(id)))}

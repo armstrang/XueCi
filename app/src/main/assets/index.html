@@ -143,6 +143,9 @@ html[lang="th"] .id{font-style:normal}
 
 /* ---------- Focused screens ---------- */
 .focus[data-mode="card"],.focus[data-mode="quiz"],.stats{max-width:620px;margin:0 auto}
+/* today's session spans every level, so the HSK and unit pickers are hidden there */
+.focus[data-mode="session"]{max-width:620px;margin:0 auto}
+.focus[data-mode="session"] #lvbtn,.focus[data-mode="session"] #ubtn{display:none}
 .fbar{position:sticky;top:0;z-index:20;background:var(--bg);padding-top:calc(10px + env(safe-area-inset-top,0px));padding-bottom:10px;border-bottom:1px solid var(--line);margin-bottom:14px;transition:background .25s}
 .frow{position:relative;display:flex;align-items:center;gap:8px}
 .backbtn{width:40px;height:40px;flex:none;border-radius:12px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;padding:0;color:var(--fg)}
@@ -243,7 +246,7 @@ html[lang="th"] .id{font-style:normal}
 .qcard .q{color:var(--soft);font-size:calc(13px*var(--fs,1));margin-bottom:6px}
 .opts{display:grid;gap:8px;margin-top:14px}
 .opts button{text-align:left;border:1.5px solid var(--line);background:var(--surface);border-radius:13px;padding:11px 14px;font-size:calc(15px*var(--fs,1));font-weight:600}
-.opts button:hover:not(:disabled){border-color:var(--acc)}
+@media (hover:hover){.opts button:hover:not(:disabled){border-color:var(--acc)}}
 .opts button.ok{border-color:var(--good);background:color-mix(in srgb,var(--good) 14%,var(--surface))}
 .opts button.ng{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
 .feedback{margin-top:14px;text-align:left}
@@ -373,6 +376,91 @@ html[lang="th"] .id{font-style:normal}
 .danger.solid{background:var(--bad);border-color:var(--bad);color:var(--on-acc)}
 .confirm{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:calc(13px*var(--fs,1));font-weight:600}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:9px 14px;border-radius:11px;font-size:calc(13px*var(--fs,1));font-weight:700;z-index:60;white-space:nowrap;max-width:calc(100vw - 32px);overflow:hidden;text-overflow:ellipsis}
+
+/* ---------- guided learning ---------- */
+/* Home: today's plan */
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:14px 16px 16px;margin-bottom:12px;display:flex;flex-direction:column;gap:8px}
+.ptop{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
+.ptop h2{margin:0;font-size:calc(17px*var(--fsd,1));font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+.gchip{height:32px;min-width:0;border-radius:999px;border:1px solid var(--line);background:var(--surface);padding:0 12px;font-size:calc(12.5px*var(--fs,1));font-weight:800;color:var(--acc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pline{font-size:calc(15px*var(--fs,1));font-weight:700;font-variant-numeric:tabular-nums;line-height:1.35}
+.pline span{color:var(--soft);font-weight:600}
+.pbar{display:flex;align-items:center;gap:10px;font-size:calc(12px*var(--fs,1));color:var(--soft);font-variant-numeric:tabular-nums}
+.pbar .stack{flex:1;height:6px;border-radius:99px;overflow:hidden}
+.pst{display:flex;align-items:baseline;gap:7px;font-size:calc(12.5px*var(--fs,1));color:var(--soft);line-height:1.4}
+.pst .sd{flex:none;transform:translateY(-1px)}
+.planbtn{margin-top:2px;border:0;border-radius:16px;background:var(--acc);color:var(--on-acc);font-weight:800;font-size:calc(15.5px*var(--fs,1));padding:13px 16px;display:flex;align-items:center;justify-content:center;gap:8px}
+.planbtn svg{width:15px;height:15px;flex:none}
+/* goal sheet */
+.gsec{margin-top:12px}
+.glbl{display:block;font-size:calc(11.5px*var(--fs,1));font-weight:800;color:var(--soft);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
+.gsegs{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(0,1fr);gap:6px}
+.gsegs.lv{grid-auto-flow:row;grid-template-columns:repeat(6,minmax(0,1fr))}
+.gseg,.gnum{border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:13px;padding:9px 4px;font-size:calc(13px*var(--fs,1));font-weight:700;min-width:0;line-height:1.25;overflow-wrap:anywhere}
+.gseg[aria-pressed="true"],.gnum[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--on-acc)}
+.gsegs.lv .gseg{font-size:calc(12px*var(--fs,1));padding:9px 0}
+.gsegs.lv .gseg[aria-pressed="true"]{background:var(--lc);border-color:var(--lc)}
+.gchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.gnum{padding:7px 12px;border-radius:999px}
+.gdate{width:100%;height:44px;border:1px solid var(--line);border-radius:13px;background:var(--surface);color:var(--fg);font:inherit;font-size:calc(15px*var(--fs,1));padding:0 12px}
+.gfc{margin-top:14px;padding:11px 13px;border-radius:14px;background:var(--sunk);font-size:calc(13.5px*var(--fs,1));line-height:1.45}
+.gfc.good{background:color-mix(in srgb,var(--good) 13%,var(--surface))}
+.gfc.bad{background:color-mix(in srgb,var(--bad) 12%,var(--surface))}
+.gfix{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.gfix .ghost{font-weight:700}
+.bkrow button:disabled{opacity:.45}
+/* cards: claim → check → result */
+/* during the quick check the card shrinks to the word, so the options fit on the screen */
+.flip.checking{height:230px}.flip.checking .face .hint{display:none}
+.fcact{margin-top:12px}
+.chk{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:12px}
+.chk .q{font-size:calc(13px*var(--fs,1));font-weight:800;color:var(--acc);margin-bottom:8px;text-align:center}
+.chk .opts{margin-top:0}
+.res{font-size:calc(13.5px*var(--fs,1));font-weight:700;padding:10px 13px;border-radius:14px;margin-bottom:10px;line-height:1.4}
+.res.ok{color:var(--good);background:color-mix(in srgb,var(--good) 13%,transparent)}
+.res.over{color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.res.no,.res.trust{color:var(--soft);background:color-mix(in srgb,var(--fg) 6%,transparent)}
+.fcbtns.one{grid-template-columns:1fr}
+.fcbtns .next{margin-top:0}
+.face .newtag{font-weight:800;color:var(--acc)}
+.fcmeta .tlabel{font-weight:800;color:var(--acc);margin-left:auto;margin-right:10px}
+/* questions */
+.pyo{font-weight:700;letter-spacing:.01em}
+.hzo{font-family:var(--f-hz);font-weight:900;font-size:calc(20px*var(--fs,1))}
+.spk.xl{width:76px;height:76px;margin:8px auto 2px;display:grid}.spk.xl svg{width:34px;height:34px}
+.fbv{font-weight:800}.fbv.good{color:var(--good)}.fbv.bad{color:var(--bad)}
+.picked{font-size:calc(13px*var(--fs,1));color:var(--soft);margin:2px 0 6px}.picked .hzs{font-family:var(--f-hz);font-weight:900;color:var(--fg);font-size:calc(16px*var(--fs,1))}
+.timer{font-weight:800;color:var(--fg);font-variant-numeric:tabular-nums}
+/* end of a run */
+.sum h3{margin:2px 0 10px;font-size:calc(18px*var(--fs,1));font-weight:800}
+.sum .big{font-family:var(--f-hz)}
+.sumgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:4px 0 10px}
+.sumgrid div{background:color-mix(in srgb,var(--fg) 6%,transparent);border-radius:14px;padding:9px 6px;display:flex;flex-direction:column;line-height:1.25}
+.sumgrid b{font-size:calc(20px*var(--fs,1));font-variant-numeric:tabular-nums}.sumgrid small{font-size:calc(11.5px*var(--fs,1));color:var(--soft)}
+.sumnote{font-size:calc(13px*var(--fs,1));color:var(--soft);margin:6px 0;line-height:1.45}
+.sumrow,.sumwords{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;align-items:center;margin:10px 0;font-size:calc(13px*var(--fs,1));color:var(--soft)}
+.sumwords .lbl{width:100%;font-size:calc(12px*var(--fs,1));font-weight:800}
+.wchip{display:inline-flex;align-items:baseline;gap:6px;padding:5px 11px;border-radius:999px;background:color-mix(in srgb,var(--fg) 6%,transparent);font-size:calc(12.5px*var(--fs,1));max-width:100%;color:var(--fg)}
+.wchip b{font-family:var(--f-hz);font-weight:900;font-size:calc(16px*var(--fs,1))}
+.pair{display:inline-flex;align-items:baseline;gap:4px;padding:4px 11px;border-radius:999px;background:color-mix(in srgb,var(--fg) 6%,transparent);color:var(--fg)}
+.pair b{font-family:var(--f-hz);font-weight:900;font-size:calc(16px*var(--fs,1))}.pair small{color:var(--soft);font-size:calc(11px*var(--fs,1));margin-left:2px}
+.sumbtns{display:grid;grid-template-columns:1fr 1.5fr;gap:8px;margin-top:14px}.sumbtns .next{margin-top:0}
+/* stats: insights and word detail */
+.insights{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:13px 14px;display:flex;flex-direction:column;gap:10px}
+.ihd{display:flex;align-items:baseline;justify-content:space-between;gap:4px 8px;flex-wrap:wrap}.ihd b{font-size:calc(15px*var(--fs,1));font-weight:800}.ihd small{font-size:calc(11.5px*var(--fs,1));color:var(--mute)}
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.kpis div{background:color-mix(in srgb,var(--fg) 6%,transparent);border-radius:12px;padding:8px 9px;display:flex;flex-direction:column;line-height:1.25;min-width:0}
+.kpis b{font-size:calc(18px*var(--fs,1));font-variant-numeric:tabular-nums}.kpis small{font-size:calc(11px*var(--fs,1));color:var(--soft);overflow-wrap:anywhere}
+.skills{display:flex;flex-direction:column;gap:6px}
+.skrow{display:grid;grid-template-columns:minmax(70px,auto) minmax(0,1fr) 40px;gap:10px;align-items:center;font-size:calc(12.5px*var(--fs,1))}
+.skrow .mbar{width:auto;height:7px}.skrow b{text-align:right;font-variant-numeric:tabular-nums}
+.skrow.weak>span:first-child{color:var(--bad);font-weight:800}
+.pairs{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:calc(12.5px*var(--fs,1));color:var(--soft)}
+.insnote{margin:0;font-size:calc(12.5px*var(--fs,1));color:var(--soft);line-height:1.45}
+.skl{display:flex;flex-wrap:wrap;gap:5px 12px;align-items:center;font-size:calc(12px*var(--fs,1));color:var(--soft);width:100%}
+.skc{display:inline-flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums}.skc b{color:var(--fg)}
+.badge{font-size:calc(11px*var(--fs,1));font-weight:800;padding:2px 9px;border-radius:999px;background:color-mix(in srgb,var(--s-yellow) 32%,transparent);color:var(--fg)}
+.stbtns{display:flex;gap:8px;flex-wrap:wrap}
 
 @media (max-width:719px){.keys{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.hz{font-size:calc(24px*var(--fs,1))}.flip{height:380px}}
@@ -590,6 +678,22 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 .bkcode{background:var(--g-solid);border-color:var(--g-edge);border-radius:16px;box-shadow:var(--g-inset)}
 .ghost.pri{background:var(--acc);border-color:transparent;color:var(--on-acc);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),var(--g-drop)}
 .plink{background:var(--g-solid);border-color:var(--g-edge);border-radius:16px;box-shadow:var(--g-inset)}
+/* guided learning */
+.plan,.insights,.chk,.gchip{background:var(--g-fill);border:1px solid var(--g-edge);box-shadow:var(--g-inset),var(--g-drop)}
+.plan{position:relative;border-radius:30px}.plan::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;
+  background:var(--g-rim);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.planbtn{position:relative;border-radius:20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.35),var(--g-drop);transition:transform .32s var(--spring)}
+.planbtn:active{transform:scale(.97)}
+.gchip{transition:transform .32s var(--spring)}.gchip:active{transform:scale(1.05)}
+.insights{border-radius:24px}
+.chk{border-radius:24px}
+.gseg,.gnum,.gdate{background:var(--g-solid);border-color:var(--g-edge);box-shadow:var(--g-inset);transition:transform .25s var(--spring),background .2s}
+.gseg:active,.gnum:active{transform:scale(.96)}
+.gseg[aria-pressed="true"],.gnum[aria-pressed="true"]{background:var(--acc);border-color:transparent;color:var(--on-acc)}
+.gsegs.lv .gseg[aria-pressed="true"]{background:var(--lc)}
+.gfc{background:color-mix(in srgb,var(--fg) 6%,transparent)}
+.res{animation:fbIn .3s var(--ease)}
+@media (prefers-reduced-motion:reduce){.res{animation:none}}
 </style>
 
 
@@ -612,6 +716,8 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
     </div>
     <button class="iconbtn" id="themeBtn"></button>
   </header>
+
+  <section class="plan" id="plan" aria-labelledby="planT"></section>
 
   <div class="lvpills" id="lvPills" role="group" data-i18n-aria="pickLv"></div>
 
@@ -679,6 +785,7 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
     </div>
   </div>
   <div class="stbody">
+    <div class="insights" id="stIns"></div>
     <div class="lvpills" id="stLevels" role="group" data-i18n-aria="level"></div>
     <div class="stsum" id="stSum"></div>
     <div class="stbar"><div class="stack" id="stStack"></div></div>
@@ -720,6 +827,14 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
       <p class="bkmsg" id="bkMsg" role="status"></p>
       <div class="bkrow" id="bkRow"></div>
     </div>
+  </div>
+</div>
+<div class="sheetwrap" id="goalSheet" hidden>
+  <div class="scrim2" data-close></div>
+  <div class="isheet gsheet" role="dialog" aria-modal="true" aria-labelledby="gTitle">
+    <div class="ihead"><h2 id="gTitle" data-i18n="gT"></h2><button class="xbtn" data-close data-i18n-aria="close">×</button></div>
+    <p class="ilead" data-i18n="gLead"></p>
+    <div id="gBody"></div>
   </div>
 </div>
 <div class="toast" id="toast" hidden></div>
@@ -895,6 +1010,172 @@ Object.assign(I18N.vi,{listen:'Nghe',ttsMissing:'Hãy cài giọng tiếng Trung
   bkCopy:'Sao chép',bkShare:'Chia sẻ',bkCopied:'Đã sao chép mã',bkTitleRestore:'Khôi phục tiến độ',bkLeadRestore:'Dán mã sao lưu vào bên dưới.',bkPaste:'Dán',bkCheck:'Kiểm tra mã',
   bkBad:'Không nhận ra mã này. Hãy chắc rằng bạn đã sao chép đầy đủ.',bkConfirm:(n,dt,m)=>`Bản sao lưu ngày ${dt}: đã luyện ${n} từ. Tiến độ trên thiết bị này (${m} từ) sẽ bị thay thế.`,
   bkApply:'Thay thế tiến độ',bkDone:'Đã khôi phục tiến độ',bkShareText:dt=>`Sao lưu tiến độ XueCi Mandarin (${dt})`});
+/* guided learning: daily plan, goals, proven cards, guided quiz, exam practice, insights (overrides earlier strings) */
+Object.assign(I18N.id,{
+  stBehindDate:d=>`Tertinggal · target realistis sekitar ${d}`,
+  subCard:'Ingat, lalu buktikan',subQuiz:'Soal sesuai kelemahanmu',
+  session:'Sesi hari ini',newWord:'Kata baru',next:'Lanjut',
+  planT:'Hari ini',planRev:n=>`${n} ulangan`,planNew:n=>`${n} kata baru`,planMin:n=>`±${n} menit`,
+  planGo:'Mulai sesi',planCont:'Lanjutkan sesi',planDone:'Rencana hari ini selesai',planExtra:'Latihan tambahan',
+  planTomorrow:n=>`Besok sekitar ${n} ulangan.`,planSet:'Atur tujuan',doneToday:n=>`${n} jawaban hari ini`,
+  gLvChip:(l,d)=>`HSK ${l} · ${d}`,gExamChip:(l,d)=>`Ujian HSK ${l} · ${d}`,
+  stFree:n=>`Tanpa target · ${n} kata baru per hari`,stOk:d=>`Sesuai jadwal · semua kata dikenalkan sekitar ${d}`,
+  stBehind:m=>`Tertinggal · butuh ±${m} menit per hari`,stReview:'Semua kata target sudah dikenalkan. Fokus ulangan.',
+  stPast:'Tanggal target sudah lewat. Atur tujuan baru.',stExamWeek:'Minggu ujian: hanya ulangan, tanpa kata baru.',
+  gT:'Tujuan belajar',gLead:'Rencana harian disusun dari tujuanmu. Semua dihitung di HP ini.',gWhat:'Tujuan',
+  gLevel:'Capai level',gExam:'Ujian HSK',gNone:'Tanpa target',gLv:'Level',gDate:'Tanggal target',gDateExam:'Tanggal ujian',
+  gPace:'Porsi harian',gMin:'Menit/hari',gNew:'Kata baru/hari',gAuto:'Otomatis',gMinN:n=>`${n} menit`,gNewN:n=>`${n} kata`,
+  fcOk:(n,r,m,d)=>`Sekitar ${n} kata baru dan ${r} ulangan per hari, ±${m} menit. Semua kata dikenalkan sekitar ${d}.`,
+  fcBehind:d=>d?`Dengan porsi ini, semua kata baru terkejar sekitar ${d}, lewat dari target.`:'Dengan porsi ini target tidak terkejar: ulangan akan memenuhi waktumu lebih dulu.',
+  fcFixMin:m=>`Pakai ${m} menit/hari`,fcFixNew:n=>`Pakai ${n} kata/hari`,fcFixDate:d=>`Mundurkan ke ${d}`,
+  fcFree:(n,m)=>`${n} kata baru per hari ditambah ulangannya, ±${m} menit.`,fcAllDone:'Semua kata target sudah dikenalkan. Rencana harian berisi ulangan.',
+  gSave:'Simpan',gSkip:'Nanti saja',gSaved:'Tujuan disimpan',gDateBad:'Pilih tanggal setelah hari ini.',
+  fcKnow:'Saya tahu',fcDont:'Belum tahu',fcHint:'Ingat arti dan nadanya, lalu pilih',
+  chkMean:'Buktikan: apa artinya?',chkTone:'Buktikan: pinyin yang benar?',
+  resOk:'✓ Benar, terbukti.',resOver:'✗ Yakin tapi keliru. Kata ini akan muncul lagi sebentar lagi.',resNo:'Pelajari dulu. Nanti ditanya lagi.',
+  resTrust:'Kali ini dipercaya tanpa cek.',oops:'Ternyata keliru',
+  tAuto:'Terarah',dAuto:'Aplikasi memilih kata dan jenis soal',tMean:'Kenali',tHz:'Ingat',tTone:'Nada',dTone:'Lihat hanzi, pilih pinyin yang benar',
+  tListen:'Dengar',dListen:'Dengarkan, lalu pilih hanzinya',tCloze:'Kalimat',tExam:'Simulasi ujian',
+  dExam:(n,m)=>`${n} soal campuran dari HSK 1 sampai level ini, ${m} menit`,
+  qTone:'Pilih pinyin yang benar',qListen:'Dengarkan, lalu pilih hanzinya',replay:'Putar lagi',picked:'Pilihanmu:',qN:(i,n)=>`${i} / ${n}`,
+  sumT:{card:'Putaran selesai',quiz:'Ronde selesai',session:'Sesi selesai',exam:'Simulasi selesai'},
+  sumRight:'benar',sumUp:'naik tingkat',sumAgain:'perlu diulang',sumConf:'Tertukar:',sumWrong:'Perlu dilatih lagi',
+  sumOver:n=>`${n}× yakin tapi keliru. Kata-kata itu akan lebih sering dicek.`,
+  sumHome:'Ke Home',sumMore:'Ronde baru',sumSessionMore:'Latihan tambahan',sumEmpty:'Tidak ada yang perlu diulang sekarang.',
+  examScore:(p,l,e)=>`Skor ${p}%. Setelah dikurangi peluang menebak, kamu diperkirakan menguasai ±${e}% kosakata sampai HSK ${l}.`,timeUp:'Waktu habis.',
+  insT:'Wawasan belajar',insPriv:'Dihitung di HP ini',insRecall:'Ingatan saat ini',insAns7:'Jawaban 7 hari',insCal:'“Saya tahu” tepat',
+  insWeak:k=>`Paling lemah: ${k}. Sesi berikutnya menambah soal jenis ini.`,insConf:'Sering tertukar',
+  insModelOwn:n=>`Model memori sudah disesuaikan dengan pola ingatanmu (dari ${n} ulangan).`,
+  insModelBase:(n,m)=>`Model memori masih memakai pengaturan awal. Disesuaikan otomatis setelah ${m} ulangan berjarak (sekarang ${n}).`,
+  insEmpty:'Wawasan muncul setelah beberapa kali latihan.',
+  skM:'Arti',skF:'Hanzi',skS:'Nada',detNext:d=>`Ulang ${d}`,detLegacy:'Perlu dikonfirmasi',
+  rel:n=>n<=0?'hari ini':n===1?'besok':`${n} hari lagi`,
+  histDel:'Hapus riwayat jawaban',histQ:'Hapus riwayat jawaban? Progres kata tetap ada; model memori kembali ke pengaturan awal.',histYes:'Ya, hapus',histDone:'Riwayat jawaban dihapus',
+  rsNote:'Tingkat 0–20 menunjukkan seberapa lama sebuah kata diperkirakan tetap kamu ingat, dihitung dari jawaban yang terbukti (cek di Kartu dan soal Kuis). Untuk hijau, kata juga harus lulus soal Ingat (arti → hanzi) dan Nada. Kata dari progres lama tetap di tingkatnya sampai dikonfirmasi.'});
+Object.assign(I18N.en,{
+  stBehindDate:d=>`Behind · a realistic target is about ${d}`,
+  subCard:'Recall, then prove it',subQuiz:'Questions on your weak spots',
+  session:'Today’s session',newWord:'New word',next:'Next',
+  planT:'Today',planRev:n=>`${n} reviews`,planNew:n=>`${n} new words`,planMin:n=>`~${n} min`,
+  planGo:'Start session',planCont:'Continue session',planDone:'Today’s plan is done',planExtra:'Extra practice',
+  planTomorrow:n=>`About ${n} reviews tomorrow.`,planSet:'Set a goal',doneToday:n=>`${n} answers today`,
+  gLvChip:(l,d)=>`HSK ${l} · ${d}`,gExamChip:(l,d)=>`HSK ${l} exam · ${d}`,
+  stFree:n=>`No target · ${n} new words a day`,stOk:d=>`On track · all words introduced by about ${d}`,
+  stBehind:m=>`Behind · needs ~${m} min a day`,stReview:'Every target word has been introduced. Focus on reviews.',
+  stPast:'The target date has passed. Set a new goal.',stExamWeek:'Exam week: reviews only, no new words.',
+  gT:'Study goal',gLead:'Your daily plan is built from your goal. Everything is worked out on this phone.',gWhat:'Goal',
+  gLevel:'Reach a level',gExam:'HSK exam',gNone:'No target',gLv:'Level',gDate:'Target date',gDateExam:'Exam date',
+  gPace:'Daily amount',gMin:'Minutes/day',gNew:'New words/day',gAuto:'Automatic',gMinN:n=>`${n} min`,gNewN:n=>`${n} words`,
+  fcOk:(n,r,m,d)=>`About ${n} new words and ${r} reviews a day, ~${m} min. All words introduced by about ${d}.`,
+  fcBehind:d=>d?`At this pace all new words are covered by about ${d}, after your target.`:'At this pace you won’t reach the target: reviews will fill your time first.',
+  fcFixMin:m=>`Use ${m} min/day`,fcFixNew:n=>`Use ${n} words/day`,fcFixDate:d=>`Move to ${d}`,
+  fcFree:(n,m)=>`${n} new words a day plus their reviews, ~${m} min.`,fcAllDone:'You’ve met every target word. Your daily plan is reviews.',
+  gSave:'Save',gSkip:'Not now',gSaved:'Goal saved',gDateBad:'Choose a date after today.',
+  fcKnow:'I know it',fcDont:'Don’t know',fcHint:'Recall the meaning and tones, then choose',
+  chkMean:'Prove it: what does it mean?',chkTone:'Prove it: which pinyin is right?',
+  resOk:'✓ Right, proven.',resOver:'✗ Sure, but wrong. This word comes back shortly.',resNo:'Study it now. It will come back.',
+  resTrust:'Trusted without a check this time.',oops:'I was wrong',
+  tAuto:'Guided',dAuto:'The app picks the words and question types',tMean:'Recognise',tHz:'Recall',tTone:'Tones',dTone:'See the hanzi, pick the right pinyin',
+  tListen:'Listen',dListen:'Listen, then pick the hanzi',tCloze:'Sentence',tExam:'Exam practice',
+  dExam:(n,m)=>`${n} mixed questions from HSK 1 up to this level, ${m} min`,
+  qTone:'Choose the right pinyin',qListen:'Listen, then choose the hanzi',replay:'Play again',picked:'You chose:',qN:(i,n)=>`${i} / ${n}`,
+  sumT:{card:'Round complete',quiz:'Round complete',session:'Session complete',exam:'Exam practice complete'},
+  sumRight:'right',sumUp:'levelled up',sumAgain:'to review',sumConf:'Mixed up:',sumWrong:'Practise these again',
+  sumOver:n=>`${n}× sure but wrong. Those words will be checked more often.`,
+  sumHome:'Home',sumMore:'New round',sumSessionMore:'Extra practice',sumEmpty:'Nothing needs reviewing right now.',
+  examScore:(p,l,e)=>`Score ${p}%. Allowing for lucky guesses, you know about ${e}% of the vocabulary up to HSK ${l}.`,timeUp:'Time’s up.',
+  insT:'Learning insights',insPriv:'Worked out on this phone',insRecall:'Recall right now',insAns7:'Answers, 7 days',insCal:'“I know it” right',
+  insWeak:k=>`Weakest: ${k}. Upcoming sessions add more of these questions.`,insConf:'Often mixed up',
+  insModelOwn:n=>`The memory model is fitted to how you remember (from ${n} reviews).`,
+  insModelBase:(n,m)=>`The memory model still uses its starting settings. It adapts to you after ${m} spaced reviews (now ${n}).`,
+  insEmpty:'Insights appear after a few practice sessions.',
+  skM:'Meaning',skF:'Hanzi',skS:'Tones',detNext:d=>`Review ${d}`,detLegacy:'Needs confirming',
+  rel:n=>n<=0?'today':n===1?'tomorrow':`in ${n} days`,
+  histDel:'Delete answer history',histQ:'Delete your answer history? Word progress stays; the memory model returns to its starting settings.',histYes:'Yes, delete',histDone:'Answer history deleted',
+  rsNote:'Level 0–20 shows how long you are expected to keep remembering a word, based on proven answers (checks in Cards and Quiz questions). Green also needs a passed Recall (meaning → hanzi) and Tones question. Words from your earlier progress keep their level until confirmed.'});
+Object.assign(I18N.th,{
+  stBehindDate:d=>`ช้ากว่าแผน · เป้าหมายที่เป็นไปได้คือประมาณ ${d}`,
+  subCard:'นึกให้ออก แล้วพิสูจน์',subQuiz:'คำถามตามจุดอ่อนของคุณ',
+  session:'เซสชันวันนี้',newWord:'คำใหม่',next:'ต่อไป',
+  planT:'วันนี้',planRev:n=>`ทบทวน ${n} คำ`,planNew:n=>`คำใหม่ ${n} คำ`,planMin:n=>`~${n} นาที`,
+  planGo:'เริ่มเซสชัน',planCont:'ทำเซสชันต่อ',planDone:'แผนวันนี้เสร็จแล้ว',planExtra:'ฝึกเพิ่ม',
+  planTomorrow:n=>`พรุ่งนี้ทบทวนประมาณ ${n} คำ`,planSet:'ตั้งเป้าหมาย',doneToday:n=>`วันนี้ตอบแล้ว ${n} ข้อ`,
+  gLvChip:(l,d)=>`HSK ${l} · ${d}`,gExamChip:(l,d)=>`สอบ HSK ${l} · ${d}`,
+  stFree:n=>`ไม่มีเป้าหมาย · คำใหม่วันละ ${n} คำ`,stOk:d=>`ตามแผน · เรียนครบทุกคำประมาณ ${d}`,
+  stBehind:m=>`ช้ากว่าแผน · ต้องใช้ ~${m} นาทีต่อวัน`,stReview:'เรียนคำเป้าหมายครบแล้ว เน้นทบทวน',
+  stPast:'เลยวันเป้าหมายแล้ว ตั้งเป้าหมายใหม่',stExamWeek:'สัปดาห์สอบ: ทบทวนอย่างเดียว ไม่มีคำใหม่',
+  gT:'เป้าหมายการเรียน',gLead:'แผนรายวันสร้างจากเป้าหมายของคุณ ทุกอย่างคำนวณในโทรศัพท์เครื่องนี้',gWhat:'เป้าหมาย',
+  gLevel:'ถึงระดับ',gExam:'สอบ HSK',gNone:'ไม่มีเป้าหมาย',gLv:'ระดับ',gDate:'วันเป้าหมาย',gDateExam:'วันสอบ',
+  gPace:'ปริมาณต่อวัน',gMin:'นาที/วัน',gNew:'คำใหม่/วัน',gAuto:'อัตโนมัติ',gMinN:n=>`${n} นาที`,gNewN:n=>`${n} คำ`,
+  fcOk:(n,r,m,d)=>`คำใหม่ประมาณ ${n} คำและทบทวน ${r} คำต่อวัน ~${m} นาที เรียนครบทุกคำประมาณ ${d}`,
+  fcBehind:d=>d?`ด้วยปริมาณนี้ จะเรียนคำใหม่ครบประมาณ ${d} ซึ่งช้ากว่าเป้าหมาย`:'ด้วยปริมาณนี้จะไปไม่ถึงเป้าหมาย เพราะการทบทวนจะใช้เวลาทั้งหมดก่อน',
+  fcFixMin:m=>`ใช้ ${m} นาที/วัน`,fcFixNew:n=>`ใช้ ${n} คำ/วัน`,fcFixDate:d=>`เลื่อนเป็น ${d}`,
+  fcFree:(n,m)=>`คำใหม่วันละ ${n} คำพร้อมการทบทวน ~${m} นาที`,fcAllDone:'คุณเรียนคำเป้าหมายครบแล้ว แผนรายวันเป็นการทบทวน',
+  gSave:'บันทึก',gSkip:'ไว้ทีหลัง',gSaved:'บันทึกเป้าหมายแล้ว',gDateBad:'เลือกวันที่หลังจากวันนี้',
+  fcKnow:'รู้แล้ว',fcDont:'ยังไม่รู้',fcHint:'นึกความหมายและวรรณยุกต์ แล้วเลือก',
+  chkMean:'พิสูจน์: คำนี้แปลว่าอะไร',chkTone:'พิสูจน์: พินอินข้อไหนถูก',
+  resOk:'✓ ถูก พิสูจน์แล้ว',resOver:'✗ มั่นใจแต่ผิด คำนี้จะกลับมาอีกในไม่ช้า',resNo:'ศึกษาตอนนี้ เดี๋ยวจะถามอีก',
+  resTrust:'ครั้งนี้เชื่อโดยไม่ตรวจ',oops:'จริง ๆ แล้วผิด',
+  tAuto:'แนะนำ',dAuto:'แอปเลือกคำและประเภทคำถามให้',tMean:'รู้ความหมาย',tHz:'นึกตัวอักษร',tTone:'วรรณยุกต์',dTone:'ดูอักษรจีน เลือกพินอินที่ถูก',
+  tListen:'ฟัง',dListen:'ฟังแล้วเลือกอักษรจีน',tCloze:'ประโยค',tExam:'ฝึกสอบ',
+  dExam:(n,m)=>`${n} ข้อผสมจาก HSK 1 ถึงระดับนี้ ${m} นาที`,
+  qTone:'เลือกพินอินที่ถูกต้อง',qListen:'ฟังแล้วเลือกอักษรจีน',replay:'เล่นอีกครั้ง',picked:'คุณเลือก:',qN:(i,n)=>`${i} / ${n}`,
+  sumT:{card:'จบรอบแล้ว',quiz:'จบรอบแล้ว',session:'จบเซสชันแล้ว',exam:'จบการฝึกสอบแล้ว'},
+  sumRight:'ถูก',sumUp:'ระดับเพิ่มขึ้น',sumAgain:'ต้องทบทวน',sumConf:'สับสน:',sumWrong:'ฝึกคำเหล่านี้อีก',
+  sumOver:n=>`มั่นใจแต่ผิด ${n} ครั้ง คำเหล่านั้นจะถูกตรวจบ่อยขึ้น`,
+  sumHome:'หน้าหลัก',sumMore:'รอบใหม่',sumSessionMore:'ฝึกเพิ่ม',sumEmpty:'ตอนนี้ไม่มีคำที่ต้องทบทวน',
+  examScore:(p,l,e)=>`คะแนน ${p}% เมื่อหักโอกาสเดาถูกแล้ว คาดว่าคุณรู้คำศัพท์ถึง HSK ${l} ประมาณ ${e}%`,timeUp:'หมดเวลา',
+  insT:'ข้อมูลเชิงลึกการเรียน',insPriv:'คำนวณในโทรศัพท์เครื่องนี้',insRecall:'ความจำตอนนี้',insAns7:'คำตอบ 7 วัน',insCal:'“รู้แล้ว” ถูกต้อง',
+  insWeak:k=>`จุดอ่อนที่สุด: ${k} เซสชันถัดไปจะมีคำถามแบบนี้มากขึ้น`,insConf:'มักสับสน',
+  insModelOwn:n=>`โมเดลความจำปรับตามวิธีจำของคุณแล้ว (จากการทบทวน ${n} ครั้ง)`,
+  insModelBase:(n,m)=>`โมเดลความจำยังใช้ค่าเริ่มต้น จะปรับให้เข้ากับคุณหลังทบทวนแบบเว้นระยะ ${m} ครั้ง (ตอนนี้ ${n})`,
+  insEmpty:'ข้อมูลเชิงลึกจะปรากฏหลังฝึกไปสักพัก',
+  skM:'ความหมาย',skF:'อักษรจีน',skS:'วรรณยุกต์',detNext:d=>`ทบทวน${d}`,detLegacy:'ต้องยืนยัน',
+  rel:n=>n<=0?'วันนี้':n===1?'พรุ่งนี้':`อีก ${n} วัน`,
+  histDel:'ลบประวัติคำตอบ',histQ:'ลบประวัติคำตอบใช่ไหม ความคืบหน้าของคำยังอยู่ โมเดลความจำจะกลับเป็นค่าเริ่มต้น',histYes:'ใช่ ลบเลย',histDone:'ลบประวัติคำตอบแล้ว',
+  rsNote:'ระดับ 0–20 บอกว่าคาดว่าคุณจะจำคำนั้นได้นานแค่ไหน คำนวณจากคำตอบที่พิสูจน์แล้ว (การตรวจในบัตรคำและคำถามในแบบทดสอบ) จะเป็นสีเขียวได้ต้องผ่านคำถามนึกตัวอักษร (ความหมาย → อักษรจีน) และวรรณยุกต์ด้วย คำจากความคืบหน้าเดิมจะคงระดับไว้จนกว่าจะยืนยัน'});
+Object.assign(I18N.vi,{
+  stBehindDate:d=>`Chậm tiến độ · mục tiêu thực tế là khoảng ${d}`,
+  subCard:'Nhớ lại rồi chứng minh',subQuiz:'Câu hỏi theo điểm yếu',
+  session:'Buổi học hôm nay',newWord:'Từ mới',next:'Tiếp',
+  planT:'Hôm nay',planRev:n=>`${n} lượt ôn`,planNew:n=>`${n} từ mới`,planMin:n=>`~${n} phút`,
+  planGo:'Bắt đầu học',planCont:'Học tiếp',planDone:'Đã xong kế hoạch hôm nay',planExtra:'Luyện thêm',
+  planTomorrow:n=>`Ngày mai khoảng ${n} lượt ôn.`,planSet:'Đặt mục tiêu',doneToday:n=>`${n} câu trả lời hôm nay`,
+  gLvChip:(l,d)=>`HSK ${l} · ${d}`,gExamChip:(l,d)=>`Thi HSK ${l} · ${d}`,
+  stFree:n=>`Không có mục tiêu · ${n} từ mới mỗi ngày`,stOk:d=>`Đúng tiến độ · học hết từ mới vào khoảng ${d}`,
+  stBehind:m=>`Chậm tiến độ · cần ~${m} phút mỗi ngày`,stReview:'Đã học hết các từ mục tiêu. Tập trung ôn tập.',
+  stPast:'Đã qua ngày mục tiêu. Hãy đặt mục tiêu mới.',stExamWeek:'Tuần thi: chỉ ôn tập, không học từ mới.',
+  gT:'Mục tiêu học',gLead:'Kế hoạch mỗi ngày được lập từ mục tiêu của bạn. Mọi tính toán đều trên điện thoại này.',gWhat:'Mục tiêu',
+  gLevel:'Đạt cấp',gExam:'Thi HSK',gNone:'Không mục tiêu',gLv:'Cấp',gDate:'Ngày mục tiêu',gDateExam:'Ngày thi',
+  gPace:'Lượng mỗi ngày',gMin:'Phút/ngày',gNew:'Từ mới/ngày',gAuto:'Tự động',gMinN:n=>`${n} phút`,gNewN:n=>`${n} từ`,
+  fcOk:(n,r,m,d)=>`Khoảng ${n} từ mới và ${r} lượt ôn mỗi ngày, ~${m} phút. Học hết từ mới vào khoảng ${d}.`,
+  fcBehind:d=>d?`Với lượng này, bạn học hết từ mới vào khoảng ${d}, trễ hơn mục tiêu.`:'Với lượng này sẽ không kịp mục tiêu: việc ôn tập sẽ chiếm hết thời gian trước.',
+  fcFixMin:m=>`Dùng ${m} phút/ngày`,fcFixNew:n=>`Dùng ${n} từ/ngày`,fcFixDate:d=>`Dời đến ${d}`,
+  fcFree:(n,m)=>`${n} từ mới mỗi ngày cùng lượt ôn, ~${m} phút.`,fcAllDone:'Bạn đã học hết các từ mục tiêu. Kế hoạch mỗi ngày là ôn tập.',
+  gSave:'Lưu',gSkip:'Để sau',gSaved:'Đã lưu mục tiêu',gDateBad:'Hãy chọn một ngày sau hôm nay.',
+  fcKnow:'Tôi biết',fcDont:'Chưa biết',fcHint:'Nhớ lại nghĩa và thanh điệu, rồi chọn',
+  chkMean:'Chứng minh: nghĩa là gì?',chkTone:'Chứng minh: pinyin nào đúng?',
+  resOk:'✓ Đúng, đã chứng minh.',resOver:'✗ Chắc chắn nhưng sai. Từ này sẽ sớm quay lại.',resNo:'Hãy học ngay. Lát nữa sẽ hỏi lại.',
+  resTrust:'Lần này được tin mà không kiểm tra.',oops:'Thật ra tôi sai',
+  tAuto:'Có định hướng',dAuto:'Ứng dụng chọn từ và loại câu hỏi',tMean:'Nhận biết',tHz:'Nhớ lại',tTone:'Thanh điệu',dTone:'Xem chữ Hán, chọn pinyin đúng',
+  tListen:'Nghe',dListen:'Nghe rồi chọn chữ Hán',tCloze:'Câu',tExam:'Thi thử',
+  dExam:(n,m)=>`${n} câu hỗn hợp từ HSK 1 đến cấp này, ${m} phút`,
+  qTone:'Chọn pinyin đúng',qListen:'Nghe rồi chọn chữ Hán',replay:'Phát lại',picked:'Bạn đã chọn:',qN:(i,n)=>`${i} / ${n}`,
+  sumT:{card:'Xong một vòng',quiz:'Xong một vòng',session:'Xong buổi học',exam:'Xong bài thi thử'},
+  sumRight:'đúng',sumUp:'lên mức',sumAgain:'cần ôn lại',sumConf:'Nhầm lẫn:',sumWrong:'Hãy luyện lại các từ này',
+  sumOver:n=>`${n} lần chắc chắn nhưng sai. Những từ đó sẽ được kiểm tra thường xuyên hơn.`,
+  sumHome:'Trang chủ',sumMore:'Vòng mới',sumSessionMore:'Luyện thêm',sumEmpty:'Hiện chưa có gì cần ôn.',
+  examScore:(p,l,e)=>`Điểm ${p}%. Sau khi trừ khả năng đoán trúng, bạn nắm khoảng ${e}% từ vựng đến HSK ${l}.`,timeUp:'Hết giờ.',
+  insT:'Phân tích học tập',insPriv:'Tính trên điện thoại này',insRecall:'Mức nhớ hiện tại',insAns7:'Câu trả lời 7 ngày',insCal:'“Tôi biết” đúng',
+  insWeak:k=>`Yếu nhất: ${k}. Các buổi tới sẽ thêm loại câu hỏi này.`,insConf:'Hay nhầm lẫn',
+  insModelOwn:n=>`Mô hình trí nhớ đã điều chỉnh theo cách bạn ghi nhớ (từ ${n} lượt ôn).`,
+  insModelBase:(n,m)=>`Mô hình trí nhớ vẫn dùng thiết lập ban đầu. Sẽ tự điều chỉnh theo bạn sau ${m} lượt ôn giãn cách (hiện ${n}).`,
+  insEmpty:'Phân tích sẽ xuất hiện sau vài lần luyện tập.',
+  skM:'Nghĩa',skF:'Chữ Hán',skS:'Thanh điệu',detNext:d=>`Ôn ${d}`,detLegacy:'Cần xác nhận',
+  rel:n=>n<=0?'hôm nay':n===1?'ngày mai':`sau ${n} ngày`,
+  histDel:'Xóa lịch sử trả lời',histQ:'Xóa lịch sử trả lời? Tiến độ từ vẫn giữ nguyên; mô hình trí nhớ trở về thiết lập ban đầu.',histYes:'Có, xóa',histDone:'Đã xóa lịch sử trả lời',
+  rsNote:'Mức 0–20 cho biết bạn dự kiến còn nhớ một từ trong bao lâu, tính từ các câu trả lời đã được chứng minh (kiểm tra trong Thẻ và câu hỏi Kiểm tra). Để thành xanh, từ còn phải vượt qua câu Nhớ lại (nghĩa → chữ Hán) và Thanh điệu. Từ thuộc tiến độ cũ giữ nguyên mức cho đến khi được xác nhận.'});
+
 
 /* 'auto' follows the phone/browser language; unsupported languages fall back to English */
 function sysLang(){const list=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||''];
@@ -925,10 +1206,10 @@ function mH(m){const p=m.split(';').map(x=>x.trim()).filter(Boolean);return `<b>
 const chip=l=>`<span class="lvchip" style="background:var(--l${l})">HSK ${l}</span>`;
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 
-/* Mastery: every word has a level 0–20. A right answer raises it by 1, a wrong answer lowers it by 3,
-   so a word needs about 20 good repetitions to mature. Levels 0–6 are red, 7–13 yellow, 14–20 green;
-   inside each colour a light shade means young and a deep shade means mature. Level 20 = mastered. */
-const MAXL=20,UP=1,DOWN=3;
+/* Mastery: every word has a level 0–20, worked out by the learning engine (learn.js) from how long the word is
+   expected to stay remembered. Levels 0–6 are red, 7–13 yellow, 14–20 green; inside each colour a light shade
+   means young and a deep shade means mature. Level 20 = mastered. stats[id] = [right, wrong, level]. */
+const MAXL=20;
 const lvBand=s=>s>=14?'green':s>=7?'yellow':'red';
 const lvAlpha=s=>{const [lo,hi]=s>=14?[14,20]:s>=7?[7,13]:[0,6];return Math.round(26+74*(s-lo)/(hi-lo))};
 {let a='',b='';for(let s=0;s<=MAXL;s++){a+=`.m${s}{--mc:var(--s-${lvBand(s)})}`;b+=`.m${s}{--mc:color-mix(in srgb,var(--s-${lvBand(s)}) ${lvAlpha(s)}%,var(--surface))}`}
@@ -951,15 +1232,400 @@ const pctTxt=p=>(p>0&&p<10?p.toLocaleString(L10.loc,{maximumFractionDigits:1}):M
 function stackH(S){let h='';for(let s=MAXL;s>=0;s--)if(S.lv[s])h+=`<i class="m${s} mbg" style="width:${S.lv[s]/S.n*100}%"></i>`;return h}
 function stTxt(d){const s=lvl(d);if(s<0)return L10.band.none;const e=stats[d.id];return L10.stTxt(s,e[0],e[1])}
 function stH(d){return `<span class="st"><i class="sd ${mcls(d)}"></i>${stTxt(d)}</span>`}
-function record(d,ok){const e=stats[d.id]||[0,0,0];if(ok){e[0]++;e[2]=Math.min(MAXL,e[2]+UP)}else{e[1]++;e[2]=Math.max(0,e[2]-DOWN)}stats[d.id]=e;saveStats();afterChange()}
 const masteredAll=()=>DATA.filter(isKnown).length;
+
+/* ================= Learning engine =================
+   Everything below runs on the phone. Nothing is sent anywhere.
+
+   Memory model: FSRS-5 (open-source spaced-repetition model, default parameters fitted on public review data).
+   A memory state is [difficulty 1–10, stability in days, last answer in minutes since 1 Jan 2026 UTC]; the chance
+   of still recalling after t days is R = (1 + 19/81·t/S)^-0.5, so R = 90 % when t = S.
+   Every word has one state for the word (drives scheduling and the 0–20 level) plus one per skill:
+     m = meaning (see hanzi → meaning), f = form (meaning → hanzi, sentence gap), s = sound (tones/pinyin, listening).
+   Skills decide which kind of question comes next and show weaknesses.
+
+   Level 0–20 = how long the word is expected to stay remembered: 20·ln(1+S)/ln(121), so about 1 month → 14 (green)
+   and 4 months → 20. Green also needs a passed form (f) and sound (s) answer. Same-day repeats add at most
+   half a day of stability, so a word can't be crammed to green in one sitting.
+
+   Storage (localStorage, this device only; the old keys mm_stats/hsk16_* are untouched):
+     xc_mem   {id: {w:[d,s,t], m|f|s:[d,s,t,lastGrade,timesRight], i:firstSeen, L:1 legacy unconfirmed|2 confirmed, p:1 first seen in exam practice}}
+     xc_log   recent answers, xc_logA older answers (capped): [t, id, type, grade 1–4, tenths of a second, wrong pick id|0, flags]
+              flags: 1 unchecked claim, 2 said "I know", 4 sure but wrong, 8 exam
+     xc_goal  {t:'level'|'exam'|'none', lv, date:'YYYY-MM-DD', pace:'min'|'new'|'auto', n}
+     xc_w     {w:[19 parameters], n, at, ll, ll0}   parameters fitted to this learner's own answers (optimize())
+   Progress made before this engine existed is kept: each old [right, wrong, level] becomes a state with the same
+   level, marked "needs confirming" (L:1) until one form and one sound question have been answered. */
+const LM=(()=>{
+const EPOCH=Date.UTC(2026,0,1);
+const now=()=>Math.round((Date.now()-EPOCH)/6e4);
+const TZ=new Date().getTimezoneOffset();
+const dayOf=t=>Math.floor((t-TZ)/1440);
+const cl=(x,a,b)=>Math.min(b,Math.max(a,x));
+const r2=x=>Math.round(x*100)/100,r3=x=>Math.round(x*1000)/1000;
+
+/* ---- FSRS-5 ---- */
+const W0=[0.40255,1.18385,3.173,15.69105,7.1949,0.5345,1.4604,0.0046,1.54575,0.1192,1.01925,1.9395,0.11,0.29605,2.2698,0.2315,2.9898,0.51655,0.6621];
+const LB=[.01,.01,.01,.01,1,.001,.001,.001,0,0,.001,.001,.001,.001,0,0,1,0,0];
+const UB=[100,100,100,100,10,4,4,.75,4.5,.8,3.5,5,.25,.9,4,1,6,2,2];
+const DECAY=-.5,FACTOR=19/81;
+const Rt=(days,s)=>Math.pow(1+FACTOR*Math.max(0,days)/s,DECAY);
+const ivl=(s,r)=>s/FACTOR*(Math.pow(r,1/DECAY)-1);
+const D0=(w,g)=>cl(w[4]-Math.exp(w[5]*(g-1))+1,1,10);
+const sameDay=(t,t0)=>t-t0<240||dayOf(t)===dayOf(t0);
+/* st = [d, s, t] or null for a first answer; prior = share of the word's characters already known (0–1) */
+function step(w,st,g,t,prior){
+  if(!st){const k=prior||0;return [cl(D0(w,g)-(g>1?1.2*k:0),1,10),Math.max(.1,w[g-1]*(g>2?1+.6*k:1)),t]}
+  const d=st[0],s=st[1],el=(t-st[2])/1440;
+  const d2=cl(w[7]*D0(w,4)+(1-w[7])*(d-w[6]*(g-3)*(10-d)/9),1,10);
+  let s2;
+  if(sameDay(t,st[2])){const inc=Math.exp(w[17]*(g-3+w[18]));s2=g>2?Math.min(s*inc,s+.5):s*inc}
+  else{const r=Rt(el,s);
+    s2=g===1?Math.min(w[11]*Math.pow(d,-w[12])*(Math.pow(s+1,w[13])-1)*Math.exp(w[14]*(1-r)),s/Math.exp(w[17]*w[18]))
+      :s*(1+Math.exp(w[8])*(11-d)*Math.pow(s,-w[9])*(Math.exp(w[10]*(1-r))-1)*(g===2?w[15]:1)*(g===4?w[16]:1))}
+  return [d2,cl(s2,.1,36500),t]}
+
+/* ---- storage ---- */
+let W=W0.slice(),wMeta=null;
+{const o=ls.get('xc_w',null);if(o&&Array.isArray(o.w)&&o.w.length===19&&o.w.every(Number.isFinite)){W=o.w;wMeta=o}}
+let mem=ls.get('xc_mem',null);if(!mem||typeof mem!=='object'||Array.isArray(mem))mem={};
+let goal=ls.get('xc_goal',null);if(!validGoal(goal))goal=null;
+let logR=ls.get('xc_log',[]),logA=ls.get('xc_logA',[]);if(!Array.isArray(logR))logR=[];if(!Array.isArray(logA))logA=[];
+let logCache=null,confMap=null,charS=null;
+const allLog=()=>logCache||(logCache=logA.length?logA.concat(logR):logR.slice());
+function logPush(e){logR.push(e);
+  if(logR.length>=2000){logA=logA.concat(logR).slice(-28000);ls.set('xc_logA',logA);logR=[]}
+  ls.set('xc_log',logR);logCache=null}
+let saveT=0;
+function flush(){clearTimeout(saveT);saveT=0;ls.set('xc_mem',mem)}
+const saveMem=()=>{clearTimeout(saveT);saveT=setTimeout(flush,300)};
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&saveT)flush()});
+addEventListener('pagehide',()=>{if(saveT)flush()});
+
+const okS=se=>!!se&&se[3]>1;
+const LN121=Math.log(121);
+function levelOf(e){if(!e||!e.w)return -1;let L=cl(Math.round(20*Math.log(1+e.w[1])/LN121),0,20);
+  if(L>13&&e.L!==1&&!(okS(e.f)&&okS(e.s)))L=13;return L}
+const skLevel=se=>se?cl(Math.round(20*Math.log(1+se[1])/LN121),0,20):-1;
+const isState=a=>Array.isArray(a)&&a.length>=3&&a.slice(0,3).every(Number.isFinite)&&a[0]>=1&&a[0]<=10&&a[1]>0;
+function cleanEntry(e){
+  if(!e||typeof e!=='object'||!isState(e.w))return null;
+  const o={w:[r2(e.w[0]),r3(e.w[1]),Math.round(e.w[2])],i:Number.isFinite(e.i)?Math.round(e.i):0};
+  for(const k of ['m','f','s'])if(isState(e[k]))o[k]=[r2(e[k][0]),r3(e[k][1]),Math.round(e[k][2]),cl(e[k][3]|0,1,4),Math.max(0,e[k][4]|0)];
+  if(e.L===1||e.L===2)o.L=e.L;if(e.p===1)o.p=1;return o}
+for(const id in mem){const c=IDX.has(id)?cleanEntry(mem[id]):null;if(c)mem[id]=c;else delete mem[id]}
+
+/* Keep the old per-word records (stats) and the memory states in step: old progress becomes a state with the
+   same level ("needs confirming"); every level is recalculated from the state. */
+function sync(){const t=now();
+  for(const id in stats){const e=stats[id];if(!IDX.has(id)||e[0]+e[1]<=0||mem[id])continue;
+    const L=cl(e[2]|0,0,20),S=Math.max(.1,Math.pow(121,L/20)-1),D=cl(4+6*e[1]/Math.max(1,e[0]+e[1]),1,10);
+    mem[id]={w:[r2(D),r3(S),t],i:0,L:1}}
+  for(const id in mem){const st=stats[id]||(stats[id]=[0,0,0]);st[2]=Math.max(0,levelOf(mem[id]))}
+  charS=null;flush();saveStats()}
+
+/* ---- answering ---- */
+const SK={cm:'m',cs:'s',cn:'m',m:'m',f:'f',s:'s',l:'s',c:'f'};
+const DEFMS={cm:4500,cs:4500,cu:4500,cn:4500,m:5000,f:6000,s:6000,l:7000,c:9000};
+const QUIZ=new Set(['m','f','s','l','c']);
+let last=null;
+function medMs(q){const L=allLog(),a=[];for(let i=L.length-1;i>=0&&a.length<40&&i>L.length-800;i--){const e=L[i];if(e[2]===q&&e[3]>1)a.push(e[4]*100)}
+  if(a.length<8)return DEFMS[q]||6000;a.sort((x,y)=>x-y);return a[a.length>>1]}
+function grade(o,e){const med=medMs(o.q);let g=o.ms<=med*1.8?3:2;
+  if(g===3&&o.ms<med*.6&&e.w&&e.w[1]>=3&&!/^(m|cm|cu)$/.test(o.q))g=4;return g}
+function knownShare(d){
+  if(!charS){charS=new Map();for(const id in mem){const x=IDX.get(id),s=mem[id].w[1];for(const c of x.h){if((charS.get(c)||0)<s)charS.set(c,s)}}}
+  const cs=[...new Set(d.h)];return cs.filter(c=>(charS.get(c)||0)>=2).length/cs.length}
+/* o: {q: type, ok, ms, x: wrong pick id, claim, over: sure but wrong, unchecked, exam} */
+function answer(d,o){
+  const t=now(),id=d.id,had=mem[id];
+  const flags=(o.unchecked?1:0)|(o.claim?2:0)|(o.over?4:0)|(o.exam?8:0),ms=Math.min(9999,Math.round((o.ms||0)/100));
+  if(o.exam&&!had&&!o.ok){logPush([t,id,o.q,1,ms,o.x||0,flags]);if(o.x)addConf(id,o.x);return {g:1,before:-1,after:-1}}
+  last={id,mem:had?JSON.parse(JSON.stringify(had)):null,st:stats[id]?stats[id].slice():null,n:logR.length};
+  const e=had||{i:t},before=levelOf(had),g=o.ok?grade(o,e):1;
+  if(!had&&o.exam)e.p=1;                             /* known already (exam practice): not one of today's new words */
+  e.w=step(W,e.w,g,t,had?0:knownShare(d));
+  if(o.over)e.w[0]=Math.min(10,e.w[0]+1);            /* sure but wrong: the word becomes harder */
+  e.w=[r2(e.w[0]),r3(e.w[1]),t];
+  const k=o.unchecked?null:SK[o.q];
+  if(k){const se=e[k],ns=step(W,se?se.slice(0,3):null,g,t,0);e[k]=[r2(ns[0]),r3(ns[1]),t,g,(se?se[4]:0)+(g>1?1:0)]}
+  if(e.L===1&&e.f&&e.s)e.L=2;
+  mem[id]=e;
+  const st=stats[id]||[0,0,0];if(o.ok)st[0]++;else st[1]++;st[2]=levelOf(e);stats[id]=st;
+  logPush([t,id,o.q,g,ms,o.x||0,flags]);
+  if(o.x)addConf(id,o.x);
+  if(!had)charS=null;
+  saveMem();saveStats();
+  return {g,before,after:st[2]}}
+/* "Turns out I was wrong" right after an unchecked claim: take that answer back */
+function undo(){if(!last)return false;const L=last;last=null;
+  if(L.mem)mem[L.id]=L.mem;else delete mem[L.id];
+  if(L.st)stats[L.id]=L.st;else delete stats[L.id];
+  if(logR.length>L.n){logR.length=L.n;ls.set('xc_log',logR);logCache=null}
+  charS=null;saveMem();saveStats();return true}
+
+/* ---- confusions: which words get mixed up (from wrong picks) ---- */
+const pairKey=(a,b)=>a<b?a+'|'+b:b+'|'+a;
+function confs(){if(!confMap){confMap=new Map();for(const e of allLog())if(e[5]&&IDX.has(e[5])){const k=pairKey(e[1],e[5]);confMap.set(k,(confMap.get(k)||0)+1)}}return confMap}
+function addConf(a,b){if(!confMap||!IDX.has(b))return;const k=pairKey(a,b);confMap.set(k,(confMap.get(k)||0)+1)}
+function partners(id){const out=[];for(const [k,n] of confs()){const [a,b]=k.split('|');if(a===id)out.push([b,n]);else if(b===id)out.push([a,n])}
+  return out.sort((x,y)=>y[1]-x[1]).map(x=>x[0])}
+
+/* ---- calibration: how often "I know" turned out right; honest learners get fewer checks ---- */
+function calib(){const L=allLog();let n=0,c=0;for(let i=L.length-1;i>=0&&n<40;i--){const e=L[i];if(e[2]==='cm'||e[2]==='cs'){n++;if(e[3]>1)c++}}return {n,acc:n?c/n:0}}
+function checkP(d){const e=mem[d.id];if(!e||e.L===1||!(e.m||e.s))return 1;const c=calib();if(c.n<8)return 1;return cl((1-c.acc)*4+.25,.25,1)}
+function checkType(d,heard){const e=mem[d.id],t=now();if(heard||!e||!okS(e.m))return 'cm';
+  const r=se=>se?Rt((t-se[2])/1440,se[1]):0;return r(e.s)<r(e.m)?'cs':'cm'}
+
+/* ---- question material ---- */
+let IX=null;
+function ix(){if(IX)return IX;const byChar=new Map(),byPk=new Map(),push=(m,k,v)=>{let a=m.get(k);if(!a)m.set(k,a=[]);a.push(v)};
+  DATA.forEach(d=>{for(const c of new Set(d.h))push(byChar,c,d);push(byPk,d.pk,d)});return IX={byChar,byPk}}
+const fullPy=d=>d.p.toLowerCase().replace(/['\s]/g,'');
+function similar(d){const {byChar,byPk}=ix(),out=[],seen=new Set([d.id]);
+  const add=x=>{if(x&&!seen.has(x.id)){seen.add(x.id);out.push(x)}};
+  partners(d.id).forEach(id=>add(IDX.get(id)));
+  (byPk.get(d.pk)||[]).forEach(add);
+  const sh=[];for(const c of new Set(d.h))for(const x of byChar.get(c)||[])if(!seen.has(x.id))sh.push(x);
+  const n=[...d.h].length,sc=x=>Math.abs([...x.h].length-n)*2+Math.abs(x.l-d.l)+Math.random();
+  [...new Set(sh)].map(x=>[sc(x),x]).sort((a,b)=>a[0]-b[0]).forEach(p=>add(p[1]));return out}
+function recentAcc(){const L=allLog();let n=0,c=0;for(let i=L.length-1;i>=0&&n<30;i--){const e=L[i];if(QUIZ.has(e[2])&&!(e[6]&8)){n++;if(e[3]>1)c++}}return {n,acc:n?c/n:0}}
+/* how often a wrong option is a look-alike: more for words you know better, adjusted to keep you near 80–85 % right */
+function hardness(d){const L=levelOf(mem[d.id]);let h=L<0?.15:L<7?.3:L<14?.6:.85;const a=recentAcc();
+  if(a.n>=10){if(a.acc>.88)h+=.15;else if(a.acc<.72)h-=.25}return cl(h,0,1)}
+function shuf(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+/* four options: the word plus three others (wrong options never share the word's meaning, and never sound the same in a listening question) */
+function wordOpts(d,type){
+  const used=new Set([type==='m'?M1(d).toLowerCase():d.h]),fp=fullPy(d),picks=[];
+  const okX=x=>{if(x.id===d.id)return false;if(type==='m'){const m=M1(x).toLowerCase();return !!m&&!used.has(m)}
+    if(used.has(x.h))return false;if(type==='l'&&fullPy(x)===fp)return false;if(M1(x).toLowerCase()===M1(d).toLowerCase())return false;return true};
+  const take=x=>{picks.push(x);used.add(type==='m'?M1(x).toLowerCase():x.h)};
+  const h=type==='c'?0:hardness(d),sim=type==='c'?[]:similar(d),n=[...d.h].length;
+  const near=BY[d.l].filter(x=>Math.abs(x.u-d.u)<=3);
+  const rnd=shuf(near.length>=12?near:BY[d.l]).map(x=>[(type==='m'?0:Math.abs([...x.h].length-n))+Math.random()*1.5,x]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]);
+  let si=0,ri=0;
+  while(picks.length<3&&(si<sim.length||ri<rnd.length)){
+    let x=null;
+    if(Math.random()<h)while(si<sim.length&&!x){const c=sim[si++];if(okX(c))x=c}
+    while(!x&&ri<rnd.length){const c=rnd[ri++];if(okX(c))x=c}
+    while(!x&&si<sim.length){const c=sim[si++];if(okX(c))x=c}
+    if(x)take(x);else break}
+  return shuf([d,...picks])}
+/* tone options: the word's pinyin plus three versions with other tones. 一 and 不 (tone changes) and neutral-tone
+   syllables (many also have a dictionary tone, e.g. 出来 chūlai/chūlái) keep theirs, unless nothing else can change */
+const MARKS={a:'āáǎà',e:'ēéěè',i:'īíǐì',o:'ōóǒò',u:'ūúǔù','ü':'ǖǘǚǜ'};
+const bareSyl=s=>s.normalize('NFD').replace(/[̀́̄̌]/g,'').normalize('NFC');
+function markTone(p,t){if(t===5)return p;const low=p.toLowerCase();let i=low.indexOf('a');if(i<0)i=low.indexOf('e');if(i<0&&low.includes('ou'))i=low.indexOf('o');
+  if(i<0)for(let j=low.length-1;j>=0;j--)if('iouü'.includes(low[j])){i=j;break}
+  if(i<0)return p;const ch=low[i],m=MARKS[ch];if(!m)return p;let r=m[t-1];if(p[i]!==ch)r=r.toUpperCase();return p.slice(0,i)+r+p.slice(i+1)}
+const NEAR={1:[4,2,3],2:[3,1,4],3:[2,4,1],4:[1,3,2],5:[4,1,3]};
+function toneOpts(d){
+  const syl=d.s,ch=[...d.h],key=a=>a.join(' '),seen=new Set([key(syl)]),out=[];
+  const can=i=>markTone(bareSyl(syl[i]),1)!==bareSyl(syl[i]);
+  let idx=syl.map((_,i)=>i).filter(i=>can(i)&&tone(syl[i])!==5&&!(syl.length===ch.length&&(ch[i]==='一'||ch[i]==='不')));
+  if(!idx.length)idx=syl.map((_,i)=>i).filter(can);
+  const vary=(a,i,t)=>{const b=a.slice();b[i]=markTone(bareSyl(a[i]),t);return b};
+  const near=[],far=[];
+  for(const i of idx){const N=NEAR[tone(syl[i])];near.push(vary(syl,i,N[0]),vary(syl,i,N[1]));far.push(vary(syl,i,N[2]))}
+  for(let k=0;k<16&&idx.length>1;k++){const i=idx[Math.random()*idx.length|0],j=idx[Math.random()*idx.length|0];if(i===j)continue;
+    far.push(vary(vary(syl,i,NEAR[tone(syl[i])][Math.random()*2|0]),j,NEAR[tone(syl[j])][Math.random()*2|0]))}
+  for(const v of shuf(near).concat(shuf(far))){if(out.length===3)break;const k=key(v);if(!seen.has(k)){seen.add(k);out.push(v)}}
+  const opts=shuf([syl,...out]);return {opts,ans:opts.indexOf(syl)}}
+const clozeOK=d=>d.z.includes(d.h);
+let ttsReady=()=>false;
+/* material for one question: {opts, ans} — ans is the index of the right option */
+function question(d,q){
+  if(q==='s'||q==='cs')return toneOpts(d);
+  const opts=wordOpts(d,q==='cm'?'m':q);return {opts,ans:opts.indexOf(d)}}
+
+/* ---- what to ask next ---- */
+const has=(e,k)=>!!e&&!!e[k]&&e[k][4]>0;
+let skillW={m:0,f:0,s:0};      /* weakest skill overall gets a nudge */
+function pickType(d){const e=mem[d.id],t=now();if(!e)return 'm';
+  if(e.L===1){if(!e.f)return 'f';if(!e.s)return 's'}
+  const r=se=>se?Rt((t-se[2])/1440,se[1]):0,c=[['m',r(e.m)]];
+  if(has(e,'m')||e.L){c.push(['f',r(e.f)]);c.push(['s',r(e.s)])}
+  const k=c.map(([k,v])=>[k,v-skillW[k]+Math.random()*.12]).sort((a,b)=>a[1]-b[1])[0][0];
+  if(k==='f'&&has(e,'f')&&clozeOK(d)&&Math.random()<.4)return 'c';
+  if(k==='s'&&has(e,'s')&&ttsReady()&&Math.random()<.4)return 'l';
+  return k}
+function dr(g=goal){if(g&&g.t==='exam'&&g.date){const dl=daysTo(g.date);if(dl>=0&&dl<=30)return .9+.05*(1-dl/30)}return .9}
+const rNow=(e,t)=>e&&e.w?Rt((t-e.w[2])/1440,e.w[1]):0;
+/* words in curriculum order that haven't been seen yet; ones whose characters you already know come a little earlier,
+   and two look-alikes (shared character or same syllables) are never introduced together */
+function pickNew(n,src){if(n<=0)return [];const cand=[];for(const d of src){if(!mem[d.id])cand.push(d);if(cand.length>=60)break}
+  const sc=cand.map((d,i)=>[i-14*knownShare(d),d]).sort((a,b)=>a[0]-b[0]).map(p=>p[1]),out=[],chars=new Set(),pks=new Set();
+  for(const d of sc){if(out.length>=n)break;if([...d.h].some(c=>chars.has(c))||pks.has(d.pk))continue;out.push(d);[...d.h].forEach(c=>chars.add(c));pks.add(d.pk)}
+  for(const d of sc){if(out.length>=n)break;if(!out.includes(d))out.push(d)}
+  return out}
+const tsort=a=>a.slice().sort((x,y)=>x.l-y.l||x.n-y.n);
+/* Cards: due words first (lowest recall chance), then up to half a round of new ones, then the rest by weakness */
+function cardDeck(pool,n){const t=now(),r=dr(),due=[],rest=[];
+  for(const d of pool){const e=mem[d.id];if(!e)continue;const R=rNow(e,t);if(R<r)due.push([R,d]);else rest.push([R,d])}
+  due.sort((a,b)=>a[0]-b[0]);rest.sort((a,b)=>a[0]-b[0]);
+  const out=due.slice(0,n).map(p=>p[1]);
+  if(out.length<n)out.push(...pickNew(Math.min(n-out.length,Math.max(4,Math.round(n/2))),tsort(pool)));
+  for(const p of rest){if(out.length>=n)break;out.push(p[1])}
+  return out.slice(0,n)}
+/* Quiz round inside the chosen level/unit; type null = the app chooses per word */
+function quizRound(pool,n,type){const t=now(),r=dr(),sc=[];
+  const src=type==='c'?pool.filter(clozeOK):pool;
+  for(const d of src){const e=mem[d.id];if(!e)continue;const R=rNow(e,t);sc.push([R<r?R:e.L===1?.95:1+R,d])}
+  sc.sort((a,b)=>a[0]-b[0]);
+  let words=sc.slice(0,n).map(p=>p[1]);
+  const fresh=pickNew(Math.max(type?0:3,n-words.length),tsort(src));
+  if(!type&&words.length>n-3&&fresh.length)words=words.slice(0,Math.max(0,n-Math.min(3,fresh.length)));
+  words=words.concat(fresh).slice(0,n);
+  return shuf(words).map(d=>({k:'q',d,q:type||pickType(d)}))}
+/* Exam simulation: a uniform sample of the cumulative vocabulary up to the level, mixed question types */
+function exam(lv,n){const src=DATA.filter(d=>d.l<=lv),out=[];const seen=new Set();
+  while(out.length<n&&seen.size<src.length){const d=src[Math.random()*src.length|0];if(seen.has(d.id))continue;seen.add(d.id);
+    const x=Math.random();let q=x<.3?'m':x<.55?'f':x<.75?'s':'c';if(q==='c'&&!clozeOK(d))q='f';if(q==='s'&&ttsReady()&&Math.random()<.4)q='l';
+    out.push({k:'q',d,q})}
+  return out}
+
+/* ---- goals and the daily plan ---- */
+function validGoal(g){return !!g&&typeof g==='object'&&['level','exam','none'].includes(g.t)&&
+  (g.t==='none'||(LEVELS.includes(g.lv)&&/^\d{4}-\d\d-\d\d$/.test(g.date||'')))&&['min','new','auto'].includes(g.pace)&&(g.pace==='auto'||g.n>0)}
+function daysTo(date){const [y,m,d]=date.split('-').map(Number),a=new Date(y,m-1,d),b=new Date();b.setHours(0,0,0,0);return Math.round((a-b)/864e5)}
+function dayAfter(n){const d=new Date();d.setHours(12,0,0,0);d.setDate(d.getDate()+Math.round(n));return d}
+const isoDay=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+/* seconds per review / per new word, learned from your own answering speed */
+function pace(){const L=allLog(),a=[],c=[];for(let i=L.length-1;i>=0&&i>L.length-600;i--){const e=L[i];if(QUIZ.has(e[2]))a.push(e[4]/10);else if(e[2][0]==='c')c.push(e[4]/10)}
+  const med=x=>{x.sort((p,q)=>p-q);return x[x.length>>1]};
+  return {rev:a.length>=15?cl(med(a)+4,5,30):10,neu:c.length>=10?cl(med(c)+24,18,60):30}}
+/* days until every target word has been introduced; with a minutes-per-day budget the reviews of words already
+   learned take a growing share of the time (about 0.08 reviews a day per word), so fewer new words fit later on */
+function finishDays(g,nd,remaining,load,sp){
+  if(g.pace!=='min')return nd>0?Math.ceil(remaining/nd):null;
+  const perNew=sp.neu+2.5*sp.rev;let rem=remaining,l=load,d=0;
+  while(rem>0&&d<1500){const n=cl(Math.floor((g.n*60-l*sp.rev)/perNew),0,40);if(n<=0)return null;rem-=n;l+=n*.08;d++}
+  return rem>0?null:d}
+/* the fewest minutes a day that still introduce every target word in time (null if even 4 hours a day can't) */
+function minutesFor(remaining,load,sp,limit){const fd=m=>finishDays({pace:'min',n:m},0,remaining,load,sp);
+  const ok=m=>{const d=fd(m);return d!==null&&d<=limit};if(!ok(240))return null;let lo=1,hi=240;
+  while(lo<hi){const m=(lo+hi)>>1;if(ok(m))hi=m;else lo=m+1}return lo}
+function plan(g=goal){
+  const t=now(),today=dayOf(t),r=dr(g),sp=pace();
+  let due=0,load=0,introT=0;
+  for(const id in mem){const e=mem[id];if(rNow(e,t)<r)due++;load+=1/Math.max(1,ivl(e.w[1],r));if(e.i&&!e.p&&dayOf(e.i)===today)introT++}
+  let ansT=0,secT=0;const L=allLog();for(let i=L.length-1;i>=0;i--){const e=L[i];if(dayOf(e[0])!==today)break;ansT++;secT+=e[4]/10+4}
+  const P={t:g?g.t:'none',due,introT,ansT,minT:Math.round(secT/60),sp};
+  let remaining=null,need=0,days=null,buffer=0;
+  if(g&&g.t!=='none'){const tw=DATA.filter(d=>d.l<=g.lv);remaining=tw.filter(d=>!mem[d.id]).length;
+    days=daysTo(g.date);buffer=g.t==='exam'?Math.min(7,Math.floor(Math.max(0,days)/4)):Math.min(3,Math.floor(Math.max(0,days)/5));
+    need=remaining?Math.ceil(remaining/Math.max(1,days-buffer)):0;P.lv=g.lv;P.date=g.date}
+  P.remaining=remaining;P.need=need;P.days=days;
+  const perNew=sp.neu+2.5*sp.rev;
+  let nd;
+  if(g&&g.pace==='min')nd=cl(Math.floor((g.n*60-load*sp.rev)/perNew),0,40);
+  else if(g&&g.pace==='new')nd=g.n;
+  else nd=remaining!==null?cl(need,3,40):10;
+  if(remaining===0)nd=0;
+  if(g&&g.t==='exam'&&days!==null&&days<=7)nd=0;
+  if(remaining!==null&&remaining>0)nd=Math.min(nd,remaining);
+  P.newPerDay=nd;P.revPerDay=Math.round(load+nd*2.5);
+  P.minutes=Math.max(1,Math.round((P.revPerDay*sp.rev+nd*sp.neu)/60));
+  P.needMin=remaining?minutesFor(remaining,load,sp,Math.max(1,days-buffer)):null;
+  P.newToday=Math.max(0,nd-introT);
+  /* reviews today are capped by the daily time (or 1.5× a normal day), most at-risk first, so days off never pile up */
+  let cap=Math.max(0,Math.max(20,Math.round(P.revPerDay*1.5))-ansT);
+  if(g&&g.pace==='min')cap=Math.max(0,Math.floor((g.n*60-secT-P.newToday*sp.neu)/sp.rev));
+  P.revToday=Math.min(due,cap);
+  if(!g||g.t==='none')P.status='free';
+  else if(days<0)P.status='past';
+  else if(remaining===0)P.status='review';
+  else if(g.t==='exam'&&days<=7)P.status='examweek';
+  else{const fd=finishDays(g,nd,remaining,load,sp);P.finish=fd===null?null:dayAfter(fd);
+    P.status=fd!==null&&fd<=days-buffer?'ok':'behind';
+    /* a later date that works: at this pace, or (if the reviews would fill the time first) at 20 new words a day */
+    if(P.status==='behind'){const fdays=fd===null?Math.ceil(remaining/20)+buffer:fd+buffer;P.fixDate=fdays>days?dayAfter(fdays):null}}
+  P.todayLeft=P.newToday*2+P.revToday;return P}
+/* today's session: due reviews (most at risk first), up to three old green words to confirm, new words as cards */
+function session(extra){
+  const P=plan(),t=now(),r=dr();
+  const src=goal&&goal.t!=='none'?tsort(DATA.filter(d=>d.l<=goal.lv)):tsort(unit()?BY[state.level].filter(d=>d.u===unit()):BY[state.level]).concat(tsort(DATA));
+  let rev=[],conf=[];
+  const all=[];for(const id in mem){const e=mem[id];all.push([rNow(e,t),IDX.get(id),e])}
+  all.sort((a,b)=>a[0]-b[0]);
+  if(extra)rev=all.slice(0,12).map(p=>p[1]);
+  else{rev=all.filter(p=>p[0]<r).slice(0,P.revToday).map(p=>p[1]);
+    conf=all.filter(p=>p[2].L===1&&levelOf(p[2])>13&&!rev.includes(p[1])).sort((a,b)=>levelOf(b[2])-levelOf(a[2])).slice(0,3).map(p=>p[1])}
+  const fresh=pickNew(extra?5:P.newToday,src);
+  const q=rev.map(d=>({k:'q',d,q:pickType(d)}));
+  conf.forEach(d=>{const e=mem[d.id];if(!e.f)q.push({k:'q',d,q:'f'});if(!e.s)q.push({k:'q',d,q:'s'})});
+  const items=shuf(q),out=[];let k=0;
+  for(const d of fresh){out.push(...items.splice(0,k?3:1));out.push({k:'card',d,isNew:true});k++}
+  return out.concat(items)}
+
+/* ---- insights for the Stats screen ---- */
+function insights(){
+  const t=now(),L=allLog(),acc={},cnt={};let n7=0,ver=0;
+  for(let i=L.length-1;i>=0;i--){const e=L[i];if(t-e[0]<7*1440)n7++;if(!(e[6]&1))ver++;
+    const q=e[2];if(QUIZ.has(q)&&(cnt[q]||0)<150){cnt[q]=(cnt[q]||0)+1;acc[q]=(acc[q]||0)+(e[3]>1?1:0)}}
+  const skills={};for(const q of ['m','f','s','l','c'])if(cnt[q])skills[q]={n:cnt[q],p:Math.round(acc[q]/cnt[q]*100)};
+  let rs=0,rn=0;for(const id in mem){rs+=rNow(mem[id],t);rn++}
+  const pairs=[...confs()].filter(p=>p[1]>=1).sort((a,b)=>b[1]-a[1]).slice(0,3).map(([k,c])=>{const [a,b]=k.split('|');return [IDX.get(a),IDX.get(b),c]});
+  const weak=Object.entries(skills).filter(p=>p[1].n>=10).sort((a,b)=>a[1].p-b[1].p)[0];
+  return {recall:rn?Math.round(rs/rn*100):null,n7,cal:calib(),skills,weak:weak&&weak[1].p<85?weak[0]:null,pairs,verified:ver,total:L.length,
+    spaced:lossOf(W,seqs()).n,model:wMeta?{n:wMeta.n,at:wMeta.at}:null,need:MINFIT}}
+function updWeak(){const s=insights().skills,a=k=>{const q=k==='m'?['m']:k==='f'?['f','c']:['s','l'];let n=0,p=0;q.forEach(x=>{if(s[x]){n+=s[x].n;p+=s[x].p*s[x].n}});return n>=10?p/n/100:null};
+  for(const k of ['m','f','s']){const v=a(k);skillW[k]=v===null?0:cl((.9-v)*.6,0,.25)}}
+
+/* ---- personalising the model: fit the 19 parameters to this learner's own answers (on the phone) ---- */
+const MINFIT=400;
+function seqs(){const by=new Map();for(const e of allLog().slice(-12000)){if(e[6]&1)continue;const m=mem[e[1]];if(m&&m.L)continue;
+  let a=by.get(e[1]);if(!a)by.set(e[1],a=[]);a.push([e[0],e[3]])}return [...by.values()]}
+function lossOf(w,S){let ll=0,n=0;for(const q of S){let st=null;for(const [t,g] of q){
+  if(st&&!sameDay(t,st[2])){const p=cl(Rt((t-st[2])/1440,st[1]),1e-4,1-1e-4);ll-=g>1?Math.log(p):Math.log(1-p);n++}st=step(w,st,g,t,0)}}return {ll,n}}
+let fitting=false;
+async function optimize(force){
+  if(fitting)return null;const S=seqs(),base=lossOf(W0,S);if(base.n<MINFIT&&!force)return null;if(!base.n)return null;
+  fitting=true;try{
+  const sc=W0.map(x=>Math.max(.05,Math.abs(x)*.5)),N=base.n;
+  const toW=z=>z.map((v,i)=>cl(W0[i]+v*sc[i],LB[i],UB[i]));
+  const f=z=>lossOf(toW(z),S).ll/N+2/N*z.reduce((s,v)=>s+v*v,0);
+  let z=W0.map(()=>0),m=z.map(()=>0),v=z.map(()=>0),fz=f(z);const lr=.06,eps=.01;
+  /* small slices of work between frames, so the app stays smooth while this runs */
+  const idle=()=>new Promise(r=>window.requestIdleCallback?requestIdleCallback(()=>r(),{timeout:250}):setTimeout(r,16));
+  for(let it=1;it<=50;it++){
+    const g=[];for(let i=0;i<19;i++){const z2=z.slice();z2[i]+=eps;g.push((f(z2)-fz)/eps);if(i%4===3)await idle()}
+    z=z.map((zi,i)=>{m[i]=.9*m[i]+.1*g[i];v[i]=.999*v[i]+.001*g[i]*g[i];const mh=m[i]/(1-Math.pow(.9,it)),vh=v[i]/(1-Math.pow(.999,it));return zi-lr*mh/(Math.sqrt(vh)+1e-8)});
+    z=toW(z).map((w,i)=>(w-W0[i])/sc[i]);fz=f(z);
+    await idle()}
+  const w=toW(z),ll=lossOf(w,S).ll/N,ll0=base.ll/N;
+  ls.set('xc_fit',{at:now(),len:allLog().length});
+  if(ll<ll0-.002){W=w.map(x=>Math.round(x*1e4)/1e4);wMeta={w:W,n:N,at:now(),ll:r3(ll),ll0:r3(ll0)};ls.set('xc_w',wMeta)}
+  return {ll,ll0,n:N,used:ll<ll0-.002}}finally{fitting=false}}
+function maybeOptimize(){const o=ls.get('xc_fit',null),L=allLog().length;
+  if(o&&(now()-o.at<1440||L-o.len<100))return;optimize(false).catch(()=>{})}
+
+/* ---- backup, reset, history ---- */
+function exportMem(){flush();return mem}
+function importMem(o){if(!o||typeof o!=='object'||Array.isArray(o))return null;const out={};
+  for(const id in o){if(!IDX.has(id))continue;const c=cleanEntry(o[id]);if(c)out[id]=c}return out}
+function replace(m,g,w){mem=m||{};if(g!==undefined){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)}
+  if(Array.isArray(w)&&w.length===19&&w.every((x,i)=>Number.isFinite(x)&&x>=LB[i]&&x<=UB[i])){W=w.slice();wMeta={w:W,n:0,at:now()};ls.set('xc_w',wMeta)}
+  confMap=null;charS=null;last=null;sync()}
+function forget(id){delete mem[id];charS=null;saveMem()}
+function clearLog(){logR=[];logA=[];logCache=null;confMap=null;last=null;ls.set('xc_log',[]);ls.set('xc_logA',[]);
+  W=W0.slice();wMeta=null;try{localStorage.removeItem('xc_w');localStorage.removeItem('xc_fit')}catch(e){}skillW={m:0,f:0,s:0}}
+
+sync();updWeak();
+return {now,dayOf,Rt,step,W0,get W(){return W},levelOf,skLevel,okS,answer,undo,checkP,checkType,question,pickType,cardDeck,quizRound,exam,session,
+  plan,dr,isoDay,dayAfter,daysTo,validGoal,get goal(){return goal},setGoal(g){goal=validGoal(g)?g:null;ls.set('xc_goal',goal)},
+  mem:id=>mem[id],has:id=>!!mem[id],rNow:id=>rNow(mem[id],now()),nextDue(id){const e=mem[id];if(!e)return null;return (e.w[2]+ivl(e.w[1],dr())*1440-now())/1440},
+  insights,updWeak,optimize,maybeOptimize,lossOf,seqs,exportMem,importMem,replace,forget,clearLog,sync,flush,allLog,partners,
+  setTts(f){ttsReady=f},clozeOK,markTone,bareSyl,get params(){return wMeta?W:null}}})();
+
 
 const ui=ls.get('hsk16_ui',{});
 let state={level:LEVELS.includes(ui.level)?ui.level:1,unitBy:Object.assign({1:1,2:1,3:1,4:1,5:1,6:1},ui.unitBy||{}),q:'',shown:60,hide:false,weak:false,screen:'home'};
-const saveUI=()=>ls.set('hsk16_ui',{level:state.level,unitBy:state.unitBy});
+let qType=['auto','m','f','s','l','c','exam'].includes(ui.qt)?ui.qt:'auto';
+const saveUI=()=>ls.set('hsk16_ui',{level:state.level,unitBy:state.unitBy,qt:qType});
 const unit=()=>state.unitBy[state.level];
 const pad=n=>String(n).padStart(2,'0');
-const FOCUS=['list','card','quiz'];
+const FOCUS=['list','card','quiz','session'];
 
 /* theme: one button cycles auto → light → dark */
 const TH_ICON={
@@ -999,7 +1665,8 @@ function go(s){
 function show(s){
   closeMenu(false);closeUMenu(false);closeLang(false);
   if(s==='stats'){if(state.screen!=='stats')prevScreen=state.screen;stLevel=state.level;stSel=null;stConfirm=false}
-  if(s==='card')startCards();if(s==='quiz')startQuiz();
+  resetRun();
+  if(s==='stats')stHist=false;
   state.screen=s;
   scrHome.hidden=s!=='home';scrFocus.hidden=!FOCUS.includes(s);scrStats.hidden=s!=='stats';
   if(FOCUS.includes(s)){scrFocus.dataset.mode=s;$('fTitle').textContent=L10[s];$('listTools').hidden=s!=='list';$('footNote').hidden=s!=='list'}
@@ -1018,8 +1685,7 @@ function refresh(){
   renderChips();
   if(state.screen==='home')renderHome();
   else if(state.screen==='list')renderList();
-  else if(state.screen==='card')renderCard();
-  else if(state.screen==='quiz')renderQuiz();
+  else if(state.screen==='card'||state.screen==='quiz'||state.screen==='session')renderRun();
   else renderStats();
 }
 function afterChange(){
@@ -1045,6 +1711,7 @@ function renderHome(){
   $('heroGo').textContent=L10.statsShort+' ›';
   hero.setAttribute('aria-label',`${L10.stTitle} · HSK ${L} · ${pc}`);
   $('allNote').innerHTML=L10.allLv(fmt(masteredAll()),fmt(DATA.length));
+  renderPlan();
   if(window.mmHomeRendered)window.mmHomeRendered(S);
 }
 $('lvPills').onclick=e=>{const p=e.target.closest('.lvpill');if(p&&+p.dataset.l!==state.level)setLevel(+p.dataset.l)};
@@ -1139,7 +1806,9 @@ function setLang(pref,silent){
   const l=pref==='auto'?sysLang():pref,changed=l!==lang;
   lang=l;L10=I18N[l];
   if(changed){buildKeys();applyStatic();
-    if(qz.cur&&!qz.answered&&new Set(qz.opts.map(M1)).size<qz.opts.length)newQ();
+    if(run){const it=run.items[run.i],dup=a=>new Set(a.map(M1)).size<a.length;   /* two options can share a meaning in the new language */
+      if(it&&it.k==='q'&&it.q==='m'&&!it.done&&it.opts&&dup(it.opts))delete it.opts;
+      if(it&&it.k==='card'&&it.st==='check'&&it.chk.q==='cm'&&dup(it.chk.opts))it.chk=Object.assign({q:'cm'},LM.question(it.d,'cm'))}
     refresh()}
   if(!silent)toast(pref==='auto'?L10.auto+' · '+L10.name:L10.name);
 }
@@ -1168,84 +1837,168 @@ const hideBtn=$('hideMean'),weakBtn=$('onlyNew');
 hideBtn.onclick=()=>{state.hide=!state.hide;hideBtn.setAttribute('aria-pressed',state.hide);renderList()};
 weakBtn.onclick=()=>{state.weak=!state.weak;weakBtn.setAttribute('aria-pressed',state.weak);state.shown=60;renderList()};
 
-/* ---------- flashcards ---------- */
-let deck=[],di=0,flipped=false;
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-function startCards(){const p=pool();const weak=p.filter(d=>!isKnown(d));deck=shuffle(weak.length?weak:p);di=0;flipped=false}
-function renderCard(){
-  if(!deck.length)startCards();
-  if(di>=deck.length){view.innerHTML=`<div class="qcard"><div class="big t3">好!</div><p>${L10.roundDone}</p><button class="next" id="again">${L10.newRound}</button></div>`;return}
-  const d=deck[di];
-  view.innerHTML=`<div class="fcmeta"><span>${L10.cardN(di+1,deck.length)}</span><span class="mbar"><span class="stack"><i style="width:${di/deck.length*100}%;background:var(--acc)"></i></span></span></div>
-  <div class="flip ${flipped?'on':''}" id="flip" role="button" tabindex="0" aria-label="${L10.flip}">
-   <div class="inner">
-    <div class="face">${stH(d)}<div class="big">${esc(d.h)}</div>${spk(d.h,' lg')}<div class="hint">${L10.flipHint}</div></div>
-    <div class="face back"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div>
-      <div class="mean">${mH(M(d))}</div><div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div></div></div>
-   </div></div>
-  <div class="fcbtns"><button class="no-btn" id="fcNo">${L10.notYet}</button><button class="yes-btn" id="fcYes">${L10.got}</button></div>
-  <div class="fcnav"><button class="ghost" id="fcPrev">${L10.prev}</button><button class="ghost" id="fcShuf">${L10.reshuffle}</button></div>`;
-}
-function fcAnswer(ok){const d=deck[di];if(!d)return;window.mmFeedback&&mmFeedback(ok);record(d,ok);if(!ok)deck.push(d);di++;flipped=false;renderCard()}
-view.addEventListener('click',e=>{
-  if(state.screen!=='card')return;
-  const id=e.target.closest('[id]')?.id;
-  if(id==='flip'){flipped=!flipped;$('flip').classList.toggle('on',flipped)}
-  else if(id==='fcYes')fcAnswer(true);else if(id==='fcNo')fcAnswer(false);
-  else if(id==='fcPrev'&&di>0){di--;flipped=false;renderCard()}
-  else if(id==='fcShuf'||id==='again'){startCards();renderCard()}
-});
-
-/* ---------- quiz ---------- */
-let qz={type:'meaning',cur:null,opts:[],answered:false,pick:-1,right:0,total:0,streak:0};
-function startQuiz(){qz.right=0;qz.total=0;qz.streak=0;newQ()}
-function newQ(){const p=pool();const weak=p.filter(d=>!isKnown(d));const src=weak.length&&Math.random()<.7?weak:p;const d=src[Math.random()*src.length|0];
-  const lvl=BY[d.l],seen=new Set([M1(d)]),picks=[];
-  for(const x of shuffle(lvl.filter(x=>x.id!==d.id&&(unit()?Math.abs(x.u-d.u)<=2:true)))){const k=M1(x);if(seen.has(k))continue;seen.add(k);picks.push(x);if(picks.length===3)break}
-  qz.cur=d;qz.opts=shuffle([d,...picks]);qz.answered=false;qz.pick=-1}
-function scoreH(){return `<span>${L10.right} <b>${qz.right}</b>/${qz.total}</span><span>${L10.streak} <b>${qz.streak}</b></span>`}
-/* The whole question, including the answered state, is drawn from qz, so any re-render
-   (language switch, level refresh) keeps the feedback and the "next" button. */
-function renderQuiz(){
-  if(!qz.cur||qz.cur.l!==state.level)newQ();const d=qz.cur,T=qz.type,mp=M(d).split(';'),ans=qz.answered,ok=ans&&qz.opts[qz.pick]?.id===d.id;
-  const prompt=T==='meaning'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
-    :T==='hanzi'?`<div class="q">${L10.qHz}</div><div style="font-size:calc(22px*var(--fs,1));font-weight:800">${esc(mp[0])}</div><div class="id">${esc(mp.slice(1).join(';'))}</div>`
-    :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:calc(20px*var(--fs,1))">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div><div class="id">${esc(TR(d))}</div>`;
-  const lab=o=>T==='meaning'?esc(M1(o)):`<span style="font-family:var(--f-hz);font-weight:900;font-size:calc(20px*var(--fs,1))">${esc(o.h)}</span>`;
-  const cls=(o,i)=>!ans?'':o.id===d.id?' class="ok"':i===qz.pick?' class="ng"':'';
-  const fb=!ans?'':`<div style="font-weight:800;color:var(${ok?'--good':'--bad'})">${ok?L10.ok:L10.ng}</div>
-    <div class="head"><span class="hz" style="font-size:calc(26px*var(--fsd,1))">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div><div class="mean">${mH(M(d))}</div>
-    <div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
-  const QT=[['meaning',L10.tMean,L10.dMean,'汉→a'],['hanzi',L10.tHz,L10.dHz,'a→汉'],['cloze',L10.tCloze,L10.dCloze,'汉＿']],cur=QT.find(q=>q[0]===T);
-  view.innerHTML=`<div class="qhead"><div class="qsel" id="qsel">
+/* ---------- practice: Cards, Quiz and today's session share one runner ----------
+   A run is a list of items: cards ({k:'card'}) and questions ({k:'q', q: m|f|s|l|c}). Answers go to LM.answer,
+   which updates the memory model, the 0–20 level and the answer log. Wrong answers come back a few items later. */
+let run=null,sessionExtra=false;
+const EXAM_N=20,EXAM_SEC=300,ROUND_Q=12,ROUND_C=20;
+function resetRun(){if(run&&run.timer)clearInterval(run.timer);run=null}
+const startCards=resetRun,startQuiz=resetRun;      /* level/unit change, restore and reset start a fresh run */
+function ttsOK(){try{if(window.MMAndroid&&typeof MMAndroid.ttsStatus==='function')return MMAndroid.ttsStatus()==='ready';
+  return 'speechSynthesis' in window&&speechSynthesis.getVoices().some(v=>/^zh[-_]?(CN|Hans)?/i.test(v.lang)&&!/TW|HK/i.test(v.lang))}catch(e){return false}}
+LM.setTts(ttsOK);
+function makeRun(mode){
+  resetRun();let items,exam=false,lv=state.level;
+  if(mode==='card')items=LM.cardDeck(pool(),ROUND_C).map(d=>({k:'card',d}));
+  else if(mode==='session')items=LM.session(sessionExtra);
+  else if(qType==='exam'){exam=true;items=LM.exam(lv,EXAM_N)}
+  else items=LM.quizRound(pool(),ROUND_Q,qType==='auto'?null:qType);
+  run={mode,items,i:0,ok:0,tot:0,before:new Map(),wrong:new Map(),conf:[],again:new Map(),exam,lv,over:0};
+  if(exam){run.end=Date.now()+EXAM_SEC*1000;run.timer=setInterval(tick,1000)}}
+function renderRun(){
+  if(!run)makeRun(state.screen);
+  const it=run.items[run.i];
+  if(!it){renderSummary();return}
+  if(!run.before.has(it.d.id))run.before.set(it.d.id,lvl(it.d));
+  if(it.k==='card')renderCardItem(it);else renderQItem(it)}
+function nextItem(){run.i++;renderRun();window.scrollTo(0,0)}
+/* bring a word back a few items later (at most twice per word in a run) */
+function again(item,copy){const n=run.again.get(item.d.id)||0;if(n>=2||run.exam)return;run.again.set(item.d.id,n+1);
+  run.items.splice(Math.min(run.items.length,run.i+4),0,copy)}
+const progH=(i,n)=>`<span class="mbar"><span class="stack"><i style="width:${Math.min(100,i/Math.max(1,n)*100)}%;background:var(--acc)"></i></span></span>`;
+const TNAME=()=>({m:L10.tMean,f:L10.tHz,s:L10.tTone,l:L10.tListen,c:L10.tCloze});
+function qtList(){return [['auto',L10.tAuto,L10.dAuto,'智'],['m',L10.tMean,L10.dMean,'汉→a'],['f',L10.tHz,L10.dHz,'a→汉'],['s',L10.tTone,L10.dTone,'mā'],
+  ...(canSpeak()?[['l',L10.tListen,L10.dListen,'♪→汉']]:[]),['c',L10.tCloze,L10.dCloze,'汉＿'],['exam',L10.tExam,L10.dExam(EXAM_N,EXAM_SEC/60),'考']]}
+function clock(){const s=run&&run.end?Math.max(0,Math.ceil((run.end-Date.now())/1000)):0;return `${s/60|0}:${String(s%60).padStart(2,'0')}`}
+function tick(){if(!run||!run.exam)return;const el=$('exTimer');if(el)el.textContent=clock();
+  if(Date.now()>=run.end){clearInterval(run.timer);run.timer=0;run.timeUp=true;run.i=run.items.length;if(state.screen==='quiz')renderRun()}}
+function runHead(){
+  const n=run.items.length,i=Math.min(run.i+1,n),it=run.items[run.i];
+  if(run.mode==='card')return `<div class="fcmeta"><span>${L10.cardN(i,n)}</span>${progH(run.i,n)}</div>`;
+  if(run.mode==='session'){const lab=!it||it.k==='card'?'':TNAME()[it.q];   /* a card shows "new word" or its level on its face */
+    return `<div class="fcmeta"><span>${L10.qN(i,n)}</span><span class="tlabel">${esc(lab)}</span>${progH(run.i,n)}</div>`}
+  const QT=qtList(),cur=QT.find(q=>q[0]===qType)||QT[0];
+  return `<div class="qhead"><div class="qsel" id="qsel">
       <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>
-      <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q=>`<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0]===T}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>
-     </div><div class="score">${scoreH()}</div></div>
-   <div class="qcard">${prompt}
-     <div class="opts">${qz.opts.map((o,i)=>`<button data-i="${i}"${cls(o,i)} ${ans?'disabled':''}>${i+1}. ${lab(o)}</button>`).join('')}</div>
-     <div class="feedback" id="fb">${fb}</div></div>`;
-}
+      <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q=>`<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0]===qType}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>
+     </div><div class="score">${run.exam?`<span class="timer" id="exTimer">${clock()}</span><span>${L10.qN(i,n)}</span>`
+       :`<span>${L10.qN(i,n)}</span><span>${L10.right} <b>${run.ok}</b>/${run.tot}</span>`}</div></div>`}
+
+/* ---- cards: "Don't know" / "I know it" → a quick check (adaptive) → the back of the card ---- */
+const pyOpt=a=>esc(a.map((s,i)=>(i&&/^[aeoāáǎàēéěèōóǒò]/i.test(s)?"'":'')+s).join(''));
+function backFace(d){return `<div class="face back"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div>
+      <div class="mean">${mH(M(d))}</div><div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div></div></div>`}
+function renderCardItem(it){
+  const d=it.d;if(!it.st){it.st='front';it.t0=performance.now();it.fresh=!LM.has(d.id)}
+  view.innerHTML=runHead()+`<div class="flip${it.st==='back'?' on':it.st==='check'?' checking':''}" id="flip"><div class="inner">
+    <div class="face">${it.fresh?`<span class="st newtag">${L10.newWord}</span>`:stH(d)}<div class="big">${esc(d.h)}</div>${spk(d.h,' lg')}<div class="hint">${L10.fcHint}</div></div>
+    ${backFace(d)}</div></div><div class="fcact" id="fcAct">${cardAct(it)}</div>`}
+function cardAct(it){
+  if(it.st==='front')return `<div class="fcbtns"><button class="no-btn" id="fcNo">${L10.fcDont}</button><button class="yes-btn" id="fcYes">${L10.fcKnow}</button></div>`;
+  if(it.st==='check'){const c=it.chk;return `<div class="chk"><div class="q">${c.q==='cs'?L10.chkTone:L10.chkMean}</div><div class="opts">${c.opts.map((o,i)=>
+    `<button data-c="${i}">${i+1}. ${c.q==='cs'?`<span class="pyo">${pyOpt(o)}</span>`:esc(M1(o))}</button>`).join('')}</div></div>`}
+  const msg={ok:L10.resOk,over:L10.resOver,no:L10.resNo,trust:L10.resTrust}[it.res];
+  return `<div class="res ${it.res}" role="status">${msg}</div><div class="fcbtns${it.res==='trust'?'':' one'}">${it.res==='trust'?`<button class="no-btn" id="fcOops">${L10.oops}</button>`:''}<button class="next" id="fcNext">${L10.next}</button></div>`}
+/* keep the buttons under the card in view (small screens, large text) */
+function inView(el){if(!el)return;const r=el.getBoundingClientRect();if(r.bottom>innerHeight-8)el.scrollIntoView({block:'end',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+function cardShow(it,ok){
+  it.st='back';run.tot++;if(ok)run.ok++;else run.wrong.set(it.d.id,it.d);
+  window.mmFeedback&&mmFeedback(ok);afterChange();$('flip')?.classList.remove('checking');$('flip')?.classList.add('on');$('fcAct').innerHTML=cardAct(it);$('fcNext')?.focus({preventScroll:true});inView($('fcAct'))}
+/* in today's session a new word that was proven also gets a tone question a few items later */
+function cardFollow(it,ok){
+  if(!ok){again(it,{k:'card',d:it.d});return}
+  if(run.mode==='session'&&it.fresh&&!it.followed){it.followed=true;run.items.splice(Math.min(run.items.length,run.i+5),0,{k:'q',d:it.d,q:'s'})}}
+function cardDont(it){LM.answer(it.d,{q:'cn',ok:false,ms:performance.now()-it.t0});it.res='no';cardShow(it,false);cardFollow(it,false)}
+function cardKnow(it){
+  it.claimMs=performance.now()-it.t0;
+  if(Math.random()<LM.checkP(it.d)){const q=LM.checkType(it.d,it.heard);it.chk=Object.assign({q},LM.question(it.d,q));it.st='check';
+    $('flip').classList.add('checking');$('fcAct').innerHTML=cardAct(it);$('fcAct').querySelector('[data-c]')?.focus({preventScroll:true});inView($('fcAct'));return}
+  LM.answer(it.d,{q:'cu',ok:true,ms:it.claimMs,claim:true,unchecked:true});it.res='trust';cardShow(it,true);cardFollow(it,true)}
+function cardCheck(it,i){
+  const c=it.chk,ok=i===c.ans,x=!ok&&c.q==='cm'?c.opts[i].id:0;c.pick=i;
+  LM.answer(it.d,{q:c.q,ok,ms:it.claimMs,x,claim:true,over:!ok});
+  if(!ok){run.over++;if(x)run.conf.push([it.d.id,x])}
+  it.res=ok?'ok':'over';cardShow(it,ok);cardFollow(it,ok)}
+/* "I was wrong" after an unchecked claim: the claim is taken back and counted as not known (no extra penalty) */
+function cardOops(it){LM.undo();LM.answer(it.d,{q:'cn',ok:false,ms:it.claimMs});run.ok--;run.wrong.set(it.d.id,it.d);it.res='no';
+  $('fcAct').innerHTML=cardAct(it);$('fcNext')?.focus({preventScroll:true});cardFollow(it,false)}
+
+/* ---- questions ---- */
+function renderQItem(it){
+  const d=it.d,T=it.q;if(!it.opts){Object.assign(it,LM.question(d,T));it.t0=performance.now()}
+  const ans=it.done&&!run.exam,ok=it.ok;
+  const prompt=T==='m'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
+    :T==='f'?`<div class="q">${L10.qHz}</div><div style="font-size:calc(22px*var(--fs,1));font-weight:800">${esc(M1(d))}</div><div class="id">${esc(M(d).split(';').slice(1).join(';'))}</div>`
+    :T==='s'?`<div class="q">${L10.qTone}</div><div class="big">${esc(d.h)}</div><div class="id">${esc(M1(d))}</div>`
+    :T==='l'?`<div class="q">${L10.qListen}</div><button class="spk xl" id="qSay" data-say="${esc(d.h)}" aria-label="${esc(L10.replay)}" title="${esc(L10.replay)}">${SPK}</button>`
+    :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:calc(20px*var(--fs,1))">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div><div class="id">${esc(TR(d))}</div>`;
+  const lab=o=>T==='m'?esc(M1(o)):T==='s'?`<span class="pyo">${pyOpt(o)}</span>`:`<span class="hzo">${esc(o.h)}</span>`;
+  const cls=i=>!ans?'':i===it.ans?' class="ok"':i===it.pick?' class="ng"':'';
+  const picked=ans&&!ok&&T!=='s'?it.opts[it.pick]:null;
+  const fb=!ans?'':`<div class="fbv ${ok?'good':'bad'}">${ok?L10.ok:L10.ng}</div>
+    ${picked?`<div class="picked">${L10.picked} <b class="hzs">${esc(picked.h)}</b> ${esc(picked.p)} · ${esc(M1(picked))}</div>`:''}
+    <div class="head"><span class="hz" style="font-size:calc(26px*var(--fsd,1))">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div><div class="mean">${mH(M(d))}</div>
+    <div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.next}</button>`;
+  view.innerHTML=runHead()+`<div class="qcard qt-${T}">${prompt}<div class="opts">${it.opts.map((o,i)=>`<button data-i="${i}"${cls(i)} ${ans?'disabled':''}>${i+1}. ${lab(o)}</button>`).join('')}</div><div class="feedback" id="fb">${fb}</div></div>`;
+  if(T==='l'&&!it.played&&ttsOK()){it.played=true;setTimeout(()=>{const b=$('qSay');if(b&&state.screen===run?.mode)speak(d.h,b)},250)}}
+function qAnswer(it,i){
+  if(it.done)return;it.done=true;it.pick=i;const ok=i===it.ans;it.ok=ok;
+  const x=!ok&&it.q!=='s'?it.opts[i].id:0;
+  LM.answer(it.d,{q:it.q,ok,ms:performance.now()-it.t0,x,exam:run.exam});run.tot++;
+  if(ok)run.ok++;else{run.wrong.set(it.d.id,it.d);if(x)run.conf.push([it.d.id,x]);again(it,{k:'q',d:it.d,q:it.q})}
+  window.mmFeedback&&mmFeedback(ok);afterChange();
+  if(run.exam){run.i++;renderRun();return}
+  renderQItem(it)}
+
+/* ---- end of a run ---- */
+function renderSummary(){
+  if(run.timer){clearInterval(run.timer);run.timer=0}
+  if(!run.closed){run.closed=true;LM.updWeak()}
+  const n=run.tot,ok=run.ok,pct=n?Math.round(ok/n*100):0;
+  const up=[...run.before].filter(([id,b])=>lvl(IDX.get(id))>Math.max(b,0)).length,wrong=[...run.wrong.values()];
+  const seen=new Set(),pairs=run.conf.filter(([a,b])=>{const k=a<b?a+b:b+a;if(seen.has(k))return false;seen.add(k);return true}).slice(0,3);
+  const kind=run.exam?'exam':run.mode;
+  let note='';
+  if(run.exam){const est=Math.max(0,Math.round((ok/run.items.length-.25)/.75*100));note=`<p class="sumnote">${L10.examScore(pct,run.lv,est)}</p>`+(run.timeUp?`<p class="sumnote">${L10.timeUp}</p>`:'')}
+  view.innerHTML=(run.mode==='quiz'?runHead():'')+`<div class="qcard sum">
+    <div class="big t3">${!n?'好':pct>=80?'好!':'加油'}</div><h3>${L10.sumT[kind]}</h3>
+    ${n?`<div class="sumgrid"><div><b>${ok}/${n}</b><small>${L10.sumRight}</small></div><div><b>${up}</b><small>${L10.sumUp}</small></div><div><b>${wrong.length}</b><small>${L10.sumAgain}</small></div></div>`:`<p class="sumnote">${L10.sumEmpty}</p>`}
+    ${note}
+    ${run.over?`<p class="sumnote">${L10.sumOver(run.over)}</p>`:''}
+    ${pairs.length?`<div class="sumrow"><span>${L10.sumConf}</span>${pairs.map(([a,b])=>`<span class="pair"><b>${esc(IDX.get(a).h)}</b>↔<b>${esc(IDX.get(b).h)}</b></span>`).join('')}</div>`:''}
+    ${wrong.length?`<div class="sumwords"><div class="lbl">${L10.sumWrong}</div>${wrong.slice(0,12).map(d=>`<span class="wchip"><b>${hzH(d)}</b>${esc(M1(d))}</span>`).join('')}</div>`:''}
+    <div class="sumbtns"><button class="ghost" id="sumHome">${L10.sumHome}</button><button class="next" id="sumMore">${run.mode==='session'?L10.sumSessionMore:L10.sumMore}</button></div></div>`}
+
+view.addEventListener('click',e=>{
+  if(!['card','quiz','session'].includes(state.screen)||!run)return;
+  if(e.target.closest('#qTypeBtn')){qMenu(!qMenuOpen());return}
+  const qt=e.target.closest('.qtrow');if(qt){qMenu(false);if(qt.dataset.qt!==qType){qType=qt.dataset.qt;saveUI();resetRun()}renderRun();$('qTypeBtn')?.focus();return}
+  const id=e.target.closest('[id]')?.id;
+  if(id==='sumHome'){go('home');return}
+  if(id==='sumMore'){if(run.mode==='session')sessionExtra=true;resetRun();renderRun();window.scrollTo(0,0);return}
+  const it=run.items[run.i];if(!it)return;
+  if(it.k==='card'){
+    if(id==='fcNo'&&it.st==='front')cardDont(it);
+    else if(id==='fcYes'&&it.st==='front')cardKnow(it);
+    else if(id==='fcOops'&&it.res==='trust')cardOops(it);
+    else if(id==='fcNext'&&it.st==='back')nextItem();
+    else{const c=e.target.closest('[data-c]');if(c&&it.st==='check')cardCheck(it,+c.dataset.c)}
+    return}
+  if(id==='qNext'){nextItem();return}
+  const b=e.target.closest('.opts button');if(b&&!it.done)qAnswer(it,+b.dataset.i);
+});
 const qMenuOpen=()=>{const m=$('qTypeMenu');return !!m&&!m.hidden};
 function qMenu(open){const m=$('qTypeMenu'),b=$('qTypeBtn');if(!m)return;m.hidden=!open;b.setAttribute('aria-expanded',open);if(open)(m.querySelector('[aria-selected="true"]')||m.firstElementChild).focus()}
 view.addEventListener('keydown',e=>{if(!qMenuOpen())return;const rows=[...$('qTypeMenu').querySelectorAll('.qtrow')],i=rows.indexOf(document.activeElement);
   if(e.key==='ArrowDown'){e.preventDefault();rows[(i+1)%rows.length].focus()}else if(e.key==='ArrowUp'){e.preventDefault();rows[(i-1+rows.length)%rows.length].focus()}
   else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();qMenu(false);$('qTypeBtn').focus()}});
 document.addEventListener('click',e=>{if(qMenuOpen()&&!e.target.closest('#qsel'))qMenu(false)});
-view.addEventListener('click',e=>{
-  if(state.screen!=='quiz')return;
-  if(e.target.closest('#qTypeBtn')){qMenu(!qMenuOpen());return}
-  const qt=e.target.closest('.qtrow');if(qt){if(qt.dataset.qt!==qz.type){qz.type=qt.dataset.qt;startQuiz()}renderQuiz();$('qTypeBtn')?.focus();return}
-  if(e.target.closest('#qNext')){newQ();renderQuiz();return}
-  const b=e.target.closest('.opts button');if(!b||qz.answered)return;
-  const d=qz.cur;qz.answered=true;qz.pick=+b.dataset.i;qz.total++;const ok=qz.opts[qz.pick].id===d.id;
-  if(ok){qz.right++;qz.streak++}else qz.streak=0;
-  window.mmFeedback&&mmFeedback(ok);record(d,ok);renderQuiz();
-});
 
 /* ---------- stats screen ---------- */
-let stLevel=1,stSel=null,stConfirm=false;
+let stLevel=1,stSel=null,stConfirm=false,stHist=false;
 function renderStats(){
   const arr=BY[stLevel],S=summary(arr);
+  renderInsights();
   $('stLevels').innerHTML=LEVELS.map(l=>`<button class="lvpill" data-sl="${l}" aria-pressed="${l===stLevel}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`).join('');
   $('stSum').innerHTML=`<div class="big">${pctTxt(S.p)}<small>${L10.memoWord}</small></div><div class="tot">HSK ${stLevel} · ${L10.words(fmt(S.n))} · ${L10.practiced(fmt(S.n-S.none))} · ${L10.matureN(fmt(S.mature))}</div>`;
   $('stStack').innerHTML=stackH(S);
@@ -1261,19 +2014,38 @@ function renderStats(){
 function renderDetail(){
   const el=$('stDetail'),d=stSel&&IDX.get(stSel);
   if(!d||d.l!==stLevel){el.innerHTML=`<span class="hint">${L10.dotHint}</span>`;return}
-  el.innerHTML=`<div class="w"><span class="no">${String(d.n).padStart(4,'0')}</span><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span><span style="font-size:calc(13px*var(--fs,1))">${esc(M1(d))}</span><span style="flex-basis:100%">${stH(d)}</span></div><span class="ans"><button class="a-no" data-sa="0">${L10.aNo}</button><button class="a-yes" data-sa="1">${L10.aYes}</button></span>`;
+  const e=LM.mem(d.id),names=[L10.skM,L10.skF,L10.skS];
+  const sk=e?['m','f','s'].map((k,i)=>{const L=LM.skLevel(e[k]);return `<span class="skc">${names[i]} <i class="sd ${L<0?'s-none':`m${L} mbg`}"></i><b>${L<0?'–':L}</b></span>`}).join(''):'';
+  el.innerHTML=`<div class="w"><span class="no">${String(d.n).padStart(4,'0')}</span><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span><span style="font-size:calc(13px*var(--fs,1))">${esc(M1(d))}</span><span style="flex-basis:100%">${stH(d)}</span></div>
+    ${e?`<div class="skl">${sk}<span class="skc">${L10.detNext(L10.rel(Math.ceil(LM.nextDue(d.id))))}</span>${e.L===1?`<span class="badge">${L10.detLegacy}</span>`:''}</div>`:''}`;
 }
 function renderFoot(){
   $('stFoot').innerHTML=stConfirm?`<div class="confirm">${L10.rsQ(stLevel)}<button class="ghost" id="rsNo">${L10.cancel}</button><button class="danger solid" id="rsYes">${L10.rsYes}</button></div>`
-    :`<p>${L10.rsNote}</p><button class="danger" id="rsAsk">${L10.rsAsk(stLevel)}</button>`;
+    :stHist?`<div class="confirm">${L10.histQ}<button class="ghost" id="hxNo">${L10.cancel}</button><button class="danger solid" id="hxYes">${L10.histYes}</button></div>`
+    :`<p>${L10.rsNote}</p><div class="stbtns"><button class="danger" id="rsAsk">${L10.rsAsk(stLevel)}</button><button class="ghost" id="hxAsk">${L10.histDel}</button></div>`;
+}
+/* learning insights: everything comes from the answer log on this phone */
+function renderInsights(){
+  const I=LM.insights(),el=$('stIns'),TN=TNAME();
+  if(!I.total){el.innerHTML=`<div class="ihd"><b>${L10.insT}</b><small>${L10.insPriv}</small></div><p class="insnote">${L10.insEmpty}</p>`;return}
+  const col=p=>p>=85?'s-green':p>=65?'s-yellow':'s-red';
+  const sk=['m','f','s','l','c'].filter(k=>I.skills[k]).map(k=>`<div class="skrow${I.weak===k?' weak':''}"><span>${TN[k]}</span><span class="mbar"><span class="stack"><i style="width:${I.skills[k].p}%;background:var(--${col(I.skills[k].p)})"></i></span></span><b>${I.skills[k].p}%</b></div>`).join('');
+  el.innerHTML=`<div class="ihd"><b>${L10.insT}</b><small>${L10.insPriv}</small></div>
+    <div class="kpis"><div><b>${I.recall===null?'–':I.recall+'%'}</b><small>${L10.insRecall}</small></div><div><b>${fmt(I.n7)}</b><small>${L10.insAns7}</small></div><div><b>${I.cal.n>=5?Math.round(I.cal.acc*100)+'%':'–'}</b><small>${L10.insCal}</small></div></div>
+    ${sk?`<div class="skills">${sk}</div>`:''}
+    ${I.weak?`<p class="insnote">${L10.insWeak(TN[I.weak])}</p>`:''}
+    ${I.pairs.length?`<div class="pairs"><span>${L10.insConf}</span>${I.pairs.map(([a,b,n])=>`<span class="pair"><b>${esc(a.h)}</b>↔<b>${esc(b.h)}</b><small>×${n}</small></span>`).join('')}</div>`:''}
+    <p class="insnote">${I.model?L10.insModelOwn(fmt(I.model.n)):L10.insModelBase(fmt(I.spaced),fmt(I.need))}</p>`;
 }
 scrStats.addEventListener('click',e=>{
   const lb=e.target.closest('[data-sl]');if(lb){stLevel=+lb.dataset.sl;stSel=null;stConfirm=false;renderStats();return}
   const dot=e.target.closest('[data-sid]');if(dot){stSel=dot.dataset.sid;scrStats.querySelectorAll('.dots [aria-current="true"]').forEach(x=>x.setAttribute('aria-current','false'));dot.setAttribute('aria-current','true');renderDetail();return}
-  const sa=e.target.closest('[data-sa]');if(sa){record(IDX.get(stSel),sa.dataset.sa==='1');return}
   if(e.target.id==='rsAsk'){stConfirm=true;renderFoot();$('rsNo').focus();return}
   if(e.target.id==='rsNo'){stConfirm=false;renderFoot();return}
-  if(e.target.id==='rsYes'){BY[stLevel].forEach(d=>delete stats[d.id]);saveStats();stConfirm=false;stSel=null;
+  if(e.target.id==='hxAsk'){stHist=true;renderFoot();$('hxNo').focus();return}
+  if(e.target.id==='hxNo'){stHist=false;renderFoot();return}
+  if(e.target.id==='hxYes'){LM.clearLog();stHist=false;renderStats();toast(L10.histDone);return}
+  if(e.target.id==='rsYes'){BY[stLevel].forEach(d=>{delete stats[d.id];LM.forget(d.id)});saveStats();stConfirm=false;stSel=null;
     if(state.level===stLevel){startCards();startQuiz()}afterChange();toast(L10.rsDone(stLevel))}
 });
 /* ---------- tone colours & info sheet ---------- */
@@ -1308,7 +2080,9 @@ function speak(text,btn){
     const v=speechSynthesis.getVoices().find(v=>/^zh[-_]?(CN|Hans)?/i.test(v.lang)&&!/TW|HK/i.test(v.lang));if(v)u.voice=v;
     u.onend=u.onerror=spkUnmark;speechSynthesis.speak(u);spkMark(btn)}catch(e){}}
 /* capture phase, so tapping the speaker never flips a card or opens anything else */
-document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.spk');if(!b)return;e.preventDefault();e.stopPropagation();speak(b.dataset.say,b)},true);
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.spk');if(!b)return;e.preventDefault();e.stopPropagation();
+  const it=run&&run.items[run.i];if(it&&it.k==='card'&&it.st==='front')it.heard=true;
+  speak(b.dataset.say,b)},true);
 
 /* ---------- progress backup / restore ----------
    A backup is one line of text: "XUECI1:" + base64url(deflate-raw(JSON)), or "XUECI0:" + base64url(JSON)
@@ -1323,7 +2097,7 @@ const pipeBytes=async(u,stream)=>new Uint8Array(await new Response(new Blob([u])
 const practisedN=st=>Object.values(st).filter(e=>e[0]+e[1]>0).length;
 const bkDate=t=>new Date(t).toLocaleDateString(L10.loc,{day:'numeric',month:'long',year:'numeric'});
 async function makeCode(){
-  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:1,at:Date.now(),stats,ui:{level:state.level,unitBy:state.unitBy},lang:langPref,theme}));
+  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:2,at:Date.now(),stats,mem:LM.exportMem(),goal:LM.goal,w:LM.params,ui:{level:state.level,unitBy:state.unitBy,qt:qType},lang:langPref,theme}));
   if(canZip){try{return 'XUECI1:'+B64(await pipeBytes(raw,new CompressionStream('deflate-raw')))}catch(e){}}
   return 'XUECI0:'+B64(raw)}
 async function readCode(text){
@@ -1334,7 +2108,7 @@ async function readCode(text){
     for(const k in o.stats){const e=o.stats[k];
       if(!IDX.has(k)||!Array.isArray(e)||e.length<2||!e.every(x=>Number.isFinite(x)&&x>=0))continue;
       const r=Math.floor(e[0]),w=Math.floor(e[1]);st[k]=[r,w,Math.max(0,Math.min(MAXL,Math.floor(e.length>2?e[2]:r-w)))]}
-    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme}}catch(e){return null}}
+    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme,mem:o.mem?LM.importMem(o.mem):null,goal:'goal' in o?o.goal:undefined,w:o.w}}catch(e){return null}}
 function bkRow(){
   const r=$('bkRow');
   if(bkMode==='make')r.innerHTML=`<button class="ghost" id="bkCopy">${L10.bkCopy}</button>${NATIVE('shareText')||navigator.share?`<button class="ghost pri" id="bkShare">${L10.bkShare}</button>`:''}`;
@@ -1372,10 +2146,10 @@ async function bkCheckCode(){
   bkPending=b;say(L10.bkConfirm(fmt(practisedN(b.stats)),bkDate(b.at),fmt(practisedN(stats))));bkRow();$('bkApply')?.focus()}
 function bkApply(){
   const b=bkPending;if(!b)return;
-  stats=b.stats;saveStats();
+  stats=b.stats;LM.replace(b.mem||{},b.goal,b.w);       /* older codes (v1) have no memory states: their levels are kept as "needs confirming" */
   if(b.ui&&LEVELS.includes(b.ui.level)){
     const ub=b.ui.unitBy||{};LEVELS.forEach(l=>{const u=ub[l];state.unitBy[l]=Number.isInteger(u)&&u>=0&&u<=UNITS[l]?u:1});
-    state.level=b.ui.level}
+    state.level=b.ui.level;if(['auto','m','f','s','l','c','exam'].includes(b.ui.qt))qType=b.ui.qt}
   if((b.lang==='auto'||LANGS.includes(b.lang))&&b.lang!==langPref)setLang(b.lang,true);
   if(themeList().includes(b.theme)&&b.theme!==theme)applyTheme(b.theme,true);
   closeBk();setLevel(state.level);          /* saves the level/unit, restarts cards and quiz, redraws */
@@ -1391,12 +2165,82 @@ bkSheet.addEventListener('click',e=>{
 bkSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();bkBack()}});
 bkCode.addEventListener('input',()=>{if(bkMode==='restore'&&(bkPending||bkMsg.textContent)){bkPending=null;say('');bkRow()}});
 
+/* ---------- Home: today's plan, built from the goal by the learning engine ---------- */
+const PLAY='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.6-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+function dateS(x){const d=typeof x==='string'?(([y,m,dd])=>new Date(y,m-1,dd))(x.split('-').map(Number)):x;
+  return d.toLocaleDateString(L10.loc,d.getFullYear()===new Date().getFullYear()?{day:'numeric',month:'short'}:{day:'numeric',month:'short',year:'numeric'})}
+function renderPlan(){
+  const P=LM.plan(),g=LM.goal,el=$('plan');
+  const chip=!g?L10.planSet:g.t==='none'?L10.gNone:g.t==='exam'?L10.gExamChip(g.lv,dateS(g.date)):L10.gLvChip(g.lv,dateS(g.date));
+  const todo=P.newToday+P.revToday>0,min=Math.max(1,Math.round((P.revToday*P.sp.rev+P.newToday*P.sp.neu)/60));
+  const line=todo?[P.revToday?L10.planRev(fmt(P.revToday)):'',P.newToday?L10.planNew(fmt(P.newToday)):'',`<span>${L10.planMin(min)}</span>`].filter(Boolean).join(' · ')
+    :`${L10.planDone} ✓`;
+  const tot=P.ansT+P.todayLeft;
+  const st=P.status==='free'?['none',L10.stFree(P.newPerDay)]:P.status==='ok'?['green',L10.stOk(P.finish?dateS(P.finish):'–')]
+    :P.status==='behind'?['red',P.needMin?L10.stBehind(P.needMin):L10.stBehindDate(P.fixDate?dateS(P.fixDate):'–')]:P.status==='review'?['green',L10.stReview]:P.status==='examweek'?['yellow',L10.stExamWeek]:['red',L10.stPast];
+  el.innerHTML=`<div class="ptop"><h2 id="planT">${L10.planT}</h2><button class="gchip" id="goalBtn" aria-haspopup="dialog">${esc(chip)} ›</button></div>
+    <div class="pline">${line}</div>
+    ${todo&&!P.ansT?'':`<div class="pbar"><span class="stack"><i style="width:${tot?P.ansT/tot*100:100}%;background:var(--acc)"></i></span><small>${L10.doneToday(fmt(P.ansT))}</small></div>`}
+    <div class="pst"><i class="sd s-${st[0]}"></i><span>${st[1]}</span></div>
+    <button class="planbtn" id="planGo">${PLAY}<span>${todo?(P.ansT?L10.planCont:L10.planGo):L10.planExtra}</span></button>`;
+  el.dataset.todo=todo?'1':'0'}
+$('plan').addEventListener('click',e=>{
+  if(e.target.closest('#goalBtn')){openGoal(false);return}
+  if(e.target.closest('#planGo')){sessionExtra=$('plan').dataset.todo!=='1';go('session')}});
+
+/* ---------- goal sheet: target (level + date, HSK exam, or none) and daily amount (minutes, new words, or automatic) ---------- */
+const goalSheet=$('goalSheet');let gDraft=null,gOpener=null,gFirst=false;
+const MIN_CHIPS=[5,10,15,20,30,45,60],NEW_CHIPS=[3,5,10,15,20,30];
+function openGoal(first){
+  gOpener=document.activeElement;gFirst=!!first;const g=LM.goal;
+  gDraft=g?JSON.parse(JSON.stringify(g)):{t:'level',lv:state.level,date:LM.isoDay(LM.dayAfter(90)),pace:'auto',n:15};
+  if(!gDraft.lv)gDraft.lv=state.level;if(!gDraft.date)gDraft.date=LM.isoDay(LM.dayAfter(90));if(!gDraft.n)gDraft.n=gDraft.pace==='new'?10:15;
+  renderGoal();goalSheet.hidden=false;document.body.style.overflow='hidden';goalSheet.querySelector('.xbtn').focus()}
+function closeGoal(){goalSheet.hidden=true;document.body.style.overflow='';ls.set('xc_onb',1);gOpener?.focus?.()}
+function renderGoal(){
+  const g=gDraft,P=LM.plan(g),tgt=g.t!=='none',bad=tgt&&LM.daysTo(g.date)<1;
+  const seg=(k,v,label,extra)=>`<button class="gseg" data-g="${k}" data-v="${v}" aria-pressed="${String(g[k])===String(v)}"${extra||''}>${label}</button>`;
+  const chips=g.pace==='min'?MIN_CHIPS:NEW_CHIPS,list=chips.includes(g.n)?chips:chips.concat(g.n).sort((a,b)=>a-b);
+  let fc,cls='',fix='';
+  if(bad){fc=L10.gDateBad;cls='bad'}
+  else if(P.status==='free')fc=L10.fcFree(P.newPerDay,P.minutes);
+  else if(P.status==='review')fc=L10.fcAllDone;
+  else if(P.status==='examweek')fc=L10.stExamWeek;
+  else if(P.status==='ok'){fc=L10.fcOk(P.newPerDay,P.revPerDay,P.minutes,P.finish?dateS(P.finish):'–');cls='good'}
+  else{fc=L10.fcBehind(P.finish?dateS(P.finish):null);cls='bad';
+    const fx=[];if(g.pace!=='new'&&P.needMin)fx.push(`<button class="ghost" data-fix="min" data-n="${P.needMin}">${L10.fcFixMin(P.needMin)}</button>`);
+    if(g.pace!=='min'&&P.need<=60)fx.push(`<button class="ghost" data-fix="new" data-n="${P.need}">${L10.fcFixNew(P.need)}</button>`);
+    if(P.fixDate)fx.push(`<button class="ghost" data-fix="date" data-d="${LM.isoDay(P.fixDate)}">${L10.fcFixDate(dateS(P.fixDate))}</button>`);
+    fix=fx.length?`<div class="gfix">${fx.join('')}</div>`:''}
+  $('gBody').innerHTML=`
+    <div class="gsec"><div class="glbl">${L10.gWhat}</div><div class="gsegs">${seg('t','level',L10.gLevel)}${seg('t','exam',L10.gExam)}${seg('t','none',L10.gNone)}</div></div>
+    ${tgt?`<div class="gsec"><div class="glbl">${L10.gLv}</div><div class="gsegs lv">${LEVELS.map(l=>seg('lv',l,'HSK '+l,` style="--lc:var(--l${l})"`)).join('')}</div></div>
+    <div class="gsec"><label class="glbl" for="gDate">${g.t==='exam'?L10.gDateExam:L10.gDate}</label><input type="date" class="gdate" id="gDate" value="${g.date}" min="${LM.isoDay(LM.dayAfter(1))}"></div>`:''}
+    <div class="gsec"><div class="glbl">${L10.gPace}</div><div class="gsegs">${seg('pace','min',L10.gMin)}${seg('pace','new',L10.gNew)}${tgt?seg('pace','auto',L10.gAuto):''}</div>
+      ${g.pace!=='auto'?`<div class="gchips">${list.map(n=>`<button class="gnum" data-n="${n}" aria-pressed="${g.n===n}">${g.pace==='min'?L10.gMinN(n):L10.gNewN(n)}</button>`).join('')}</div>`:''}</div>
+    <div class="gfc ${cls}" role="status">${fc}${fix}</div>
+    <div class="bkrow"><button class="ghost" id="gCancel">${gFirst?L10.gSkip:L10.cancel}</button><button class="ghost pri" id="gSave"${bad?' disabled':''}>${L10.gSave}</button></div>`}
+goalSheet.addEventListener('click',e=>{
+  if(e.target.closest('[data-close]')||e.target.id==='gCancel'){closeGoal();return}
+  const g=gDraft,s=e.target.closest('[data-g]');
+  if(s){const k=s.dataset.g;g[k]=k==='lv'?+s.dataset.v:s.dataset.v;
+    if(k==='t'&&g.t==='none'&&g.pace==='auto'){g.pace='new';g.n=10}
+    if(k==='pace'&&g.pace!=='auto')g.n=g.pace==='min'?(MIN_CHIPS.includes(g.n)?g.n:15):(NEW_CHIPS.includes(g.n)?g.n:10);
+    renderGoal();return}
+  const f=e.target.closest('[data-fix]');
+  if(f){if(f.dataset.fix==='date')g.date=f.dataset.d;else{g.pace=f.dataset.fix;g.n=+f.dataset.n}renderGoal();return}
+  const n=e.target.closest('.gnum');if(n){g.n=+n.dataset.n;renderGoal();return}
+  if(e.target.id==='gSave'){LM.setGoal(g);closeGoal();resetRun();if(state.screen==='home')renderHome();toast(L10.gSaved)}});
+goalSheet.addEventListener('change',e=>{if(e.target.id==='gDate'&&e.target.value){gDraft.date=e.target.value;renderGoal()}});
+goalSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeGoal()}});
+
 let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2000)}
 
 /* ---------- keyboard + Android back ---------- */
 /* Back closes the topmost layer: a menu, then the focused screen (back to Home). false lets the app exit. */
 window.mmBack=function(){
   if(window.mmBusy&&mmBusy())return true;   /* a screen animation is still running */
+  if(!goalSheet.hidden){closeGoal();return true}
   if(!infoSheet.hidden){closeInfo();return true}
   if(!bkSheet.hidden){bkBack();return true}
   if(qMenuOpen()){qMenu(false);return true}
@@ -1406,17 +2250,27 @@ window.mmBack=function(){
   if(state.screen!=='home'){back();return true}
   return false};
 document.addEventListener('keydown',e=>{
-  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||!bkSheet.hidden||qMenuOpen())return;
+  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||!bkSheet.hidden||!goalSheet.hidden||qMenuOpen())return;
   if(e.key==='Escape'&&state.screen!=='home'&&!/^(INPUT|SELECT)$/.test(e.target.tagName)){back();return}
-  if(/^(INPUT|SELECT)$/.test(e.target.tagName))return;
-  if(state.screen==='card'){if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();flipped=!flipped;$('flip')?.classList.toggle('on',flipped)}
-    if(e.key==='ArrowRight')fcAnswer(true);if(e.key==='ArrowLeft')fcAnswer(false)}
-  if(state.screen==='quiz'){if(/^[1-4]$/.test(e.key))document.querySelectorAll('.opts button')[+e.key-1]?.click();if(e.key==='Enter'&&e.target.tagName!=='BUTTON'&&$('qNext'))$('qNext').click()}
+  if(/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName))return;
+  if(!run||!['card','quiz','session'].includes(state.screen))return;
+  const it=run.items[run.i],pick=(sel,k)=>document.querySelectorAll(sel)[+k-1]?.click();
+  if(!it){if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('sumMore')?.click();return}
+  if(it.k==='card'){
+    if(it.st==='front'){if(e.key==='ArrowLeft')$('fcNo')?.click();if(e.key==='ArrowRight')$('fcYes')?.click()}
+    else if(it.st==='check'){if(/^[1-4]$/.test(e.key))pick('#fcAct [data-c]',e.key)}
+    else if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('fcNext')?.click();
+    return}
+  if(/^[1-4]$/.test(e.key))pick('.opts button',e.key);
+  if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('qNext')?.click();
 });
 
 /* ---------- start on Home ---------- */
 document.body.dataset.level=state.level;$('seal').textContent=NUM[state.level-1];
-applyStatic();saveStats();startCards();startQuiz();go('home');
+applyStatic();saveStats();go('home');
+/* first start: ask for a goal once (can be skipped); later, fit the memory model to this learner when enough answers exist */
+if(!LM.goal&&!ls.get('xc_onb',0))setTimeout(()=>{if(state.screen==='home'&&goalSheet.hidden&&bkSheet.hidden&&infoSheet.hidden)openGoal(true)},500);
+setTimeout(()=>LM.maybeOptimize(),6000);
 </script>
 <script>
 /* ================= Liquid Glass interactions ================= */
@@ -1481,7 +2335,7 @@ window.mmStatsRendered=()=>statLens.sync(true);
       on the compositor); going back, Home settles into place around the tile you came from. */
 const scrOf=s=>s==='home'?document.getElementById('scr-home'):s==='stats'?document.getElementById('scr-stats'):document.getElementById('scr-focus');
 let lastTap=null,anim=null;
-document.addEventListener('pointerdown',e=>{lastTap=e.target.closest?e.target.closest('.tile,#hero,.mstats'):null},{capture:true,passive:true});
+document.addEventListener('pointerdown',e=>{lastTap=e.target.closest?e.target.closest('.tile,#hero,.mstats,.planbtn'):null},{capture:true,passive:true});
 function originIn(sec,el){
   const s=sec.getBoundingClientRect();
   if(!el||!el.isConnected||!el.offsetParent)return '50% 120px';
@@ -1502,7 +2356,7 @@ window.mmTransition=(run,from,to)=>{
     const s=sec.getBoundingClientRect();
     origin=tapRect?`${Math.round(tapRect.left+tapRect.width/2-s.left)}px ${Math.round(tapRect.top+tapRect.height/2-s.top)}px`:'50% 120px';
   }else{
-    const el=to==='home'?(FOCUS.includes(from)?document.querySelector(`.tile[data-go="${from}"]`):document.getElementById('hero')):null;
+    const el=to==='home'?(from==='session'?document.getElementById('planGo'):FOCUS.includes(from)?document.querySelector(`.tile[data-go="${from}"]`):document.getElementById('hero')):null;
     origin=originIn(sec,el);
   }
   sec.style.transformOrigin=origin;
@@ -1522,7 +2376,7 @@ tb.onclick=e=>{
 
 /* 5. light haptics (Android app) */
 window.mmFeedback=ok=>buzz(ok?14:[16,60,26]);
-document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('.tile,.lvpill,#hero'))buzz(7)},{capture:true});
+document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('.tile,.lvpill,#hero,.planbtn'))buzz(7)},{capture:true});
 
 /* 6. the HSK/unit menus live beside the floating header, not inside it, so their own blur sees the page */
 {const fb=document.querySelector('#scr-focus .fbar');['lvMenu','uMenu'].forEach(id=>fb.appendChild(document.getElementById(id)))}

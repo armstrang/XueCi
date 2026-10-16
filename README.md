@@ -1,6 +1,8 @@
 # XueCi Mandarin
 
-Aplikasi belajar kosakata HSK 1–6 (silabus HSK 3.0, terbit November 2025) bergaya *Liquid Glass*: daftar kata, kartu hafalan, kuis, dan progres pemahaman per kata (20 tingkat, dari merah ke hijau). Tersedia dalam bahasa Indonesia, English, ไทย, dan Tiếng Việt, dengan tema terang, gelap, dan true black. Berjalan sepenuhnya offline.
+Aplikasi belajar kosakata HSK 1–6 (silabus HSK 3.0, terbit November 2025) bergaya *Liquid Glass*: daftar kata, kartu hafalan dengan cek kilat, kuis terarah, simulasi ujian, dan progres pemahaman per kata (20 tingkat, dari merah ke hijau). Aplikasi menyusun rencana harian dari tujuan belajarmu (target level dan tanggal, ujian HSK, atau tanpa target) dengan model memori [FSRS](https://github.com/open-spaced-repetition) yang disesuaikan dengan pola ingatanmu. Semua perhitungan dilakukan di HP. Tersedia dalam bahasa Indonesia, English, ไทย, dan Tiếng Việt, dengan tema terang, gelap, dan true black. Berjalan sepenuhnya offline.
+
+Apa yang berubah di setiap versi ada di [CHANGELOG.md](CHANGELOG.md).
 
 by Armstrang
 
@@ -18,7 +20,7 @@ Setelah itu aplikasi lama boleh di-uninstall.
 
 ## Struktur
 
-- `web/src/` — sumber halaman aplikasi: `base.css.html` (tata letak), `app.html` (tampilan + logika), `i18n.js` (teks antarmuka 4 bahasa), `glass.css.html` dan `glass.js.html` (tampilan dan interaksi Liquid Glass).
+- `web/src/` — sumber halaman aplikasi: `base.css.html` (tata letak), `app.html` (tampilan + logika), `learn.js` (mesin belajar: model memori, riwayat jawaban, rencana harian, pemilihan soal), `i18n.js` dan `i18n-learn.js` (teks antarmuka 4 bahasa), `glass.css.html` dan `glass.js.html` (tampilan dan interaksi Liquid Glass).
 - `web/data/vocab.json` — kosakata HSK 1–6 beserta arti dan contoh kalimat dalam 4 bahasa (satu kata per baris).
 - `web/build.py` — menggabungkan semuanya menjadi satu file HTML di `app/src/main/assets/index.html`.
 - `app/` — aplikasi Android (satu layar WebView yang memuat halaman tadi).
@@ -26,7 +28,7 @@ Setelah itu aplikasi lama boleh di-uninstall.
 - `store/` — bahan halaman Google Play: teks (`listing.md`), screenshot, dan feature graphic (`python3 store/make_store_assets.py` membuatnya ulang).
 - `art/` — gambar ikon (`python3 art/make_icons.py` membuat semua ukuran ikon dari `art/icon-source.jpg`); `docs/play-store.md` — rencana rilis di Google Play.
 
-Setelah mengubah sesuatu di `web/`, jalankan `python3 web/build.py`. GitHub Actions juga menjalankannya di setiap push ke `main`, lalu membangun APK dan menerbitkannya di Releases (v1.0, v1.1, …).
+Setelah mengubah sesuatu di `web/`, jalankan `python3 web/build.py`. GitHub Actions juga menjalankannya di setiap push ke `main`, lalu membangun APK dan menerbitkannya di Releases (v1.0, v1.1, …) dengan catatan rilis dari bagian versinya di `CHANGELOG.md`.
 APK ditandatangani dengan kunci di `keystore/` supaya setiap versi bisa memperbarui versi sebelumnya.
 
 ## Sumber data

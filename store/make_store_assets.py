@@ -7,10 +7,12 @@ Writes (JPEG, no transparency, as Play asks):
   store/feature-graphic-<lang>.jpg    feature graphic, 1024 x 500
   store/preview-<lang>.jpg            all of them on one sheet, to check at a glance (not for upload)
 
-The app runs with sample progress so the screens look lived-in. Captions are in CAPTIONS below.
+The app runs with sample progress (levels, memory states, a goal and two weeks of answers) so the screens look
+lived-in. Captions are in CAPTIONS below.
 Needs Playwright for Python with Chromium.
 """
 import asyncio
+import datetime
 import functools
 import http.server
 import json
@@ -18,6 +20,7 @@ import os
 import random
 import socketserver
 import threading
+import time
 
 from PIL import Image
 from playwright.async_api import async_playwright
@@ -29,26 +32,26 @@ CAPTIONS = {
     'id': {
         'locale': 'id-ID',
         'shots': [
-            ('home', 'Kuasai 5.334 kata HSK 1–6', 'Progres tiap level terlihat jelas'),
-            ('card', 'Kartu hafalan', 'Dengan contoh kalimat dan pinyinnya'),
-            ('quiz', 'Kuis tiga cara', 'Arti, hanzi, atau isi kalimat'),
-            ('stats', 'Lihat kata makin matang', 'Dari merah ke kuning ke hijau'),
+            ('home', 'Kuasai 5.334 kata HSK 1–6', 'Rencana harian sesuai tujuanmu'),
+            ('card', 'Bilang tahu? Buktikan', 'Kartu dengan cek kilat sebelum dibalik'),
+            ('quiz', 'Kuis terarah', 'Arti, hanzi, nada, dengar, dan kalimat'),
+            ('stats', 'Kenali kelemahanmu', 'Dihitung di HP, tanpa server'),
             ('tones', 'Warna nada', 'Ucapkan setiap kata dengan nada yang tepat'),
             ('list', 'Terang, gelap, hitam pekat', 'Dalam 4 bahasa · tanpa internet'),
         ],
-        'feature': ('Kosakata HSK 1–6', 'Kartu · Kuis · Warna nada · Offline'),
+        'feature': ('Kosakata HSK 1–6', 'Rencana harian · Kartu · Kuis terarah · Offline'),
     },
     'en': {
         'locale': 'en-US',
         'shots': [
-            ('home', 'Master 5,334 HSK 1–6 words', 'See your progress at every level'),
-            ('card', 'Flashcards', 'With an example sentence and its pinyin'),
-            ('quiz', 'Quiz three ways', 'Meaning, hanzi, or fill the gap'),
-            ('stats', 'Watch words mature', 'From red to yellow to green'),
+            ('home', 'Master 5,334 HSK 1–6 words', 'A daily plan built from your goal'),
+            ('card', 'Say you know it? Prove it', 'Cards with a quick check before they flip'),
+            ('quiz', 'A guided quiz', 'Meaning, hanzi, tones, listening, sentences'),
+            ('stats', 'Know your weak spots', 'Worked out on your phone, no server'),
             ('tones', 'Tone colours', 'Say every word with the right tone'),
             ('list', 'Light, dark, true black', 'In 4 languages · no internet needed'),
         ],
-        'feature': ('HSK 1–6 vocabulary', 'Flashcards · Quiz · Tone colours · Offline'),
+        'feature': ('HSK 1–6 vocabulary', 'Daily plan · Flashcards · Guided quiz · Offline'),
     },
 }
 THEME = {'home': 'light', 'card': 'light', 'quiz': 'light', 'stats': 'light', 'tones': 'dark', 'list': 'black'}
@@ -60,19 +63,49 @@ class Quiet(http.server.SimpleHTTPRequestHandler):
         pass
 
 
+EPOCH = datetime.datetime(2026, 1, 1, tzinfo=datetime.timezone.utc).timestamp()
+
+
 def sample_progress():
-    """Plausible progress: HSK 1 mostly learned, HSK 2 under way, HSK 3 just started."""
+    """Plausible progress: HSK 1 mostly learned, HSK 2 under way, HSK 3 just started; an HSK 3 exam goal;
+    memory states whose level matches (some words due today) and two weeks of answers for the insights."""
     with open(os.path.join(ROOT, 'web', 'data', 'vocab.json'), encoding='utf8') as f:
         words = json.load(f)
     rnd = random.Random(7)
-    stats = {}
+    now = int((time.time() - EPOCH) / 60)
+    stats, mem, ids = {}, {}, []
     for d in words:
         share, lo, hi = {1: (.92, 6, 20), 2: (.55, 0, 16), 3: (.12, 0, 8)}.get(d['l'], (0, 0, 0))
         if rnd.random() < share:
             lvl = rnd.randint(lo, hi) if d['l'] > 1 else min(20, max(lo, int(rnd.triangular(lo, 21, 20))))
-            right = lvl + rnd.randint(0, 4)
-            stats[f"{d['l']}:{d['h']}"] = [right, rnd.randint(0, 3), lvl]
-    return stats
+            wid = f"{d['l']}:{d['h']}"
+            stats[wid] = [lvl + rnd.randint(0, 4), rnd.randint(0, 3), lvl]
+            s = max(.1, 121 ** (lvl / 20) - 1)
+            t = now - int(s * rnd.uniform(.25, 1.12) * 1440)
+            dd = round(rnd.uniform(3, 7), 2)
+            sk = lambda g: [dd, round(s * rnd.uniform(.7, 1.3), 3), t, g, rnd.randint(1, 5)]
+            e = {'w': [dd, round(s, 3), t], 'i': now - rnd.randint(20, 90) * 1440, 'm': sk(3)}
+            if lvl >= 7:
+                e['f'] = sk(3)
+                e['s'] = sk(3 if lvl >= 14 or rnd.random() < .6 else 1)
+            mem[wid] = e
+            ids.append(d)
+    # answers over the last 14 days: tones are the weak spot, a few look-alikes get mixed up
+    acc = {'m': .93, 'f': .82, 's': .66, 'c': .86, 'cm': .9, 'cs': .86}
+    log = []
+    for k in range(640):
+        q = rnd.choice(['m', 'm', 'f', 'f', 's', 's', 'c', 'cm', 'cs'])
+        d = rnd.choice(ids)
+        ok = rnd.random() < acc[q]
+        x = 0
+        if not ok and q in ('m', 'f', 'c', 'cm'):
+            near = [o for o in ids if o is not d and set(o['h']) & set(d['h'])]
+            if near:
+                o = rnd.choice(near)
+                x = f"{o['l']}:{o['h']}"
+        log.append([now - int((640 - k) / 640 * 14 * 1440), f"{d['l']}:{d['h']}", q, 3 if ok else 1, rnd.randint(25, 90), x, 2 if q[0] == 'c' else 0])
+    goal = {'t': 'exam', 'lv': 3, 'date': (datetime.date.today() + datetime.timedelta(days=150)).isoformat(), 'pace': 'min', 'n': 25}
+    return {'mm_stats': stats, 'xc_mem': mem, 'xc_log': log, 'xc_goal': goal, 'xc_onb': 1}
 
 
 FRAME = """<!doctype html><meta charset="utf-8"><style>
@@ -113,9 +146,9 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:#10241a;position:relative;
 <div class="phone back"><img src="BACK"></div><div class="phone"><img src="FRONT"></div></body>"""
 
 
-async def app_shot(browser, base, lang, locale, kind, stats, out):
+async def app_shot(browser, base, lang, locale, kind, sample, out):
     ctx = await browser.new_context(viewport={'width': 360, 'height': 720}, device_scale_factor=3, locale=locale)
-    init = {'mm_stats': stats, 'hsk16_theme': THEME[kind], 'hsk16_ui': {'level': LEVEL[kind], 'unitBy': {}}}
+    init = dict(sample, hsk16_theme=THEME[kind], hsk16_ui={'level': LEVEL[kind], 'unitBy': {}, 'qt': 's' if kind == 'quiz' else 'auto'})
     await ctx.add_init_script('const S=' + json.dumps(init) + ';for(const k in S)localStorage.setItem(k,JSON.stringify(S[k]));')
     # same cards and quiz questions on every run
     await ctx.add_init_script('{let x=12345;Math.random=()=>((x=(x*1103515245+12345)%2147483648)/2147483648)}')
@@ -126,10 +159,14 @@ async def app_shot(browser, base, lang, locale, kind, stats, out):
         await pg.click(f'.tile[data-go="{kind}"]')
         await pg.wait_for_timeout(600)
     if kind == 'card':
-        await pg.click('#flip')
-        await pg.wait_for_timeout(900)
+        await pg.evaluate('LM.checkP = () => 1')       # always show the quick check for the picture
+        await pg.click('#fcYes')
+        await pg.wait_for_timeout(500)
+        await pg.evaluate('window.scrollTo(0, 0); document.activeElement.blur()')
+        await pg.mouse.move(0, 0)
+        await pg.wait_for_timeout(300)
     if kind == 'quiz':
-        i = await pg.evaluate('qz.opts.findIndex(o => o.id === qz.cur.id)')
+        i = await pg.evaluate('run.items[run.i].ans')
         await pg.click(f'.opts button >> nth={i}')
         await pg.wait_for_timeout(900)
     if kind == 'stats':
@@ -160,7 +197,7 @@ async def main():
     srv = socketserver.ThreadingTCPServer(('127.0.0.1', 0), functools.partial(Quiet, directory=ROOT))
     threading.Thread(target=srv.serve_forever, daemon=True).start()
     base = f'http://127.0.0.1:{srv.server_address[1]}'
-    stats = sample_progress()
+    sample = sample_progress()
     raw = os.path.join(STORE, 'raw')
     os.makedirs(raw, exist_ok=True)
     async with async_playwright() as p:
@@ -171,7 +208,7 @@ async def main():
             done = []
             for n, (kind, title, sub) in enumerate(cfg['shots'], 1):
                 shot = os.path.join(raw, f'{lang}-{kind}.png')
-                await app_shot(browser, base, lang, cfg['locale'], kind, stats, shot)
+                await app_shot(browser, base, lang, cfg['locale'], kind, sample, shot)
                 html = (FRAME.replace('TITLE', title).replace('SUB', sub).replace('SHOT', f'{base}/store/raw/{lang}-{kind}.png')
                         .replace('BODY', 'dark' if THEME[kind] != 'light' else ''))
                 out = os.path.join(outdir, f'{n:02d}-{kind}.jpg')

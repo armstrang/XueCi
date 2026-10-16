@@ -1,6 +1,6 @@
 # Rencana rilis XueCi Mandarin di Google Play
 
-Status per 15 Oktober 2026. Aplikasi sudah jalan sebagai APK di GitHub Releases, tapi belum memenuhi syarat Play Store.
+Status per 16 Oktober 2026. Aplikasi sudah jalan sebagai APK di GitHub Releases, tapi belum memenuhi syarat Play Store.
 Centang item di bawah saat selesai.
 
 ## 1. Keputusan dulu (sebelum kode diubah)
@@ -31,6 +31,8 @@ Centang item di bawah saat selesai.
 - [x] **Font dibundel di dalam aplikasi** (v1.5): Plus Jakarta Sans, Noto Sans/Serif SC (dipotong ke ±2.000 hanzi yang dipakai), Noto Sans Thai; lisensi OFL ikut di `assets/fonts/`. Aplikasi tidak lagi menghubungi internet, dan kebijakan privasi sudah diperbarui.
   - [ ] Hapus izin `INTERNET` setelah dicek di HP bahwa aplikasi tetap terbuka normal tanpanya (WebView memuat halaman dari dalam aplikasi, jadi seharusnya tidak perlu).
 - [x] **Ukuran huruf mengikuti pengaturan HP** (v1.5), dari 85% sampai 160%. Hanzi besar dan bagian ringkas (header, pilihan HSK) membesar setengahnya supaya tata letak tetap rapi.
+- [x] **Belajar terarah** (v1.8): tujuan belajar, rencana harian, kartu dengan cek kilat, kuis terarah, simulasi ujian, wawasan belajar, model memori FSRS yang disesuaikan di HP. Semua data tetap di perangkat, jadi jawaban Data safety tidak berubah ("tidak mengumpulkan data"). Kebijakan privasi sudah diperbarui (riwayat jawaban, rekomendasi di perangkat, isi kode cadangan).
+- [ ] **Login Google opsional + sinkron ke Google Drive pengguna** (dibahas, belum dibuat). Butuh dari Josh: project Google Cloud, layar izin OAuth (nama, logo, beranda, kebijakan privasi), Google Drive API aktif, dan OAuth client Android dengan nama paket + SHA-1 (termasuk SHA-1 dari Play App Signing). Setelah itu: izin `INTERNET` dipakai sungguhan, kebijakan privasi dan Data safety diperbarui.
 - [ ] **Splash screen** dengan SplashScreen API (Android 12+), supaya tidak ada layar kosong saat aplikasi dibuka.
 - [ ] **Performa** (dari diskusi sebelumnya):
   - latar WebView solid (bukan transparan);

@@ -70,13 +70,22 @@ jobs:
             exit 1
           fi
 
+      # Release notes: the "## v1.N" section of CHANGELOG.md, then how to install.
+      - name: Release notes
+        run: |
+          awk -v v="## v$VER" 'index($0,"## ")==1{if(p)exit; p=($0==v||index($0,v" ")==1)} p' CHANGELOG.md | tail -n +2 > notes.md
+          if ! grep -q '[^[:space:]]' notes.md; then
+            echo "::warning title=No changelog entry::CHANGELOG.md has no section for v$VER"
+            echo "Lihat [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)." > notes.md
+          fi
+          printf '\n---\n\nUnduh **XueCiMandarin.apk** di bawah, lalu buka di HP Android untuk memasang.\nPembaruan bisa langsung dipasang di atas versi sebelumnya; progres belajar tetap tersimpan.\n' >> notes.md
+          cat notes.md
+
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ env.VER }}
           name: XueCi Mandarin v${{ env.VER }}
-          body: |
-            Unduh **XueCiMandarin.apk** di bawah, lalu buka di HP Android untuk memasang.
-            Pembaruan bisa langsung dipasang di atas versi sebelumnya; progres belajar tetap tersimpan.
+          body_path: notes.md
           files: XueCiMandarin.apk
           make_latest: true

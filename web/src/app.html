@@ -17,6 +17,8 @@
     <button class="iconbtn" id="themeBtn"></button>
   </header>
 
+  <section class="plan" id="plan" aria-labelledby="planT"></section>
+
   <div class="lvpills" id="lvPills" role="group" data-i18n-aria="pickLv"></div>
 
   <div class="hero" id="hero" role="button" tabindex="0">
@@ -83,6 +85,7 @@
     </div>
   </div>
   <div class="stbody">
+    <div class="insights" id="stIns"></div>
     <div class="lvpills" id="stLevels" role="group" data-i18n-aria="level"></div>
     <div class="stsum" id="stSum"></div>
     <div class="stbar"><div class="stack" id="stStack"></div></div>
@@ -124,6 +127,14 @@
       <p class="bkmsg" id="bkMsg" role="status"></p>
       <div class="bkrow" id="bkRow"></div>
     </div>
+  </div>
+</div>
+<div class="sheetwrap" id="goalSheet" hidden>
+  <div class="scrim2" data-close></div>
+  <div class="isheet gsheet" role="dialog" aria-modal="true" aria-labelledby="gTitle">
+    <div class="ihead"><h2 id="gTitle" data-i18n="gT"></h2><button class="xbtn" data-close data-i18n-aria="close">×</button></div>
+    <p class="ilead" data-i18n="gLead"></p>
+    <div id="gBody"></div>
   </div>
 </div>
 <div class="toast" id="toast" hidden></div>
@@ -204,6 +215,7 @@ Object.assign(I18N.vi,{listen:'Nghe',ttsMissing:'Hãy cài giọng tiếng Trung
   bkCopy:'Sao chép',bkShare:'Chia sẻ',bkCopied:'Đã sao chép mã',bkTitleRestore:'Khôi phục tiến độ',bkLeadRestore:'Dán mã sao lưu vào bên dưới.',bkPaste:'Dán',bkCheck:'Kiểm tra mã',
   bkBad:'Không nhận ra mã này. Hãy chắc rằng bạn đã sao chép đầy đủ.',bkConfirm:(n,dt,m)=>`Bản sao lưu ngày ${dt}: đã luyện ${n} từ. Tiến độ trên thiết bị này (${m} từ) sẽ bị thay thế.`,
   bkApply:'Thay thế tiến độ',bkDone:'Đã khôi phục tiến độ',bkShareText:dt=>`Sao lưu tiến độ XueCi Mandarin (${dt})`});
+__I18N_LEARN__
 
 /* 'auto' follows the phone/browser language; unsupported languages fall back to English */
 function sysLang(){const list=(navigator.languages&&navigator.languages.length)?navigator.languages:[navigator.language||''];
@@ -234,10 +246,10 @@ function mH(m){const p=m.split(';').map(x=>x.trim()).filter(Boolean);return `<b>
 const chip=l=>`<span class="lvchip" style="background:var(--l${l})">HSK ${l}</span>`;
 const CHEV='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 
-/* Mastery: every word has a level 0–20. A right answer raises it by 1, a wrong answer lowers it by 3,
-   so a word needs about 20 good repetitions to mature. Levels 0–6 are red, 7–13 yellow, 14–20 green;
-   inside each colour a light shade means young and a deep shade means mature. Level 20 = mastered. */
-const MAXL=20,UP=1,DOWN=3;
+/* Mastery: every word has a level 0–20, worked out by the learning engine (learn.js) from how long the word is
+   expected to stay remembered. Levels 0–6 are red, 7–13 yellow, 14–20 green; inside each colour a light shade
+   means young and a deep shade means mature. Level 20 = mastered. stats[id] = [right, wrong, level]. */
+const MAXL=20;
 const lvBand=s=>s>=14?'green':s>=7?'yellow':'red';
 const lvAlpha=s=>{const [lo,hi]=s>=14?[14,20]:s>=7?[7,13]:[0,6];return Math.round(26+74*(s-lo)/(hi-lo))};
 {let a='',b='';for(let s=0;s<=MAXL;s++){a+=`.m${s}{--mc:var(--s-${lvBand(s)})}`;b+=`.m${s}{--mc:color-mix(in srgb,var(--s-${lvBand(s)}) ${lvAlpha(s)}%,var(--surface))}`}
@@ -260,15 +272,17 @@ const pctTxt=p=>(p>0&&p<10?p.toLocaleString(L10.loc,{maximumFractionDigits:1}):M
 function stackH(S){let h='';for(let s=MAXL;s>=0;s--)if(S.lv[s])h+=`<i class="m${s} mbg" style="width:${S.lv[s]/S.n*100}%"></i>`;return h}
 function stTxt(d){const s=lvl(d);if(s<0)return L10.band.none;const e=stats[d.id];return L10.stTxt(s,e[0],e[1])}
 function stH(d){return `<span class="st"><i class="sd ${mcls(d)}"></i>${stTxt(d)}</span>`}
-function record(d,ok){const e=stats[d.id]||[0,0,0];if(ok){e[0]++;e[2]=Math.min(MAXL,e[2]+UP)}else{e[1]++;e[2]=Math.max(0,e[2]-DOWN)}stats[d.id]=e;saveStats();afterChange()}
 const masteredAll=()=>DATA.filter(isKnown).length;
+
+__LEARN__
 
 const ui=ls.get('hsk16_ui',{});
 let state={level:LEVELS.includes(ui.level)?ui.level:1,unitBy:Object.assign({1:1,2:1,3:1,4:1,5:1,6:1},ui.unitBy||{}),q:'',shown:60,hide:false,weak:false,screen:'home'};
-const saveUI=()=>ls.set('hsk16_ui',{level:state.level,unitBy:state.unitBy});
+let qType=['auto','m','f','s','l','c','exam'].includes(ui.qt)?ui.qt:'auto';
+const saveUI=()=>ls.set('hsk16_ui',{level:state.level,unitBy:state.unitBy,qt:qType});
 const unit=()=>state.unitBy[state.level];
 const pad=n=>String(n).padStart(2,'0');
-const FOCUS=['list','card','quiz'];
+const FOCUS=['list','card','quiz','session'];
 
 /* theme: one button cycles auto → light → dark */
 const TH_ICON={
@@ -308,7 +322,8 @@ function go(s){
 function show(s){
   closeMenu(false);closeUMenu(false);closeLang(false);
   if(s==='stats'){if(state.screen!=='stats')prevScreen=state.screen;stLevel=state.level;stSel=null;stConfirm=false}
-  if(s==='card')startCards();if(s==='quiz')startQuiz();
+  resetRun();
+  if(s==='stats')stHist=false;
   state.screen=s;
   scrHome.hidden=s!=='home';scrFocus.hidden=!FOCUS.includes(s);scrStats.hidden=s!=='stats';
   if(FOCUS.includes(s)){scrFocus.dataset.mode=s;$('fTitle').textContent=L10[s];$('listTools').hidden=s!=='list';$('footNote').hidden=s!=='list'}
@@ -327,8 +342,7 @@ function refresh(){
   renderChips();
   if(state.screen==='home')renderHome();
   else if(state.screen==='list')renderList();
-  else if(state.screen==='card')renderCard();
-  else if(state.screen==='quiz')renderQuiz();
+  else if(state.screen==='card'||state.screen==='quiz'||state.screen==='session')renderRun();
   else renderStats();
 }
 function afterChange(){
@@ -354,6 +368,7 @@ function renderHome(){
   $('heroGo').textContent=L10.statsShort+' ›';
   hero.setAttribute('aria-label',`${L10.stTitle} · HSK ${L} · ${pc}`);
   $('allNote').innerHTML=L10.allLv(fmt(masteredAll()),fmt(DATA.length));
+  renderPlan();
   if(window.mmHomeRendered)window.mmHomeRendered(S);
 }
 $('lvPills').onclick=e=>{const p=e.target.closest('.lvpill');if(p&&+p.dataset.l!==state.level)setLevel(+p.dataset.l)};
@@ -448,7 +463,9 @@ function setLang(pref,silent){
   const l=pref==='auto'?sysLang():pref,changed=l!==lang;
   lang=l;L10=I18N[l];
   if(changed){buildKeys();applyStatic();
-    if(qz.cur&&!qz.answered&&new Set(qz.opts.map(M1)).size<qz.opts.length)newQ();
+    if(run){const it=run.items[run.i],dup=a=>new Set(a.map(M1)).size<a.length;   /* two options can share a meaning in the new language */
+      if(it&&it.k==='q'&&it.q==='m'&&!it.done&&it.opts&&dup(it.opts))delete it.opts;
+      if(it&&it.k==='card'&&it.st==='check'&&it.chk.q==='cm'&&dup(it.chk.opts))it.chk=Object.assign({q:'cm'},LM.question(it.d,'cm'))}
     refresh()}
   if(!silent)toast(pref==='auto'?L10.auto+' · '+L10.name:L10.name);
 }
@@ -477,84 +494,168 @@ const hideBtn=$('hideMean'),weakBtn=$('onlyNew');
 hideBtn.onclick=()=>{state.hide=!state.hide;hideBtn.setAttribute('aria-pressed',state.hide);renderList()};
 weakBtn.onclick=()=>{state.weak=!state.weak;weakBtn.setAttribute('aria-pressed',state.weak);state.shown=60;renderList()};
 
-/* ---------- flashcards ---------- */
-let deck=[],di=0,flipped=false;
-function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-function startCards(){const p=pool();const weak=p.filter(d=>!isKnown(d));deck=shuffle(weak.length?weak:p);di=0;flipped=false}
-function renderCard(){
-  if(!deck.length)startCards();
-  if(di>=deck.length){view.innerHTML=`<div class="qcard"><div class="big t3">好!</div><p>${L10.roundDone}</p><button class="next" id="again">${L10.newRound}</button></div>`;return}
-  const d=deck[di];
-  view.innerHTML=`<div class="fcmeta"><span>${L10.cardN(di+1,deck.length)}</span><span class="mbar"><span class="stack"><i style="width:${di/deck.length*100}%;background:var(--acc)"></i></span></span></div>
-  <div class="flip ${flipped?'on':''}" id="flip" role="button" tabindex="0" aria-label="${L10.flip}">
-   <div class="inner">
-    <div class="face">${stH(d)}<div class="big">${esc(d.h)}</div>${spk(d.h,' lg')}<div class="hint">${L10.flipHint}</div></div>
-    <div class="face back"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div>
-      <div class="mean">${mH(M(d))}</div><div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div></div></div>
-   </div></div>
-  <div class="fcbtns"><button class="no-btn" id="fcNo">${L10.notYet}</button><button class="yes-btn" id="fcYes">${L10.got}</button></div>
-  <div class="fcnav"><button class="ghost" id="fcPrev">${L10.prev}</button><button class="ghost" id="fcShuf">${L10.reshuffle}</button></div>`;
-}
-function fcAnswer(ok){const d=deck[di];if(!d)return;window.mmFeedback&&mmFeedback(ok);record(d,ok);if(!ok)deck.push(d);di++;flipped=false;renderCard()}
-view.addEventListener('click',e=>{
-  if(state.screen!=='card')return;
-  const id=e.target.closest('[id]')?.id;
-  if(id==='flip'){flipped=!flipped;$('flip').classList.toggle('on',flipped)}
-  else if(id==='fcYes')fcAnswer(true);else if(id==='fcNo')fcAnswer(false);
-  else if(id==='fcPrev'&&di>0){di--;flipped=false;renderCard()}
-  else if(id==='fcShuf'||id==='again'){startCards();renderCard()}
-});
-
-/* ---------- quiz ---------- */
-let qz={type:'meaning',cur:null,opts:[],answered:false,pick:-1,right:0,total:0,streak:0};
-function startQuiz(){qz.right=0;qz.total=0;qz.streak=0;newQ()}
-function newQ(){const p=pool();const weak=p.filter(d=>!isKnown(d));const src=weak.length&&Math.random()<.7?weak:p;const d=src[Math.random()*src.length|0];
-  const lvl=BY[d.l],seen=new Set([M1(d)]),picks=[];
-  for(const x of shuffle(lvl.filter(x=>x.id!==d.id&&(unit()?Math.abs(x.u-d.u)<=2:true)))){const k=M1(x);if(seen.has(k))continue;seen.add(k);picks.push(x);if(picks.length===3)break}
-  qz.cur=d;qz.opts=shuffle([d,...picks]);qz.answered=false;qz.pick=-1}
-function scoreH(){return `<span>${L10.right} <b>${qz.right}</b>/${qz.total}</span><span>${L10.streak} <b>${qz.streak}</b></span>`}
-/* The whole question, including the answered state, is drawn from qz, so any re-render
-   (language switch, level refresh) keeps the feedback and the "next" button. */
-function renderQuiz(){
-  if(!qz.cur||qz.cur.l!==state.level)newQ();const d=qz.cur,T=qz.type,mp=M(d).split(';'),ans=qz.answered,ok=ans&&qz.opts[qz.pick]?.id===d.id;
-  const prompt=T==='meaning'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
-    :T==='hanzi'?`<div class="q">${L10.qHz}</div><div style="font-size:22px;font-weight:800">${esc(mp[0])}</div><div class="id">${esc(mp.slice(1).join(';'))}</div>`
-    :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div><div class="id">${esc(TR(d))}</div>`;
-  const lab=o=>T==='meaning'?esc(M1(o)):`<span style="font-family:var(--f-hz);font-weight:900;font-size:20px">${esc(o.h)}</span>`;
-  const cls=(o,i)=>!ans?'':o.id===d.id?' class="ok"':i===qz.pick?' class="ng"':'';
-  const fb=!ans?'':`<div style="font-weight:800;color:var(${ok?'--good':'--bad'})">${ok?L10.ok:L10.ng}</div>
-    <div class="head"><span class="hz" style="font-size:26px">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div><div class="mean">${mH(M(d))}</div>
-    <div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.nextQ}</button>`;
-  const QT=[['meaning',L10.tMean,L10.dMean,'汉→a'],['hanzi',L10.tHz,L10.dHz,'a→汉'],['cloze',L10.tCloze,L10.dCloze,'汉＿']],cur=QT.find(q=>q[0]===T);
-  view.innerHTML=`<div class="qhead"><div class="qsel" id="qsel">
+/* ---------- practice: Cards, Quiz and today's session share one runner ----------
+   A run is a list of items: cards ({k:'card'}) and questions ({k:'q', q: m|f|s|l|c}). Answers go to LM.answer,
+   which updates the memory model, the 0–20 level and the answer log. Wrong answers come back a few items later. */
+let run=null,sessionExtra=false;
+const EXAM_N=20,EXAM_SEC=300,ROUND_Q=12,ROUND_C=20;
+function resetRun(){if(run&&run.timer)clearInterval(run.timer);run=null}
+const startCards=resetRun,startQuiz=resetRun;      /* level/unit change, restore and reset start a fresh run */
+function ttsOK(){try{if(window.MMAndroid&&typeof MMAndroid.ttsStatus==='function')return MMAndroid.ttsStatus()==='ready';
+  return 'speechSynthesis' in window&&speechSynthesis.getVoices().some(v=>/^zh[-_]?(CN|Hans)?/i.test(v.lang)&&!/TW|HK/i.test(v.lang))}catch(e){return false}}
+LM.setTts(ttsOK);
+function makeRun(mode){
+  resetRun();let items,exam=false,lv=state.level;
+  if(mode==='card')items=LM.cardDeck(pool(),ROUND_C).map(d=>({k:'card',d}));
+  else if(mode==='session')items=LM.session(sessionExtra);
+  else if(qType==='exam'){exam=true;items=LM.exam(lv,EXAM_N)}
+  else items=LM.quizRound(pool(),ROUND_Q,qType==='auto'?null:qType);
+  run={mode,items,i:0,ok:0,tot:0,before:new Map(),wrong:new Map(),conf:[],again:new Map(),exam,lv,over:0};
+  if(exam){run.end=Date.now()+EXAM_SEC*1000;run.timer=setInterval(tick,1000)}}
+function renderRun(){
+  if(!run)makeRun(state.screen);
+  const it=run.items[run.i];
+  if(!it){renderSummary();return}
+  if(!run.before.has(it.d.id))run.before.set(it.d.id,lvl(it.d));
+  if(it.k==='card')renderCardItem(it);else renderQItem(it)}
+function nextItem(){run.i++;renderRun();window.scrollTo(0,0)}
+/* bring a word back a few items later (at most twice per word in a run) */
+function again(item,copy){const n=run.again.get(item.d.id)||0;if(n>=2||run.exam)return;run.again.set(item.d.id,n+1);
+  run.items.splice(Math.min(run.items.length,run.i+4),0,copy)}
+const progH=(i,n)=>`<span class="mbar"><span class="stack"><i style="width:${Math.min(100,i/Math.max(1,n)*100)}%;background:var(--acc)"></i></span></span>`;
+const TNAME=()=>({m:L10.tMean,f:L10.tHz,s:L10.tTone,l:L10.tListen,c:L10.tCloze});
+function qtList(){return [['auto',L10.tAuto,L10.dAuto,'智'],['m',L10.tMean,L10.dMean,'汉→a'],['f',L10.tHz,L10.dHz,'a→汉'],['s',L10.tTone,L10.dTone,'mā'],
+  ...(canSpeak()?[['l',L10.tListen,L10.dListen,'♪→汉']]:[]),['c',L10.tCloze,L10.dCloze,'汉＿'],['exam',L10.tExam,L10.dExam(EXAM_N,EXAM_SEC/60),'考']]}
+function clock(){const s=run&&run.end?Math.max(0,Math.ceil((run.end-Date.now())/1000)):0;return `${s/60|0}:${String(s%60).padStart(2,'0')}`}
+function tick(){if(!run||!run.exam)return;const el=$('exTimer');if(el)el.textContent=clock();
+  if(Date.now()>=run.end){clearInterval(run.timer);run.timer=0;run.timeUp=true;run.i=run.items.length;if(state.screen==='quiz')renderRun()}}
+function runHead(){
+  const n=run.items.length,i=Math.min(run.i+1,n),it=run.items[run.i];
+  if(run.mode==='card')return `<div class="fcmeta"><span>${L10.cardN(i,n)}</span>${progH(run.i,n)}</div>`;
+  if(run.mode==='session'){const lab=!it||it.k==='card'?'':TNAME()[it.q];   /* a card shows "new word" or its level on its face */
+    return `<div class="fcmeta"><span>${L10.qN(i,n)}</span><span class="tlabel">${esc(lab)}</span>${progH(run.i,n)}</div>`}
+  const QT=qtList(),cur=QT.find(q=>q[0]===qType)||QT[0];
+  return `<div class="qhead"><div class="qsel" id="qsel">
       <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>
-      <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q=>`<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0]===T}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>
-     </div><div class="score">${scoreH()}</div></div>
-   <div class="qcard">${prompt}
-     <div class="opts">${qz.opts.map((o,i)=>`<button data-i="${i}"${cls(o,i)} ${ans?'disabled':''}>${i+1}. ${lab(o)}</button>`).join('')}</div>
-     <div class="feedback" id="fb">${fb}</div></div>`;
-}
+      <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q=>`<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0]===qType}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>
+     </div><div class="score">${run.exam?`<span class="timer" id="exTimer">${clock()}</span><span>${L10.qN(i,n)}</span>`
+       :`<span>${L10.qN(i,n)}</span><span>${L10.right} <b>${run.ok}</b>/${run.tot}</span>`}</div></div>`}
+
+/* ---- cards: "Don't know" / "I know it" → a quick check (adaptive) → the back of the card ---- */
+const pyOpt=a=>esc(a.map((s,i)=>(i&&/^[aeoāáǎàēéěèōóǒò]/i.test(s)?"'":'')+s).join(''));
+function backFace(d){return `<div class="face back"><div class="head"><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div>
+      <div class="mean">${mH(M(d))}</div><div class="ex"><div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div></div></div>`}
+function renderCardItem(it){
+  const d=it.d;if(!it.st){it.st='front';it.t0=performance.now();it.fresh=!LM.has(d.id)}
+  view.innerHTML=runHead()+`<div class="flip${it.st==='back'?' on':it.st==='check'?' checking':''}" id="flip"><div class="inner">
+    <div class="face">${it.fresh?`<span class="st newtag">${L10.newWord}</span>`:stH(d)}<div class="big">${esc(d.h)}</div>${spk(d.h,' lg')}<div class="hint">${L10.fcHint}</div></div>
+    ${backFace(d)}</div></div><div class="fcact" id="fcAct">${cardAct(it)}</div>`}
+function cardAct(it){
+  if(it.st==='front')return `<div class="fcbtns"><button class="no-btn" id="fcNo">${L10.fcDont}</button><button class="yes-btn" id="fcYes">${L10.fcKnow}</button></div>`;
+  if(it.st==='check'){const c=it.chk;return `<div class="chk"><div class="q">${c.q==='cs'?L10.chkTone:L10.chkMean}</div><div class="opts">${c.opts.map((o,i)=>
+    `<button data-c="${i}">${i+1}. ${c.q==='cs'?`<span class="pyo">${pyOpt(o)}</span>`:esc(M1(o))}</button>`).join('')}</div></div>`}
+  const msg={ok:L10.resOk,over:L10.resOver,no:L10.resNo,trust:L10.resTrust}[it.res];
+  return `<div class="res ${it.res}" role="status">${msg}</div><div class="fcbtns${it.res==='trust'?'':' one'}">${it.res==='trust'?`<button class="no-btn" id="fcOops">${L10.oops}</button>`:''}<button class="next" id="fcNext">${L10.next}</button></div>`}
+/* keep the buttons under the card in view (small screens, large text) */
+function inView(el){if(!el)return;const r=el.getBoundingClientRect();if(r.bottom>innerHeight-8)el.scrollIntoView({block:'end',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+function cardShow(it,ok){
+  it.st='back';run.tot++;if(ok)run.ok++;else run.wrong.set(it.d.id,it.d);
+  window.mmFeedback&&mmFeedback(ok);afterChange();$('flip')?.classList.remove('checking');$('flip')?.classList.add('on');$('fcAct').innerHTML=cardAct(it);$('fcNext')?.focus({preventScroll:true});inView($('fcAct'))}
+/* in today's session a new word that was proven also gets a tone question a few items later */
+function cardFollow(it,ok){
+  if(!ok){again(it,{k:'card',d:it.d});return}
+  if(run.mode==='session'&&it.fresh&&!it.followed){it.followed=true;run.items.splice(Math.min(run.items.length,run.i+5),0,{k:'q',d:it.d,q:'s'})}}
+function cardDont(it){LM.answer(it.d,{q:'cn',ok:false,ms:performance.now()-it.t0});it.res='no';cardShow(it,false);cardFollow(it,false)}
+function cardKnow(it){
+  it.claimMs=performance.now()-it.t0;
+  if(Math.random()<LM.checkP(it.d)){const q=LM.checkType(it.d,it.heard);it.chk=Object.assign({q},LM.question(it.d,q));it.st='check';
+    $('flip').classList.add('checking');$('fcAct').innerHTML=cardAct(it);$('fcAct').querySelector('[data-c]')?.focus({preventScroll:true});inView($('fcAct'));return}
+  LM.answer(it.d,{q:'cu',ok:true,ms:it.claimMs,claim:true,unchecked:true});it.res='trust';cardShow(it,true);cardFollow(it,true)}
+function cardCheck(it,i){
+  const c=it.chk,ok=i===c.ans,x=!ok&&c.q==='cm'?c.opts[i].id:0;c.pick=i;
+  LM.answer(it.d,{q:c.q,ok,ms:it.claimMs,x,claim:true,over:!ok});
+  if(!ok){run.over++;if(x)run.conf.push([it.d.id,x])}
+  it.res=ok?'ok':'over';cardShow(it,ok);cardFollow(it,ok)}
+/* "I was wrong" after an unchecked claim: the claim is taken back and counted as not known (no extra penalty) */
+function cardOops(it){LM.undo();LM.answer(it.d,{q:'cn',ok:false,ms:it.claimMs});run.ok--;run.wrong.set(it.d.id,it.d);it.res='no';
+  $('fcAct').innerHTML=cardAct(it);$('fcNext')?.focus({preventScroll:true});cardFollow(it,false)}
+
+/* ---- questions ---- */
+function renderQItem(it){
+  const d=it.d,T=it.q;if(!it.opts){Object.assign(it,LM.question(d,T));it.t0=performance.now()}
+  const ans=it.done&&!run.exam,ok=it.ok;
+  const prompt=T==='m'?`<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
+    :T==='f'?`<div class="q">${L10.qHz}</div><div style="font-size:22px;font-weight:800">${esc(M1(d))}</div><div class="id">${esc(M(d).split(';').slice(1).join(';'))}</div>`
+    :T==='s'?`<div class="q">${L10.qTone}</div><div class="big">${esc(d.h)}</div><div class="id">${esc(M1(d))}</div>`
+    :T==='l'?`<div class="q">${L10.qListen}</div><button class="spk xl" id="qSay" data-say="${esc(d.h)}" aria-label="${esc(L10.replay)}" title="${esc(L10.replay)}">${SPK}</button>`
+    :`<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${esc(d.z).replace(esc(d.h),'<mark>＿＿</mark>')}</div><div class="id">${esc(TR(d))}</div>`;
+  const lab=o=>T==='m'?esc(M1(o)):T==='s'?`<span class="pyo">${pyOpt(o)}</span>`:`<span class="hzo">${esc(o.h)}</span>`;
+  const cls=i=>!ans?'':i===it.ans?' class="ok"':i===it.pick?' class="ng"':'';
+  const picked=ans&&!ok&&T!=='s'?it.opts[it.pick]:null;
+  const fb=!ans?'':`<div class="fbv ${ok?'good':'bad'}">${ok?L10.ok:L10.ng}</div>
+    ${picked?`<div class="picked">${L10.picked} <b class="hzs">${esc(picked.h)}</b> ${esc(picked.p)} · ${esc(M1(picked))}</div>`:''}
+    <div class="head"><span class="hz" style="font-size:26px">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div><div class="mean">${mH(M(d))}</div>
+    <div class="zh">${exH(d)}${spk(d.z,' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.next}</button>`;
+  view.innerHTML=runHead()+`<div class="qcard qt-${T}">${prompt}<div class="opts">${it.opts.map((o,i)=>`<button data-i="${i}"${cls(i)} ${ans?'disabled':''}>${i+1}. ${lab(o)}</button>`).join('')}</div><div class="feedback" id="fb">${fb}</div></div>`;
+  if(T==='l'&&!it.played&&ttsOK()){it.played=true;setTimeout(()=>{const b=$('qSay');if(b&&state.screen===run?.mode)speak(d.h,b)},250)}}
+function qAnswer(it,i){
+  if(it.done)return;it.done=true;it.pick=i;const ok=i===it.ans;it.ok=ok;
+  const x=!ok&&it.q!=='s'?it.opts[i].id:0;
+  LM.answer(it.d,{q:it.q,ok,ms:performance.now()-it.t0,x,exam:run.exam});run.tot++;
+  if(ok)run.ok++;else{run.wrong.set(it.d.id,it.d);if(x)run.conf.push([it.d.id,x]);again(it,{k:'q',d:it.d,q:it.q})}
+  window.mmFeedback&&mmFeedback(ok);afterChange();
+  if(run.exam){run.i++;renderRun();return}
+  renderQItem(it)}
+
+/* ---- end of a run ---- */
+function renderSummary(){
+  if(run.timer){clearInterval(run.timer);run.timer=0}
+  if(!run.closed){run.closed=true;LM.updWeak()}
+  const n=run.tot,ok=run.ok,pct=n?Math.round(ok/n*100):0;
+  const up=[...run.before].filter(([id,b])=>lvl(IDX.get(id))>Math.max(b,0)).length,wrong=[...run.wrong.values()];
+  const seen=new Set(),pairs=run.conf.filter(([a,b])=>{const k=a<b?a+b:b+a;if(seen.has(k))return false;seen.add(k);return true}).slice(0,3);
+  const kind=run.exam?'exam':run.mode;
+  let note='';
+  if(run.exam){const est=Math.max(0,Math.round((ok/run.items.length-.25)/.75*100));note=`<p class="sumnote">${L10.examScore(pct,run.lv,est)}</p>`+(run.timeUp?`<p class="sumnote">${L10.timeUp}</p>`:'')}
+  view.innerHTML=(run.mode==='quiz'?runHead():'')+`<div class="qcard sum">
+    <div class="big t3">${!n?'好':pct>=80?'好!':'加油'}</div><h3>${L10.sumT[kind]}</h3>
+    ${n?`<div class="sumgrid"><div><b>${ok}/${n}</b><small>${L10.sumRight}</small></div><div><b>${up}</b><small>${L10.sumUp}</small></div><div><b>${wrong.length}</b><small>${L10.sumAgain}</small></div></div>`:`<p class="sumnote">${L10.sumEmpty}</p>`}
+    ${note}
+    ${run.over?`<p class="sumnote">${L10.sumOver(run.over)}</p>`:''}
+    ${pairs.length?`<div class="sumrow"><span>${L10.sumConf}</span>${pairs.map(([a,b])=>`<span class="pair"><b>${esc(IDX.get(a).h)}</b>↔<b>${esc(IDX.get(b).h)}</b></span>`).join('')}</div>`:''}
+    ${wrong.length?`<div class="sumwords"><div class="lbl">${L10.sumWrong}</div>${wrong.slice(0,12).map(d=>`<span class="wchip"><b>${hzH(d)}</b>${esc(M1(d))}</span>`).join('')}</div>`:''}
+    <div class="sumbtns"><button class="ghost" id="sumHome">${L10.sumHome}</button><button class="next" id="sumMore">${run.mode==='session'?L10.sumSessionMore:L10.sumMore}</button></div></div>`}
+
+view.addEventListener('click',e=>{
+  if(!['card','quiz','session'].includes(state.screen)||!run)return;
+  if(e.target.closest('#qTypeBtn')){qMenu(!qMenuOpen());return}
+  const qt=e.target.closest('.qtrow');if(qt){qMenu(false);if(qt.dataset.qt!==qType){qType=qt.dataset.qt;saveUI();resetRun()}renderRun();$('qTypeBtn')?.focus();return}
+  const id=e.target.closest('[id]')?.id;
+  if(id==='sumHome'){go('home');return}
+  if(id==='sumMore'){if(run.mode==='session')sessionExtra=true;resetRun();renderRun();window.scrollTo(0,0);return}
+  const it=run.items[run.i];if(!it)return;
+  if(it.k==='card'){
+    if(id==='fcNo'&&it.st==='front')cardDont(it);
+    else if(id==='fcYes'&&it.st==='front')cardKnow(it);
+    else if(id==='fcOops'&&it.res==='trust')cardOops(it);
+    else if(id==='fcNext'&&it.st==='back')nextItem();
+    else{const c=e.target.closest('[data-c]');if(c&&it.st==='check')cardCheck(it,+c.dataset.c)}
+    return}
+  if(id==='qNext'){nextItem();return}
+  const b=e.target.closest('.opts button');if(b&&!it.done)qAnswer(it,+b.dataset.i);
+});
 const qMenuOpen=()=>{const m=$('qTypeMenu');return !!m&&!m.hidden};
 function qMenu(open){const m=$('qTypeMenu'),b=$('qTypeBtn');if(!m)return;m.hidden=!open;b.setAttribute('aria-expanded',open);if(open)(m.querySelector('[aria-selected="true"]')||m.firstElementChild).focus()}
 view.addEventListener('keydown',e=>{if(!qMenuOpen())return;const rows=[...$('qTypeMenu').querySelectorAll('.qtrow')],i=rows.indexOf(document.activeElement);
   if(e.key==='ArrowDown'){e.preventDefault();rows[(i+1)%rows.length].focus()}else if(e.key==='ArrowUp'){e.preventDefault();rows[(i-1+rows.length)%rows.length].focus()}
   else if(e.key==='Escape'){e.preventDefault();e.stopPropagation();qMenu(false);$('qTypeBtn').focus()}});
 document.addEventListener('click',e=>{if(qMenuOpen()&&!e.target.closest('#qsel'))qMenu(false)});
-view.addEventListener('click',e=>{
-  if(state.screen!=='quiz')return;
-  if(e.target.closest('#qTypeBtn')){qMenu(!qMenuOpen());return}
-  const qt=e.target.closest('.qtrow');if(qt){if(qt.dataset.qt!==qz.type){qz.type=qt.dataset.qt;startQuiz()}renderQuiz();$('qTypeBtn')?.focus();return}
-  if(e.target.closest('#qNext')){newQ();renderQuiz();return}
-  const b=e.target.closest('.opts button');if(!b||qz.answered)return;
-  const d=qz.cur;qz.answered=true;qz.pick=+b.dataset.i;qz.total++;const ok=qz.opts[qz.pick].id===d.id;
-  if(ok){qz.right++;qz.streak++}else qz.streak=0;
-  window.mmFeedback&&mmFeedback(ok);record(d,ok);renderQuiz();
-});
 
 /* ---------- stats screen ---------- */
-let stLevel=1,stSel=null,stConfirm=false;
+let stLevel=1,stSel=null,stConfirm=false,stHist=false;
 function renderStats(){
   const arr=BY[stLevel],S=summary(arr);
+  renderInsights();
   $('stLevels').innerHTML=LEVELS.map(l=>`<button class="lvpill" data-sl="${l}" aria-pressed="${l===stLevel}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`).join('');
   $('stSum').innerHTML=`<div class="big">${pctTxt(S.p)}<small>${L10.memoWord}</small></div><div class="tot">HSK ${stLevel} · ${L10.words(fmt(S.n))} · ${L10.practiced(fmt(S.n-S.none))} · ${L10.matureN(fmt(S.mature))}</div>`;
   $('stStack').innerHTML=stackH(S);
@@ -570,19 +671,38 @@ function renderStats(){
 function renderDetail(){
   const el=$('stDetail'),d=stSel&&IDX.get(stSel);
   if(!d||d.l!==stLevel){el.innerHTML=`<span class="hint">${L10.dotHint}</span>`;return}
-  el.innerHTML=`<div class="w"><span class="no">${String(d.n).padStart(4,'0')}</span><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span><span style="font-size:13px">${esc(M1(d))}</span><span style="flex-basis:100%">${stH(d)}</span></div><span class="ans"><button class="a-no" data-sa="0">${L10.aNo}</button><button class="a-yes" data-sa="1">${L10.aYes}</button></span>`;
+  const e=LM.mem(d.id),names=[L10.skM,L10.skF,L10.skS];
+  const sk=e?['m','f','s'].map((k,i)=>{const L=LM.skLevel(e[k]);return `<span class="skc">${names[i]} <i class="sd ${L<0?'s-none':`m${L} mbg`}"></i><b>${L<0?'–':L}</b></span>`}).join(''):'';
+  el.innerHTML=`<div class="w"><span class="no">${String(d.n).padStart(4,'0')}</span><span class="hz">${hzH(d)}</span><span class="py">${pyH(d)}</span><span style="font-size:13px">${esc(M1(d))}</span><span style="flex-basis:100%">${stH(d)}</span></div>
+    ${e?`<div class="skl">${sk}<span class="skc">${L10.detNext(L10.rel(Math.ceil(LM.nextDue(d.id))))}</span>${e.L===1?`<span class="badge">${L10.detLegacy}</span>`:''}</div>`:''}`;
 }
 function renderFoot(){
   $('stFoot').innerHTML=stConfirm?`<div class="confirm">${L10.rsQ(stLevel)}<button class="ghost" id="rsNo">${L10.cancel}</button><button class="danger solid" id="rsYes">${L10.rsYes}</button></div>`
-    :`<p>${L10.rsNote}</p><button class="danger" id="rsAsk">${L10.rsAsk(stLevel)}</button>`;
+    :stHist?`<div class="confirm">${L10.histQ}<button class="ghost" id="hxNo">${L10.cancel}</button><button class="danger solid" id="hxYes">${L10.histYes}</button></div>`
+    :`<p>${L10.rsNote}</p><div class="stbtns"><button class="danger" id="rsAsk">${L10.rsAsk(stLevel)}</button><button class="ghost" id="hxAsk">${L10.histDel}</button></div>`;
+}
+/* learning insights: everything comes from the answer log on this phone */
+function renderInsights(){
+  const I=LM.insights(),el=$('stIns'),TN=TNAME();
+  if(!I.total){el.innerHTML=`<div class="ihd"><b>${L10.insT}</b><small>${L10.insPriv}</small></div><p class="insnote">${L10.insEmpty}</p>`;return}
+  const col=p=>p>=85?'s-green':p>=65?'s-yellow':'s-red';
+  const sk=['m','f','s','l','c'].filter(k=>I.skills[k]).map(k=>`<div class="skrow${I.weak===k?' weak':''}"><span>${TN[k]}</span><span class="mbar"><span class="stack"><i style="width:${I.skills[k].p}%;background:var(--${col(I.skills[k].p)})"></i></span></span><b>${I.skills[k].p}%</b></div>`).join('');
+  el.innerHTML=`<div class="ihd"><b>${L10.insT}</b><small>${L10.insPriv}</small></div>
+    <div class="kpis"><div><b>${I.recall===null?'–':I.recall+'%'}</b><small>${L10.insRecall}</small></div><div><b>${fmt(I.n7)}</b><small>${L10.insAns7}</small></div><div><b>${I.cal.n>=5?Math.round(I.cal.acc*100)+'%':'–'}</b><small>${L10.insCal}</small></div></div>
+    ${sk?`<div class="skills">${sk}</div>`:''}
+    ${I.weak?`<p class="insnote">${L10.insWeak(TN[I.weak])}</p>`:''}
+    ${I.pairs.length?`<div class="pairs"><span>${L10.insConf}</span>${I.pairs.map(([a,b,n])=>`<span class="pair"><b>${esc(a.h)}</b>↔<b>${esc(b.h)}</b><small>×${n}</small></span>`).join('')}</div>`:''}
+    <p class="insnote">${I.model?L10.insModelOwn(fmt(I.model.n)):L10.insModelBase(fmt(I.spaced),fmt(I.need))}</p>`;
 }
 scrStats.addEventListener('click',e=>{
   const lb=e.target.closest('[data-sl]');if(lb){stLevel=+lb.dataset.sl;stSel=null;stConfirm=false;renderStats();return}
   const dot=e.target.closest('[data-sid]');if(dot){stSel=dot.dataset.sid;scrStats.querySelectorAll('.dots [aria-current="true"]').forEach(x=>x.setAttribute('aria-current','false'));dot.setAttribute('aria-current','true');renderDetail();return}
-  const sa=e.target.closest('[data-sa]');if(sa){record(IDX.get(stSel),sa.dataset.sa==='1');return}
   if(e.target.id==='rsAsk'){stConfirm=true;renderFoot();$('rsNo').focus();return}
   if(e.target.id==='rsNo'){stConfirm=false;renderFoot();return}
-  if(e.target.id==='rsYes'){BY[stLevel].forEach(d=>delete stats[d.id]);saveStats();stConfirm=false;stSel=null;
+  if(e.target.id==='hxAsk'){stHist=true;renderFoot();$('hxNo').focus();return}
+  if(e.target.id==='hxNo'){stHist=false;renderFoot();return}
+  if(e.target.id==='hxYes'){LM.clearLog();stHist=false;renderStats();toast(L10.histDone);return}
+  if(e.target.id==='rsYes'){BY[stLevel].forEach(d=>{delete stats[d.id];LM.forget(d.id)});saveStats();stConfirm=false;stSel=null;
     if(state.level===stLevel){startCards();startQuiz()}afterChange();toast(L10.rsDone(stLevel))}
 });
 /* ---------- tone colours & info sheet ---------- */
@@ -617,7 +737,9 @@ function speak(text,btn){
     const v=speechSynthesis.getVoices().find(v=>/^zh[-_]?(CN|Hans)?/i.test(v.lang)&&!/TW|HK/i.test(v.lang));if(v)u.voice=v;
     u.onend=u.onerror=spkUnmark;speechSynthesis.speak(u);spkMark(btn)}catch(e){}}
 /* capture phase, so tapping the speaker never flips a card or opens anything else */
-document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.spk');if(!b)return;e.preventDefault();e.stopPropagation();speak(b.dataset.say,b)},true);
+document.addEventListener('click',e=>{const b=e.target.closest&&e.target.closest('.spk');if(!b)return;e.preventDefault();e.stopPropagation();
+  const it=run&&run.items[run.i];if(it&&it.k==='card'&&it.st==='front')it.heard=true;
+  speak(b.dataset.say,b)},true);
 
 /* ---------- progress backup / restore ----------
    A backup is one line of text: "XUECI1:" + base64url(deflate-raw(JSON)), or "XUECI0:" + base64url(JSON)
@@ -632,7 +754,7 @@ const pipeBytes=async(u,stream)=>new Uint8Array(await new Response(new Blob([u])
 const practisedN=st=>Object.values(st).filter(e=>e[0]+e[1]>0).length;
 const bkDate=t=>new Date(t).toLocaleDateString(L10.loc,{day:'numeric',month:'long',year:'numeric'});
 async function makeCode(){
-  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:1,at:Date.now(),stats,ui:{level:state.level,unitBy:state.unitBy},lang:langPref,theme}));
+  const raw=new TextEncoder().encode(JSON.stringify({app:'xueci',v:2,at:Date.now(),stats,mem:LM.exportMem(),goal:LM.goal,w:LM.params,ui:{level:state.level,unitBy:state.unitBy,qt:qType},lang:langPref,theme}));
   if(canZip){try{return 'XUECI1:'+B64(await pipeBytes(raw,new CompressionStream('deflate-raw')))}catch(e){}}
   return 'XUECI0:'+B64(raw)}
 async function readCode(text){
@@ -643,7 +765,7 @@ async function readCode(text){
     for(const k in o.stats){const e=o.stats[k];
       if(!IDX.has(k)||!Array.isArray(e)||e.length<2||!e.every(x=>Number.isFinite(x)&&x>=0))continue;
       const r=Math.floor(e[0]),w=Math.floor(e[1]);st[k]=[r,w,Math.max(0,Math.min(MAXL,Math.floor(e.length>2?e[2]:r-w)))]}
-    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme}}catch(e){return null}}
+    return {stats:st,at:+o.at||Date.now(),ui:o.ui,lang:o.lang,theme:o.theme,mem:o.mem?LM.importMem(o.mem):null,goal:'goal' in o?o.goal:undefined,w:o.w}}catch(e){return null}}
 function bkRow(){
   const r=$('bkRow');
   if(bkMode==='make')r.innerHTML=`<button class="ghost" id="bkCopy">${L10.bkCopy}</button>${NATIVE('shareText')||navigator.share?`<button class="ghost pri" id="bkShare">${L10.bkShare}</button>`:''}`;
@@ -681,10 +803,10 @@ async function bkCheckCode(){
   bkPending=b;say(L10.bkConfirm(fmt(practisedN(b.stats)),bkDate(b.at),fmt(practisedN(stats))));bkRow();$('bkApply')?.focus()}
 function bkApply(){
   const b=bkPending;if(!b)return;
-  stats=b.stats;saveStats();
+  stats=b.stats;LM.replace(b.mem||{},b.goal,b.w);       /* older codes (v1) have no memory states: their levels are kept as "needs confirming" */
   if(b.ui&&LEVELS.includes(b.ui.level)){
     const ub=b.ui.unitBy||{};LEVELS.forEach(l=>{const u=ub[l];state.unitBy[l]=Number.isInteger(u)&&u>=0&&u<=UNITS[l]?u:1});
-    state.level=b.ui.level}
+    state.level=b.ui.level;if(['auto','m','f','s','l','c','exam'].includes(b.ui.qt))qType=b.ui.qt}
   if((b.lang==='auto'||LANGS.includes(b.lang))&&b.lang!==langPref)setLang(b.lang,true);
   if(themeList().includes(b.theme)&&b.theme!==theme)applyTheme(b.theme,true);
   closeBk();setLevel(state.level);          /* saves the level/unit, restarts cards and quiz, redraws */
@@ -700,12 +822,82 @@ bkSheet.addEventListener('click',e=>{
 bkSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();bkBack()}});
 bkCode.addEventListener('input',()=>{if(bkMode==='restore'&&(bkPending||bkMsg.textContent)){bkPending=null;say('');bkRow()}});
 
+/* ---------- Home: today's plan, built from the goal by the learning engine ---------- */
+const PLAY='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.6-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>';
+function dateS(x){const d=typeof x==='string'?(([y,m,dd])=>new Date(y,m-1,dd))(x.split('-').map(Number)):x;
+  return d.toLocaleDateString(L10.loc,d.getFullYear()===new Date().getFullYear()?{day:'numeric',month:'short'}:{day:'numeric',month:'short',year:'numeric'})}
+function renderPlan(){
+  const P=LM.plan(),g=LM.goal,el=$('plan');
+  const chip=!g?L10.planSet:g.t==='none'?L10.gNone:g.t==='exam'?L10.gExamChip(g.lv,dateS(g.date)):L10.gLvChip(g.lv,dateS(g.date));
+  const todo=P.newToday+P.revToday>0,min=Math.max(1,Math.round((P.revToday*P.sp.rev+P.newToday*P.sp.neu)/60));
+  const line=todo?[P.revToday?L10.planRev(fmt(P.revToday)):'',P.newToday?L10.planNew(fmt(P.newToday)):'',`<span>${L10.planMin(min)}</span>`].filter(Boolean).join(' · ')
+    :`${L10.planDone} ✓`;
+  const tot=P.ansT+P.todayLeft;
+  const st=P.status==='free'?['none',L10.stFree(P.newPerDay)]:P.status==='ok'?['green',L10.stOk(P.finish?dateS(P.finish):'–')]
+    :P.status==='behind'?['red',P.needMin?L10.stBehind(P.needMin):L10.stBehindDate(P.fixDate?dateS(P.fixDate):'–')]:P.status==='review'?['green',L10.stReview]:P.status==='examweek'?['yellow',L10.stExamWeek]:['red',L10.stPast];
+  el.innerHTML=`<div class="ptop"><h2 id="planT">${L10.planT}</h2><button class="gchip" id="goalBtn" aria-haspopup="dialog">${esc(chip)} ›</button></div>
+    <div class="pline">${line}</div>
+    ${todo&&!P.ansT?'':`<div class="pbar"><span class="stack"><i style="width:${tot?P.ansT/tot*100:100}%;background:var(--acc)"></i></span><small>${L10.doneToday(fmt(P.ansT))}</small></div>`}
+    <div class="pst"><i class="sd s-${st[0]}"></i><span>${st[1]}</span></div>
+    <button class="planbtn" id="planGo">${PLAY}<span>${todo?(P.ansT?L10.planCont:L10.planGo):L10.planExtra}</span></button>`;
+  el.dataset.todo=todo?'1':'0'}
+$('plan').addEventListener('click',e=>{
+  if(e.target.closest('#goalBtn')){openGoal(false);return}
+  if(e.target.closest('#planGo')){sessionExtra=$('plan').dataset.todo!=='1';go('session')}});
+
+/* ---------- goal sheet: target (level + date, HSK exam, or none) and daily amount (minutes, new words, or automatic) ---------- */
+const goalSheet=$('goalSheet');let gDraft=null,gOpener=null,gFirst=false;
+const MIN_CHIPS=[5,10,15,20,30,45,60],NEW_CHIPS=[3,5,10,15,20,30];
+function openGoal(first){
+  gOpener=document.activeElement;gFirst=!!first;const g=LM.goal;
+  gDraft=g?JSON.parse(JSON.stringify(g)):{t:'level',lv:state.level,date:LM.isoDay(LM.dayAfter(90)),pace:'auto',n:15};
+  if(!gDraft.lv)gDraft.lv=state.level;if(!gDraft.date)gDraft.date=LM.isoDay(LM.dayAfter(90));if(!gDraft.n)gDraft.n=gDraft.pace==='new'?10:15;
+  renderGoal();goalSheet.hidden=false;document.body.style.overflow='hidden';goalSheet.querySelector('.xbtn').focus()}
+function closeGoal(){goalSheet.hidden=true;document.body.style.overflow='';ls.set('xc_onb',1);gOpener?.focus?.()}
+function renderGoal(){
+  const g=gDraft,P=LM.plan(g),tgt=g.t!=='none',bad=tgt&&LM.daysTo(g.date)<1;
+  const seg=(k,v,label,extra)=>`<button class="gseg" data-g="${k}" data-v="${v}" aria-pressed="${String(g[k])===String(v)}"${extra||''}>${label}</button>`;
+  const chips=g.pace==='min'?MIN_CHIPS:NEW_CHIPS,list=chips.includes(g.n)?chips:chips.concat(g.n).sort((a,b)=>a-b);
+  let fc,cls='',fix='';
+  if(bad){fc=L10.gDateBad;cls='bad'}
+  else if(P.status==='free')fc=L10.fcFree(P.newPerDay,P.minutes);
+  else if(P.status==='review')fc=L10.fcAllDone;
+  else if(P.status==='examweek')fc=L10.stExamWeek;
+  else if(P.status==='ok'){fc=L10.fcOk(P.newPerDay,P.revPerDay,P.minutes,P.finish?dateS(P.finish):'–');cls='good'}
+  else{fc=L10.fcBehind(P.finish?dateS(P.finish):null);cls='bad';
+    const fx=[];if(g.pace!=='new'&&P.needMin)fx.push(`<button class="ghost" data-fix="min" data-n="${P.needMin}">${L10.fcFixMin(P.needMin)}</button>`);
+    if(g.pace!=='min'&&P.need<=60)fx.push(`<button class="ghost" data-fix="new" data-n="${P.need}">${L10.fcFixNew(P.need)}</button>`);
+    if(P.fixDate)fx.push(`<button class="ghost" data-fix="date" data-d="${LM.isoDay(P.fixDate)}">${L10.fcFixDate(dateS(P.fixDate))}</button>`);
+    fix=fx.length?`<div class="gfix">${fx.join('')}</div>`:''}
+  $('gBody').innerHTML=`
+    <div class="gsec"><div class="glbl">${L10.gWhat}</div><div class="gsegs">${seg('t','level',L10.gLevel)}${seg('t','exam',L10.gExam)}${seg('t','none',L10.gNone)}</div></div>
+    ${tgt?`<div class="gsec"><div class="glbl">${L10.gLv}</div><div class="gsegs lv">${LEVELS.map(l=>seg('lv',l,'HSK '+l,` style="--lc:var(--l${l})"`)).join('')}</div></div>
+    <div class="gsec"><label class="glbl" for="gDate">${g.t==='exam'?L10.gDateExam:L10.gDate}</label><input type="date" class="gdate" id="gDate" value="${g.date}" min="${LM.isoDay(LM.dayAfter(1))}"></div>`:''}
+    <div class="gsec"><div class="glbl">${L10.gPace}</div><div class="gsegs">${seg('pace','min',L10.gMin)}${seg('pace','new',L10.gNew)}${tgt?seg('pace','auto',L10.gAuto):''}</div>
+      ${g.pace!=='auto'?`<div class="gchips">${list.map(n=>`<button class="gnum" data-n="${n}" aria-pressed="${g.n===n}">${g.pace==='min'?L10.gMinN(n):L10.gNewN(n)}</button>`).join('')}</div>`:''}</div>
+    <div class="gfc ${cls}" role="status">${fc}${fix}</div>
+    <div class="bkrow"><button class="ghost" id="gCancel">${gFirst?L10.gSkip:L10.cancel}</button><button class="ghost pri" id="gSave"${bad?' disabled':''}>${L10.gSave}</button></div>`}
+goalSheet.addEventListener('click',e=>{
+  if(e.target.closest('[data-close]')||e.target.id==='gCancel'){closeGoal();return}
+  const g=gDraft,s=e.target.closest('[data-g]');
+  if(s){const k=s.dataset.g;g[k]=k==='lv'?+s.dataset.v:s.dataset.v;
+    if(k==='t'&&g.t==='none'&&g.pace==='auto'){g.pace='new';g.n=10}
+    if(k==='pace'&&g.pace!=='auto')g.n=g.pace==='min'?(MIN_CHIPS.includes(g.n)?g.n:15):(NEW_CHIPS.includes(g.n)?g.n:10);
+    renderGoal();return}
+  const f=e.target.closest('[data-fix]');
+  if(f){if(f.dataset.fix==='date')g.date=f.dataset.d;else{g.pace=f.dataset.fix;g.n=+f.dataset.n}renderGoal();return}
+  const n=e.target.closest('.gnum');if(n){g.n=+n.dataset.n;renderGoal();return}
+  if(e.target.id==='gSave'){LM.setGoal(g);closeGoal();resetRun();if(state.screen==='home')renderHome();toast(L10.gSaved)}});
+goalSheet.addEventListener('change',e=>{if(e.target.id==='gDate'&&e.target.value){gDraft.date=e.target.value;renderGoal()}});
+goalSheet.addEventListener('keydown',e=>{if(e.key==='Escape'){e.preventDefault();e.stopPropagation();closeGoal()}});
+
 let toastT;function toast(msg){const t=$('toast');t.textContent=msg;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>t.hidden=true,2000)}
 
 /* ---------- keyboard + Android back ---------- */
 /* Back closes the topmost layer: a menu, then the focused screen (back to Home). false lets the app exit. */
 window.mmBack=function(){
   if(window.mmBusy&&mmBusy())return true;   /* a screen animation is still running */
+  if(!goalSheet.hidden){closeGoal();return true}
   if(!infoSheet.hidden){closeInfo();return true}
   if(!bkSheet.hidden){bkBack();return true}
   if(qMenuOpen()){qMenu(false);return true}
@@ -715,15 +907,25 @@ window.mmBack=function(){
   if(state.screen!=='home'){back();return true}
   return false};
 document.addEventListener('keydown',e=>{
-  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||!bkSheet.hidden||qMenuOpen())return;
+  if(!lvMenu.hidden||!uMenu.hidden||!langMenu.hidden||!infoSheet.hidden||!bkSheet.hidden||!goalSheet.hidden||qMenuOpen())return;
   if(e.key==='Escape'&&state.screen!=='home'&&!/^(INPUT|SELECT)$/.test(e.target.tagName)){back();return}
-  if(/^(INPUT|SELECT)$/.test(e.target.tagName))return;
-  if(state.screen==='card'){if(e.code==='Space'&&e.target.tagName!=='BUTTON'){e.preventDefault();flipped=!flipped;$('flip')?.classList.toggle('on',flipped)}
-    if(e.key==='ArrowRight')fcAnswer(true);if(e.key==='ArrowLeft')fcAnswer(false)}
-  if(state.screen==='quiz'){if(/^[1-4]$/.test(e.key))document.querySelectorAll('.opts button')[+e.key-1]?.click();if(e.key==='Enter'&&e.target.tagName!=='BUTTON'&&$('qNext'))$('qNext').click()}
+  if(/^(INPUT|SELECT|TEXTAREA)$/.test(e.target.tagName))return;
+  if(!run||!['card','quiz','session'].includes(state.screen))return;
+  const it=run.items[run.i],pick=(sel,k)=>document.querySelectorAll(sel)[+k-1]?.click();
+  if(!it){if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('sumMore')?.click();return}
+  if(it.k==='card'){
+    if(it.st==='front'){if(e.key==='ArrowLeft')$('fcNo')?.click();if(e.key==='ArrowRight')$('fcYes')?.click()}
+    else if(it.st==='check'){if(/^[1-4]$/.test(e.key))pick('#fcAct [data-c]',e.key)}
+    else if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('fcNext')?.click();
+    return}
+  if(/^[1-4]$/.test(e.key))pick('.opts button',e.key);
+  if(e.key==='Enter'&&e.target.tagName!=='BUTTON')$('qNext')?.click();
 });
 
 /* ---------- start on Home ---------- */
 document.body.dataset.level=state.level;$('seal').textContent=NUM[state.level-1];
-applyStatic();saveStats();startCards();startQuiz();go('home');
+applyStatic();saveStats();go('home');
+/* first start: ask for a goal once (can be skipped); later, fit the memory model to this learner when enough answers exist */
+if(!LM.goal&&!ls.get('xc_onb',0))setTimeout(()=>{if(state.screen==='home'&&goalSheet.hidden&&bkSheet.hidden&&infoSheet.hidden)openGoal(true)},500);
+setTimeout(()=>LM.maybeOptimize(),6000);
 </script>

@@ -17,22 +17,31 @@ Bahasa utama: **Indonesia**; tambahkan **English** sebagai terjemahan. Gambar ad
 **Nama aplikasi** (maks. 30): XueCi Mandarin
 
 **Deskripsi singkat** (maks. 80):
-Hafalkan 5.334 kosakata HSK 1–6 dengan kartu, kuis, dan warna nada. Offline.
+Hafalkan 5.334 kata HSK 1–6 dengan rencana harian, kartu, dan kuis terarah.
 
 **Deskripsi lengkap** (maks. 4.000):
 
 XueCi Mandarin (学词, "belajar kata") membantu kamu menghafal seluruh kosakata HSK 1–6 versi terbaru (silabus HSK 3.0, November 2025): 5.334 kata, lengkap dengan pinyin, arti, dan contoh kalimat berpinyin.
 
-BELAJAR DENGAN TIGA CARA
-• Daftar: cari kata lewat hanzi, pinyin, atau arti.
-• Kartu hafalan: lihat hanzi, ingat artinya, lalu balik kartunya.
-• Kuis: pilih arti, pilih hanzi, atau isi kata yang hilang di kalimat.
+BELAJAR SESUAI TUJUANMU
+• Pilih tujuan: capai level tertentu sebelum tanggal tertentu, siapkan ujian HSK, atau belajar tanpa target.
+• Atur porsi harian dalam menit atau jumlah kata baru. Aplikasi menghitung apakah targetmu realistis dan memberi saran kalau belum.
+• Setiap hari ada sesi berisi ulangan kata yang paling berisiko terlupa, kata baru, dan latihan untuk kelemahanmu.
+
+KARTU YANG MENGUJI
+Bilang "Saya tahu"? Buktikan dulu dengan cek kilat (pilih arti atau pinyin yang benar) sebelum kartu dibalik. Yakin tapi keliru membuat kata itu lebih cepat muncul lagi.
+
+KUIS TERARAH
+Lima jenis soal: kenali arti, ingat hanzi, nada, dengar, dan isi kalimat. Aplikasi memilih kata dan jenis soal sesuai kelemahanmu, dan pilihan jawaban makin mirip saat kamu makin mahir. Ada juga simulasi ujian berwaktu.
+
+MODEL MEMORI DI HP-MU
+Jadwal ulangan dihitung dengan FSRS, model memori open source, lalu disesuaikan dengan pola ingatanmu sendiri. Semua perhitungan dilakukan di HP, tanpa server.
 
 PROGRES YANG TERLIHAT
-Setiap kata punya 20 tingkat pemahaman. Jawaban benar menaikkan tingkatnya, jawaban salah menurunkannya. Warnanya bergeser dari merah ke kuning ke hijau, jadi kamu tahu kata mana yang sudah matang dan mana yang perlu diulang. Halaman Statistik menampilkan setiap kata per unit.
+Setiap kata punya 20 tingkat, dari merah ke kuning ke hijau, sesuai seberapa lama kata itu diperkirakan tetap kamu ingat. Halaman Statistik menampilkan setiap kata per unit, kelemahanmu, dan kata yang sering tertukar.
 
 WARNA NADA
-Hanzi dan pinyin diwarnai sesuai nadanya, jadi nada ikut terhafal bersama katanya.
+Hanzi dan pinyin diwarnai sesuai nadanya, jadi nada ikut terhafal bersama katanya. Setiap contoh kalimat dilengkapi pinyin.
 
 NYAMAN DIPAKAI
 • Tampilan Liquid Glass dengan tema terang, gelap, dan hitam pekat.
@@ -42,14 +51,12 @@ NYAMAN DIPAKAI
 • Cadangkan progres sebagai kode untuk dipindah ke HP lain.
 
 PRIVASI
-Progres hanya tersimpan di perangkatmu. Aplikasi tidak mengumpulkan atau membagikan data apa pun.
-
-Setiap contoh kalimat dilengkapi pinyin.
+Progres dan riwayat belajar hanya tersimpan di perangkatmu. Aplikasi tidak mengumpulkan atau membagikan data apa pun.
 
 Daftar kata dan pinyin berdasarkan data terbuka hsk30. XueCi Mandarin adalah aplikasi independen dan tidak berafiliasi dengan penyelenggara ujian HSK.
 
 **Catatan rilis pertama** (maks. 500):
-Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, kartu hafalan, kuis tiga cara, warna nada, statistik per kata, 4 bahasa, dan tema terang/gelap/hitam pekat.
+Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, rencana harian sesuai tujuan, kartu dengan cek kilat, kuis terarah (arti, hanzi, nada, dengar, kalimat), simulasi ujian, wawasan belajar, warna nada, 4 bahasa, dan tema terang/gelap/hitam pekat. Semua berjalan offline di HP.
 
 ---
 
@@ -58,22 +65,31 @@ Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, kartu hafalan, kuis tiga car
 **App name** (max 30): XueCi Mandarin
 
 **Short description** (max 80):
-Learn 5,334 HSK 1–6 words with flashcards, quizzes and tone colours. Offline.
+Learn 5,334 HSK 1–6 words with a daily plan, flashcards and a guided quiz.
 
 **Full description** (max 4,000):
 
 XueCi Mandarin (学词, "learn words") helps you learn the complete HSK 1–6 vocabulary of the latest syllabus (HSK 3.0, November 2025): 5,334 words, each with pinyin, meaning and an example sentence with pinyin.
 
-THREE WAYS TO LEARN
-• List: find any word by hanzi, pinyin or meaning.
-• Flashcards: see the hanzi, recall the meaning, flip the card.
-• Quiz: pick the meaning, pick the hanzi, or fill the missing word in a sentence.
+LEARN TOWARDS YOUR GOAL
+• Choose a goal: reach a level by a date, prepare for an HSK exam, or study without a target.
+• Set a daily amount in minutes or new words. The app works out whether your target is realistic and suggests a fix if it isn't.
+• Every day there is a session with the words you are most likely to forget, new words, and practice on your weak spots.
+
+FLASHCARDS THAT CHECK YOU
+Say "I know it"? Prove it first with a quick check (pick the right meaning or pinyin) before the card flips. Being sure but wrong brings the word back sooner.
+
+A GUIDED QUIZ
+Five question types: recognise the meaning, recall the hanzi, tones, listening, and fill the gap in a sentence. The app picks words and question types for your weak spots, and the options get trickier as you improve. There is a timed exam practice too.
+
+A MEMORY MODEL ON YOUR PHONE
+Reviews are scheduled with FSRS, an open-source memory model, which then adapts to how you remember. Everything is worked out on your phone, with no server.
 
 PROGRESS YOU CAN SEE
-Every word has 20 levels. A right answer moves it up, a wrong one moves it down. Its colour shifts from red to yellow to green, so you can see which words are mature and which need another look. The Stats screen shows every word, unit by unit.
+Every word has 20 levels, from red to yellow to green, based on how long you are expected to keep remembering it. The Stats screen shows every word unit by unit, your weak spots, and the words you mix up.
 
 TONE COLOURS
-Hanzi and pinyin are coloured by tone, so you learn the tone together with the word.
+Hanzi and pinyin are coloured by tone, so you learn the tone together with the word. Every example sentence comes with its pinyin.
 
 MADE FOR DAILY USE
 • Liquid Glass design with light, dark and true black themes.
@@ -83,14 +99,12 @@ MADE FOR DAILY USE
 • Back up your progress as a code and move it to another phone.
 
 PRIVACY
-Your progress stays on your device. The app does not collect or share any data.
-
-Every example sentence comes with its pinyin.
+Your progress and study history stay on your device. The app does not collect or share any data.
 
 Word list and pinyin based on the open hsk30 data. XueCi Mandarin is an independent app and is not affiliated with the organisers of the HSK exam.
 
 **First release notes** (max 500):
-First release of XueCi Mandarin: 5,334 HSK 1–6 words, flashcards, three quiz types, tone colours, per-word stats, 4 languages, and light/dark/true black themes.
+First release of XueCi Mandarin: 5,334 HSK 1–6 words, a daily plan built from your goal, flashcards with a quick check, a guided quiz (meaning, hanzi, tones, listening, sentences), exam practice, learning insights, tone colours, 4 languages, and light/dark/true black themes. Everything runs offline on your phone.
 
 ---
 
@@ -101,6 +115,6 @@ First release of XueCi Mandarin: 5,334 HSK 1–6 words, flashcards, three quiz t
 - **Kebijakan privasi:** https://armstrang.github.io/XueCi/privacy/ (aktifkan GitHub Pages dulu, lihat `docs/play-store.md`).
 - **Akses aplikasi:** semua fitur bisa dipakai tanpa login.
 - **Iklan:** tidak ada.
-- **Data safety:** tidak mengumpulkan data, tidak membagikan data.
+- **Data safety:** tidak mengumpulkan data, tidak membagikan data. Riwayat jawaban dan rekomendasi belajar diproses di perangkat saja; menurut definisi Play, data yang tidak keluar dari perangkat tidak termasuk "dikumpulkan".
 - **Rating konten (IARC):** kuesioner dijawab "tidak" untuk kekerasan, konten seksual, bahasa kasar, obat-obatan, judi, interaksi pengguna, dan pembelian. Hasilnya biasanya rating untuk semua umur.
 - **Target usia:** 13 tahun ke atas (memilih di bawah 13 tahun membuat aturan Families berlaku).

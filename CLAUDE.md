@@ -1,6 +1,6 @@
 # XueCi Mandarin — project notes for Claude
 
-HSK 1–6 vocabulary app (word list, flashcards, quiz, per-word mastery) by **Armstrang** (GitHub `armstrang`, goes by Josh).
+HSK 1–6 vocabulary app (word list, flashcards, quiz, per-word mastery, goal-driven daily plan) by **Armstrang** (GitHub `armstrang`, goes by Josh).
 Formerly "Merdeka Mandarin" (repo `armstrang/Merdeka-Mandarin`, no longer built). Josh writes in Indonesian: reply in Indonesian.
 Goal right now: a proper **Google Play** release. The plan and open decisions are in `docs/play-store.md`.
 
@@ -11,8 +11,10 @@ The whole app is **one self-contained HTML page** shown in an Android WebView. N
 | Path | What |
 |---|---|
 | `web/src/base.css.html` | `<title>` + base layout styles |
-| `web/src/app.html` | markup + all app logic; placeholders `__I18N__`, `__DATA__` |
+| `web/src/app.html` | markup + all app logic; placeholders `__I18N__`, `__I18N_LEARN__`, `__LEARN__`, `__DATA__` |
 | `web/src/i18n.js` | `const I18N={id,en,th,vi}` UI strings (more keys are added with `Object.assign` near the end of `app.html`) |
+| `web/src/i18n-learn.js` | strings for guided learning (plan, goals, cards, quiz, insights) in the 4 languages; injected after the `Object.assign` blocks, so it overrides them |
+| `web/src/learn.js` | **learning engine** `LM` (memory model, answer log, goals/daily plan, question choice, optimizer); see below |
 | `web/src/glass.css.html` | Liquid Glass look; injected right after the base `</style>` so it overrides it |
 | `web/src/glass.js.html` | Liquid Glass interactions (HSK lens, screen zoom, theme reveal, haptics), appended at the end |
 | `web/data/vocab.json` | 5,334 words, one per line. **Canonical data** — edit here |
@@ -20,7 +22,8 @@ The whole app is **one self-contained HTML page** shown in an Android WebView. N
 | `web/make_fonts.py` | makes `app/src/main/assets/fonts/*.woff` (+ OFL licences), `web/fonts/fonts.css`, `web/fonts/charset.txt` from the original fonts (see its docstring for where to get them; `web/fonts/src/` is not committed). Chinese fonts are cut to the ~2,000 characters the app uses — **re-run after adding words**; `build.py` warns about missing characters |
 | `app/` | single-module Android app, `MainActivity.java` only |
 | `art/` | icon artwork: `icon-source.jpg` (from Josh, the 学词 badge); `python3 art/make_icons.py` regenerates `icon-badge.png`, every launcher mipmap, `play-icon-512.png`, `docs/privacy/icon.png` and `icon-preview.png` |
-| `tests/smoke.py` | Playwright smoke test of the built page |
+| `tests/smoke.py` | Playwright smoke test of the built page (all flows, 5 sizes/themes/languages, legacy-progress case) |
+| `CHANGELOG.md` | release notes (Indonesian). CI publishes the `## v1.N` section as the GitHub release text, so **add the section before pushing app changes** |
 | `store/` | Play listing: `listing.md` (ID + EN texts and other Play Console answers), screenshots 1080×1920 and feature graphics 1024×500 per language; `python3 store/make_store_assets.py` regenerates them from the built app with sample progress (captions in the script). Re-run after visible UI changes |
 
 After any change in `web/`: `python3 web/build.py && python3 tests/smoke.py`, then look at the screenshots in `tests/out/`.
@@ -44,14 +47,19 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 
 ### App logic worth knowing (`app.html`)
 - Screens: `#scr-home`, `#scr-focus` (`data-mode` = list / card / quiz), `#scr-stats`. `go(s)` → `window.mmTransition(run, from, to)` when defined.
-- Mastery: `stats[id] = [right, wrong, level]`, `MAXL = 20`; right +1, wrong −3. Bands: 0–6 red, 7–13 yellow, 14–20 green; `.m0`–`.m20` colour classes.
+- Mastery: `stats[id] = [right, wrong, level]`, `MAXL = 20`. Since v1.8 the level comes from the learning engine (below), not from +1/−3. Bands: 0–6 red, 7–13 yellow, 14–20 green; `.m0`–`.m20` colour classes.
+- Screens: Home has the **plan card** (`#plan`, `renderPlan()`, goal chip → `#goalSheet`) above the HSK pills. `#scr-focus` modes: `list`, `card`, `quiz`, `session` (today's session; HSK/unit chips hidden).
+- **Runner** (`app.html`, "practice" section): Cards, Quiz and the session share one `run` = list of items (`{k:'card'}` or `{k:'q', q:'m'|'f'|'s'|'l'|'c'}`), `renderRun()`, summary at the end. Cards: front → `#fcNo` "Don't know" / `#fcYes` "I know it" → quick check (`LM.checkP`, adaptive) → back with `.res` ok/over/no/trust; "I was wrong" (`#fcOops`) undoes an unchecked claim. Quiz types: `qType` (`auto` guided, `m`, `f`, `s` tones, `l` listening, `c` sentence, `exam` = 20 questions, 5 min). Wrong items come back 4 items later (max twice). `show()` resets the run.
 - Hooks the glass layer defines: `mmTransition`, `mmHomeRendered(S)`, `mmStatsRendered()`, `mmFeedback(ok)`.
 - `window.mmBack()` is called by Android's back button: closes info sheet → backup sheet → quiz menu → lang/level/unit menus → screen; returns `false` on Home (app exits).
 - Progress backup (Home → Backup button beside tone info → Back up / Restore, `#bkSheet`): one line `XUECI1:` + base64url(deflate-raw(JSON {app:'xueci',v,at,stats,ui,lang,theme})) (`XUECI0:` = uncompressed). Restore finds the code inside any pasted text, validates every entry against `IDX`, shows a summary, then applies it in place (stats, level/unit, language, theme) — no reload (a write-then-reload can read stale localStorage). Native copy/share/paste go through `MMAndroid.copyText/shareText/pasteText`; in a browser it falls back to the Clipboard/Share APIs.
 - Pronunciation (test, v1.6): speaker buttons (`spk(text, cls)` → `.spk`, `.sm`, `.lg`) on card front/back, list items and quiz feedback, for the word (`d.h`) and the example sentence (`d.z`). A capture-phase click handler calls `speak()`: Android TextToSpeech (zh-CN, rate 0.9) through the bridge, or `speechSynthesis` in a browser; `ttsStatus()` `missing`/`unsupported` opens the phone's TTS settings. Manifest declares the `TTS_SERVICE` `<queries>` (needed on Android 11+). Known limit: the engine guesses polyphonic characters (行, 长, 都, 还, 重…) from context. Alternative under discussion: bundled audio generated once with a cloud neural TTS.
+- **Learning engine `LM`** (`learn.js`, all on the device): FSRS-5 (default parameters `W0`) with one state per word (`w`, drives schedule + level) and per skill (`m` meaning, `f` form/recall + sentence, `s` sound/tones + listening). Level = `round(20·ln(1+S)/ln 121)`, capped at 13 until `f` and `s` were passed; same-day repeats add ≤0.5 day. Legacy progress (pre-1.8 `stats`) becomes states with the same level, `L:1` "needs confirming" until one `f` and one `s` answer. `LM.answer(d,{q,ok,ms,x,claim,over,unchecked,exam})` is the only way answers are recorded. `LM.plan(goal)` → daily numbers/status/fixes; `LM.session()`, `LM.cardDeck()`, `LM.quizRound()`, `LM.exam()` build runs; `LM.question(d,q)` makes options (look-alike distractors from confusions, homophones, shared characters; tone variants keep 一/不 and neutral syllables). `LM.optimize()` fits the 19 parameters to the learner's own spaced reviews (≥400), run from `maybeOptimize()` at most daily. Tested in Node by loading the file with stub globals.
+- Backup code v2 also carries `mem`, `goal`, fitted `w` and `ui.qt` (not the log); v1 codes still restore (levels kept as "needs confirming").
 - Language: `langPref` = `auto` (follows the system: id/in/ms → id, th, vi, else en) or a code.
 - Themes: `auto`, `light`, `dark`, `black` (`window.MM_THEMES`, set by `build.py`). `notifyNative()` sends CSS `--bar`/`--bar2` to `MMAndroid.setBars(top, bottom, dark)`.
-- **localStorage keys hold users' progress — never rename them:** `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme` (`hsk16_known` = legacy import).
+- **localStorage keys hold users' progress — never rename them:** `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme` (`hsk16_known` = legacy import),
+  and since v1.8 `xc_mem` (memory states), `xc_log` + `xc_logA` (answer log, capped at 30,000), `xc_goal`, `xc_w` (fitted parameters), `xc_fit`, `xc_onb` (goal sheet shown once).
 - The WebView origin is `https://appassets.androidplatform.net` (WebViewAssetLoader). Changing it would also lose progress.
 
 ### Design rules (from Josh's feedback — he notices)
@@ -61,7 +69,9 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 - Focus header = one translucent capsule (back · title · HSK · unit) with flat controls inside; no glass-on-glass, no gradient band behind it.
 - HSK selectors (Home and Stats) use the draggable glass lens from `glass.js.html` (`makeLens`).
 - Menus are moved into `.fbar` by JS because a parent with `backdrop-filter` stops a child's own blur from seeing the page.
-- Privacy policy: `docs/privacy/index.html` (ID + EN), served by GitHub Pages at https://armstrang.github.io/XueCi/privacy/ and linked from About (`.plink`). It describes exactly what the app does with data (on-device storage, Android backup, no internet use — fonts are bundled, INTERNET still declared but unused, VIBRATE). **Update it whenever data behaviour or permissions change.** Contact is GitHub Issues only — don't publish an email.
+- Privacy policy: `docs/privacy/index.html` (ID + EN), served by GitHub Pages at https://armstrang.github.io/XueCi/privacy/ and linked from About (`.plink`). It describes exactly what the app does with data (on-device storage incl. the answer history and goal, recommendations computed on the device, backup code contents, Android backup, no internet use — fonts are bundled, INTERNET still declared but unused, VIBRATE). **Update it whenever data behaviour or permissions change.** Contact is GitHub Issues only — don't publish an email.
+- Guided-learning UI (v1.8, Josh asked for it): plan card on Home, goal sheet asked once on first start, card shrinks (`.flip.checking`) during the quick check so the options fit, no self-report buttons anywhere (Stats word detail shows skill levels instead).
+- Planned next (discussed, not built): optional Google sign-in with progress in the user's own Google Drive app folder (`drive.appdata`, no server). Needs Josh's Google Cloud project (OAuth consent branding, Drive API, Android OAuth client with package + SHA-1s incl. Play App Signing), then a privacy policy and Data safety update.
 - The About section must not say who wrote the meanings/examples. (They were generated by Claude; the README says so.)
 - Footer credit is "by Armstrang".
 
@@ -76,7 +86,7 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 - `MainActivity`: WebView + `WebViewAssetLoader`, JS bridge `MMAndroid` (`setTheme`, `setBars`, `fontScale`, `copyText`, `shareText`, `pasteText`, `ttsStatus`, `speak`, `stopSpeaking`, `openTtsSettings`), back button → `mmBack()`, outside links open in the browser, VIBRATE for haptics.
 
 ## CI (`.github/workflows/build-apk.yml`)
-Push to `main` → `web/build.py` → `./gradlew assembleRelease` → GitHub release `v1.N` with `XueCiMandarin.apk` (marked latest).
+Push to `main` → `web/build.py` → `./gradlew assembleRelease` → GitHub release `v1.N` with `XueCiMandarin.apk` (marked latest); the release text is the `## v1.N` section of `CHANGELOG.md` (a warning and a link if missing). v1.N = run number − 1 of this workflow, so the next release is one more than the latest tag.
 Docs/art/tests-only changes do not trigger a build (`paths-ignore`); add `[skip ci]` to a commit message to skip one otherwise.
 A guard step refuses to publish into an existing release tag.
 `check.yml` compiles any `build/**` branch without publishing (its own run counter, so release numbers stay in sequence) — push Android changes there first, then fast-forward `main`. CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets can.
