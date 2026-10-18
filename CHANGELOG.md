@@ -4,6 +4,54 @@ Every push of app changes to `main` makes a new release on [GitHub Releases](htt
 (v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
 before pushing.
 
+## v1.12 — 18 October 2026
+
+**Progress in a versioned IndexedDB store, word data out of the page, the placement test counted in realm progress,
+measured elements and a five-element ring.**
+
+### New
+- **The placement test counts toward realm progress.** The test ends with an estimate of your ability, and from it
+  each word of your realm's level gets a chance that you already know it (the same model the test uses, including
+  how common the word is and whether its characters are new).
+  - That estimate counts **half** toward the stage until practice proves a word solid; then the word counts fully.
+  - A word you answer wrong loses its test credit.
+  - The stage bar shows solid words in the realm colour and the test's share as a lighter, striped layer, with the
+    number of words the test credited.
+  - A placement test taken in v1.9–v1.11 counts too: its six level shares are turned back into an ability estimate.
+  - A passed breakthrough moves the estimate up to the level it proved.
+- **The five elements are a thick ring** around the soul orb instead of small leaves. Each segment fills clockwise
+  from its element towards the next, along the generating cycle 木→火→土→金→水, so the ring only closes when every
+  element is full. The value is written on each segment.
+- **Backup**:
+  - Backup codes carry your study days, so the cultivation days survive a restore.
+  - The backup sheet says when the last backup was made.
+  - After a month without one, or with real progress and no backup yet, a small dot shows on the Backup button.
+    There is no notification.
+
+### Changed
+- **The five elements need evidence to rise.** Each one is now a count against a fixed scale, so none fills up from
+  a few answers:
+  - **水 神识 spirit sense**: the words of your realm's level you would recall right now. Before, it was the average
+    recall of the words you had studied, which was near 100% after one session.
+  - **金 道心 dao heart**: every "I know it" claim is checked, either at once or by your next answer to that word
+    within 14 days, over the last 90 days. 20 neutral claims are added (half right), so 10 right claims give 67,
+    40 give 83 and 100 give 92. Before, 5 right claims gave 100.
+  - **火 悟性 insight**: needs at least 10 solid words.
+  - Each element row shows the counts behind its value.
+- **Progress is stored in IndexedDB** with a numbered schema (version 3) and ordered migrations:
+  - From v1.7 data: two-number records get a level, and the oldest known-words list is imported.
+  - From v1.8–v1.11 data: moved over unchanged.
+  - Every change is still copied to localStorage as a safety copy.
+  - If IndexedDB can't be used, the app works on localStorage as before.
+  - Key names are unchanged, so nothing is lost.
+- **The word list is no longer inside the page.** `data/core.json` holds hanzi, pinyin, examples and levels, and one
+  file per language holds the meanings. Only the study language loads at start; the others load when chosen.
+- **The code is split** into one file per screen or feature, formatted with Prettier, and dead code and unused texts
+  were removed. Behaviour is unchanged.
+- **Tests run in CI**: the browser smoke test (every screen, five sizes, themes and languages, migrations from older
+  versions) and new engine tests in Node (store migrations, memory model, placement test, realm progress, elements,
+  breakthrough, backup days). An APK is only built and published when both pass.
+
 ## v1.11 — 17 October 2026
 
 **v1.10 rebuilt: realms explained one by one, visible realm progress, guidance on what to improve, and a smoother

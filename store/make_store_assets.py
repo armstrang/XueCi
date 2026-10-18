@@ -185,7 +185,6 @@ async def app_shot(browser, base, lang, locale, kind, sample, out):
         await pg.wait_for_timeout(900)
     if kind == 'placement':
         # a fresh learner who knows HSK 1–2 well and HSK 3 a little, honest with "Don't know"
-        await pg.evaluate("localStorage.removeItem('xc_lvl')")
         await pg.click('#curLvBtn')
         await pg.wait_for_timeout(400)
         await pg.click('#ptGo')

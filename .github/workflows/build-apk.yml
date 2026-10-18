@@ -39,6 +39,33 @@ jobs:
       - name: Build app page
         run: python3 web/build.py
 
+      # Tests: the engine in Node, then every screen in Chromium. No APK when a test fails.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Engine tests
+        run: node tests/engine.js
+
+      - name: Browser smoke test
+        run: |
+          pip install --quiet playwright
+          python -m playwright install --with-deps chromium
+          # timing on a shared runner can vary; a real failure fails twice
+          python tests/smoke.py || { echo "::warning title=Smoke test retried::first run failed, running again"; python tests/smoke.py; }
+
+      - name: Keep the test screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-screenshots
+          path: tests/out/
+          if-no-files-found: ignore
+
       - name: Build signed APK
         shell: bash
         run: |

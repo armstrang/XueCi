@@ -41,7 +41,9 @@ def is_han(c):
 def app_text():
     """Every character the page can show: the word data plus all source files."""
     parts = []
-    for p in glob.glob(os.path.join(ROOT, 'web', 'src', '*')):
+    for p in glob.glob(os.path.join(ROOT, 'web', 'src', '**', '*'), recursive=True):
+        if not os.path.isfile(p):
+            continue
         with open(p, encoding='utf8') as f:
             parts.append(f.read())
     with open(os.path.join(ROOT, 'web', 'data', 'vocab.json'), encoding='utf8') as f:

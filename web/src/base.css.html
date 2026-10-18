@@ -229,7 +229,6 @@ html[lang="th"] .id{font-style:normal}
 .fcbtns button{border:0;border-radius:14px;padding:13px;font-weight:800;font-size:15px}
 .no-btn{background:var(--sunk);color:var(--bad)}
 .yes-btn{background:var(--acc);color:var(--on-acc)}
-.fcnav{display:flex;justify-content:center;gap:8px;margin-top:10px}
 .ghost{border:1px solid var(--line);background:var(--surface);border-radius:11px;padding:8px 12px;font-size:13px;font-weight:600}
 
 /* quiz */
@@ -305,6 +304,12 @@ body[data-screen="home"]{padding-bottom:calc(10px + env(safe-area-inset-bottom,0
 .bkopt .bt{flex:1;min-width:0}.bkopt b{display:block;font-size:15px;font-weight:800}.bkopt small{display:block;font-size:12.5px;color:var(--soft);line-height:1.35}
 .bkopt .chev{color:var(--mute);font-size:18px}
 .bkopt:hover{border-color:var(--acc)}
+/* when the last backup was made (v1.12); after a month a quiet dot on the Home button, no notification */
+.bklast{margin:4px 2px 0;font-size:12.5px;line-height:1.4;color:var(--mute)}
+.bklast.old{color:var(--soft);font-weight:700}
+.bklast.old::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--s-yellow);margin-right:7px;vertical-align:1px}
+.bkbtn{position:relative}
+.bkbtn.due::before{content:"";position:absolute;z-index:3;top:5px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--s-yellow);box-shadow:0 0 0 2px var(--surface)}
 .sheetwrap{position:fixed;inset:0;z-index:70;display:flex;align-items:flex-end;justify-content:center}
 .scrim2{position:absolute;inset:0;background:rgba(10,12,18,.45);animation:fadeIn .25s ease both}
 .isheet{position:relative;width:100%;max-width:520px;max-height:88vh;overflow:auto;background:var(--surface);color:var(--fg);border:1px solid var(--line);border-radius:26px 26px 0 0;box-shadow:var(--shadow);padding:18px 18px calc(18px + env(safe-area-inset-bottom,0px));animation:sheetUp .35s cubic-bezier(.22,1,.36,1) both}
@@ -362,7 +367,6 @@ body[data-screen="home"]{padding-bottom:calc(10px + env(safe-area-inset-bottom,0
 .stdetail .hint{font-size:13px;color:var(--mute)}
 .ans{display:flex;gap:6px}
 .ans button{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:5px 11px;font-size:12.5px;font-weight:700}
-.ans .a-no{color:var(--bad)}.ans .a-yes{color:var(--good)}
 .bkcode{display:block;width:100%;min-height:104px;max-height:32vh;resize:vertical;border:1px solid var(--line);border-radius:14px;background:var(--sunk);color:var(--fg);padding:10px 12px;font:12px/1.45 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;word-break:break-all}
 .bkmsg{margin:8px 0 0;font-size:13px;color:var(--soft);min-height:1.2em}.bkmsg.bad{color:var(--bad)}
 .bkrow{display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;margin-top:12px}.bkrow button{min-width:96px}
@@ -377,15 +381,16 @@ body[data-screen="home"]{padding-bottom:calc(10px + env(safe-area-inset-bottom,0
 /* ---------- guided learning ---------- */
 /* Home: today's plan */
 .plan{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:11px 14px 13px;margin-bottom:10px;display:flex;flex-direction:column;gap:6px}
-.pmain{display:flex;align-items:center;gap:12px}
-.ptxt{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px}
+.pmain{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+/* the text keeps at least ~150px (scaled with the phone's text size); when it can't, the button moves below it and
+   spans the card, instead of squeezing the text into a column of single words (big text, long labels) */
+.ptxt{flex:999 1 calc(150px*var(--fs,1));min-width:0;display:flex;flex-direction:column;gap:3px}
+.pmain .planbtn{flex:1 0 auto}
 .ptop{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}
 .ptop h2{margin:0;font-size:calc(17px*var(--fsd,1));font-weight:800;letter-spacing:-.02em;white-space:nowrap}
 .gchip{height:32px;min-width:0;border-radius:999px;border:1px solid var(--line);background:var(--surface);padding:0 12px;font-size:12.5px;font-weight:800;color:var(--acc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pline{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.35}
 .pline span{color:var(--soft);font-weight:600}
-.pbar{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--soft);font-variant-numeric:tabular-nums}
-.pbar .stack{flex:1;height:6px;border-radius:99px;overflow:hidden}
 .pst{display:flex;align-items:baseline;gap:7px;font-size:12.5px;color:var(--soft);line-height:1.4}
 .pst .sd{flex:none;transform:translateY(-1px)}
 .planbtn{flex:none;border:0;border-radius:999px;background:var(--acc);color:var(--on-acc);font-weight:800;font-size:15px;padding:12px 18px 12px 15px;display:flex;align-items:center;justify-content:center;gap:7px;white-space:nowrap}
@@ -463,14 +468,12 @@ body[data-screen="home"]{padding-bottom:calc(10px + env(safe-area-inset-bottom,0
 .stbtns{display:flex;gap:8px;flex-wrap:wrap}
 
 /* level sheet, placement test, reminder */
-.lvnow{display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px 0 14px;text-align:center}
-.lvbig{font-size:42px;font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--lc)}
 .lvsrc{font-size:13px;color:var(--soft);line-height:1.45;max-width:420px}
 .lvper{display:flex;flex-direction:column;gap:6px;margin:2px 0 12px}
 .lvper .skrow{grid-template-columns:auto minmax(0,1fr) 44px}.lvper .skrow>span:first-child{white-space:nowrap}
 .gnote{margin:8px 0 0;font-size:12px;color:var(--soft);line-height:1.45}
 .linkbtn{border:0;background:none;padding:0;color:var(--acc);font-weight:800;font-size:12px;text-decoration:underline}
-.ptres .lvbig{margin:2px 0 8px}.ptres .glbl{text-align:left;margin-top:12px}.ptres .lvper{text-align:left}
+.ptres .glbl{text-align:left;margin-top:12px}.ptres .lvper{text-align:left}
 .ptintro h3{margin:4px 0 8px;font-size:19px;font-weight:800}
 .ptintro .next{margin-top:16px}
 .idkbtn{display:block;width:100%;margin-top:10px;border:1.5px dashed var(--line);background:transparent;border-radius:14px;padding:11px;font-size:14px;font-weight:700;color:var(--soft)}
@@ -509,13 +512,6 @@ body[data-screen="home"]{padding-bottom:calc(10px + env(safe-area-inset-bottom,0
 .rmean{font-size:14px;font-weight:800}
 p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 .stage{margin:4px 0 12px;text-align:left}
-.stl{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
-.stl b{font-family:var(--f-hz);font-weight:900;font-size:19px;color:var(--lc)}
-.stl span{font-weight:800;font-size:13.5px}
-.stl small{margin-left:auto;font-size:12px;color:var(--soft);font-variant-numeric:tabular-nums}
-.sgbar{position:relative;display:block;height:9px;border-radius:99px;background:var(--sunk);overflow:hidden;margin:7px 0 6px}
-.sgbar i{display:block;height:100%;background:var(--lc);border-radius:inherit}
-.sgbar u{position:absolute;top:0;bottom:0;width:2px;margin-left:-1px;background:var(--surface)}
 .stn{font-size:12.5px;color:var(--soft);line-height:1.4}
 .planbtn:disabled,.ghost:disabled{opacity:.45;cursor:default}
 .btbtn{background:linear-gradient(135deg,var(--acc),color-mix(in srgb,var(--gold) 70%,var(--lc,var(--acc))));gap:10px}
@@ -565,13 +561,6 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 .orbwrap{position:relative;width:min(100%,340px);aspect-ratio:1/1}
 
 .orbwrap .wheel{position:absolute;inset:0;width:100%;height:100%}
-
-.wheel .ring{fill:none;stroke:color-mix(in srgb,var(--fg) 12%,transparent);stroke-width:1;stroke-dasharray:2 5}
-
-
-
-
-
 .wheel .elg text{fill:var(--ec);font-family:var(--f-hz);font-weight:900}
 .orbpick{min-height:1.5em;margin:4px 0 0;font-size:13px;color:var(--soft);text-align:center;line-height:1.5}
 .orbpick .hzs{font-family:var(--f-hz);font-size:18px;font-weight:900}
@@ -622,8 +611,10 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 .orbwrap::before{content:"";position:absolute;inset:22%;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--lc) 18%,transparent),transparent 70%)}
 .orb{position:absolute;left:23%;top:23%;width:54%;height:54%;touch-action:none;cursor:grab;border-radius:50%}
 .orbwrap .wheel{overflow:visible}
-.wheel .ghost{fill:color-mix(in srgb,var(--ec) 7%,transparent);stroke:color-mix(in srgb,var(--ec) 50%,transparent);stroke-width:1;stroke-dasharray:3 3}
-.wheel .petal{fill:color-mix(in srgb,var(--ec) 72%,transparent);stroke:var(--ec);stroke-width:1}
+.wheel .wtrk{fill:color-mix(in srgb,var(--ec) 13%,transparent)}
+.wheel .none .wtrk{stroke:color-mix(in srgb,var(--ec) 45%,transparent);stroke-width:1;stroke-dasharray:3 3}
+.wheel .wval{fill:color-mix(in srgb,var(--ec) 82%,transparent);stroke:var(--ec);stroke-width:1.2;stroke-linejoin:round}
+.wheel .wnum{fill:var(--fg);font-family:var(--f-ui);font-weight:800;paint-order:stroke;stroke:var(--surface);stroke-width:3px;stroke-linejoin:round}
 .wheel .elg circle{fill:var(--surface);stroke:var(--ec);stroke-width:1.5}
 .wheel .elg.weak circle{stroke-width:2.2;stroke-dasharray:3 2.5;fill:color-mix(in srgb,var(--ec) 14%,var(--surface))}
 .wheel .elg.strong circle{fill:var(--ec)}
@@ -651,7 +642,12 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 .sgtrack,.sglabels{display:grid;grid-template-columns:25fr 25fr 30fr 20fr;gap:3px}
 .sgtrack{margin:6px 0 4px}
 .sg{display:block;height:9px;border-radius:99px;background:var(--sunk);overflow:hidden}
-.sg i{display:block;height:100%;background:var(--lc);border-radius:inherit}
+.sg{position:relative}
+.sg i{position:absolute;left:0;top:0;display:block;height:100%;background:var(--lc);border-radius:inherit}
+/* the placement test's half credit: a lighter, striped shade of the realm colour behind the solid part */
+.sg i.tc{background:repeating-linear-gradient(-45deg,color-mix(in srgb,var(--lc) 45%,transparent) 0 3px,color-mix(in srgb,var(--lc) 25%,transparent) 3px 6px)}
+.sttest{margin-top:3px;font-size:12.5px;color:var(--soft);line-height:1.4}
+.elrow .elx{font-weight:700;color:var(--fg)}
 .sgl{display:flex;flex-direction:column;align-items:center;line-height:1.15;color:var(--mute);min-width:0}
 .sgl b{font-family:var(--f-hz);font-weight:900;font-size:13px}
 .sgl small{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
@@ -688,5 +684,8 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 .hm small{color:var(--soft);font-size:12px}
 /* smooth scrolling on the long Soul Sea page: cards below the fold are laid out and painted only when they come near */
 .soulbody>.scard:not(.prog):not(.advc){content-visibility:auto;contain-intrinsic-size:auto 280px}
+/* start-up (boot.js): while the store opens and the word data loads (a moment) only the background shows */
+.booting .wrap{visibility:hidden}
+.bootfail{position:fixed;left:16px;right:16px;top:40%;margin:0;text-align:center;font-size:14px;line-height:1.5;color:var(--soft)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>

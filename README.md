@@ -20,16 +20,16 @@ Setelah itu aplikasi lama boleh di-uninstall.
 
 ## Struktur
 
-- `web/src/` — sumber halaman aplikasi: `base.css.html` (tata letak), `app.html` (tampilan + logika), `learn.js` (mesin belajar: model memori, riwayat jawaban, rencana harian, pemilihan soal, ranah, angka istirahat), `soul.js` (bola jiwa dan roda lima elemen), `i18n.js` dan `i18n-learn.js` (teks antarmuka 4 bahasa), `glass.css.html` dan `glass.js.html` (tampilan dan interaksi Liquid Glass).
-- `web/data/vocab.json` — kosakata HSK 1–6 beserta arti dan contoh kalimat dalam 4 bahasa (satu kata per baris).
+- `web/src/` — sumber halaman aplikasi: `base.css.html` (tata letak), `app.html` (tampilan), `app/*.js` (logika aplikasi, satu file per layar atau fitur), `store.js` (penyimpanan progres: IndexedDB dengan nomor versi skema dan migrasi), `boot.js` (memuat data kata lalu menjalankan aplikasi), `learn.js` (mesin belajar: model memori, riwayat jawaban, rencana harian, pemilihan soal, ranah, angka istirahat), `soul.js` (bola jiwa dan cincin lima elemen), `i18n.js`, `i18n-app.js` dan `i18n-learn.js` (teks antarmuka 4 bahasa), `glass.css.html` dan `glass.js` (tampilan dan interaksi Liquid Glass). Kode JavaScript dirapikan dengan Prettier (`.prettierrc.json`).
+- `web/data/vocab.json` — kosakata HSK 1–6 beserta arti dan contoh kalimat dalam 4 bahasa (satu kata per baris). Saat build dipecah menjadi `data/core.json` (hanzi, pinyin, contoh, level) dan satu file arti per bahasa, yang dimuat hanya saat bahasanya dipakai.
 - `web/tools/` — `sentence_pinyin.py` (pinyin contoh kalimat) dan `word_freq.py` (frekuensi kata dan jenis kata dari kamus jieba).
-- `web/build.py` — menggabungkan semuanya menjadi satu file HTML di `app/src/main/assets/index.html`.
+- `web/build.py` — menggabungkan sumbernya menjadi `app/src/main/assets/index.html` plus file data di `app/src/main/assets/data/`.
 - `app/` — aplikasi Android (satu layar WebView yang memuat halaman tadi).
-- `tests/smoke.py` — uji otomatis halaman aplikasi di browser (`python3 tests/smoke.py`).
+- `tests/smoke.py` — uji otomatis halaman aplikasi di browser (`python3 tests/smoke.py`); `tests/engine.js` — uji mesin belajar dan migrasi data di Node (`node tests/engine.js`).
 - `store/` — bahan halaman Google Play: teks (`listing.md`), screenshot, dan feature graphic (`python3 store/make_store_assets.py` membuatnya ulang).
 - `art/` — gambar ikon (`python3 art/make_icons.py` membuat semua ukuran ikon dari `art/icon-source.jpg`); `docs/play-store.md` — rencana rilis di Google Play.
 
-Setelah mengubah sesuatu di `web/`, jalankan `python3 web/build.py`. GitHub Actions juga menjalankannya di setiap push ke `main`, lalu membangun APK dan menerbitkannya di Releases (v1.0, v1.1, …) dengan catatan rilis dari bagian versinya di `CHANGELOG.md`.
+Setelah mengubah sesuatu di `web/`, jalankan `python3 web/build.py`. GitHub Actions juga menjalankannya di setiap push ke `main`, menjalankan kedua uji otomatis (APK hanya dibuat kalau semuanya lulus), lalu membangun APK dan menerbitkannya di Releases (v1.0, v1.1, …) dengan catatan rilis dari bagian versinya di `CHANGELOG.md`.
 APK ditandatangani dengan kunci di `keystore/` supaya setiap versi bisa memperbarui versi sebelumnya.
 
 ## Sumber data

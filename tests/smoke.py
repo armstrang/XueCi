@@ -298,6 +298,8 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         await pg.wait_for_timeout(300)
         res = await pg.evaluate('pt && pt.res')
         await shot('placement-result', True)
+        check(await pg.locator('.ptres .stage .sg i.tc').count() >= 1 and await pg.locator('.ptres .sttest').count() == 1,
+              f'{tag}: the result shows where the test puts you inside the realm')
         check(res and res['n'] == 50 and 2 <= res['lv'] <= 3, f'{tag}: placement test of 50 places an HSK 1–2 learner at HSK 2–3 ({res and res["lv"]})')
         check(await pg.evaluate('LM.level.src') == 'test' and await pg.evaluate('LM.realm()') == res['lv'] and await pg.locator('#curLvName').text_content() == RN[res['lv']],
               f'{tag}: the chip shows the tested realm ({RN[res["lv"]]})')
@@ -309,8 +311,15 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         check(await pg.locator('#ptGo').is_disabled() and await pg.locator('#lvlSheet .lockn').count() == 1, f'{tag}: one test a week (the next test is locked)')
         await pg.click('#soulGo')
         await pg.wait_for_timeout(500)
-        check(await pg.evaluate('state.screen') == 'soul' and await pg.locator('.wheel .ghost').count() == 5 and await pg.locator('.elrow').count() == 5,
-              f'{tag}: Soul Sea shows the orb with the five elements')
+        check(await pg.evaluate('state.screen') == 'soul' and await pg.locator('.wheel .wtrk').count() == 5 and await pg.locator('.elrow').count() == 5,
+              f'{tag}: Soul Sea shows the orb inside the five-element ring')
+        # the placement test counts toward realm progress: half its estimate, shown as a lighter layer and a line
+        st = await pg.evaluate('LM.stage()')
+        check(st['testShare'] > 0 and st['share'] >= st['testShare'] and await pg.locator('#soulBody .sg i.tc').count() >= 1 and await pg.locator('#soulBody .sttest').count() == 1,
+              f'{tag}: the placement test counts toward realm progress ({round(st["share"] * 100)}%)')
+        # each ring segment fills clockwise from its badge and never reaches the next badge unless full
+        segs = await pg.evaluate('''() => [...document.querySelectorAll('.wheel .wseg')].map(g => [g.querySelector('.wval') ? g.querySelector('.wval').getTotalLength() : 0, g.querySelector('.wtrk').getTotalLength(), g.querySelector('.wnum').textContent])''')
+        check(len(segs) == 5 and all(v <= t + .5 for v, t, _ in segs), f'{tag}: ring segments fill within their track ({[x[2] for x in segs]})')
         check(await pg.evaluate("document.getElementById('orb').width") > 0 and await pg.locator('#soulBody .hrow').count() == 1, f'{tag}: soul orb drawn, realm history')
         check(await pg.locator('#soulBody .rpath .rp').count() == 8 and await pg.locator('#soulBody .rp.cur').count() == 1 and await pg.locator('#soulBody .sgtrack .sg').count() == 4,
               f'{tag}: realm path and stage progress are shown')
@@ -427,6 +436,79 @@ async def legacy_case(browser):
     check(crammed < 14 <= spaced, f'{tag}: cramming stays below green ({crammed}), spaced reviews reach it ({spaced})')
     check(not errors, f'{tag}: no page errors {errors[:2]}')
     await ctx.close()
+
+
+async def store_case(browser):
+    """Progress store (v1.12): data from v1.11 (localStorage) moves to IndexedDB, survives a cleared localStorage,
+    v1.7 data is migrated; word meanings load per language; the backup sheet shows the last backup."""
+    tag = 'store'
+    errors = []
+    blank = HOST + '/no-such-page'   # same origin, so localStorage can be prepared before the app first starts
+    ctx = await browser.new_context(viewport={'width': 390, 'height': 800}, locale='en-US', permissions=['clipboard-read', 'clipboard-write'])
+    pg = await ctx.new_page()
+    pg.on('pageerror', lambda e: errors.append(str(e)))
+    await pg.goto(blank)
+    await pg.evaluate("""() => { const t = Math.round((Date.now() - Date.UTC(2026,0,1)) / 6e4) - 1440;
+      localStorage.setItem('mm_stats', JSON.stringify({'1:学生': [5, 0, 12]}));
+      localStorage.setItem('xc_mem', JSON.stringify({'1:学生': {w: [5, 20, t], i: t - 9000, f: [5, 20, t, 3, 1], s: [5, 20, t, 3, 1]}}));
+      localStorage.setItem('xc_log', JSON.stringify([[t, '1:学生', 'f', 3, 30, 0, 0]]));
+      localStorage.setItem('xc_onb', '1'); localStorage.setItem('hsk16_theme', JSON.stringify('dark'));
+      localStorage.setItem('xc_lvl', JSON.stringify({lv: 2, r: 2, src: 'test', at: t, m: 1, per: [95, 60, 20, 5, 1, 0]})) }""")
+    await pg.goto(PAGE)
+    await pg.wait_for_timeout(900)
+    info = await pg.evaluate('STORE.info()')
+    check(info['mode'] == 'idb' and info['from'] == 2, f'{tag}: v1.11 progress is moved into IndexedDB {info}')
+    check(await pg.evaluate("LM.has('1:学生') && stats['1:学生'][0] === 5 && document.documentElement.dataset.theme === 'dark'"), f'{tag}: words, records and theme carried over')
+    idb = await pg.evaluate("""() => new Promise(res => { const r = indexedDB.open('xueci'); r.onsuccess = () => { const q = r.result.transaction('kv').objectStore('kv').get('xc_schema');
+      q.onsuccess = () => res(q.result) } })""")
+    check(idb == '3', f'{tag}: IndexedDB holds schema version 3 ({idb})')
+    check(await pg.evaluate('LM.stage().testShare') > 0, f'{tag}: a placement test taken in v1.11 counts toward realm progress')
+    await pg.evaluate("LM.answer(IDX.get('1:你好'), {q: 'm', ok: true, ms: 3000})")
+    await pg.wait_for_timeout(700)
+    await pg.goto(blank)
+    await pg.evaluate('localStorage.clear()')
+    await pg.goto(PAGE)
+    await pg.wait_for_timeout(900)
+    check(await pg.evaluate("LM.has('1:你好') && LM.has('1:学生') && STORE.info().from === 3 && document.documentElement.dataset.theme === 'dark'"),
+          f'{tag}: progress comes back from IndexedDB with localStorage cleared')
+    # meanings of another language load when it is chosen
+    await pg.evaluate("setLang('vi')")
+    await pg.wait_for_timeout(500)
+    check(await pg.evaluate("lang === 'vi' && XC.has('vi') && M(IDX.get('1:学生')) === IDX.get('1:学生').vm && !!IDX.get('1:学生').vm"), f'{tag}: Vietnamese meanings loaded on demand')
+    await pg.evaluate("setLang('en')")
+    await pg.wait_for_timeout(300)
+    # backup: a quiet dot after real progress with no backup; the sheet says when the last one was made
+    await pg.evaluate("BY[1].slice(0, 40).forEach(d => stats[d.id] = [1, 0, 3]); renderHome()")
+    check(await pg.locator('#bkBtn.due').count() == 1, f'{tag}: a dot on Backup when there is progress and no backup')
+    await pg.click('#bkBtn')
+    await pg.wait_for_timeout(300)
+    check(await pg.locator('#bkLast.old').is_visible() and await pg.locator('#bkLast').text_content() == await pg.evaluate('L10.bkNever'), f'{tag}: the sheet says no backup yet')
+    await pg.click('.bkopt[data-bk="make"]')
+    await pg.wait_for_timeout(400)
+    await pg.click('#bkCopy')
+    await pg.wait_for_timeout(300)
+    check(await pg.evaluate("ls.get('xc_bk', 0) > 0") and await pg.locator('#bkBtn.due').count() == 0, f'{tag}: copying the code records the backup and clears the dot')
+    await pg.evaluate('mmBack()')
+    await pg.wait_for_timeout(200)
+    check('2026' in await pg.locator('#bkLast').text_content() and await pg.locator('#bkLast.old').count() == 0, f'{tag}: the sheet shows the last backup date')
+    days = await pg.evaluate("makeCode().then(readCode).then(b => b.days)")
+    today = await pg.evaluate('LM.dayOf(LM.now())')
+    check(isinstance(days, list) and today in days and today - 1 in days, f'{tag}: the backup code carries the study days')
+    await pg.evaluate('mmBack()')
+    await ctx.close()
+    # v1.7 data: two-number records and the old list of known words
+    ctx = await browser.new_context(viewport={'width': 390, 'height': 800}, locale='id-ID')
+    pg = await ctx.new_page()
+    pg.on('pageerror', lambda e: errors.append(str(e)))
+    await pg.goto(blank)
+    await pg.evaluate("""() => { localStorage.setItem('mm_stats', JSON.stringify({'1:学生': [4, 1]}));
+      localStorage.setItem('hsk16_known', JSON.stringify(['1:你好', '9:none'])) }""")   # no xc_ key: data from before v1.8
+    await pg.goto(PAGE)
+    await pg.wait_for_timeout(900)
+    check(await pg.evaluate("STORE.info().from === 1 && stats['1:学生'].length === 3 && stats['1:学生'][2] >= 0 && LM.has('1:学生')"), f'{tag}: v1.7 records get a level')
+    check(await pg.evaluate("ls.get('mm_stats', {})['1:学生'].length === 3"), f'{tag}: migration is saved')
+    await ctx.close()
+    check(not errors, f'{tag}: no page errors {errors[:2]}')
 
 
 async def realm_case(browser):
@@ -567,6 +649,7 @@ async def main():
                                               (1280, 'vi-VN', 'auto', 1, False), (360, 'vi-VN', 'light', 1.6, True)):
             await run_case(browser, width, locale, theme, fs, onb)
         await legacy_case(browser)
+        await store_case(browser)
         await realm_case(browser)
         await reminder_case(browser)
         await browser.close()
@@ -574,4 +657,5 @@ async def main():
     sys.exit(1 if failures else 0)
 
 
-asyncio.run(main())
+if __name__ == '__main__':
+    asyncio.run(main())
