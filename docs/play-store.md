@@ -1,6 +1,6 @@
 # Rencana rilis XueCi Mandarin di Google Play
 
-Status per 16 Oktober 2026. Aplikasi sudah jalan sebagai APK di GitHub Releases, tapi belum memenuhi syarat Play Store.
+Status per 19 Oktober 2026. Aplikasi sudah jalan sebagai APK di GitHub Releases, tapi belum memenuhi syarat Play Store.
 Centang item di bawah saat selesai.
 
 ## 1. Keputusan dulu (sebelum kode diubah)
@@ -19,6 +19,8 @@ Centang item di bawah saat selesai.
   - [ ] Perbarui halaman itu setiap kali perilaku data berubah. Contohnya setelah font dibundel: hapus bagian Google Fonts dan izin Internet, lalu ganti tanggal berlakunya.
 - [ ] **APK di GitHub tetap dibagikan atau tidak?** Mulai 30 September 2026, Indonesia termasuk negara yang mewajibkan aplikasi didaftarkan oleh developer terverifikasi. Itu menurut berita; cek detailnya di Android Developer Console. Kalau APK GitHub tetap dibagikan, daftarkan nama paketnya juga.
 
+- [x] **Model bisnis: gratis, tanpa iklan** (keputusan Josh, 19 Okt 2026). Iklan dibahas dan ditolak: pendapatannya kecil di awal, sedangkan aplikasi kehilangan label "tidak mengumpulkan data", sifat offline, dan suasana belajar yang bersih. Pembelian sekali bayar "Pendukung" yang tidak mengunci materi belajar (tema, gelar) bisa dipertimbangkan setelah akun Play aktif. HSK 7–9 tidak pernah dijual.
+
 ## 2. Pekerjaan teknis
 
 - [x] **Target SDK 36** (v1.3). Sejak 31 Agustus 2026, aplikasi baru wajib menargetkan Android 16 (API 36).
@@ -29,7 +31,7 @@ Centang item di bawah saat selesai.
 - [x] **ID baru** `com.armstrang.xueci`: `applicationId`, `namespace`, dan paket Java (v1.3).
 - [x] **Cadangkan/pulihkan progres**: tombol **Cadangan** di Home (sejak v1.4; di v1.2 ada di Statistik). Cadangkan menghasilkan satu kode teks untuk disalin atau dibagikan; Pulihkan menerima kode itu di aplikasi atau HP lain.
 - [x] **Font dibundel di dalam aplikasi** (v1.5): Plus Jakarta Sans, Noto Sans/Serif SC (dipotong ke ±2.000 hanzi yang dipakai), Noto Sans Thai; lisensi OFL ikut di `assets/fonts/`. Aplikasi tidak lagi menghubungi internet, dan kebijakan privasi sudah diperbarui.
-  - [ ] Hapus izin `INTERNET` setelah dicek di HP bahwa aplikasi tetap terbuka normal tanpanya (WebView memuat halaman dari dalam aplikasi, jadi seharusnya tidak perlu).
+  - [x] Izin `INTERNET` **tetap dipertahankan** untuk jaga-jaga (keputusan Josh, 19 Okt 2026). Aplikasi tidak memakainya, jadi Data safety tetap "tidak mengumpulkan data"; kebijakan privasi sudah menyebutnya apa adanya.
 - [x] **Ukuran huruf mengikuti pengaturan HP** (v1.5), dari 85% sampai 160%. Hanzi besar dan bagian ringkas (header, pilihan HSK) membesar setengahnya supaya tata letak tetap rapi.
 - [x] **Belajar terarah** (v1.8): tujuan belajar, rencana harian, kartu dengan cek kilat, kuis terarah, simulasi ujian, wawasan belajar, model memori FSRS yang disesuaikan di HP. Semua data tetap di perangkat, jadi jawaban Data safety tidak berubah ("tidak mengumpulkan data"). Kebijakan privasi sudah diperbarui (riwayat jawaban, rekomendasi di perangkat, isi kode cadangan).
 - [x] **Tes penempatan, level saat ini, pengingat harian** (v1.9). Izin baru: `POST_NOTIFICATIONS` (diminta saat pengingat diaktifkan) dan `RECEIVE_BOOT_COMPLETED` (memasang ulang pengingat setelah restart). Data safety tetap "tidak mengumpulkan data"; kebijakan privasi sudah diperbarui.
