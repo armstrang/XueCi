@@ -53,7 +53,7 @@ function soulRows(S) {
                 ? L10.attrX.dao(fmt(S.daoOk), fmt(S.daoN))
                 : '';
     return `<div class="elrow el-${k}${weak ? ' weak' : ''}"><span class="elg" aria-hidden="true"><b lang="zh-CN">${g}</b><small>${ELP[k]}</small></span><div class="elt">
-      <div class="eln"><b lang="zh-CN">${ATZ[a][0]}</b><small class="hpy">${ATZ[a][1]}</small><span>${esc(L10.attrN[a])}</span><em>${esc(val)}</em></div>
+      <div class="eln"><b lang="zh-CN">${ATZ[a][0]}</b><small class="hpy">${ATZ[a][1]}</small><span>${esc(L10.attrN[a])}</span><em${v === null ? ' class="na"' : ''}>${esc(val)}</em></div>
       <span class="elbar"><i style="width:${v === null ? 0 : Math.max(2, v)}%"></i></span><small>${esc(L10.attrD[a])}${x ? `<br><b class="elx">${esc(x)}</b>` : ''}</small>
       ${weak ? `<p class="eltip">${esc(L10.attrTip[a])}</p>` : ''}${strong ? `<p class="eltitle">${L10.titleL(`<span lang="zh-CN">${TTL[a][0]}</span> ${TTL[a][1]} · ${esc(L10.attrTitle[a])}`)}</p>` : ''}</div></div>`;
   }).join('');
@@ -101,7 +101,7 @@ function renderSoul() {
   $('soulBody').innerHTML = `<div class="soulhero" style="--lc:${rc(r)}">
       <div class="orbwrap">${SOUL.wheel(S, 300)}<canvas class="orb" id="orb" role="img" aria-label="${esc(L10.orbL(fmt(S.words)))}"></canvas></div>
       ${realmHead(r, true)}<p class="orbpick" id="orbPick" aria-live="polite">${S.words ? L10.orbHint : L10.orbEmpty}</p></div>
-    <section class="scard prog">${hd('修炼之路', 'xiūliàn zhī lù', L10.pathM)}${pathH(r)}${stageH(r)}${testH()}</section>
+    <section class="scard prog">${hd('修炼之路', 'xiūliàn zhī lù', L10.pathM)}${pathH(r)}${stageH(r)}${testH(false)}</section>
     <section class="scard advc">${hd('指点', 'zhǐdiǎn', L10.advM)}<p class="gnote advintro">${L10.advIntro}</p>${adviceH(6)}</section>
     <section class="scard">${hd('五行', 'wǔxíng', L10.elM)}${soulRows(S)}</section>
     <section class="scard chal${c.done ? ' done' : ''}">${hd('今日试炼', 'jīnrì shìliàn', L10.chalM)}<p class="chtxt">${L10.chalTxt(skName(c.k), c.n, c.a)}</p>
@@ -120,7 +120,7 @@ function renderSoul() {
           : L10.medNone
       } <button class="linkbtn" id="medSet">${L10.medSet}</button></p></section>
     <section class="scard">${hd('休息之道', 'xiūxi zhī dào', L10.restM)}${restH(LM.restGain())}</section>
-    <section class="scard">${hd('境界历程', 'jìngjiè lìchéng', L10.histM)}${hist.length ? `<div class="hist">${hist.map(([hr, t]) => `<div class="hrow" style="--lc:${rc(hr)}"><b lang="zh-CN">${RN[hr]}</b><small class="hpy">${RPY[hr]}</small><span>${esc(L10.realmM[hr])}</span><small>${dateS(tDate(t))}</small></div>`).join('')}</div>` : `<p class="gnote">${L10.histEmpty}</p>`}
+    <section class="scard">${hd('境界历程', 'jìngjiè lìchéng', L10.histM)}${hist.length ? `<div class="hist">${hist.map(([hr, t, how, g]) => `<div class="hrow" style="--lc:${rc(hr)}"><b lang="zh-CN">${RN[hr]}</b><span class="hmid"><small class="hpy">${RPY[hr]}</small> ${esc(L10.realmM[hr])}${g ? ` <span class="grade g${g} sm"><b lang="zh-CN">${LM.GRADES[g]}</b></span>` : how === 'test' ? ' <span class="recog" lang="zh-CN">认定</span>' : ''}</span><small class="hdt">${dateS(tDate(t))}</small></div>`).join('')}</div>` : `<p class="gnote">${L10.histEmpty}</p>`}
       ${info && info.per ? `<div class="glbl">${L10.ptPer}</div>${perBars(info.per)}` : ''}</section>`;
   SOUL.mount($('orb'), {
     realm: r,
@@ -160,6 +160,10 @@ scrSoul.addEventListener('click', e => {
   }
   if (id === 'ptGo') {
     go('placement');
+    return;
+  }
+  if (id === 'stabGo') {
+    stabRun();
     return;
   }
   if (id === 'medSet') {

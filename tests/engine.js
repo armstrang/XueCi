@@ -25,23 +25,24 @@ function check(cond, what, extra) {
 
 /* the app's word preparation (app/core.js) and the placement flag build.py adds (data/core.json "pm") */
 const PRELUDE = `
-const DATA = JSON.parse(__VOCAB);
+/* before the gate only HSK 1–6 are loaded (data/core.json); past it HSK 7–9 too (data/core-b.json) */
+const DATA = JSON.parse(__VOCAB).filter(d => __band || d.l <= 6);
 DATA.forEach(d => { d.pm = d.m.split(';')[0].length <= 28 ? 1 : 0 });
-const LEVELS = [1, 2, 3, 4, 5, 6];
+const LEVELS = [...new Set(DATA.map(d => d.l))].sort((a, b) => a - b);
 const BY = {}; LEVELS.forEach(l => BY[l] = DATA.filter(d => d.l === l));
 const TONE = {1:'āēīōūǖĀĒĪŌŪ',2:'áéíóúǘÁÉÍÓÚ',3:'ǎěǐǒǔǚǍĚǏǑǓ',4:'àèìòùǜÀÈÌÒÙ'};
 const tone = s => { for (const t in TONE) { for (const c of TONE[t]) if (s.includes(c)) return +t } return 5 };
 const plain = s => s.normalize('NFD').replace(/\\p{M}/gu, '').replace(/ü/g, 'v').replace(/['\\s]/g, '').toLowerCase();
 DATA.forEach(d => { d.id = d.l + ':' + d.h; d.pk = plain(d.p) });
 const IDX = new Map(DATA.map(d => [d.id, d]));
-const M = d => d.m, M1 = d => M(d).split(';')[0].trim();
+const M = d => d.m, M1 = d => M(d).split(";")[0].trim(), TR = d => d.t;
 let stats = ls.get('mm_stats', null); if (!stats || typeof stats !== 'object') stats = {};
 const saveStats = () => ls.set('mm_stats', stats);
 let state = { level: 1, unitBy: { 1: 1 } }; const unit = () => state.unitBy[state.level];
 `;
 
 /* a fresh sandbox: localStorage filled with `saved`, the store opened and migrated, then (unless storeOnly) the engine */
-async function sandbox(saved = {}, { storeOnly = false, time = Date.UTC(2026, 9, 1, 2), seed = 1 } = {}) {
+async function sandbox(saved = {}, { storeOnly = false, time = Date.UTC(2026, 9, 1, 2), seed = 1, band = false } = {}) {
   const box = new Map(Object.entries(saved));
   const localStorage = {
     get length() {
@@ -58,6 +59,7 @@ async function sandbox(saved = {}, { storeOnly = false, time = Date.UTC(2026, 9,
     clearTimeout,
     console,
     __VOCAB: VOCAB,
+    __band: band,
     __T: time,
     __seed: seed,
     document: { addEventListener() {}, hidden: false },
@@ -361,7 +363,7 @@ async function engineTests() {
   const res = s.LM.btFinish(bt);
   check(
     res.pass && s.LM.realm() === 2 && !s.LM.canTest(),
-    'breakthrough: 20 of 20 passes, the realm goes up, next test in a week',
+    'breakthrough: every strike right passes, the realm goes up, next test in a week',
   );
   check(s.LM.level.th[0] >= 1, 'breakthrough: the ability estimate moves up to the proven level', s.LM.level.th);
   s = await sandbox({ xc_lvl: JSON.stringify({ lv: 1, r: 1, src: 'bt', at: 1000 }) });
@@ -394,11 +396,170 @@ async function engineTests() {
   check(!s.LM.studyDays().size && !s.box.has('xc_days'), 'backup: deleting the history clears them');
 }
 
+/* every word of a level solid (level 15, form and sound passed): the realm studying it is at 圆满 */
+function solidAll(s, L) {
+  s.run(`(() => { const t = LM.now(), m = LM.exportMem();
+    for (const d of BY[${L}]) m[d.id] = {w: [4, 40, t - 60], i: t - 30 * 1440, k: t - 20 * 1440, m: [4, 40, t - 60, 3, 2], f: [4, 40, t - 60, 3, 2], s: [4, 40, t - 60, 3, 2]};
+    LM.replace(m) })()`);
+}
+const lvl = (r, extra = {}) =>
+  JSON.stringify(Object.assign({ lv: Math.min(9, Math.max(1, r)), r, src: 'bt', at: 1000, hist: [[r, 1000, 'bt']] }, extra));
+/* answers a tribulation: `wrong` = {strike: number of wrong answers} */
+function finish(s, st, wrong = {}) {
+  const left = Object.assign({}, wrong);
+  for (const it of st.items) {
+    if (left[it.strike] > 0) {
+      left[it.strike]--;
+      it.r = 'ng';
+    } else {
+      it.r = 'ok';
+      st.right++;
+    }
+  }
+  return s.LM.btFinish(st);
+}
+
+/* ---------------- v1.13 ---------------- */
+async function v113Tests() {
+  // typed pinyin: tone numbers or marks, ü as v or u:, neutral tones free, 一 and 不 in any of their spoken tones
+  let s = await sandbox();
+  const py = (h, t) => s.LM.pyCheck(s.word(h), t);
+  check(
+    py('学生', 'xue2sheng').ok && py('学生', 'xue2sheng1').ok && py('学生', 'xuésheng').ok && py('学生', 'XUE2 SHENG').ok,
+    'pinyin: numbers, marks, spaces and capitals are accepted; the neutral tone takes any tone',
+  );
+  check(py('学生', 'xuesheng').toneless && !py('学生', 'xue3sheng').ok, 'pinyin: missing tones are flagged, a wrong tone is wrong');
+  check(py('女儿', 'nv3er2').ok && py('女儿', 'nu:3er2').ok && py('女儿', 'nǚ ér').ok, 'pinyin: ü can be typed as v or u:');
+  check(
+    py('一起', 'yi1qi3').ok && py('一起', 'yi4qi3').ok && !py('一起', 'yi3qi3').ok && py('不客气', 'bu4ke4qi').ok && !py('不客气', 'bu1ke4qi').ok,
+    'pinyin: 一 and 不 take their spoken tones',
+  );
+  check(py('一点儿', 'yi4dian3r').ok && py('学生', '').empty && !py('学生', '学生').ok, 'pinyin: erhua, empty and non-pinyin input');
+  const alt = s.run(`(() => { for (const d of DATA) { const x = DATA.find(y => y.id !== d.id && M1(y).toLowerCase() === M1(d).toLowerCase() && y.pk !== d.pk);
+    if (x) return [d.id, x.s.join(' ')] } })()`);
+  const ar = s.run(`LM.pyCheck(IDX.get(${JSON.stringify(alt[0])}), ${JSON.stringify(alt[1])})`);
+  check(ar.ok && ar.alt, 'pinyin: a word with the same first meaning counts as right', alt);
+
+  // the placement test is the way in: a first test, one retake within 14 days, at most 渡劫
+  s = await sandbox();
+  check(s.LM.ptOpen() === 'first', 'way in: a new learner may take the placement test');
+  s.LM.placementDone({ m: 6, per: [100, 100, 100, 99, 98, 95], mean: 6.6, sd: 0.2 });
+  check(s.LM.realm() === 6 && s.LM.ptOpen() === 'retake', 'way in: even a perfect test stops at 渡劫, a retake is open', s.LM.realm());
+  s.advance(15);
+  check(s.LM.ptOpen() === null, 'way in: after 14 days the retake is gone');
+  s = await sandbox();
+  s.LM.placementDone({ m: 1, per: [90, 40, 5, 0, 0, 0], mean: 1.4, sd: 0.4 });
+  s.advance(8);
+  s.LM.placementDone({ m: 2, per: [98, 85, 40, 5, 0, 0], mean: 2.4, sd: 0.4 });
+  check(s.LM.ptOpen() === null && s.LM.realm() === 3, 'way in: the retake replaces the result and closes the way in');
+
+  // the tribulation: one strike per skill; 听 is left out without a voice; 速 is timed
+  s = await sandbox({ xc_lvl: lvl(1) });
+  solidAll(s, 1);
+  let st = s.LM.btStart();
+  const kinds = st.strikes.map(x => x.k + (x.skipped ? '-' : x.n)).join(' ');
+  check(
+    kinds === 'shi5 yi5 ting- du5 su8' && st.items.length === 23 && st.items.every(i => (i.strike === 'su') === !!i.limit) && st.items.find(i => i.limit).limit === 6,
+    'tribulation: 识 忆 读 速 strikes (听 left out without a voice), 6 s per 速 question at HSK 1',
+    kinds,
+  );
+  check(st.items.filter(i => i.q === 'p').length === 5 && st.items.filter(i => i.q === 'c').every(i => s.LM.clozeOK(i.d)), 'tribulation: 忆 types pinyin, 读 uses sentences');
+  let r = finish(s, st);
+  check(r.pass && r.grade === 3, 'tribulation: all right without 听 is 上品 (完美 needs every strike)', r.grade);
+  s = await sandbox({ xc_lvl: lvl(1) });
+  s.LM.setTts(() => true);
+  solidAll(s, 1);
+  st = s.LM.btStart();
+  check(st.items.length === 28, 'tribulation: with a voice 听 joins (28 questions)', st.items.length);
+  r = finish(s, st);
+  check(r.pass && r.grade === 4 && s.LM.grades()[2] === 4, 'tribulation: not one mistake is 完美, kept in the history', r.grade);
+  s = await sandbox({ xc_lvl: lvl(1) });
+  s.LM.setTts(() => true);
+  solidAll(s, 1);
+  r = finish(s, s.LM.btStart(), { yi: 2 });
+  check(!r.pass && r.acc >= 0.75 && r.strikes.find(x => x.k === 'yi').pass === false, 'tribulation: one weak strike fails it even when the total is enough', +r.acc.toFixed(2));
+  s = await sandbox({ xc_lvl: lvl(1) });
+  s.LM.setTts(() => true);
+  solidAll(s, 1);
+  r = finish(s, s.LM.btStart(), { shi: 1, yi: 1, ting: 1, du: 1, su: 2 });
+  check(r.pass && r.grade === 1, 'tribulation: just above the cut in every strike is 下品', { acc: +r.acc.toFixed(2), grade: r.grade });
+  s = await sandbox({ xc_lvl: lvl(4) });
+  solidAll(s, 4);
+  st = s.LM.btStart();
+  check(st.items.find(i => i.limit).limit === 5 && s.LM.cutOf(4) === 0.75 && s.LM.cutOf(5) === 0.8, 'tribulation: 5 s at HSK 4–6, the cut rises from HSK 5');
+
+  // the gate: hidden before 飞升; a breakthrough from 渡劫 opens it
+  s = await sandbox({ xc_lvl: lvl(6) });
+  check(
+    !s.run('DATA.some(d => d.l > 6)') && s.run('LEVELS.length') === 6 && s.LM.isFinal(7) && !s.LM.gateOpen(),
+    'gate: before it HSK 7–9 are not loaded and 飞升 looks like the top',
+  );
+  solidAll(s, 6);
+  r = finish(s, s.LM.btStart());
+  check(r.pass && r.gate && s.LM.gateOpen() && s.LM.realm() === 7, 'gate: breaking through to 飞升 opens it');
+  s = await sandbox({ xc_lvl: lvl(7) });
+  check(s.LM.gateOpen(), 'gate: a 飞升 broken through before v1.13 opens it');
+  s = await sandbox({ xc_lvl: lvl(7, { src: 'test', m: 6, hist: [[7, 1000, 'test']] }) });
+  check(!s.LM.gateOpen() && s.LM.makeupOpen() && s.LM.btOpen(), 'gate: a 飞升 from the placement test gets a make-up tribulation');
+  st = s.LM.btStart();
+  check(st.makeup && st.L === 6, 'gate: the make-up tribulation is on HSK 6');
+  r = finish(s, st);
+  check(r.pass && r.gate && s.LM.gateOpen() && s.LM.realm() === 7 && s.LM.level.hist.slice(-1)[0][2] === 'bt', 'gate: passing it opens the gate');
+  s = await sandbox({ xc_lvl: lvl(7, { gate: 2000, gs: 1 }) }, { band: true });
+  check(
+    s.run('LEVELS.join()') === '1,2,3,4,5,6,7,8,9' && s.run('BY[7].length') > 1000 && !s.LM.isFinal(7) && s.LM.realmLevel(7) === 7 && s.LM.isFinal(10),
+    'gate: past it 飞升 studies HSK 7 and 大罗 is the top',
+  );
+  solidAll(s, 7);
+  st = s.LM.btStart();
+  check(
+    st.strikes.some(x => x.k === 'fan' && x.n === 5) && st.items.filter(i => i.q === 't').length === 5 && st.items.find(i => i.limit).limit === 4 && s.LM.cutOf(7) === 0.85,
+    'gate: HSK 7–9 tribulations add 译 translation, 4 s for 速, an 85 % cut',
+  );
+  r = finish(s, st);
+  check(r.pass && s.LM.realm() === 8 && !r.gate, 'gate: past it the realms rise to 真仙');
+
+  // a realm rests on the level below: fading words make it unstable until a stabilising trial
+  s = await sandbox({ xc_lvl: lvl(3) });
+  const L2w = s.level(2).slice(0, 20);
+  for (const d of L2w) s.LM.answer(d, { q: 'm', ok: true, ms: 3000 });
+  s.advance(2);
+  for (const d of L2w) s.LM.answer(d, { q: 'm', ok: false, ms: 5000 });
+  solidAll(s, 3);
+  const sb = s.LM.stability();
+  check(!sb.ok && sb.why === 'acc' && sb.P === 2 && s.LM.stage().i === 3 && !s.LM.btOpen(), 'stability: HSK 2 fading makes 金丹 unstable and locks the breakthrough', {
+    n: sb.n,
+    acc: sb.acc,
+  });
+  check(s.LM.stabWords().length === 15 && s.LM.stabWords().every(d => d.l === 2), 'stability: the trial takes the 15 most faded HSK 2 words');
+  check(!s.LM.stabDone(11, 15) && s.LM.stabDone(12, 15) && s.LM.stability().ok && s.LM.btOpen(), 'stability: 80 % steadies the realm and the breakthrough opens again');
+
+  // model accuracy: predicted recall against what happened
+  s = await sandbox();
+  for (let day = 0; day < 40; day++) {
+    s.setTime(Date.UTC(2026, 9, 1, 2) + day * 864e5);
+    for (const it of s.LM.session(false)) {
+      s.LM.answer(it.d, { q: it.k === 'card' ? 'cm' : it.q, ok: s.run('Math.random()') < 0.85, ms: 4000, claim: it.k === 'card' });
+      s.ctx.__T += 15000;
+    }
+  }
+  const mc = s.LM.modelCheck();
+  check(mc.n > 100 && mc.ece >= 0 && mc.ece < 0.3 && mc.bins.length >= 1 && mc.pred > 0 && mc.real > 0.6, 'model check: calibration bins from the spaced reviews', {
+    n: mc.n,
+    pred: +mc.pred.toFixed(2),
+    real: +mc.real.toFixed(2),
+    ece: +mc.ece.toFixed(3),
+  });
+  const fit = await s.LM.optimize(false);
+  check(fit !== null && s.LM.params && s.LM.params.length === 19, 'optimizer: fits from 100 spaced reviews (was 400)', mc.n);
+}
+
 module.exports = { sandbox };
 if (require.main === module)
   (async () => {
     await storeTests();
     await engineTests();
+    await v113Tests();
     console.log(failed ? `\n${failed} check(s) failed` : '\nall engine checks passed');
     process.exit(failed ? 1 : 0);
   })().catch(e => {

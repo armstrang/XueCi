@@ -31,7 +31,7 @@ BELAJAR SESUAI TUJUANMU
 • Pengingat harian di jam pilihanmu, dan tidak muncul kalau hari itu kamu sudah belajar.
 
 RANAH KULTIVASI
-Level kamu adalah ranah kultivasi: 凡人, 炼气 (HSK 1), 筑基, 金丹, 元婴, 化神, 渡劫 (HSK 6), sampai 飞升. Ranah hanya naik lewat tes: kuatkan kata di levelmu sampai tahap 圆满, lalu tempuh terobosan (突破). Satu tes per minggu.
+Level kamu adalah ranah kultivasi: 凡人, 炼气 (HSK 1), 筑基, 金丹, 元婴, 化神, 渡劫 (HSK 6), sampai 飞升. Ranah hanya naik lewat tes: kuatkan kata di levelmu sampai tahap 圆满, lalu tempuh terobosan (突破): 雷劫, beberapa sambaran (arti, ketik pinyin, dengar, kalimat, kecepatan) yang harus lulus semuanya dan menentukan mutu fondasimu (道基). Satu tes per minggu.
 Di Lautan Jiwa (识海) ingatanmu tampil sebagai bola jaringan kata, dikelilingi lima elemen: fondasi, kultivasi, indra jiwa, hati dao, dan pencerahan. Ada juga ujian harian untuk keterampilan terlemahmu.
 
 ISTIRAHAT JUGA BELAJAR
@@ -88,7 +88,7 @@ LEARN TOWARDS YOUR GOAL
 • A daily reminder at the time you choose, which stays quiet on days you have already studied.
 
 CULTIVATION REALMS
-Your level is a cultivation realm: 凡人, 炼气 (HSK 1), 筑基, 金丹, 元婴, 化神, 渡劫 (HSK 6), up to 飞升. Realms rise only through tests: make your level's words solid until the 圆满 stage, then attempt a breakthrough (突破). One test a week.
+Your level is a cultivation realm: 凡人, 炼气 (HSK 1), 筑基, 金丹, 元婴, 化神, 渡劫 (HSK 6), up to 飞升. Realms rise only through tests: make your level's words solid until the 圆满 stage, then attempt a breakthrough (突破): the 雷劫, a series of strikes (meaning, typed pinyin, listening, sentences, speed) that must all hold and that set your foundation's quality (道基). One test a week.
 In the Sea of Consciousness (识海) your memory appears as an orb of connected words, ringed by five elements: foundation, cultivation, spirit sense, dao heart and insight. A daily trial targets your weakest skill.
 
 REST IS PART OF LEARNING

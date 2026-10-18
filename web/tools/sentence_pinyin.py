@@ -7,7 +7,10 @@ https://github.com/mozillazg/python-pinyin and https://github.com/fxsjy/jieba; p
 `pypinyin` and `jieba` packages).
 
 How a sentence is read:
-  1. jieba splits it into words (the word being learned is always kept whole).
+  1. It is split into words: the app's words first (fewest pieces; ties go to the split that agrees with jieba's
+     boundaries, then to the likelier words by jieba's counts), the word being learned is always kept whole.
+     Sentences of HSK 1-6 only use the words of HSK 1-6, so advanced words (都会, 国有 ...) never split them;
+     advanced sentences also use the advanced words that jieba itself finds in them. FIXED holds hand-read sentences.
   2. A word that is in the app's own list uses the app's pinyin, so it always agrees with the word cards
      (一/不 tone changes, neutral tones, erhua).
   3. Other characters are read by pypinyin over the whole sentence, so phrase context picks the reading of
@@ -20,6 +23,7 @@ Output: words separated by spaces, Western punctuation, capitalised sentences, t
 """
 import json
 import logging
+import math
 import os
 import re
 import sys
@@ -39,7 +43,7 @@ VOCAB = os.path.join(ROOT, 'web', 'data', 'vocab.json')
 PUNCT = {'，': ',', '。': '.', '？': '?', '！': '!', '：': ':', '；': ';', '、': ',', '“': '"', '”': '"', '‘': "'", '’': "'",
          '（': '(', '）': ')', '《': '«', '》': '»', '…': '…', '—': '—', '～': '~', '"': '"'}
 TONE_MARKS = {1: 'āēīōūǖ', 2: 'áéíóúǘ', 3: 'ǎěǐǒǔǚ', 4: 'àèìòùǜ'}
-NUM_BEFORE_YI = set('第十百千万零〇两几')
+NUM_BEFORE_YI = set('第十百千万零〇两几周')    # also 周一 (Monday)
 DATE_AFTER_YI = set('月号日')
 DI_NOUN_AFTER = set('上下里面方图铁区球址板毯点震位道')
 PRONOUNS = set('我你他她它您咱')
@@ -49,8 +53,16 @@ NOT_WORDS = ['花被', '个人']        # jieba entries that split common senten
 PROPER = set('''汉语 中国 中文 普通话 英语 英文 法语 日语 韩语 德语 亚洲 非洲 欧洲 北美洲 南美洲 大洋洲 南极洲 中华 联合国
 北京 上海 广州 深圳 天津 重庆 成都 西安 杭州 南京 武汉 香港 澳门 台湾 长城 长江 黄河 天安门 故宫 西湖 泰山
 美国 英国 法国 德国 日本 韩国 泰国 越南 印度 印尼 俄罗斯 加拿大 澳大利亚 新加坡 马来西亚 意大利 西班牙 印度尼西亚
-春节 中秋节 端午节 国庆节 元宵节 圣诞节 广东 广东话'''.split())
+春节 中秋节 端午节 国庆节 元宵节 圣诞节 广东 广东话
+四川 西藏 云南 内蒙古 湖南 苏州 桂林 黄山 景德镇 少林寺 青藏 珠穆朗玛峰 喜马拉雅 纽约 东南亚 北美洲
+唐朝 唐代 秦始皇 李白 杜甫 诸葛亮 孔子 牛顿 奥运会 世界杯 清明节 红楼梦'''.split())
 SURNAMES = set('王李张刘陈杨黄赵吴周徐孙马朱胡郭何高林罗郑梁谢宋唐许韩冯邓曹彭曾肖田董袁潘于蒋蔡余杜叶程苏魏吕丁任沈姚卢姜崔钟谭陆汪范金石廖贾夏韦付方白邹孟熊秦邱江尹薛闫段雷侯龙史陶黎贺顾毛郝龚邵万钱严覃武戴莫孔向汤')
+# words that are not words before these characters
+NOT_BEFORE = {'十分': '钟', '天下': '雨雪', '写作': '文'}
+# sentences the rules read wrongly, written out by hand
+FIXED = {'十八岁以上的人才能开车。': 'Shíbā suì {yǐshàng} de rén cáinéng kāichē.',
+         '你留下来吃饭吧。': 'Nǐ {liú} xiàlai chīfàn ba.',
+         '黄河流域是中华文明的发源地。': 'Huánghé liúyù shì Zhōnghuá wénmíng de {fāyuándì}.'}
 TITLES = ('老师', '先生', '女士', '小姐', '经理', '医生', '大夫', '同学', '教授', '阿姨', '叔叔', '师傅', '主任', '校长')
 
 
@@ -105,14 +117,21 @@ def segment(z, head, vocab):
     def allowed(i, j):
         if hs >= 0 and i < he and j > hs and not (i <= hs and he <= j):
             return False                                   # may not cut through the learned word
-        if z[i] in MEASURES and i and z[i - 1] in DEMONS and j - i > 1:
-            return False                                   # 一|个|人, not 一|个人
+        if z[j:j + 1] and z[j] in NOT_BEFORE.get(z[i:j], ''):
+            return False                                   # 十|分钟, 天|下雨, 写|作文
+        if z[i] in MEASURES and i and z[i - 1] in DEMONS and j - i > 1 and not (i == hs and j == he):
+            return False                                   # 一|个|人, not 一|个人 (but 统一|口径 keeps the learned word)
         return True
 
-    INF = (10 ** 9, 0)
+    # ties are settled by agreeing with jieba's own word boundaries (早上|去, 加|工资, 十|分钟)
+    jb, q = set(), 0
+    for w in jieba.cut(z, HMM=False):
+        q += len(w)
+        jb.add(q)
+    INF = (10 ** 9, 0, 0, 0)
     best = [INF] * (n + 1)
     back = [0] * (n + 1)
-    best[n] = (0, 0)
+    best[n] = (0, 0, 0, 0)
     for i in range(n - 1, -1, -1):
         cands = [i + 1]
         for j in range(i + 2, min(n, i + 8) + 1):
@@ -122,13 +141,16 @@ def segment(z, head, vocab):
         for j in cands:
             if j == i + 1 and not allowed(i, j) and hs <= i < he and he - hs > 1:
                 continue
-            cost = (best[j][0] + 1, best[j][1] - (j - i) ** 2)
+            # then the likelier words by jieba's counts (十|分钟, 加|工资, 老|师傅, 火车|站)
+            cost = (best[j][0] + 1, best[j][1] - (j - i) ** 2, best[j][2] - (j in jb),
+                    best[j][3] - math.log(jieba.dt.FREQ.get(z[i:j], 0) + 1))
             if cost < best[i]:
                 best[i], back[i] = cost, j
     spans, i = [], 0
     while i < n:
-        spans.append((i, back[i]))
-        i = back[i]
+        j = back[i] if back[i] > i else i + 1          # never stall (a position no word may start from)
+        spans.append((i, j))
+        i = j
     # group single characters into words the app doesn't list (蜡烛, 草药, 发型 ...): jieba for characters the app
     # doesn't know at all, and two-character words found in both jieba's and pypinyin's dictionaries otherwise
     single_known = {w for w in vocab if len(w) == 1}
@@ -201,7 +223,9 @@ def read_sentence(z, head, vocab):
         a, b = spans[tok_of[i]]
         before, after = z[i - 1] if i else '', z[i + 1] if i + 1 < len(z) else ''
         single = b - a == 1
-        if c == '一':
+        if c == '的' and single:
+            syl[i] = 'de'                                             # 项目|的, never 目的 dì across words
+        elif c == '一':
             if not after or not is_han(after) or before in NUM_BEFORE_YI or after in DATE_AFTER_YI or after == '一':
                 syl[i] = 'yī'
             else:
@@ -303,15 +327,28 @@ def read_sentence(z, head, vocab):
 def main():
     with open(VOCAB, encoding='utf8') as f:
         data = json.load(f)
-    vocab = {d['h']: d['s'] for d in data}
+    # Levels 1-6 are read with the words of levels 1-6 only, so the advanced words (都会 metropolis, 国有, 作对 ...)
+    # never split an everyday sentence wrongly (我都会 = dōu huì, 中国有 = Zhōngguó yǒu).
+    vocab = {d['h']: d['s'] for d in data if d['l'] <= 6}
     jieba.initialize()
     for w in NOT_WORDS:
         jieba.del_word(w)
     for w in vocab:                   # make sure jieba knows the app's words (without pushing them over common splits)
         if len(w) > 1 and w not in jieba.dt.FREQ and w not in NOT_WORDS:
             jieba.add_word(w)
+    advanced = {d['h']: d['s'] for d in data if d['l'] > 6}
     for d in data:
-        d['zp'] = read_sentence(d['z'], d['h'], vocab)
+        if d['z'] in FIXED:
+            d['zp'] = FIXED[d['z']]
+            continue
+        if d['l'] <= 6:
+            d['zp'] = read_sentence(d['z'], d['h'], vocab)
+            continue
+        # an advanced sentence also uses the advanced words that jieba itself cuts out of it, and its own word
+        cut = set(jieba.cut(d['z'], HMM=False))
+        v = dict(vocab)
+        v.update({w: s for w, s in advanced.items() if w == d['h'] or (len(w) > 1 and w in cut)})
+        d['zp'] = read_sentence(d['z'], d['h'], v)
     with open(VOCAB, 'w', encoding='utf8') as f:
         f.write('[\n' + ',\n'.join(json.dumps(x, ensure_ascii=False, separators=(',', ':')) for x in data) + '\n]\n')
     print(f'{len(data)} sentences')

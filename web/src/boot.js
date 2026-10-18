@@ -25,29 +25,75 @@ const XC = (() => {
     const t = JSON.parse(localStorage.getItem('hsk16_theme'));
     if (t && t !== 'auto') root.setAttribute('data-theme', t);
     const ui = JSON.parse(localStorage.getItem('hsk16_ui'));
-    if (ui && ui.level >= 1 && ui.level <= 6) document.body.dataset.level = ui.level;
+    if (ui && ui.level >= 1 && ui.level <= 9) document.body.dataset.level = ui.level;
   } catch (e) {}
 
   const COLS = { id: ['m', 't'], en: ['em', 'et'], th: ['hm', 'ht'], vi: ['vm', 'vt'] };
-  const have = new Set();
-  let data = null;
+  /* the word list comes in parts: HSK 1–6 (data/core.json + data/<lang>.json) and, once the gate after 飞升 is open,
+     HSK 7–9 (data/core-b.json + data/<lang>-b.json). Every part keeps the languages it has loaded. */
+  const parts = [{ key: '', words: null, langs: new Set() }];
+  const data = [];
   const get = path =>
     fetch(path).then(r => {
       if (!r.ok) throw new Error(path + ' ' + r.status);
       return r.json();
     });
-  function addLang(l, j) {
-    const [a, b] = COLS[l];
-    if (!j || j.rows.length !== data.length) throw new Error('data/' + l + '.json does not match the word list');
-    j.rows.forEach((r, i) => {
-      data[i][a] = r[0];
-      data[i][b] = r[1];
+  const toWords = c =>
+    c.rows.map(r => {
+      const d = {};
+      c.cols.forEach((k, i) => {
+        if (r[i] != null) d[k] = r[i];
+      });
+      return d;
     });
-    have.add(l);
+  function addLang(l, part, j) {
+    const [a, b] = COLS[l];
+    if (!j || j.rows.length !== part.words.length)
+      throw new Error(`data/${l}${part.key}.json does not match the word list`);
+    j.rows.forEach((r, i) => {
+      part.words[i][a] = r[0];
+      part.words[i][b] = r[1];
+    });
+    part.langs.add(l);
   }
+  const partLang = (l, part) =>
+    part.langs.has(l) ? Promise.resolve() : get(`data/${l}${part.key}.json`).then(j => addLang(l, part, j));
+  const has = l => parts.every(p => p.langs.has(l));
   function loadLang(l) {
-    if (have.has(l)) return Promise.resolve();
-    return get(`data/${l}.json`).then(j => addLang(l, j));
+    return Promise.all(parts.map(p => partLang(l, p)));
+  }
+  /* HSK 7–9: loaded at start when the gate is already open, or right when it opens; returns the new words */
+  let band = null;
+  function loadBand() {
+    if (band) return band;
+    const part = { key: '-b', words: null, langs: new Set() };
+    const langs = [...parts[0].langs];
+    band = get('data/core-b.json')
+      .then(c => {
+        part.words = toWords(c);
+        return Promise.all(langs.map(l => get(`data/${l}-b.json`).then(j => addLang(l, part, j))));
+      })
+      .then(() => {
+        parts.push(part);
+        data.push(...part.words);
+        return part.words;
+      })
+      .catch(e => {
+        band = null;
+        throw e;
+      });
+    return band;
+  }
+  /* the ids of the HSK 7–9 words, without opening them (checking a backup code from a learner past the gate) */
+  let bandIdSet = null;
+  function bandIds() {
+    if (!bandIdSet)
+      bandIdSet = get('data/core-b.json').then(c => {
+        const l = c.cols.indexOf('l'),
+          h = c.cols.indexOf('h');
+        return new Set(c.rows.map(r => r[l] + ':' + r[h]));
+      });
+    return bandIdSet;
   }
   function run(id) {
     const s = document.createElement('script');
@@ -66,16 +112,14 @@ const XC = (() => {
     const core = get('data/core.json');
     await STORE.open();
     const pref = ls.get('mm_lang', 'auto'),
-      lang = pref !== 'auto' && LANGS.includes(pref) ? pref : sysLang();
+      lang = pref !== 'auto' && LANGS.includes(pref) ? pref : sysLang(),
+      lv = ls.get('xc_lvl', null),
+      gate = !!(lv && lv.gate);
     const [c, m] = await Promise.all([core, get(`data/${lang}.json`)]);
-    data = c.rows.map(r => {
-      const d = {};
-      c.cols.forEach((k, i) => {
-        if (r[i] != null) d[k] = r[i];
-      });
-      return d;
-    });
-    addLang(lang, m);
+    parts[0].words = toWords(c);
+    addLang(lang, parts[0], m);
+    data.push(...parts[0].words);
+    if (gate) await loadBand();
     STORE.migrate({ ids: new Set(data.map(d => d.l + ':' + d.h)) });
     run('xc-app');
     run('xc-glass');
@@ -83,10 +127,13 @@ const XC = (() => {
   }
   start().catch(fail);
   return {
-    get data() {
-      return data;
-    },
+    data,
     loadLang,
-    has: l => have.has(l),
+    loadBand,
+    bandIds,
+    has,
+    get band() {
+      return parts.length > 1;
+    },
   };
 })();

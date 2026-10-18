@@ -38,6 +38,10 @@ function renderSummary() {
     run.closed = true;
     LM.updWeak();
     run.notes = sumNotes();
+    if (run.after) {
+      const words = new Set(run.items.map(x => x.d.id)).size;
+      setTimeout(() => run && run.after && run.after(words - run.wrong.size, words), 0);
+    }
   }
   const n = run.tot,
     ok = run.ok,
@@ -143,8 +147,20 @@ view.addEventListener('click', e => {
     qAmbig(it);
     return;
   }
+  if (id === 'pyIdk' && !it.done) {
+    qTyped(it, null);
+    return;
+  }
   const b = e.target.closest('.opts button');
   if (b && !it.done) qAnswer(it, +b.dataset.i);
+});
+/* typed pinyin: the form submits with the button or the keyboard's done/enter key */
+view.addEventListener('submit', e => {
+  if (e.target.id !== 'pyForm') return;
+  e.preventDefault();
+  const it = run && run.items[run.i],
+    v = $('pyIn')?.value || '';
+  if (it && it.k === 'q' && it.q === 'p' && !it.done && v.trim()) qTyped(it, v);
 });
 const qMenuOpen = () => {
   const m = $('qTypeMenu');

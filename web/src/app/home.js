@@ -1,13 +1,19 @@
 /* ---------- home ---------- */
 const RING_C = 2 * Math.PI * 52;
+/* the HSK pills (Home and Stats): six, or nine once HSK 7–9 are open (then just the numbers, so they still fit) */
+function lvPills(el, key, cur) {
+  el.style.setProperty('--n', LEVELS.length);
+  el.classList.toggle('n9', LEVELS.length > 6);
+  el.innerHTML = LEVELS.map(
+    l =>
+      `<button class="lvpill" data-${key}="${l}" aria-pressed="${l === cur}" aria-label="HSK ${l}" style="--lc:var(--l${l})"><b><span class="hl">HSK </span>${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`,
+  ).join('');
+}
 function renderHome() {
   const L = state.level,
     S = summary(BY[L]),
     pc = pctTxt(S.p);
-  $('lvPills').innerHTML = LEVELS.map(
-    l =>
-      `<button class="lvpill" data-l="${l}" aria-pressed="${l === L}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`,
-  ).join('');
+  lvPills($('lvPills'), 'l', L);
   /* one arc per level, deepest green first, so the ring fades from mature green to young red */
   let off = 0,
     arcs = '';

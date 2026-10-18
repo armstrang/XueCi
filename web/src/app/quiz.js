@@ -1,6 +1,13 @@
 /* ---- questions ---- */
 /* o: {tr: show the translation, hint: offer "Show translation"} — sentence gaps hide the translation until answered */
+const gapZ = d => esc(d.z).replace(esc(d.h), '<mark>＿＿</mark>');
 function qPrompt(d, T, o) {
+  if (T === 'p')
+    /* production: the meaning (and the sentence with a gap) — the pinyin is typed from memory */
+    return `<div class="q">${L10.qPy}</div><div style="font-size:22px;font-weight:800">${esc(M1(d))}</div><div class="id">${esc(M(d).split(';').slice(1).join(';'))}</div>${LM.clozeOK(d) ? `<div class="zh pyz">${gapZ(d)}</div>` : ''}`;
+  if (T === 't')
+    /* a whole sentence to understand: which translation is right? */
+    return `<div class="q">${L10.qTrans}</div><div class="zh" style="font-size:20px">${esc(d.z)}</div>${d.l <= 3 && d.zp ? `<div class="zp">${esc(d.zp).replace(/[{}]/g, '')}</div>` : ''}`;
   return T === 'm'
     ? `<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
     : T === 'f'
@@ -9,15 +16,30 @@ function qPrompt(d, T, o) {
         ? `<div class="q">${L10.qTone}</div><div class="big">${esc(d.h)}</div><div class="id">${esc(M1(d))}</div>`
         : T === 'l'
           ? `<div class="q">${L10.qListen}</div><button class="spk xl" id="qSay" data-say="${esc(d.h)}" aria-label="${esc(L10.replay)}" title="${esc(L10.replay)}">${SPK}</button>`
-          : `<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${esc(d.z).replace(esc(d.h), '<mark>＿＿</mark>')}</div>${d.l <= 3 && d.zp ? `<div class="zp">${esc(d.zp).replace(/\{[^}]*\}/, '＿＿')}</div>` : ''}${o && o.tr ? `<div class="id">${esc(TR(d))}</div>` : o && o.hint ? `<button class="linkbtn trbtn" id="qTr">${L10.showTr}</button>` : ''}`;
+          : `<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:20px">${gapZ(d)}</div>${d.l <= 3 && d.zp ? `<div class="zp">${esc(d.zp).replace(/\{[^}]*\}/, '＿＿')}</div>` : ''}${o && o.tr ? `<div class="id">${esc(TR(d))}</div>` : o && o.hint ? `<button class="linkbtn trbtn" id="qTr">${L10.showTr}</button>` : ''}`;
 }
 const qLab = (o, T) =>
-  T === 'm' ? esc(M1(o)) : T === 's' ? `<span class="pyo">${pyOpt(o)}</span>` : `<span class="hzo">${esc(o.h)}</span>`;
+  T === 'm'
+    ? esc(M1(o))
+    : T === 's'
+      ? `<span class="pyo">${pyOpt(o)}</span>`
+      : T === 't'
+        ? `<span class="tro">${esc(TR(o))}</span>`
+        : `<span class="hzo">${esc(o.h)}</span>`;
+/* the typing box of a pinyin question: answered → shows what was typed */
+function pyBox(it, done) {
+  const v = esc(it.typed || '');
+  return done
+    ? `<div class="pyform"><input class="pyin ${it.ok ? 'ok' : 'ng'}" value="${v}" disabled aria-label="${esc(L10.qPy)}"></div>`
+    : `<form class="pyform" id="pyForm"><input class="pyin" id="pyIn" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="${esc(L10.pyPh)}" aria-label="${esc(L10.qPy)}"><button class="next pygo" type="submit">${L10.pyCheck}</button></form>
+      <p class="pyhelp">${L10.pyHelp}</p><button class="idkbtn" id="pyIdk">${L10.idk}</button>`;
+}
 function renderQItem(it) {
   const d = it.d,
     T = it.q;
-  if (!it.opts) {
+  if (!it.opts && !it.typed0) {
     Object.assign(it, LM.question(d, T));
+    it.typed0 = T === 'p';
     it.t0 = performance.now();
   }
   const ans = it.done && !run.exam,
@@ -25,17 +47,21 @@ function renderQItem(it) {
     prompt = qPrompt(d, T, { tr: it.hint && !ans, hint: !run.exam && !it.done }),
     lab = o => qLab(o, T);
   const cls = i => (!ans ? '' : i === it.ans ? ' class="ok"' : i === it.pick ? ' class="ng"' : '');
-  const picked = ans && !ok && T !== 's' ? it.opts[it.pick] : null;
+  const picked = ans && !ok && T !== 's' && T !== 'p' && T !== 't' ? it.opts[it.pick] : null;
   const amb = T === 'c' && ans && !ok && picked && !it.amb && ambLeft() > 0;
   const fb = !ans
     ? ''
-    : `${it.amb ? `<div class="fbv amb">${L10.ambDone}</div>` : `<div class="fbv ${ok ? 'good' : 'bad'}">${ok ? L10.ok : L10.ng}</div>`}
+    : `${it.amb ? `<div class="fbv amb">${L10.ambDone}</div>` : `<div class="fbv ${ok ? 'good' : 'bad'}">${ok ? L10.ok : L10.ng}</div>`}${T === 'p' && !ok && it.tl ? `<div class="picked">${L10.pyToneless}</div>` : ''}${T === 'p' && ok && it.alt ? `<div class="picked">${L10.pyAlt(esc(it.alt.h))}</div>` : ''}
     ${picked ? `<div class="picked">${L10.picked} <b class="hzs">${esc(picked.h)}</b> ${esc(picked.p)} · ${esc(M1(picked))}</div>` : ''}${amb ? `<button class="linkbtn ambbtn" id="qAmb">${L10.ambBtn}</button>` : ''}
     <div class="head"><span class="hz" style="font-size:26px">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div><div class="mean">${mH(M(d))}</div>
     <div class="zh">${exH(d)}${spk(d.z, ' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.next}</button>`;
+  const body =
+    T === 'p'
+      ? pyBox(it, it.done)
+      : `<div class="opts">${it.opts.map((o, i) => `<button data-i="${i}"${cls(i)} ${ans ? 'disabled' : ''}>${i + 1}. ${lab(o)}</button>`).join('')}</div>`;
   view.innerHTML =
-    runHead() +
-    `<div class="qcard qt-${T}">${prompt}<div class="opts">${it.opts.map((o, i) => `<button data-i="${i}"${cls(i)} ${ans ? 'disabled' : ''}>${i + 1}. ${lab(o)}</button>`).join('')}</div><div class="feedback" id="fb">${fb}</div></div>`;
+    runHead() + `<div class="qcard qt-${T}">${prompt}${body}<div class="feedback" id="fb">${fb}</div></div>`;
+  if (T === 'p' && !it.done) setTimeout(() => $('pyIn')?.focus({ preventScroll: true }), 60);
   if (T === 'l' && !it.played && ttsOK()) {
     it.played = true;
     setTimeout(() => {
@@ -44,13 +70,22 @@ function renderQItem(it) {
     }, 250);
   }
 }
+/* a typed answer (pinyin question): checked by the engine (tones, 一/不, neutral tones, same-meaning words) */
+function qTyped(it, text) {
+  if (it.done) return;
+  const r = text == null ? { ok: false } : LM.pyCheck(it.d, text);
+  it.typed = text || '';
+  it.tl = !!r.toneless;
+  it.alt = r.alt || null;
+  qAnswer(it, r.ok ? -2 : -3); /* −2 typed right, −3 typed wrong (a typed question has no options) */
+}
 function qAnswer(it, i) {
   if (it.done) return;
   it.done = true;
   it.pick = i;
-  const ok = i === it.ans;
+  const ok = i === -2 || (i >= 0 && i === it.ans);
   it.ok = ok;
-  const x = !ok && it.q !== 's' ? it.opts[i].id : 0;
+  const x = !ok && i >= 0 && it.q !== 's' && it.q !== 't' ? it.opts[i].id : 0;
   LM.answer(it.d, { q: it.q, ok, ms: performance.now() - it.t0, x, exam: run.exam, hint: !!it.hint });
   run.tot++;
   if (!run.exam) noteAns(ok, performance.now() - it.t0);

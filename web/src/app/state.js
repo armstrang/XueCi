@@ -1,14 +1,14 @@
 const ui = ls.get('hsk16_ui', {});
 let state = {
   level: LEVELS.includes(ui.level) ? ui.level : 1,
-  unitBy: Object.assign({ 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1 }, ui.unitBy || {}),
+  unitBy: Object.assign({ 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1 }, ui.unitBy || {}),
   q: '',
   shown: 60,
   hide: false,
   weak: false,
   screen: 'home',
 };
-let qType = ['auto', 'm', 'f', 's', 'l', 'c', 'exam'].includes(ui.qt) ? ui.qt : 'auto';
+let qType = ['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam'].includes(ui.qt) ? ui.qt : 'auto';
 const saveUI = () => ls.set('hsk16_ui', { level: state.level, unitBy: state.unitBy, qt: qType });
 const unit = () => state.unitBy[state.level];
 const pad = n => String(n).padStart(2, '0');

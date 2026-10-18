@@ -7,10 +7,7 @@ function renderStats() {
   const arr = BY[stLevel],
     S = summary(arr);
   renderInsights();
-  $('stLevels').innerHTML = LEVELS.map(
-    l =>
-      `<button class="lvpill" data-sl="${l}" aria-pressed="${l === stLevel}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`,
-  ).join('');
+  lvPills($('stLevels'), 'sl', stLevel);
   $('stSum').innerHTML =
     `<div class="big">${pctTxt(S.p)}<small>${L10.memoWord}</small></div><div class="tot">HSK ${stLevel} · ${L10.words(fmt(S.n))} · ${L10.practiced(fmt(S.n - S.none))} · ${L10.matureN(fmt(S.mature))}</div>`;
   $('stStack').innerHTML = stackH(S);
@@ -76,7 +73,7 @@ function renderInsights() {
     return;
   }
   const col = p => (p >= 85 ? 's-green' : p >= 65 ? 's-yellow' : 's-red');
-  const sk = ['m', 'f', 's', 'l', 'c']
+  const sk = ['m', 'f', 's', 'l', 'c', 'p', 't']
     .filter(k => I.skills[k])
     .map(
       k =>
@@ -88,8 +85,38 @@ function renderInsights() {
     ${sk ? `<div class="skills">${sk}</div>` : ''}
     ${I.weak ? `<p class="insnote">${L10.insWeak(TN[I.weak])}</p>` : ''}
     ${I.pairs.length ? `<div class="pairs"><span>${L10.insConf}</span>${I.pairs.map(([a, b, n]) => `<span class="pair"><b>${esc(a.h)}</b>↔<b>${esc(b.h)}</b><small>×${n}</small></span>`).join('')}</div>` : ''}
-    <p class="insnote">${I.model ? L10.insModelOwn(fmt(I.model.n)) : L10.insModelBase(fmt(I.spaced), fmt(I.need))}</p>`;
+    ${modelH(I)}${researchH()}`;
 }
+/* how well the memory model predicts this learner: replayed spaced reviews, predicted vs real, per band.
+   Folded by default (a summary line with the gap); whether the model is personalised is said here, once. */
+let mcOpen = false;
+function modelH(I) {
+  const C = LM.modelCheck(),
+    pc = x => Math.round(x * 100) + '%',
+    state = I.model
+      ? L10.insModelOwn(fmt(I.model.n))
+      : I.spaced >= I.need
+        ? L10.insModelSoon
+        : L10.insModelBase(fmt(I.spaced), fmt(I.need));
+  if (!C.n || C.n < 30)
+    return `<div class="mcheck"><div class="ihd"><b>${L10.mcT}</b></div><p class="insnote">${L10.mcWait(fmt(C.n || 0))} ${state}</p></div>`;
+  return `<details class="mcheck" id="mcheck"${mcOpen ? ' open' : ''}><summary><b>${L10.mcT}</b><span class="mcsum">±${Math.round(C.ece * 100)} · ${L10.mcN(fmt(C.n))}</span></summary>
+    <div class="kpis"><div><b>${pc(C.pred)}</b><small>${L10.mcPred}</small></div><div><b>${pc(C.real)}</b><small>${L10.mcReal}</small></div><div><b>±${Math.round(C.ece * 100)}</b><small>${L10.mcGap}</small></div></div>
+    <div class="mbins">${C.bins
+      .map(
+        b =>
+          `<div class="skrow"><span>${Math.round(b.a * 100)}–${Math.round(b.b * 100)}%</span><span class="mbar"><span class="stack"><i style="width:${(b.y * 100).toFixed(1)}%;background:var(--${Math.abs(b.y - b.p) <= 0.05 ? 's-green' : Math.abs(b.y - b.p) <= 0.1 ? 's-yellow' : 's-red'})"></i></span><u style="left:${(b.p * 100).toFixed(1)}%"></u></span><b>${pc(b.y)}</b></div>`,
+      )
+      .join('')}</div>
+    <p class="insnote">${L10.mcHow} ${state}</p></details>`;
+}
+scrStats.addEventListener(
+  'toggle',
+  e => {
+    if (e.target.id === 'mcheck') mcOpen = e.target.open;
+  },
+  true,
+);
 scrStats.addEventListener('click', e => {
   const lb = e.target.closest('[data-sl]');
   if (lb) {

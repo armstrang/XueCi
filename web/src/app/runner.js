@@ -30,10 +30,12 @@ LM.setTts(ttsOK);
 function makeRun(mode) {
   resetRun();
   let items,
+    after = null,
     exam = false,
     lv = state.level;
   if (pendingRun && pendingRun.mode === mode) {
     items = pendingRun.items;
+    after = pendingRun.after || null; /* called once at the end with (words right first time, words) */
     pendingRun = null;
   } else if (mode === 'card') items = LM.cardDeck(pool(), ROUND_C).map(d => ({ k: 'card', d }));
   else if (mode === 'session') items = LM.session(sessionExtra);
@@ -54,6 +56,7 @@ function makeRun(mode) {
     exam,
     lv,
     over: 0,
+    after,
   };
   if (exam) {
     run.end = Date.now() + EXAM_SEC * 1000;
@@ -175,7 +178,15 @@ function again(item, copy) {
 }
 const progH = (i, n) =>
   `<span class="mbar"><span class="stack"><i style="width:${Math.min(100, (i / Math.max(1, n)) * 100)}%;background:var(--acc)"></i></span></span>`;
-const TNAME = () => ({ m: L10.tMean, f: L10.tHz, s: L10.tTone, l: L10.tListen, c: L10.tCloze });
+const TNAME = () => ({
+  m: L10.tMean,
+  f: L10.tHz,
+  s: L10.tTone,
+  l: L10.tListen,
+  c: L10.tCloze,
+  p: L10.tPy,
+  t: L10.tTrans,
+});
 function qtList() {
   return [
     ['auto', L10.tAuto, L10.dAuto, '智'],
@@ -184,6 +195,8 @@ function qtList() {
     ['s', L10.tTone, L10.dTone, 'mā'],
     ...(canSpeak() ? [['l', L10.tListen, L10.dListen, '♪→汉']] : []),
     ['c', L10.tCloze, L10.dCloze, '汉＿'],
+    ['p', L10.tPy, L10.dPy, 'pīn'],
+    ['t', L10.tTrans, L10.dTrans, '句→a'],
     ['exam', L10.tExam, L10.dExam(EXAM_N, EXAM_SEC / 60), '考'],
   ];
 }

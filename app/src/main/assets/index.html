@@ -57,7 +57,7 @@ h2[tabindex]:focus{outline:none}
 .s-red{background:var(--s-red)}.s-yellow{background:var(--s-yellow)}.s-green{background:var(--s-green)}.s-none{background:var(--s-none)}
 .sd{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
 .stack{display:flex;width:100%;height:100%;background:var(--sunk)}
-.stack i{display:block;height:100%;transition:width .4s}
+.stack i{display:block;height:100%}
 .mbar{display:block;width:76px;height:6px;border-radius:99px;overflow:hidden;flex:none}
 .screen{animation:scrIn .22s ease-out}
 @keyframes scrIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -79,7 +79,9 @@ header.top{display:flex;align-items:center;gap:8px;padding-block:calc(10px + env
 .iconbtn svg{width:18px;height:18px}
 .iconbtn:hover{color:var(--fg);border-color:var(--mute)}
 
-.lvpills{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-bottom:10px}
+.lvpills{display:grid;grid-template-columns:repeat(var(--n,6),minmax(0,1fr));gap:6px;margin-bottom:10px}
+.lvpills.n9 .hl{display:none}   /* nine levels: the pills show only the number */
+.lvpills.n9 .lvpill b{font-size:calc(14px*var(--fsd,1))}
 .lvpill{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:7px 0 6px;display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.2;min-width:0;transition:background .2s,border-color .2s}
 .lvpill b{font-size:calc(13px*var(--fsd,1));font-weight:800;white-space:nowrap}
 .lvpill small{font-size:calc(10.5px*var(--fsd,1));font-weight:700;color:var(--soft);font-variant-numeric:tabular-nums}
@@ -696,6 +698,91 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 /* start-up (boot.js): while the store opens and the word data loads (a moment) only the background shows */
 .booting .wrap{visibility:hidden}
 .bootfail{position:fixed;left:16px;right:16px;top:40%;margin:0;text-align:center;font-size:calc(14px*var(--fs,1));line-height:1.5;color:var(--soft)}
+/* ===== v1.13: HSK 7–9 colours, the tribulation (雷劫), foundation quality, unstable realm, the gate (仙门) ===== */
+:root{--l7:#a8730f;--l8:#b23a2a;--l9:#3d4766}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--l7:#e8bd57;--l8:#ff8f78;--l9:#a7b4dc}}
+:root[data-theme="dark"],:root[data-theme="black"]{--l7:#e8bd57;--l8:#ff8f78;--l9:#a7b4dc}
+body[data-level="7"]{--acc:var(--l7)} body[data-level="8"]{--acc:var(--l8)} body[data-level="9"]{--acc:var(--l9)}
+/* realm path with eleven realms, a perfect foundation */
+.rpath.long .rp{width:22px;height:22px;font-size:calc(11px*var(--fs,1))}
+.rpath.long .rp.cur{transform:scale(1.12)}
+.rp.perfect{box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 70%,transparent)}
+.rphow{font-size:calc(12.5px*var(--fs,1));color:var(--soft)}
+/* foundation quality (道基): 下品 中品 上品 完美 */
+.grade{display:inline-flex;flex-direction:column;align-items:center;gap:1px;margin:6px auto 2px;padding:7px 16px;border-radius:16px;border:1.5px solid var(--gc);color:var(--gc);background:color-mix(in srgb,var(--gc) 10%,transparent)}
+.grade b{font-family:var(--f-hz);font-weight:900;font-size:calc(24px*var(--fs,1));letter-spacing:.04em}
+.grade small{font-size:calc(11.5px*var(--fs,1));color:var(--soft)}
+.grade.sm{display:inline-block;margin:0 4px 0 0;padding:1px 8px;border-radius:999px;border-width:1px;vertical-align:1px}
+.grade.sm b{font-size:calc(13px*var(--fs,1))}
+.g1{--gc:var(--mute)} .g2{--gc:var(--l3)} .g3{--gc:var(--l5)} .g4{--gc:var(--gold)}
+.grade.g4{box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 18%,transparent)}
+.recog{display:inline-block;padding:1px 8px;border-radius:999px;border:1px dashed var(--line);font-family:var(--f-hz);font-weight:900;font-size:calc(12.5px*var(--fs,1));color:var(--soft);margin-right:4px}
+/* unstable realm */
+.unst{margin:6px 0 10px;padding:11px 13px;border-radius:16px;border:1.5px dashed var(--bad);background:color-mix(in srgb,var(--bad) 7%,transparent)}
+.unsth b{font-family:var(--f-hz);font-weight:900;font-size:calc(17px*var(--fs,1));color:var(--bad)} .unsth small{color:var(--soft);font-size:calc(12px*var(--fs,1))}
+.unst p{margin:4px 0 8px;font-size:calc(13px*var(--fs,1));line-height:1.45;color:var(--soft)}
+.unst .planbtn{gap:10px}
+#curLvBtn.unstable{outline:1.5px dashed var(--bad);outline-offset:2px}
+/* the tribulation: strikes as seals, the clock of the timed strike */
+.stklist{display:flex;flex-direction:column;gap:7px;margin:10px 0 6px;text-align:left}
+.stkrow{display:flex;align-items:center;gap:11px}
+.stkrow>b{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:50%;font-family:var(--f-hz);font-weight:900;font-size:calc(17px*var(--fs,1));color:var(--lc,var(--acc));border:1.5px solid color-mix(in srgb,var(--lc,var(--acc)) 50%,transparent)}
+.stkrow span{display:flex;flex-direction:column;line-height:1.3}
+.stkrow em{font-style:normal;font-weight:800;font-size:calc(14px*var(--fs,1))}
+.stkrow small{font-size:calc(12px*var(--fs,1));color:var(--soft)}
+.strikes{display:flex;justify-content:center;gap:6px;margin:2px 0 6px}
+.stk{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line);color:var(--mute);transition:transform .25s,background .25s,color .25s}
+.stk b{font-family:var(--f-hz);font-weight:900;font-size:calc(14px*var(--fs,1))}
+.stk.cur{border-color:var(--acc);color:var(--acc);transform:scale(1.12)}
+.stk.done{background:color-mix(in srgb,var(--acc) 18%,transparent);border-color:color-mix(in srgb,var(--acc) 50%,transparent);color:var(--acc)}
+.stkhead{text-align:center;font-size:calc(13px*var(--fs,1));font-weight:700;color:var(--soft);margin-bottom:6px}
+.stkhead b{font-family:var(--f-hz);font-weight:900;font-size:calc(16px*var(--fs,1));color:var(--acc)}
+.tbar{height:5px;border-radius:99px;background:var(--sunk);overflow:hidden;margin:0 2px 8px}
+.tbar i{display:block;height:100%;background:var(--acc);transform-origin:left;animation:tdrain linear forwards}
+@keyframes tdrain{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.stkres{display:flex;flex-direction:column;gap:6px;margin:10px 0;text-align:left}
+.stkres .skrow b:first-child{font-family:var(--f-hz)}
+.stkres .ok .mbar i{background:var(--good)} .stkres .ng .mbar i{background:var(--bad)} .stkres .ng>b{color:var(--bad)}
+.stkres .skip{opacity:.6}
+/* typed pinyin */
+.pyform{display:flex;gap:8px;margin-top:12px}
+.pyin{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:calc(18px*var(--fs,1));font-weight:700;background:var(--surface);color:var(--fg);font-family:var(--f-ui)}
+.pyin:focus{outline:none;border-color:var(--acc)}
+.pyin.ok{border-color:var(--good);color:var(--good)} .pyin.ng{border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.pyform .pygo{flex:none;width:auto;margin:0;padding:0 18px}
+.pyhelp{margin:6px 2px 0;font-size:calc(12px*var(--fs,1));color:var(--soft);line-height:1.4}
+.pyz{margin-top:8px;font-size:calc(18px*var(--fs,1))}
+/* sentence translation options */
+.qt-t .opts button{text-align:left;line-height:1.4}
+.tro{font-size:calc(14px*var(--fs,1));font-weight:600}
+/* the gate ceremony */
+.gateov{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 38%,rgba(40,34,18,.97),rgba(6,7,11,.985) 70%);animation:gfade .28s ease both;
+  --l7:#e8bd57;--l8:#ff8f78;--l9:#a7b4dc;--gold:#f0cf73}
+.gateov[hidden]{display:none}
+@keyframes gfade{from{opacity:0}to{opacity:1}}
+.gatebox{width:min(100%,420px);text-align:center;color:#f4ecd8}
+.gdoor{display:flex;justify-content:center;gap:4px;margin-bottom:10px}
+.gdoor span{width:64px;height:92px;display:grid;place-items:center;border-radius:14px 14px 4px 4px;border:1.5px solid rgba(230,195,106,.65);font-family:var(--f-hz);font-weight:900;font-size:calc(30px*var(--fsd,1));color:#e6c36a;background:rgba(230,195,106,.07);transition:transform .3s ease,opacity .3s ease}
+.gdoor.open span:first-child{transform:translateX(-14px) scaleX(.85);opacity:.55}
+.gdoor.open span:last-child{transform:translateX(14px) scaleX(.85);opacity:.55}
+.gtitle b{font-family:var(--f-hz);font-weight:900;font-size:calc(22px*var(--fs,1));color:#e6c36a} .gtitle small{color:rgba(244,236,216,.6);font-size:calc(13px*var(--fs,1))}
+.gseals{display:flex;justify-content:center;gap:10px;margin:16px 0 12px}
+.gseal{flex:1;max-width:120px;padding:10px 6px;border-radius:16px;border:1.5px solid color-mix(in srgb,var(--lc) 70%,transparent);background:color-mix(in srgb,var(--lc) 14%,transparent);display:flex;flex-direction:column;gap:2px;opacity:0;transform:scale(.85);transition:opacity .28s ease,transform .28s ease}
+.gseal.on{opacity:1;transform:none}
+.gseal b{font-family:var(--f-hz);font-weight:900;font-size:calc(22px*var(--fs,1));color:#fff6dc}
+.gseal small{font-size:calc(11.5px*var(--fs,1));color:rgba(244,236,216,.7)} .gseal span{font-size:calc(12px*var(--fs,1));font-weight:700;color:#f4ecd8}
+.gtxt{min-height:4.5em;margin:4px 6px 14px;font-size:calc(14.5px*var(--fs,1));line-height:1.55;color:#f4ecd8}
+.gnext{width:100%}
+.sumbtns>.wide:only-child{grid-column:1/-1;width:100%}
+.mcheck{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.mbins{display:flex;flex-direction:column;gap:6px;margin:8px 0 4px}
+.mbins .mbar{position:relative}
+.mbins .mbar u{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--fg);border-radius:2px}
+.resq{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.resq summary{cursor:pointer;font-weight:800;font-size:calc(14px*var(--fs,1))}
+.rsf{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:8px 0}
+.rsf label{display:flex;flex-direction:column;gap:4px;font-size:calc(12px*var(--fs,1));font-weight:700;color:var(--soft)}
+.rsf select,.rsf input{border:1px solid var(--line);border-radius:11px;padding:8px 10px;font-size:calc(14px*var(--fs,1));background:var(--surface);color:var(--fg);font-family:var(--f-ui)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 <style>
@@ -930,6 +1017,47 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 .wheel .elg:not(.strong):not(.weak) circle{fill:color-mix(in srgb,var(--bg) 80%,transparent)}
 .adv,.hrow2{box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
 .rp.cur{box-shadow:0 0 0 3px color-mix(in srgb,var(--lc) 25%,transparent),inset 0 1px 0 rgba(255,255,255,.35)}
+/* ===== v1.13 design pass ===== */
+/* Home fills the screen exactly: on taller phones the gaps open up a little and the progress card takes the rest
+   (ring and legend centred in it, the ring larger where the width allows), so the tiles sit low, in thumb reach;
+   short screens drop the tile subtitles so everything still fits without scrolling */
+html:not(.bigtext) body[data-screen="home"] #scr-home{display:flex;flex-direction:column;gap:clamp(10px,calc((100svh - 680px)*.2),24px);min-height:calc(100svh - 10px - env(safe-area-inset-bottom,0px))}
+html:not(.bigtext) #scr-home>.hero{flex:1 1 auto;align-content:center}
+/* tall phones: the ring sits above the legend, larger */
+@media (min-height:880px) and (max-width:600px){
+  html:not(.bigtext) .hero{grid-template-columns:minmax(0,1fr);justify-items:center;row-gap:12px}
+  html:not(.bigtext) .ring{--rs:clamp(150px,min(calc(100svh - 735px),52vw),220px)}
+  html:not(.bigtext) .hinfo{width:100%}
+  html:not(.bigtext) .hkeys{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:22px}
+}
+html:not(.bigtext) #scr-home>*{margin-top:0!important;margin-bottom:0!important}
+.ring{--rs:clamp(100px,min(calc(18.5vh + max(0px,100vh - 720px)*.35),42vw),196px);width:var(--rs);height:var(--rs)}
+@media (max-height:719px){html:not(.bigtext) .tile small{display:none}}
+@media (max-height:660px){html:not(.bigtext) .hero .hfoot{display:none}html:not(.bigtext) body[data-screen="home"] #scr-home{gap:8px}html:not(.bigtext) .tile{min-height:72px}}
+/* larger phone text: the brand drops its second line, the hero stacks ring over legend */
+.bigtext .wm2{display:none}
+.bigtext .hero{grid-template-columns:minmax(0,1fr)}
+.bigtext .hero .ring{justify-self:center}
+.bigtext .hlv{white-space:normal}
+/* long word lists: cards off screen are not laid out or painted until scrolled near */
+.list .item{content-visibility:auto;contain-intrinsic-size:auto 150px}
+/* tribulation: the rules in one quiet box; strike results with aligned bars */
+.btrules{background:color-mix(in srgb,var(--fg) 5%,transparent);border-radius:16px;padding:11px 14px;margin:12px 0 16px;text-align:left;display:flex;flex-direction:column;gap:6px;font-size:calc(13px*var(--fs,1));line-height:1.45}
+.btrules p{margin:0}.btrules .mute{color:var(--soft);font-size:calc(12.5px*var(--fs,1))}
+.stkres .skrow{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 4.6em}
+.stkres .skrow>b{white-space:nowrap}
+/* realm history: name, pinyin and meaning, date in fixed columns */
+.hist .hrow{display:grid;grid-template-columns:42px minmax(0,1fr) auto;column-gap:10px;align-items:baseline}
+.hist .hrow .hmid{font-size:calc(13px*var(--fs,1));min-width:0}
+.hist .hrow small.hpy{margin-left:0;font-size:calc(11.5px*var(--fs,1))}
+.hist .hrow .hdt{margin-left:0;font-size:calc(12px*var(--fs,1));color:var(--soft);white-space:nowrap}
+.ring .rc b{font-size:calc(var(--rs)*.245)}
+.eln em.na{color:var(--mute);font-weight:600;font-size:calc(12px*var(--fs,1))}
+/* model accuracy folds into one line */
+.mcheck>summary{cursor:pointer;font-size:calc(14px*var(--fs,1))}
+.mcheck>summary b{font-weight:800}
+.mcheck .mcsum{display:block;margin:1px 0 0 18px;font-size:calc(12px*var(--fs,1));color:var(--soft);font-variant-numeric:tabular-nums}
+.mcheck[open]>summary{margin-bottom:8px}
 @media (prefers-reduced-motion:reduce){.res{animation:none}}
 </style>
 
@@ -1096,6 +1224,7 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
     <div id="gBody"></div>
   </div>
 </div>
+<div class="gateov" id="gateOv" role="dialog" aria-modal="true" hidden></div>
 <div class="toast" id="toast" hidden></div>
 <script>window.MM_THEMES=['auto','light','dark','black'];</script>
 <script>
@@ -1353,29 +1482,75 @@ const XC = (() => {
     const t = JSON.parse(localStorage.getItem('hsk16_theme'));
     if (t && t !== 'auto') root.setAttribute('data-theme', t);
     const ui = JSON.parse(localStorage.getItem('hsk16_ui'));
-    if (ui && ui.level >= 1 && ui.level <= 6) document.body.dataset.level = ui.level;
+    if (ui && ui.level >= 1 && ui.level <= 9) document.body.dataset.level = ui.level;
   } catch (e) {}
 
   const COLS = { id: ['m', 't'], en: ['em', 'et'], th: ['hm', 'ht'], vi: ['vm', 'vt'] };
-  const have = new Set();
-  let data = null;
+  /* the word list comes in parts: HSK 1–6 (data/core.json + data/<lang>.json) and, once the gate after 飞升 is open,
+     HSK 7–9 (data/core-b.json + data/<lang>-b.json). Every part keeps the languages it has loaded. */
+  const parts = [{ key: '', words: null, langs: new Set() }];
+  const data = [];
   const get = path =>
     fetch(path).then(r => {
       if (!r.ok) throw new Error(path + ' ' + r.status);
       return r.json();
     });
-  function addLang(l, j) {
-    const [a, b] = COLS[l];
-    if (!j || j.rows.length !== data.length) throw new Error('data/' + l + '.json does not match the word list');
-    j.rows.forEach((r, i) => {
-      data[i][a] = r[0];
-      data[i][b] = r[1];
+  const toWords = c =>
+    c.rows.map(r => {
+      const d = {};
+      c.cols.forEach((k, i) => {
+        if (r[i] != null) d[k] = r[i];
+      });
+      return d;
     });
-    have.add(l);
+  function addLang(l, part, j) {
+    const [a, b] = COLS[l];
+    if (!j || j.rows.length !== part.words.length)
+      throw new Error(`data/${l}${part.key}.json does not match the word list`);
+    j.rows.forEach((r, i) => {
+      part.words[i][a] = r[0];
+      part.words[i][b] = r[1];
+    });
+    part.langs.add(l);
   }
+  const partLang = (l, part) =>
+    part.langs.has(l) ? Promise.resolve() : get(`data/${l}${part.key}.json`).then(j => addLang(l, part, j));
+  const has = l => parts.every(p => p.langs.has(l));
   function loadLang(l) {
-    if (have.has(l)) return Promise.resolve();
-    return get(`data/${l}.json`).then(j => addLang(l, j));
+    return Promise.all(parts.map(p => partLang(l, p)));
+  }
+  /* HSK 7–9: loaded at start when the gate is already open, or right when it opens; returns the new words */
+  let band = null;
+  function loadBand() {
+    if (band) return band;
+    const part = { key: '-b', words: null, langs: new Set() };
+    const langs = [...parts[0].langs];
+    band = get('data/core-b.json')
+      .then(c => {
+        part.words = toWords(c);
+        return Promise.all(langs.map(l => get(`data/${l}-b.json`).then(j => addLang(l, part, j))));
+      })
+      .then(() => {
+        parts.push(part);
+        data.push(...part.words);
+        return part.words;
+      })
+      .catch(e => {
+        band = null;
+        throw e;
+      });
+    return band;
+  }
+  /* the ids of the HSK 7–9 words, without opening them (checking a backup code from a learner past the gate) */
+  let bandIdSet = null;
+  function bandIds() {
+    if (!bandIdSet)
+      bandIdSet = get('data/core-b.json').then(c => {
+        const l = c.cols.indexOf('l'),
+          h = c.cols.indexOf('h');
+        return new Set(c.rows.map(r => r[l] + ':' + r[h]));
+      });
+    return bandIdSet;
   }
   function run(id) {
     const s = document.createElement('script');
@@ -1394,16 +1569,14 @@ const XC = (() => {
     const core = get('data/core.json');
     await STORE.open();
     const pref = ls.get('mm_lang', 'auto'),
-      lang = pref !== 'auto' && LANGS.includes(pref) ? pref : sysLang();
+      lang = pref !== 'auto' && LANGS.includes(pref) ? pref : sysLang(),
+      lv = ls.get('xc_lvl', null),
+      gate = !!(lv && lv.gate);
     const [c, m] = await Promise.all([core, get(`data/${lang}.json`)]);
-    data = c.rows.map(r => {
-      const d = {};
-      c.cols.forEach((k, i) => {
-        if (r[i] != null) d[k] = r[i];
-      });
-      return d;
-    });
-    addLang(lang, m);
+    parts[0].words = toWords(c);
+    addLang(lang, parts[0], m);
+    data.push(...parts[0].words);
+    if (gate) await loadBand();
     STORE.migrate({ ids: new Set(data.map(d => d.l + ':' + d.h)) });
     run('xc-app');
     run('xc-glass');
@@ -1411,11 +1584,14 @@ const XC = (() => {
   }
   start().catch(fail);
   return {
-    get data() {
-      return data;
-    },
+    data,
     loadLang,
-    has: l => have.has(l),
+    loadBand,
+    bandIds,
+    has,
+    get band() {
+      return parts.length > 1;
+    },
   };
 })();
 </script>
@@ -4012,15 +4188,603 @@ Object.assign(I18N.vi, {
     'Ngũ Hành (五行 wǔxíng) tạo thành một vòng dày quanh quả cầu linh hồn. Mỗi đoạn được tô theo chiều kim đồng hồ từ hành của nó sang hành kế tiếp, theo vòng tương sinh (木→火→土→金→水); vòng chỉ khép kín khi tất cả đều đầy. Con số trên mỗi đoạn là giá trị. Mọi giá trị đều tính từ câu trả lời của bạn và cần nhiều bằng chứng mới tăng. Hành yếu nhất có lời khuyên, hành mạnh nhất cho bạn một danh hiệu:',
   );
 }
+
+/* v1.13: the tribulation (雷劫) in strikes, foundation quality (道基), unstable realm (境界不稳), the placement test as
+   the way in, typed pinyin and sentence translation questions, model accuracy, research data, the gate (仙门) */
+Object.assign(I18N.id, {
+  realmM: [
+    'Manusia Biasa',
+    'Pemurnian Qi',
+    'Membangun Fondasi',
+    'Inti Emas',
+    'Jiwa Baru Lahir',
+    'Transformasi Roh',
+    'Melewati Kesengsaraan',
+    'Naik ke Langit',
+    'Abadi Sejati',
+    'Abadi Misterius',
+    'Daluo, Puncak Abadi',
+  ],
+  realmD: [
+    'Belum dites. Tes penempatan membuka jalan kultivasi.',
+    'Menyerap qi pertama: kosakata dasar HSK 1.',
+    'Fondasi kokoh dari kata sehari-hari HSK 2.',
+    'Pengetahuan memadat menjadi inti emas: HSK 3.',
+    'Jiwa bahasa lahir: kamu mulai memahami teks yang lebih panjang (HSK 4).',
+    'Roh berubah: kosakata abstrak dan formal HSK 5.',
+    'Ujian terberat dunia fana: kata langka dan bernuansa HSK 6.',
+    'Melampaui dunia fana: HSK 6 dikuasai.',
+    'Lapis kedua HSK 7–9: bahasa tulis, formal, dan khusus.',
+    'Lapis ketiga HSK 7–9: kata langka, chengyu, dan nuansa halus.',
+    'Semua lapis HSK 7–9 dikuasai: puncak jalan kultivasi.',
+  ],
+  qPy: 'Ketik pinyin kata ini, lengkap dengan nadanya',
+  qTrans: 'Pilih terjemahan kalimat ini',
+  pyPh: 'xue2sheng1 · xuéshēng',
+  pyCheck: 'Periksa',
+  pyHelp: 'Nada: angka 1–4 setelah suku kata (nada netral boleh tanpa angka) atau tanda nada. ü boleh ditulis v.',
+  pyToneless: 'Nadanya belum ditulis. Tambahkan angka 1–4 atau tanda nada.',
+  pyAlt: h => `Diterima: ${h} punya arti yang sama.`,
+  tPy: 'Ketik pinyin',
+  dPy: 'Arti → ketik pinyin dari ingatan',
+  tTrans: 'Terjemahan',
+  dTrans: 'Kalimat → pilih terjemahannya',
+  strike: {
+    shi: 'Arti',
+    yi: 'Ingatan · ketik pinyin',
+    ting: 'Mendengar',
+    du: 'Membaca kalimat',
+    su: 'Kecepatan',
+    fan: 'Terjemahan',
+  },
+  strikeSkip: 'dilewati',
+  strikeQ: 'soal',
+  strikeTime: s => `${s} detik per soal`,
+  strikeNoTts: 'Suara Mandarin tidak tersedia di HP ini, jadi sambaran 听 dilewati. Mutu 完美 butuh semua sambaran.',
+  btRule: c =>
+    `Lulus kalau setiap sambaran minimal 70% benar dan totalnya minimal ${c}%. Tanpa umpan balik sampai selesai.`,
+  btQuality: 'Selisihnya menentukan mutu fondasi (道基 dàojī): 下品, 中品, 上品, atau 完美 kalau tidak satu pun salah.',
+  btFailStrike: s => `Sambaran yang belum kuat: ${s}.`,
+  gradeM: [
+    '',
+    'Fondasi tingkat bawah: lulus, masih ada celah.',
+    'Fondasi tingkat menengah: kuat, sedikit celah.',
+    'Fondasi tingkat atas: hampir tanpa cela.',
+    'Fondasi sempurna: tidak satu pun salah.',
+  ],
+  gateGo: 'Ada sesuatu di balik 飞升… ›',
+  mkIntroT: 'Tribulasi susulan (补劫): buktikan HSK 6 lewat 雷劫',
+  btUnstable: 'Ranahmu sedang tidak stabil (境界不稳). Stabilkan dulu dengan 试炼稳固, lalu terobosan terbuka lagi.',
+  gateWelcome: '仙门 terbuka. Selamat datang kembali di dunia abadi.',
+  gate0:
+    'Selama ini jalanmu berakhir di 飞升. Di baliknya ada gerbang yang tertutup: <b>仙门 xiānmén</b>, Gerbang Abadi. Kini gerbang itu bergetar.',
+  gate4: n =>
+    `仙门 terbuka: <b>HSK 7–9</b>, ${n} kata baru, dan tiga ranah di atas 飞升. Ujiannya lebih berat: setiap terobosan kini juga menguji terjemahan.`,
+  gateOn: 'Lanjut ›',
+  gateEnter: 'Masuki dunia abadi',
+  unstT: 'Ranah tidak stabil',
+  unstAcc: (p, a) =>
+    `Kata HSK ${p} yang menopang ranahmu mulai pudar: hanya ${a}% benar pada ulangan berjarak 30 hari terakhir.`,
+  unstRec: (p, r) =>
+    `Kata HSK ${p} yang menopang ranahmu mulai pudar: model memperkirakan kamu hanya ingat ${r}% saat ini.`,
+  stabGo: 'Stabilkan ranah · 15 kata',
+  stabOk: 'Ranah kembali stabil (境界稳固). Terobosan terbuka lagi saat 圆满.',
+  stabNo: p => `Belum stabil: ${p}% benar (perlu 80%). Coba lagi besok.`,
+  mkGo: 'Tribulasi susulan HSK 6',
+  ptRetake: d => `Ulangi tes penempatan (sampai ${d})`,
+  ptClosed:
+    'Tes penempatan adalah pintu masuk. Sekarang ranah hanya naik lewat terobosan (突破), satu ranah demi satu.',
+  ptClosedT: 'Pintu masuk sudah dilewati',
+  ptRetakeNote: d => `Ini kesempatan ulang satu kali (sampai ${d}). Hasilnya menggantikan hasil tes pertama.`,
+  ptOnce:
+    'Tes ini menentukan ranah awalmu, paling tinggi 渡劫. Setelahnya ada satu kesempatan ulang dalam 14 hari; sesudah itu ranah hanya naik lewat terobosan.',
+  stTop: 'Puncak jalan kultivasi telah dicapai.',
+  recog: 'diakui lewat tes penempatan, tanpa terobosan',
+  advUnst: p => `Stabilkan ranahmu: kata HSK ${p} mulai pudar`,
+  advUnstWhy: 'Ranah yang tidak stabil mengunci terobosan. 15 kata yang paling pudar, 80% benar.',
+  advMk: 'Tribulasi susulan HSK 6',
+  advMkWhy: '飞升-mu berasal dari tes penempatan. Tembus HSK 6 lewat 雷劫 agar ranah ini benar-benar milikmu.',
+  mcT: 'Akurasi model memori',
+  mcN: n => `dari ${n} ulangan berjarak`,
+  mcPred: 'perkiraan ingat',
+  mcReal: 'kenyataan',
+  mcGap: 'selisih (poin)',
+  mcHow:
+    'Setiap ulangan berjarak diputar ulang lewat model: peluang ingat yang diperkirakan sebelum menjawab dibandingkan dengan hasilnya. Garis = perkiraan, batang = kenyataan.',
+  mcOwn: 'Model sudah disesuaikan dengan jawabanmu.',
+  mcBase: 'Model masih memakai pengaturan awal; ia menyesuaikan diri mulai 100 ulangan berjarak.',
+  mcWait: n => `Akurasi model muncul setelah 30 ulangan berjarak (sekarang ${n}).`,
+  rsT: 'Data untuk riset (sukarela)',
+  rsWhat:
+    'Untuk menguji apakah ranah XueCi sesuai dengan hasil HSK sungguhan, kamu boleh membagikan riwayat jawabanmu: kata, waktu, jenis soal, benar atau salah, lama menjawab, dan riwayat ranah. Isi juga hasil HSK resmimu kalau ada.',
+  rsHsk: 'Level HSK resmi',
+  rsScore: 'Skor total',
+  rsDate: 'Bulan ujian',
+  rsCopy: 'Salin data',
+  rsPriv:
+    'Tanpa nama, tanpa ID perangkat. Aplikasi tidak mengirim apa pun; kamu sendiri yang menyalin atau membagikannya.',
+  rsCopied: 'Data riset disalin',
+  insModelSoon: 'Datanya sudah cukup: model memori disesuaikan dengan pola ingatanmu saat aplikasi dibuka berikutnya.',
+});
+Object.assign(I18N.en, {
+  realmM: [
+    'Mortal',
+    'Qi Refining',
+    'Foundation Establishment',
+    'Golden Core',
+    'Nascent Soul',
+    'Spirit Transformation',
+    'Tribulation Crossing',
+    'Ascension',
+    'True Immortal',
+    'Mystic Immortal',
+    'Daluo, Beyond All',
+  ],
+  realmD: [
+    'Not tested yet. The placement test opens the path of cultivation.',
+    'Drawing in the first qi: the basic HSK 1 words.',
+    'A firm foundation of everyday HSK 2 words.',
+    'Knowledge condenses into a golden core: HSK 3.',
+    'The soul of the language is born: you start to follow longer texts (HSK 4).',
+    'The spirit transforms: abstract and formal HSK 5 words.',
+    'The hardest trial of the mortal world: rare and subtle HSK 6 words.',
+    'Beyond the mortal world: HSK 6 mastered.',
+    'The second tier of HSK 7–9: written, formal and specialist language.',
+    'The third tier of HSK 7–9: rare words, chengyu and fine shades of meaning.',
+    'Every tier of HSK 7–9 mastered: the summit of the path.',
+  ],
+  qPy: 'Type this word’s pinyin, with its tones',
+  qTrans: 'Choose the translation of this sentence',
+  pyPh: 'xue2sheng1 · xuéshēng',
+  pyCheck: 'Check',
+  pyHelp: 'Tones: a number 1–4 after each syllable (the neutral tone needs none) or tone marks. ü can be typed as v.',
+  pyToneless: 'The tones are missing. Add numbers 1–4 or tone marks.',
+  pyAlt: h => `Accepted: ${h} has the same meaning.`,
+  tPy: 'Type pinyin',
+  dPy: 'Meaning → type the pinyin from memory',
+  tTrans: 'Translation',
+  dTrans: 'Sentence → choose its translation',
+  strike: {
+    shi: 'Meaning',
+    yi: 'Recall · type the pinyin',
+    ting: 'Listening',
+    du: 'Reading a sentence',
+    su: 'Speed',
+    fan: 'Translation',
+  },
+  strikeSkip: 'left out',
+  strikeQ: 'questions',
+  strikeTime: s => `${s} seconds a question`,
+  strikeNoTts: 'This phone has no Chinese voice, so the 听 strike is left out. 完美 needs every strike.',
+  btRule: c =>
+    `Passed when every strike has at least 70% right and the whole at least ${c}%. No feedback until the end.`,
+  btQuality:
+    'The margin sets the foundation’s quality (道基 dàojī): 下品, 中品, 上品, or 完美 with not a single mistake.',
+  btFailStrike: s => `Strikes not yet strong enough: ${s}.`,
+  gradeM: [
+    '',
+    'Low-grade foundation: passed, with gaps.',
+    'Middle-grade foundation: strong, a few gaps.',
+    'High-grade foundation: almost flawless.',
+    'Perfect foundation: not a single mistake.',
+  ],
+  gateGo: 'Something waits beyond 飞升… ›',
+  mkIntroT: 'Make-up tribulation (补劫): prove HSK 6 through 雷劫',
+  btUnstable: 'Your realm is unstable (境界不稳). Steady it first with 试炼稳固; then the breakthrough opens again.',
+  gateWelcome: '仙门 is open. Welcome back to the immortal world.',
+  gate0:
+    'Until now your path ended at 飞升. Beyond it stood a closed gate: <b>仙门 xiānmén</b>, the Immortal Gate. Now it trembles.',
+  gate4: n =>
+    `仙门 is open: <b>HSK 7–9</b>, ${n} new words and three realms above 飞升. The trials are harder: every breakthrough now tests translation too.`,
+  gateOn: 'Continue ›',
+  gateEnter: 'Enter the immortal world',
+  unstT: 'Unstable realm',
+  unstAcc: (p, a) =>
+    `The HSK ${p} words your realm rests on are fading: only ${a}% right in spaced reviews over the last 30 days.`,
+  unstRec: (p, r) => `The HSK ${p} words your realm rests on are fading: the model expects you recall only ${r}% now.`,
+  stabGo: 'Steady the realm · 15 words',
+  stabOk: 'Your realm is steady again (境界稳固). The breakthrough opens again at 圆满.',
+  stabNo: p => `Not steady yet: ${p}% right (80% needed). Try again tomorrow.`,
+  mkGo: 'Make-up tribulation, HSK 6',
+  ptRetake: d => `Retake the placement test (until ${d})`,
+  ptClosed:
+    'The placement test is the way in. From here your realm rises only by breaking through (突破), one realm at a time.',
+  ptClosedT: 'The way in is behind you',
+  ptRetakeNote: d => `This is your one retake (until ${d}). Its result replaces the first test’s.`,
+  ptOnce:
+    'This test sets your starting realm, at most 渡劫. You get one retake within 14 days; after that your realm rises only by breaking through.',
+  stTop: 'The summit of the path has been reached.',
+  recog: 'recognised by the placement test, not broken through',
+  advUnst: p => `Steady your realm: HSK ${p} words are fading`,
+  advUnstWhy: 'An unstable realm locks the breakthrough. 15 of the most faded words, 80% right.',
+  advMk: 'Make-up tribulation, HSK 6',
+  advMkWhy: 'Your 飞升 came from the placement test. Break through HSK 6 with 雷劫 to make this realm truly your own.',
+  mcT: 'Memory model accuracy',
+  mcN: n => `from ${n} spaced reviews`,
+  mcPred: 'predicted recall',
+  mcReal: 'real',
+  mcGap: 'gap (points)',
+  mcHow:
+    'Every spaced review is replayed through the model: the recall chance it predicted before the answer is set against what happened. Line = predicted, bar = real.',
+  mcOwn: 'The model is fitted to your answers.',
+  mcBase: 'The model still uses its starting settings; it adapts from 100 spaced reviews.',
+  mcWait: n => `Model accuracy appears after 30 spaced reviews (now ${n}).`,
+  rsT: 'Data for research (voluntary)',
+  rsWhat:
+    'To test whether XueCi’s realms match real HSK results, you can share your answer history: words, times, question types, right or wrong, time taken, and your realm history. Add your official HSK result if you have one.',
+  rsHsk: 'Official HSK level',
+  rsScore: 'Total score',
+  rsDate: 'Exam month',
+  rsCopy: 'Copy data',
+  rsPriv: 'No name, no device id. The app sends nothing; you copy or share it yourself.',
+  rsCopied: 'Research data copied',
+  insModelSoon: 'There is enough data now: the memory model adapts to how you remember the next time the app opens.',
+});
+Object.assign(I18N.th, {
+  realmM: [
+    'มนุษย์ธรรมดา',
+    'ขัดเกลาลมปราณ',
+    'สร้างรากฐาน',
+    'แก่นทองคำ',
+    'วิญญาณแรกกำเนิด',
+    'แปรเปลี่ยนวิญญาณ',
+    'ฝ่าทัณฑ์สวรรค์',
+    'เหินสู่สวรรค์',
+    'เซียนแท้',
+    'เซียนลึกลับ',
+    'ต้าหลัว ยอดแห่งเซียน',
+  ],
+  realmD: [
+    'ยังไม่ได้ทดสอบ แบบทดสอบวัดระดับจะเปิดเส้นทางการบำเพ็ญ',
+    'ดูดซับลมปราณแรก: คำศัพท์พื้นฐาน HSK 1',
+    'รากฐานที่มั่นคงจากคำในชีวิตประจำวัน HSK 2',
+    'ความรู้ควบแน่นเป็นแก่นทองคำ: HSK 3',
+    'วิญญาณของภาษาถือกำเนิด: เริ่มเข้าใจข้อความที่ยาวขึ้น (HSK 4)',
+    'วิญญาณแปรเปลี่ยน: คำศัพท์นามธรรมและทางการ HSK 5',
+    'บททดสอบที่ยากที่สุดของโลกมนุษย์: คำหายากและละเอียดอ่อน HSK 6',
+    'พ้นโลกมนุษย์: เชี่ยวชาญ HSK 6',
+    'ชั้นที่สองของ HSK 7–9: ภาษาเขียน ภาษาทางการ และศัพท์เฉพาะทาง',
+    'ชั้นที่สามของ HSK 7–9: คำหายาก สำนวนจีน (เฉิงอวี่) และความหมายที่ละเอียดอ่อน',
+    'เชี่ยวชาญทุกชั้นของ HSK 7–9: ยอดสูงสุดของเส้นทาง',
+  ],
+  qPy: 'พิมพ์พินอินของคำนี้ พร้อมวรรณยุกต์',
+  qTrans: 'เลือกคำแปลของประโยคนี้',
+  pyPh: 'xue2sheng1 · xuéshēng',
+  pyCheck: 'ตรวจ',
+  pyHelp:
+    'วรรณยุกต์: ใส่ตัวเลข 1–4 หลังแต่ละพยางค์ (เสียงเบาไม่ต้องใส่) หรือใช้เครื่องหมายวรรณยุกต์ พิมพ์ ü เป็น v ได้',
+  pyToneless: 'ยังไม่ได้ใส่วรรณยุกต์ เติมตัวเลข 1–4 หรือเครื่องหมายวรรณยุกต์',
+  pyAlt: h => `ยอมรับ: ${h} มีความหมายเดียวกัน`,
+  tPy: 'พิมพ์พินอิน',
+  dPy: 'ความหมาย → พิมพ์พินอินจากความจำ',
+  tTrans: 'คำแปล',
+  dTrans: 'ประโยค → เลือกคำแปล',
+  strike: {
+    shi: 'ความหมาย',
+    yi: 'นึกออก · พิมพ์พินอิน',
+    ting: 'การฟัง',
+    du: 'อ่านประโยค',
+    su: 'ความเร็ว',
+    fan: 'การแปล',
+  },
+  strikeSkip: 'ข้าม',
+  strikeQ: 'ข้อ',
+  strikeTime: s => `${s} วินาทีต่อข้อ`,
+  strikeNoTts: 'เครื่องนี้ไม่มีเสียงภาษาจีน จึงข้ามการโจมตี 听 ระดับ 完美 ต้องผ่านครบทุกการโจมตี',
+  btRule: c => `ผ่านเมื่อทุกการโจมตีถูกอย่างน้อย 70% และรวมทั้งหมดอย่างน้อย ${c}% ไม่มีการเฉลยจนจบ`,
+  btQuality: 'ส่วนต่างเป็นตัวกำหนดคุณภาพรากฐาน (道基 dàojī): 下品 中品 上品 หรือ 完美 เมื่อไม่ผิดเลยสักข้อ',
+  btFailStrike: s => `การโจมตีที่ยังไม่แข็งแรง: ${s}`,
+  gradeM: [
+    '',
+    'รากฐานขั้นต่ำ: ผ่าน แต่ยังมีช่องโหว่',
+    'รากฐานขั้นกลาง: แข็งแรง มีช่องโหว่เล็กน้อย',
+    'รากฐานขั้นสูง: แทบไร้ที่ติ',
+    'รากฐานสมบูรณ์แบบ: ไม่ผิดเลยสักข้อ',
+  ],
+  gateGo: 'มีบางอย่างรออยู่หลัง 飞升… ›',
+  mkIntroT: 'ทัณฑ์ซ่อม (补劫): พิสูจน์ HSK 6 ผ่าน 雷劫',
+  btUnstable: 'ขั้นพลังของคุณยังไม่มั่นคง (境界不稳) ทำ 试炼稳固 ก่อน แล้วการทะลวงขั้นจะเปิดอีกครั้ง',
+  gateWelcome: '仙门 เปิดแล้ว ยินดีต้อนรับกลับสู่โลกเซียน',
+  gate0:
+    'ที่ผ่านมาเส้นทางของคุณสิ้นสุดที่ 飞升 เบื้องหลังมีประตูที่ปิดอยู่: <b>仙门 xiānmén</b> ประตูเซียน บัดนี้ประตูนั้นสั่นไหว',
+  gate4: n =>
+    `仙门 เปิดแล้ว: <b>HSK 7–9</b> คำใหม่ ${n} คำ และสามขั้นพลังเหนือ 飞升 บททดสอบยากขึ้น: การทะลวงขั้นทุกครั้งจะทดสอบการแปลด้วย`,
+  gateOn: 'ต่อไป ›',
+  gateEnter: 'เข้าสู่โลกเซียน',
+  unstT: 'ขั้นพลังไม่มั่นคง',
+  unstAcc: (p, a) =>
+    `คำ HSK ${p} ที่ค้ำขั้นพลังของคุณเริ่มเลือนหาย: ถูกเพียง ${a}% ในการทบทวนแบบเว้นระยะ 30 วันที่ผ่านมา`,
+  unstRec: (p, r) => `คำ HSK ${p} ที่ค้ำขั้นพลังของคุณเริ่มเลือนหาย: แบบจำลองคาดว่าตอนนี้คุณจำได้เพียง ${r}%`,
+  stabGo: 'ทำให้ขั้นพลังมั่นคง · 15 คำ',
+  stabOk: 'ขั้นพลังกลับมามั่นคงแล้ว (境界稳固) การทะลวงขั้นจะเปิดอีกครั้งที่ 圆满',
+  stabNo: p => `ยังไม่มั่นคง: ถูก ${p}% (ต้อง 80%) ลองใหม่พรุ่งนี้`,
+  mkGo: 'ทัณฑ์ซ่อม HSK 6',
+  ptRetake: d => `ทำแบบทดสอบวัดระดับใหม่ (ได้ถึง ${d})`,
+  ptClosed: 'แบบทดสอบวัดระดับคือทางเข้า จากนี้ขั้นพลังจะขึ้นได้ด้วยการทะลวงขั้น (突破) ทีละขั้นเท่านั้น',
+  ptClosedT: 'ผ่านทางเข้ามาแล้ว',
+  ptRetakeNote: d => `นี่คือโอกาสสอบใหม่ครั้งเดียวของคุณ (ถึง ${d}) ผลจะแทนที่ผลครั้งแรก`,
+  ptOnce:
+    'แบบทดสอบนี้กำหนดขั้นพลังเริ่มต้น สูงสุดคือ 渡劫 สอบใหม่ได้หนึ่งครั้งภายใน 14 วัน หลังจากนั้นขั้นพลังจะขึ้นได้ด้วยการทะลวงขั้นเท่านั้น',
+  stTop: 'ถึงยอดสูงสุดของเส้นทางแล้ว',
+  recog: 'ได้รับการรับรองจากแบบทดสอบวัดระดับ ไม่ได้ทะลวงขั้น',
+  advUnst: p => `ทำให้ขั้นพลังมั่นคง: คำ HSK ${p} เริ่มเลือนหาย`,
+  advUnstWhy: 'ขั้นพลังที่ไม่มั่นคงจะล็อกการทะลวงขั้น 15 คำที่เลือนที่สุด ต้องถูก 80%',
+  advMk: 'ทัณฑ์ซ่อม HSK 6',
+  advMkWhy: '飞升 ของคุณมาจากแบบทดสอบวัดระดับ ทะลวง HSK 6 ด้วย 雷劫 เพื่อให้ขั้นพลังนี้เป็นของคุณอย่างแท้จริง',
+  mcT: 'ความแม่นยำของแบบจำลองความจำ',
+  mcN: n => `จากการทบทวนแบบเว้นระยะ ${n} ครั้ง`,
+  mcPred: 'คาดว่าจำได้',
+  mcReal: 'จริง',
+  mcGap: 'ส่วนต่าง (จุด)',
+  mcHow:
+    'การทบทวนแบบเว้นระยะทุกครั้งถูกเล่นซ้ำผ่านแบบจำลอง: โอกาสจำได้ที่คาดไว้ก่อนตอบจะเทียบกับผลจริง เส้น = ค่าคาด แท่ง = ค่าจริง',
+  mcOwn: 'แบบจำลองปรับตามคำตอบของคุณแล้ว',
+  mcBase: 'แบบจำลองยังใช้ค่าเริ่มต้น จะเริ่มปรับเมื่อมีการทบทวนแบบเว้นระยะ 100 ครั้ง',
+  mcWait: n => `ความแม่นยำของแบบจำลองจะแสดงหลังทบทวนแบบเว้นระยะ 30 ครั้ง (ตอนนี้ ${n})`,
+  rsT: 'ข้อมูลเพื่อการวิจัย (สมัครใจ)',
+  rsWhat:
+    'เพื่อทดสอบว่าขั้นพลังของ XueCi ตรงกับผล HSK จริงหรือไม่ คุณแชร์ประวัติคำตอบได้: คำ เวลา ประเภทคำถาม ถูกหรือผิด เวลาที่ใช้ และประวัติขั้นพลัง ใส่ผล HSK อย่างเป็นทางการด้วยหากมี',
+  rsHsk: 'ระดับ HSK ทางการ',
+  rsScore: 'คะแนนรวม',
+  rsDate: 'เดือนที่สอบ',
+  rsCopy: 'คัดลอกข้อมูล',
+  rsPriv: 'ไม่มีชื่อ ไม่มีรหัสอุปกรณ์ แอปไม่ส่งอะไรออกไป คุณคัดลอกหรือแชร์เอง',
+  rsCopied: 'คัดลอกข้อมูลวิจัยแล้ว',
+  insModelSoon: 'ข้อมูลเพียงพอแล้ว: โมเดลความจำจะปรับตามวิธีจำของคุณเมื่อเปิดแอปครั้งถัดไป',
+});
+Object.assign(I18N.vi, {
+  realmM: [
+    'Phàm Nhân',
+    'Luyện Khí',
+    'Trúc Cơ',
+    'Kim Đan',
+    'Nguyên Anh',
+    'Hóa Thần',
+    'Độ Kiếp',
+    'Phi Thăng',
+    'Chân Tiên',
+    'Huyền Tiên',
+    'Đại La',
+  ],
+  realmD: [
+    'Chưa kiểm tra. Bài kiểm tra xếp cấp mở ra con đường tu luyện.',
+    'Hấp thu luồng khí đầu tiên: từ vựng cơ bản HSK 1.',
+    'Nền móng vững từ những từ thường ngày HSK 2.',
+    'Kiến thức ngưng tụ thành kim đan: HSK 3.',
+    'Linh hồn ngôn ngữ ra đời: bạn bắt đầu theo được các đoạn văn dài hơn (HSK 4).',
+    'Linh hồn biến hóa: từ vựng trừu tượng và trang trọng HSK 5.',
+    'Thử thách khó nhất của cõi phàm: từ hiếm và nhiều sắc thái HSK 6.',
+    'Vượt khỏi cõi phàm: nắm vững HSK 6.',
+    'Tầng thứ hai của HSK 7–9: ngôn ngữ viết, trang trọng và chuyên ngành.',
+    'Tầng thứ ba của HSK 7–9: từ hiếm, thành ngữ và sắc thái tinh tế.',
+    'Nắm vững mọi tầng HSK 7–9: đỉnh cao của con đường.',
+  ],
+  qPy: 'Gõ pinyin của từ này, kèm thanh điệu',
+  qTrans: 'Chọn bản dịch của câu này',
+  pyPh: 'xue2sheng1 · xuéshēng',
+  pyCheck: 'Kiểm tra',
+  pyHelp: 'Thanh điệu: số 1–4 sau mỗi âm tiết (thanh nhẹ không cần số) hoặc dấu thanh. Có thể gõ ü là v.',
+  pyToneless: 'Chưa có thanh điệu. Hãy thêm số 1–4 hoặc dấu thanh.',
+  pyAlt: h => `Được chấp nhận: ${h} có cùng nghĩa.`,
+  tPy: 'Gõ pinyin',
+  dPy: 'Nghĩa → gõ pinyin từ trí nhớ',
+  tTrans: 'Bản dịch',
+  dTrans: 'Câu → chọn bản dịch',
+  strike: { shi: 'Nghĩa', yi: 'Nhớ lại · gõ pinyin', ting: 'Nghe', du: 'Đọc câu', su: 'Tốc độ', fan: 'Dịch' },
+  strikeSkip: 'bỏ qua',
+  strikeQ: 'câu',
+  strikeTime: s => `${s} giây mỗi câu`,
+  strikeNoTts: 'Máy này không có giọng tiếng Trung nên bỏ qua đòn 听. Mức 完美 cần đủ mọi đòn.',
+  btRule: c => `Đạt khi mỗi đòn đúng ít nhất 70% và tổng cộng ít nhất ${c}%. Không có phản hồi cho đến hết.`,
+  btQuality: 'Mức chênh quyết định phẩm chất nền móng (道基 dàojī): 下品, 中品, 上品, hoặc 完美 khi không sai câu nào.',
+  btFailStrike: s => `Những đòn chưa đủ vững: ${s}.`,
+  gradeM: [
+    '',
+    'Nền móng hạ phẩm: đạt nhưng còn lỗ hổng.',
+    'Nền móng trung phẩm: vững, ít lỗ hổng.',
+    'Nền móng thượng phẩm: gần như hoàn hảo.',
+    'Nền móng hoàn mỹ: không sai câu nào.',
+  ],
+  gateGo: 'Có điều gì đó chờ sau 飞升… ›',
+  mkIntroT: 'Bổ kiếp (补劫): chứng minh HSK 6 qua 雷劫',
+  btUnstable: 'Cảnh giới của bạn đang bất ổn (境界不稳). Hãy củng cố bằng 试炼稳固 trước, rồi đột phá sẽ mở lại.',
+  gateWelcome: '仙门 đã mở. Chào mừng trở lại tiên giới.',
+  gate0:
+    'Từ trước đến nay con đường của bạn dừng ở 飞升. Phía sau là một cánh cổng đóng kín: <b>仙门 xiānmén</b>, Tiên Môn. Giờ cánh cổng ấy đang rung chuyển.',
+  gate4: n =>
+    `仙门 đã mở: <b>HSK 7–9</b>, ${n} từ mới và ba cảnh giới trên 飞升. Thử thách khó hơn: mỗi lần đột phá giờ còn kiểm tra cả dịch.`,
+  gateOn: 'Tiếp ›',
+  gateEnter: 'Bước vào tiên giới',
+  unstT: 'Cảnh giới bất ổn',
+  unstAcc: (p, a) =>
+    `Các từ HSK ${p} nâng đỡ cảnh giới của bạn đang phai: chỉ đúng ${a}% trong các lượt ôn giãn cách 30 ngày qua.`,
+  unstRec: (p, r) =>
+    `Các từ HSK ${p} nâng đỡ cảnh giới của bạn đang phai: mô hình ước tính bạn chỉ còn nhớ ${r}% lúc này.`,
+  stabGo: 'Củng cố cảnh giới · 15 từ',
+  stabOk: 'Cảnh giới đã vững lại (境界稳固). Đột phá sẽ mở lại khi đến 圆满.',
+  stabNo: p => `Chưa vững: đúng ${p}% (cần 80%). Hãy thử lại vào ngày mai.`,
+  mkGo: 'Bổ kiếp HSK 6',
+  ptRetake: d => `Làm lại bài kiểm tra xếp cấp (đến ${d})`,
+  ptClosed: 'Bài kiểm tra xếp cấp là cửa vào. Từ đây cảnh giới chỉ tăng nhờ đột phá (突破), từng cảnh giới một.',
+  ptClosedT: 'Bạn đã qua cửa vào',
+  ptRetakeNote: d => `Đây là lượt làm lại duy nhất (đến ${d}). Kết quả sẽ thay cho lần đầu.`,
+  ptOnce:
+    'Bài này xác định cảnh giới khởi đầu, cao nhất là 渡劫. Bạn được làm lại một lần trong 14 ngày; sau đó cảnh giới chỉ tăng nhờ đột phá.',
+  stTop: 'Đã đạt đến đỉnh cao của con đường.',
+  recog: 'được công nhận qua bài kiểm tra xếp cấp, không qua đột phá',
+  advUnst: p => `Củng cố cảnh giới: từ HSK ${p} đang phai`,
+  advUnstWhy: 'Cảnh giới bất ổn sẽ khóa đột phá. 15 từ phai nhiều nhất, đúng 80%.',
+  advMk: 'Bổ kiếp HSK 6',
+  advMkWhy: '飞升 của bạn đến từ bài kiểm tra xếp cấp. Hãy đột phá HSK 6 qua 雷劫 để cảnh giới này thật sự là của bạn.',
+  mcT: 'Độ chính xác của mô hình trí nhớ',
+  mcN: n => `từ ${n} lượt ôn giãn cách`,
+  mcPred: 'dự đoán nhớ',
+  mcReal: 'thực tế',
+  mcGap: 'chênh lệch (điểm)',
+  mcHow:
+    'Mỗi lượt ôn giãn cách được chạy lại qua mô hình: khả năng nhớ dự đoán trước khi trả lời được so với kết quả thật. Vạch = dự đoán, thanh = thực tế.',
+  mcOwn: 'Mô hình đã được điều chỉnh theo câu trả lời của bạn.',
+  mcBase: 'Mô hình vẫn dùng thiết lập ban đầu; nó sẽ tự điều chỉnh từ 100 lượt ôn giãn cách.',
+  mcWait: n => `Độ chính xác của mô hình xuất hiện sau 30 lượt ôn giãn cách (hiện ${n}).`,
+  rsT: 'Dữ liệu cho nghiên cứu (tự nguyện)',
+  rsWhat:
+    'Để kiểm tra cảnh giới của XueCi có khớp với kết quả HSK thật không, bạn có thể chia sẻ lịch sử trả lời: từ, thời gian, loại câu hỏi, đúng hay sai, thời gian làm và lịch sử cảnh giới. Hãy thêm kết quả HSK chính thức nếu có.',
+  rsHsk: 'Cấp HSK chính thức',
+  rsScore: 'Tổng điểm',
+  rsDate: 'Tháng thi',
+  rsCopy: 'Sao chép dữ liệu',
+  rsPriv: 'Không có tên, không có mã thiết bị. Ứng dụng không gửi gì; bạn tự sao chép hoặc chia sẻ.',
+  rsCopied: 'Đã sao chép dữ liệu nghiên cứu',
+  insModelSoon: 'Đã đủ dữ liệu: mô hình trí nhớ sẽ điều chỉnh theo cách bạn ghi nhớ ở lần mở ứng dụng tiếp theo.',
+});
+Object.assign(I18N.id.gloss, {
+  lj: 'Tribulasi petir: terobosan dalam beberapa sambaran (识 arti, 忆 ketik pinyin, 听 dengar, 读 kalimat, 速 cepat); setiap sambaran harus lulus',
+  dj: 'Fondasi Dao: mutu sebuah ranah dari selisih kelulusan terobosan, yaitu 下品, 中品, 上品, atau 完美',
+  rd: 'Diakui: ranah yang dilewati lewat tes penempatan, tanpa terobosan dan tanpa mutu fondasi',
+  bw: 'Ranah tidak stabil: kata level di bawahnya mulai pudar; terobosan terkunci sampai distabilkan',
+  wg: 'Ujian penstabil: 15 kata yang paling pudar; 80% benar menstabilkan ranah',
+  bj: 'Tribulasi susulan: 雷劫 HSK 6 bagi yang mencapai 飞升 lewat tes penempatan',
+  xm: 'Gerbang Abadi: terbuka setelah 飞升 ditembus; di baliknya HSK 7–9 dan ranah 真仙, 玄仙, 大罗',
+});
+Object.assign(I18N.en.gloss, {
+  lj: 'Lightning tribulation: a breakthrough in strikes (识 meaning, 忆 typed pinyin, 听 listening, 读 sentence, 速 speed); every strike must hold',
+  dj: 'Dao foundation: a realm’s quality from the margin of its breakthrough, 下品, 中品, 上品 or 完美',
+  rd: 'Recognised: a realm passed by the placement test, without a breakthrough and without a quality',
+  bw: 'Unstable realm: the level below it is fading; the breakthrough is locked until it is steadied',
+  wg: 'Steadying trial: 15 of the most faded words; 80% right steadies the realm',
+  bj: 'Make-up tribulation: an HSK 6 雷劫 for those who reached 飞升 by the placement test',
+  xm: 'Immortal Gate: opens once 飞升 is broken through; behind it HSK 7–9 and the realms 真仙, 玄仙, 大罗',
+});
+Object.assign(I18N.th.gloss, {
+  lj: 'ทัณฑ์สายฟ้า: การทะลวงขั้นเป็นหลายการโจมตี (识 ความหมาย 忆 พิมพ์พินอิน 听 ฟัง 读 ประโยค 速 ความเร็ว) ต้องผ่านทุกการโจมตี',
+  dj: 'รากฐานแห่งเต๋า: คุณภาพของขั้นพลังจากส่วนต่างที่ผ่านการทะลวงขั้น คือ 下品 中品 上品 หรือ 完美',
+  rd: 'ได้รับการรับรอง: ขั้นพลังที่ผ่านด้วยแบบทดสอบวัดระดับ ไม่ได้ทะลวงขั้นและไม่มีคุณภาพรากฐาน',
+  bw: 'ขั้นพลังไม่มั่นคง: คำในระดับด้านล่างเริ่มเลือนหาย การทะลวงขั้นถูกล็อกจนกว่าจะทำให้มั่นคง',
+  wg: 'ด่านทำให้มั่นคง: 15 คำที่เลือนที่สุด ถูก 80% ขั้นพลังจะมั่นคง',
+  bj: 'ทัณฑ์ซ่อม: 雷劫 ระดับ HSK 6 สำหรับผู้ที่ถึง 飞升 ด้วยแบบทดสอบวัดระดับ',
+  xm: 'ประตูเซียน: เปิดเมื่อทะลวงถึง 飞升 เบื้องหลังคือ HSK 7–9 และขั้นพลัง 真仙 玄仙 大罗',
+});
+Object.assign(I18N.vi.gloss, {
+  lj: 'Lôi kiếp: đột phá gồm nhiều đòn (识 nghĩa, 忆 gõ pinyin, 听 nghe, 读 câu, 速 tốc độ); đòn nào cũng phải đạt',
+  dj: 'Đạo cơ: phẩm chất của cảnh giới theo mức chênh khi đột phá, gồm 下品, 中品, 上品 hoặc 完美',
+  rd: 'Công nhận: cảnh giới vượt qua nhờ bài kiểm tra xếp cấp, không qua đột phá và không có phẩm chất',
+  bw: 'Cảnh giới bất ổn: các từ của cấp bên dưới đang phai; đột phá bị khóa cho đến khi củng cố',
+  wg: 'Thử luyện củng cố: 15 từ phai nhiều nhất; đúng 80% thì cảnh giới vững lại',
+  bj: 'Bổ kiếp: 雷劫 HSK 6 dành cho người đạt 飞升 qua bài kiểm tra xếp cấp',
+  xm: 'Tiên Môn: mở khi đột phá đến 飞升; phía sau là HSK 7–9 và các cảnh giới 真仙, 玄仙, 大罗',
+});
+{
+  const T = (l, k, v) => {
+    const a = I18N[l].help,
+      i = a.findIndex(x => x[0] === k);
+    if (i >= 0) a[i] = v;
+  };
+  const P = (l, k, i, v) => {
+    const t = I18N[l].help.find(x => x[0] === k);
+    if (t) t[2][i] = v;
+  };
+  T('id', 'realm', [
+    'realm',
+    'Ranah, tahap & terobosan',
+    [
+      'Ranah awal ditentukan sekali oleh tes penempatan (paling tinggi 渡劫; satu kesempatan ulang dalam 14 hari). Setelah itu ranah hanya naik lewat terobosan, satu ranah demi satu. Ranah dari bawah ke atas (hanzi, pinyin, arti):',
+      '@realms',
+      'Setiap ranah punya empat tahap, mengikuti <b>progres</b> di level itu: kata <b>kokoh</b> (tingkat 10+ dan lulus soal Ingat serta Nada) dihitung penuh, dan kata yang menurut tes penempatan sudah kamu kenal dihitung setengah sampai terbukti kokoh. Kata yang dijawab salah kehilangan nilai tesnya:',
+      '@stages',
+      'Di 圆满 terbuka <b>雷劫 léijié</b>, tribulasi petir: beberapa sambaran, masing-masing satu keterampilan pada kata level itu: 识 arti, 忆 mengetik pinyin dari ingatan, 听 mendengar, 读 kalimat, dan 速 arti dengan batas waktu. Lulus kalau setiap sambaran minimal 70% benar dan totalnya mencapai batas (75%, lebih tinggi di level atas).',
+      'Selisih kelulusan menentukan <b>mutu fondasi (道基 dàojī)</b>: 下品 xiàpǐn, 中品 zhōngpǐn, 上品 shàngpǐn, atau 完美 wánměi kalau tidak satu pun salah. Ranah yang dilewati lewat tes penempatan ditandai 认定 rèndìng dan tidak punya mutu.',
+      'Ranah bersandar pada level di bawahnya. Kalau kata level itu pudar (di bawah 70% benar pada ulangan berjarak), ranah menjadi <b>境界不稳</b> dan terobosan terkunci sampai kamu lulus <b>试炼稳固</b> (15 kata, 80% benar). Ranah tidak pernah turun.',
+      'Progresmu terlihat di lingkaran kecil pada chip ranah, di lembar ranah, dan di Lautan Jiwa: persen menuju 圆满, jumlah kata kokoh, perkiraan tanggal tahap berikutnya, dan peluang lulus 雷劫.',
+      'Satu tes per minggu, dihitung dari tes terakhir. Keluar setelah 10 soal tetap dihitung sebagai percobaan.',
+      'Ranah hanya menentukan arah rencana harian. Semua level tetap terbuka di Daftar, Kartu, dan Kuis.',
+    ],
+  ]);
+  T('en', 'realm', [
+    'realm',
+    'Realms, stages & breakthrough',
+    [
+      'Your starting realm is set once by the placement test (at most 渡劫; one retake within 14 days). After that your realm rises only by breaking through, one realm at a time. The realms from the bottom up (hanzi, pinyin, meaning):',
+      '@realms',
+      'Each realm has four stages, set by your <b>progress</b> at that level: <b>solid</b> words (level 10+ with a passed Recall and Tones question) count fully, and words the placement test says you already know count half until practice proves them solid. A word answered wrong loses its test credit:',
+      '@stages',
+      'At 圆满 the <b>雷劫 léijié</b>, the lightning tribulation, opens: a series of strikes, each one skill on that level’s words: 识 meaning, 忆 typing the pinyin from memory, 听 listening, 读 sentences, and 速 meanings against the clock. It is passed when every strike has at least 70% right and the whole reaches the cut (75%, higher at the top levels).',
+      'The margin sets the <b>foundation’s quality (道基 dàojī)</b>: 下品 xiàpǐn, 中品 zhōngpǐn, 上品 shàngpǐn, or 完美 wánměi with not a single mistake. Realms passed by the placement test are marked 认定 rèndìng and have no quality.',
+      'A realm rests on the level below it. If that level fades (under 70% right in spaced reviews), the realm becomes <b>境界不稳</b> and the breakthrough is locked until you pass a <b>试炼稳固</b> (15 words, 80% right). A realm never drops.',
+      'Your progress shows in the small ring on the realm chip, in the realm sheet and in the Sea of Consciousness: percent to 圆满, solid words, an estimated date for the next stage, and the chance to pass the 雷劫.',
+      'One test a week, counted from your last test. Leaving after 10 questions still counts as an attempt.',
+      'Your realm only steers the daily plan. Every level stays open in List, Cards and Quiz.',
+    ],
+  ]);
+  T('th', 'realm', [
+    'realm',
+    'ขั้นพลัง ระยะ และการทะลวงขั้น',
+    [
+      'ขั้นพลังเริ่มต้นกำหนดครั้งเดียวด้วยแบบทดสอบวัดระดับ (สูงสุด 渡劫 สอบใหม่ได้หนึ่งครั้งภายใน 14 วัน) หลังจากนั้นขั้นพลังจะขึ้นได้ด้วยการทะลวงขั้นทีละขั้นเท่านั้น ขั้นพลังจากล่างขึ้นบน (อักษรจีน พินอิน ความหมาย):',
+      '@realms',
+      'แต่ละขั้นพลังมีสี่ระยะ ตาม<b>ความคืบหน้า</b>ในระดับนั้น: คำ<b>มั่นคง</b> (ระดับ 10 ขึ้นไป และผ่านคำถามนึกตัวอักษรและวรรณยุกต์) นับเต็ม ส่วนคำที่แบบทดสอบวัดระดับบอกว่าคุณรู้แล้วนับครึ่งหนึ่งจนกว่าการฝึกจะพิสูจน์ว่ามั่นคง คำที่ตอบผิดจะเสียค่าจากแบบทดสอบ:',
+      '@stages',
+      'ที่ระยะ 圆满 จะเปิด <b>雷劫 léijié</b> ทัณฑ์สายฟ้า: หลายการโจมตี แต่ละครั้งทดสอบหนึ่งทักษะกับคำในระดับนั้น: 识 ความหมาย 忆 พิมพ์พินอินจากความจำ 听 การฟัง 读 ประโยค และ 速 ความหมายแข่งกับเวลา ผ่านเมื่อทุกการโจมตีถูกอย่างน้อย 70% และรวมทั้งหมดถึงเกณฑ์ (75% และสูงขึ้นในระดับบน)',
+      'ส่วนต่างกำหนด<b>คุณภาพรากฐาน (道基 dàojī)</b>: 下品 xiàpǐn 中品 zhōngpǐn 上品 shàngpǐn หรือ 完美 wánměi เมื่อไม่ผิดเลยสักข้อ ขั้นพลังที่ผ่านด้วยแบบทดสอบวัดระดับจะมีเครื่องหมาย 认定 rèndìng และไม่มีคุณภาพรากฐาน',
+      'ขั้นพลังตั้งอยู่บนระดับที่อยู่ด้านล่าง หากคำในระดับนั้นเลือนหาย (ถูกต่ำกว่า 70% ในการทบทวนแบบเว้นระยะ) ขั้นพลังจะ<b>境界不稳</b> และการทะลวงขั้นถูกล็อกจนกว่าคุณจะผ่าน <b>试炼稳固</b> (15 คำ ถูก 80%) ขั้นพลังไม่มีวันลดลง',
+      'ความคืบหน้าแสดงที่วงแหวนเล็กบนชิปขั้นพลัง ในหน้าขั้นพลัง และในทะเลจิต: เปอร์เซ็นต์สู่ 圆满 จำนวนคำมั่นคง วันที่โดยประมาณของระยะถัดไป และโอกาสผ่าน 雷劫',
+      'ทดสอบได้สัปดาห์ละครั้ง นับจากการทดสอบครั้งล่าสุด ออกกลางคันหลังทำไป 10 ข้อยังนับเป็นหนึ่งครั้ง',
+      'ขั้นพลังใช้กำหนดทิศทางของแผนรายวันเท่านั้น ทุกระดับยังเรียนได้ในรายการ บัตรคำ และแบบทดสอบ',
+    ],
+  ]);
+  T('vi', 'realm', [
+    'realm',
+    'Cảnh giới, giai đoạn & đột phá',
+    [
+      'Cảnh giới khởi đầu được xác định một lần bằng bài kiểm tra xếp cấp (cao nhất 渡劫; được làm lại một lần trong 14 ngày). Sau đó cảnh giới chỉ tăng nhờ đột phá, từng cảnh giới một. Các cảnh giới từ thấp đến cao (chữ Hán, pinyin, nghĩa):',
+      '@realms',
+      'Mỗi cảnh giới có bốn giai đoạn, theo <b>tiến độ</b> ở cấp đó: từ <b>vững chắc</b> (mức 10+ và đã qua câu Nhớ lại và Thanh điệu) được tính đủ, còn từ mà bài kiểm tra xếp cấp cho thấy bạn đã biết được tính một nửa cho đến khi luyện tập chứng minh là vững chắc. Từ bị trả lời sai sẽ mất phần tính từ bài kiểm tra:',
+      '@stages',
+      'Ở 圆满 sẽ mở <b>雷劫 léijié</b>, lôi kiếp: nhiều đòn, mỗi đòn một kỹ năng với từ của cấp đó: 识 nghĩa, 忆 gõ pinyin từ trí nhớ, 听 nghe, 读 câu, và 速 nghĩa có giới hạn thời gian. Đạt khi mỗi đòn đúng ít nhất 70% và tổng cộng đạt ngưỡng (75%, cao hơn ở các cấp trên).',
+      'Mức chênh quyết định <b>phẩm chất nền móng (道基 dàojī)</b>: 下品 xiàpǐn, 中品 zhōngpǐn, 上品 shàngpǐn, hoặc 完美 wánměi khi không sai câu nào. Cảnh giới vượt qua nhờ bài kiểm tra xếp cấp được đánh dấu 认定 rèndìng và không có phẩm chất.',
+      'Cảnh giới dựa trên cấp bên dưới. Nếu từ của cấp đó phai (dưới 70% đúng trong các lượt ôn giãn cách), cảnh giới trở thành <b>境界不稳</b> và đột phá bị khóa cho đến khi bạn vượt qua <b>试炼稳固</b> (15 từ, đúng 80%). Cảnh giới không bao giờ tụt.',
+      'Tiến độ hiện ở vòng nhỏ trên chip cảnh giới, trong bảng cảnh giới và trong Thức Hải: phần trăm đến 圆满, số từ vững chắc, ngày dự kiến của giai đoạn tiếp theo và khả năng vượt qua 雷劫.',
+      'Mỗi tuần một bài kiểm tra, tính từ lần kiểm tra gần nhất. Thoát ra sau 10 câu vẫn tính là một lượt.',
+      'Cảnh giới chỉ định hướng kế hoạch mỗi ngày. Mọi cấp vẫn học được trong Danh sách, Thẻ và Kiểm tra.',
+    ],
+  ]);
+  P(
+    'id',
+    'quiz',
+    0,
+    'Mode <b>Terarah</b> memilih kata dan jenis soal untuk kelemahanmu. Jenis lain: Kenali (hanzi → arti), Ingat (arti → hanzi), Nada, Dengar, Kalimat, <b>Ketik pinyin</b> (arti → pinyin dari ingatan, tanpa pilihan), <b>Terjemahan</b> (kalimat → terjemahannya), dan Simulasi ujian (20 soal, 5 menit).',
+  );
+  P(
+    'en',
+    'quiz',
+    0,
+    '<b>Guided</b> picks the words and question types for your weak spots. Other types: Recognise (hanzi → meaning), Recall (meaning → hanzi), Tones, Listen, Sentence, <b>Type pinyin</b> (meaning → pinyin from memory, no options), <b>Translation</b> (sentence → its translation), and Exam practice (20 questions, 5 minutes).',
+  );
+  P(
+    'th',
+    'quiz',
+    0,
+    'โหมด <b>แนะนำ</b> เลือกคำและประเภทคำถามตามจุดอ่อนของคุณ ประเภทอื่น: รู้ความหมาย (อักษรจีน → ความหมาย) นึกตัวอักษร (ความหมาย → อักษรจีน) วรรณยุกต์ ฟัง ประโยค <b>พิมพ์พินอิน</b> (ความหมาย → พินอินจากความจำ ไม่มีตัวเลือก) <b>คำแปล</b> (ประโยค → คำแปล) และฝึกสอบ (20 ข้อ 5 นาที)',
+  );
+  P(
+    'vi',
+    'quiz',
+    0,
+    'Chế độ <b>Có định hướng</b> chọn từ và loại câu hỏi theo điểm yếu của bạn. Các loại khác: Nhận biết (chữ Hán → nghĩa), Nhớ lại (nghĩa → chữ Hán), Thanh điệu, Nghe, Câu, <b>Gõ pinyin</b> (nghĩa → pinyin từ trí nhớ, không có lựa chọn), <b>Bản dịch</b> (câu → bản dịch) và Thi thử (20 câu, 5 phút).',
+  );
+}
 /* ---- app/core.js ---- */
-/* the word list, loaded by boot.js from data/core.json + data/<lang>.json */
+/* the word list, loaded by boot.js from data/core.json + data/<lang>.json: HSK 1–6, plus HSK 7–9 (data/core-b.json)
+   once the gate after 飞升 is open. LEVELS lists the levels that are open; it grows in place when the gate opens. */
 const DATA = XC.data;
-const LEVELS = [1, 2, 3, 4, 5, 6],
-  NUM = '一二三四五六';
-const BY = {};
-LEVELS.forEach(l => (BY[l] = DATA.filter(d => d.l === l)));
-const UNITS = {};
-LEVELS.forEach(l => (UNITS[l] = Math.max(...BY[l].map(d => d.u))));
+const LEVELS = [...new Set(DATA.map(d => d.l))].sort((a, b) => a - b),
+  NUM = '一二三四五六七八九';
+const BY = {},
+  UNITS = {};
+function indexLevel(l) {
+  BY[l] = DATA.filter(d => d.l === l);
+  UNITS[l] = Math.max(...BY[l].map(d => d.u));
+}
+LEVELS.forEach(indexLevel);
 const $ = id => document.getElementById(id);
 
 /* storage: ls (store.js) · study language: LANGS and sysLang() (boot.js) */
@@ -4044,10 +4808,11 @@ const tone = s => {
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
 const plain = s => s.normalize('NFD').replace(/\p{M}/gu, '').replace(/ü/g, 'v').replace(/['\s]/g, '').toLowerCase();
 const unmark = s => s.normalize('NFD').replace(/\p{M}/gu, '').replace(/đ/g, 'd').replace(/Đ/g, 'D');
-DATA.forEach(d => {
+const prepWord = d => {
   d.id = d.l + ':' + d.h;
   d.pk = plain(d.p);
-});
+};
+DATA.forEach(prepWord);
 function buildKeys() {
   DATA.forEach(d => {
     const m = M(d).toLowerCase();
@@ -4056,6 +4821,20 @@ function buildKeys() {
 }
 buildKeys();
 const IDX = new Map(DATA.map(d => [d.id, d]));
+/* the gate opened: HSK 7–9 words (already pushed into DATA by XC.loadBand) join every index */
+function addBand(words) {
+  words.forEach(d => {
+    prepWord(d);
+    IDX.set(d.id, d);
+  });
+  buildKeys();
+  for (const l of [7, 8, 9])
+    if (!LEVELS.includes(l)) {
+      LEVELS.push(l);
+      indexLevel(l);
+    }
+  LM.bandAdded();
+}
 function hzH(d) {
   const c = [...d.h];
   return c.length === d.s.length
@@ -4092,14 +4871,30 @@ function mH(m) {
 const chip = l => `<span class="lvchip" style="background:var(--l${l})">HSK ${l}</span>`;
 const CHEV =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
-/* realms (境界): 0 凡人 not tested yet · 1–6 studying HSK 1–6 · 7 飞升 HSK 6 mastered; four stages inside a realm */
-const RN = ['凡人', '炼气', '筑基', '金丹', '元婴', '化神', '渡劫', '飞升'],
-  RPY = ['fánrén', 'liànqì', 'zhùjī', 'jīndān', 'yuányīng', 'huàshén', 'dùjié', 'fēishēng'];
+/* realms (境界): 0 凡人 not tested yet · 1–6 studying HSK 1–6 · 7 飞升, 8 真仙, 9 玄仙 studying the HSK 7, 8, 9 tiers
+   (behind the gate, which opens when 飞升 is reached by a breakthrough) · 10 大罗 everything mastered.
+   Before the gate is open only realms 0–7 exist for the learner: the path ends at 飞升 and a sealed gate.
+   Four stages inside a realm. */
+const RN = ['凡人', '炼气', '筑基', '金丹', '元婴', '化神', '渡劫', '飞升', '真仙', '玄仙', '大罗'],
+  RPY = [
+    'fánrén',
+    'liànqì',
+    'zhùjī',
+    'jīndān',
+    'yuányīng',
+    'huàshén',
+    'dùjié',
+    'fēishēng',
+    'zhēnxiān',
+    'xuánxiān',
+    'dàluó',
+  ];
 const SN = ['初期', '中期', '后期', '圆满'],
   SPY = ['chūqī', 'zhōngqī', 'hòuqī', 'yuánmǎn'],
-  RS = '凡炼筑金元化渡飞';
-const realmLv = r => Math.max(1, Math.min(6, r)),
-  rc = r => (r < 1 ? 'var(--mute)' : r > 6 ? 'var(--gold)' : `var(--l${r})`);
+  RS = '凡炼筑金元化渡飞真玄罗';
+const TOPR = () => (XC.band ? 10 : 7); /* the highest realm the learner can see */
+const realmLv = r => Math.max(1, Math.min(XC.band ? 9 : 6, r)),
+  rc = r => (r < 1 ? 'var(--mute)' : r > 9 || (r > 6 && !XC.band) ? 'var(--gold)' : `var(--l${r})`);
 const tDate = t => new Date(Date.UTC(2026, 0, 1) + t * 6e4);
 const LOCK =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9.5" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
@@ -4411,9 +5206,23 @@ const LM = (() => {
   }
 
   /* ---- answering ---- */
-  const SK = { cm: 'm', cs: 's', cn: 'm', m: 'm', f: 'f', s: 's', l: 's', c: 'f' };
-  const DEFMS = { cm: 4500, cs: 4500, cu: 4500, cn: 4500, m: 5000, f: 6000, s: 6000, l: 7000, c: 9000 };
-  const QUIZ = new Set(['m', 'f', 's', 'l', 'c']);
+  /* question types: m meaning · f form (hanzi from meaning) · s tones · l listening · c sentence gap ·
+     p type the pinyin from memory (v1.13, production) · t choose the translation of a sentence (v1.13) */
+  const SK = { cm: 'm', cs: 's', cn: 'm', m: 'm', f: 'f', s: 's', l: 's', c: 'f', p: 'f', t: 'm' };
+  const DEFMS = {
+    cm: 4500,
+    cs: 4500,
+    cu: 4500,
+    cn: 4500,
+    m: 5000,
+    f: 6000,
+    s: 6000,
+    l: 7000,
+    c: 9000,
+    p: 15000,
+    t: 12000,
+  };
+  const QUIZ = new Set(['m', 'f', 's', 'l', 'c', 'p', 't']);
   let last = null;
   function medMs(q) {
     const L = allLog(),
@@ -4782,14 +5591,123 @@ const LM = (() => {
     const opts = shuf([syl, ...out]);
     return { opts, ans: opts.indexOf(syl) };
   }
-  const clozeOK = d => d.z.includes(d.h);
+  const clozeOK = d => !!d.z && d.z.includes(d.h);
   let ttsReady = () => false;
-  /* material for one question: {opts, ans} — ans is the index of the right option */
+  /* the translation of an example sentence: the right one and three of other words' sentences, preferring words
+     that look or sound alike, then sentences of about the same length (a short exclamation among long sentences
+     gives itself away), so the sentences have to be read, not guessed from length or one familiar word */
+  function transOpts(d, hard) {
+    const tr = x => (TR(x) || '').trim(),
+      own = tr(d),
+      used = new Set([own]),
+      picks = [],
+      len = own.length || 1;
+    const sim = Math.random() < (hard != null ? hard : 0.6) ? similar(d) : [];
+    const near = BY[d.l]
+      .filter(x => Math.abs(x.u - d.u) <= 4)
+      .map(x => [Math.abs(tr(x).length - len) / len + Math.random() * 0.25, x])
+      .sort((a, b) => a[0] - b[0])
+      .map(p => p[1]);
+    for (const x of sim.concat(near, shuf(BY[d.l]))) {
+      if (picks.length === 3) break;
+      const t = tr(x);
+      if (x.id === d.id || !t || used.has(t) || !clozeOK(x)) continue;
+      used.add(t);
+      picks.push(x);
+    }
+    const opts = shuf([d, ...picks]);
+    return { opts, ans: opts.indexOf(d) };
+  }
+  /* material for one question: {opts, ans} — ans is the index of the right option; a typed question has no options */
   function question(d, q, hard) {
     if (q === 's' || q === 'cs') return toneOpts(d);
+    if (q === 'p') return { opts: null, ans: -1, typed: true };
+    if (q === 't') return transOpts(d, hard);
     const opts = wordOpts(d, q === 'cm' ? 'm' : q, hard);
     return { opts, ans: opts.indexOf(d) };
   }
+  /* ---- typed pinyin ----
+     Accepts tone numbers (xue2sheng1; the neutral tone as 5, 0 or nothing) or tone marks (xuéshēng), ü as ü, v or u:,
+     with or without spaces and apostrophes. The letters must match exactly and every syllable's tone must be right,
+     except: a neutral-tone syllable accepts any tone (many have a dictionary tone too), and 一 / 不 accept their own
+     tone as well as the changed one (yī / yí / yì, bù / bú). Another word with the same first meaning counts as right. */
+  const TONED = {
+    ā: ['a', 1],
+    á: ['a', 2],
+    ǎ: ['a', 3],
+    à: ['a', 4],
+    ē: ['e', 1],
+    é: ['e', 2],
+    ě: ['e', 3],
+    è: ['e', 4],
+    ī: ['i', 1],
+    í: ['i', 2],
+    ǐ: ['i', 3],
+    ì: ['i', 4],
+    ō: ['o', 1],
+    ó: ['o', 2],
+    ǒ: ['o', 3],
+    ò: ['o', 4],
+    ū: ['u', 1],
+    ú: ['u', 2],
+    ǔ: ['u', 3],
+    ù: ['u', 4],
+    ǖ: ['v', 1],
+    ǘ: ['v', 2],
+    ǚ: ['v', 3],
+    ǜ: ['v', 4],
+    ü: ['v', 0],
+  };
+  function pyParse(text) {
+    const s = String(text || '')
+      .normalize('NFC')
+      .toLowerCase()
+      .replace(/u:/g, 'v')
+      .replace(/[\s'’\-·]/g, '');
+    let letters = '';
+    const tones = [];
+    for (const ch of s) {
+      if (TONED[ch]) {
+        letters += TONED[ch][0];
+        if (TONED[ch][1]) tones[letters.length - 1] = TONED[ch][1];
+      } else if (/[0-5]/.test(ch)) {
+        if (letters.length) tones[letters.length - 1] = +ch || 5;
+      } else if (/[a-z]/.test(ch)) letters += ch;
+      else return null;
+    }
+    return { letters, tones };
+  }
+  function pyCheck(d, text) {
+    const inp = pyParse(text);
+    if (!inp || !inp.letters) return { ok: false, empty: true };
+    const syl = d.s.map(x => pyParse(x)),
+      want = syl.map(x => x.letters).join('');
+    if (inp.letters !== want) {
+      const alt = similarMeaning(d).find(x => pyParse(x.s.join('')).letters === inp.letters && pyCheck(x, text).ok);
+      return alt ? { ok: true, alt } : { ok: false };
+    }
+    const ch = [...d.h];
+    let pos = 0,
+      toneless = true,
+      ok = true;
+    syl.forEach((x, i) => {
+      const end = pos + x.letters.length;
+      let given = 0;
+      for (let k = pos; k < end; k++) if (inp.tones[k]) given = inp.tones[k];
+      if (given) toneless = false;
+      const t = tone(d.s[i]),
+        g = given || 5,
+        c = syl.length === ch.length ? ch[i] : '';
+      const fine = g === t || t === 5 || (c === '一' && [1, 2, 4].includes(g)) || (c === '不' && [2, 4].includes(g));
+      if (!fine) ok = false;
+      pos = end;
+    });
+    return { ok, toneless: toneless && !ok };
+  }
+  const similarMeaning = d => {
+    const m = M1(d).toLowerCase();
+    return DATA.filter(x => x.id !== d.id && M1(x).toLowerCase() === m);
+  };
 
   /* ---- what to ask next ---- */
   const has = (e, k) => !!e && !!e[k] && e[k][4] > 0;
@@ -4809,7 +5727,10 @@ const LM = (() => {
       c.push(['s', r(e.s)]);
     }
     const k = c.map(([k, v]) => [k, v - skillW[k] + Math.random() * 0.12]).sort((a, b) => a[1] - b[1])[0][0];
-    if (k === 'f' && has(e, 'f') && clozeOK(d) && Math.random() < 0.4) return 'c';
+    const x = Math.random();
+    if (k === 'f' && has(e, 'f') && x < 0.2) return 'p'; /* recall from memory, not from options */
+    if (k === 'm' && has(e, 'm') && d.l >= 3 && clozeOK(d) && x < 0.2) return 't';
+    if (k === 'f' && has(e, 'f') && clozeOK(d) && x < 0.5) return 'c';
     if (k === 's' && has(e, 's') && ttsReady() && Math.random() < 0.4) return 'l';
     return k;
   }
@@ -4892,7 +5813,7 @@ const LM = (() => {
     const t = now(),
       r = dr(),
       sc = [];
-    const src = type === 'c' ? pool.filter(clozeOK) : pool;
+    const src = type === 'c' || type === 't' ? pool.filter(clozeOK) : pool;
     for (const d of src) {
       const e = mem[d.id];
       if (!e) continue;
@@ -4936,39 +5857,78 @@ const LM = (() => {
    least that level with 80 % certainty (90 % for HSK 5 and 6, which also need at least 5 questions of that level,
    70 % right), and every level below it is mastered too. Strong learners get HSK 5 and 6 questions in turn. */
   let lvInfo = ls.get('xc_lvl', null);
-  if (!lvInfo || !LEVELS.includes(lvInfo.lv)) lvInfo = null;
-  /* realm (cultivation level): 0 凡人 not tested yet, 1–6 = studying HSK 1–6, 7 飞升 = HSK 6 mastered.
-   It changes only through a test: the placement test or a breakthrough (突破). */
+  if (!lvInfo || typeof lvInfo !== 'object' || !(lvInfo.lv >= 1 && lvInfo.lv <= 9)) lvInfo = null;
+  /* realm (cultivation level): 0 凡人 not tested yet · 1–6 studying HSK 1–6 · 7 飞升, 8 真仙, 9 玄仙 studying the HSK 7,
+   8, 9 tiers · 10 大罗 everything mastered. Realms 8–10 and the HSK 7–9 words exist only once the gate (仙门) is open:
+   it opens when 飞升 is reached by a breakthrough (before v1.13 飞升 could also come from the placement test; such a
+   飞升 opens the gate with a make-up tribulation, 补劫). The realm changes only through tests: the placement test (the
+   way in, once) or a breakthrough (突破, one realm at a time). */
   /* a level picked by hand in v1.9 is no test: the realm stays 凡人 until a test, but the plan keeps starting at that level */
   const realm = () =>
     !lvInfo ? 0 : Number.isInteger(lvInfo.r) ? lvInfo.r : lvInfo.src === 'manual' ? 0 : lvInfo.m === 6 ? 7 : lvInfo.lv;
+  const gateOpen = () => !!(lvInfo && lvInfo.gate);
+  const topLevel = () => LEVELS[LEVELS.length - 1];
+  /* the HSK level a realm studies: realm r studies level r; 大罗 (and a 飞升 without the gate) has nothing left */
+  const realmLevel = r => Math.max(1, Math.min(topLevel(), r));
+  const isFinal = r => r >= 10 || (r >= 7 && !gateOpen()) || r > topLevel();
   const baseLevel = () => {
     const r = realm();
-    return r < 1 ? (lvInfo && lvInfo.src === 'manual' ? lvInfo.lv : 1) : Math.min(6, r);
+    return r < 1 ? (lvInfo && lvInfo.src === 'manual' ? lvInfo.lv : 1) : realmLevel(r);
   };
   function curLevel() {
-    for (let l = baseLevel(); l <= 6; l++) if (BY[l].some(d => !mem[d.id])) return l;
-    return 6;
+    const top = topLevel();
+    for (let l = baseLevel(); l <= top; l++) if (BY[l].some(d => !mem[d.id])) return l;
+    return top;
   }
+  /* history entries: [realm, time, how ('test' recognised by the placement test, 'bt' broken through), quality 1–4] */
   function setRealm(r, src, extra) {
-    const hist = ((lvInfo && lvInfo.hist) || []).concat([[r, now()]]).slice(-20);
-    lvInfo = Object.assign({}, lvInfo || {}, extra || {}, { r, lv: Math.max(1, Math.min(6, r)), src, at: now(), hist });
+    const e = [r, now(), src];
+    if (extra && extra.grade) e.push(extra.grade);
+    const hist = ((lvInfo && lvInfo.hist) || []).concat([e]).slice(-30);
+    const x = Object.assign({}, extra || {});
+    delete x.grade;
+    lvInfo = Object.assign({}, lvInfo || {}, x, { r, lv: Math.max(1, Math.min(9, r)), src, at: now(), hist });
     ls.set('xc_lvl', lvInfo);
   }
+  const okHist = h =>
+    Array.isArray(h) &&
+    h.length >= 2 &&
+    h.length <= 4 &&
+    Number.isInteger(h[0]) &&
+    h[0] >= 0 &&
+    h[0] <= 10 &&
+    Number.isFinite(h[1]) &&
+    (h.length < 3 || ['test', 'bt'].includes(h[2])) &&
+    (h.length < 4 || [1, 2, 3, 4].includes(h[3]));
   function restoreLevel(o) {
-    if (o && LEVELS.includes(o.lv) && ['test', 'manual', 'bt'].includes(o.src)) {
+    if (o && o.lv >= 1 && o.lv <= 9 && ['test', 'manual', 'bt'].includes(o.src)) {
+      const num = x => (Number.isFinite(x) ? Math.round(x) : undefined);
       lvInfo = {
         lv: o.lv,
         src: o.src,
         at: Number.isFinite(o.at) ? o.at : now(),
-        r: Number.isInteger(o.r) && o.r >= 0 && o.r <= 7 ? o.r : undefined,
-        hist: Array.isArray(o.hist)
-          ? o.hist.filter(h => Array.isArray(h) && h.length === 2 && h.every(Number.isFinite)).slice(-20)
-          : undefined,
+        r: Number.isInteger(o.r) && o.r >= 0 && o.r <= 10 ? o.r : undefined,
+        hist: Array.isArray(o.hist) ? o.hist.filter(okHist).slice(-30) : undefined,
         m: Number.isInteger(o.m) && o.m >= 0 && o.m <= 6 ? o.m : undefined,
         per: Array.isArray(o.per) && o.per.length === 6 && o.per.every(Number.isFinite) ? o.per : undefined,
         th: Array.isArray(o.th) && o.th.length === 2 && o.th.every(Number.isFinite) && o.th[1] > 0 ? o.th : undefined,
+        pt: Array.isArray(o.pt) ? o.pt.filter(Number.isFinite).slice(-5) : undefined,
+        gate: num(o.gate),
+        gs: o.gs ? 1 : undefined,
+        stab: num(o.stab),
       };
+      if (lvInfo.gate) lvInfo.gs = 1; /* restored on another phone: no ceremony, a short welcome instead */
+      ls.set('xc_lvl', lvInfo);
+    }
+  }
+  /* 飞升 reached by a breakthrough before v1.13: the gate opens (with its ceremony) */
+  if (lvInfo && realm() === 7 && lvInfo.src === 'bt' && !lvInfo.gate) {
+    lvInfo.gate = now();
+    ls.set('xc_lvl', lvInfo);
+  }
+  function gateSeen() {
+    if (lvInfo) {
+      lvInfo.gs = 1;
       ls.set('xc_lvl', lvInfo);
     }
   }
@@ -4983,11 +5943,12 @@ const LM = (() => {
   };
   const GRID = Array.from({ length: 71 }, (_, i) => i / 10);
   let PB = null;
+  const PLV = [1, 2, 3, 4, 5, 6]; /* the placement test covers HSK 1–6 */
   function placementBank() {
     if (PB) return PB;
     PB = {};
     const seen = new Set();
-    for (const l of LEVELS) {
+    for (const l of PLV) {
       PB[l] = BY[l].filter(d => {
         const c = [...d.h];
         return (
@@ -5080,11 +6041,11 @@ const LM = (() => {
       return it.length >= 5 && ok / it.length >= 0.7;
     };
     let m = 0;
-    for (const l of LEVELS) {
+    for (const l of PLV) {
       if (pass(l)) m = l;
       else break;
     }
-    const per = LEVELS.map(l => Math.round(GRID.reduce((a, t, i) => a + st.post[i] * pKnow(t, l - 0.5), 0) * 100));
+    const per = PLV.map(l => Math.round(GRID.reduce((a, t, i) => a + st.post[i] * pKnow(t, l - 0.5), 0) * 100));
     const right = st.items.filter(x => x.r === 'ok').length,
       idk = st.items.filter(x => x.r === 'idk').length;
     return { m, lv: Math.min(6, m + 1), mean, sd, per, right, idk, n: st.items.length };
@@ -5137,9 +6098,11 @@ const LM = (() => {
   }
   function stage(r = realm()) {
     if (r < 1) return null;
-    const L = Math.min(6, r),
-      W = BY[L],
-      c = credit(L);
+    const L = realmLevel(r),
+      W = BY[L];
+    if (isFinal(r))
+      return { i: 3, share: 1, solid: W.length, test: 0, testShare: 0, total: W.length, need: 0, final: true };
+    const c = credit(L);
     let n = 0,
       sum = 0,
       est = 0;
@@ -5148,66 +6111,235 @@ const LM = (() => {
       if (c[j] === 1) n++;
       else est += c[j] * 2;
     }
-    const share = r === 7 ? 1 : sum / W.length,
+    const share = sum / W.length,
       need = Math.max(0, Math.ceil(W.length * 0.8 - sum));
     return {
       i: share >= 0.8 ? 3 : share >= 0.5 ? 2 : share >= 0.25 ? 1 : 0,
       share,
       solid: n,
       test: Math.round(est),
-      testShare: r === 7 ? 0 : (sum - n) / W.length,
+      testShare: (sum - n) / W.length,
       total: W.length,
-      need: r === 7 ? 0 : need,
+      need,
     };
   }
-  const btOpen = () => {
+
+  /* ---- a stable realm (境界稳固) ----
+   A realm rests on the level below it (the one its breakthrough proved). If that level fades — spaced answers on its
+   words in the last 30 days under 70 % right (at least 15 answers), or the model's recall now of its studied words under
+   60 % (at least 20 words) — the realm is unstable (境界不稳): the breakthrough waits until a stabilising trial
+   (试炼稳固: 15 of the faded words, 80 % right) is passed. The realm itself never drops. */
+  function stability(r = realm()) {
+    if (r < 2) return { ok: true };
+    const P = realmLevel(r - 1),
+      t = now(),
+      t0 = t - 30 * 1440,
+      pre = P + ':';
+    if (lvInfo && lvInfo.stab && t - lvInfo.stab < 30 * 1440) {
+      /* stabilised lately: stays stable unless it fades again after the trial */
+      return stabCheck(P, pre, Math.max(t0, lvInfo.stab), t, true);
+    }
+    return stabCheck(P, pre, t0, t, false);
+  }
+  function stabCheck(P, pre, t0, t, after) {
+    const L = allLog(),
+      seen = new Set();
+    let n = 0,
+      c = 0;
+    for (let i = L.length - 1; i >= 0; i--) {
+      const e = L[i];
+      if (e[0] < t0 || (after && e[0] === t0)) break; /* after a trial: only answers given after it */
+      if (!e[1].startsWith(pre) || e[6] & 48 || !QUIZ.has(e[2])) continue;
+      const k = e[1] + '@' + dayOf(e[0]),
+        m = mem[e[1]];
+      if (seen.has(k) || !m || dayOf(m.i) >= dayOf(e[0])) continue; /* first answer of a day on a word met earlier */
+      seen.add(k);
+      n++;
+      if (e[3] > 1) c++;
+    }
+    let rs = 0,
+      rn = 0;
+    for (const d of BY[P]) {
+      const e = mem[d.id];
+      if (!e) continue;
+      rs += rNow(e, t);
+      rn++;
+    }
+    const acc = n ? c / n : null,
+      rec = rn ? rs / rn : null;
+    const badAcc = n >= 15 && acc < 0.7,
+      badRec = !after && rn >= 20 && rec < 0.6;
+    return { ok: !(badAcc || badRec), P, n, acc, rn, rec, why: badAcc ? 'acc' : badRec ? 'rec' : null };
+  }
+  function stabWords(n = 15) {
+    const s = stability();
+    if (s.ok) return [];
+    const t = now();
+    return BY[s.P]
+      .filter(d => mem[d.id])
+      .map(d => [rNow(mem[d.id], t), d])
+      .sort((a, b) => a[0] - b[0])
+      .slice(0, n)
+      .map(p => p[1]);
+  }
+  function stabDone(right, total) {
+    if (!total || right / total < 0.8) return false;
+    lvInfo = Object.assign({}, lvInfo || {}, { stab: now() });
+    ls.set('xc_lvl', lvInfo);
+    return true;
+  }
+
+  /* ---- the tribulation (雷劫): a breakthrough in strikes ----
+   At 圆满 the breakthrough opens. It is a series of strikes, each a skill on the realm's own words, with no feedback:
+     识 shí meaning · 忆 yì the pinyin typed from memory · 听 tīng listening (left out if the phone has no voice) ·
+     读 dú the word that fits a sentence · 速 sù meanings against the clock (6 s per question for HSK 1–3, 5 s for 4–6,
+     4 s for 7–9) · 译 yì the translation of a sentence (HSK 7–9 only).
+   It is passed when every strike has at least 70 % right AND the whole has at least 75 % (80 % from HSK 5, 85 % for
+   HSK 7–9) — luck in one strike can't carry a weak skill. The margin decides the foundation's quality (道基):
+   完美 perfect = not one wrong answer in all strikes · 上品 high ≥ the cut + 15 points (at most 97 %) ·
+   中品 middle ≥ the cut + 8 (at most 93 %) · 下品 low otherwise. Only a breakthrough gives a quality; a realm the
+   placement test recognised (认定) has none. One test a week, as before. */
+  const STRIKES = [
+    { k: 'shi', hz: '识', py: 'shí', q: 'm', n: 5 },
+    { k: 'yi', hz: '忆', py: 'yì', q: 'p', n: 5 },
+    { k: 'ting', hz: '听', py: 'tīng', q: 'l', n: 5, tts: true },
+    { k: 'du', hz: '读', py: 'dú', q: 'c', n: 5 },
+    { k: 'su', hz: '速', py: 'sù', q: 'm', n: 8, timed: true },
+    { k: 'fan', hz: '译', py: 'yì', q: 't', n: 5, band: true },
+  ];
+  const cutOf = L => (L >= 7 ? 0.85 : L >= 5 ? 0.8 : 0.75);
+  const limitOf = L => (L <= 3 ? 6 : L <= 6 ? 5 : 4);
+  const GRADES = ['', '下品', '中品', '上品', '完美'];
+  const btReady = () => {
     const r = realm();
-    return r >= 1 && r <= 6 && stage(r).i === 3;
+    return r >= 1 && !isFinal(r) && stage(r).i === 3 && stability(r).ok;
   };
+  const btOpen = () => btReady() || makeupOpen();
+  /* 飞升 from a placement test before v1.13: a make-up tribulation on HSK 6 opens the gate */
+  const makeupOpen = () => realm() === 7 && !gateOpen() && LEVELS.includes(6);
   function btStart() {
     placementBank();
     const r = realm(),
-      L = Math.min(6, Math.max(1, r)),
-      pool = shuf(PB[L].length >= 20 ? PB[L] : BY[L]).slice(0, 20);
-    return {
-      r,
-      L,
-      items: pool.map((d, i) => {
-        const types = PT.TYPES[L],
-          q = types[i % types.length];
-        const it = { d, l: L, q: q === 'c' && !clozeOK(d) ? 'f' : q };
-        Object.assign(it, question(d, it.q, L >= 4 ? 0.85 : 0.6));
-        return it;
-      }),
-      i: 0,
-      right: 0,
+      makeup = makeupOpen(),
+      L = makeup ? 6 : realmLevel(r),
+      hard = L >= 4 ? 0.85 : 0.6,
+      base = (L <= 6 && PB[L] && PB[L].length >= 40 ? PB[L] : BY[L]).filter(clozeOK);
+    const pool = shuf(base.length >= 40 ? base : BY[L]),
+      used = new Set(),
+      items = [],
+      strikes = [];
+    const take = ok => {
+      const d = pool.find(x => !used.has(x.id) && ok(x)) || shuf(BY[L]).find(x => !used.has(x.id) && ok(x));
+      if (d) used.add(d.id);
+      return d;
     };
+    for (const S of STRIKES) {
+      if (S.band && L < 7) continue;
+      if (S.tts && !ttsReady()) {
+        strikes.push({ k: S.k, hz: S.hz, py: S.py, n: 0, skipped: true });
+        continue;
+      }
+      let n = 0;
+      for (let i = 0; i < S.n; i++) {
+        const d = take(x => (S.q === 'c' || S.q === 't' ? clozeOK(x) : true));
+        if (!d) break;
+        const it = { d, l: L, q: S.q, strike: S.k };
+        if (S.timed) it.limit = limitOf(L);
+        Object.assign(it, question(d, S.q, hard));
+        items.push(it);
+        n++;
+      }
+      strikes.push({ k: S.k, hz: S.hz, py: S.py, n, timed: !!S.timed });
+    }
+    return { r, L, makeup, items, strikes, i: 0, right: 0 };
   }
   function btFinish(st) {
-    const need = st.L >= 5 ? 0.8 : 0.75,
-      pass = st.right / st.items.length >= need;
+    const cut = cutOf(st.L),
+      res = st.strikes.map(S => {
+        if (S.skipped) return Object.assign({}, S, { right: 0, pass: true });
+        const its = st.items.filter(x => x.strike === S.k),
+          right = its.filter(x => x.r === 'ok').length;
+        return Object.assign({}, S, { right, pass: right >= Math.ceil(its.length * 0.7) });
+      });
+    const n = st.items.length,
+      right = st.items.filter(x => x.r === 'ok').length,
+      acc = n ? right / n : 0,
+      pass = res.every(x => x.pass) && acc >= cut;
     noteTest();
-    /* a passed breakthrough proves the level: a placement test's ability estimate moves up to at least that level
-       (without a placement test there is no estimate, and the next realm starts from its solid words alone) */
+    let grade = 0,
+      gate = false;
     if (pass) {
-      const th = testTh();
-      setRealm(st.r + 1, 'bt', th ? { th: [r2(Math.max(th[0], st.L)), r2(Math.min(th[1], 0.6))] } : {});
+      grade =
+        right === n && !res.some(x => x.skipped)
+          ? 4
+          : acc >= Math.min(cut + 0.15, 0.97)
+            ? 3
+            : acc >= Math.min(cut + 0.08, 0.93)
+              ? 2
+              : 1;
+      const th = testTh(),
+        x = { grade };
+      /* a passed breakthrough proves the level: a placement test's ability estimate moves up to at least that level
+         (without a placement test there is no estimate, and the next realm starts from its solid words alone) */
+      if (th && st.L <= 6) x.th = [r2(Math.max(th[0], st.L)), r2(Math.min(th[1], 0.6))];
+      if (st.makeup) {
+        x.gate = now();
+        setRealm(7, 'bt', x);
+        gate = true;
+      } else {
+        if (st.r + 1 === 7) x.gate = now();
+        setRealm(st.r + 1, 'bt', x);
+        gate = st.r + 1 === 7;
+      }
     }
     return {
       pass,
-      need,
-      right: st.right,
-      n: st.items.length,
+      need: cut,
+      acc,
+      right,
+      n,
+      grade,
+      gate,
+      strikes: res,
       r: realm(),
+      makeup: st.makeup,
       weak: st.items.filter(x => x.r !== 'ok').map(x => x.d),
     };
   }
+  /* the quality of each realm reached by a breakthrough, from the history: {realm: 1–4} (best kept) */
+  function grades() {
+    const g = {};
+    for (const h of (lvInfo && lvInfo.hist) || []) if (h[2] === 'bt' && h[3]) g[h[0]] = Math.max(g[h[0]] || 0, h[3]);
+    return g;
+  }
+
+  /* ---- the placement test is the way in ----
+   The first placement test sets the starting realm (at most 渡劫: 飞升 and above are only reached by breaking
+   through). One retake is allowed within 14 days of the first test, in case the first went wrong; it replaces the
+   result. After that the realm only moves by breakthroughs. Tests from before v1.13 count as the first test. */
+  const ptTimes = () => {
+    if (!lvInfo) return [];
+    if (Array.isArray(lvInfo.pt)) return lvInfo.pt;
+    return lvInfo.src === 'test' || (lvInfo.hist || []).some(h => h[2] === 'test') ? [lvInfo.at] : [];
+  };
+  function ptOpen() {
+    const T = ptTimes();
+    if (!T.length) return realm() === 0 ? (canTest() ? 'first' : 'wait') : null;
+    if (T.length === 1 && now() - T[0] <= 14 * 1440 && lvInfo && lvInfo.src === 'test') return 'retake';
+    return null;
+  }
+  const ptRetakeUntil = () => {
+    const T = ptTimes();
+    return T.length === 1 ? T[0] + 14 * 1440 : 0;
+  };
   function placementDone(res) {
+    const T = ptTimes();
     noteTest();
-    setRealm(res.m === 6 ? 7 : res.m + 1, 'test', {
+    setRealm(Math.min(6, res.m + 1), 'test', {
       m: res.m,
       per: res.per,
       th: [r2(res.mean), r2(Math.max(0.15, res.sd))],
+      pt: T.concat(now()).slice(-5),
     });
   }
 
@@ -5225,7 +6357,7 @@ const LM = (() => {
       err = 1e9;
     for (const t of GRID) {
       let e = 0;
-      LEVELS.forEach((l, i) => {
+      PLV.forEach((l, i) => {
         const d = pKnow(t, l - 0.5) - per[i] / 100;
         e += d * d;
       });
@@ -5239,7 +6371,7 @@ const LM = (() => {
   let TP = null;
   function testP(L) {
     const th = testTh();
-    if (!th) return null;
+    if (!th || L > 6) return null; /* the test says nothing about HSK 7–9 */
     const key = L + ':' + th.join(',');
     if (TP && TP.key === key) return TP.p;
     const [m, sd] = th,
@@ -5476,7 +6608,7 @@ const LM = (() => {
   function soul() {
     const t = now(),
       r = realm(),
-      L = r < 1 ? baseLevel() : Math.min(6, r),
+      L = r < 1 ? baseLevel() : realmLevel(r),
       st = stage(r < 1 ? L : r),
       es = Object.values(mem);
     let X = 0;
@@ -5496,7 +6628,7 @@ const LM = (() => {
     return {
       L,
       root: v(st ? st.share * 100 : es.length ? 0 : null),
-      cult: v((100 * Math.log(1 + X / 100)) / Math.log(1 + (5334 * 120) / 100)),
+      cult: v((100 * Math.log(1 + X / 100)) / Math.log(1 + (DATA.length * 120) / 100)),
       cultDays: Math.round(X),
       sense: v(es.length ? (rs / BY[L].length) * 100 : null),
       senseN: Math.round(rs),
@@ -5534,7 +6666,7 @@ const LM = (() => {
   function advice() {
     const t = now(),
       r = realm(),
-      L = r < 1 ? baseLevel() : Math.min(6, r),
+      L = r < 1 ? baseLevel() : realmLevel(r),
       Wd = BY[L],
       R0 = dr(),
       out = [];
@@ -5556,7 +6688,11 @@ const LM = (() => {
         else if (!okS(e.s)) needS.push(d);
       } else young.push(e);
     }
-    if (r < 1 && canTest()) out.push({ k: 'test' });
+    const pt = ptOpen();
+    if (r < 1 && pt === 'first') out.push({ k: 'test' });
+    const sb = stability(r);
+    if (!sb.ok) out.unshift({ k: 'unstable', P: sb.P, acc: sb.acc, rec: sb.rec, why: sb.why });
+    if (makeupOpen()) out.push({ k: 'makeup' });
     if (needF.length) out.push({ k: 'f', n: needF.length, words: needF.slice(0, 12), L });
     if (needS.length) out.push({ k: 's', n: needS.length, words: needS.slice(0, 12), L });
     if (due.length) out.push({ k: 'due', n: due.length, L });
@@ -5582,9 +6718,9 @@ const LM = (() => {
   /* when the next stage (and 圆满) is likely: new solid words of the level over the last 14 days */
   function forecast() {
     const r = realm(),
-      L = r < 1 ? baseLevel() : Math.min(6, r),
+      L = r < 1 ? baseLevel() : realmLevel(r),
       st = stage(r < 1 ? L : r);
-    if (!st || r > 6) return null;
+    if (!st || st.final) return null;
     /* progress gained by words that became solid in the last 14 days (a word the test already credited adds the rest) */
     const t = now(),
       P = testP(L);
@@ -5606,30 +6742,51 @@ const LM = (() => {
       dFull: rate > 0 && st.need ? Math.ceil(st.need / rate) : null,
     };
   }
-  /* chance to pass a breakthrough now: every bank word is answered right with its recall chance (plus a little
-   guessing when it is forgotten); the score of 20 is about normal, so P(score ≥ needed) follows from mean and spread */
+  /* chance to pass the tribulation now: each word is answered right with its recall chance (plus a little guessing
+   on choice questions; typed pinyin has no guessing and the timed strike costs a little). Every strike needs 70 % and
+   the whole needs the cut; the strikes are taken as independent: P = P(total ≥ cut) × Π P(strike ≥ 70 %). */
   function btChance() {
-    const r = realm();
-    if (r < 1 || r > 6) return null;
+    const r = realm(),
+      makeup = makeupOpen();
+    if (r < 1 || (isFinal(r) && !makeup)) return null;
     placementBank();
-    const t = now(),
-      bank = PB[r].length >= 20 ? PB[r] : BY[r],
-      hard = r >= 4 ? 0.9 : 0.95;
-    let s = 0,
-      v = 0;
+    const L = makeup ? 6 : realmLevel(r),
+      t = now(),
+      bank = L <= 6 && PB[L] && PB[L].length >= 20 ? PB[L] : BY[L],
+      hard = L >= 4 ? 0.9 : 0.95;
+    let ch = 0,
+      ty = 0;
     for (const d of bank) {
       const e = mem[d.id],
-        R = e ? rNow(e, t) : 0,
-        p = Math.min(0.99, R * hard + (1 - R * hard) * 0.12);
-      s += p;
-      v += p * (1 - p);
+        R = e ? rNow(e, t) : 0;
+      ch += Math.min(0.99, R * hard + (1 - R * hard) * 0.12);
+      ty += Math.min(0.97, R * (e && okS(e.f) ? 0.85 : 0.6));
     }
-    const n = bank.length,
-      N = 20,
-      m = (N * s) / n,
-      sd = Math.sqrt(Math.max(0.25, (N * v) / n)),
-      need = Math.ceil(N * (r >= 5 ? 0.8 : 0.75)),
-      z = (need - 0.5 - m) / sd;
+    const pc = ch / bank.length,
+      pt = ty / bank.length;
+    const binomGE = (n, p, k) => {
+      let s = 0;
+      for (let i = k; i <= n; i++) {
+        let c = 1;
+        for (let j = 0; j < i; j++) c = (c * (n - j)) / (j + 1);
+        s += c * Math.pow(p, i) * Math.pow(1 - p, n - i);
+      }
+      return s;
+    };
+    let prod = 1,
+      mean = 0,
+      vr = 0,
+      N = 0;
+    for (const S of STRIKES) {
+      if ((S.band && L < 7) || (S.tts && !ttsReady())) continue;
+      const p = S.q === 'p' ? pt : S.timed ? pc * 0.93 : pc;
+      prod *= binomGE(S.n, p, Math.ceil(S.n * 0.7));
+      N += S.n;
+      mean += S.n * p;
+      vr += S.n * p * (1 - p);
+    }
+    const need = Math.ceil(N * cutOf(L)),
+      z = (need - 0.5 - mean) / Math.sqrt(Math.max(0.25, vr));
     const phi = x => {
       const k = 1 / (1 + 0.2316419 * Math.abs(x)),
         y =
@@ -5639,7 +6796,7 @@ const LM = (() => {
           (0.3193815 + k * (-0.3565638 + k * (1.781478 + k * (-1.821256 + k * 1.330274))));
       return x > 0 ? 1 - y : y;
     };
-    return Math.round(100 * (1 - phi(z)));
+    return Math.round(100 * (1 - phi(z)) * prod);
   }
 
   /* ---- goals and the daily plan ---- */
@@ -5928,7 +7085,7 @@ const LM = (() => {
   }
 
   /* ---- personalising the model: fit the 19 parameters to this learner's own answers (on the phone) ---- */
-  const MINFIT = 400;
+  const MINFIT = 100; /* v1.13: from 100 spaced reviews (was 400), with a pull towards the defaults that fades with more data */
   function seqs() {
     const by = new Map();
     for (const e of allLog().slice(-12000)) {
@@ -5969,7 +7126,9 @@ const LM = (() => {
       const sc = W0.map(x => Math.max(0.05, Math.abs(x) * 0.5)),
         N = base.n;
       const toW = z => z.map((v, i) => cl(W0[i] + v * sc[i], LB[i], UB[i]));
-      const f = z => lossOf(toW(z), S).ll / N + (2 / N) * z.reduce((s, v) => s + v * v, 0);
+      /* the penalty keeps the parameters near the defaults while there is little data: at 100 reviews moving one
+         parameter by half its default value costs 0.3 nats per review, at 3,000 reviews only 0.01 */
+      const f = z => lossOf(toW(z), S).ll / N + (30 / N) * z.reduce((s, v) => s + v * v, 0);
       let z = W0.map(() => 0),
         m = z.map(() => 0),
         v = z.map(() => 0),
@@ -6014,6 +7173,51 @@ const LM = (() => {
       fitting = false;
     }
   }
+  /* ---- how good the memory model is for this learner ----
+     Every spaced review (a word seen on an earlier day) is replayed through the model with the current parameters:
+     the recall chance it predicted before the answer is set against what happened. Shown in Stats as predicted vs
+     real recall, the average gap per band of predictions (calibration error) and the log loss. */
+  function modelCheck() {
+    const B = [
+      [0, 0.5],
+      [0.5, 0.7],
+      [0.7, 0.8],
+      [0.8, 0.9],
+      [0.9, 1.01],
+    ].map(([a, b]) => ({ a, b, n: 0, p: 0, y: 0 }));
+    let n = 0,
+      P = 0,
+      Y = 0,
+      ll = 0;
+    for (const q of seqs()) {
+      let st = null;
+      for (const [t, g] of q) {
+        if (st && !sameDay(t, st[2])) {
+          const p = cl(Rt((t - st[2]) / 1440, st[1]), 1e-4, 1 - 1e-4),
+            y = g > 1 ? 1 : 0;
+          n++;
+          P += p;
+          Y += y;
+          ll -= y ? Math.log(p) : Math.log(1 - p);
+          const b = B.find(x => p >= x.a && p < x.b);
+          b.n++;
+          b.p += p;
+          b.y += y;
+        }
+        st = step(W, st, g, t, 0);
+      }
+    }
+    if (!n) return { n: 0 };
+    return {
+      n,
+      pred: P / n,
+      real: Y / n,
+      ece: B.reduce((s, b) => s + Math.abs(b.p - b.y), 0) / n,
+      ll: ll / n,
+      own: !!wMeta,
+      bins: B.filter(b => b.n >= 10).map(b => ({ a: b.a, b: Math.min(1, b.b), n: b.n, p: b.p / b.n, y: b.y / b.n })),
+    };
+  }
   function maybeOptimize() {
     const o = ls.get('xc_fit', null),
       L = allLog().length;
@@ -6021,16 +7225,26 @@ const LM = (() => {
     optimize(false).catch(() => {});
   }
 
+  /* the gate opened and HSK 7–9 joined DATA: drop everything built from the word list */
+  function bandAdded() {
+    WD = null;
+    PB = null;
+    IX = null;
+    TP = null;
+    charS = null;
+  }
+
   /* ---- backup, reset, history ---- */
   function exportMem() {
     flush();
     return mem;
   }
-  function importMem(o) {
+  /* extra: ids of HSK 7–9 words that are not loaded yet (a code from a learner past the gate) */
+  function importMem(o, extra) {
     if (!o || typeof o !== 'object' || Array.isArray(o)) return null;
     const out = {};
     for (const id in o) {
-      if (!IDX.has(id)) continue;
+      if (!IDX.has(id) && !(extra && extra.has(id))) continue;
       const c = cleanEntry(o[id]);
       if (c) out[id] = c;
     }
@@ -6107,11 +7321,30 @@ const LM = (() => {
     curLevel,
     baseLevel,
     realm,
+    realmLevel,
+    isFinal,
+    gateOpen,
+    gateSeen,
+    bandAdded,
     stage,
+    stability,
+    stabWords,
+    stabDone,
     btOpen,
+    btReady,
+    makeupOpen,
     btStart,
     btFinish,
+    grades,
+    GRADES,
+    STRIKES,
+    cutOf,
+    limitOf,
     placementDone,
+    ptOpen,
+    ptRetakeUntil,
+    pyCheck,
+    modelCheck,
     canTest,
     nextTestAt,
     advice,
@@ -6325,7 +7558,7 @@ const SOUL = (() => {
   }
   function readColors() {
     const cs = getComputedStyle(document.body);
-    for (let l = 1; l <= 6; l++) colors[l] = cs.getPropertyValue('--l' + l).trim() || '#888';
+    for (let l = 1; l <= 9; l++) colors[l] = cs.getPropertyValue('--l' + l).trim() || '#888';
     colors.fg = cs.getPropertyValue('--fg').trim() || '#888';
     colors.acc = cs.getPropertyValue('--acc').trim();
     colors.dark = typeof isDark === 'function' && isDark();
@@ -6358,14 +7591,16 @@ const SOUL = (() => {
       c.arc(cx, cy, R * 1.35, 0, 7);
       c.fill();
     }
-    if (realmN === 7) {
+    if (realmN >= 7) {
+      /* the immortal realms: a slowly turning crown of rays, more rays the higher the realm */
+      const nr = 12 + 4 * (realmN - 7);
       c.save();
       c.translate(cx, cy);
       c.rotate(time / 9000);
-      c.fillStyle = 'rgba(255,240,190,.22)';
+      c.fillStyle = realmN >= 10 ? 'rgba(255,236,170,.3)' : 'rgba(255,240,190,.22)';
       c.beginPath();
-      for (let i = 0; i < 12; i++) {
-        c.rotate(Math.PI / 6);
+      for (let i = 0; i < nr; i++) {
+        c.rotate((2 * Math.PI) / nr);
         c.moveTo(0, -2);
         c.lineTo(R * 1.3, -0.5);
         c.lineTo(R * 1.3, 0.5);
@@ -6685,14 +7920,14 @@ const SOUL = (() => {
 const ui = ls.get('hsk16_ui', {});
 let state = {
   level: LEVELS.includes(ui.level) ? ui.level : 1,
-  unitBy: Object.assign({ 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1 }, ui.unitBy || {}),
+  unitBy: Object.assign({ 1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1, 7: 1, 8: 1, 9: 1 }, ui.unitBy || {}),
   q: '',
   shown: 60,
   hide: false,
   weak: false,
   screen: 'home',
 };
-let qType = ['auto', 'm', 'f', 's', 'l', 'c', 'exam'].includes(ui.qt) ? ui.qt : 'auto';
+let qType = ['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam'].includes(ui.qt) ? ui.qt : 'auto';
 const saveUI = () => ls.set('hsk16_ui', { level: state.level, unitBy: state.unitBy, qt: qType });
 const unit = () => state.unitBy[state.level];
 const pad = n => String(n).padStart(2, '0');
@@ -6854,14 +8089,20 @@ function afterChange() {
 /* ---- app/home.js ---- */
 /* ---------- home ---------- */
 const RING_C = 2 * Math.PI * 52;
+/* the HSK pills (Home and Stats): six, or nine once HSK 7–9 are open (then just the numbers, so they still fit) */
+function lvPills(el, key, cur) {
+  el.style.setProperty('--n', LEVELS.length);
+  el.classList.toggle('n9', LEVELS.length > 6);
+  el.innerHTML = LEVELS.map(
+    l =>
+      `<button class="lvpill" data-${key}="${l}" aria-pressed="${l === cur}" aria-label="HSK ${l}" style="--lc:var(--l${l})"><b><span class="hl">HSK </span>${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`,
+  ).join('');
+}
 function renderHome() {
   const L = state.level,
     S = summary(BY[L]),
     pc = pctTxt(S.p);
-  $('lvPills').innerHTML = LEVELS.map(
-    l =>
-      `<button class="lvpill" data-l="${l}" aria-pressed="${l === L}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`,
-  ).join('');
+  lvPills($('lvPills'), 'l', L);
   /* one arc per level, deepest green first, so the ring fades from mature green to young red */
   let off = 0,
     arcs = '';
@@ -7230,10 +8471,12 @@ LM.setTts(ttsOK);
 function makeRun(mode) {
   resetRun();
   let items,
+    after = null,
     exam = false,
     lv = state.level;
   if (pendingRun && pendingRun.mode === mode) {
     items = pendingRun.items;
+    after = pendingRun.after || null; /* called once at the end with (words right first time, words) */
     pendingRun = null;
   } else if (mode === 'card') items = LM.cardDeck(pool(), ROUND_C).map(d => ({ k: 'card', d }));
   else if (mode === 'session') items = LM.session(sessionExtra);
@@ -7254,6 +8497,7 @@ function makeRun(mode) {
     exam,
     lv,
     over: 0,
+    after,
   };
   if (exam) {
     run.end = Date.now() + EXAM_SEC * 1000;
@@ -7375,7 +8619,15 @@ function again(item, copy) {
 }
 const progH = (i, n) =>
   `<span class="mbar"><span class="stack"><i style="width:${Math.min(100, (i / Math.max(1, n)) * 100)}%;background:var(--acc)"></i></span></span>`;
-const TNAME = () => ({ m: L10.tMean, f: L10.tHz, s: L10.tTone, l: L10.tListen, c: L10.tCloze });
+const TNAME = () => ({
+  m: L10.tMean,
+  f: L10.tHz,
+  s: L10.tTone,
+  l: L10.tListen,
+  c: L10.tCloze,
+  p: L10.tPy,
+  t: L10.tTrans,
+});
 function qtList() {
   return [
     ['auto', L10.tAuto, L10.dAuto, '智'],
@@ -7384,6 +8636,8 @@ function qtList() {
     ['s', L10.tTone, L10.dTone, 'mā'],
     ...(canSpeak() ? [['l', L10.tListen, L10.dListen, '♪→汉']] : []),
     ['c', L10.tCloze, L10.dCloze, '汉＿'],
+    ['p', L10.tPy, L10.dPy, 'pīn'],
+    ['t', L10.tTrans, L10.dTrans, '句→a'],
     ['exam', L10.tExam, L10.dExam(EXAM_N, EXAM_SEC / 60), '考'],
   ];
 }
@@ -7546,7 +8800,14 @@ function cardOops(it) {
 /* ---- app/quiz.js ---- */
 /* ---- questions ---- */
 /* o: {tr: show the translation, hint: offer "Show translation"} — sentence gaps hide the translation until answered */
+const gapZ = d => esc(d.z).replace(esc(d.h), '<mark>＿＿</mark>');
 function qPrompt(d, T, o) {
+  if (T === 'p')
+    /* production: the meaning (and the sentence with a gap) — the pinyin is typed from memory */
+    return `<div class="q">${L10.qPy}</div><div style="font-size:calc(22px*var(--fs,1));font-weight:800">${esc(M1(d))}</div><div class="id">${esc(M(d).split(';').slice(1).join(';'))}</div>${LM.clozeOK(d) ? `<div class="zh pyz">${gapZ(d)}</div>` : ''}`;
+  if (T === 't')
+    /* a whole sentence to understand: which translation is right? */
+    return `<div class="q">${L10.qTrans}</div><div class="zh" style="font-size:calc(20px*var(--fs,1))">${esc(d.z)}</div>${d.l <= 3 && d.zp ? `<div class="zp">${esc(d.zp).replace(/[{}]/g, '')}</div>` : ''}`;
   return T === 'm'
     ? `<div class="q">${L10.qMean}</div><div class="big">${hzH(d)}</div>`
     : T === 'f'
@@ -7555,15 +8816,30 @@ function qPrompt(d, T, o) {
         ? `<div class="q">${L10.qTone}</div><div class="big">${esc(d.h)}</div><div class="id">${esc(M1(d))}</div>`
         : T === 'l'
           ? `<div class="q">${L10.qListen}</div><button class="spk xl" id="qSay" data-say="${esc(d.h)}" aria-label="${esc(L10.replay)}" title="${esc(L10.replay)}">${SPK}</button>`
-          : `<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:calc(20px*var(--fs,1))">${esc(d.z).replace(esc(d.h), '<mark>＿＿</mark>')}</div>${d.l <= 3 && d.zp ? `<div class="zp">${esc(d.zp).replace(/\{[^}]*\}/, '＿＿')}</div>` : ''}${o && o.tr ? `<div class="id">${esc(TR(d))}</div>` : o && o.hint ? `<button class="linkbtn trbtn" id="qTr">${L10.showTr}</button>` : ''}`;
+          : `<div class="q">${L10.qCloze}</div><div class="zh" style="font-size:calc(20px*var(--fs,1))">${gapZ(d)}</div>${d.l <= 3 && d.zp ? `<div class="zp">${esc(d.zp).replace(/\{[^}]*\}/, '＿＿')}</div>` : ''}${o && o.tr ? `<div class="id">${esc(TR(d))}</div>` : o && o.hint ? `<button class="linkbtn trbtn" id="qTr">${L10.showTr}</button>` : ''}`;
 }
 const qLab = (o, T) =>
-  T === 'm' ? esc(M1(o)) : T === 's' ? `<span class="pyo">${pyOpt(o)}</span>` : `<span class="hzo">${esc(o.h)}</span>`;
+  T === 'm'
+    ? esc(M1(o))
+    : T === 's'
+      ? `<span class="pyo">${pyOpt(o)}</span>`
+      : T === 't'
+        ? `<span class="tro">${esc(TR(o))}</span>`
+        : `<span class="hzo">${esc(o.h)}</span>`;
+/* the typing box of a pinyin question: answered → shows what was typed */
+function pyBox(it, done) {
+  const v = esc(it.typed || '');
+  return done
+    ? `<div class="pyform"><input class="pyin ${it.ok ? 'ok' : 'ng'}" value="${v}" disabled aria-label="${esc(L10.qPy)}"></div>`
+    : `<form class="pyform" id="pyForm"><input class="pyin" id="pyIn" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="${esc(L10.pyPh)}" aria-label="${esc(L10.qPy)}"><button class="next pygo" type="submit">${L10.pyCheck}</button></form>
+      <p class="pyhelp">${L10.pyHelp}</p><button class="idkbtn" id="pyIdk">${L10.idk}</button>`;
+}
 function renderQItem(it) {
   const d = it.d,
     T = it.q;
-  if (!it.opts) {
+  if (!it.opts && !it.typed0) {
     Object.assign(it, LM.question(d, T));
+    it.typed0 = T === 'p';
     it.t0 = performance.now();
   }
   const ans = it.done && !run.exam,
@@ -7571,17 +8847,21 @@ function renderQItem(it) {
     prompt = qPrompt(d, T, { tr: it.hint && !ans, hint: !run.exam && !it.done }),
     lab = o => qLab(o, T);
   const cls = i => (!ans ? '' : i === it.ans ? ' class="ok"' : i === it.pick ? ' class="ng"' : '');
-  const picked = ans && !ok && T !== 's' ? it.opts[it.pick] : null;
+  const picked = ans && !ok && T !== 's' && T !== 'p' && T !== 't' ? it.opts[it.pick] : null;
   const amb = T === 'c' && ans && !ok && picked && !it.amb && ambLeft() > 0;
   const fb = !ans
     ? ''
-    : `${it.amb ? `<div class="fbv amb">${L10.ambDone}</div>` : `<div class="fbv ${ok ? 'good' : 'bad'}">${ok ? L10.ok : L10.ng}</div>`}
+    : `${it.amb ? `<div class="fbv amb">${L10.ambDone}</div>` : `<div class="fbv ${ok ? 'good' : 'bad'}">${ok ? L10.ok : L10.ng}</div>`}${T === 'p' && !ok && it.tl ? `<div class="picked">${L10.pyToneless}</div>` : ''}${T === 'p' && ok && it.alt ? `<div class="picked">${L10.pyAlt(esc(it.alt.h))}</div>` : ''}
     ${picked ? `<div class="picked">${L10.picked} <b class="hzs">${esc(picked.h)}</b> ${esc(picked.p)} · ${esc(M1(picked))}</div>` : ''}${amb ? `<button class="linkbtn ambbtn" id="qAmb">${L10.ambBtn}</button>` : ''}
     <div class="head"><span class="hz" style="font-size:calc(26px*var(--fsd,1))">${hzH(d)}</span><span class="py">${pyH(d)}</span>${spk(d.h)}</div><div class="mean">${mH(M(d))}</div>
     <div class="zh">${exH(d)}${spk(d.z, ' sm')}</div>${zpH(d)}<div class="id">${esc(TR(d))}</div><div style="margin-top:6px">${stH(d)}</div><button class="next" id="qNext">${L10.next}</button>`;
+  const body =
+    T === 'p'
+      ? pyBox(it, it.done)
+      : `<div class="opts">${it.opts.map((o, i) => `<button data-i="${i}"${cls(i)} ${ans ? 'disabled' : ''}>${i + 1}. ${lab(o)}</button>`).join('')}</div>`;
   view.innerHTML =
-    runHead() +
-    `<div class="qcard qt-${T}">${prompt}<div class="opts">${it.opts.map((o, i) => `<button data-i="${i}"${cls(i)} ${ans ? 'disabled' : ''}>${i + 1}. ${lab(o)}</button>`).join('')}</div><div class="feedback" id="fb">${fb}</div></div>`;
+    runHead() + `<div class="qcard qt-${T}">${prompt}${body}<div class="feedback" id="fb">${fb}</div></div>`;
+  if (T === 'p' && !it.done) setTimeout(() => $('pyIn')?.focus({ preventScroll: true }), 60);
   if (T === 'l' && !it.played && ttsOK()) {
     it.played = true;
     setTimeout(() => {
@@ -7590,13 +8870,22 @@ function renderQItem(it) {
     }, 250);
   }
 }
+/* a typed answer (pinyin question): checked by the engine (tones, 一/不, neutral tones, same-meaning words) */
+function qTyped(it, text) {
+  if (it.done) return;
+  const r = text == null ? { ok: false } : LM.pyCheck(it.d, text);
+  it.typed = text || '';
+  it.tl = !!r.toneless;
+  it.alt = r.alt || null;
+  qAnswer(it, r.ok ? -2 : -3); /* −2 typed right, −3 typed wrong (a typed question has no options) */
+}
 function qAnswer(it, i) {
   if (it.done) return;
   it.done = true;
   it.pick = i;
-  const ok = i === it.ans;
+  const ok = i === -2 || (i >= 0 && i === it.ans);
   it.ok = ok;
-  const x = !ok && it.q !== 's' ? it.opts[i].id : 0;
+  const x = !ok && i >= 0 && it.q !== 's' && it.q !== 't' ? it.opts[i].id : 0;
   LM.answer(it.d, { q: it.q, ok, ms: performance.now() - it.t0, x, exam: run.exam, hint: !!it.hint });
   run.tot++;
   if (!run.exam) noteAns(ok, performance.now() - it.t0);
@@ -7687,6 +8976,10 @@ function renderSummary() {
     run.closed = true;
     LM.updWeak();
     run.notes = sumNotes();
+    if (run.after) {
+      const words = new Set(run.items.map(x => x.d.id)).size;
+      setTimeout(() => run && run.after && run.after(words - run.wrong.size, words), 0);
+    }
   }
   const n = run.tot,
     ok = run.ok,
@@ -7792,8 +9085,20 @@ view.addEventListener('click', e => {
     qAmbig(it);
     return;
   }
+  if (id === 'pyIdk' && !it.done) {
+    qTyped(it, null);
+    return;
+  }
   const b = e.target.closest('.opts button');
   if (b && !it.done) qAnswer(it, +b.dataset.i);
+});
+/* typed pinyin: the form submits with the button or the keyboard's done/enter key */
+view.addEventListener('submit', e => {
+  if (e.target.id !== 'pyForm') return;
+  e.preventDefault();
+  const it = run && run.items[run.i],
+    v = $('pyIn')?.value || '';
+  if (it && it.k === 'q' && it.q === 'p' && !it.done && v.trim()) qTyped(it, v);
 });
 const qMenuOpen = () => {
   const m = $('qTypeMenu');
@@ -7837,10 +9142,7 @@ function renderStats() {
   const arr = BY[stLevel],
     S = summary(arr);
   renderInsights();
-  $('stLevels').innerHTML = LEVELS.map(
-    l =>
-      `<button class="lvpill" data-sl="${l}" aria-pressed="${l === stLevel}" style="--lc:var(--l${l})"><b>HSK ${l}</b><small>${pctTxt(summary(BY[l]).p)}</small></button>`,
-  ).join('');
+  lvPills($('stLevels'), 'sl', stLevel);
   $('stSum').innerHTML =
     `<div class="big">${pctTxt(S.p)}<small>${L10.memoWord}</small></div><div class="tot">HSK ${stLevel} · ${L10.words(fmt(S.n))} · ${L10.practiced(fmt(S.n - S.none))} · ${L10.matureN(fmt(S.mature))}</div>`;
   $('stStack').innerHTML = stackH(S);
@@ -7906,7 +9208,7 @@ function renderInsights() {
     return;
   }
   const col = p => (p >= 85 ? 's-green' : p >= 65 ? 's-yellow' : 's-red');
-  const sk = ['m', 'f', 's', 'l', 'c']
+  const sk = ['m', 'f', 's', 'l', 'c', 'p', 't']
     .filter(k => I.skills[k])
     .map(
       k =>
@@ -7918,8 +9220,38 @@ function renderInsights() {
     ${sk ? `<div class="skills">${sk}</div>` : ''}
     ${I.weak ? `<p class="insnote">${L10.insWeak(TN[I.weak])}</p>` : ''}
     ${I.pairs.length ? `<div class="pairs"><span>${L10.insConf}</span>${I.pairs.map(([a, b, n]) => `<span class="pair"><b>${esc(a.h)}</b>↔<b>${esc(b.h)}</b><small>×${n}</small></span>`).join('')}</div>` : ''}
-    <p class="insnote">${I.model ? L10.insModelOwn(fmt(I.model.n)) : L10.insModelBase(fmt(I.spaced), fmt(I.need))}</p>`;
+    ${modelH(I)}${researchH()}`;
 }
+/* how well the memory model predicts this learner: replayed spaced reviews, predicted vs real, per band.
+   Folded by default (a summary line with the gap); whether the model is personalised is said here, once. */
+let mcOpen = false;
+function modelH(I) {
+  const C = LM.modelCheck(),
+    pc = x => Math.round(x * 100) + '%',
+    state = I.model
+      ? L10.insModelOwn(fmt(I.model.n))
+      : I.spaced >= I.need
+        ? L10.insModelSoon
+        : L10.insModelBase(fmt(I.spaced), fmt(I.need));
+  if (!C.n || C.n < 30)
+    return `<div class="mcheck"><div class="ihd"><b>${L10.mcT}</b></div><p class="insnote">${L10.mcWait(fmt(C.n || 0))} ${state}</p></div>`;
+  return `<details class="mcheck" id="mcheck"${mcOpen ? ' open' : ''}><summary><b>${L10.mcT}</b><span class="mcsum">±${Math.round(C.ece * 100)} · ${L10.mcN(fmt(C.n))}</span></summary>
+    <div class="kpis"><div><b>${pc(C.pred)}</b><small>${L10.mcPred}</small></div><div><b>${pc(C.real)}</b><small>${L10.mcReal}</small></div><div><b>±${Math.round(C.ece * 100)}</b><small>${L10.mcGap}</small></div></div>
+    <div class="mbins">${C.bins
+      .map(
+        b =>
+          `<div class="skrow"><span>${Math.round(b.a * 100)}–${Math.round(b.b * 100)}%</span><span class="mbar"><span class="stack"><i style="width:${(b.y * 100).toFixed(1)}%;background:var(--${Math.abs(b.y - b.p) <= 0.05 ? 's-green' : Math.abs(b.y - b.p) <= 0.1 ? 's-yellow' : 's-red'})"></i></span><u style="left:${(b.p * 100).toFixed(1)}%"></u></span><b>${pc(b.y)}</b></div>`,
+      )
+      .join('')}</div>
+    <p class="insnote">${L10.mcHow} ${state}</p></details>`;
+}
+scrStats.addEventListener(
+  'toggle',
+  e => {
+    if (e.target.id === 'mcheck') mcOpen = e.target.open;
+  },
+  true,
+);
 scrStats.addEventListener('click', e => {
   const lb = e.target.closest('[data-sl]');
   if (lb) {
@@ -7982,6 +9314,90 @@ scrStats.addEventListener('click', e => {
     toast(L10.rsDone(stLevel));
   }
 });
+/* ---- app/research.js ---- */
+/* ---------- research data (opt-in, offline) ----------
+   For a study of whether the realms match real HSK results, a learner may share their answer history by hand: a code
+   like the backup code ("XUECIR1:" + base64url(deflate-raw(JSON))) with the answers (word, time, question type, right
+   or wrong, time taken), the realm history and, if they want, their official HSK level, score and date. No name, no
+   device id, no contacts; nothing is sent by the app — the learner copies or shares the code themselves. */
+let rsOpen = false;
+function researchH() {
+  /* official results above HSK 6 are one choice ("HSK 6+") until the gate is open: nothing may hint at more */
+  const p = ls.get('xc_res', {}) || {},
+    opt = (XC.band ? [1, 2, 3, 4, 5, 6, 7, 8, 9] : [1, 2, 3, 4, 5, 6, 7])
+      .map(l => `<option value="${l}"${+p.lv === l ? ' selected' : ''}>HSK ${l === 7 && !XC.band ? '6+' : l}</option>`)
+      .join('');
+  return `<details class="resq" id="resq"${rsOpen ? ' open' : ''}><summary>${L10.rsT}</summary><p class="insnote">${L10.rsWhat}</p>
+    <div class="rsf"><label><span>${L10.rsHsk}</span><select id="rsLv"><option value="">–</option>${opt}</select></label>
+    <label><span>${L10.rsScore}</span><input id="rsScore" type="number" min="0" max="300" inputmode="numeric" value="${Number.isFinite(p.score) ? p.score : ''}"></label>
+    <label><span>${L10.rsDate}</span><input id="rsDate" type="month" value="${/^\d{4}-\d\d$/.test(p.date || '') ? p.date : ''}"></label></div>
+    <div class="bkrow"><button class="ghost" id="rsCopy">${L10.rsCopy}</button>${NATIVE('shareText') || navigator.share ? `<button class="ghost pri" id="rsShare">${L10.bkShare}</button>` : ''}</div>
+    <p class="insnote">${L10.rsPriv}</p></details>`;
+}
+function rsProfile() {
+  const lv = +($('rsLv')?.value || 0),
+    sc = $('rsScore')?.value,
+    dt = $('rsDate')?.value || '';
+  const p = {};
+  if (lv >= 1 && lv <= 9) p.lv = lv;
+  if (sc !== '' && Number.isFinite(+sc) && +sc >= 0 && +sc <= 300) p.score = Math.round(+sc);
+  if (/^\d{4}-\d\d$/.test(dt)) p.date = dt;
+  ls.set('xc_res', p);
+  return p;
+}
+async function researchCode() {
+  const lv = LM.level || {},
+    o = {
+      app: 'xueci',
+      kind: 'research',
+      v: 1,
+      at: Date.now(),
+      hsk: rsProfile(),
+      realm: LM.realm(),
+      lvl: { hist: lv.hist || [], th: lv.th || null, per: lv.per || null, pt: lv.pt || null },
+      langs: lang,
+      log: LM.allLog().slice(-12000),
+    };
+  const raw = new TextEncoder().encode(JSON.stringify(o));
+  if (canZip) {
+    try {
+      return 'XUECIR1:' + B64(await pipeBytes(raw, new CompressionStream('deflate-raw')));
+    } catch (e) {}
+  }
+  return 'XUECIR0:' + B64(raw);
+}
+scrStats.addEventListener(
+  'toggle',
+  e => {
+    if (e.target.id === 'resq') rsOpen = e.target.open;
+  },
+  true,
+);
+scrStats.addEventListener('change', e => {
+  if (['rsLv', 'rsScore', 'rsDate'].includes(e.target.id)) rsProfile();
+});
+scrStats.addEventListener('click', async e => {
+  const id = e.target.id;
+  if (id !== 'rsCopy' && id !== 'rsShare') return;
+  const code = await researchCode();
+  if (id === 'rsShare') {
+    if (NATIVE('shareText')) MMAndroid.shareText(L10.rsT, code);
+    else
+      try {
+        await navigator.share({ title: L10.rsT, text: code });
+      } catch (_) {}
+    return;
+  }
+  if (NATIVE('copyText')) {
+    MMAndroid.copyText(code);
+    toast(L10.rsCopied);
+    return;
+  }
+  try {
+    await navigator.clipboard.writeText(code);
+    toast(L10.rsCopied);
+  } catch (_) {}
+});
 /* ---- app/info.js ---- */
 /* ---------- tone colours & info sheet ---------- */
 const infoSheet = $('infoSheet');
@@ -8025,21 +9441,34 @@ const GL = [
   ['调息', 'tiáoxī', 'tx'],
   ['休息之道', 'xiūxi zhī dào', 'xd'],
   ['境界历程', 'jìngjiè lìchéng', 'lc'],
+  ['雷劫', 'léijié', 'lj'],
+  ['道基', 'dàojī', 'dj'],
+  ['认定', 'rèndìng', 'rd'],
+  ['境界不稳', 'jìngjiè bù wěn', 'bw'],
+  ['试炼稳固', 'shìliàn wěngù', 'wg'],
+  ['补劫', 'bǔjié', 'bj'],
+  ['仙门', 'xiānmén', 'xm', 1] /* shown once the gate is open */,
 ];
 const hrow2 = (hz, py, main, sub, lc) =>
   `<div class="hrow2"${lc ? ` style="--lc:${lc}"` : ''}><span class="hz2"><b lang="zh-CN">${hz}</b><small>${py}</small></span><span class="hm"><em>${main}</em>${sub ? `<small>${sub}</small>` : ''}</span></div>`;
 function helpBlock(x) {
   if (x === '@realms')
-    return `<div class="htab">${RN.map((n, i) => hrow2(n, RPY[i], `${esc(L10.realmM[i])} · ${i ? (i > 6 ? 'HSK 6 ✓' : 'HSK ' + i) : esc(L10.notTested)}`, esc(L10.realmD[i]), rc(i))).join('')}</div>`;
+    return `<div class="htab">${RN.slice(0, TOPR() + 1)
+      .map((n, i) =>
+        hrow2(n, RPY[i], `${esc(L10.realmM[i])} · ${i ? realmHSK(i) : esc(L10.notTested)}`, esc(L10.realmD[i]), rc(i)),
+      )
+      .join('')}</div>`;
   if (x === '@stages')
     return `<div class="htab">${SN.map((n, i) => hrow2(n, SPY[i], esc(L10.stageM[i]), esc(L10.stageD[i]), 'var(--acc)')).join('')}</div>`;
   if (x === '@elements')
     return `<div class="htab">${EL5.map(([k, g, a]) => hrow2(`${g} ${ATZ[a][0]}`, `${ELP[k]} · ${ATZ[a][1]}`, `${esc(L10.elName[k])} · ${esc(L10.attrN[a])}`, esc(L10.attrD[a]), `var(--el-${k})`)).join('')}</div>`;
   if (x === '@gloss')
-    return `<div class="htab">${GL.map(([h, py, k]) => {
-      const [m, ...more] = L10.gloss[k].split(': ');
-      return hrow2(h, py, esc(m), esc(more.join(': ')), 'var(--acc)');
-    }).join('')}</div>`;
+    return `<div class="htab">${GL.filter(g => !g[3] || XC.band)
+      .map(([h, py, k]) => {
+        const [m, ...more] = L10.gloss[k].split(': ');
+        return hrow2(h, py, esc(m), esc(more.join(': ')), 'var(--acc)');
+      })
+      .join('')}</div>`;
   return `<p>${x}</p>`;
 }
 let infoOpener = null;
@@ -8237,10 +9666,13 @@ async function readCode(text) {
     }
     const o = JSON.parse(new TextDecoder().decode(u));
     if (!o || o.app !== 'xueci' || !o.stats || typeof o.stats !== 'object') return null;
+    /* a code from past the gate: HSK 7–9 ids are checked against the HSK 7–9 file without opening anything yet */
+    const extra = o.lvl && o.lvl.gate && !XC.band ? await XC.bandIds().catch(() => null) : null;
+    const known = k => IDX.has(k) || !!(extra && extra.has(k));
     const st = {};
     for (const k in o.stats) {
       const e = o.stats[k];
-      if (!IDX.has(k) || !Array.isArray(e) || e.length < 2 || !e.every(x => Number.isFinite(x) && x >= 0)) continue;
+      if (!known(k) || !Array.isArray(e) || e.length < 2 || !e.every(x => Number.isFinite(x) && x >= 0)) continue;
       const r = Math.floor(e[0]),
         w = Math.floor(e[1]);
       st[k] = [r, w, Math.max(0, Math.min(MAXL, Math.floor(e.length > 2 ? e[2] : r - w)))];
@@ -8251,7 +9683,7 @@ async function readCode(text) {
       ui: o.ui,
       lang: o.lang,
       theme: o.theme,
-      mem: o.mem ? LM.importMem(o.mem) : null,
+      mem: o.mem ? LM.importMem(o.mem, extra) : null,
       goal: 'goal' in o ? o.goal : undefined,
       w: o.w,
       lvl: o.lvl,
@@ -8375,9 +9807,19 @@ async function bkCheckCode() {
   bkRow();
   $('bkApply')?.focus();
 }
-function bkApply() {
+async function bkApply() {
   const b = bkPending;
   if (!b) return;
+  /* past the gate: the HSK 7–9 words join first, so their progress has words to belong to */
+  if (b.lvl && b.lvl.gate && !XC.band) {
+    try {
+      const w = await XC.loadBand();
+      if (w.some(d => !d.id)) addBand(w);
+    } catch (e) {
+      toast(L10.dataFail);
+      return;
+    }
+  }
   stats = b.stats;
   LM.replace(b.mem || {}, b.goal, b.w);
   LM.restoreLevel(b.lvl);
@@ -8390,7 +9832,7 @@ function bkApply() {
       state.unitBy[l] = Number.isInteger(u) && u >= 0 && u <= UNITS[l] ? u : 1;
     });
     state.level = b.ui.level;
-    if (['auto', 'm', 'f', 's', 'l', 'c', 'exam'].includes(b.ui.qt)) qType = b.ui.qt;
+    if (['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam'].includes(b.ui.qt)) qType = b.ui.qt;
   }
   if ((b.lang === 'auto' || LANGS.includes(b.lang)) && b.lang !== langPref) setLang(b.lang, true);
   if (themeList().includes(b.theme) && b.theme !== theme) applyTheme(b.theme, true);
@@ -8731,36 +10173,57 @@ const realmPct = r => {
   const st = LM.stage(r < 1 ? LM.baseLevel() : r);
   return st ? Math.round(Math.min(1, st.share / 0.8) * 100) : 0;
 };
-/* the chip: realm name, HSK, and a small ring that fills up to 圆满 (share of solid words ÷ 80 %) */
+/* the HSK level a realm stands for: realm r studies HSK r; a finished realm shows its last level with a tick */
+const realmHSK = r => (r < 1 ? '' : LM.isFinal(r) ? `HSK ${realmLv(r)} ✓` : `HSK ${r}`);
+/* the chip: realm name, HSK, and a small ring that fills up to 圆满 (progress ÷ 80 %); unstable → a crack mark */
 function renderCurLv() {
   const r = LM.realm(),
     b = $('curLvBtn'),
     st = LM.stage(r < 1 ? LM.baseLevel() : r),
     open = LM.btOpen() && LM.canTest(),
+    unst = !LM.stability().ok,
     p = realmPct(r);
   $('curLvName').textContent = RN[r];
-  $('curLvSub').textContent = r ? 'HSK ' + realmLv(r) : L10.chipTest;
+  $('curLvSub').textContent = r ? realmHSK(r) : L10.chipTest;
   b.style.setProperty('--lc', rc(r));
   b.style.setProperty('--p', p);
   b.classList.toggle('mortal', !r);
   b.classList.toggle('btready', open);
+  b.classList.toggle('unstable', unst);
   b.setAttribute(
     'aria-label',
-    `${L10.realmL}: ${RN[r]} ${RPY[r]}, ${L10.realmM[r]}${r && st ? `, ${SN[st.i]} ${L10.stageM[st.i]}` : ''}${r ? `, HSK ${realmLv(r)}` : ''}, ${L10.chipProg(p)}${open ? '. ' + L10.stOpen : ''}`,
+    `${L10.realmL}: ${RN[r]} ${RPY[r]}, ${L10.realmM[r]}${r && st ? `, ${SN[st.i]} ${L10.stageM[st.i]}` : ''}${r ? `, ${realmHSK(r)}` : ''}, ${L10.chipProg(p)}${unst ? '. ' + L10.unstT : open ? '. ' + L10.stOpen : ''}`,
   );
 }
 const perBars = per =>
   `<div class="lvper">${per.map((p, i) => `<div class="skrow"><span>HSK ${i + 1}</span><span class="mbar"><span class="stack"><i style="width:${p}%;background:var(--l${i + 1})"></i></span></span><b>${p}%</b></div>`).join('')}</div>`;
 const realmHead = (r, big) =>
-  `<div class="rhead${big ? ' lg' : ''}" style="--lc:${rc(r)}"><span class="rname" lang="zh-CN">${RN[r]}</span><span class="rpy">${RPY[r]}</span><span class="rmean">${esc(L10.realmM[r])}${r ? ` · HSK ${realmLv(r)}` : ''}</span></div>`;
+  `<div class="rhead${big ? ' lg' : ''}" style="--lc:${rc(r)}"><span class="rname" lang="zh-CN">${RN[r]}</span><span class="rpy">${RPY[r]}</span><span class="rmean">${esc(L10.realmM[r])}${r ? ` · ${realmHSK(r)}` : ''}</span></div>`;
 const hd = (hz, py, t) =>
   `<h3 class="shd"><span lang="zh-CN">${hz}</span> <small class="hpy">${py}</small> <span class="hsep">·</span> ${esc(t)}</h3>`;
-/* the path of the eight realms: passed ones filled, the current one ringed; tap any to read its name, pinyin and meaning */
-function rpInfo(i, r) {
-  return `<b lang="zh-CN" style="color:${rc(i)}">${RN[i]}</b> <span class="rpy2">${RPY[i]}</span> · ${esc(L10.realmM[i])} · ${i ? (i > 6 ? 'HSK 6 ✓' : 'HSK ' + i) : esc(L10.notTested)}${i === r ? ` · <em>${L10.youHere}</em>` : ''}<br><small>${esc(L10.realmD[i])}</small>`;
+/* how a passed realm was reached: broken through (with the foundation's quality) or recognised by the placement test */
+function realmHow(i, r) {
+  if (i < 1 || i > r) return '';
+  const g = LM.grades()[i];
+  if (g) return `<span class="grade g${g} sm"><b lang="zh-CN">${LM.GRADES[g]}</b></span> ${esc(L10.gradeM[g])}`;
+  const H = (LM.level && LM.level.hist) || [];
+  const byTest = H.some(h => h[2] === 'test' && h[0] >= i) && !H.some(h => h[2] === 'bt' && h[0] === i);
+  return byTest ? `<span class="recog" lang="zh-CN">认定</span> ${esc(L10.recog)}` : '';
+}
+/* the path of the realms: passed ones filled, the current one ringed; tap any to read its name, pinyin and meaning.
+   Before the gate is open the path simply ends at 飞升: nothing hints that there is more (Josh: a real surprise). */
+function rpInfo(i, r, brief) {
+  const how = realmHow(i, r);
+  if (brief) return `${how ? `<span class="rphow">${how}</span><br>` : ''}<small>${esc(L10.realmD[i])}</small>`;
+  return `<b lang="zh-CN" style="color:${rc(i)}">${RN[i]}</b> <span class="rpy2">${RPY[i]}</span> · ${esc(L10.realmM[i])} · ${i ? realmHSK(i) || 'HSK ' + i : esc(L10.notTested)}${i === r ? ` · <em>${L10.youHere}</em>` : ''}${how ? `<br><span class="rphow">${how}</span>` : ''}<br><small>${esc(L10.realmD[i])}</small>`;
 }
 function pathH(r) {
-  return `<div class="rpath">${RN.map((n, i) => `${i ? `<span class="rpl${i <= r ? ' done' : ''}" aria-hidden="true"></span>` : ''}<button class="rp${i < r ? ' done' : i === r ? ' cur' : ''}" data-rp="${i}" style="--lc:${rc(i)}" aria-pressed="${i === r}" aria-label="${n} ${RPY[i]}, ${esc(L10.realmM[i])}"><span lang="zh-CN">${RS[i]}</span></button>`).join('')}</div><p class="rpinfo" aria-live="polite">${rpInfo(r, r)}</p>`;
+  const top = TOPR(),
+    nodes = RN.slice(0, top + 1).map(
+      (n, i) =>
+        `${i ? `<span class="rpl${i <= r ? ' done' : ''}" aria-hidden="true"></span>` : ''}<button class="rp${i < r ? ' done' : i === r ? ' cur' : ''}${LM.grades()[i] === 4 ? ' perfect' : ''}" data-rp="${i}" style="--lc:${rc(i)}" aria-pressed="${i === r}" aria-label="${n} ${RPY[i]}, ${esc(L10.realmM[i])}"><span lang="zh-CN">${RS[i]}</span></button>`,
+    );
+  return `<div class="rpath${top > 7 ? ' long' : ''}">${nodes.join('')}</div><p class="rpinfo" aria-live="polite">${rpInfo(r, r, true)}</p>`;
 }
 function rpPick(p) {
   const box = p.closest('.rpath');
@@ -8777,7 +10240,7 @@ function stageH(r) {
   if (!st) return '';
   const i = st.i,
     pct = Math.round(Math.min(1, st.share / 0.8) * 100),
-    fc = r >= 1 && r <= 6 ? LM.forecast() : null;
+    fc = r >= 1 && !LM.isFinal(r) ? LM.forecast() : null;
   /* each segment: solid words in the realm colour, the placement test's half credit in a lighter shade after it */
   const sol = st.share - st.testShare,
     fill = (x, k) => (Math.max(0, Math.min(1, (x - TH[k]) / (TH[k + 1] - TH[k]))) * 100).toFixed(1);
@@ -8792,7 +10255,7 @@ function stageH(r) {
   ).join('');
   let note;
   if (r < 1) note = L10.prepNote;
-  else if (r > 6) note = L10.stAll;
+  else if (LM.isFinal(r)) note = r >= 10 ? L10.stTop : L10.stAll;
   else if (i === 3) {
     const p = LM.btChance();
     note = L10.stOpen + (p === null ? '' : ' ' + L10.btChance(p < 5 ? '<5' : p > 95 ? '>95' : p));
@@ -8808,17 +10271,45 @@ function stageH(r) {
     <div class="stl2"><b lang="zh-CN">${SN[i]}</b> ${esc(L10.stageM[i])} · ${L10.stShare(fmt(st.solid), fmt(st.total))}</div>${st.test ? `<div class="sttest">${L10.stTest(fmt(st.test))}</div>` : ''}
     <div class="stn">${note}</div>${eta}</div>`;
 }
-function testH() {
+/* the tests: a stabilising trial when the realm is unstable, the breakthrough at 圆满 (a make-up tribulation for a
+   飞升 from the placement test), and the placement test only while it is the way in (first test, one retake in 14 days) */
+function testH(note = true) {
   const r = LM.realm(),
-    can = LM.canTest();
+    can = LM.canTest(),
+    sb = LM.stability(),
+    pt = LM.ptOpen();
   let h = '';
-  if (LM.btOpen())
-    h += `<button class="planbtn wide btbtn" id="btGo"${can ? '' : ' disabled'} style="--lc:${rc(r + 1)}"><span lang="zh-CN">突破</span><span>${esc(L10.btGo(RN[r + 1]))}</span></button>`;
-  h += r
-    ? `<button class="ghost wide" id="ptGo"${can ? '' : ' disabled'}>${L10.ptAgain}</button>`
-    : `<button class="planbtn wide" id="ptGo"${can ? '' : ' disabled'}>${PLAY}<span>${L10.ptStart}</span></button>`;
-  if (!can) h += `<p class="gnote lockn">${LOCK}<span>${esc(L10.testNext(dateS(tDate(LM.nextTestAt()))))}</span></p>`;
+  if (!sb.ok)
+    h += `<div class="unst"><div class="unsth"><b lang="zh-CN">境界不稳</b> <small>jìngjiè bù wěn</small></div><p>${esc(sb.why === 'acc' ? L10.unstAcc(sb.P, Math.round(sb.acc * 100)) : L10.unstRec(sb.P, Math.round(sb.rec * 100)))}</p>
+      <button class="planbtn wide" id="stabGo"><span lang="zh-CN">试炼稳固</span><span>${L10.stabGo}</span></button></div>`;
+  if (LM.btOpen()) {
+    const mk = LM.makeupOpen();
+    h += `<button class="planbtn wide btbtn" id="btGo"${can ? '' : ' disabled'} style="--lc:${rc(mk ? 7 : r + 1)}"><span lang="zh-CN">${mk ? '补劫' : '突破'}</span><span>${esc(mk ? L10.mkGo : L10.btGo(RN[r + 1]))}</span></button>`;
+  }
+  if (pt === 'first' || pt === 'wait')
+    h += `<button class="planbtn wide" id="ptGo"${pt === 'first' ? '' : ' disabled'}>${PLAY}<span>${L10.ptStart}</span></button>`;
+  else if (pt === 'retake')
+    h += `<button class="ghost wide" id="ptGo">${L10.ptRetake(dateS(tDate(LM.ptRetakeUntil())))}</button>`;
+  else if (r > 0 && note) h += `<p class="gnote">${L10.ptClosed}</p>`;
+  if (!can && (LM.btOpen() || pt === 'wait'))
+    h += `<p class="gnote lockn">${LOCK}<span>${esc(L10.testNext(dateS(tDate(LM.nextTestAt()))))}</span></p>`;
   return h;
+}
+/* a stabilising trial: the faded words of the level below, as a quiz round; 80 % right steadies the realm */
+function stabRun() {
+  const W = LM.stabWords(15);
+  if (!W.length) return false;
+  pendingRun = {
+    mode: 'quiz',
+    items: W.map(d => ({ k: 'q', d, q: LM.pickType(d) })),
+    after: (ok, tot) => {
+      const done = LM.stabDone(ok, tot);
+      renderCurLv();
+      toast(done ? L10.stabOk : L10.stabNo(Math.round((ok / Math.max(1, tot)) * 100)), 5000);
+    },
+  };
+  go('quiz');
+  return true;
 }
 /* guidance (指点): what to work on, ranked by LM.advice(); each with a button that starts the right practice */
 let advCur = null,
@@ -8842,6 +10333,10 @@ function advText(x) {
       return [L10.advNew(fmt(x.n), h), L10.advNewWhy, L10.advStart];
     case 'conf':
       return [L10.advConf(esc(x.a.h), esc(x.b.h), x.n), L10.advConfWhy, L10.advGo];
+    case 'unstable':
+      return [L10.advUnst(x.P), L10.advUnstWhy, L10.stabGo];
+    case 'makeup':
+      return [L10.advMk, L10.advMkWhy, L10.advStart];
     default:
       return [L10.advDao(x.p), L10.advDaoWhy, ''];
   }
@@ -8864,6 +10359,14 @@ function advGo(i) {
   if (!x) return;
   if (x.k === 'test') {
     go('placement');
+    return;
+  }
+  if (x.k === 'unstable') {
+    stabRun();
+    return;
+  }
+  if (x.k === 'makeup') {
+    go('bt');
     return;
   }
   if (x.k === 'f' || x.k === 's') {
@@ -8904,7 +10407,7 @@ function renderLvl() {
         ? L10.lvSrcBt(dateS(tDate(info.at)))
         : L10.lvSrcTest(dateS(tDate(info.at)));
   $('lvlBody').innerHTML =
-    `${realmHead(r, true)}<p class="lvsrc">${esc(src)}${r && cur > realmLv(r) ? ' ' + esc(L10.lvAhead(cur)) : ''}</p>
+    `${realmHead(r, true)}<p class="lvsrc">${esc(src)}${r && cur > realmLv(r) ? ' ' + esc(L10.lvAhead(cur)) : ''}</p>${r >= 1 && LM.grades()[r] ? `<p class="lvsrc">${realmHow(r, r)}</p>` : ''}
     ${pathH(r)}${stageH(r)}${testH()}
     <div class="lvadv">${hd('指点', 'zhǐdiǎn', L10.advM)}${adviceH(2)}</div>
     <button class="ghost wide soulbtn" id="soulGo"><span lang="zh-CN">识海</span> ${L10.soulMore} ›</button>
@@ -8950,6 +10453,11 @@ lvlSheet.addEventListener('click', e => {
     go('bt');
     return;
   }
+  if (id === 'stabGo') {
+    closeLvl();
+    stabRun();
+    return;
+  }
   if (id === 'soulGo') {
     closeLvl();
     go('soul');
@@ -8966,6 +10474,7 @@ lvlSheet.addEventListener('keydown', e => {
 function leaveTest() {
   if (state.screen === 'placement' && pt && pt.st && !pt.res && pt.st.items.length >= 10) LM.noteTest();
   if (state.screen === 'bt' && bt && bt.st && !bt.res && bt.st.i >= 10) LM.noteTest();
+  if (bt) clearTimeout(bt.tm);
 }
 const lockedH = () =>
   `<div class="qcard ptintro"><div class="big t5" lang="zh-CN">静</div><h3>${L10.testLocked}</h3><p class="sumnote">${esc(L10.testNext(dateS(tDate(LM.nextTestAt()))))}</p><p class="sumnote">${L10.testWhy}</p><button class="next" id="tHome">${L10.sumHome}</button></div>`;
@@ -8987,11 +10496,18 @@ function renderPlacement() {
     return;
   }
   if (!pt.st) {
-    if (!LM.canTest()) {
+    /* the way in: the first test, or one retake within 14 days of it; after that only breakthroughs */
+    const o = LM.ptOpen();
+    if (o === 'wait') {
       view.innerHTML = lockedH();
       return;
     }
+    if (!o) {
+      view.innerHTML = `<div class="qcard ptintro"><div class="big t5" lang="zh-CN">门</div><h3>${L10.ptClosedT}</h3><p class="sumnote">${L10.ptClosed}</p><button class="next" id="tHome">${L10.sumHome}</button></div>`;
+      return;
+    }
     view.innerHTML = `<div class="qcard ptintro"><div class="big t3">测</div><h3>${L10.ptIntroT}</h3><p class="sumnote">${L10.ptIntro}</p><p class="sumnote">${L10.ptIntro2}</p>
+      <p class="sumnote">${o === 'retake' ? L10.ptRetakeNote(dateS(tDate(LM.ptRetakeUntil()))) : L10.ptOnce}</p>
       <button class="next" id="ptBegin">${L10.ptBegin}</button></div>`;
     return;
   }
@@ -9043,7 +10559,8 @@ view.addEventListener('click', e => {
   if (state.screen !== 'placement') return;
   const id = e.target.closest('[id]')?.id;
   if (id === 'ptBegin') {
-    if (LM.canTest()) pt.st = LM.ptStart();
+    const o = LM.ptOpen();
+    if (o === 'first' || o === 'retake') pt.st = LM.ptStart();
     renderPlacement();
     return;
   }
@@ -9069,17 +10586,59 @@ view.addEventListener('click', e => {
   if (b) ptPick(+b.dataset.p);
 });
 /* ---- app/breakthrough.js ---- */
-/* ---------- breakthrough (突破): 20 questions on the realm's words, no feedback until the end (LM.btStart/btFinish) ---------- */
+/* ---------- the tribulation (雷劫): the breakthrough as a series of strikes (LM.btStart / LM.btFinish) ----------
+   One strike per skill on the realm's own words — 识 meaning, 忆 pinyin typed from memory, 听 listening, 读 the word
+   that fits a sentence, 速 meanings against the clock, 译 sentence translations (HSK 7–9) — with no feedback until the
+   end. Every strike must hold (70 %) and the whole must reach the cut; the margin gives the foundation's quality. */
 let bt = null;
+const gradeH = (g, r) =>
+  g
+    ? `<span class="grade g${g}"><b lang="zh-CN">${LM.GRADES[g]}${RN[r]}</b><small>${GPY[g]} ${RPY[r]}</small></span>`
+    : '';
+const GPY = ['', 'xiàpǐn', 'zhōngpǐn', 'shàngpǐn', 'wánměi'];
+/* the strikes as a row of seals: done, current, still to come */
+function strikeRow(st, cur) {
+  return `<div class="strikes" aria-hidden="true">${st.strikes
+    .filter(s => !s.skipped && s.n)
+    .map(s => {
+      const i = st.items.findIndex(x => x.strike === s.k),
+        j = i + s.n,
+        c = cur >= j ? ' done' : cur >= i ? ' cur' : '';
+      return `<span class="stk${c}"><b lang="zh-CN">${s.hz}</b></span>`;
+    })
+    .join('')}</div>`;
+}
+function strikeResults(x) {
+  return `<div class="stkres">${x.strikes
+    .map(
+      s =>
+        `<div class="skrow${s.skipped ? ' skip' : s.pass ? ' ok' : ' ng'}"><span><b lang="zh-CN">${s.hz}</b> ${esc(L10.strike[s.k])}</span><span class="mbar"><span class="stack"><i style="width:${s.skipped || !s.n ? 0 : (s.right / s.n) * 100}%"></i></span></span><b>${s.skipped ? L10.strikeSkip : `${s.right}/${s.n}`}</b></div>`,
+    )
+    .join('')}</div>`;
+}
 function renderBt() {
   if (!bt) bt = { st: null, res: null };
   const r = LM.realm();
+  clearTimeout(bt.tm);
   if (bt.res) {
-    const x = bt.res;
+    const x = bt.res,
+      to = x.makeup ? 7 : x.r;
     view.innerHTML = x.pass
-      ? `<div class="qcard sum btres pass"><div class="q">突破 · ${L10.btPassT}</div>${realmHead(x.r, true)}<p class="sumnote">${L10.btPass(RN[x.r], esc(L10.realmM[x.r]))}</p><p class="sumnote">${L10.btScore(x.right, x.n)}</p>
-        <div class="sumbtns"><button class="ghost" id="btHome">${L10.sumHome}</button><button class="next" id="btSoul">${L10.soulGo}</button></div></div>`
-      : `<div class="qcard sum btres"><div class="big t5" lang="zh-CN">未破</div><h3>${L10.btFailT}</h3><p class="sumnote">${L10.btFail(x.right, x.n, Math.round(x.need * 100))}</p><p class="sumnote">${L10.btGrow}</p>
+      ? `<div class="qcard sum btres pass"><div class="q">${x.makeup ? '补劫' : '突破'} · ${L10.btPassT}</div>${realmHead(to, true)}
+        ${gradeH(x.grade, to)}<p class="sumnote">${esc(L10.gradeM[x.grade])}</p>
+        <p class="sumnote">${L10.btPass(RN[to], esc(L10.realmM[to]))}</p><p class="sumnote">${L10.btScore(x.right, x.n)}</p>${strikeResults(x)}
+        <div class="sumbtns">${x.gate ? `<button class="next wide" id="btGate">${L10.gateGo}</button>` : `<button class="ghost" id="btHome">${L10.sumHome}</button><button class="next" id="btSoul">${L10.soulGo}</button>`}</div></div>`
+      : `<div class="qcard sum btres"><div class="big t5" lang="zh-CN">未破</div><h3>${L10.btFailT}</h3><p class="sumnote">${L10.btFail(x.right, x.n, Math.round(x.need * 100))}</p>
+        ${strikeResults(x)}<p class="sumnote">${
+          x.strikes.some(s => !s.pass)
+            ? L10.btFailStrike(
+                x.strikes
+                  .filter(s => !s.pass)
+                  .map(s => s.hz)
+                  .join(' '),
+              )
+            : ''
+        } ${L10.btGrow}</p>
         ${
           x.weak.length
             ? `<div class="sumwords"><div class="lbl">${L10.btWeak}</div>${x.weak
@@ -9094,15 +10653,23 @@ function renderBt() {
   }
   if (!bt.st) {
     if (!LM.btOpen()) {
-      view.innerHTML = `<div class="qcard ptintro">${realmHead(r)}${stageH(r)}<p class="sumnote">${L10.btNotOpen}</p><button class="next" id="btHome">${L10.sumHome}</button></div>`;
+      const sb = LM.stability();
+      view.innerHTML = `<div class="qcard ptintro">${realmHead(r)}${stageH(r)}<p class="sumnote">${sb.ok ? L10.btNotOpen : L10.btUnstable}</p><button class="next" id="btHome">${L10.sumHome}</button></div>`;
       return;
     }
     if (!LM.canTest()) {
       view.innerHTML = lockedH();
       return;
     }
-    view.innerHTML = `<div class="qcard ptintro btintro"><div class="btpath"><span lang="zh-CN" style="color:${rc(r)}">${RN[r]}</span><i aria-hidden="true">→</i><span lang="zh-CN" style="color:${rc(r + 1)}">${RN[r + 1]}</span></div>
-      <h3>${esc(L10.btIntroT(L10.realmM[r + 1]))}</h3><p class="sumnote">${L10.btIntro(realmLv(r) >= 5 ? 80 : 75)}</p><p class="sumnote">${L10.btIntro2}</p>
+    const mk = LM.makeupOpen(),
+      L = mk ? 6 : LM.realmLevel(r),
+      to = mk ? 7 : r + 1,
+      cut = Math.round(LM.cutOf(L) * 100),
+      list = LM.STRIKES.filter(s => (!s.band || L >= 7) && (!s.tts || ttsOK()));
+    view.innerHTML = `<div class="qcard ptintro btintro"><div class="btpath"><span lang="zh-CN" style="color:${rc(r)}">${RN[r]}</span><i aria-hidden="true">→</i><span lang="zh-CN" style="color:${rc(to)}">${mk ? '补劫' : RN[to]}</span></div>
+      <h3>${esc(mk ? L10.mkIntroT : L10.btIntroT(L10.realmM[to]))}</h3>
+      <div class="stklist">${list.map(s => `<div class="stkrow"><b lang="zh-CN">${s.hz}</b><span><em>${esc(L10.strike[s.k])}</em><small>${s.n} ${esc(L10.strikeQ)}${s.timed ? ' · ' + L10.strikeTime(LM.limitOf(L)) : ''}</small></span></div>`).join('')}</div>
+      <div class="btrules"><p>${L10.btRule(cut)}</p><p>${L10.btQuality}</p>${ttsOK() ? '' : `<p class="mute">${L10.strikeNoTts}</p>`}<p class="mute">${L10.btIntro2}</p></div>
       <button class="next" id="btBegin">${L10.btBegin}</button></div>`;
     return;
   }
@@ -9113,17 +10680,37 @@ function renderBt() {
     return;
   }
   if (!it.t0) it.t0 = performance.now();
-  view.innerHTML = `<div class="fcmeta"><span>${L10.qN(st.i + 1, st.items.length)}</span>${progH(st.i, st.items.length)}</div>
-    <div class="qcard qt-${it.q}">${qPrompt(it.d, it.q)}<div class="opts" id="btOpts">${it.opts.map((o, i) => `<button data-b="${i}">${i + 1}. ${qLab(o, it.q)}</button>`).join('')}</div>
+  const S = st.strikes.find(s => s.k === it.strike),
+    body =
+      it.q === 'p'
+        ? `<form class="pyform" id="btPyForm"><input class="pyin" id="btPyIn" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="${esc(L10.pyPh)}" aria-label="${esc(L10.qPy)}"><button class="next pygo" type="submit">${L10.pyCheck}</button></form><p class="pyhelp">${L10.pyHelp}</p>`
+        : `<div class="opts" id="btOpts">${it.opts.map((o, i) => `<button data-b="${i}">${i + 1}. ${qLab(o, it.q)}</button>`).join('')}</div>`;
+  view.innerHTML = `<div class="fcmeta"><span>${L10.qN(st.i + 1, st.items.length)}</span>${progH(st.i, st.items.length)}</div>${strikeRow(st, st.i)}
+    <div class="stkhead"><b lang="zh-CN">${S.hz}</b> ${esc(L10.strike[S.k])}</div>
+    ${it.limit ? `<div class="tbar" aria-hidden="true"><i style="animation-duration:${it.limit}s"></i></div>` : ''}
+    <div class="qcard qt-${it.q}">${qPrompt(it.d, it.q)}${body}
     <button class="idkbtn" id="btIdk">${L10.idk}</button></div>`;
+  if (it.q === 'p') setTimeout(() => $('btPyIn')?.focus({ preventScroll: true }), 60);
+  if (it.q === 'l' && ttsOK())
+    setTimeout(() => {
+      const b = $('qSay');
+      if (b && state.screen === 'bt') speak(it.d.h, b);
+    }, 250);
+  if (it.limit)
+    bt.tm = setTimeout(() => {
+      if (state.screen === 'bt' && bt && bt.st === st && st.items[st.i] === it && !it.busy) btPick(-3);
+    }, it.limit * 1000);
 }
+/* i: an option, −1 don't know, −2 typed right, −3 out of time, −4 typed wrong */
 function btPick(i) {
   const st = bt && bt.st,
     it = st && st.items[st.i];
   if (!it || it.busy) return;
   it.busy = true;
-  const r = i < 0 ? 'idk' : i === it.ans ? 'ok' : 'ng',
-    x = r === 'ng' && it.q !== 's' ? it.opts[i].id : 0;
+  clearTimeout(bt.tm);
+  const late = it.limit && performance.now() - it.t0 > it.limit * 1000 + 150;
+  const r = late || i === -3 ? 'to' : i === -1 ? 'idk' : i === -2 || i === it.ans ? 'ok' : 'ng',
+    x = r === 'ng' && i >= 0 && it.q !== 's' && it.q !== 't' ? it.opts[i].id : 0;
   it.r = r;
   if (r === 'ok') st.right++;
   LM.answer(it.d, { q: it.q, ok: r === 'ok', ms: performance.now() - it.t0, x, exam: true });
@@ -9140,15 +10727,19 @@ function btPick(i) {
   }, 160);
 }
 function btDone() {
+  clearTimeout(bt.tm);
   bt.res = LM.btFinish(bt.st);
   renderCurLv();
   if (bt.res.pass) {
     window.mmFeedback && mmFeedback(true);
-    const l = LM.baseLevel();
-    if (l !== state.level) setLevel(l);
-    else refresh();
-    toast(L10.btToast(RN[bt.res.r]));
+    if (!bt.res.gate) {
+      const l = LM.baseLevel();
+      if (l !== state.level) setLevel(l);
+      else refresh();
+      toast(L10.btToast(RN[bt.res.r]));
+    }
   } else refresh();
+  renderBt();
   window.scrollTo(0, 0);
 }
 view.addEventListener('click', e => {
@@ -9167,6 +10758,10 @@ view.addEventListener('click', e => {
     go('soul');
     return;
   }
+  if (id === 'btGate') {
+    openGate(true);
+    return;
+  }
   if (id === 'btPractice') {
     pendingRun = { mode: 'quiz', items: bt.res.weak.slice(0, 12).map(d => ({ k: 'q', d, q: LM.pickType(d) })) };
     go('quiz');
@@ -9178,6 +10773,87 @@ view.addEventListener('click', e => {
   }
   const b = e.target.closest('[data-b]');
   if (b) btPick(+b.dataset.b);
+});
+view.addEventListener('submit', e => {
+  if (e.target.id !== 'btPyForm' || state.screen !== 'bt') return;
+  e.preventDefault();
+  const st = bt && bt.st,
+    it = st && st.items[st.i],
+    v = $('btPyIn')?.value || '';
+  if (!it || it.busy || !v.trim()) return;
+  btPick(LM.pyCheck(it.d, v).ok ? -2 : -4);
+});
+/* ---- app/gate.js ---- */
+/* ---------- the gate (仙门) after 飞升 ----------
+   HSK 7–9 and the realms above 飞升 stay hidden until 飞升 is reached by a breakthrough: before that nothing in the
+   app hints at them (the realm path just ends at 飞升; Josh wants a real surprise). When it opens, the HSK 7–9 word files are
+   loaded (they ship inside the app, nothing is downloaded) and a short ceremony shows what was behind it: the three
+   new realms one by one, each step at the learner's own pace (a tap), every animation a quick fade or scale.
+   Restored from a backup on another phone: the gate simply opens with a welcome, no ceremony. */
+const gateOv = $('gateOv');
+let gateStep = -1;
+function openGate(ceremony) {
+  return XC.loadBand()
+    .then(words => {
+      if (words && words.some(d => !d.id)) addBand(words);
+      refresh();
+      renderCurLv();
+      if (ceremony && !(LM.level && LM.level.gs)) gateShow();
+      else {
+        LM.gateSeen();
+        toast(L10.gateWelcome);
+        if (state.screen === 'bt') go('home');
+      }
+    })
+    .catch(e => {
+      console.error(e);
+      toast(L10.dataFail);
+    });
+}
+const GATE_R = [8, 9, 10];
+function gateRender() {
+  const n = BY[7] && BY[8] && BY[9] ? BY[7].length + BY[8].length + BY[9].length : 0;
+  const seals = GATE_R.map(
+    (r, i) =>
+      `<div class="gseal${gateStep > i ? ' on' : ''}" style="--lc:${rc(r)}"><b lang="zh-CN">${RN[r]}</b><small>${RPY[r]}</small><span>${esc(L10.realmM[r])}</span></div>`,
+  ).join('');
+  const txt = gateStep === 0 ? L10.gate0 : gateStep <= 3 ? esc(L10.realmD[GATE_R[gateStep - 1]]) : L10.gate4(fmt(n));
+  gateOv.innerHTML = `<div class="gatebox"><div class="gdoor${gateStep >= 4 ? ' open' : ''}" aria-hidden="true"><span lang="zh-CN">仙</span><span lang="zh-CN">门</span></div>
+    <div class="gtitle"><b lang="zh-CN">仙门</b> <small>xiānmén</small></div><div class="gseals">${seals}</div>
+    <p class="gtxt" aria-live="polite">${txt}</p>
+    <button class="next gnext" id="gateNext">${gateStep >= 4 ? L10.gateEnter : L10.gateOn}</button></div>`;
+  $('gateNext').focus();
+}
+function gateShow() {
+  gateStep = 0;
+  gateOv.setAttribute('aria-label', '仙门 xiānmén'); /* set only now: before the gate nothing may name it */
+  gateOv.hidden = false;
+  document.body.style.overflow = 'hidden';
+  gateRender();
+}
+function gateNext() {
+  if (gateStep >= 4) {
+    gateClose();
+    return;
+  }
+  gateStep++;
+  gateRender();
+}
+function gateClose() {
+  gateOv.hidden = true;
+  gateStep = -1;
+  document.body.style.overflow = '';
+  LM.gateSeen();
+  go('soul');
+}
+gateOv.addEventListener('click', e => {
+  if (e.target.closest('#gateNext') || e.target === gateOv || e.target.closest('.gatebox')) gateNext();
+});
+gateOv.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    e.preventDefault();
+    gateClose();
+  }
 });
 /* ---- app/soul-page.js ---- */
 /* ---------- Soul Sea (识海): the realm, the soul orb, the five elements (五行), today's trial, cultivation days, rest ----------
@@ -9235,7 +10911,7 @@ function soulRows(S) {
                 ? L10.attrX.dao(fmt(S.daoOk), fmt(S.daoN))
                 : '';
     return `<div class="elrow el-${k}${weak ? ' weak' : ''}"><span class="elg" aria-hidden="true"><b lang="zh-CN">${g}</b><small>${ELP[k]}</small></span><div class="elt">
-      <div class="eln"><b lang="zh-CN">${ATZ[a][0]}</b><small class="hpy">${ATZ[a][1]}</small><span>${esc(L10.attrN[a])}</span><em>${esc(val)}</em></div>
+      <div class="eln"><b lang="zh-CN">${ATZ[a][0]}</b><small class="hpy">${ATZ[a][1]}</small><span>${esc(L10.attrN[a])}</span><em${v === null ? ' class="na"' : ''}>${esc(val)}</em></div>
       <span class="elbar"><i style="width:${v === null ? 0 : Math.max(2, v)}%"></i></span><small>${esc(L10.attrD[a])}${x ? `<br><b class="elx">${esc(x)}</b>` : ''}</small>
       ${weak ? `<p class="eltip">${esc(L10.attrTip[a])}</p>` : ''}${strong ? `<p class="eltitle">${L10.titleL(`<span lang="zh-CN">${TTL[a][0]}</span> ${TTL[a][1]} · ${esc(L10.attrTitle[a])}`)}</p>` : ''}</div></div>`;
   }).join('');
@@ -9283,7 +10959,7 @@ function renderSoul() {
   $('soulBody').innerHTML = `<div class="soulhero" style="--lc:${rc(r)}">
       <div class="orbwrap">${SOUL.wheel(S, 300)}<canvas class="orb" id="orb" role="img" aria-label="${esc(L10.orbL(fmt(S.words)))}"></canvas></div>
       ${realmHead(r, true)}<p class="orbpick" id="orbPick" aria-live="polite">${S.words ? L10.orbHint : L10.orbEmpty}</p></div>
-    <section class="scard prog">${hd('修炼之路', 'xiūliàn zhī lù', L10.pathM)}${pathH(r)}${stageH(r)}${testH()}</section>
+    <section class="scard prog">${hd('修炼之路', 'xiūliàn zhī lù', L10.pathM)}${pathH(r)}${stageH(r)}${testH(false)}</section>
     <section class="scard advc">${hd('指点', 'zhǐdiǎn', L10.advM)}<p class="gnote advintro">${L10.advIntro}</p>${adviceH(6)}</section>
     <section class="scard">${hd('五行', 'wǔxíng', L10.elM)}${soulRows(S)}</section>
     <section class="scard chal${c.done ? ' done' : ''}">${hd('今日试炼', 'jīnrì shìliàn', L10.chalM)}<p class="chtxt">${L10.chalTxt(skName(c.k), c.n, c.a)}</p>
@@ -9302,7 +10978,7 @@ function renderSoul() {
           : L10.medNone
       } <button class="linkbtn" id="medSet">${L10.medSet}</button></p></section>
     <section class="scard">${hd('休息之道', 'xiūxi zhī dào', L10.restM)}${restH(LM.restGain())}</section>
-    <section class="scard">${hd('境界历程', 'jìngjiè lìchéng', L10.histM)}${hist.length ? `<div class="hist">${hist.map(([hr, t]) => `<div class="hrow" style="--lc:${rc(hr)}"><b lang="zh-CN">${RN[hr]}</b><small class="hpy">${RPY[hr]}</small><span>${esc(L10.realmM[hr])}</span><small>${dateS(tDate(t))}</small></div>`).join('')}</div>` : `<p class="gnote">${L10.histEmpty}</p>`}
+    <section class="scard">${hd('境界历程', 'jìngjiè lìchéng', L10.histM)}${hist.length ? `<div class="hist">${hist.map(([hr, t, how, g]) => `<div class="hrow" style="--lc:${rc(hr)}"><b lang="zh-CN">${RN[hr]}</b><span class="hmid"><small class="hpy">${RPY[hr]}</small> ${esc(L10.realmM[hr])}${g ? ` <span class="grade g${g} sm"><b lang="zh-CN">${LM.GRADES[g]}</b></span>` : how === 'test' ? ' <span class="recog" lang="zh-CN">认定</span>' : ''}</span><small class="hdt">${dateS(tDate(t))}</small></div>`).join('')}</div>` : `<p class="gnote">${L10.histEmpty}</p>`}
       ${info && info.per ? `<div class="glbl">${L10.ptPer}</div>${perBars(info.per)}` : ''}</section>`;
   SOUL.mount($('orb'), {
     realm: r,
@@ -9342,6 +11018,10 @@ scrSoul.addEventListener('click', e => {
   }
   if (id === 'ptGo') {
     go('placement');
+    return;
+  }
+  if (id === 'stabGo') {
+    stabRun();
     return;
   }
   if (id === 'medSet') {
@@ -9441,6 +11121,10 @@ const nightKey = () => new Date(Date.now() - 4 * 36e5).toDateString(); /* 23:00�
 /* Back closes the topmost layer: a menu, then the focused screen (back to Home). false lets the app exit. */
 window.mmBack = function () {
   if (window.mmBusy && mmBusy()) return true; /* a screen animation is still running */
+  if (!gateOv.hidden) {
+    gateClose();
+    return true;
+  }
   if (!lvlSheet.hidden) {
     closeLvl();
     return true;
@@ -9556,6 +11240,9 @@ if (!LM.goal && !ls.get('xc_onb', 0))
     if (state.screen === 'home' && goalSheet.hidden && bkSheet.hidden && infoSheet.hidden) openGoal(true);
   }, 500);
 setTimeout(() => LM.maybeOptimize(), 6000);
+/* the gate after 飞升: opened by a breakthrough in an earlier version, or its ceremony was not finished */
+if (LM.gateOpen() && !XC.band) setTimeout(() => openGate(true), 700);
+else if (XC.band && LM.level && !LM.level.gs) setTimeout(gateShow, 700);
 </script>
 <script type="text/x-xueci" id="xc-glass">
 /* ---- glass.js ---- */

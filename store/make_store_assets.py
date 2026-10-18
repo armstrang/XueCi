@@ -154,6 +154,8 @@ body{font-family:"Plus Jakarta Sans",sans-serif;color:#10241a;position:relative;
 async def app_shot(browser, base, lang, locale, kind, sample, out):
     ctx = await browser.new_context(viewport={'width': 360, 'height': 720}, device_scale_factor=3, locale=locale)
     init = dict(sample, hsk16_theme=THEME[kind], hsk16_ui={'level': LEVEL[kind], 'unitBy': {}, 'qt': 's' if kind == 'quiz' else 'auto'})
+    if kind == 'placement':   # the placement test is the way in (v1.13): shown for a learner who hasn't taken it yet
+        init = {k: v for k, v in init.items() if k not in ('xc_lvl', 'xc_tests')}
     await ctx.add_init_script('const S=' + json.dumps(init) + ';for(const k in S)localStorage.setItem(k,JSON.stringify(S[k]));')
     # same cards and quiz questions on every run
     await ctx.add_init_script('{let x=12345;Math.random=()=>((x=(x*1103515245+12345)%2147483648)/2147483648)}')

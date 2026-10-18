@@ -15,11 +15,18 @@ function renderPlacement() {
     return;
   }
   if (!pt.st) {
-    if (!LM.canTest()) {
+    /* the way in: the first test, or one retake within 14 days of it; after that only breakthroughs */
+    const o = LM.ptOpen();
+    if (o === 'wait') {
       view.innerHTML = lockedH();
       return;
     }
+    if (!o) {
+      view.innerHTML = `<div class="qcard ptintro"><div class="big t5" lang="zh-CN">门</div><h3>${L10.ptClosedT}</h3><p class="sumnote">${L10.ptClosed}</p><button class="next" id="tHome">${L10.sumHome}</button></div>`;
+      return;
+    }
     view.innerHTML = `<div class="qcard ptintro"><div class="big t3">测</div><h3>${L10.ptIntroT}</h3><p class="sumnote">${L10.ptIntro}</p><p class="sumnote">${L10.ptIntro2}</p>
+      <p class="sumnote">${o === 'retake' ? L10.ptRetakeNote(dateS(tDate(LM.ptRetakeUntil()))) : L10.ptOnce}</p>
       <button class="next" id="ptBegin">${L10.ptBegin}</button></div>`;
     return;
   }
@@ -71,7 +78,8 @@ view.addEventListener('click', e => {
   if (state.screen !== 'placement') return;
   const id = e.target.closest('[id]')?.id;
   if (id === 'ptBegin') {
-    if (LM.canTest()) pt.st = LM.ptStart();
+    const o = LM.ptOpen();
+    if (o === 'first' || o === 'retake') pt.st = LM.ptStart();
     renderPlacement();
     return;
   }

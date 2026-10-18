@@ -33,7 +33,20 @@ HOST = f'http://127.0.0.1:{SERVER.server_address[1]}'
 PAGE = HOST + '/index.html'
 OUT = os.path.join(ROOT, 'tests', 'out')
 failures = []
-RN = ['凡人', '炼气', '筑基', '金丹', '元婴', '化神', '渡劫', '飞升']
+RN = ['凡人', '炼气', '筑基', '金丹', '元婴', '化神', '渡劫', '飞升', '真仙', '玄仙', '大罗']
+# HSK 7–9 are a surprise (Josh): before the gate nothing in the page — text, labels, hidden sheets — may hint at them
+SECRET = ['真仙', '玄仙', '大罗', '仙门', 'HSK 7', 'HSK 8', 'HSK 9', '7–9', '7-9', 'xiānmén', 'zhēnxiān', 'xuánxiān', 'dàluó']
+LEAKS = '''words => { const out = new Set(), w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT);
+  for (let n = w.nextNode(); n; n = w.nextNode()) {
+    if (n.nodeType === 1) { if (['SCRIPT', 'STYLE', 'TEMPLATE'].includes(n.tagName)) continue;
+      for (const a of ['aria-label', 'title', 'alt', 'placeholder']) { const v = n.getAttribute(a); if (v) words.forEach(x => v.includes(x) && out.add(x)) } }
+    else if (!n.parentElement.closest('script,style,template')) words.forEach(x => n.data.includes(x) && out.add(x)) }
+  return [...out] }'''
+
+
+async def no_leak(pg, tag, where):
+    found = await pg.evaluate(LEAKS, SECRET)
+    check(not found, f'{tag}: no hint of what lies past 飞升 ({where}) {found}')
 
 
 def check(cond, what):
@@ -48,6 +61,7 @@ STEP = '''ok => { const it = run && run.items[run.i]; if (!it) return 'end';
     if (it.st === 'front') { document.getElementById('fcYes').click(); return 'claim' }
     if (it.st === 'check') { const i = ok ? it.chk.ans : (it.chk.ans + 1) % it.chk.opts.length; document.querySelectorAll('#fcAct [data-c]')[i].click(); return 'check' }
     document.getElementById('fcNext').click(); return 'next' }
+  if (!it.done && it.q === 'p') { document.getElementById('pyIn').value = ok ? it.d.s.join(' ') : 'zzz1'; document.getElementById('pyForm').requestSubmit(); return 'answer' }
   if (!it.done) { const i = ok ? it.ans : (it.ans + 1) % it.opts.length; document.querySelectorAll('.opts button')[i].click(); return 'answer' }
   document.getElementById('qNext').click(); return 'next' }'''
 
@@ -114,6 +128,7 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         await pg.set_viewport_size({'width': width, 'height': 800})
         await pg.wait_for_timeout(150)
     await shot('home')
+    await no_leak(pg, tag, 'Home')
 
     # level pills (Home lens)
     await pg.click('.lvpill[data-l="3"]')
@@ -256,6 +271,7 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     await pg.wait_for_timeout(450)
     check(await pg.locator('#stIns .kpis').count() == 1 and await pg.locator('#stIns .skrow').count() >= 2, f'{tag}: stats show learning insights')
     await shot('stats')
+    await no_leak(pg, tag, 'Stats')
     check(await pg.locator('#scr-stats .lvseg .lens').count() == 1, f'{tag}: stats HSK selector has the lens')
     await pg.click('#stLevels .lvpill[data-sl="5"]')
     await pg.wait_for_timeout(300)
@@ -308,7 +324,9 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         await pg.wait_for_timeout(400)
         await pg.click('#curLvBtn')
         await pg.wait_for_timeout(300)
-        check(await pg.locator('#ptGo').is_disabled() and await pg.locator('#lvlSheet .lockn').count() == 1, f'{tag}: one test a week (the next test is locked)')
+        check(await pg.locator('#ptGo').is_enabled() and await pg.locator('#ptGo.ghost').count() == 1 and await pg.locator('#btGo').count() == 0,
+              f'{tag}: after the placement test only its one retake is offered')
+        await no_leak(pg, tag, 'realm sheet')
         await pg.click('#soulGo')
         await pg.wait_for_timeout(500)
         check(await pg.evaluate('state.screen') == 'soul' and await pg.locator('.wheel .wtrk').count() == 5 and await pg.locator('.elrow').count() == 5,
@@ -331,6 +349,7 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         check('huàshén' in await pg.locator('#soulBody .rpinfo').text_content(), f'{tag}: tapping a realm on the path explains it')
         check(not await overflow(), f'{tag}: Soul Sea, no sideways scroll')
         await shot('soul', True)
+        await no_leak(pg, tag, 'Soul Sea')
         await pg.click('#soulHelp')
         await pg.wait_for_timeout(300)
         check(await pg.locator('details.hlp[data-k="soul"][open]').count() == 1, f'{tag}: "?" opens the help topic')
@@ -349,7 +368,9 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     check(await pg.locator('details.hlp[data-k="realm"][open] p').count() >= 3, f'{tag}: a help topic opens')
     rows = await pg.locator('details.hlp[data-k="realm"] .hrow2').all_text_contents()
     check(len(rows) == 12 and 'liànqì' in rows[1] and 'yuánmǎn' in rows[11], f'{tag}: help lists every realm and stage with pinyin and meaning ({len(rows)} rows)')
-    check(await pg.locator('details.hlp[data-k="gloss"] .hrow2').count() == 11 and await pg.locator('details.hlp[data-k="soul"] .hrow2').count() == 5,
+    await pg.evaluate("document.querySelectorAll('details.hlp').forEach(d => d.open = true)")
+    await no_leak(pg, tag, 'help, glossary and About')
+    check(await pg.locator('details.hlp[data-k="gloss"] .hrow2').count() == 17 and await pg.locator('details.hlp[data-k="soul"] .hrow2').count() == 5,
           f'{tag}: glossary and the five elements are explained one by one')
     await shot('help', False)
     check(await pg.get_attribute('.plink', 'href') == 'https://armstrang.github.io/XueCi/privacy/' and bool((await pg.locator('.plink').text_content()).strip()), f'{tag}: privacy policy link in About')
@@ -406,7 +427,7 @@ async def legacy_case(browser):
     old = {'1:学生': [25, 1, 20], '1:你好': [10, 0, 10], '2:已经': [16, 0, 16]}
     with open(os.path.join(ROOT, 'web', 'data', 'vocab.json'), encoding='utf8') as f:
         rnd = random.Random(3)
-        for d in rnd.sample(json.load(f), 600):
+        for d in rnd.sample([d for d in json.load(f) if d['l'] <= 6], 600):
             old.setdefault(f"{d['l']}:{d['h']}", [rnd.randint(1, 30), rnd.randint(0, 9), rnd.randint(0, 20)])
     await ctx.add_init_script("localStorage.setItem('mm_stats', %s);localStorage.setItem('xc_onb','1')" % json.dumps(json.dumps(old)))
     pg = await ctx.new_page()
@@ -545,13 +566,13 @@ async def realm_case(browser):
     await pg.click('#btGo')
     await pg.wait_for_timeout(450)
     check(await pg.evaluate('state.screen') == 'bt' and await pg.locator('.btpath').count() == 1, f'{tag}: breakthrough intro 炼气 → 筑基')
+    check(await pg.locator('.stklist .stkrow').count() >= 4, f'{tag}: the intro lists the strikes of the 雷劫')
     await pg.click('#btBegin')
     await pg.wait_for_timeout(150)
-    check(await pg.evaluate('bt.st.items.length') == 20, f'{tag}: 20 breakthrough questions')
-    for _ in range(20):
-        await pg.click('#btIdk')
-        await pg.wait_for_timeout(190)
-    await pg.wait_for_timeout(200)
+    n_it = await pg.evaluate('bt.st.items.length')
+    check(n_it in (23, 28) and await pg.locator('.strikes .stk').count() >= 4, f'{tag}: the tribulation in strikes ({n_it} questions)')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-bt-strike.png'))
+    await tribulation(pg, False)
     check(await pg.locator('.btres').count() == 1 and await pg.locator('.btres.pass').count() == 0 and await pg.evaluate('LM.realm()') == 1,
           f'{tag}: a failed breakthrough keeps the realm')
     check(await pg.locator('.btres .wchip').count() >= 10 and await pg.locator('.btres .lockn').count() == 1, f'{tag}: the words to strengthen and the next test date')
@@ -563,13 +584,11 @@ async def realm_case(browser):
     await pg.evaluate("go('bt')")
     await pg.wait_for_timeout(450)
     await pg.click('#btBegin')
-    for _ in range(20):
-        ans = await pg.evaluate('bt.st.items[bt.st.i].ans')
-        await pg.click(f'#btOpts [data-b="{ans}"]')
-        await pg.wait_for_timeout(190)
-    await pg.wait_for_timeout(450)
+    await pg.wait_for_timeout(150)
+    await tribulation(pg, True)
     check(await pg.locator('.btres.pass').count() == 1 and await pg.evaluate('LM.realm()') == 2 and await pg.locator('#curLvName').text_content() == '筑基',
           f'{tag}: a passed breakthrough rises to 筑基')
+    check(await pg.locator('.btres .grade').count() == 1 and await pg.locator('.btres .stkres .skrow.ok').count() >= 4, f'{tag}: the result shows the foundation quality and every strike')
     await pg.screenshot(path=os.path.join(OUT, f'{tag}-bt-pass.png'))
     await pg.evaluate("go('placement')")
     await pg.wait_for_timeout(450)
@@ -604,6 +623,92 @@ async def realm_case(browser):
     check(await pg.locator('.toast.long').is_visible() and '3 days' in await pg.locator('.toast').text_content(), f'{tag}: welcome back after 3 days')
     await ctx.close()
     check(not errors, f'{tag}: no page errors {errors[:2]}')
+
+
+async def tribulation(pg, right):
+    """Answers every strike of a tribulation: all right (typing the pinyin for 忆) or all "don't know"."""
+    for _ in range(40):
+        it = await pg.evaluate('bt && bt.st && !bt.res && bt.st.items[bt.st.i] ? {q: bt.st.items[bt.st.i].q, ans: bt.st.items[bt.st.i].ans, s: bt.st.items[bt.st.i].d.s} : null')
+        if not it:
+            break
+        if not right:
+            await pg.click('#btIdk')
+        elif it['q'] == 'p':
+            await pg.fill('#btPyIn', ' '.join(it['s']))
+            await pg.click('#btPyForm .pygo')
+        else:
+            await pg.click(f'#btOpts [data-b="{it["ans"]}"]')
+        await pg.wait_for_timeout(190)
+    await pg.wait_for_timeout(400)
+
+
+async def gate_case(browser):
+    """The surprise past 飞升: nothing before it; a breakthrough from 渡劫 opens the gate, a short ceremony, HSK 7–9 load."""
+    tag = 'gate'
+    errors = []
+    ctx = await browser.new_context(viewport={'width': 360, 'height': 780}, locale='en-US')
+    await ctx.add_init_script('''localStorage.setItem('xc_onb','1'); const t = Math.round((Date.now() - Date.UTC(2026,0,1)) / 6e4) - 8*1440;
+      localStorage.setItem('xc_lvl', JSON.stringify({lv: 6, r: 6, src: 'bt', at: t, hist: [[6, t, 'bt', 2]]}))''')
+    pg = await ctx.new_page()
+    pg.on('pageerror', lambda e: errors.append(str(e)))
+    await pg.goto(PAGE)
+    await pg.wait_for_timeout(900)
+    await pg.evaluate('''() => { const t = LM.now(), m = {}; for (const d of BY[6]) m[d.id] = {w: [4, 40, t - 60], i: t - 30*1440, k: t - 20*1440,
+        m: [4, 40, t - 60, 3, 2], f: [4, 40, t - 60, 3, 2], s: [4, 40, t - 60, 3, 2]}; LM.replace(m); renderHome() }''')
+    check(not await pg.evaluate('XC.band') and await pg.evaluate('LEVELS.length') == 6 and await pg.locator('.lvpill').count() == 6, f'{tag}: before the gate only HSK 1–6 exist')
+    await no_leak(pg, tag, 'Home at 渡劫 圆满')
+    await pg.click('#curLvBtn')
+    await pg.wait_for_timeout(350)
+    await no_leak(pg, tag, 'realm sheet at 渡劫')
+    await pg.click('#btGo')
+    await pg.wait_for_timeout(450)
+    await no_leak(pg, tag, 'tribulation intro to 飞升')
+    await pg.click('#btBegin')
+    await pg.wait_for_timeout(150)
+    await tribulation(pg, True)
+    check(await pg.locator('.btres.pass').count() == 1 and await pg.evaluate('LM.realm()') == 7 and await pg.evaluate('LM.gateOpen()'), f'{tag}: breaking through to 飞升 opens the gate')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-bt-pass.png'))
+    check(await pg.locator('#btGate').is_visible(), f'{tag}: the result leads to the gate')
+    await pg.click('#btGate')
+    await pg.wait_for_timeout(1200)
+    check(await pg.locator('#gateOv').is_visible() and await pg.evaluate('XC.band') and await pg.evaluate('LEVELS.join()') == '1,2,3,4,5,6,7,8,9',
+          f'{tag}: the ceremony opens and HSK 7–9 are loaded')
+    for i in range(5):
+        await pg.screenshot(path=os.path.join(OUT, f'{tag}-ceremony-{i}.png'))
+        check(await pg.locator('.gseal.on').count() == min(i, 3), f'{tag}: ceremony step {i} reveals the realms one by one') if i < 4 else None
+        await pg.click('#gateNext')
+        await pg.wait_for_timeout(320)
+    check(await pg.locator('#gateOv').is_hidden() and await pg.evaluate('state.screen') == 'soul' and await pg.evaluate('LM.level.gs') == 1, f'{tag}: entering leads to the Soul Sea')
+    check(await pg.locator('#soulBody .rpath .rp').count() == 11 and await pg.locator('#curLvName').text_content() == '飞升', f'{tag}: the realm path now reaches 大罗')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-soul.png'), full_page=True)
+    await pg.evaluate("go('home')")
+    await pg.wait_for_timeout(450)
+    check(await pg.locator('.lvpill').count() == 9 and not await pg.evaluate('document.documentElement.scrollWidth > innerWidth'), f'{tag}: Home has nine HSK pills and still fits')
+    fits = await pg.evaluate('document.documentElement.scrollHeight <= innerHeight + 1')
+    check(fits, f'{tag}: Home still fits one screen')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-home.png'))
+    await pg.evaluate('setLevel(7)')
+    await pg.wait_for_timeout(300)
+    await pg.click('.tile[data-go="list"]')
+    await pg.wait_for_timeout(450)
+    check(await pg.locator('.item').count() > 10 and await pg.evaluate("BY[7].every(d => !!M(d))"), f'{tag}: HSK 7 words show with their meanings')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-list7.png'))
+    await pg.evaluate("mmBack()")
+    await pg.wait_for_timeout(300)
+    await pg.click('#toneInfo')
+    await pg.wait_for_timeout(400)
+    rows = await pg.locator('details.hlp[data-k="realm"] .hrow2').count()
+    gl = await pg.locator('details.hlp[data-k="gloss"] .hrow2').count()
+    check(rows == 15 and gl == 18, f'{tag}: help now lists eleven realms and the gate ({rows} rows, glossary {gl})')
+    await pg.evaluate('mmBack()')
+    await pg.evaluate("setLang('vi')")
+    await pg.wait_for_timeout(700)
+    check(await pg.evaluate("M(BY[8][0]) === BY[8][0].vm && !!BY[8][0].vm"), f'{tag}: HSK 7–9 meanings follow the language')
+    await pg.reload()
+    await pg.wait_for_timeout(1200)
+    check(await pg.evaluate('XC.band') and await pg.evaluate('BY[9].length') > 1000 and await pg.locator('#gateOv').is_hidden(), f'{tag}: after a restart HSK 7–9 load at once, no second ceremony')
+    check(not errors, f'{tag}: no page errors {errors[:2]}')
+    await ctx.close()
 
 
 STUB = '''window.__calls = []; window.MMAndroid = {fontScale: () => 1, setBars() {}, setTheme() {}, ttsStatus: () => 'none', speak() {}, stopSpeaking() {},
@@ -645,13 +750,14 @@ async def main():
     os.makedirs(OUT, exist_ok=True)
     async with async_playwright() as p:
         browser = await p.chromium.launch()
-        for width, locale, theme, fs, onb in ((360, 'id-ID', 'light', 1, True), (412, 'en-US', 'dark', 1, False), (320, 'th-TH', 'black', 1, False),
-                                              (1280, 'vi-VN', 'auto', 1, False), (360, 'vi-VN', 'light', 1.6, True)):
-            await run_case(browser, width, locale, theme, fs, onb)
-        await legacy_case(browser)
-        await store_case(browser)
-        await realm_case(browser)
-        await reminder_case(browser)
+        only = set(sys.argv[1:])   # e.g. `python3 tests/smoke.py gate realm` runs just those cases
+        if not only or 'main' in only:
+            for width, locale, theme, fs, onb in ((360, 'id-ID', 'light', 1, True), (412, 'en-US', 'dark', 1, False), (320, 'th-TH', 'black', 1, False),
+                                                  (1280, 'vi-VN', 'auto', 1, False), (360, 'vi-VN', 'light', 1.6, True)):
+                await run_case(browser, width, locale, theme, fs, onb)
+        for name, case in (('legacy', legacy_case), ('store', store_case), ('realm', realm_case), ('gate', gate_case), ('reminder', reminder_case)):
+            if not only or name in only:
+                await case(browser)
         await browser.close()
     print(f'\n{len(failures)} failed' if failures else '\nall checks passed')
     sys.exit(1 if failures else 0)

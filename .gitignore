@@ -10,3 +10,4 @@ web/dist/
 tests/out/
 web/fonts/src/
 store/raw/
+__pycache__/

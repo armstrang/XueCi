@@ -40,21 +40,34 @@ const GL = [
   ['调息', 'tiáoxī', 'tx'],
   ['休息之道', 'xiūxi zhī dào', 'xd'],
   ['境界历程', 'jìngjiè lìchéng', 'lc'],
+  ['雷劫', 'léijié', 'lj'],
+  ['道基', 'dàojī', 'dj'],
+  ['认定', 'rèndìng', 'rd'],
+  ['境界不稳', 'jìngjiè bù wěn', 'bw'],
+  ['试炼稳固', 'shìliàn wěngù', 'wg'],
+  ['补劫', 'bǔjié', 'bj'],
+  ['仙门', 'xiānmén', 'xm', 1] /* shown once the gate is open */,
 ];
 const hrow2 = (hz, py, main, sub, lc) =>
   `<div class="hrow2"${lc ? ` style="--lc:${lc}"` : ''}><span class="hz2"><b lang="zh-CN">${hz}</b><small>${py}</small></span><span class="hm"><em>${main}</em>${sub ? `<small>${sub}</small>` : ''}</span></div>`;
 function helpBlock(x) {
   if (x === '@realms')
-    return `<div class="htab">${RN.map((n, i) => hrow2(n, RPY[i], `${esc(L10.realmM[i])} · ${i ? (i > 6 ? 'HSK 6 ✓' : 'HSK ' + i) : esc(L10.notTested)}`, esc(L10.realmD[i]), rc(i))).join('')}</div>`;
+    return `<div class="htab">${RN.slice(0, TOPR() + 1)
+      .map((n, i) =>
+        hrow2(n, RPY[i], `${esc(L10.realmM[i])} · ${i ? realmHSK(i) : esc(L10.notTested)}`, esc(L10.realmD[i]), rc(i)),
+      )
+      .join('')}</div>`;
   if (x === '@stages')
     return `<div class="htab">${SN.map((n, i) => hrow2(n, SPY[i], esc(L10.stageM[i]), esc(L10.stageD[i]), 'var(--acc)')).join('')}</div>`;
   if (x === '@elements')
     return `<div class="htab">${EL5.map(([k, g, a]) => hrow2(`${g} ${ATZ[a][0]}`, `${ELP[k]} · ${ATZ[a][1]}`, `${esc(L10.elName[k])} · ${esc(L10.attrN[a])}`, esc(L10.attrD[a]), `var(--el-${k})`)).join('')}</div>`;
   if (x === '@gloss')
-    return `<div class="htab">${GL.map(([h, py, k]) => {
-      const [m, ...more] = L10.gloss[k].split(': ');
-      return hrow2(h, py, esc(m), esc(more.join(': ')), 'var(--acc)');
-    }).join('')}</div>`;
+    return `<div class="htab">${GL.filter(g => !g[3] || XC.band)
+      .map(([h, py, k]) => {
+        const [m, ...more] = L10.gloss[k].split(': ');
+        return hrow2(h, py, esc(m), esc(more.join(': ')), 'var(--acc)');
+      })
+      .join('')}</div>`;
   return `<p>${x}</p>`;
 }
 let infoOpener = null;

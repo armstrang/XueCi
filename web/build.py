@@ -15,6 +15,8 @@ Sources (web/src):
   glass.js         Liquid Glass interactions: HSK lens, screen zoom, theme reveal, haptics
 Data: web/data/vocab.json (canonical, one word per line) is split into data/core.json (everything but the meanings)
 and data/<lang>.json (meaning + sentence translation per word, same order), which the page loads beside itself.
+HSK 1–6 go to core.json / <lang>.json; HSK 7–9 (the advanced band) to core-b.json / <lang>-b.json, which the page
+only loads once the learner has opened the gate after 飞升.
 
 Writes:
   app/src/main/assets/index.html + app/src/main/assets/data/   the app (fonts from assets/fonts/, web/make_fonts.py)
@@ -31,9 +33,9 @@ SRC = os.path.join(ROOT, 'web', 'src')
 APP = ['i18n.js', 'i18n-app.js', 'i18n-learn.js',
        'app/core.js', 'app/mastery.js', 'learn.js', 'soul.js',
        'app/state.js', 'app/screens.js', 'app/home.js', 'app/pickers.js', 'app/language.js', 'app/list.js',
-       'app/runner.js', 'app/cards.js', 'app/quiz.js', 'app/summary.js', 'app/stats.js', 'app/info.js',
+       'app/runner.js', 'app/cards.js', 'app/quiz.js', 'app/summary.js', 'app/stats.js', 'app/research.js', 'app/info.js',
        'app/speech.js', 'app/backup.js', 'app/plan.js', 'app/goal.js', 'app/realm.js', 'app/placement.js',
-       'app/breakthrough.js', 'app/soul-page.js', 'app/reminder.js', 'app/notes.js', 'app/keys.js', 'app/start.js']
+       'app/breakthrough.js', 'app/gate.js', 'app/soul-page.js', 'app/reminder.js', 'app/notes.js', 'app/keys.js', 'app/start.js']
 
 # vocab.json fields: everything but the meanings goes to core.json; meanings per study language go to <lang>.json.
 CORE = ['l', 'n', 'u', 'h', 'p', 's', 'z', 'zp', 'f', 'g', 'pm']
@@ -60,11 +62,16 @@ def data_files():
     words = json.loads(read('web', 'data', 'vocab.json'))
     for d in words:
         # usable in the placement test: a short first meaning (Indonesian, as before the data was split)
-        d['pm'] = 1 if len(d['m'].split(';')[0]) <= 28 else 0
+        d['pm'] = 1 if d['l'] <= 6 and len(d['m'].split(';')[0]) <= 28 else 0
     pack = lambda o: json.dumps(o, ensure_ascii=False, separators=(',', ':'))
-    files = {'core.json': pack({'cols': CORE, 'rows': [[d.get(k) for k in CORE] for d in words]})}
-    for lang, (m, t) in LANG_COLS.items():
-        files[f'{lang}.json'] = pack({'lang': lang, 'rows': [[d[m], d[t]] for d in words]})
+    files = {}
+    for part, sel in (('', lambda d: d['l'] <= 6), ('-b', lambda d: d['l'] >= 7)):
+        ws = [d for d in words if sel(d)]
+        if not ws:
+            continue
+        files[f'core{part}.json'] = pack({'cols': CORE, 'rows': [[d.get(k) for k in CORE] for d in ws]})
+        for lang, (m, t) in LANG_COLS.items():
+            files[f'{lang}{part}.json'] = pack({'lang': lang, 'rows': [[d[m], d[t]] for d in ws]})
     return words, files
 
 

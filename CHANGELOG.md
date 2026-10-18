@@ -4,6 +4,61 @@ Every push of app changes to `main` makes a new release on [GitHub Releases](htt
 (v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
 before pushing.
 
+## v1.13 — 19 October 2026
+
+**The breakthrough becomes a tribulation in strikes, realms have a foundation quality and can become unstable, the
+placement test is the way in, typed pinyin and translation questions, model accuracy in Stats, and a design pass.**
+
+### New
+- **The breakthrough is a lightning tribulation (雷劫 léijié)**: a series of strikes, each one skill on your realm's
+  words, with no feedback until the end:
+  - 识 meaning · 忆 pinyin typed from memory · 听 listening (left out if the phone has no Chinese voice) ·
+    读 the word that fits a sentence · 速 meanings against the clock (6 seconds a question for HSK 1–3, 5 for HSK 4–6).
+  - It is passed when **every strike** has at least 70% right **and** the whole reaches the cut (75%, 80% from
+    HSK 5). Luck in one strike can't carry a weak skill.
+  - The result shows every strike with its score.
+- **Foundation quality (道基 dàojī).** The margin of a passed tribulation sets the quality of the new realm:
+  下品 low, 中品 middle, 上品 high, or 完美 perfect with not a single mistake. It shows in the realm path and the
+  realm history.
+- **Unstable realm (境界不稳).** A realm rests on the level below it. If those words fade (under 70% right in spaced
+  reviews over 30 days, or the memory model expects you to recall under 60% of them), the realm becomes unstable and
+  the breakthrough waits until you pass a **stabilising trial (试炼稳固)**: the 15 most faded words, 80% right.
+  A realm never drops.
+- **Typed pinyin questions** (meaning → type the pinyin with its tones). Tone numbers (xue2sheng1) or tone marks
+  both work, ü can be typed as v, the neutral tone needs no number, and 一 and 不 accept their spoken tones. A word
+  with the same meaning counts as right.
+- **Translation questions** (a whole sentence → choose its translation). The other options are sentences of about
+  the same length, so they have to be read.
+- **Model accuracy in Stats**: every spaced review is replayed through the memory model, and the recall it predicted
+  is compared with what happened, in five bands. Folded into one line by default.
+- **Research data (optional)**: you can copy your answer history, realm history and, if you like, your official HSK
+  result as one code, to help check whether the realms match real HSK results. The app sends nothing; you copy or
+  share the code yourself.
+
+### Changed
+- **The placement test is the way in.** It sets your starting realm once, at most 渡劫. One retake is allowed within
+  14 days of the first test (in case it went wrong); its result replaces the first. After that the realm rises only
+  by breaking through, one realm at a time. Realms reached by the placement test are marked 认定 rèndìng.
+- If your 飞升 came from a placement test (before v1.13), a make-up tribulation (补劫) on HSK 6 confirms it.
+- **The memory model adapts to you sooner**: from 100 spaced reviews instead of 400, with a pull towards the default
+  settings that fades as more of your answers come in.
+- **Design pass**:
+  - Home fills the screen exactly on every phone size: on taller phones the progress card grows (the ring sits
+    above the legend on very tall ones) and the tiles move down into thumb reach; on short screens the tile
+    subtitles step aside so nothing scrolls.
+  - With large phone text, the progress card stacks ring over legend and nothing runs off the edge.
+  - The tribulation intro keeps its rules in one quiet box; strike results have aligned bars.
+  - The realm sheet no longer repeats the realm's name under the path; the realm history is in neat columns.
+  - Stats are shorter: model accuracy is folded, and the model's state is said once.
+  - Shorter pinyin placeholder, muted "not enough data" values.
+- **Performance**: long word lists only lay out the cards near the screen, and bars no longer animate their width.
+- **Sentence pinyin**: ties in word splitting now follow jieba's word boundaries and counts, which fixes about 50
+  sentences (早上去 zǎoshang qù, 火车站 huǒchē zhàn, 获得了 huòdé le, 主要是 zhǔyào shì, 特别的 tèbié de …);
+  周一 reads yī, and 的 on its own always reads de.
+
+### Fixed
+- After a stabilising trial, only answers given after it count towards stability.
+
 ## v1.12 — 18 October 2026
 
 **Progress in a versioned IndexedDB store, word data out of the page, the placement test counted in realm progress,

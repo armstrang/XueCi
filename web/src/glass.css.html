@@ -230,5 +230,46 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
 .wheel .elg:not(.strong):not(.weak) circle{fill:color-mix(in srgb,var(--bg) 80%,transparent)}
 .adv,.hrow2{box-shadow:inset 0 1px 0 rgba(255,255,255,.12)}
 .rp.cur{box-shadow:0 0 0 3px color-mix(in srgb,var(--lc) 25%,transparent),inset 0 1px 0 rgba(255,255,255,.35)}
+/* ===== v1.13 design pass ===== */
+/* Home fills the screen exactly: on taller phones the gaps open up a little and the progress card takes the rest
+   (ring and legend centred in it, the ring larger where the width allows), so the tiles sit low, in thumb reach;
+   short screens drop the tile subtitles so everything still fits without scrolling */
+html:not(.bigtext) body[data-screen="home"] #scr-home{display:flex;flex-direction:column;gap:clamp(10px,calc((100svh - 680px)*.2),24px);min-height:calc(100svh - 10px - env(safe-area-inset-bottom,0px))}
+html:not(.bigtext) #scr-home>.hero{flex:1 1 auto;align-content:center}
+/* tall phones: the ring sits above the legend, larger */
+@media (min-height:880px) and (max-width:600px){
+  html:not(.bigtext) .hero{grid-template-columns:minmax(0,1fr);justify-items:center;row-gap:12px}
+  html:not(.bigtext) .ring{--rs:clamp(150px,min(calc(100svh - 735px),52vw),220px)}
+  html:not(.bigtext) .hinfo{width:100%}
+  html:not(.bigtext) .hkeys{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:22px}
+}
+html:not(.bigtext) #scr-home>*{margin-top:0!important;margin-bottom:0!important}
+.ring{--rs:clamp(100px,min(calc(18.5vh + max(0px,100vh - 720px)*.35),42vw),196px);width:var(--rs);height:var(--rs)}
+@media (max-height:719px){html:not(.bigtext) .tile small{display:none}}
+@media (max-height:660px){html:not(.bigtext) .hero .hfoot{display:none}html:not(.bigtext) body[data-screen="home"] #scr-home{gap:8px}html:not(.bigtext) .tile{min-height:72px}}
+/* larger phone text: the brand drops its second line, the hero stacks ring over legend */
+.bigtext .wm2{display:none}
+.bigtext .hero{grid-template-columns:minmax(0,1fr)}
+.bigtext .hero .ring{justify-self:center}
+.bigtext .hlv{white-space:normal}
+/* long word lists: cards off screen are not laid out or painted until scrolled near */
+.list .item{content-visibility:auto;contain-intrinsic-size:auto 150px}
+/* tribulation: the rules in one quiet box; strike results with aligned bars */
+.btrules{background:color-mix(in srgb,var(--fg) 5%,transparent);border-radius:16px;padding:11px 14px;margin:12px 0 16px;text-align:left;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.45}
+.btrules p{margin:0}.btrules .mute{color:var(--soft);font-size:12.5px}
+.stkres .skrow{grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) 4.6em}
+.stkres .skrow>b{white-space:nowrap}
+/* realm history: name, pinyin and meaning, date in fixed columns */
+.hist .hrow{display:grid;grid-template-columns:42px minmax(0,1fr) auto;column-gap:10px;align-items:baseline}
+.hist .hrow .hmid{font-size:13px;min-width:0}
+.hist .hrow small.hpy{margin-left:0;font-size:11.5px}
+.hist .hrow .hdt{margin-left:0;font-size:12px;color:var(--soft);white-space:nowrap}
+.ring .rc b{font-size:calc(var(--rs)*.245)}
+.eln em.na{color:var(--mute);font-weight:600;font-size:12px}
+/* model accuracy folds into one line */
+.mcheck>summary{cursor:pointer;font-size:14px}
+.mcheck>summary b{font-weight:800}
+.mcheck .mcsum{display:block;margin:1px 0 0 18px;font-size:12px;color:var(--soft);font-variant-numeric:tabular-nums}
+.mcheck[open]>summary{margin-bottom:8px}
 @media (prefers-reduced-motion:reduce){.res{animation:none}}
 </style>

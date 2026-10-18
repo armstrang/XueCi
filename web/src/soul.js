@@ -129,7 +129,7 @@ const SOUL = (() => {
   }
   function readColors() {
     const cs = getComputedStyle(document.body);
-    for (let l = 1; l <= 6; l++) colors[l] = cs.getPropertyValue('--l' + l).trim() || '#888';
+    for (let l = 1; l <= 9; l++) colors[l] = cs.getPropertyValue('--l' + l).trim() || '#888';
     colors.fg = cs.getPropertyValue('--fg').trim() || '#888';
     colors.acc = cs.getPropertyValue('--acc').trim();
     colors.dark = typeof isDark === 'function' && isDark();
@@ -162,14 +162,16 @@ const SOUL = (() => {
       c.arc(cx, cy, R * 1.35, 0, 7);
       c.fill();
     }
-    if (realmN === 7) {
+    if (realmN >= 7) {
+      /* the immortal realms: a slowly turning crown of rays, more rays the higher the realm */
+      const nr = 12 + 4 * (realmN - 7);
       c.save();
       c.translate(cx, cy);
       c.rotate(time / 9000);
-      c.fillStyle = 'rgba(255,240,190,.22)';
+      c.fillStyle = realmN >= 10 ? 'rgba(255,236,170,.3)' : 'rgba(255,240,190,.22)';
       c.beginPath();
-      for (let i = 0; i < 12; i++) {
-        c.rotate(Math.PI / 6);
+      for (let i = 0; i < nr; i++) {
+        c.rotate((2 * Math.PI) / nr);
         c.moveTo(0, -2);
         c.lineTo(R * 1.3, -0.5);
         c.lineTo(R * 1.3, 0.5);

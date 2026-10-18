@@ -217,9 +217,23 @@ const LM = (() => {
   }
 
   /* ---- answering ---- */
-  const SK = { cm: 'm', cs: 's', cn: 'm', m: 'm', f: 'f', s: 's', l: 's', c: 'f' };
-  const DEFMS = { cm: 4500, cs: 4500, cu: 4500, cn: 4500, m: 5000, f: 6000, s: 6000, l: 7000, c: 9000 };
-  const QUIZ = new Set(['m', 'f', 's', 'l', 'c']);
+  /* question types: m meaning · f form (hanzi from meaning) · s tones · l listening · c sentence gap ·
+     p type the pinyin from memory (v1.13, production) · t choose the translation of a sentence (v1.13) */
+  const SK = { cm: 'm', cs: 's', cn: 'm', m: 'm', f: 'f', s: 's', l: 's', c: 'f', p: 'f', t: 'm' };
+  const DEFMS = {
+    cm: 4500,
+    cs: 4500,
+    cu: 4500,
+    cn: 4500,
+    m: 5000,
+    f: 6000,
+    s: 6000,
+    l: 7000,
+    c: 9000,
+    p: 15000,
+    t: 12000,
+  };
+  const QUIZ = new Set(['m', 'f', 's', 'l', 'c', 'p', 't']);
   let last = null;
   function medMs(q) {
     const L = allLog(),
@@ -588,14 +602,123 @@ const LM = (() => {
     const opts = shuf([syl, ...out]);
     return { opts, ans: opts.indexOf(syl) };
   }
-  const clozeOK = d => d.z.includes(d.h);
+  const clozeOK = d => !!d.z && d.z.includes(d.h);
   let ttsReady = () => false;
-  /* material for one question: {opts, ans} — ans is the index of the right option */
+  /* the translation of an example sentence: the right one and three of other words' sentences, preferring words
+     that look or sound alike, then sentences of about the same length (a short exclamation among long sentences
+     gives itself away), so the sentences have to be read, not guessed from length or one familiar word */
+  function transOpts(d, hard) {
+    const tr = x => (TR(x) || '').trim(),
+      own = tr(d),
+      used = new Set([own]),
+      picks = [],
+      len = own.length || 1;
+    const sim = Math.random() < (hard != null ? hard : 0.6) ? similar(d) : [];
+    const near = BY[d.l]
+      .filter(x => Math.abs(x.u - d.u) <= 4)
+      .map(x => [Math.abs(tr(x).length - len) / len + Math.random() * 0.25, x])
+      .sort((a, b) => a[0] - b[0])
+      .map(p => p[1]);
+    for (const x of sim.concat(near, shuf(BY[d.l]))) {
+      if (picks.length === 3) break;
+      const t = tr(x);
+      if (x.id === d.id || !t || used.has(t) || !clozeOK(x)) continue;
+      used.add(t);
+      picks.push(x);
+    }
+    const opts = shuf([d, ...picks]);
+    return { opts, ans: opts.indexOf(d) };
+  }
+  /* material for one question: {opts, ans} — ans is the index of the right option; a typed question has no options */
   function question(d, q, hard) {
     if (q === 's' || q === 'cs') return toneOpts(d);
+    if (q === 'p') return { opts: null, ans: -1, typed: true };
+    if (q === 't') return transOpts(d, hard);
     const opts = wordOpts(d, q === 'cm' ? 'm' : q, hard);
     return { opts, ans: opts.indexOf(d) };
   }
+  /* ---- typed pinyin ----
+     Accepts tone numbers (xue2sheng1; the neutral tone as 5, 0 or nothing) or tone marks (xuéshēng), ü as ü, v or u:,
+     with or without spaces and apostrophes. The letters must match exactly and every syllable's tone must be right,
+     except: a neutral-tone syllable accepts any tone (many have a dictionary tone too), and 一 / 不 accept their own
+     tone as well as the changed one (yī / yí / yì, bù / bú). Another word with the same first meaning counts as right. */
+  const TONED = {
+    ā: ['a', 1],
+    á: ['a', 2],
+    ǎ: ['a', 3],
+    à: ['a', 4],
+    ē: ['e', 1],
+    é: ['e', 2],
+    ě: ['e', 3],
+    è: ['e', 4],
+    ī: ['i', 1],
+    í: ['i', 2],
+    ǐ: ['i', 3],
+    ì: ['i', 4],
+    ō: ['o', 1],
+    ó: ['o', 2],
+    ǒ: ['o', 3],
+    ò: ['o', 4],
+    ū: ['u', 1],
+    ú: ['u', 2],
+    ǔ: ['u', 3],
+    ù: ['u', 4],
+    ǖ: ['v', 1],
+    ǘ: ['v', 2],
+    ǚ: ['v', 3],
+    ǜ: ['v', 4],
+    ü: ['v', 0],
+  };
+  function pyParse(text) {
+    const s = String(text || '')
+      .normalize('NFC')
+      .toLowerCase()
+      .replace(/u:/g, 'v')
+      .replace(/[\s'’\-·]/g, '');
+    let letters = '';
+    const tones = [];
+    for (const ch of s) {
+      if (TONED[ch]) {
+        letters += TONED[ch][0];
+        if (TONED[ch][1]) tones[letters.length - 1] = TONED[ch][1];
+      } else if (/[0-5]/.test(ch)) {
+        if (letters.length) tones[letters.length - 1] = +ch || 5;
+      } else if (/[a-z]/.test(ch)) letters += ch;
+      else return null;
+    }
+    return { letters, tones };
+  }
+  function pyCheck(d, text) {
+    const inp = pyParse(text);
+    if (!inp || !inp.letters) return { ok: false, empty: true };
+    const syl = d.s.map(x => pyParse(x)),
+      want = syl.map(x => x.letters).join('');
+    if (inp.letters !== want) {
+      const alt = similarMeaning(d).find(x => pyParse(x.s.join('')).letters === inp.letters && pyCheck(x, text).ok);
+      return alt ? { ok: true, alt } : { ok: false };
+    }
+    const ch = [...d.h];
+    let pos = 0,
+      toneless = true,
+      ok = true;
+    syl.forEach((x, i) => {
+      const end = pos + x.letters.length;
+      let given = 0;
+      for (let k = pos; k < end; k++) if (inp.tones[k]) given = inp.tones[k];
+      if (given) toneless = false;
+      const t = tone(d.s[i]),
+        g = given || 5,
+        c = syl.length === ch.length ? ch[i] : '';
+      const fine = g === t || t === 5 || (c === '一' && [1, 2, 4].includes(g)) || (c === '不' && [2, 4].includes(g));
+      if (!fine) ok = false;
+      pos = end;
+    });
+    return { ok, toneless: toneless && !ok };
+  }
+  const similarMeaning = d => {
+    const m = M1(d).toLowerCase();
+    return DATA.filter(x => x.id !== d.id && M1(x).toLowerCase() === m);
+  };
 
   /* ---- what to ask next ---- */
   const has = (e, k) => !!e && !!e[k] && e[k][4] > 0;
@@ -615,7 +738,10 @@ const LM = (() => {
       c.push(['s', r(e.s)]);
     }
     const k = c.map(([k, v]) => [k, v - skillW[k] + Math.random() * 0.12]).sort((a, b) => a[1] - b[1])[0][0];
-    if (k === 'f' && has(e, 'f') && clozeOK(d) && Math.random() < 0.4) return 'c';
+    const x = Math.random();
+    if (k === 'f' && has(e, 'f') && x < 0.2) return 'p'; /* recall from memory, not from options */
+    if (k === 'm' && has(e, 'm') && d.l >= 3 && clozeOK(d) && x < 0.2) return 't';
+    if (k === 'f' && has(e, 'f') && clozeOK(d) && x < 0.5) return 'c';
     if (k === 's' && has(e, 's') && ttsReady() && Math.random() < 0.4) return 'l';
     return k;
   }
@@ -698,7 +824,7 @@ const LM = (() => {
     const t = now(),
       r = dr(),
       sc = [];
-    const src = type === 'c' ? pool.filter(clozeOK) : pool;
+    const src = type === 'c' || type === 't' ? pool.filter(clozeOK) : pool;
     for (const d of src) {
       const e = mem[d.id];
       if (!e) continue;
@@ -742,39 +868,78 @@ const LM = (() => {
    least that level with 80 % certainty (90 % for HSK 5 and 6, which also need at least 5 questions of that level,
    70 % right), and every level below it is mastered too. Strong learners get HSK 5 and 6 questions in turn. */
   let lvInfo = ls.get('xc_lvl', null);
-  if (!lvInfo || !LEVELS.includes(lvInfo.lv)) lvInfo = null;
-  /* realm (cultivation level): 0 凡人 not tested yet, 1–6 = studying HSK 1–6, 7 飞升 = HSK 6 mastered.
-   It changes only through a test: the placement test or a breakthrough (突破). */
+  if (!lvInfo || typeof lvInfo !== 'object' || !(lvInfo.lv >= 1 && lvInfo.lv <= 9)) lvInfo = null;
+  /* realm (cultivation level): 0 凡人 not tested yet · 1–6 studying HSK 1–6 · 7 飞升, 8 真仙, 9 玄仙 studying the HSK 7,
+   8, 9 tiers · 10 大罗 everything mastered. Realms 8–10 and the HSK 7–9 words exist only once the gate (仙门) is open:
+   it opens when 飞升 is reached by a breakthrough (before v1.13 飞升 could also come from the placement test; such a
+   飞升 opens the gate with a make-up tribulation, 补劫). The realm changes only through tests: the placement test (the
+   way in, once) or a breakthrough (突破, one realm at a time). */
   /* a level picked by hand in v1.9 is no test: the realm stays 凡人 until a test, but the plan keeps starting at that level */
   const realm = () =>
     !lvInfo ? 0 : Number.isInteger(lvInfo.r) ? lvInfo.r : lvInfo.src === 'manual' ? 0 : lvInfo.m === 6 ? 7 : lvInfo.lv;
+  const gateOpen = () => !!(lvInfo && lvInfo.gate);
+  const topLevel = () => LEVELS[LEVELS.length - 1];
+  /* the HSK level a realm studies: realm r studies level r; 大罗 (and a 飞升 without the gate) has nothing left */
+  const realmLevel = r => Math.max(1, Math.min(topLevel(), r));
+  const isFinal = r => r >= 10 || (r >= 7 && !gateOpen()) || r > topLevel();
   const baseLevel = () => {
     const r = realm();
-    return r < 1 ? (lvInfo && lvInfo.src === 'manual' ? lvInfo.lv : 1) : Math.min(6, r);
+    return r < 1 ? (lvInfo && lvInfo.src === 'manual' ? lvInfo.lv : 1) : realmLevel(r);
   };
   function curLevel() {
-    for (let l = baseLevel(); l <= 6; l++) if (BY[l].some(d => !mem[d.id])) return l;
-    return 6;
+    const top = topLevel();
+    for (let l = baseLevel(); l <= top; l++) if (BY[l].some(d => !mem[d.id])) return l;
+    return top;
   }
+  /* history entries: [realm, time, how ('test' recognised by the placement test, 'bt' broken through), quality 1–4] */
   function setRealm(r, src, extra) {
-    const hist = ((lvInfo && lvInfo.hist) || []).concat([[r, now()]]).slice(-20);
-    lvInfo = Object.assign({}, lvInfo || {}, extra || {}, { r, lv: Math.max(1, Math.min(6, r)), src, at: now(), hist });
+    const e = [r, now(), src];
+    if (extra && extra.grade) e.push(extra.grade);
+    const hist = ((lvInfo && lvInfo.hist) || []).concat([e]).slice(-30);
+    const x = Object.assign({}, extra || {});
+    delete x.grade;
+    lvInfo = Object.assign({}, lvInfo || {}, x, { r, lv: Math.max(1, Math.min(9, r)), src, at: now(), hist });
     ls.set('xc_lvl', lvInfo);
   }
+  const okHist = h =>
+    Array.isArray(h) &&
+    h.length >= 2 &&
+    h.length <= 4 &&
+    Number.isInteger(h[0]) &&
+    h[0] >= 0 &&
+    h[0] <= 10 &&
+    Number.isFinite(h[1]) &&
+    (h.length < 3 || ['test', 'bt'].includes(h[2])) &&
+    (h.length < 4 || [1, 2, 3, 4].includes(h[3]));
   function restoreLevel(o) {
-    if (o && LEVELS.includes(o.lv) && ['test', 'manual', 'bt'].includes(o.src)) {
+    if (o && o.lv >= 1 && o.lv <= 9 && ['test', 'manual', 'bt'].includes(o.src)) {
+      const num = x => (Number.isFinite(x) ? Math.round(x) : undefined);
       lvInfo = {
         lv: o.lv,
         src: o.src,
         at: Number.isFinite(o.at) ? o.at : now(),
-        r: Number.isInteger(o.r) && o.r >= 0 && o.r <= 7 ? o.r : undefined,
-        hist: Array.isArray(o.hist)
-          ? o.hist.filter(h => Array.isArray(h) && h.length === 2 && h.every(Number.isFinite)).slice(-20)
-          : undefined,
+        r: Number.isInteger(o.r) && o.r >= 0 && o.r <= 10 ? o.r : undefined,
+        hist: Array.isArray(o.hist) ? o.hist.filter(okHist).slice(-30) : undefined,
         m: Number.isInteger(o.m) && o.m >= 0 && o.m <= 6 ? o.m : undefined,
         per: Array.isArray(o.per) && o.per.length === 6 && o.per.every(Number.isFinite) ? o.per : undefined,
         th: Array.isArray(o.th) && o.th.length === 2 && o.th.every(Number.isFinite) && o.th[1] > 0 ? o.th : undefined,
+        pt: Array.isArray(o.pt) ? o.pt.filter(Number.isFinite).slice(-5) : undefined,
+        gate: num(o.gate),
+        gs: o.gs ? 1 : undefined,
+        stab: num(o.stab),
       };
+      if (lvInfo.gate) lvInfo.gs = 1; /* restored on another phone: no ceremony, a short welcome instead */
+      ls.set('xc_lvl', lvInfo);
+    }
+  }
+  /* 飞升 reached by a breakthrough before v1.13: the gate opens (with its ceremony) */
+  if (lvInfo && realm() === 7 && lvInfo.src === 'bt' && !lvInfo.gate) {
+    lvInfo.gate = now();
+    ls.set('xc_lvl', lvInfo);
+  }
+  function gateSeen() {
+    if (lvInfo) {
+      lvInfo.gs = 1;
       ls.set('xc_lvl', lvInfo);
     }
   }
@@ -789,11 +954,12 @@ const LM = (() => {
   };
   const GRID = Array.from({ length: 71 }, (_, i) => i / 10);
   let PB = null;
+  const PLV = [1, 2, 3, 4, 5, 6]; /* the placement test covers HSK 1–6 */
   function placementBank() {
     if (PB) return PB;
     PB = {};
     const seen = new Set();
-    for (const l of LEVELS) {
+    for (const l of PLV) {
       PB[l] = BY[l].filter(d => {
         const c = [...d.h];
         return (
@@ -886,11 +1052,11 @@ const LM = (() => {
       return it.length >= 5 && ok / it.length >= 0.7;
     };
     let m = 0;
-    for (const l of LEVELS) {
+    for (const l of PLV) {
       if (pass(l)) m = l;
       else break;
     }
-    const per = LEVELS.map(l => Math.round(GRID.reduce((a, t, i) => a + st.post[i] * pKnow(t, l - 0.5), 0) * 100));
+    const per = PLV.map(l => Math.round(GRID.reduce((a, t, i) => a + st.post[i] * pKnow(t, l - 0.5), 0) * 100));
     const right = st.items.filter(x => x.r === 'ok').length,
       idk = st.items.filter(x => x.r === 'idk').length;
     return { m, lv: Math.min(6, m + 1), mean, sd, per, right, idk, n: st.items.length };
@@ -943,9 +1109,11 @@ const LM = (() => {
   }
   function stage(r = realm()) {
     if (r < 1) return null;
-    const L = Math.min(6, r),
-      W = BY[L],
-      c = credit(L);
+    const L = realmLevel(r),
+      W = BY[L];
+    if (isFinal(r))
+      return { i: 3, share: 1, solid: W.length, test: 0, testShare: 0, total: W.length, need: 0, final: true };
+    const c = credit(L);
     let n = 0,
       sum = 0,
       est = 0;
@@ -954,66 +1122,235 @@ const LM = (() => {
       if (c[j] === 1) n++;
       else est += c[j] * 2;
     }
-    const share = r === 7 ? 1 : sum / W.length,
+    const share = sum / W.length,
       need = Math.max(0, Math.ceil(W.length * 0.8 - sum));
     return {
       i: share >= 0.8 ? 3 : share >= 0.5 ? 2 : share >= 0.25 ? 1 : 0,
       share,
       solid: n,
       test: Math.round(est),
-      testShare: r === 7 ? 0 : (sum - n) / W.length,
+      testShare: (sum - n) / W.length,
       total: W.length,
-      need: r === 7 ? 0 : need,
+      need,
     };
   }
-  const btOpen = () => {
+
+  /* ---- a stable realm (境界稳固) ----
+   A realm rests on the level below it (the one its breakthrough proved). If that level fades — spaced answers on its
+   words in the last 30 days under 70 % right (at least 15 answers), or the model's recall now of its studied words under
+   60 % (at least 20 words) — the realm is unstable (境界不稳): the breakthrough waits until a stabilising trial
+   (试炼稳固: 15 of the faded words, 80 % right) is passed. The realm itself never drops. */
+  function stability(r = realm()) {
+    if (r < 2) return { ok: true };
+    const P = realmLevel(r - 1),
+      t = now(),
+      t0 = t - 30 * 1440,
+      pre = P + ':';
+    if (lvInfo && lvInfo.stab && t - lvInfo.stab < 30 * 1440) {
+      /* stabilised lately: stays stable unless it fades again after the trial */
+      return stabCheck(P, pre, Math.max(t0, lvInfo.stab), t, true);
+    }
+    return stabCheck(P, pre, t0, t, false);
+  }
+  function stabCheck(P, pre, t0, t, after) {
+    const L = allLog(),
+      seen = new Set();
+    let n = 0,
+      c = 0;
+    for (let i = L.length - 1; i >= 0; i--) {
+      const e = L[i];
+      if (e[0] < t0 || (after && e[0] === t0)) break; /* after a trial: only answers given after it */
+      if (!e[1].startsWith(pre) || e[6] & 48 || !QUIZ.has(e[2])) continue;
+      const k = e[1] + '@' + dayOf(e[0]),
+        m = mem[e[1]];
+      if (seen.has(k) || !m || dayOf(m.i) >= dayOf(e[0])) continue; /* first answer of a day on a word met earlier */
+      seen.add(k);
+      n++;
+      if (e[3] > 1) c++;
+    }
+    let rs = 0,
+      rn = 0;
+    for (const d of BY[P]) {
+      const e = mem[d.id];
+      if (!e) continue;
+      rs += rNow(e, t);
+      rn++;
+    }
+    const acc = n ? c / n : null,
+      rec = rn ? rs / rn : null;
+    const badAcc = n >= 15 && acc < 0.7,
+      badRec = !after && rn >= 20 && rec < 0.6;
+    return { ok: !(badAcc || badRec), P, n, acc, rn, rec, why: badAcc ? 'acc' : badRec ? 'rec' : null };
+  }
+  function stabWords(n = 15) {
+    const s = stability();
+    if (s.ok) return [];
+    const t = now();
+    return BY[s.P]
+      .filter(d => mem[d.id])
+      .map(d => [rNow(mem[d.id], t), d])
+      .sort((a, b) => a[0] - b[0])
+      .slice(0, n)
+      .map(p => p[1]);
+  }
+  function stabDone(right, total) {
+    if (!total || right / total < 0.8) return false;
+    lvInfo = Object.assign({}, lvInfo || {}, { stab: now() });
+    ls.set('xc_lvl', lvInfo);
+    return true;
+  }
+
+  /* ---- the tribulation (雷劫): a breakthrough in strikes ----
+   At 圆满 the breakthrough opens. It is a series of strikes, each a skill on the realm's own words, with no feedback:
+     识 shí meaning · 忆 yì the pinyin typed from memory · 听 tīng listening (left out if the phone has no voice) ·
+     读 dú the word that fits a sentence · 速 sù meanings against the clock (6 s per question for HSK 1–3, 5 s for 4–6,
+     4 s for 7–9) · 译 yì the translation of a sentence (HSK 7–9 only).
+   It is passed when every strike has at least 70 % right AND the whole has at least 75 % (80 % from HSK 5, 85 % for
+   HSK 7–9) — luck in one strike can't carry a weak skill. The margin decides the foundation's quality (道基):
+   完美 perfect = not one wrong answer in all strikes · 上品 high ≥ the cut + 15 points (at most 97 %) ·
+   中品 middle ≥ the cut + 8 (at most 93 %) · 下品 low otherwise. Only a breakthrough gives a quality; a realm the
+   placement test recognised (认定) has none. One test a week, as before. */
+  const STRIKES = [
+    { k: 'shi', hz: '识', py: 'shí', q: 'm', n: 5 },
+    { k: 'yi', hz: '忆', py: 'yì', q: 'p', n: 5 },
+    { k: 'ting', hz: '听', py: 'tīng', q: 'l', n: 5, tts: true },
+    { k: 'du', hz: '读', py: 'dú', q: 'c', n: 5 },
+    { k: 'su', hz: '速', py: 'sù', q: 'm', n: 8, timed: true },
+    { k: 'fan', hz: '译', py: 'yì', q: 't', n: 5, band: true },
+  ];
+  const cutOf = L => (L >= 7 ? 0.85 : L >= 5 ? 0.8 : 0.75);
+  const limitOf = L => (L <= 3 ? 6 : L <= 6 ? 5 : 4);
+  const GRADES = ['', '下品', '中品', '上品', '完美'];
+  const btReady = () => {
     const r = realm();
-    return r >= 1 && r <= 6 && stage(r).i === 3;
+    return r >= 1 && !isFinal(r) && stage(r).i === 3 && stability(r).ok;
   };
+  const btOpen = () => btReady() || makeupOpen();
+  /* 飞升 from a placement test before v1.13: a make-up tribulation on HSK 6 opens the gate */
+  const makeupOpen = () => realm() === 7 && !gateOpen() && LEVELS.includes(6);
   function btStart() {
     placementBank();
     const r = realm(),
-      L = Math.min(6, Math.max(1, r)),
-      pool = shuf(PB[L].length >= 20 ? PB[L] : BY[L]).slice(0, 20);
-    return {
-      r,
-      L,
-      items: pool.map((d, i) => {
-        const types = PT.TYPES[L],
-          q = types[i % types.length];
-        const it = { d, l: L, q: q === 'c' && !clozeOK(d) ? 'f' : q };
-        Object.assign(it, question(d, it.q, L >= 4 ? 0.85 : 0.6));
-        return it;
-      }),
-      i: 0,
-      right: 0,
+      makeup = makeupOpen(),
+      L = makeup ? 6 : realmLevel(r),
+      hard = L >= 4 ? 0.85 : 0.6,
+      base = (L <= 6 && PB[L] && PB[L].length >= 40 ? PB[L] : BY[L]).filter(clozeOK);
+    const pool = shuf(base.length >= 40 ? base : BY[L]),
+      used = new Set(),
+      items = [],
+      strikes = [];
+    const take = ok => {
+      const d = pool.find(x => !used.has(x.id) && ok(x)) || shuf(BY[L]).find(x => !used.has(x.id) && ok(x));
+      if (d) used.add(d.id);
+      return d;
     };
+    for (const S of STRIKES) {
+      if (S.band && L < 7) continue;
+      if (S.tts && !ttsReady()) {
+        strikes.push({ k: S.k, hz: S.hz, py: S.py, n: 0, skipped: true });
+        continue;
+      }
+      let n = 0;
+      for (let i = 0; i < S.n; i++) {
+        const d = take(x => (S.q === 'c' || S.q === 't' ? clozeOK(x) : true));
+        if (!d) break;
+        const it = { d, l: L, q: S.q, strike: S.k };
+        if (S.timed) it.limit = limitOf(L);
+        Object.assign(it, question(d, S.q, hard));
+        items.push(it);
+        n++;
+      }
+      strikes.push({ k: S.k, hz: S.hz, py: S.py, n, timed: !!S.timed });
+    }
+    return { r, L, makeup, items, strikes, i: 0, right: 0 };
   }
   function btFinish(st) {
-    const need = st.L >= 5 ? 0.8 : 0.75,
-      pass = st.right / st.items.length >= need;
+    const cut = cutOf(st.L),
+      res = st.strikes.map(S => {
+        if (S.skipped) return Object.assign({}, S, { right: 0, pass: true });
+        const its = st.items.filter(x => x.strike === S.k),
+          right = its.filter(x => x.r === 'ok').length;
+        return Object.assign({}, S, { right, pass: right >= Math.ceil(its.length * 0.7) });
+      });
+    const n = st.items.length,
+      right = st.items.filter(x => x.r === 'ok').length,
+      acc = n ? right / n : 0,
+      pass = res.every(x => x.pass) && acc >= cut;
     noteTest();
-    /* a passed breakthrough proves the level: a placement test's ability estimate moves up to at least that level
-       (without a placement test there is no estimate, and the next realm starts from its solid words alone) */
+    let grade = 0,
+      gate = false;
     if (pass) {
-      const th = testTh();
-      setRealm(st.r + 1, 'bt', th ? { th: [r2(Math.max(th[0], st.L)), r2(Math.min(th[1], 0.6))] } : {});
+      grade =
+        right === n && !res.some(x => x.skipped)
+          ? 4
+          : acc >= Math.min(cut + 0.15, 0.97)
+            ? 3
+            : acc >= Math.min(cut + 0.08, 0.93)
+              ? 2
+              : 1;
+      const th = testTh(),
+        x = { grade };
+      /* a passed breakthrough proves the level: a placement test's ability estimate moves up to at least that level
+         (without a placement test there is no estimate, and the next realm starts from its solid words alone) */
+      if (th && st.L <= 6) x.th = [r2(Math.max(th[0], st.L)), r2(Math.min(th[1], 0.6))];
+      if (st.makeup) {
+        x.gate = now();
+        setRealm(7, 'bt', x);
+        gate = true;
+      } else {
+        if (st.r + 1 === 7) x.gate = now();
+        setRealm(st.r + 1, 'bt', x);
+        gate = st.r + 1 === 7;
+      }
     }
     return {
       pass,
-      need,
-      right: st.right,
-      n: st.items.length,
+      need: cut,
+      acc,
+      right,
+      n,
+      grade,
+      gate,
+      strikes: res,
       r: realm(),
+      makeup: st.makeup,
       weak: st.items.filter(x => x.r !== 'ok').map(x => x.d),
     };
   }
+  /* the quality of each realm reached by a breakthrough, from the history: {realm: 1–4} (best kept) */
+  function grades() {
+    const g = {};
+    for (const h of (lvInfo && lvInfo.hist) || []) if (h[2] === 'bt' && h[3]) g[h[0]] = Math.max(g[h[0]] || 0, h[3]);
+    return g;
+  }
+
+  /* ---- the placement test is the way in ----
+   The first placement test sets the starting realm (at most 渡劫: 飞升 and above are only reached by breaking
+   through). One retake is allowed within 14 days of the first test, in case the first went wrong; it replaces the
+   result. After that the realm only moves by breakthroughs. Tests from before v1.13 count as the first test. */
+  const ptTimes = () => {
+    if (!lvInfo) return [];
+    if (Array.isArray(lvInfo.pt)) return lvInfo.pt;
+    return lvInfo.src === 'test' || (lvInfo.hist || []).some(h => h[2] === 'test') ? [lvInfo.at] : [];
+  };
+  function ptOpen() {
+    const T = ptTimes();
+    if (!T.length) return realm() === 0 ? (canTest() ? 'first' : 'wait') : null;
+    if (T.length === 1 && now() - T[0] <= 14 * 1440 && lvInfo && lvInfo.src === 'test') return 'retake';
+    return null;
+  }
+  const ptRetakeUntil = () => {
+    const T = ptTimes();
+    return T.length === 1 ? T[0] + 14 * 1440 : 0;
+  };
   function placementDone(res) {
+    const T = ptTimes();
     noteTest();
-    setRealm(res.m === 6 ? 7 : res.m + 1, 'test', {
+    setRealm(Math.min(6, res.m + 1), 'test', {
       m: res.m,
       per: res.per,
       th: [r2(res.mean), r2(Math.max(0.15, res.sd))],
+      pt: T.concat(now()).slice(-5),
     });
   }
 
@@ -1031,7 +1368,7 @@ const LM = (() => {
       err = 1e9;
     for (const t of GRID) {
       let e = 0;
-      LEVELS.forEach((l, i) => {
+      PLV.forEach((l, i) => {
         const d = pKnow(t, l - 0.5) - per[i] / 100;
         e += d * d;
       });
@@ -1045,7 +1382,7 @@ const LM = (() => {
   let TP = null;
   function testP(L) {
     const th = testTh();
-    if (!th) return null;
+    if (!th || L > 6) return null; /* the test says nothing about HSK 7–9 */
     const key = L + ':' + th.join(',');
     if (TP && TP.key === key) return TP.p;
     const [m, sd] = th,
@@ -1282,7 +1619,7 @@ const LM = (() => {
   function soul() {
     const t = now(),
       r = realm(),
-      L = r < 1 ? baseLevel() : Math.min(6, r),
+      L = r < 1 ? baseLevel() : realmLevel(r),
       st = stage(r < 1 ? L : r),
       es = Object.values(mem);
     let X = 0;
@@ -1302,7 +1639,7 @@ const LM = (() => {
     return {
       L,
       root: v(st ? st.share * 100 : es.length ? 0 : null),
-      cult: v((100 * Math.log(1 + X / 100)) / Math.log(1 + (5334 * 120) / 100)),
+      cult: v((100 * Math.log(1 + X / 100)) / Math.log(1 + (DATA.length * 120) / 100)),
       cultDays: Math.round(X),
       sense: v(es.length ? (rs / BY[L].length) * 100 : null),
       senseN: Math.round(rs),
@@ -1340,7 +1677,7 @@ const LM = (() => {
   function advice() {
     const t = now(),
       r = realm(),
-      L = r < 1 ? baseLevel() : Math.min(6, r),
+      L = r < 1 ? baseLevel() : realmLevel(r),
       Wd = BY[L],
       R0 = dr(),
       out = [];
@@ -1362,7 +1699,11 @@ const LM = (() => {
         else if (!okS(e.s)) needS.push(d);
       } else young.push(e);
     }
-    if (r < 1 && canTest()) out.push({ k: 'test' });
+    const pt = ptOpen();
+    if (r < 1 && pt === 'first') out.push({ k: 'test' });
+    const sb = stability(r);
+    if (!sb.ok) out.unshift({ k: 'unstable', P: sb.P, acc: sb.acc, rec: sb.rec, why: sb.why });
+    if (makeupOpen()) out.push({ k: 'makeup' });
     if (needF.length) out.push({ k: 'f', n: needF.length, words: needF.slice(0, 12), L });
     if (needS.length) out.push({ k: 's', n: needS.length, words: needS.slice(0, 12), L });
     if (due.length) out.push({ k: 'due', n: due.length, L });
@@ -1388,9 +1729,9 @@ const LM = (() => {
   /* when the next stage (and 圆满) is likely: new solid words of the level over the last 14 days */
   function forecast() {
     const r = realm(),
-      L = r < 1 ? baseLevel() : Math.min(6, r),
+      L = r < 1 ? baseLevel() : realmLevel(r),
       st = stage(r < 1 ? L : r);
-    if (!st || r > 6) return null;
+    if (!st || st.final) return null;
     /* progress gained by words that became solid in the last 14 days (a word the test already credited adds the rest) */
     const t = now(),
       P = testP(L);
@@ -1412,30 +1753,51 @@ const LM = (() => {
       dFull: rate > 0 && st.need ? Math.ceil(st.need / rate) : null,
     };
   }
-  /* chance to pass a breakthrough now: every bank word is answered right with its recall chance (plus a little
-   guessing when it is forgotten); the score of 20 is about normal, so P(score ≥ needed) follows from mean and spread */
+  /* chance to pass the tribulation now: each word is answered right with its recall chance (plus a little guessing
+   on choice questions; typed pinyin has no guessing and the timed strike costs a little). Every strike needs 70 % and
+   the whole needs the cut; the strikes are taken as independent: P = P(total ≥ cut) × Π P(strike ≥ 70 %). */
   function btChance() {
-    const r = realm();
-    if (r < 1 || r > 6) return null;
+    const r = realm(),
+      makeup = makeupOpen();
+    if (r < 1 || (isFinal(r) && !makeup)) return null;
     placementBank();
-    const t = now(),
-      bank = PB[r].length >= 20 ? PB[r] : BY[r],
-      hard = r >= 4 ? 0.9 : 0.95;
-    let s = 0,
-      v = 0;
+    const L = makeup ? 6 : realmLevel(r),
+      t = now(),
+      bank = L <= 6 && PB[L] && PB[L].length >= 20 ? PB[L] : BY[L],
+      hard = L >= 4 ? 0.9 : 0.95;
+    let ch = 0,
+      ty = 0;
     for (const d of bank) {
       const e = mem[d.id],
-        R = e ? rNow(e, t) : 0,
-        p = Math.min(0.99, R * hard + (1 - R * hard) * 0.12);
-      s += p;
-      v += p * (1 - p);
+        R = e ? rNow(e, t) : 0;
+      ch += Math.min(0.99, R * hard + (1 - R * hard) * 0.12);
+      ty += Math.min(0.97, R * (e && okS(e.f) ? 0.85 : 0.6));
     }
-    const n = bank.length,
-      N = 20,
-      m = (N * s) / n,
-      sd = Math.sqrt(Math.max(0.25, (N * v) / n)),
-      need = Math.ceil(N * (r >= 5 ? 0.8 : 0.75)),
-      z = (need - 0.5 - m) / sd;
+    const pc = ch / bank.length,
+      pt = ty / bank.length;
+    const binomGE = (n, p, k) => {
+      let s = 0;
+      for (let i = k; i <= n; i++) {
+        let c = 1;
+        for (let j = 0; j < i; j++) c = (c * (n - j)) / (j + 1);
+        s += c * Math.pow(p, i) * Math.pow(1 - p, n - i);
+      }
+      return s;
+    };
+    let prod = 1,
+      mean = 0,
+      vr = 0,
+      N = 0;
+    for (const S of STRIKES) {
+      if ((S.band && L < 7) || (S.tts && !ttsReady())) continue;
+      const p = S.q === 'p' ? pt : S.timed ? pc * 0.93 : pc;
+      prod *= binomGE(S.n, p, Math.ceil(S.n * 0.7));
+      N += S.n;
+      mean += S.n * p;
+      vr += S.n * p * (1 - p);
+    }
+    const need = Math.ceil(N * cutOf(L)),
+      z = (need - 0.5 - mean) / Math.sqrt(Math.max(0.25, vr));
     const phi = x => {
       const k = 1 / (1 + 0.2316419 * Math.abs(x)),
         y =
@@ -1445,7 +1807,7 @@ const LM = (() => {
           (0.3193815 + k * (-0.3565638 + k * (1.781478 + k * (-1.821256 + k * 1.330274))));
       return x > 0 ? 1 - y : y;
     };
-    return Math.round(100 * (1 - phi(z)));
+    return Math.round(100 * (1 - phi(z)) * prod);
   }
 
   /* ---- goals and the daily plan ---- */
@@ -1734,7 +2096,7 @@ const LM = (() => {
   }
 
   /* ---- personalising the model: fit the 19 parameters to this learner's own answers (on the phone) ---- */
-  const MINFIT = 400;
+  const MINFIT = 100; /* v1.13: from 100 spaced reviews (was 400), with a pull towards the defaults that fades with more data */
   function seqs() {
     const by = new Map();
     for (const e of allLog().slice(-12000)) {
@@ -1775,7 +2137,9 @@ const LM = (() => {
       const sc = W0.map(x => Math.max(0.05, Math.abs(x) * 0.5)),
         N = base.n;
       const toW = z => z.map((v, i) => cl(W0[i] + v * sc[i], LB[i], UB[i]));
-      const f = z => lossOf(toW(z), S).ll / N + (2 / N) * z.reduce((s, v) => s + v * v, 0);
+      /* the penalty keeps the parameters near the defaults while there is little data: at 100 reviews moving one
+         parameter by half its default value costs 0.3 nats per review, at 3,000 reviews only 0.01 */
+      const f = z => lossOf(toW(z), S).ll / N + (30 / N) * z.reduce((s, v) => s + v * v, 0);
       let z = W0.map(() => 0),
         m = z.map(() => 0),
         v = z.map(() => 0),
@@ -1820,6 +2184,51 @@ const LM = (() => {
       fitting = false;
     }
   }
+  /* ---- how good the memory model is for this learner ----
+     Every spaced review (a word seen on an earlier day) is replayed through the model with the current parameters:
+     the recall chance it predicted before the answer is set against what happened. Shown in Stats as predicted vs
+     real recall, the average gap per band of predictions (calibration error) and the log loss. */
+  function modelCheck() {
+    const B = [
+      [0, 0.5],
+      [0.5, 0.7],
+      [0.7, 0.8],
+      [0.8, 0.9],
+      [0.9, 1.01],
+    ].map(([a, b]) => ({ a, b, n: 0, p: 0, y: 0 }));
+    let n = 0,
+      P = 0,
+      Y = 0,
+      ll = 0;
+    for (const q of seqs()) {
+      let st = null;
+      for (const [t, g] of q) {
+        if (st && !sameDay(t, st[2])) {
+          const p = cl(Rt((t - st[2]) / 1440, st[1]), 1e-4, 1 - 1e-4),
+            y = g > 1 ? 1 : 0;
+          n++;
+          P += p;
+          Y += y;
+          ll -= y ? Math.log(p) : Math.log(1 - p);
+          const b = B.find(x => p >= x.a && p < x.b);
+          b.n++;
+          b.p += p;
+          b.y += y;
+        }
+        st = step(W, st, g, t, 0);
+      }
+    }
+    if (!n) return { n: 0 };
+    return {
+      n,
+      pred: P / n,
+      real: Y / n,
+      ece: B.reduce((s, b) => s + Math.abs(b.p - b.y), 0) / n,
+      ll: ll / n,
+      own: !!wMeta,
+      bins: B.filter(b => b.n >= 10).map(b => ({ a: b.a, b: Math.min(1, b.b), n: b.n, p: b.p / b.n, y: b.y / b.n })),
+    };
+  }
   function maybeOptimize() {
     const o = ls.get('xc_fit', null),
       L = allLog().length;
@@ -1827,16 +2236,26 @@ const LM = (() => {
     optimize(false).catch(() => {});
   }
 
+  /* the gate opened and HSK 7–9 joined DATA: drop everything built from the word list */
+  function bandAdded() {
+    WD = null;
+    PB = null;
+    IX = null;
+    TP = null;
+    charS = null;
+  }
+
   /* ---- backup, reset, history ---- */
   function exportMem() {
     flush();
     return mem;
   }
-  function importMem(o) {
+  /* extra: ids of HSK 7–9 words that are not loaded yet (a code from a learner past the gate) */
+  function importMem(o, extra) {
     if (!o || typeof o !== 'object' || Array.isArray(o)) return null;
     const out = {};
     for (const id in o) {
-      if (!IDX.has(id)) continue;
+      if (!IDX.has(id) && !(extra && extra.has(id))) continue;
       const c = cleanEntry(o[id]);
       if (c) out[id] = c;
     }
@@ -1913,11 +2332,30 @@ const LM = (() => {
     curLevel,
     baseLevel,
     realm,
+    realmLevel,
+    isFinal,
+    gateOpen,
+    gateSeen,
+    bandAdded,
     stage,
+    stability,
+    stabWords,
+    stabDone,
     btOpen,
+    btReady,
+    makeupOpen,
     btStart,
     btFinish,
+    grades,
+    GRADES,
+    STRIKES,
+    cutOf,
+    limitOf,
     placementDone,
+    ptOpen,
+    ptRetakeUntil,
+    pyCheck,
+    modelCheck,
     canTest,
     nextTestAt,
     advice,

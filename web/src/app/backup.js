@@ -94,10 +94,13 @@ async function readCode(text) {
     }
     const o = JSON.parse(new TextDecoder().decode(u));
     if (!o || o.app !== 'xueci' || !o.stats || typeof o.stats !== 'object') return null;
+    /* a code from past the gate: HSK 7–9 ids are checked against the HSK 7–9 file without opening anything yet */
+    const extra = o.lvl && o.lvl.gate && !XC.band ? await XC.bandIds().catch(() => null) : null;
+    const known = k => IDX.has(k) || !!(extra && extra.has(k));
     const st = {};
     for (const k in o.stats) {
       const e = o.stats[k];
-      if (!IDX.has(k) || !Array.isArray(e) || e.length < 2 || !e.every(x => Number.isFinite(x) && x >= 0)) continue;
+      if (!known(k) || !Array.isArray(e) || e.length < 2 || !e.every(x => Number.isFinite(x) && x >= 0)) continue;
       const r = Math.floor(e[0]),
         w = Math.floor(e[1]);
       st[k] = [r, w, Math.max(0, Math.min(MAXL, Math.floor(e.length > 2 ? e[2] : r - w)))];
@@ -108,7 +111,7 @@ async function readCode(text) {
       ui: o.ui,
       lang: o.lang,
       theme: o.theme,
-      mem: o.mem ? LM.importMem(o.mem) : null,
+      mem: o.mem ? LM.importMem(o.mem, extra) : null,
       goal: 'goal' in o ? o.goal : undefined,
       w: o.w,
       lvl: o.lvl,
@@ -232,9 +235,19 @@ async function bkCheckCode() {
   bkRow();
   $('bkApply')?.focus();
 }
-function bkApply() {
+async function bkApply() {
   const b = bkPending;
   if (!b) return;
+  /* past the gate: the HSK 7–9 words join first, so their progress has words to belong to */
+  if (b.lvl && b.lvl.gate && !XC.band) {
+    try {
+      const w = await XC.loadBand();
+      if (w.some(d => !d.id)) addBand(w);
+    } catch (e) {
+      toast(L10.dataFail);
+      return;
+    }
+  }
   stats = b.stats;
   LM.replace(b.mem || {}, b.goal, b.w);
   LM.restoreLevel(b.lvl);
@@ -247,7 +260,7 @@ function bkApply() {
       state.unitBy[l] = Number.isInteger(u) && u >= 0 && u <= UNITS[l] ? u : 1;
     });
     state.level = b.ui.level;
-    if (['auto', 'm', 'f', 's', 'l', 'c', 'exam'].includes(b.ui.qt)) qType = b.ui.qt;
+    if (['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam'].includes(b.ui.qt)) qType = b.ui.qt;
   }
   if ((b.lang === 'auto' || LANGS.includes(b.lang)) && b.lang !== langPref) setLang(b.lang, true);
   if (themeList().includes(b.theme) && b.theme !== theme) applyTheme(b.theme, true);

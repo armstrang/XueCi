@@ -48,7 +48,7 @@ h2[tabindex]:focus{outline:none}
 .s-red{background:var(--s-red)}.s-yellow{background:var(--s-yellow)}.s-green{background:var(--s-green)}.s-none{background:var(--s-none)}
 .sd{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
 .stack{display:flex;width:100%;height:100%;background:var(--sunk)}
-.stack i{display:block;height:100%;transition:width .4s}
+.stack i{display:block;height:100%}
 .mbar{display:block;width:76px;height:6px;border-radius:99px;overflow:hidden;flex:none}
 .screen{animation:scrIn .22s ease-out}
 @keyframes scrIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
@@ -70,7 +70,9 @@ header.top{display:flex;align-items:center;gap:8px;padding-block:calc(10px + env
 .iconbtn svg{width:18px;height:18px}
 .iconbtn:hover{color:var(--fg);border-color:var(--mute)}
 
-.lvpills{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin-bottom:10px}
+.lvpills{display:grid;grid-template-columns:repeat(var(--n,6),minmax(0,1fr));gap:6px;margin-bottom:10px}
+.lvpills.n9 .hl{display:none}   /* nine levels: the pills show only the number */
+.lvpills.n9 .lvpill b{font-size:calc(14px*var(--fsd,1))}
 .lvpill{border:1px solid var(--line);background:var(--surface);border-radius:14px;padding:7px 0 6px;display:flex;flex-direction:column;align-items:center;gap:1px;line-height:1.2;min-width:0;transition:background .2s,border-color .2s}
 .lvpill b{font-size:calc(13px*var(--fsd,1));font-weight:800;white-space:nowrap}
 .lvpill small{font-size:calc(10.5px*var(--fsd,1));font-weight:700;color:var(--soft);font-variant-numeric:tabular-nums}
@@ -687,5 +689,90 @@ p.lvsrc{display:block;margin:6px auto 12px;text-align:center}
 /* start-up (boot.js): while the store opens and the word data loads (a moment) only the background shows */
 .booting .wrap{visibility:hidden}
 .bootfail{position:fixed;left:16px;right:16px;top:40%;margin:0;text-align:center;font-size:14px;line-height:1.5;color:var(--soft)}
+/* ===== v1.13: HSK 7–9 colours, the tribulation (雷劫), foundation quality, unstable realm, the gate (仙门) ===== */
+:root{--l7:#a8730f;--l8:#b23a2a;--l9:#3d4766}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--l7:#e8bd57;--l8:#ff8f78;--l9:#a7b4dc}}
+:root[data-theme="dark"],:root[data-theme="black"]{--l7:#e8bd57;--l8:#ff8f78;--l9:#a7b4dc}
+body[data-level="7"]{--acc:var(--l7)} body[data-level="8"]{--acc:var(--l8)} body[data-level="9"]{--acc:var(--l9)}
+/* realm path with eleven realms, a perfect foundation */
+.rpath.long .rp{width:22px;height:22px;font-size:11px}
+.rpath.long .rp.cur{transform:scale(1.12)}
+.rp.perfect{box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 70%,transparent)}
+.rphow{font-size:12.5px;color:var(--soft)}
+/* foundation quality (道基): 下品 中品 上品 完美 */
+.grade{display:inline-flex;flex-direction:column;align-items:center;gap:1px;margin:6px auto 2px;padding:7px 16px;border-radius:16px;border:1.5px solid var(--gc);color:var(--gc);background:color-mix(in srgb,var(--gc) 10%,transparent)}
+.grade b{font-family:var(--f-hz);font-weight:900;font-size:24px;letter-spacing:.04em}
+.grade small{font-size:11.5px;color:var(--soft)}
+.grade.sm{display:inline-block;margin:0 4px 0 0;padding:1px 8px;border-radius:999px;border-width:1px;vertical-align:1px}
+.grade.sm b{font-size:13px}
+.g1{--gc:var(--mute)} .g2{--gc:var(--l3)} .g3{--gc:var(--l5)} .g4{--gc:var(--gold)}
+.grade.g4{box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 18%,transparent)}
+.recog{display:inline-block;padding:1px 8px;border-radius:999px;border:1px dashed var(--line);font-family:var(--f-hz);font-weight:900;font-size:12.5px;color:var(--soft);margin-right:4px}
+/* unstable realm */
+.unst{margin:6px 0 10px;padding:11px 13px;border-radius:16px;border:1.5px dashed var(--bad);background:color-mix(in srgb,var(--bad) 7%,transparent)}
+.unsth b{font-family:var(--f-hz);font-weight:900;font-size:17px;color:var(--bad)} .unsth small{color:var(--soft);font-size:12px}
+.unst p{margin:4px 0 8px;font-size:13px;line-height:1.45;color:var(--soft)}
+.unst .planbtn{gap:10px}
+#curLvBtn.unstable{outline:1.5px dashed var(--bad);outline-offset:2px}
+/* the tribulation: strikes as seals, the clock of the timed strike */
+.stklist{display:flex;flex-direction:column;gap:7px;margin:10px 0 6px;text-align:left}
+.stkrow{display:flex;align-items:center;gap:11px}
+.stkrow>b{width:34px;height:34px;flex:none;display:grid;place-items:center;border-radius:50%;font-family:var(--f-hz);font-weight:900;font-size:17px;color:var(--lc,var(--acc));border:1.5px solid color-mix(in srgb,var(--lc,var(--acc)) 50%,transparent)}
+.stkrow span{display:flex;flex-direction:column;line-height:1.3}
+.stkrow em{font-style:normal;font-weight:800;font-size:14px}
+.stkrow small{font-size:12px;color:var(--soft)}
+.strikes{display:flex;justify-content:center;gap:6px;margin:2px 0 6px}
+.stk{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line);color:var(--mute);transition:transform .25s,background .25s,color .25s}
+.stk b{font-family:var(--f-hz);font-weight:900;font-size:14px}
+.stk.cur{border-color:var(--acc);color:var(--acc);transform:scale(1.12)}
+.stk.done{background:color-mix(in srgb,var(--acc) 18%,transparent);border-color:color-mix(in srgb,var(--acc) 50%,transparent);color:var(--acc)}
+.stkhead{text-align:center;font-size:13px;font-weight:700;color:var(--soft);margin-bottom:6px}
+.stkhead b{font-family:var(--f-hz);font-weight:900;font-size:16px;color:var(--acc)}
+.tbar{height:5px;border-radius:99px;background:var(--sunk);overflow:hidden;margin:0 2px 8px}
+.tbar i{display:block;height:100%;background:var(--acc);transform-origin:left;animation:tdrain linear forwards}
+@keyframes tdrain{from{transform:scaleX(1)}to{transform:scaleX(0)}}
+.stkres{display:flex;flex-direction:column;gap:6px;margin:10px 0;text-align:left}
+.stkres .skrow b:first-child{font-family:var(--f-hz)}
+.stkres .ok .mbar i{background:var(--good)} .stkres .ng .mbar i{background:var(--bad)} .stkres .ng>b{color:var(--bad)}
+.stkres .skip{opacity:.6}
+/* typed pinyin */
+.pyform{display:flex;gap:8px;margin-top:12px}
+.pyin{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:14px;padding:12px 14px;font-size:18px;font-weight:700;background:var(--surface);color:var(--fg);font-family:var(--f-ui)}
+.pyin:focus{outline:none;border-color:var(--acc)}
+.pyin.ok{border-color:var(--good);color:var(--good)} .pyin.ng{border-color:var(--bad);color:var(--bad);text-decoration:line-through}
+.pyform .pygo{flex:none;width:auto;margin:0;padding:0 18px}
+.pyhelp{margin:6px 2px 0;font-size:12px;color:var(--soft);line-height:1.4}
+.pyz{margin-top:8px;font-size:18px}
+/* sentence translation options */
+.qt-t .opts button{text-align:left;line-height:1.4}
+.tro{font-size:14px;font-weight:600}
+/* the gate ceremony */
+.gateov{position:fixed;inset:0;z-index:60;display:grid;place-items:center;padding:20px;background:radial-gradient(circle at 50% 38%,rgba(40,34,18,.97),rgba(6,7,11,.985) 70%);animation:gfade .28s ease both;
+  --l7:#e8bd57;--l8:#ff8f78;--l9:#a7b4dc;--gold:#f0cf73}
+.gateov[hidden]{display:none}
+@keyframes gfade{from{opacity:0}to{opacity:1}}
+.gatebox{width:min(100%,420px);text-align:center;color:#f4ecd8}
+.gdoor{display:flex;justify-content:center;gap:4px;margin-bottom:10px}
+.gdoor span{width:64px;height:92px;display:grid;place-items:center;border-radius:14px 14px 4px 4px;border:1.5px solid rgba(230,195,106,.65);font-family:var(--f-hz);font-weight:900;font-size:30px;color:#e6c36a;background:rgba(230,195,106,.07);transition:transform .3s ease,opacity .3s ease}
+.gdoor.open span:first-child{transform:translateX(-14px) scaleX(.85);opacity:.55}
+.gdoor.open span:last-child{transform:translateX(14px) scaleX(.85);opacity:.55}
+.gtitle b{font-family:var(--f-hz);font-weight:900;font-size:22px;color:#e6c36a} .gtitle small{color:rgba(244,236,216,.6);font-size:13px}
+.gseals{display:flex;justify-content:center;gap:10px;margin:16px 0 12px}
+.gseal{flex:1;max-width:120px;padding:10px 6px;border-radius:16px;border:1.5px solid color-mix(in srgb,var(--lc) 70%,transparent);background:color-mix(in srgb,var(--lc) 14%,transparent);display:flex;flex-direction:column;gap:2px;opacity:0;transform:scale(.85);transition:opacity .28s ease,transform .28s ease}
+.gseal.on{opacity:1;transform:none}
+.gseal b{font-family:var(--f-hz);font-weight:900;font-size:22px;color:#fff6dc}
+.gseal small{font-size:11.5px;color:rgba(244,236,216,.7)} .gseal span{font-size:12px;font-weight:700;color:#f4ecd8}
+.gtxt{min-height:4.5em;margin:4px 6px 14px;font-size:14.5px;line-height:1.55;color:#f4ecd8}
+.gnext{width:100%}
+.sumbtns>.wide:only-child{grid-column:1/-1;width:100%}
+.mcheck{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.mbins{display:flex;flex-direction:column;gap:6px;margin:8px 0 4px}
+.mbins .mbar{position:relative}
+.mbins .mbar u{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;background:var(--fg);border-radius:2px}
+.resq{margin-top:12px;padding-top:10px;border-top:1px dashed var(--line)}
+.resq summary{cursor:pointer;font-weight:800;font-size:14px}
+.rsf{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin:8px 0}
+.rsf label{display:flex;flex-direction:column;gap:4px;font-size:12px;font-weight:700;color:var(--soft)}
+.rsf select,.rsf input{border:1px solid var(--line);border-radius:11px;padding:8px 10px;font-size:14px;background:var(--surface);color:var(--fg);font-family:var(--f-ui)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>

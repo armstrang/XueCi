@@ -2,6 +2,10 @@
 /* Back closes the topmost layer: a menu, then the focused screen (back to Home). false lets the app exit. */
 window.mmBack = function () {
   if (window.mmBusy && mmBusy()) return true; /* a screen animation is still running */
+  if (!gateOv.hidden) {
+    gateClose();
+    return true;
+  }
   if (!lvlSheet.hidden) {
     closeLvl();
     return true;
