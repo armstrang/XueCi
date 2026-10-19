@@ -156,10 +156,10 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 - Widget: `XueciWidget.java` (SharedPreferences `widget`), fed by `App.syncWidget` (JSON, only when changed).
 
 ## CI
-- `.github/workflows/build-apk.yml` (push to `main`): assets → `flutter analyze` → `flutter test` → signed APK
+- `.github/workflows/build-apk.yml` (**run by hand only**, `workflow_dispatch` on `main`; Josh decides when): assets → `flutter analyze` → `flutter test` → signed APK
   + Play bundle → GitHub release `v1.N` with `XueCiMandarin.apk` and `.aab` (marked latest); the release text is the
   `## v1.N` section of `CHANGELOG.md` (a warning and a link if missing). The install footer of the release text is English too.
-  Docs/art/store-only changes do not trigger a build (`paths-ignore`); add `[skip ci]` to a commit message to skip one otherwise.
+  `main` is kept equal to `flutter/v2` (fast-forward) so the repo page shows the current app; pushing to it publishes nothing.
   A guard step refuses to publish into an existing release tag.
 - `.github/workflows/flutter.yml` (push to `flutter/**`): the same steps without publishing; everything it produces
   (summary, analyzer/test/build logs, screenshots, `xueci-dev.apk` = versionCode 1000 + run, name 1.0.0-alpha.run, signed with
@@ -167,7 +167,7 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
   also published as a new pre-release **`v1.0-alpha-N`** (Josh: v1.0-alpha-1, -2, … before the official release; N =
   highest published + 1, versionName 1.0.0-alpha.N; `XueCiMandarin-alpha.apk`, never latest). The first one was tagged
   plain `v1.0-alpha`.
-  Josh, Oct 2026: the Flutter app stays in testing as 1.0-alpha; don't merge to `main` (= a real release) until he says so.
+  Josh, Oct 2026: the app stays in testing as 1.0-alpha; don't run build-apk.yml (= a real release) until he says so.
   Read the output with `git fetch origin "+refs/heads/ci-out/flutter/v2:refs/remotes/origin/ci-out/flutter/v2"`.
 - `.github/workflows/flutter-sdk.yml` made the `dev-flutter-sdk` pre-release (the SDK for Claude's cloud sessions,
   `mobile/tool/cloud_sdk.sh`); a dev tool, delete it after the first Flutter release when Josh agrees.

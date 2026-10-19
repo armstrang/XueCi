@@ -1,17 +1,11 @@
 name: Build APK
 
-# The app in mobile/. Push to main → assets from content/ (word data, interface text, the sealed part) → analyzer →
+# The app in mobile/. Official release: assets from content/ (word data, interface text, the sealed part) → analyzer →
 # tests (engine against its recorded runs, screens, contrast, backup, the secret) → a signed APK and the Play bundle →
 # GitHub release v1.N. Only when Josh says a version is ready; test builds come from flutter.yml as v1.0-alpha-N.
+# Run by hand only (Actions → Build APK → Run workflow on main), when Josh says a version is ready: main carries the
+# current code, but a push to it never publishes anything by itself.
 on:
-  push:
-    branches: [main]
-    # Notes, artwork and store graphics don't change the app, so they don't make a new release.
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - 'art/**'
-      - 'store/**'
   workflow_dispatch:
 
 permissions:
