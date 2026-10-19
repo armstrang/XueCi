@@ -42,13 +42,25 @@ Future<void> bootApp(Map<String, String> saved, {String lang = 'en'}) async {
   );
 }
 
-Future<void> shot(WidgetTester t, String name, {Size size = const Size(412, 892), double fs = 1}) async {
+Future<void> shot(
+  WidgetTester t,
+  String name, {
+  Size size = const Size(412, 892),
+  double fs = 1,
+  void Function()? before,
+  void Function()? after,
+}) async {
   t.view.physicalSize = size * 2.625;
   t.view.devicePixelRatio = 2.625;
   t.platformDispatcher.textScaleFactorTestValue = fs;
+  before?.call();
   await t.pumpWidget(const XueCiApp());
   await t.pump(const Duration(milliseconds: 600));
-  await t.pump(const Duration(milliseconds: 600));
+  if (after != null) {
+    after();
+    await t.pump(const Duration(milliseconds: 100));
+  }
+  await t.pump(const Duration(milliseconds: 700));
   await expectLater(find.byType(XueCiApp), matchesGoldenFile('goldens/$name.png'));
   await t.pumpWidget(const SizedBox());
   await t.pump(const Duration(seconds: 8));
@@ -76,9 +88,64 @@ void main() {
     await shot(t, 'home-small-black', size: const Size(360, 680));
   });
 
+  runs();
+
   testWidgets('home: large text, Vietnamese', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"'}, lang: 'vi'));
     await shot(t, 'home-bigtext', size: const Size(360, 760), fs: 1.6);
+  });
+}
+
+void runs() {
+  testWidgets('list', (t) async {
+    await t.runAsync(() => bootApp(sample()));
+    await shot(t, 'list', before: () => app.go('list'));
+  });
+  testWidgets('card front', (t) async {
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"'}));
+    await shot(t, 'card-front', before: () => app.go('card'));
+  });
+  testWidgets('card back', (t) async {
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"'}));
+    await shot(t, 'card-back', before: () => app.go('card'), after: () {
+      final it = app.runner.run!.cur!;
+      app.runner.cardDont(it);
+    });
+  });
+  for (final q in ['m', 's', 'c', 'p', 't', 'f']) {
+    testWidgets('quiz $q', (t) async {
+      await t.runAsync(() => bootApp({...sample(), 'hsk16_ui': '{"level":2,"qt":"$q"}'}, lang: 'id'));
+      await shot(t, 'quiz-$q', before: () => app.go('quiz'));
+    });
+  }
+  testWidgets('quiz feedback', (t) async {
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"', 'hsk16_ui': '{"level":1,"qt":"m"}'}));
+    await shot(t, 'quiz-feedback', before: () => app.go('quiz'), after: () {
+      final it = app.runner.run!.cur!;
+      app.runner.qAnswer(it, (it.ans + 1) % 4);
+    });
+  });
+  testWidgets('session summary', (t) async {
+    await t.runAsync(() => bootApp(sample()));
+    await shot(t, 'summary', before: () => app.go('quiz'), after: () {
+      final r = app.runner.run!;
+      for (final it in r.items.toList()) {
+        if (r.cur == null) break;
+        app.runner.qPrepare(r.cur!);
+        final c = r.cur!;
+        if (c.typed) {
+          app.runner.qTyped(c, 'x');
+        } else {
+          app.runner.qAnswer(c, c.ans);
+        }
+        app.runner.next();
+        it.hashCode;
+      }
+    });
+  });
+  testWidgets('mock intro', (t) async {
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_ui': '{"level":3,"qt":"mock"}'}));
+    await shot(t, 'mock-intro', before: () => app.go('quiz'));
   });
 }
 

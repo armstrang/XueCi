@@ -73,7 +73,8 @@ def main():
         os.remove(f)
     text = app_text()
     han = sorted({c for c in text if is_han(c)})
-    cjk = [ord(c) for c in han] + rng(0x20, 0x7E) + rng(0x3000, 0x303F) + rng(0xFF00, 0xFFEF) + rng(0x2010, 0x2027)
+    # pinyin letters too: Plus Jakarta Sans has no ǎ ǐ ǒ ǔ ǚ, so they fall back to Noto Sans SC
+    cjk = [ord(c) for c in han] + rng(0x20, 0x7E) + rng(0xA0, 0x24F) + rng(0x3000, 0x303F) + rng(0xFF00, 0xFFEF) + rng(0x2010, 0x2027)
     S = lambda name: os.path.join(SRC, name)
     jobs = [('pjs-%d.ttf' % w, 'PlusJakartaSans[wght].ttf', LATIN, {'wght': w}) for w in (400, 500, 600, 700, 800)]
     jobs += [('pjs-italic-500.ttf', 'PlusJakartaSans-Italic[wght].ttf', LATIN, {'wght': 500})]

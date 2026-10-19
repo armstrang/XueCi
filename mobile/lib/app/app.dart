@@ -22,6 +22,7 @@ import '../engine/learn.dart';
 import '../i18n/l10.dart';
 import 'mastery.dart';
 import 'native.dart';
+import 'runner.dart';
 
 late App app;
 
@@ -263,6 +264,11 @@ class App extends ChangeNotifier {
   };
   String get intlLoc => _intlLoc(lang);
   String fmt(num n) => NumberFormat.decimalPattern(intlLoc).format(n);
+  String fmt1(double x) {
+    final f = NumberFormat.decimalPattern(intlLoc)..maximumFractionDigits = 1;
+    return f.format(x);
+  }
+
   String pctTxt(double p) {
     if (p > 0 && p < 10) {
       final f = NumberFormat.decimalPattern(intlLoc)..maximumFractionDigits = 1;
@@ -293,7 +299,7 @@ class App extends ChangeNotifier {
     shown = 60;
     q = '';
     saveUI();
-    resetRun?.call();
+    runner.reset();
     notifyListeners();
   }
 
@@ -301,7 +307,7 @@ class App extends ChangeNotifier {
     unitBy[level] = u;
     shown = 60;
     saveUI();
-    resetRun?.call();
+    runner.reset();
     notifyListeners();
   }
 
@@ -370,11 +376,14 @@ class App extends ChangeNotifier {
 
   // ---------------------------------------------------------------- navigation
   final List<VoidCallback> beforeShow = [];
+  late final Runner runner = Runner(this);
   void go(String s) {
     if (s == 'stats' && screen != 'stats') prevScreen = screen;
     for (final f in beforeShow) {
       f();
     }
+    runner.reset();
+    menuOpen = false;
     screen = s;
     scrollTop++;
     notifyListeners();

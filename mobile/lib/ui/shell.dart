@@ -127,6 +127,20 @@ class Shell extends StatefulWidget {
 class _ShellState extends State<Shell> {
   bool _readySent = false;
 
+  void _on() => setState(() {});
+
+  @override
+  void initState() {
+    super.initState();
+    app.addListener(_on);
+  }
+
+  @override
+  void dispose() {
+    app.removeListener(_on);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
@@ -154,6 +168,7 @@ class _ShellState extends State<Shell> {
             Positioned.fill(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 220),
+                layoutBuilder: (cur, prev) => Stack(fit: StackFit.expand, children: [...prev, ?cur]),
                 switchInCurve: Curves.easeOut,
                 switchOutCurve: Curves.easeIn,
                 transitionBuilder: (child, a) => FadeTransition(

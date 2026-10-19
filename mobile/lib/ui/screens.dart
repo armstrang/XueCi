@@ -4,7 +4,9 @@ library;
 import 'package:flutter/material.dart';
 
 import '../app/app.dart';
+import 'focus.dart';
 import 'glass.dart';
+import 'run_view.dart';
 import 'theme.dart';
 
 class StatsScreenHost extends StatelessWidget {
@@ -23,7 +25,11 @@ class FocusScreenHost extends StatelessWidget {
   final String mode;
   const FocusScreenHost({super.key, required this.mode});
   @override
-  Widget build(BuildContext context) => _Todo(mode);
+  Widget build(BuildContext context) => switch (mode) {
+    'list' => const ListScreen(),
+    'card' || 'quiz' || 'session' => RunScreen(mode: mode),
+    _ => _Todo(mode),
+  };
 }
 
 class _Todo extends StatelessWidget {
