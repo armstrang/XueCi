@@ -420,9 +420,9 @@ class _InsightsState extends State<_Insights> {
     final cal = i['cal'] as Map;
     Color col(int x) => x >= 85 ? p.sGreen : (x >= 65 ? p.sYellow : p.sRed);
     Widget kpi(String a, String b) => Expanded(
-      child: Container(
+      child: Tile(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
-        decoration: BoxDecoration(color: p.fgA(.06), borderRadius: BorderRadius.circular(14)),
+        radius: 14,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -482,9 +482,9 @@ class _InsightsState extends State<_Insights> {
               children: [
                 Text(t.insConf, style: F.s(12.5, c: p.soft)),
                 for (final pr in pairs)
-                  Container(
+                  Tile(
                     padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 4),
-                    decoration: BoxDecoration(color: p.fgA(.06), borderRadius: BorderRadius.circular(999)),
+                    radius: 999,
                     child: Text.rich(
                       TextSpan(
                         children: [
@@ -540,10 +540,10 @@ class _InsightsState extends State<_Insights> {
           children: [
             for (final (a, b) in [(pc(c['pred'] as double), t.mcPred), (pc(c['real'] as double), t.mcReal), ('±$ece', t.mcGap)])
               Expanded(
-                child: Container(
+                child: Tile(
                   margin: const EdgeInsets.only(right: 6),
                   padding: const EdgeInsets.all(9),
-                  decoration: BoxDecoration(color: p.fgA(.06), borderRadius: BorderRadius.circular(14)),
+                  radius: 14,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [Text(a, style: F.s(18, w: FontWeight.w800, c: p.fg)), Text(b, style: F.s(11.5, c: p.soft))],

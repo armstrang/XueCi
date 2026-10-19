@@ -52,3 +52,4 @@ app.*.map.json
 /tool/node_modules/
 /tool/package-lock.json
 /test/goldens/
+test/cdump/

@@ -1,6 +1,7 @@
 // Readability: every piece of text on every main screen and sheet, in the light, dark and true-black themes, must
 // stand out from what is really behind it (WCAG: 4.5:1 for normal text, 3:1 for large text). The screen is rendered,
 // and for each text the background is measured from the pixels around the letters.
+import 'dart:io';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 
@@ -66,6 +67,11 @@ Future<List<Finding>> check(WidgetTester t, GlobalKey key, String where) async {
   final boundary = key.currentContext!.findRenderObject()! as RenderRepaintBoundary;
   final img = (await t.runAsync(() => boundary.toImage(pixelRatio: 1)))!;
   final data = (await t.runAsync(() => img.toByteData(format: ui.ImageByteFormat.rawRgba)))!;
+  if (Platform.environment['CDUMP'] != null) {
+    final png = (await t.runAsync(() => img.toByteData(format: ui.ImageByteFormat.png)))!;
+    Directory('test/cdump').createSync(recursive: true);
+    File('test/cdump/${where.replaceAll('/', '-')}.png').writeAsBytesSync(png.buffer.asUint8List());
+  }
   final px = data.buffer.asUint8List();
   final w = img.width, h = img.height;
   final out = <Finding>[];

@@ -3,6 +3,7 @@
 /// only on layers that float over scrolling content: the tab bar, sheets, menus, toasts.
 library;
 
+import 'dart:math' as math;
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
@@ -48,27 +49,151 @@ class Th extends InheritedWidget {
       o.p != p || o.acc != acc || o.rc != rc || o.low != low || o.full != full || o.fs != fs || o.tick != tick;
 }
 
-/// A glass panel: fill, highlight, rim, shadow.
+/// How deep a glass layer sits: 0 = on the background, 1+ = inside a panel or a sheet.
+class GlassDepth extends InheritedWidget {
+  final int d;
+  const GlassDepth({super.key, required this.d, required super.child});
+  static int of(BuildContext c) => c.dependOnInheritedWidgetOfExactType<GlassDepth>()?.d ?? 0;
+  @override
+  bool updateShouldNotify(GlassDepth o) => o.d != d;
+}
+
+/// Inside a grouped list (iOS settings style) the rows share one glass: the next Glass below this scope is drawn
+/// flat (no fill, no rim), and glass inside that row is normal again.
+class GlassFlat extends InheritedWidget {
+  final bool on;
+  const GlassFlat({super.key, this.on = true, required super.child});
+  static bool of(BuildContext c) => c.dependOnInheritedWidgetOfExactType<GlassFlat>()?.on ?? false;
+  @override
+  bool updateShouldNotify(GlassFlat o) => o.on != on;
+}
+
+/// the kinds of glass: a panel on the background, an element inside one, a floating frosted layer, a lens
+enum GK { panel, inner, frost, lens }
+
+/// Paints glass into [path] (bounds [b]): milky fill, a tint, the light from the top left, a soft white glow inside
+/// the edge (Galaxy's fluid glass) and a bright rim strongest at the top-left and bottom-right (Liquid Glass).
+void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low = false, bool rim = true}) {
+  final w = b.width, h = b.height;
+  if (w <= 0 || h <= 0) return;
+  final fill = switch (k) {
+    GK.panel => [p.glassA, p.glassB],
+    GK.inner => [p.innerA, p.innerB],
+    GK.frost => [low ? p.surface : p.frostC, low ? p.surface : p.frostC],
+    GK.lens => [Colors.white.withValues(alpha: p.dark ? .05 : .34), Colors.white.withValues(alpha: p.dark ? .02 : .16)],
+  };
+  // without effects the glass needs body to read on the background
+  final lowBoost = low && k != GK.frost && k != GK.lens ? (p.dark ? .05 : .22) : 0.0;
+  c.drawPath(
+    path,
+    Paint()
+      ..shader = ui.Gradient.linear(b.topLeft, b.bottomRight, [
+        fill[0].withValues(alpha: (fill[0].a + lowBoost).clamp(0, 1)),
+        fill[1].withValues(alpha: (fill[1].a + lowBoost).clamp(0, 1)),
+      ]),
+  );
+  if (tint != null) c.drawPath(path, Paint()..color = tint);
+  c.save();
+  c.clipPath(path);
+  // the light from the top left
+  // small pieces (chips, pills) stay clear: less light inside them, so their text keeps its contrast
+  final small = k == GK.inner && p.dark ? ((h - 24) / 64).clamp(.1, 1.0) : 1.0;
+  final sheen = k == GK.lens ? (p.dark ? .22 : .6) : (k == GK.inner ? p.sheen * .6 * small : p.sheen);
+  if (sheen > 0) {
+    final ctr = Offset(b.left + w * .15, b.top - h * .35);
+    final rx = math.max(w, h) * 1.2;
+    c.save();
+    c.translate(ctr.dx, ctr.dy);
+    c.scale(1, math.min(1, (h * 1.1) / rx));
+    c.drawCircle(
+      Offset.zero,
+      rx,
+      Paint()
+        ..shader = ui.Gradient.radial(Offset.zero, rx, [Colors.white.withValues(alpha: sheen), Colors.white.withValues(alpha: 0)], [0, .6]),
+    );
+    c.restore();
+  }
+  // the glow inside the edge: strokes of growing width, so the light is strongest at the rim and fades inwards
+  if (!low) {
+    final reach = switch (k) {
+      GK.panel => 16.0,
+      GK.frost => 12.0,
+      GK.lens => 10.0,
+      GK.inner => 9.0,
+    };
+    final a = switch (k) {
+      GK.lens => p.dark ? .22 : 1.0,
+      GK.inner => p.glowIn * (p.dark ? .5 * small : .75),
+      _ => p.glowIn,
+    };
+    const n = 6;
+    // on dark glass the light comes from above: the glow is strong along the top and fades towards the bottom
+    final gp = Paint()
+      ..style = PaintingStyle.stroke
+      ..shader = ui.Gradient.linear(b.topCenter, Offset(b.center.dx, b.top + math.min(h * .55, 160.0)), [
+        Colors.white.withValues(alpha: a / n),
+        Colors.white.withValues(alpha: p.dark ? a / n * .12 : a / n * .8),
+      ]);
+    for (var i = 1; i <= n; i++) {
+      c.drawPath(path, gp..strokeWidth = 2 * reach * i / n);
+    }
+  }
+  c.restore();
+  if (rim) {
+    final hi = k == GK.lens ? 1.0 : p.rimHi, lo = k == GK.lens ? (p.dark ? .2 : .5) : p.rimLo;
+    // the light falls from above: the rim shines along the top, fades down the sides and glints again at the bottom
+    final top = b.top, span = math.min(b.height * .6, 90.0);
+    c.drawPath(
+      path,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = k == GK.lens ? 1.5 : 1.2
+        ..shader = ui.Gradient.linear(Offset(b.left, top), Offset(b.left, top + span), [
+          Colors.white.withValues(alpha: hi),
+          Colors.white.withValues(alpha: hi * .3),
+          Colors.white.withValues(alpha: lo),
+        ], const [0, .35, 1]),
+    );
+    if (b.height > 24) {
+      c.drawPath(
+        path,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1
+          ..shader = ui.Gradient.radial(b.bottomRight, math.min(math.max(b.width, b.height) * .35, 90.0), [
+            Colors.white.withValues(alpha: hi * .5),
+            Colors.white.withValues(alpha: 0),
+          ]),
+      );
+    }
+  }
+}
+
+/// A glass panel: fill, glow, rim, shadow. Inside another panel (or a sheet) it becomes the brighter inner glass.
 class Glass extends StatelessWidget {
   final Widget child;
   final double radius;
+  final BorderRadius? borderRadius;
   final EdgeInsetsGeometry? padding;
   final bool solid;
   final bool frost; // real blur (floating layers only)
-  final Color? color; // a solid colour instead of glass (e.g. --card)
+  final Color? color; // a tint over the glass (a chosen or marked state)
   final List<BoxShadow>? shadow;
   final bool rim;
+  final bool? inner; // force panel (false) or inner (true) glass
   final double? width, height;
   const Glass({
     super.key,
     required this.child,
     this.radius = 24,
+    this.borderRadius,
     this.padding,
     this.solid = false,
     this.frost = false,
     this.color,
     this.shadow,
     this.rim = true,
+    this.inner,
     this.width,
     this.height,
   });
@@ -77,50 +202,62 @@ class Glass extends StatelessWidget {
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
-    final r = BorderRadius.circular(radius);
-    Widget inner = CustomPaint(
-      foregroundPainter: rim ? GlassRim(p, radius) : null,
-      painter: color == null ? _Highlight(p, radius, solid) : null,
-      child: Padding(padding: padding ?? EdgeInsets.zero, child: child),
-    );
-    BoxDecoration deco;
-    if (frost) {
-      deco = BoxDecoration(color: th.low ? p.surface : p.gHead, borderRadius: r);
-    } else if (color != null) {
-      deco = BoxDecoration(color: color, borderRadius: r);
-    } else {
-      deco = BoxDecoration(
-        borderRadius: r,
-        color: solid ? p.cardC.withValues(alpha: p.gSolid) : null,
-        gradient: solid
-            ? null
-            : LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  p.cardC.withValues(alpha: p.gFillA),
-                  p.cardC.withValues(alpha: p.gFillB),
-                  p.cardC.withValues(alpha: p.gFillC),
-                ],
-                stops: const [0, .55, 1],
-              ),
+    final depth = GlassDepth.of(context);
+    final br = borderRadius ?? BorderRadius.circular(radius);
+    if (!frost && GlassFlat.of(context)) {
+      Widget body = Padding(padding: padding ?? EdgeInsets.zero, child: child);
+      if (color != null) body = DecoratedBox(decoration: BoxDecoration(color: color, borderRadius: br), child: body);
+      return SizedBox(
+        width: width,
+        height: height,
+        child: GlassFlat(on: false, child: GlassDepth(d: depth + 1, child: body)),
       );
     }
-    Widget box = DecoratedBox(decoration: deco, child: inner);
+    final k = frost ? GK.frost : ((inner ?? depth > 0) ? GK.inner : GK.panel);
+    Widget box = CustomPaint(
+      painter: _GlassPainter(p, k, br, color, th.low, rim, solid),
+      child: GlassDepth(
+        d: depth + 1,
+        child: Padding(padding: padding ?? EdgeInsets.zero, child: child),
+      ),
+    );
     if (frost && !th.low) {
       box = ClipRRect(
-        borderRadius: r,
-        child: BackdropFilter(filter: ui.ImageFilter.blur(sigmaX: 16, sigmaY: 16), child: box),
+        borderRadius: br,
+        child: BackdropFilter(filter: ui.ImageFilter.blur(sigmaX: 22, sigmaY: 22), child: box),
       );
     }
-    final shd = shadow ?? (th.low && frost ? const <BoxShadow>[] : p.drop);
+    final shd = shadow ?? (th.low && frost ? const <BoxShadow>[] : (k == GK.inner ? p.dropIn : p.drop));
     final list = sh(shd);
     return SizedBox(
       width: width,
       height: height,
-      child: list == null || list.isEmpty ? box : CustomPaint(painter: OuterShadow(list, radius), child: box),
+      child: list == null || list.isEmpty ? box : CustomPaint(painter: OuterShadow(list, radius, br: br), child: box),
     );
   }
+}
+
+class _GlassPainter extends CustomPainter {
+  final Pal p;
+  final GK k;
+  final BorderRadius br;
+  final Color? tint;
+  final bool low, rim, solid;
+  _GlassPainter(this.p, this.k, this.br, this.tint, this.low, this.rim, this.solid);
+  @override
+  void paint(Canvas c, Size s) {
+    final r = Offset.zero & s;
+    final path = Path()..addRRect(br.toRRect(r).deflate(.6));
+    if (solid && k != GK.frost) {
+      // a little more body: text-heavy pieces (answers, lists)
+      if (!p.dark) c.drawPath(path, Paint()..color = Colors.white.withValues(alpha: .14));
+    }
+    paintGlass(c, path, r, p, k, tint: tint, low: low, rim: rim);
+  }
+
+  @override
+  bool shouldRepaint(_GlassPainter o) =>
+      o.p != p || o.k != k || o.br != br || o.tint != tint || o.low != low || o.rim != rim || o.solid != solid;
 }
 
 /// A shadow drawn only outside a shape (CSS box-shadow): Flutter's BoxShadow also paints under the box, which shows
@@ -128,25 +265,17 @@ class Glass extends StatelessWidget {
 class OuterShadow extends CustomPainter {
   final List<BoxShadow> shadows;
   final double radius;
+  final BorderRadius? br;
   final Path Function(Size)? shape;
-  OuterShadow(this.shadows, this.radius, {this.shape});
+  OuterShadow(this.shadows, this.radius, {this.shape, this.br});
   @override
   void paint(Canvas c, Size s) {
-    final path = shape != null ? shape!(s) : (Path()..addRRect(RRect.fromRectAndRadius(Offset.zero & s, Radius.circular(radius))));
+    RRect rr(Rect r) => br != null ? br!.toRRect(r) : RRect.fromRectAndRadius(r, Radius.circular(radius));
+    final path = shape != null ? shape!(s) : (Path()..addRRect(rr(Offset.zero & s)));
     c.save();
     c.clipPath(Path.combine(PathOperation.difference, Path()..addRect((Offset.zero & s).inflate(400)), path));
     for (final b in shadows) {
-      final grown = b.spreadRadius == 0
-          ? path
-          : (shape == null
-                ? (Path()
-                    ..addRRect(
-                      RRect.fromRectAndRadius(
-                        (Offset.zero & s).inflate(b.spreadRadius),
-                        Radius.circular((radius + b.spreadRadius).clamp(0, double.infinity)),
-                      ),
-                    ))
-                : path);
+      final grown = b.spreadRadius == 0 || shape != null ? path : (Path()..addRRect(rr(Offset.zero & s).inflate(b.spreadRadius)));
       c.drawPath(grown.shift(b.offset), Paint()
         ..color = b.color
         ..maskFilter = b.blurRadius > 0 ? MaskFilter.blur(BlurStyle.normal, b.blurSigma) : null);
@@ -155,50 +284,7 @@ class OuterShadow extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(OuterShadow o) => o.shadows != shadows || o.radius != radius;
-}
-
-/// the radial highlight from the top-left (part of --g-fill / --g-solid) and the bright line inside the top edge
-class _Highlight extends CustomPainter {
-  final Pal p;
-  final double radius;
-  final bool solid;
-  _Highlight(this.p, this.radius, this.solid);
-  @override
-  void paint(Canvas c, Size s) {
-    final rr = RRect.fromRectAndRadius(Offset.zero & s, Radius.circular(radius));
-    c.save();
-    c.clipRRect(rr);
-    final a = solid ? p.gSolidTop : p.gFillTop;
-    final center = Offset(s.width * .12, -s.height * .3);
-    final rx = s.width * 1.4, ry = s.height * (solid ? .7 : .9);
-    c.translate(center.dx, center.dy);
-    c.scale(1, ry / rx);
-    c.drawCircle(
-      Offset.zero,
-      rx,
-      Paint()
-        ..shader = ui.Gradient.radial(Offset.zero, rx, [
-          Colors.white.withValues(alpha: a),
-          Colors.white.withValues(alpha: 0),
-        ], [0, solid ? .6 : .58]),
-    );
-    c.restore();
-    // inset 0 1px 0 rgba(255,255,255,insetTop)
-    final top = Paint()
-      ..color = Colors.white.withValues(alpha: p.insetTop)
-      ..strokeWidth = 1
-      ..style = PaintingStyle.stroke;
-    c.save();
-    c.clipRRect(rr);
-    final path = Path()..addRRect(rr.deflate(.5));
-    c.clipRect(Rect.fromLTWH(0, 0, s.width, radius < s.height ? radius : s.height));
-    c.drawPath(path, top..color = Colors.white.withValues(alpha: p.insetTop * .6));
-    c.restore();
-  }
-
-  @override
-  bool shouldRepaint(_Highlight o) => o.p != p || o.radius != radius || o.solid != solid;
+  bool shouldRepaint(OuterShadow o) => o.shadows != shadows || o.radius != radius || o.br != br;
 }
 
 /// the thin bright rim of glass: 135°, bright at the top-left and bottom-right corners
@@ -210,17 +296,16 @@ class GlassRim extends CustomPainter {
   @override
   void paint(Canvas c, Size s) {
     final rr = RRect.fromRectAndRadius((Offset.zero & s).deflate(width / 2), Radius.circular(radius));
-    final light = !p.dark;
-    final a = light
-        ? const [1.0, .6, .06, .04, .55, 1.0]
-        : (p.black ? const [.85, .2, .03, .03, .18, .55] : const [.9, .25, .03, .03, .22, .62]);
-    final paint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = width
-      ..shader = ui.Gradient.linear(Offset.zero, Offset(s.width, s.height), [
-        for (final x in a) Colors.white.withValues(alpha: x),
-      ], const [0, .15, .40, .62, .86, 1]);
-    c.drawRRect(rr, paint);
+    final hi = p.rimHi, lo = p.rimLo;
+    c.drawRRect(
+      rr,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = width
+        ..shader = ui.Gradient.linear(Offset.zero, Offset(s.width, s.height), [
+          for (final x in [hi, hi * .35, lo, lo, hi * .3, hi * .75]) Colors.white.withValues(alpha: x),
+        ], const [0, .14, .32, .72, .9, 1]),
+    );
   }
 
   @override
@@ -288,8 +373,8 @@ class _PressState extends State<Press> {
   }
 }
 
-/// a static background: a gradient top → bottom with a glow in the level's colour from the top-left corner and a
-/// warm light low on the right (it fades to a new colour when the level changes)
+/// a static background: an aurora (Galaxy's fluid colour) of the level's tone high on the left, a warm light low on
+/// the right and a cool one on the left, over a soft gradient; it fades to a new colour when the level changes
 class GlowBackground extends StatelessWidget {
   final Color tone;
   const GlowBackground({super.key, required this.tone});
@@ -312,33 +397,34 @@ class _BgPainter extends CustomPainter {
   @override
   void paint(Canvas c, Size s) {
     final r = Offset.zero & s;
-    c.drawRect(
-      r,
-      Paint()..shader = ui.Gradient.linear(Offset.zero, Offset(0, s.height), [p.bgTop, p.bgBot]),
-    );
-    final vmax = s.width > s.height ? s.width : s.height;
-    final g = Offset(s.width / 2 - 280 < 16 ? 36 : s.width / 2 - 260, 36);
-    c.drawRect(
-      r,
-      Paint()
-        ..shader = ui.Gradient.radial(g, vmax * .9, [
-          tone.withValues(alpha: p.glowO),
-          tone.withValues(alpha: p.glowO * .4),
-          tone.withValues(alpha: 0),
-        ], [0, .36, .72]),
-    );
-    if (!low) {
-      // a warm light low on the right: radial 70vmax × 55vmax at 105% 78%
+    c.drawRect(r, Paint()..shader = ui.Gradient.linear(Offset.zero, Offset(0, s.height), [p.bgTop, p.bgBot]));
+    final vmax = math.max(s.width, s.height);
+    // the tone, lightened on light themes so the glass above it stays milky
+    final tn = p.dark ? Color.lerp(tone, Colors.black, .3)! : Color.lerp(tone, Colors.white, .42)!;
+    void blob(Offset ctr, double rad, Color col, double a, {double sy = 1}) {
+      if (a <= 0) return;
       c.save();
-      final ctr = Offset(s.width * 1.05, s.height * .78);
       c.translate(ctr.dx, ctr.dy);
-      c.scale(1, .55 / .7);
+      c.scale(1, sy);
       c.drawCircle(
         Offset.zero,
-        vmax * .7,
-        Paint()..shader = ui.Gradient.radial(Offset.zero, vmax * .7, [p.warm, p.warm.withValues(alpha: 0)], [0, .7]),
+        rad,
+        Paint()
+          ..shader = ui.Gradient.radial(Offset.zero, rad, [
+            col.withValues(alpha: a),
+            col.withValues(alpha: a * .45),
+            col.withValues(alpha: 0),
+          ], const [0, .45, 1]),
       );
       c.restore();
+    }
+
+    blob(Offset(s.width * .18, s.height * .06), vmax * .62, tn, p.auroraTone, sy: .8);
+    blob(Offset(s.width * 1.02, s.height * .66), vmax * .55, p.auroraWarm, low ? p.auroraWarm.a * .6 : p.auroraWarm.a, sy: .75);
+    if (!low) {
+      blob(Offset(-s.width * .05, s.height * .42), vmax * .42, p.auroraCool, p.auroraCool.a, sy: .9);
+      blob(Offset(s.width * .78, s.height * .2), vmax * .3, tn, p.auroraTone * .5);
+      blob(Offset(s.width * .3, s.height * 1.02), vmax * .45, tn, p.auroraTone * .6, sy: .6);
     }
   }
 

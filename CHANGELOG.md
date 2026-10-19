@@ -20,8 +20,13 @@ same progress, every screen drawn natively, with a new look that is easier to re
   somewhere. Its codes restore in this version, and this version's codes work the same way.
 
 ### New look
-- Content sits on clear, nearly solid cards (in the style of One UI) and the floating controls — the header buttons,
-  the tab bar, sheets — are made of frosted Liquid Glass. The background is calmer.
+- Glass all through: panels of soft milky glass that let a slow aurora of colour (your level's colour with warm
+  and cool light) show through, a gentle glow along their edges and a bright rim where the light falls on them.
+  The header buttons, the tab bar, menus and sheets are frosted glass over the page; the chosen tab, level and
+  setting sit under a clear glass lens.
+- Settings are grouped into one glass panel per section, like the phone's own settings; the realm guidance, the
+  numbers on Stats and the answers in Quiz are glass inside glass.
+- The space on Home goes above the realm orb; the realm line sits right above today's plan.
 - Every text is checked for contrast against what is really behind it, on every main screen and sheet, in the
   light, dark and true-black themes (WCAG: 4.5:1, 3:1 for large text). Level, tone and element colours were
   darkened in the light theme where they were too pale to read.

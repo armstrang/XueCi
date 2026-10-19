@@ -3,7 +3,6 @@
 /// menus under the capsule.
 library;
 
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -166,27 +165,13 @@ class _MenuBox extends StatelessWidget {
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final r = BorderRadius.circular(22);
-    Widget box = Container(
-      decoration: BoxDecoration(
-        color: th.low ? th.p.surface : th.p.gHead,
-        borderRadius: r,
-        border: Border.all(color: th.p.gEdge),
-      ),
+    return Glass(
+      frost: true,
+      borderRadius: r,
+      radius: 22,
       padding: const EdgeInsets.all(6),
+      shadow: th.low ? const [] : const [BoxShadow(color: Color.fromRGBO(22, 26, 34, .28), offset: Offset(0, 18), blurRadius: 50)],
       child: child,
-    );
-    if (!th.low) {
-      box = ClipRRect(
-        borderRadius: r,
-        child: BackdropFilter(filter: ui.ImageFilter.blur(sigmaX: 16, sigmaY: 16), child: box),
-      );
-    }
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: r,
-        boxShadow: sh(const [BoxShadow(color: Color.fromRGBO(22, 26, 34, .3), offset: Offset(0, 18), blurRadius: 50)]),
-      ),
-      child: box,
     );
   }
 }

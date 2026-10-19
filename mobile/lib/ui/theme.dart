@@ -26,6 +26,18 @@ class Pal {
   final Color cardC; // the content cards' colour (One UI): the glass fills are this colour at gFill* / gSolid
   final List<BoxShadow> drop;
   final double insetTop; // the bright line inside the top edge
+  // the glass material (Galaxy-style milky glass + Liquid Glass rims): panels on the background, elements inside a
+  // panel, floating frosted layers; each with a soft white glow inside its edge and a bright rim
+  final Color glassA, glassB; // panel fill, top-left → bottom-right
+  final Color innerA, innerB; // an element inside a panel
+  final Color frostC; // floating layers (over a real blur)
+  final double glowIn; // the white glow inside the edge
+  final double rimHi, rimLo; // the rim's bright corners and its quiet middle
+  final double sheen; // the light from the top left
+  // the aurora behind everything: the realm/level tone, a warm and a cool light
+  final double auroraTone;
+  final Color auroraWarm, auroraCool;
+  final List<BoxShadow> dropIn; // the small shadow of an element inside a panel
 
   const Pal({
     required this.brightness,
@@ -75,6 +87,19 @@ class Pal {
     required this.cardC,
     required this.drop,
     required this.insetTop,
+    required this.glassA,
+    required this.glassB,
+    required this.innerA,
+    required this.innerB,
+    required this.frostC,
+    required this.glowIn,
+    required this.rimHi,
+    required this.rimLo,
+    required this.sheen,
+    required this.auroraTone,
+    required this.auroraWarm,
+    required this.auroraCool,
+    required this.dropIn,
   });
 
   bool get dark => brightness == Brightness.dark;
@@ -121,12 +146,12 @@ class Pal {
     sunk: _c(0xffe0e3e8),
     line: _c(0xffd6dae0),
     fg: _c(0xff161a22),
-    soft: _c(0xff4f5767),
-    mute: _c(0xff5c6371),
+    soft: _c(0xff464e5d),
+    mute: _c(0xff515866),
     mark: _c(0xffffe1a8),
     onAcc: _c(0xffffffff),
-    bgTop: _c(0xfff5f6f8),
-    bgBot: _c(0xffe1e4e9),
+    bgTop: _c(0xfff6eee7),
+    bgBot: _c(0xffe8e4f3),
     glowO: .30,
     lv: [
       _c(0xff297742), _c(0xff0e747d), _c(0xff1c6ea5), _c(0xff3c4fb8), _c(0xff7a46b8), _c(0xffa3386f), //
@@ -163,10 +188,23 @@ class Pal {
     warm: const Color.fromRGBO(255, 190, 140, .26),
     cardC: const Color(0xffffffff),
     drop: const [
-      BoxShadow(color: Color.fromRGBO(25, 35, 60, .45), offset: Offset(0, 20), blurRadius: 40, spreadRadius: -24),
-      BoxShadow(color: Color.fromRGBO(25, 35, 60, .14), offset: Offset(0, 3), blurRadius: 8, spreadRadius: -4),
+      BoxShadow(color: Color.fromRGBO(60, 40, 90, .20), offset: Offset(0, 18), blurRadius: 40, spreadRadius: -14),
+      BoxShadow(color: Color.fromRGBO(60, 40, 90, .06), offset: Offset(0, 2), blurRadius: 6, spreadRadius: -2),
     ],
     insetTop: .95,
+    glassA: _w(.50),
+    glassB: _w(.30),
+    innerA: _w(.74),
+    innerB: _w(.52),
+    frostC: _w(.46),
+    glowIn: 1,
+    rimHi: 1,
+    rimLo: .3,
+    sheen: .6,
+    auroraTone: .55,
+    auroraWarm: const Color.fromRGBO(255, 138, 88, .58),
+    auroraCool: const Color.fromRGBO(128, 136, 255, .46),
+    dropIn: const [BoxShadow(color: Color.fromRGBO(60, 40, 90, .10), offset: Offset(0, 6), blurRadius: 16, spreadRadius: -6)],
   );
 
   static final darkP = Pal(
@@ -176,18 +214,18 @@ class Pal {
     sunk: _c(0xff353840),
     line: _c(0xff3a3e46),
     fg: _c(0xffeceef2),
-    soft: _c(0xffcdd1d8),
-    mute: _c(0xffb0b5be),
+    soft: _c(0xffd6dae0),
+    mute: _c(0xffc6cad2),
     mark: _c(0xff5a4515),
     onAcc: _c(0xff0f1218),
-    bgTop: _c(0xff2f3238),
-    bgBot: _c(0xff15171b),
+    bgTop: _c(0xff171a22),
+    bgBot: _c(0xff08090d),
     glowO: .32,
     lv: [
-      _c(0xff6fd08f), _c(0xff5cc8cf), _c(0xff6dbbea), _c(0xff94a3f5), _c(0xffbf9af0), _c(0xffec8dbd), //
-      _c(0xffe8bd57), _c(0xffff8f78), _c(0xffa7b4dc),
+      _c(0xff85d7a0), _c(0xff74d0d6), _c(0xff83c5ed), _c(0xffa4b1f6), _c(0xffc9a9f2), _c(0xffef9ec7), //
+      _c(0xffebc770), _c(0xffffa08c), _c(0xffb4bfe1),
     ],
-    tone: [_c(0xffff7a66), _c(0xfff2a64a), _c(0xff5fd38f), _c(0xff79a6ff), _c(0xff9aa39e)],
+    tone: [_c(0xffff7a66), _c(0xfff2a64a), _c(0xff5fd38f), _c(0xff86aeff), _c(0xffb7bfba)],
     sRed: _c(0xffff6b6b),
     sYellow: _c(0xfff5d04a),
     sGreen: _c(0xff62d26f),
@@ -217,8 +255,21 @@ class Pal {
     card: .06,
     warm: _c(0xffebc277).withValues(alpha: .12),
     cardC: const Color(0xff2a2d35),
-    drop: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .85), offset: Offset(0, 22), blurRadius: 40, spreadRadius: -22)],
+    drop: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .55), offset: Offset(0, 20), blurRadius: 44, spreadRadius: -16)],
     insetTop: .18,
+    glassA: _w(.065),
+    glassB: _w(.03),
+    innerA: _w(.035),
+    innerB: _w(.01),
+    frostC: const Color.fromRGBO(24, 26, 34, .58),
+    glowIn: .09,
+    rimHi: .5,
+    rimLo: 0,
+    sheen: .06,
+    auroraTone: .34,
+    auroraWarm: const Color.fromRGBO(255, 112, 50, .18),
+    auroraCool: const Color.fromRGBO(110, 90, 255, .32),
+    dropIn: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .35), offset: Offset(0, 6), blurRadius: 16, spreadRadius: -8)],
   );
 
   static final blackP = Pal(
@@ -229,8 +280,8 @@ class Pal {
     sunk: _c(0xff1a1a1d),
     line: _c(0xff26262a),
     fg: _c(0xfff4f4f6),
-    soft: _c(0xffb4b4bb),
-    mute: _c(0xff8d8d94),
+    soft: _c(0xffc4c4cb),
+    mute: _c(0xffa0a0a7),
     mark: _c(0xff4a3a10),
     onAcc: _c(0xff000000),
     bgTop: _c(0xff000000),
@@ -267,8 +318,21 @@ class Pal {
     card: .06,
     warm: _c(0xffebc277).withValues(alpha: .10),
     cardC: const Color(0xff141417),
-    drop: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .95), offset: Offset(0, 20), blurRadius: 36, spreadRadius: -22)],
+    drop: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .9), offset: Offset(0, 20), blurRadius: 40, spreadRadius: -18)],
     insetTop: .14,
+    glassA: _w(.085),
+    glassB: _w(.035),
+    innerA: _w(.05),
+    innerB: _w(.015),
+    frostC: const Color.fromRGBO(8, 8, 10, .62),
+    glowIn: .09,
+    rimHi: .45,
+    rimLo: 0,
+    sheen: .09,
+    auroraTone: .22,
+    auroraWarm: const Color.fromRGBO(255, 120, 60, .12),
+    auroraCool: const Color.fromRGBO(110, 95, 255, .16),
+    dropIn: const [],
   );
 }
 

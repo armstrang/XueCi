@@ -659,14 +659,12 @@ class AdviceList extends StatelessWidget {
           Builder(
             builder: (c) {
               final (tt, why, btn) = advText(items[i]);
-              return Container(
-                margin: EdgeInsets.only(top: i > 0 ? 8 : 0),
+              return Padding(
+                padding: EdgeInsets.only(top: i > 0 ? 8 : 0),
+                child: Glass(
+                inner: true,
+                radius: 18,
                 padding: const EdgeInsets.fromLTRB(10, 9, 10, 9),
-                decoration: BoxDecoration(
-                  color: p.fgA(.04),
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border(top: BorderSide(color: Colors.white.withValues(alpha: p.dark ? .08 : .5))),
-                ),
                 child: Row(
                   children: [
                     Container(
@@ -701,6 +699,7 @@ class AdviceList extends StatelessWidget {
                     ],
                   ],
                 ),
+              ),
               );
             },
           ),

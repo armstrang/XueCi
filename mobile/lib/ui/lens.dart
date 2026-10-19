@@ -229,64 +229,38 @@ class _HskLensPainter extends CustomPainter {
     final rr = RRect.fromRectAndRadius(r, Radius.circular(radius));
     final dark = p.dark;
     if (!low) {
-      // 0 10px 24px -12px lc 85%, 0 0 22px -6px rc 60%
-      c.drawRRect(
-        rr.shift(const Offset(0, 8)).deflate(4),
-        Paint()
-          ..color = lc.withValues(alpha: dark ? .25 : .55)
-          ..maskFilter = blur(BlurStyle.normal, 9),
-      );
-      c.drawRRect(
-        rr.deflate(2),
-        Paint()
-          ..color = rc.withValues(alpha: .45)
-          ..maskFilter = blur(BlurStyle.normal, 8),
-      );
+      // a coloured glow around the lens, never under it
+      OuterShadow([
+        BoxShadow(color: lc.withValues(alpha: dark ? .30 : .40), offset: const Offset(0, 8), blurRadius: 18, spreadRadius: -6),
+        BoxShadow(color: rc.withValues(alpha: .30), blurRadius: 14, spreadRadius: -4),
+      ], radius).paint(c, s);
     }
+    final path = Path()..addRRect(rr.deflate(.5));
+    // clear liquid glass with a breath of the level's colour
+    paintGlass(c, path, r, p, GK.lens, tint: lc.withValues(alpha: dark ? .10 : .12), low: low);
+    // the realm's qi from below
     c.save();
     c.clipRRect(rr);
-    // body: the level's colour at 12–16 % over a little white
-    c.drawRect(r, Paint()..color = Pal.mix(lc, dark ? .16 : .12, Colors.white.withValues(alpha: dark ? .04 : .10)));
-    // the realm's qi from below
     c.drawRect(
       r,
       Paint()
         ..shader = ui.Gradient.radial(Offset(s.width * .7, s.height * 1.2), s.width * .9, [
-          rc.withValues(alpha: dark ? .34 : .30),
+          rc.withValues(alpha: dark ? .16 : .24),
           rc.withValues(alpha: 0),
         ], [0, .7]),
     );
-    // highlight from the top left
-    c.drawRect(
-      r,
-      Paint()
-        ..shader = ui.Gradient.radial(Offset(s.width * .28, -s.height * .1), s.width * 1.2, [
-          Colors.white.withValues(alpha: dark ? .22 : .5),
-          Colors.white.withValues(alpha: 0),
-        ], [0, .58]),
-    );
     c.restore();
     // the rim through the five elements (conic, from 210°)
-    final el = [p.elWood, p.elFire, p.elEarth, p.elMetal, p.elWater, p.elWood];
+    // the five elements as a faint coloured ring just inside the clear rim
+    final el = [for (final e in [p.elWood, p.elFire, p.elEarth, p.elMetal, p.elWater, p.elWood]) e.withValues(alpha: .6)];
     c.drawRRect(
-      rr.deflate(1),
+      rr.deflate(2.6),
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 2
+        ..strokeWidth = 1.4
         ..shader = ui.Gradient.sweep(r.center, el, const [0, .2, .4, .6, .8, 1], TileMode.clamp, 0, math.pi * 2, Matrix4.rotationZ(math.pi * (210 - 90) / 180).storage)
         ..color = Colors.white.withValues(alpha: .95),
     );
-    // inset top light
-    c.save();
-    c.clipRRect(rr);
-    c.drawLine(
-      Offset(radius * .6, 1.2),
-      Offset(s.width - radius * .6, 1.2),
-      Paint()
-        ..color = Colors.white.withValues(alpha: dark ? .28 : .7)
-        ..strokeWidth = 1,
-    );
-    c.restore();
     // a thin gold line on top
     if (!low) {
       final gl = Rect.fromLTWH(s.width * .22, -1, s.width * .56, 2);
@@ -312,26 +286,62 @@ class TabLens extends StatelessWidget {
   const TabLens({super.key, required this.lc});
   @override
   Widget build(BuildContext context) {
-    final p = Th.pal(context);
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(999),
-        color: Pal.mix(lc, .14, Colors.white.withValues(alpha: .08)),
-        gradient: RadialGradient(
-          center: const Alignment(-.4, -1.4),
-          radius: 1.2,
-          colors: [Colors.white.withValues(alpha: p.dark ? .22 : .45), Colors.white.withValues(alpha: 0)],
-          stops: const [0, .6],
-        ),
-        border: Border.all(color: lc.withValues(alpha: .26)),
-        boxShadow: sh([BoxShadow(color: lc.withValues(alpha: .5), offset: const Offset(0, 6), blurRadius: 16, spreadRadius: -10)]),
-      ),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(999),
-          color: Pal.mix(lc, .14, Colors.white.withValues(alpha: .08)),
-        ),
-      ),
-    );
+    final th = Th.of(context);
+    return CustomPaint(painter: _TabLensPainter(th.p, lc, th.low));
   }
+}
+
+class _TabLensPainter extends CustomPainter {
+  final Pal p;
+  final Color lc;
+  final bool low;
+  _TabLensPainter(this.p, this.lc, this.low);
+  @override
+  void paint(Canvas c, Size s) {
+    final r = (Offset.zero & s).deflate(1);
+    final path = Path()..addRRect(RRect.fromRectAndRadius(r, Radius.circular(r.height / 2)));
+    if (!low) {
+      OuterShadow([BoxShadow(color: lc.withValues(alpha: p.dark ? .35 : .4), offset: const Offset(0, 6), blurRadius: 16, spreadRadius: -8)], 0,
+          shape: (_) => path).paint(c, s);
+    }
+    paintGlass(c, path, r, p, GK.lens, tint: lc.withValues(alpha: p.dark ? .16 : .10), low: low);
+  }
+
+  @override
+  bool shouldRepaint(_TabLensPainter o) => o.p != p || o.lc != lc || o.low != low;
+}
+
+/// a chosen segment or pill: a drop of clear liquid glass, lightly tinted
+class LensPill extends StatelessWidget {
+  final double radius;
+  final Color? tint;
+  const LensPill({super.key, this.radius = 11, this.tint});
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    return CustomPaint(painter: _PillPainter(th.p, radius, tint, th.low));
+  }
+}
+
+class _PillPainter extends CustomPainter {
+  final Pal p;
+  final double radius;
+  final Color? tint;
+  final bool low;
+  _PillPainter(this.p, this.radius, this.tint, this.low);
+  @override
+  void paint(Canvas c, Size s) {
+    final r = Offset.zero & s;
+    final path = Path()..addRRect(RRect.fromRectAndRadius(r.deflate(.5), Radius.circular(radius)));
+    if (!low) {
+      OuterShadow([BoxShadow(color: Color.fromRGBO(0, 0, 0, p.dark ? .35 : .12), offset: const Offset(0, 3), blurRadius: 10, spreadRadius: -3)], radius)
+          .paint(c, s);
+    }
+    // a little more body than the tab lens: the chosen label must read at once
+    c.drawPath(path, Paint()..color = Colors.white.withValues(alpha: p.dark ? .10 : .62));
+    paintGlass(c, path, r, p, GK.lens, tint: tint, low: low);
+  }
+
+  @override
+  bool shouldRepaint(_PillPainter o) => o.p != p || o.radius != radius || o.tint != tint || o.low != low;
 }

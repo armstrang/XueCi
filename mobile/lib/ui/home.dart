@@ -297,7 +297,9 @@ class _FluidLayout extends MultiChildLayoutDelegate {
       ob = math.max(56, ob + free);
       free = h - 12 - ps.height - ob - ts.height;
     }
-    final top = math.max(0.0, free / 2);
+    // the realm text sits close above the plan; spare room goes above the orb, where the aurora shows
+    final gap = math.min(math.max(0.0, free / 2), 22.0);
+    final top = math.max(0.0, free - gap);
     layoutChild('o', BoxConstraints.tight(Size.square(ob)));
     positionChild('o', Offset((w - ob) / 2, top));
     final qs = layoutChild('q', const BoxConstraints());
@@ -367,42 +369,10 @@ class _FluidPainter extends CustomPainter {
           ], [0, .5, 1])
           ..maskFilter = blur(BlurStyle.normal, 30),
       );
-      if (!p.black) {
-        // the shadow only outside the glass, never under it
-        c.save();
-        c.clipPath(Path.combine(PathOperation.difference, Path()..addRect((Offset.zero & s).inflate(200)), path));
-        c.drawPath(
-          path.shift(const Offset(0, 26)),
-          Paint()
-            ..color = (p.dark ? const Color.fromRGBO(0, 0, 0, .5) : const Color.fromRGBO(30, 45, 70, .16))
-            ..maskFilter = blur(BlurStyle.normal, 15),
-        );
-        c.restore();
-      }
+      // the shadow only outside the glass, never under it
+      OuterShadow(p.drop, 0, shape: (_) => path).paint(c, s);
     }
-    c.drawPath(
-      path,
-      Paint()
-        ..shader = ui.Gradient.linear(Offset.zero, Offset(0, s.height), [
-          p.cardC.withValues(alpha: p.f0),
-          p.cardC.withValues(alpha: p.f1),
-        ]),
-    );
-    if (low) {
-      // without the drop shadow the glass needs a little body to read on the background
-      c.drawPath(path, Paint()..color = p.surface.withValues(alpha: p.dark ? .25 : .35));
-    }
-    c.drawPath(
-      path,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.2
-        ..shader = ui.Gradient.linear(Offset.zero, Offset(s.width, s.height), [
-          Colors.white.withValues(alpha: p.r0),
-          Colors.white.withValues(alpha: p.r1),
-          Colors.white.withValues(alpha: p.r2),
-        ], [0, .45, 1]),
-    );
+    paintGlass(c, path, Offset.zero & s, p, GK.panel, low: low);
   }
 
   @override
@@ -715,17 +685,13 @@ class PlanCard extends StatelessWidget {
     final lm = app.lm;
     final big = th.fs >= 1.15;
     final short = MediaQuery.sizeOf(context).height <= 760;
-    // One UI: a card inside the panel is a shade apart (light grey on white, a lift on dark)
-    final card = BoxDecoration(
-      color: p.dark ? Colors.white.withValues(alpha: p.card) : const Color(0xfff1f3f6),
-      borderRadius: BorderRadius.circular(26),
-      border: p.dark ? Border(top: BorderSide(color: Colors.white.withValues(alpha: p.black ? .1 : .12))) : null,
-    );
+    // the plan is the brighter glass inside the panel
+    Widget card({required EdgeInsets padding, required Widget child}) =>
+        Glass(inner: true, solid: true, radius: 26, padding: padding, child: child);
     final chip = app.goalChip();
     final pad = big ? const EdgeInsets.fromLTRB(12, 9, 12, 11) : (short ? const EdgeInsets.fromLTRB(12, 10, 12, 12) : const EdgeInsets.fromLTRB(14, 12, 14, 14));
     if (app.isNewbie()) {
-      return Container(
-        decoration: card,
+      return card(
         padding: pad,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -820,8 +786,7 @@ class PlanCard extends StatelessWidget {
       onTap: () => app.startSession(!todo),
     );
     final showSt = !short && !big;
-    return Container(
-      decoration: card,
+    return card(
       padding: pad,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -837,7 +802,7 @@ class PlanCard extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('试', style: F.s(14, w: FontWeight.w900, family: F.hz, c: th.acc)),
+                      Text('试', style: F.s(14, w: FontWeight.w900, family: F.hz, c: p.dark ? p.fg : th.acc)),
                       const SizedBox(width: 5),
                       Text(
                         cDone ? '✓' : '$cc/${c['n']}',
@@ -937,7 +902,7 @@ class _NbOpt extends StatelessWidget {
             ],
           ),
         ),
-        if (!pri) Text('›', style: F.s(18, c: p.mute)),
+        if (!pri) Text('›', style: F.s(18, c: p.soft)),
       ],
     );
     return Press(

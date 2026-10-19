@@ -126,13 +126,14 @@ class MainBtn extends StatelessWidget {
           decoration: BoxDecoration(
             color: c,
             borderRadius: BorderRadius.circular(radius),
-            gradient: RadialGradient(
-              center: const Alignment(-.4, -1.5),
-              radius: 1.3,
-              colors: [Color.lerp(c, Colors.white, .28)!, c],
-              stops: const [0, .55],
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color.lerp(c, Colors.white, .22)!, c, Color.lerp(c, Colors.black, .06)!],
+              stops: const [0, .55, 1],
             ),
-            boxShadow: sh(th.low ? null : [BoxShadow(color: c.withValues(alpha: .55), offset: const Offset(0, 10), blurRadius: 22, spreadRadius: -10)]),
+            border: Border.all(color: Colors.white.withValues(alpha: th.p.dark ? .28 : .45), width: 1),
+            boxShadow: sh(th.low ? null : [BoxShadow(color: c.withValues(alpha: .5), offset: const Offset(0, 10), blurRadius: 24, spreadRadius: -8)]),
           ),
           child: Row(
             mainAxisSize: wide ? MainAxisSize.max : MainAxisSize.min,
@@ -225,18 +226,16 @@ class GChip extends StatelessWidget {
     onTap: onTap,
     scale: 1.05,
     label: label,
-    // One UI: a tinted pill in the accent, no glass inside a card
-    child: Builder(
+        child: Builder(
       builder: (c) {
         final th = Th.of(c);
-        return Container(
+        return Glass(
+          inner: true,
+          radius: 999,
           height: height,
+          color: th.acc.withValues(alpha: th.p.dark ? .07 : .06),
+          shadow: const [],
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          decoration: BoxDecoration(
-            color: th.acc.withValues(alpha: th.p.dark ? .09 : .05),
-            borderRadius: BorderRadius.circular(999),
-            border: Border.all(color: th.acc.withValues(alpha: .28)),
-          ),
           child: Center(widthFactor: 1, child: child),
         );
       },
@@ -374,4 +373,17 @@ class SkRow extends StatelessWidget {
       ],
     );
   }
+}
+
+/// a small tile of inner glass (numbers, notes), with a margin like a Container
+class Tile extends StatelessWidget {
+  final Widget child;
+  final EdgeInsetsGeometry? margin, padding;
+  final double radius;
+  const Tile({super.key, required this.child, this.margin, this.padding, this.radius = 14});
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: margin ?? EdgeInsets.zero,
+    child: Glass(inner: true, solid: true, radius: radius, padding: padding, shadow: const [], child: child),
+  );
 }

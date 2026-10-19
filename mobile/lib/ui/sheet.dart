@@ -2,7 +2,6 @@
 /// with a close button, the back button closes them.
 library;
 
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -39,31 +38,18 @@ class _SheetFrame extends StatelessWidget {
   const _SheetFrame({required this.child});
   @override
   Widget build(BuildContext context) {
-    final th = Th.of(context);
     final mq = MediaQuery.of(context);
     final wide = mq.size.width >= 600;
     final r = wide ? BorderRadius.circular(32) : const BorderRadius.vertical(top: Radius.circular(32));
-    Widget box = Container(
+    Widget box = ConstrainedBox(
       constraints: BoxConstraints(maxWidth: 560, maxHeight: mq.size.height * (wide ? .9 : .92)),
-      decoration: BoxDecoration(
-        color: th.low ? th.p.surface : th.p.gHead,
+      child: Glass(
+        frost: true,
         borderRadius: r,
-        border: Border.all(color: th.p.gEdge),
+        radius: 32,
+        shadow: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .35), offset: Offset(0, -20), blurRadius: 60, spreadRadius: -24)],
+        child: ClipRRect(borderRadius: r, child: child),
       ),
-      child: ClipRRect(borderRadius: r, child: child),
-    );
-    if (!th.low) {
-      box = ClipRRect(
-        borderRadius: r,
-        child: BackdropFilter(filter: ui.ImageFilter.blur(sigmaX: 16, sigmaY: 16), child: box),
-      );
-    }
-    box = DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: r,
-        boxShadow: sh(const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .4), offset: Offset(0, -24), blurRadius: 60, spreadRadius: -24)]),
-      ),
-      child: box,
     );
     return Align(
       alignment: wide ? Alignment.center : Alignment.bottomCenter,

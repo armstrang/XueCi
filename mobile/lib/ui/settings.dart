@@ -15,6 +15,7 @@ import '../i18n/l10.dart';
 import 'glass.dart';
 import 'home.dart' show Incense;
 import 'icons.dart';
+import 'lens.dart' show LensPill;
 import 'backup_sheet.dart';
 import 'sheet.dart';
 import 'stats.dart' show openResearch;
@@ -39,9 +40,34 @@ class SGroup extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 4, bottom: 6),
-            child: Semantics(header: true, child: Text(title.toUpperCase(), style: F.s(12, w: FontWeight.w800, c: p.soft, ls: .7))),
+            child: Semantics(
+              header: true,
+              child: Text(
+                title.toUpperCase(),
+                style: F.s(12, w: FontWeight.w800, c: p.soft, ls: .7),
+              ),
+            ),
           ),
-          for (var i = 0; i < children.length; i++) ...[if (i > 0) const SizedBox(height: 6), children[i]],
+          // one glass for the group, hairlines between the rows
+          Glass(
+            radius: 22,
+            solid: true,
+            child: GlassFlat(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  for (var i = 0; i < children.length; i++) ...[
+                    if (i > 0)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, right: 16),
+                        child: Container(height: 1, color: p.fgA(p.dark ? .08 : .07)),
+                      ),
+                    children[i],
+                  ],
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -57,7 +83,16 @@ class SRow extends StatelessWidget {
   final String chev;
   final VoidCallback? onTap;
   final Widget? trailing;
-  const SRow({super.key, this.icon, required this.title, this.sub, this.subW, this.chev = '›', this.onTap, this.trailing});
+  const SRow({
+    super.key,
+    this.icon,
+    required this.title,
+    this.sub,
+    this.subW,
+    this.chev = '›',
+    this.onTap,
+    this.trailing,
+  });
   @override
   Widget build(BuildContext context) {
     final p = Th.pal(context);
@@ -79,7 +114,10 @@ class SRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(title, style: F.s(15, w: FontWeight.w700, c: p.fg, h: 1.3)),
+                    Text(
+                      title,
+                      style: F.s(15, w: FontWeight.w700, c: p.fg, h: 1.3),
+                    ),
                     if (subW != null) subW! else if (sub != null) Text(sub!, style: F.s(12.5, c: p.soft, h: 1.35)),
                   ],
                 ),
@@ -122,32 +160,40 @@ class Seg extends StatelessWidget {
                   child: GestureDetector(
                     behavior: HitTestBehavior.opaque,
                     onTap: () => onPick(v),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      constraints: const BoxConstraints(minHeight: 40),
-                      margin: const EdgeInsets.symmetric(horizontal: 2),
-                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-                      decoration: BoxDecoration(
-                        color: v == value ? p.surface : Colors.transparent,
-                        borderRadius: BorderRadius.circular(11),
-                        boxShadow: sh(v == value ? const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .3), offset: Offset(0, 2), blurRadius: 8, spreadRadius: -3)] : null),
-                      ),
-                      child: ExcludeSemantics(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (ic != null) ...[ic, const SizedBox(width: 5)],
-                            Flexible(
-                              child: Text(
-                                l,
-                                maxLines: 2,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: F.s(13, w: FontWeight.w700, c: v == value ? p.fg : p.soft, h: 1.2),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: Stack(
+                        children: [
+                          Positioned.fill(
+                            child: AnimatedOpacity(
+                              opacity: v == value ? 1 : 0,
+                              duration: const Duration(milliseconds: 200),
+                              child: const LensPill(),
+                            ),
+                          ),
+                          Container(
+                            constraints: const BoxConstraints(minHeight: 40),
+                            padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
+                            alignment: Alignment.center,
+                            child: ExcludeSemantics(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  if (ic != null) ...[ic, const SizedBox(width: 5)],
+                                  Flexible(
+                                    child: Text(
+                                      l,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: F.s(13, w: FontWeight.w700, c: v == value ? p.fg : p.soft, h: 1.2),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -209,13 +255,17 @@ class _SettingsState extends State<_Settings> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(t.theme, style: F.s(15, w: FontWeight.w700, c: p.fg)),
+                Text(
+                  t.theme,
+                  style: F.s(15, w: FontWeight.w700, c: p.fg),
+                ),
                 const SizedBox(height: 8),
                 Seg(
                   label: t.theme,
                   value: app.theme,
                   options: [
-                    for (final k in themes) (k, L10.text(t.th[k]), Icon2(themeIc[k]!, size: 15, color: k == app.theme ? p.fg : p.soft)),
+                    for (final k in themes)
+                      (k, L10.text(t.th[k]), Icon2(themeIc[k]!, size: 15, color: k == app.theme ? p.fg : p.soft)),
                   ],
                   onPick: (v) {
                     if (v != app.theme) app.setTheme(v);
@@ -231,7 +281,10 @@ class _SettingsState extends State<_Settings> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text(t.fxT, style: F.s(15, w: FontWeight.w700, c: p.fg)),
+                Text(
+                  t.fxT,
+                  style: F.s(15, w: FontWeight.w700, c: p.fg),
+                ),
                 const SizedBox(height: 8),
                 Seg(
                   label: t.fxT,
@@ -279,16 +332,30 @@ class _SettingsState extends State<_Settings> {
             sub: bkLastLine(),
             onTap: () => from(() => openBackup(ctx)),
           ),
-          SRow(icon: Icon2(I.flask, size: 22, color: th.acc), title: t.rsT, onTap: () => from(openResearch)),
+          SRow(
+            icon: Icon2(I.flask, size: 22, color: th.acc),
+            title: t.rsT,
+            onTap: () => from(openResearch),
+          ),
         ]),
         SGroup(t.setHelp, [
-          SRow(icon: Icon2(I.tour, size: 22, color: th.acc), title: t.tourRow, onTap: () => from(() => openTour(ctx, false))),
+          SRow(
+            icon: Icon2(I.tour, size: 22, color: th.acc),
+            title: t.tourRow,
+            onTap: () => from(() => openTour(ctx, false)),
+          ),
           SRow(
             icon: Text.rich(
               TextSpan(
                 children: [
-                  TextSpan(text: '妈', style: TextStyle(color: p.t(1))),
-                  TextSpan(text: '骂', style: TextStyle(color: p.t(4))),
+                  TextSpan(
+                    text: '妈',
+                    style: TextStyle(color: p.t(1)),
+                  ),
+                  TextSpan(
+                    text: '骂',
+                    style: TextStyle(color: p.t(4)),
+                  ),
                 ],
               ),
               style: F.s(15, w: FontWeight.w900, family: F.hz, h: 1.4),
@@ -333,7 +400,10 @@ class _LangList extends StatelessWidget {
             child: Container(
               constraints: const BoxConstraints(minHeight: 48),
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-              decoration: BoxDecoration(color: on ? th.acc.withValues(alpha: .12) : null, borderRadius: BorderRadius.circular(15)),
+              decoration: BoxDecoration(
+                color: on ? th.acc.withValues(alpha: .12) : null,
+                borderRadius: BorderRadius.circular(15),
+              ),
               child: Row(
                 children: [
                   Container(
@@ -341,14 +411,20 @@ class _LangList extends StatelessWidget {
                     height: 26,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(color: on ? th.acc : p.sunk, borderRadius: BorderRadius.circular(8)),
-                    child: DefaultTextStyle(style: F.s(11.5, w: FontWeight.w800, c: on ? p.onAcc : p.soft, ls: .5), child: lead),
+                    child: DefaultTextStyle(
+                      style: F.s(11.5, w: FontWeight.w800, c: on ? p.onAcc : p.soft, ls: .5),
+                      child: lead,
+                    ),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(name, style: F.s(14.5, w: FontWeight.w700, c: p.fg, h: 1.25)),
+                        Text(
+                          name,
+                          style: F.s(14.5, w: FontWeight.w700, c: p.fg, h: 1.25),
+                        ),
                         if (sub != null) Text(sub, style: F.s(11.5, c: p.soft, h: 1.25)),
                       ],
                     ),
@@ -364,7 +440,12 @@ class _LangList extends StatelessWidget {
 
     return Column(
       children: [
-        row('auto', Icon2(I.device, size: 15, color: app.langPref == 'auto' ? p.onAcc : p.soft), t.auto, app.texts[sl]!.name),
+        row(
+          'auto',
+          Icon2(I.device, size: 15, color: app.langPref == 'auto' ? p.onAcc : p.soft),
+          t.auto,
+          app.texts[sl]!.name,
+        ),
         Container(height: 1, color: p.line, margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 8)),
         for (final l in const ['id', 'en', 'th', 'vi'])
           Builder(
@@ -431,10 +512,21 @@ void openStreak(BuildContext context) {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             color: done || fut ? null : (rest ? p.l(2).withValues(alpha: .22) : p.fgA(.05)),
-            gradient: done ? const LinearGradient(begin: Alignment(-.3, -1), end: Alignment(.3, 1), colors: [Color(0xfff2a15c), Color(0xffd9573a)]) : null,
+            gradient: done
+                ? const LinearGradient(
+                    begin: Alignment(-.3, -1),
+                    end: Alignment(.3, 1),
+                    colors: [Color(0xfff2a15c), Color(0xffd9573a)],
+                  )
+                : null,
             border: now ? Border.all(color: p.fg, width: 2) : null,
           ),
-          child: text.isEmpty ? null : Text(text, style: F.s(12.5, w: FontWeight.w700, c: done ? Colors.white : (rest ? p.fg : p.soft))),
+          child: text.isEmpty
+              ? null
+              : Text(
+                  text,
+                  style: F.s(12.5, w: FontWeight.w700, c: done ? Colors.white : (rest ? p.fg : p.soft)),
+                ),
         ),
       );
     }
@@ -446,9 +538,17 @@ void openStreak(BuildContext context) {
           children: [
             Incense(lit: s.today, size: 52),
             const SizedBox(width: 12),
-            Text(app.fmt(s.days), style: F.s(40, w: FontWeight.w800, c: p.fg, h: 1, feat: F.tab)),
+            Text(
+              app.fmt(s.days),
+              style: F.s(40, w: FontWeight.w800, c: p.fg, h: 1, feat: F.tab),
+            ),
             const SizedBox(width: 12),
-            Flexible(child: Text(t.streakU(s.days), style: F.s(15, w: FontWeight.w700, c: p.soft))),
+            Flexible(
+              child: Text(
+                t.streakU(s.days),
+                style: F.s(15, w: FontWeight.w700, c: p.soft),
+              ),
+            ),
           ],
         ),
         Padding(
@@ -469,7 +569,13 @@ void openStreak(BuildContext context) {
               mainAxisSpacing: 6,
               crossAxisSpacing: 6,
               children: [
-                for (final w in t.strkWd) Center(child: Text(L10.text(w), style: F.s(11, w: FontWeight.w800, c: p.mute))),
+                for (final w in t.strkWd)
+                  Center(
+                    child: Text(
+                      L10.text(w),
+                      style: F.s(11, w: FontWeight.w800, c: p.mute),
+                    ),
+                  ),
                 for (var d = start; d <= today - wd + 6; d++)
                   cell(
                     d > today ? 'fut' : (days.contains(d) ? 'done' : (lm.isRest(d) ? 'rest' : '')),
@@ -502,7 +608,10 @@ void openStreak(BuildContext context) {
         Text(t.strkLead, style: F.s(13.5, c: p.soft, h: 1.45)),
         Padding(
           padding: const EdgeInsets.only(top: 6),
-          child: Text(t.strkBest(app.fmt(best > s.days ? best : s.days)), style: F.s(13, w: FontWeight.w700, c: p.fg)),
+          child: Text(
+            t.strkBest(app.fmt(best > s.days ? best : s.days)),
+            style: F.s(13, w: FontWeight.w700, c: p.fg),
+          ),
         ),
       ],
     );
@@ -512,7 +621,12 @@ void openStreak(BuildContext context) {
 // ---------------------------------------------------------------- the short tour
 void openTour(BuildContext context, bool first) {
   var toGoal = false;
-  openSheet(context, name: 'tour', dismissible: false, (c) => _Tour(first: first, onGoal: () => toGoal = true)).then((_) {
+  openSheet(
+    context,
+    name: 'tour',
+    dismissible: false,
+    (c) => _Tour(first: first, onGoal: () => toGoal = true),
+  ).then((_) {
     if (first) {
       app.store.set('xc_onb', 1);
       if (toGoal && context.mounted) app.openGoal?.call(context, true);
@@ -539,9 +653,15 @@ class _TourState extends State<_Tour> {
     final step = steps[i] as List;
     final last = i == steps.length - 1;
     final art = switch (i) {
-      0 => Text('金丹', style: F.s(28, w: FontWeight.w900, family: F.hz, c: p.gold)),
+      0 => Text(
+        '金丹',
+        style: F.s(28, w: FontWeight.w900, family: F.hz, c: p.gold),
+      ),
       1 => Icon2(I.play, size: 34, color: th.acc),
-      _ => Text('HSK', style: F.s(26, w: FontWeight.w800, c: th.acc)),
+      _ => Text(
+        'HSK',
+        style: F.s(26, w: FontWeight.w800, c: th.acc),
+      ),
     };
     return SheetBody(
       close: false,
@@ -584,10 +704,19 @@ class _TourState extends State<_Tour> {
         ),
         Semantics(
           header: true,
-          child: Text(L10.text(step[0]), textAlign: TextAlign.center, style: F.s(20, w: FontWeight.w800, c: p.fg, h: 1.3)),
+          child: Text(
+            L10.text(step[0]),
+            textAlign: TextAlign.center,
+            style: F.s(20, w: FontWeight.w800, c: p.fg, h: 1.3),
+          ),
         ),
         const SizedBox(height: 8),
-        Rich(L10.text(step[1]), align: TextAlign.center, style: F.s(14, c: p.soft, h: 1.5), boldColor: p.fg),
+        Rich(
+          L10.text(step[1]),
+          align: TextAlign.center,
+          style: F.s(14, c: p.soft, h: 1.5),
+          boldColor: p.fg,
+        ),
         const SizedBox(height: 18),
         Row(
           children: [
@@ -676,16 +805,30 @@ void eggTap(BuildContext context) {
                         borderRadius: BorderRadius.circular(18),
                         boxShadow: sh(const [BoxShadow(color: Color.fromRGBO(179, 38, 30, .5), blurRadius: 40)]),
                       ),
-                      child: Text(open ? '开' : '封', style: F.s(64, w: FontWeight.w900, family: F.hz, c: const Color(0xFFFFF4EA), h: 1)),
+                      child: Text(
+                        open ? '开' : '封',
+                        style: F.s(64, w: FontWeight.w900, family: F.hz, c: const Color(0xFFFFF4EA), h: 1),
+                      ),
                     ),
-                    Text('天外有天', style: F.s(40, w: FontWeight.w900, family: F.hz, c: const Color(0xFFF3D9A0), ls: 4.8)),
+                    Text(
+                      '天外有天',
+                      style: F.s(40, w: FontWeight.w900, family: F.hz, c: const Color(0xFFF3D9A0), ls: 4.8),
+                    ),
                     Padding(
                       padding: const EdgeInsets.only(top: 4, bottom: 12),
                       child: Text('tiān wài yǒu tiān', style: F.s(14, c: const Color(0xFFE8DCCB), ls: .6)),
                     ),
-                    Text(t.eggM, textAlign: TextAlign.center, style: F.s(16, w: FontWeight.w700, c: const Color(0xFFF6EFE4))),
+                    Text(
+                      t.eggM,
+                      textAlign: TextAlign.center,
+                      style: F.s(16, w: FontWeight.w700, c: const Color(0xFFF6EFE4)),
+                    ),
                     const SizedBox(height: 6),
-                    Text(open ? t.eggOpen : t.eggSealed, textAlign: TextAlign.center, style: F.s(13.5, c: const Color(0xFFD9CFC0))),
+                    Text(
+                      open ? t.eggOpen : t.eggSealed,
+                      textAlign: TextAlign.center,
+                      style: F.s(13.5, c: const Color(0xFFD9CFC0)),
+                    ),
                   ],
                 ),
               ),
@@ -696,7 +839,10 @@ void eggTap(BuildContext context) {
     },
     transitionBuilder: (c, a, _, child) => FadeTransition(
       opacity: a,
-      child: ScaleTransition(scale: Tween(begin: 1.15, end: 1.0).animate(CurvedAnimation(parent: a, curve: Curves.easeOutBack)), child: child),
+      child: ScaleTransition(
+        scale: Tween(begin: 1.15, end: 1.0).animate(CurvedAnimation(parent: a, curve: Curves.easeOutBack)),
+        child: child,
+      ),
     ),
   ).then((_) => tm?.cancel());
 }

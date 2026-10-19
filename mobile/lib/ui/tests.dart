@@ -717,7 +717,7 @@ class _TribScreenState extends State<TribScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(app.rn[r], style: F.s(34, w: FontWeight.w900, family: F.hz, c: rcol(context, r), ls: 2)),
-              Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Text('→', style: F.s(22, c: p.mute))),
+              Padding(padding: const EdgeInsets.symmetric(horizontal: 12), child: Text('→', style: F.s(22, c: p.soft))),
               Text(mk ? '补劫' : app.rn[to], style: F.s(34, w: FontWeight.w900, family: F.hz, c: rcol(context, to), ls: 2)),
             ],
           ),
@@ -751,10 +751,10 @@ class _TribScreenState extends State<TribScreen> {
                 ],
               ),
             ),
-          Container(
+          Tile(
             margin: const EdgeInsets.only(top: 12, bottom: 16),
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-            decoration: BoxDecoration(color: p.fgA(.05), borderRadius: BorderRadius.circular(16)),
+            radius: 16,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -945,9 +945,9 @@ class _TribScreenState extends State<TribScreen> {
           runSpacing: 6,
           children: [
             for (final d in x.weak.take(12))
-              Container(
+              Tile(
                 padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 5),
-                decoration: BoxDecoration(color: p.fgA(.06), borderRadius: BorderRadius.circular(999)),
+                radius: 999,
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.baseline,

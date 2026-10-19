@@ -42,6 +42,16 @@ takes it and runs the usual migrations. No `app_webview` folder → nothing to m
 **Text size**: `MaterialApp.builder` clamps the phone's text scale to 0.85–1.6; `Th.fs`; compact chrome uses
 `Compact` (grows only half-way, like v1's `--fsd`).
 
+**Look** (Josh, Oct 2026: the earlier One-UI cards looked cheap; wanted Samsung's Galaxy "Fluid AI" glass + Apple's
+Liquid Glass): `paintGlass()` in `glass.dart` is the one material — milky fill (`Pal.glassA/B`, `innerA/B`), light from
+the top left (`sheen`), a white glow inside the edge (strokes of growing width, top-weighted on dark), a rim bright
+along the top (`rimHi/rimLo`) with a glint at the bottom-right. Kinds `GK.panel` (on the background), `GK.inner`
+(inside a panel or sheet: `GlassDepth`), `GK.frost` (floating, real blur), `GK.lens` (chosen tab/level/segment:
+`TabLens`, `HskLens`, `LensPill`). `GlassFlat` draws a group's rows flat inside one glass (Settings `SGroup`). The
+background (`_BgPainter`) is an aurora: the level's tone + `auroraWarm` + `auroraCool`. Shadows only outside shapes
+(`OuterShadow`). `contrast_test` keeps every text readable over it: tune `Pal` values against it
+(`CDUMP=1 flutter test test/contrast_test.dart` writes what it measured to `test/cdump/`).
+
 **Sheets** open with `openSheet` (route under the app's `Th`, rebuilt on app changes); Home reaches them through the
 hooks on `App` (`openRealm`, `openSettings`, `openStreak`, `openInfo`, `openGoal`, `openShare`, `onWordmark`) set by
 `wireSheets()`. Screens: `screenFor()` in `shell.dart`; `App.go(s)` runs `beforeShow` (leaveTest, frame watcher).

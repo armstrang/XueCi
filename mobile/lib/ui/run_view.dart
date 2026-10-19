@@ -626,11 +626,32 @@ class _BigBtn extends StatelessWidget {
     onTap: onTap,
     scale: .97,
     label: label,
-    child: Container(
-      padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 10),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(20)),
-      child: Text(label, textAlign: TextAlign.center, style: F.s(15, w: FontWeight.w800, c: fg)),
+    child: Builder(
+      builder: (c) {
+        final th = Th.of(c);
+        final text = Text(label, textAlign: TextAlign.center, style: F.s(15, w: FontWeight.w800, c: fg));
+        const pad = EdgeInsets.symmetric(vertical: 14, horizontal: 10);
+        // the quiet choice is glass, the coloured one a lit drop of colour (MainBtn)
+        if (color == th.p.cardC) {
+          return Glass(radius: 22, solid: true, padding: pad, child: Center(heightFactor: 1, child: text));
+        }
+        return Container(
+          padding: pad,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(22),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Color.lerp(color, Colors.white, .2)!, color, Color.lerp(color, Colors.black, .06)!],
+              stops: const [0, .55, 1],
+            ),
+            border: Border.all(color: Colors.white.withValues(alpha: th.p.dark ? .28 : .45)),
+            boxShadow: sh(th.low ? null : [BoxShadow(color: color.withValues(alpha: .45), offset: const Offset(0, 10), blurRadius: 24, spreadRadius: -8)]),
+          ),
+          child: text,
+        );
+      },
     ),
   );
 }
@@ -662,6 +683,7 @@ class OptBtn extends StatelessWidget {
         children: [
           Glass(
             solid: true,
+            inner: true,
             radius: 18,
             color: fill,
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
@@ -1040,9 +1062,9 @@ class _Summary extends StatelessWidget {
     }
     if (r.over > 0) notes.add(t.sumOver(r.over));
     Widget cell(String a, String b) => Expanded(
-      child: Container(
+      child: Tile(
         padding: const EdgeInsets.symmetric(vertical: 9, horizontal: 6),
-        decoration: BoxDecoration(color: p.fgA(.06), borderRadius: BorderRadius.circular(14)),
+        radius: 14,
         child: Column(
           children: [
             Text(a, style: F.s(20, w: FontWeight.w800, c: p.fg, feat: F.tab)),
@@ -1078,9 +1100,9 @@ class _Summary extends StatelessWidget {
               children: [
                 Text(t.sumConf, style: F.s(12.5, c: p.soft)),
                 for (final (a, b) in pairs)
-                  Container(
+                  Tile(
                     padding: const EdgeInsets.symmetric(horizontal: 11, vertical: 4),
-                    decoration: BoxDecoration(color: p.fgA(.06), borderRadius: BorderRadius.circular(999)),
+                    radius: 999,
                     child: Text.rich(
                       TextSpan(
                         children: [
@@ -1321,9 +1343,9 @@ class _Rules extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = Th.pal(context);
-    return Container(
+    return Tile(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
-      decoration: BoxDecoration(color: p.fgA(.05), borderRadius: BorderRadius.circular(16)),
+      radius: 16,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
