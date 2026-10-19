@@ -3,7 +3,8 @@ name: Flutter
 # Test builds of the Flutter app (v1.0-alpha): branches named flutter/... Everything the run produces (Flutter
 # version, analyzer and test output, screenshots, build log) is pushed to the branch ci-out/<branch>, because the logs
 # of a run cannot be read from Claude's cloud sessions but a branch can. When every check passes, the APK also goes to
-# the pre-release v1.0-alpha (replaced on each run, never marked latest) so testers can download it.
+# a new pre-release v1.0-alpha-N (N counts up: v1.0-alpha-1, -2, …; never marked latest) so testers can download it.
+# The official v1.0 comes from main (build-apk.yml) only when Josh says so.
 on:
   push:
     branches: ['flutter/**']
@@ -86,13 +87,21 @@ jobs:
           flutter test --update-goldens --reporter expanded > ../ci-out/test.txt 2>&1
           mkdir -p ../ci-out/shots && find test -name '*.png' -path '*goldens*' -exec cp {} ../ci-out/shots/ \; || true
 
+      # the next alpha number: one more than the highest v1.0-alpha-N published so far
+      - name: Alpha number
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          last=$(gh api "repos/${{ github.repository }}/releases?per_page=100" --jq '.[].tag_name' | sed -n 's/^v1\.0-alpha-\([0-9]\+\)$/\1/p' | sort -n | tail -1)
+          echo "ALPHA=$(( ${last:-0} + 1 ))" >> "$GITHUB_ENV"
+
       - name: Build APK
         id: apk
         if: hashFiles('mobile/pubspec.yaml') != ''
         continue-on-error: true
         working-directory: mobile
         run: |
-          flutter build apk --release --build-number=$((1000 + GITHUB_RUN_NUMBER)) --build-name=1.0.0-alpha.${GITHUB_RUN_NUMBER} > ../ci-out/build.txt 2>&1
+          flutter build apk --release --build-number=$((1000 + GITHUB_RUN_NUMBER)) --build-name=1.0.0-alpha.${ALPHA} > ../ci-out/build.txt 2>&1
           ls -la build/app/outputs/flutter-apk/ >> ../ci-out/build.txt 2>&1
           cp build/app/outputs/flutter-apk/app-release.apk ../ci-out/xueci-dev.apk || true
 
@@ -128,7 +137,7 @@ jobs:
         run: |
           cp ci-out/xueci-dev.apk XueCiMandarin-alpha.apk
           {
-            echo "**Test build — not a release yet.** Build 1.0.0-alpha.${GITHUB_RUN_NUMBER} ($(git rev-parse --short HEAD)), replaced by every new test build."
+            echo "**Test build — not a release yet.** 1.0-alpha-${ALPHA} (build $((1000 + GITHUB_RUN_NUMBER)), $(git rev-parse --short HEAD))."
             echo
             awk 'index($0,"## ")==1{if(p)exit; p=(index($0,"## v1.0 ")==1)} p' CHANGELOG.md | tail -n +2
             echo
@@ -141,9 +150,9 @@ jobs:
         if: steps.alpha.outcome == 'success'
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0-alpha
+          tag_name: v1.0-alpha-${{ env.ALPHA }}
           target_commitish: ${{ github.sha }}
-          name: XueCi Mandarin 1.0 alpha
+          name: XueCi Mandarin 1.0-alpha-${{ env.ALPHA }}
           body_path: alpha.md
           prerelease: true
           make_latest: false

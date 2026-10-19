@@ -169,7 +169,9 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 - `.github/workflows/flutter.yml` (push to `flutter/**`): the same steps without publishing; everything it produces
   (summary, analyzer/test/build logs, screenshots, `xueci-dev.apk` = versionCode 1000 + run, name 1.0.0-alpha.run, signed with
   the same key) is pushed to branch `ci-out/<branch>`; from `flutter/v2`, when analyze, tests and build pass, the APK is
-  also published as the pre-release **`v1.0-alpha`** (`XueCiMandarin-alpha.apk`, replaced each run, never latest).
+  also published as a new pre-release **`v1.0-alpha-N`** (Josh: v1.0-alpha-1, -2, … before the official release; N =
+  highest published + 1, versionName 1.0.0-alpha.N; `XueCiMandarin-alpha.apk`, never latest). The first one was tagged
+  plain `v1.0-alpha`.
   Josh, Oct 2026: the Flutter app stays in testing as 1.0-alpha; don't merge to `main` (= a real release) until he says so.
   Read the output with `git fetch origin "+refs/heads/ci-out/flutter/v2:refs/remotes/origin/ci-out/flutter/v2"`.
 - `.github/workflows/flutter-sdk.yml` made the `dev-flutter-sdk` pre-release (the SDK for Claude's cloud sessions,
