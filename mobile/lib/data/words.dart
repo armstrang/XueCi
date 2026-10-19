@@ -1,5 +1,5 @@
 /// The word list: HSK 1–6 from assets/data/core.json + the meanings of each study language (`assets/data/<lang>.json`),
-/// HSK 7–9 from the sealed part once it opens (seal.dart). Same fields as web/data/vocab.json.
+/// the levels past the gate from the sealed part once it opens (seal.dart). Same fields as web/data/vocab.json.
 library;
 
 import 'dart:math' as math;
@@ -74,7 +74,7 @@ class Vocab {
   final Map<int, int> units = {};
   final List<int> levels = [];
   String lang;
-  bool band = false; // HSK 7–9 loaded (the gate is open)
+  bool band = false; // the sealed words are loaded (the gate is open)
   final Set<String> loaded = {}; // study languages whose meanings are loaded
 
   Vocab(List<Word> words, {this.lang = 'id'}) {

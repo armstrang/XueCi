@@ -2647,7 +2647,7 @@ class LM {
     optimize(false, runner: runner).catchError((_) => null);
   }
 
-  /// the gate opened and HSK 7–9 joined the word list: drop everything built from it
+  /// the gate opened and the sealed words joined the word list: drop everything built from it
   void bandAdded() {
     _wd = null;
     _pb = null;
@@ -2662,7 +2662,7 @@ class LM {
     return mem;
   }
 
-  /// extra: ids of HSK 7–9 words that are not loaded yet (a code from a learner past the gate)
+  /// extra: ids of sealed words that are not loaded yet (a code from a learner past the gate)
   Map<String, Mem>? importMem(Object? o, [Set<String>? extra]) {
     if (o is! Map) return null;
     final out = <String, Mem>{};

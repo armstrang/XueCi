@@ -124,7 +124,7 @@ class App extends ChangeNotifier {
 
   static String _hsk6 = '';
 
-  // ---------------------------------------------------------------- the sealed part (HSK 7–9)
+  // ---------------------------------------------------------------- the sealed part (the levels past the gate)
   bool get band => vocab.band;
   List<Word> _bandWords = [];
   Set<String> _bandIdsCache = {};
@@ -153,7 +153,7 @@ class App extends ChangeNotifier {
     _bandIdsCache = _bandWords.map((d) => d.id).toSet();
   }
 
-  /// the gate opened (a breakthrough to 飞升): HSK 7–9 join every index
+  /// the gate opened (a breakthrough to 飞升): the sealed words join every index
   Future<void> openBand() async {
     if (vocab.band) return;
     await _openBand();

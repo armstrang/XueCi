@@ -1031,7 +1031,7 @@ class BigGrade extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------- the gate
-/// The gate after 飞升 opens with a breakthrough to 飞升: the HSK 7–9 words join (they ship inside the app) and a short
+/// The gate after 飞升 opens with a breakthrough to 飞升: the sealed words join (they ship inside the app) and a short
 /// ceremony shows what lies behind it, one tap at a time. Restored on another phone: a welcome instead.
 /// Everything it names comes from the sealed part.
 Future<void> openGate(BuildContext context, bool ceremony) async {
