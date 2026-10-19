@@ -4,7 +4,48 @@ HSK 1–9 vocabulary app (HSK 7–9 hidden until the gate opens, see *Realms*; w
 Formerly "Merdeka Mandarin" (repo `armstrang/Merdeka-Mandarin`, no longer built). Josh writes in Indonesian: reply in Indonesian.
 Goal right now: a proper **Google Play** release. The plan and open decisions are in `docs/play-store.md`.
 
-## How it is built
+## v2.0: the Flutter app (`mobile/`)
+
+Since v2.0 the app is a **Flutter app** (Dart, `mobile/`), not a web page in a WebView (Josh, Oct 2026: "ubah semuanya
+ke flutter dart"; port the engine fully, verified against JS; one v2.0 release at parity). v1.17 was the last
+WebView release; `app/` (the v1 Android project), `web/build.py` and `tests/smoke.py` are the **frozen v1.x line**.
+`web/` is still the **source of the words, the interface text and the sealed part** (`web/data/vocab.json`,
+`web/src/i18n*.js` and the `/*<seal>*/` text blocks) and the reference for behaviour: the sections below about
+`app.html` etc. describe what the Dart code does too (file names map: `web/src/app/x.js` → `mobile/lib/ui/x.dart` or
+the screen that took it over).
+
+| Path | What |
+|---|---|
+| `mobile/lib/engine/` | `learn.dart` = `LM` (port of `web/src/learn.js`: FSRS, plan, questions, realms, tests, optimizer…), `fsrs.dart`, `model.dart` (Mem, LogE, Item…), `js.dart` (JS-exact helpers: `jsRound`, V8 sort emulation `jsSort`, LCG random, `jsJson`). Exactness matters: `test/engine_trace_test.dart` replays traces of the JS engine (`tool/js_traces.js`, run with `TZ=UTC`) and compares every number |
+| `mobile/lib/data/` | `store.dart` (progress store: same key names and JSON text as v1.x, one file per key in `files/store`, schema/migrations as v1.12), `words.dart` (Word, Vocab), `pinyin.dart`, `seal.dart` (unseal `s0.bin`/`s-<lang>.bin`) |
+| `mobile/lib/i18n/` | `l10.dart` + generated `keys.g.dart`: the JS text functions became expression trees (`tool/make_i18n.js`, acorn) evaluated by `Tpl`; only `<b>` markup (widget `Rich`) |
+| `mobile/lib/app/` | `app.dart` (`App`: boot, language, theme, fx, realms helpers, reminder/rest sync, backup timing, widget), `runner.dart` (Cards/Quiz/session/mock runs), `backup.dart` (XUECI1/XUECI0 codes, same format as v1.x), `native.dart` (method channel), `mastery.dart` |
+| `mobile/lib/ui/` | `shell.dart` (MaterialApp, background, tab bar, toasts, back), `home.dart`, `focus.dart` (capsule header, list, menus), `run_view.dart` (cards, questions, summary, mock), `stats.dart`, `soul.dart` (orb, five-element ring, Soul Sea page), `realm.dart` (realm sheet + pieces), `tests.dart` (placement, tribulation + lightning, gate ceremony), `settings.dart` (Settings, streak sheet, tour, egg), `goal.dart`, `backup_sheet.dart`, `info.dart` (tones & help), `share.dart` (cultivation card), `fx.dart` (drifting light, frame watcher), `glass.dart`/`theme.dart`/`lens.dart`/`widgets.dart`/`icons.dart`/`sheet.dart`/`word_ui.dart` (look), `screens.dart` (screen hosts, `wireSheets()`: hooks + start tasks) |
+| `mobile/tool/` | `make_assets.py` (needs `npm install --prefix mobile/tool acorn@8.15.0`): `assets/data/core.json` + `<lang>.json` (HSK 1–6), sealed `s0.bin` + `s-<lang>.bin`, `assets/i18n/<lang>.json`; refuses public text containing a secret word. `make_fonts.py`: static TTF subsets into `assets/fonts/` (re-run after new characters). `cloud_sdk.sh`: the Flutter SDK in Claude's cloud sessions |
+| `mobile/android/` | `MainActivity.kt` (method channel `xueci/native`: filesDir, legacy, ready, TTS, reminder, widget, share, openUrl, notifications), `Reminder.java`/`ReminderReceiver.java`/`XueciWidget.java` (from v1), `assets/legacy.html` (the v1.x progress move) |
+| `mobile/test/` | `engine_trace_test` (vs JS), `i18n_test`, `store_test`, `backup_test` (codes from v1.x), `secret_test` (no secret word in lib/android/assets; no screen shows one before the gate), `screens_test` (golden screenshots of every screen and sheet → `test/goldens/`, not committed; view them) |
+
+Generated `assets/data`, `assets/i18n`, `test/traces`, `test/goldens` are not committed.
+In Claude's cloud sessions: `. /opt/flutter-env.sh`, then in `mobile/`: `FLUTTER_ROOT=/opt/flutter dart pub get --offline`,
+`flutter analyze --no-pub`, `TZ=UTC node tool/js_traces.js test/traces` (from the repo root: `mobile/tool/…`, `mobile/test/traces`),
+`flutter test --no-pub [--update-goldens]`. There is no Android SDK there: Android code is compiled by CI only.
+After a change: assets (if web/ changed) → analyze → tests → look at the screenshots.
+
+**Moving v1.x progress** (first start of v2.0): `App.boot` asks `Native.legacy()` when the store has no `xc_schema`;
+`MainActivity` opens a hidden WebView on v1.x's origin `https://appassets.androidplatform.net` (WebViewAssetLoader,
+`assets/legacy.html`) that returns IndexedDB `xueci/kv` when it has `xc_schema` (v1.12+), else localStorage; the store
+takes it and runs the usual migrations. No `app_webview` folder → nothing to move. A failure (8 s timeout) answers
+`!`: `xc_legacy` = 1 and the next start tries again, adopting v1.x's data while fewer than 30 words were practised.
+**Never delete or rename v1.x's keys or the WebView data.**
+
+**Text size** (v2): `MaterialApp.builder` clamps the phone's text scale to 0.85–1.6; `Th.fs`; compact chrome uses
+`Compact` (grows only half-way, like v1's `--fsd`).
+
+**Sheets** open with `openSheet` (route under the app's `Th`, rebuilt on app changes); Home reaches them through the
+hooks on `App` (`openRealm`, `openSettings`, `openStreak`, `openInfo`, `openGoal`, `openShare`, `onWordmark`) set by
+`wireSheets()`. Screens: `screenFor()` in `shell.dart`; `App.go(s)` runs `beforeShow` (leaveTest, frame watcher).
+
+## The v1.x sources (`web/`) — frozen line, still the source of words and texts
 
 The app is **one HTML page plus its word data files**, shown in an Android WebView. No framework, no npm.
 Since v1.12 the sources are split per screen/feature and formatted with Prettier (`.prettierrc.json`: width 120, single
@@ -36,8 +77,7 @@ in Claude's cloud sessions, `npx prettier` elsewhere). All app files still share
 | `CHANGELOG.md` | release notes, **in English** (Josh asked, Oct 2026). CI publishes the `## v1.N` section as the GitHub release text, so **add the section before pushing app changes** |
 | `store/` | Play listing: `listing.md` (ID + EN texts and other Play Console answers), screenshots 1080×1920 and feature graphics 1024×500 per language; `python3 store/make_store_assets.py` regenerates them from the built app with sample progress (captions in the script). Re-run after visible UI changes |
 
-After any change in `web/`: `python3 web/build.py && node tests/engine.js && python3 tests/smoke.py`, then look at the screenshots in `tests/out/`.
-CI runs both test suites before building the APK (both workflows); a failing test means no release.
+After a change in `web/` (words, texts): regenerate the Flutter assets (`python3 mobile/tool/make_assets.py`) and run the Flutter tests. The v1 build/tests (`web/build.py`, `tests/engine.js`, `tests/smoke.py`) belong to the frozen line and are no longer run by CI.
 The smoke test serves the assets over http (so fonts load), fails on any request leaving the app, and runs one case with text at 160%.
 
 ### Text size
@@ -119,19 +159,31 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 ## Android
 - `applicationId` / package **`com.armstrang.xueci`** (from v1.3 — the Play Store ID; it can never change once on Play).
   Up to v1.2 the app was `com.jorgi.merdekamandarin`; v1.2 is the last build of that ID and has Back up, so people can move their progress.
-- `versionCode = 100 + GITHUB_RUN_NUMBER`, `versionName = 1.(run − 1)`.
-- `compileSdk`/`targetSdk 36`, Android Gradle Plugin 8.13.2, Gradle 8.13. **Edge-to-edge**: `MainActivity` draws behind the system bars and puts two
-  colour strips (`topBar`/`bottomBar`, heights from `WindowInsetsCompat` system bars + cutout; bottom = max(nav bar, keyboard)) around the WebView.
-  `setBars` colours those strips and sets light/dark bar icons with `WindowInsetsControllerCompat` (window bar colours are ignored on Android 15+).
-- Signing: `keystore/merdeka.jks` with the password in `app/build.gradle`. **This repo is public, so that key is exposed.** Fine for the sideload line only; the Play release needs a new upload key kept in GitHub Secrets.
-- Splash (v1.15): `Theme.XueCi.Starting` (SplashScreen API, `core-splashscreen`) held until `MMAndroid.ready()` (start.js, first frame) or 2.5 s; v1.17 icon `@drawable/ic_splash` (the round artwork, no icon background).
-- Play bundle (v1.15): build type `play` (`bundlePlay` → `XueCiMandarin.aab` in each release), signed with the upload key from secrets `XC_UPLOAD_KEYSTORE_B64`, `XC_UPLOAD_STORE_PASSWORD`, `XC_UPLOAD_KEY_ALIAS`, `XC_UPLOAD_KEY_PASSWORD`; without them it falls back to the old key (don't upload that one). Josh creates the key himself (docs/play-store.md).
-- `MainActivity`: WebView + `WebViewAssetLoader`, JS bridge `MMAndroid` (`ready`, `shareImage`, `setWidget`, `setTheme`, `setBars`, `fontScale`, `copyText`, `shareText`, `pasteText`, `ttsStatus`, `speak`, `stopSpeaking`, `openTtsSettings`, `setReminder`, `markStudied`, `setRestDays`, `notifStatus`, `requestNotifications`, `openNotifSettings`), back button → `mmBack()`, outside links open in the browser, VIBRATE for haptics.
-- Reminder: `Reminder.java` keeps the settings in SharedPreferences, sets one inexact `AlarmManager.setAndAllowWhileIdle` alarm for the next time, shows a `NotificationCompat` notification (channel `study`) unless `markStudied` was called that day or it is a meditation day (`setRestDays`, weekday 0 = Sunday). `ReminderReceiver` handles the alarm and re-schedules on BOOT_COMPLETED, MY_PACKAGE_REPLACED, TIME_SET, TIMEZONE_CHANGED; `onResume` re-schedules too. Permissions: POST_NOTIFICATIONS (asked with an ActivityResult launcher), RECEIVE_BOOT_COMPLETED.
+- v2.0+: `mobile/android` (Flutter template, AGP/Kotlin from Flutter 3.47). `versionCode` = **2000 + run** of the release
+  workflow (`--build-number`), `versionName` 2.N (run 19 = v2.0). v1.x used 100 + run, the Flutter dev builds 1000 + run,
+  so a release always installs over both. `compileSdk`/`targetSdk 36`, `minSdk 24`.
+- Signing: `keystore/merdeka.jks` (same key as v1.x, so v2.0 installs over it; checked: same certificate SHA-256
+  AC:92:19:…:B4:16). **This repo is public, so that key is exposed.** Fine for the sideload line only; the Play bundle
+  is signed with the upload key from secrets `XC_UPLOAD_KEYSTORE_B64`, `XC_UPLOAD_STORE_PASSWORD`, `XC_UPLOAD_KEY_ALIAS`,
+  `XC_UPLOAD_KEY_PASSWORD` when `XC_PLAY=1` (`flutter build appbundle`); without them it falls back to the old key
+  (don't upload that one). Josh creates the key himself (docs/play-store.md).
+- Splash: `LaunchTheme` = `Theme.SplashScreen` (core-splashscreen) with `@drawable/ic_splash`, held until `Native.ready()`
+  (first frame) or 2.5 s. Edge-to-edge is Flutter's (`SystemUiMode.edgeToEdge`, bar icons from `AnnotatedRegion`).
+- Reminder: `Reminder.java` keeps the settings in SharedPreferences, sets one inexact `AlarmManager.setAndAllowWhileIdle` alarm for the next time, shows a `NotificationCompat` notification (channel `study`) unless `markStudied` was called that day or it is a meditation day (`setRestDays`, weekday 0 = Sunday). `ReminderReceiver` handles the alarm and re-schedules on BOOT_COMPLETED, MY_PACKAGE_REPLACED, TIME_SET, TIMEZONE_CHANGED; `onResume` re-schedules too. Permissions: POST_NOTIFICATIONS (asked with `ActivityCompat.requestPermissions`, answer → `notifResult`), RECEIVE_BOOT_COMPLETED.
+- Widget: `XueciWidget.java` (SharedPreferences `widget`), fed by `App.syncWidget` (JSON, only when changed).
+- The frozen v1 project (`app/`, root Gradle files) documents the WebView line: `MainActivity.java` with the `MMAndroid` bridge.
 
-## CI (`.github/workflows/build-apk.yml`)
-Push to `main` → `web/build.py` → tests (`node tests/engine.js`, Playwright + Chromium `tests/smoke.py`) → `./gradlew assembleRelease` → GitHub release `v1.N` with `XueCiMandarin.apk` (marked latest); the release text is the `## v1.N` section of `CHANGELOG.md` (a warning and a link if missing). v1.N = run number − 1 of this workflow, so the next release is one more than the latest tag. The install footer of the release text is English too.
-Docs/art/tests-only changes do not trigger a build (`paths-ignore`); add `[skip ci]` to a commit message to skip one otherwise.
-A guard step refuses to publish into an existing release tag.
-`check.yml` compiles any `build/**` branch without publishing (its own run counter, so release numbers stay in sequence) — push Android changes there first, then fast-forward `main`. CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets can.
-In Claude's cloud sessions the GitHub proxy refuses API writes to releases/tags (HTTP 403), so let CI do the publishing.
+## CI
+- `.github/workflows/build-apk.yml` (push to `main`): assets → `flutter analyze` → JS traces → `flutter test` → signed APK
+  + Play bundle → GitHub release `v2.N` with `XueCiMandarin.apk` and `.aab` (marked latest); the release text is the
+  `## v2.N` section of `CHANGELOG.md` (a warning and a link if missing). The install footer of the release text is English too.
+  Docs/art/store-only changes do not trigger a build (`paths-ignore`); add `[skip ci]` to a commit message to skip one otherwise.
+  A guard step refuses to publish into an existing release tag.
+- `.github/workflows/flutter.yml` (push to `flutter/**`): the same steps without publishing; everything it produces
+  (summary, analyzer/test/build logs, screenshots, `xueci-dev.apk` = versionCode 1000 + run, signed with the v1 key)
+  is pushed to branch `ci-out/<branch>`: `git fetch origin "+refs/heads/ci-out/flutter/v2:refs/remotes/origin/ci-out/flutter/v2"`.
+  Develop there, then fast-forward `main`.
+- `.github/workflows/flutter-sdk.yml` made the `dev-flutter-sdk` pre-release (the SDK for Claude's cloud sessions,
+  `mobile/tool/cloud_sdk.sh`); a dev tool, delete it after v2.0 when Josh agrees. `check.yml` is the v1 build check (frozen).
+- CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets and branches can.
+  In Claude's cloud sessions the GitHub proxy refuses API writes to releases/tags (HTTP 403), and GraphQL (`gh release list`), so let CI do the publishing and use `gh api`.
