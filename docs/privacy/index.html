@@ -41,11 +41,11 @@ footer{color:var(--soft);font-size:13px;text-align:center;margin-top:24px}
 
 <section id="id" lang="id">
   <h2>Kebijakan Privasi</h2>
-  <p class="date">Berlaku sejak 19 Oktober 2026 (diperbarui untuk v1.17)</p>
+  <p class="date">Berlaku sejak 19 Oktober 2026 (diperbarui untuk aplikasi Flutter 1.0)</p>
   <p class="lead">XueCi Mandarin adalah aplikasi belajar kosakata HSK 1–6 yang dibuat oleh Armstrang. Aplikasi ini <strong>tidak mengumpulkan, tidak menyimpan di server, dan tidak membagikan data pribadi</strong>. Tidak ada akun, iklan, maupun analitik.</p>
 
   <h3>Data yang tersimpan di perangkat Anda</h3>
-  <p>Agar progres belajar tidak hilang, aplikasi menyimpan hal-hal berikut <strong>hanya di perangkat Anda</strong>, di penyimpanan lokal aplikasi (IndexedDB, dengan salinan pengaman di penyimpanan lokal browser bawaan aplikasi):</p>
+  <p>Agar progres belajar tidak hilang, aplikasi menyimpan hal-hal berikut <strong>hanya di perangkat Anda</strong>, di folder data pribadi aplikasi yang hanya bisa dibaca oleh aplikasi ini:</p>
   <ul>
     <li>progres per kata (tingkat penguasaan serta jumlah jawaban benar dan salah);</li>
     <li>model memori per kata (perkiraan seberapa kuat kata itu diingat dan kapan perlu diulang);</li>
@@ -79,6 +79,8 @@ footer{color:var(--soft);font-size:13px;text-align:center;margin-top:24px}
   <h3>Kartu kultivasi</h3>
   <p>Di Lautan Jiwa (dan setelah terobosan berhasil) Anda bisa membuat <em>Kartu kultivasi</em>: sebuah gambar berisi ranah, tahap, jumlah hari kultivasi, jumlah kata kokoh, dan jumlah kata yang sudah dilatih. Gambar dibuat di perangkat Anda. Gambar itu hanya dikirim jika Anda menekan <em>Bagikan</em> dan memilih aplikasi tujuan. Untuk itu, aplikasi menyimpan satu salinan sementara di folder cache-nya, yang diganti setiap kali kartu baru dibagikan.</p>
 
+  <h3>Pindah dari versi WebView</h3>
+  <p>Versi WebView sebelumnya (hingga 1.17) menyimpan progres di penyimpanan web bawaan aplikasi. Saat versi baru pertama kali dibuka, aplikasi membaca data itu sekali di perangkat Anda dan memindahkannya ke folder data aplikasi. Tidak ada yang dikirim ke mana pun.</p>
   <h3>Cadangan Android</h3>
   <p>Jika fitur cadangan Android aktif di perangkat Anda, sistem Android dapat menyertakan data aplikasi ini dalam cadangan ke akun Google Anda. Cadangan itu diatur oleh Anda dan Google; kami tidak memiliki akses ke cadangan tersebut.</p>
 
@@ -119,11 +121,11 @@ footer{color:var(--soft);font-size:13px;text-align:center;margin-top:24px}
 
 <section id="en" lang="en">
   <h2>Privacy Policy</h2>
-  <p class="date">Effective 19 October 2026 (updated for v1.17)</p>
+  <p class="date">Effective 19 October 2026 (updated for the Flutter app 1.0)</p>
   <p class="lead">XueCi Mandarin is an HSK 1–6 vocabulary app made by Armstrang. The app <strong>does not collect, store on a server, or share any personal data</strong>. There are no accounts, ads, or analytics.</p>
 
   <h3>Data kept on your device</h3>
-  <p>So that your learning progress is not lost, the app keeps the following <strong>only on your device</strong>, in the app's local storage (IndexedDB, with a safety copy in the local storage of the app's built-in browser view):</p>
+  <p>So that your learning progress is not lost, the app keeps the following <strong>only on your device</strong>, in the app's private data folder, which only this app can read:</p>
   <ul>
     <li>progress for each word (mastery level and counts of right and wrong answers);</li>
     <li>a memory model for each word (an estimate of how well you remember it and when it should come back);</li>
@@ -157,6 +159,8 @@ footer{color:var(--soft);font-size:13px;text-align:center;margin-top:24px}
   <h3>Cultivation card</h3>
   <p>In the Soul Sea (and after a successful breakthrough) you can make a <em>Cultivation card</em>: a picture showing your realm, stage, cultivation days, solid words and words practised. The picture is made on your device and is only sent if you tap <em>Share</em> and choose an app. For that, the app keeps one temporary copy in its cache folder, replaced each time a new card is shared.</p>
 
+  <h3>Moving from the WebView version</h3>
+  <p>The earlier WebView version (up to 1.17) kept your progress in the app's built-in web storage. When the new version opens for the first time, the app reads that data once on your device and moves it into the app's data folder. Nothing is sent anywhere.</p>
   <h3>Android backup</h3>
   <p>If Android backup is turned on for your device, Android may include this app's data in a backup to your Google account. That backup is controlled by you and Google; we have no access to it.</p>
 

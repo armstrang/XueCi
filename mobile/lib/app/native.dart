@@ -1,0 +1,95 @@
+/// The Android side (MainActivity.kt): the same services the WebView app reached through its MMAndroid bridge —
+/// speech, the daily reminder, sharing, the home-screen widget — plus the move of v1.x progress. Every call is
+/// safe without Android (tests, other platforms): it then does nothing and returns a neutral answer.
+library;
+
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
+
+class Native {
+  static const _ch = MethodChannel('xueci/native');
+  static final Native I = Native._();
+  Native._() {
+    _ch.setMethodCallHandler((c) async {
+      if (c.method == 'notifResult') _notif?.complete(c.arguments == true);
+      if (c.method == 'ttsReady') {
+        if (c.arguments is String) _tts = c.arguments as String;
+        ttsChanged?.call();
+      }
+      return null;
+    });
+  }
+
+  /// in tests: replaces the platform
+  static bool off = false;
+  VoidCallback? ttsChanged;
+  Completer<bool>? _notif;
+
+  Future<T?> _call<T>(String m, [Object? a]) async {
+    if (off || kIsWeb || !Platform.isAndroid) return null;
+    try {
+      return await _ch.invokeMethod<T>(m, a);
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// the app's own files folder (the store lives in `files/store`)
+  Future<String?> filesDir() => _call<String>('filesDir');
+
+  /// the progress the WebView app (v1.x) kept: its localStorage and IndexedDB, read once by a hidden WebView on the
+  /// old origin. null when there is none (or no Android); {'!': '1'} when reading it failed (try again later).
+  Future<Map<String, String>?> legacy() async {
+    final s = await _call<String>('legacy');
+    if (s == null || s.isEmpty) return null;
+    if (s == '!') return const {'!': '1'};
+    try {
+      final m = json.decode(s) as Map;
+      return m.map((k, v) => MapEntry('$k', '$v'));
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> ready() => _call('ready');
+
+  // ---- speech (Android TextToSpeech, zh-CN) ----
+  String _tts = 'missing';
+  String get ttsState => _tts;
+  Future<String> ttsStatus() async => _tts = await _call<String>('ttsStatus') ?? (off ? _tts : 'unsupported');
+  Future<void> speak(String text, {double rate = 0.9}) => _call('speak', {'text': text, 'rate': rate});
+  Future<void> stopSpeaking() => _call('stopSpeaking');
+  Future<void> openTtsSettings() => _call('openTtsSettings');
+
+  // ---- daily reminder ----
+  Future<void> setReminder(Map<String, Object?> r) => _call('setReminder', json.encode(r));
+  Future<void> markStudied() => _call('markStudied');
+  Future<void> setRestDays(List<int> d) => _call('setRestDays', json.encode(d));
+  Future<String> notifStatus() async => await _call<String>('notifStatus') ?? 'unsupported';
+  Future<bool> requestNotifications() async {
+    if (off || !Platform.isAndroid) return false;
+    _notif = Completer();
+    await _call('requestNotifications');
+    return _notif!.future.timeout(const Duration(seconds: 60), onTimeout: () => false);
+  }
+
+  Future<void> openNotifSettings() => _call('openNotifSettings');
+  Future<bool> canRemind() async => (await _call<bool>('canRemind')) ?? false;
+
+  // ---- sharing, links, widget ----
+  Future<bool> shareText(String text) async => (await _call<bool>('shareText', text)) ?? false;
+  Future<bool> shareImage(Uint8List png, String text) async =>
+      (await _call<bool>('shareImage', {'png': png, 'text': text})) ?? false;
+  Future<void> openUrl(String url) => _call('openUrl', url);
+  Future<void> setWidget(Map<String, Object?> data) => _call('setWidget', json.encode(data));
+
+  /// the device's languages (first = preferred), e.g. ['in-ID', 'en-US']
+  List<String> sysLangs() =>
+      PlatformDispatcher.instance.locales.map((l) => l.toLanguageTag()).toList();
+
+  bool get isAndroid => !off && !kIsWeb && Platform.isAndroid;
+}

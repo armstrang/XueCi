@@ -2,7 +2,7 @@
 
 Salin teks di bawah ke **Play Console → Grow → Store presence → Main store listing**.
 Bahasa utama: **Indonesia**; tambahkan **English** sebagai terjemahan. Gambar ada di folder ini
-(`python3 store/make_store_assets.py` membuatnya ulang dari aplikasi).
+(dari versi WebView; perlu dibuat ulang dari aplikasi Flutter).
 
 | Bagian | File / isi |
 |---|---|

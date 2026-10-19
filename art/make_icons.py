@@ -5,14 +5,14 @@ art/icon-source-round.png (the same design in a circle), both on a white backgro
 
 The square artwork is cut out of its white background and its gradient is extended outwards (normalized
 convolution: the colours near the edge flow on smoothly), giving a full-bleed square with no corners. From it:
-  app/src/main/res/mipmap-*/ic_launcher_background.png   adaptive icon (Android 8+): the whole design is the
+  mobile/android/app/src/main/res/mipmap-*/ic_launcher_background.png   adaptive icon (Android 8+): the whole design is the
                                                          background layer, sized so the star, the sword and the
                                                          golden arc stay inside the visible circle of every launcher
                                                          (the foreground layer is transparent, mipmap-anydpi-v26)
-  app/src/main/res/mipmap-*/ic_launcher_monochrome.png   Android 13 themed icon: the light shapes of the design
-  app/src/main/res/mipmap-*/ic_launcher.png              legacy icon: the rounded square
-  app/src/main/res/mipmap-*/ic_launcher_round.png        legacy round icon: the circle
-  app/src/main/res/drawable-nodpi/ic_splash.webp          splash screen icon (Android 12 shows it inside a circle)
+  mobile/android/app/src/main/res/mipmap-*/ic_launcher_monochrome.png   Android 13 themed icon: the light shapes of the design
+  mobile/android/app/src/main/res/mipmap-*/ic_launcher.png              legacy icon: the rounded square
+  mobile/android/app/src/main/res/mipmap-*/ic_launcher_round.png        legacy round icon: the circle
+  mobile/android/app/src/main/res/drawable-nodpi/ic_splash.webp          splash screen icon (Android 12 shows it inside a circle)
   art/play-icon-512.png                                  Google Play icon (512 x 512, full square, Play rounds it)
   art/icon-badge.png                                     the circle, cut out (store feature graphics)
   docs/privacy/icon.png                                  small icon for the privacy policy page
@@ -24,7 +24,7 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-RES = os.path.join(ROOT, 'app', 'src', 'main', 'res')
+RES = os.path.join(ROOT, 'mobile', 'android', 'app', 'src', 'main', 'res')
 DENSITIES = {'mdpi': 1, 'hdpi': 1.5, 'xhdpi': 2, 'xxhdpi': 3, 'xxxhdpi': 4}
 ART = 0.70  # the design's width as a share of the 108dp adaptive layer (its visible window is 72dp = 66.7 %)
 
