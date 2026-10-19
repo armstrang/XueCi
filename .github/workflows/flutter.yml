@@ -50,7 +50,7 @@ jobs:
 
       - name: Generate assets
         id: assets
-        if: hashFiles('mobile/pubspec.yaml') != ''
+        if: hashFiles('mobile/tool/make_assets.py') != ''
         continue-on-error: true
         run: |
           pip install --quiet fonttools brotli
