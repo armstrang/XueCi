@@ -234,7 +234,6 @@ double _hash(String s) {
 class _SoulOrbState extends State<SoulOrb> with SingleTickerProviderStateMixin {
   static const base = 0.00018;
   late final Ticker _ticker = createTicker(_frame);
-  final _clock = Stopwatch()..start();
   final repaint = ValueNotifier<int>(0);
   List<_Node> nodes = [];
   late Float32List x, y, z, px, py, pz;
@@ -251,7 +250,8 @@ class _SoulOrbState extends State<SoulOrb> with SingleTickerProviderStateMixin {
   bool low = false;
   int built = -1;
 
-  double get now => _clock.elapsedMicroseconds / 1000;
+  /// the frame clock (deterministic in tests)
+  double get now => SchedulerBinding.instance.currentSystemFrameTimeStamp.inMicroseconds / 1000;
 
   void _build(bool lowFx) {
     final lm = app.lm;
