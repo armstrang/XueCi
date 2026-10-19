@@ -74,7 +74,7 @@ jobs:
         id: traces
         if: hashFiles('mobile/tool/js_traces.js') != ''
         continue-on-error: true
-        run: node mobile/tool/js_traces.js mobile/test/traces > ci-out/traces.txt 2>&1
+        run: TZ=UTC node mobile/tool/js_traces.js mobile/test/traces > ci-out/traces.txt 2>&1
 
       - name: Tests (engine, widgets, screenshots)
         id: test
