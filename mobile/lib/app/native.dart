@@ -60,6 +60,7 @@ class Native {
   // ---- speech (Android TextToSpeech, zh-CN) ----
   String _tts = 'missing';
   String get ttsState => _tts;
+  set ttsTest(String v) => _tts = v; // tests and store pictures: pretend a voice is installed
   Future<String> ttsStatus() async => _tts = await _call<String>('ttsStatus') ?? (off ? _tts : 'unsupported');
   Future<void> speak(String text, {double rate = 0.9}) => _call('speak', {'text': text, 'rate': rate});
   Future<void> stopSpeaking() => _call('stopSpeaking');
