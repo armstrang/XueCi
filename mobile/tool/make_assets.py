@@ -10,7 +10,7 @@ Writes (not committed; CI and local builds run this first):
   mobile/assets/data/s-<lang>.bin     sealed: HSK 7–9 meanings in each language
   mobile/assets/i18n/<lang>.json      interface text (functions as expression trees, lib/i18n/l10.dart)
 
-The seal is the one of web/build.py (zlib, then a xoshiro128** keystream seeded by SHA-256 of a phrase, the HSK 6
+The seal is the one of the WebView line's build.py (zlib, then a xoshiro128** keystream seeded by SHA-256 of a phrase, the HSK 6
 words and the file name), opened by lib/data/seal.dart. Not real secrecy, only nothing to find by unzipping the app.
 """
 import hashlib

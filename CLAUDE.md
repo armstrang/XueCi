@@ -1,18 +1,19 @@
 # XueCi Mandarin — project notes for Claude
 
 HSK 1–9 vocabulary app (HSK 7–9 hidden until the gate opens, see *Realms*; word list, flashcards, quiz, per-word mastery, goal-driven daily plan) by **Armstrang** (GitHub `armstrang`, goes by Josh).
-Formerly "Merdeka Mandarin" (repo `armstrang/Merdeka-Mandarin`, no longer built). Josh writes in Indonesian: reply in Indonesian.
+Formerly "Merdeka Mandarin" (repo `armstrang/Merdeka-Mandarin`, now the archive of the WebView line). Josh writes in Indonesian: reply in Indonesian.
 Goal right now: a proper **Google Play** release. The plan and open decisions are in `docs/play-store.md`.
 
-## v2.0: the Flutter app (`mobile/`)
+## The Flutter app (`mobile/`)
 
-Since v2.0 the app is a **Flutter app** (Dart, `mobile/`), not a web page in a WebView (Josh, Oct 2026: "ubah semuanya
-ke flutter dart"; port the engine fully, verified against JS; one v2.0 release at parity). v1.17 was the last
-WebView release; `app/` (the v1 Android project), `web/build.py` and `tests/smoke.py` are the **frozen v1.x line**.
-`web/` is still the **source of the words, the interface text and the sealed part** (`web/data/vocab.json`,
-`web/src/i18n*.js` and the `/*<seal>*/` text blocks) and the reference for behaviour: the sections below about
-`app.html` etc. describe what the Dart code does too (file names map: `web/src/app/x.js` → `mobile/lib/ui/x.dart` or
-the screen that took it over).
+The app is a **Flutter app** (Dart, `mobile/`), not a web page in a WebView (Josh, Oct 2026: "ubah semuanya
+ke flutter dart"; engine ported fully and verified against JS). Josh: XueCi focuses on Flutter, versions **start again
+at v1.0**; the WebView line (v1.0–v1.17, last release v1.17) was **moved to `armstrang/Merdeka-Mandarin`** (main =
+v1.17 + an archive commit; its release workflow runs only by hand). This repo keeps from it only what the Flutter app
+still uses: `web/data/vocab.json` (words), `web/src/i18n*.js` (interface text, incl. the `/*<seal>*/` blocks),
+`web/src/learn.js` + `store.js` (the JS engine, reference for the traces) and `web/tools/` (sentence pinyin, word
+frequency). The *behaviour reference* below still names the WebView files (`web/src/app/x.js` → now
+`mobile/lib/ui/x.dart` or the screen that took it over); read them in Merdeka-Mandarin when needed.
 
 | Path | What |
 |---|---|
@@ -23,7 +24,7 @@ the screen that took it over).
 | `mobile/lib/ui/` | `shell.dart` (MaterialApp, background, tab bar, toasts, back), `home.dart`, `focus.dart` (capsule header, list, menus), `run_view.dart` (cards, questions, summary, mock), `stats.dart`, `soul.dart` (orb, five-element ring, Soul Sea page), `realm.dart` (realm sheet + pieces), `tests.dart` (placement, tribulation + lightning, gate ceremony), `settings.dart` (Settings, streak sheet, tour, egg), `goal.dart`, `backup_sheet.dart`, `info.dart` (tones & help), `share.dart` (cultivation card), `fx.dart` (drifting light, frame watcher), `glass.dart`/`theme.dart`/`lens.dart`/`widgets.dart`/`icons.dart`/`sheet.dart`/`word_ui.dart` (look), `screens.dart` (screen hosts, `wireSheets()`: hooks + start tasks) |
 | `mobile/tool/` | `make_assets.py` (needs `npm install --prefix mobile/tool acorn@8.15.0`): `assets/data/core.json` + `<lang>.json` (HSK 1–6), sealed `s0.bin` + `s-<lang>.bin`, `assets/i18n/<lang>.json`; refuses public text containing a secret word. `make_fonts.py`: static TTF subsets into `assets/fonts/` (re-run after new characters). `cloud_sdk.sh`: the Flutter SDK in Claude's cloud sessions |
 | `mobile/android/` | `MainActivity.kt` (method channel `xueci/native`: filesDir, legacy, ready, TTS, reminder, widget, share, openUrl, notifications), `Reminder.java`/`ReminderReceiver.java`/`XueciWidget.java` (from v1), `assets/legacy.html` (the v1.x progress move) |
-| `mobile/test/` | `engine_trace_test` (vs JS), `i18n_test`, `store_test`, `backup_test` (codes from v1.x), `secret_test` (no secret word in lib/android/assets; no screen shows one before the gate), `screens_test` (golden screenshots of every screen and sheet → `test/goldens/`, not committed; view them) |
+| `mobile/test/` | `engine_trace_test` (vs JS), `i18n_test`, `store_test`, `backup_test` (codes from the WebView line), `secret_test` (no secret word in lib/android/assets; no screen shows one before the gate), `contrast_test` (renders every main screen and sheet in light/dark/black and measures each text against the pixels behind it: ≥4.5:1, ≥3:1 for large text; CI fails otherwise), `screens_test` (golden screenshots of every screen and sheet → `test/goldens/`, not committed; view them) |
 
 Generated `assets/data`, `assets/i18n`, `test/traces`, `test/goldens` are not committed.
 In Claude's cloud sessions: `. /opt/flutter-env.sh`, then in `mobile/`: `FLUTTER_ROOT=/opt/flutter dart pub get --offline`,
@@ -31,61 +32,27 @@ In Claude's cloud sessions: `. /opt/flutter-env.sh`, then in `mobile/`: `FLUTTER
 `flutter test --no-pub [--update-goldens]`. There is no Android SDK there: Android code is compiled by CI only.
 After a change: assets (if web/ changed) → analyze → tests → look at the screenshots.
 
-**Moving v1.x progress** (first start of v2.0): `App.boot` asks `Native.legacy()` when the store has no `xc_schema`;
+**Moving the WebView line's progress** (first start of the Flutter app): `App.boot` asks `Native.legacy()` when the store has no `xc_schema`;
 `MainActivity` opens a hidden WebView on v1.x's origin `https://appassets.androidplatform.net` (WebViewAssetLoader,
 `assets/legacy.html`) that returns IndexedDB `xueci/kv` when it has `xc_schema` (v1.12+), else localStorage; the store
 takes it and runs the usual migrations. No `app_webview` folder → nothing to move. A failure (8 s timeout) answers
 `!`: `xc_legacy` = 1 and the next start tries again, adopting v1.x's data while fewer than 30 words were practised.
-**Never delete or rename v1.x's keys or the WebView data.**
+**Never delete or rename the WebView line's keys or its WebView data.**
 
-**Text size** (v2): `MaterialApp.builder` clamps the phone's text scale to 0.85–1.6; `Th.fs`; compact chrome uses
+**Text size**: `MaterialApp.builder` clamps the phone's text scale to 0.85–1.6; `Th.fs`; compact chrome uses
 `Compact` (grows only half-way, like v1's `--fsd`).
 
 **Sheets** open with `openSheet` (route under the app's `Th`, rebuilt on app changes); Home reaches them through the
 hooks on `App` (`openRealm`, `openSettings`, `openStreak`, `openInfo`, `openGoal`, `openShare`, `onWordmark`) set by
 `wireSheets()`. Screens: `screenFor()` in `shell.dart`; `App.go(s)` runs `beforeShow` (leaveTest, frame watcher).
 
-## The v1.x sources (`web/`) — frozen line, still the source of words and texts
+## Behaviour reference (written for the WebView line; the Dart code does the same)
 
-The app is **one HTML page plus its word data files**, shown in an Android WebView. No framework, no npm.
-Since v1.12 the sources are split per screen/feature and formatted with Prettier (`.prettierrc.json`: width 120, single
-quotes, no parens around one arrow argument; `/opt/node-tools/node_modules/.bin/prettier --write "web/src/*.js" "web/src/app/*.js"`
-in Claude's cloud sessions, `npx prettier` elsewhere). All app files still share **one global scope** (top-level
-`const`/`function` are global, as before), so order matters: it is the `APP` list in `web/build.py`.
-
-| Path | What |
-|---|---|
-| `web/src/base.css.html` | `<title>`, the text-size script + base layout styles |
-| `web/src/app.html` | markup of every screen and sheet (no script) |
-| `web/src/store.js` | **progress store** `STORE` + the `ls` wrapper (see *Storage* below) |
-| `web/src/boot.js` | start-up `XC`: sets theme/level colour from the localStorage copy (no flash), opens the store, fetches `data/core.json` + `data/<lang>.json`, runs the migrations, then runs `#xc-app` and `#xc-glass`. `LANGS`, `sysLang()`. `XC.loadLang(l)` / `XC.has(l)` load other languages on demand (`setLang` waits for it). `XC.loadBand()` opens the sealed part (`data/s0.bin` + `data/s-<lang>.bin`, also each language's file later; runs the sealed code) at start when `xc_lvl.gate` is set, or when the gate opens; `XC.band` is true once loaded. `html.booting` hides `.wrap` until then; `.bootfail` if the data can't load |
-| `web/src/i18n.js`, `i18n-app.js`, `i18n-learn.js` | UI strings `I18N={id,en,th,vi}`; later files `Object.assign` over earlier ones (i18n-learn.js has blocks per version, the last ones win) |
-| `web/src/app/*.js` | the app, one file per part: `core` (DATA, helpers, realm names), `mastery`, `state`, `screens`, `home`, `pickers`, `language`, `list`, `runner`, `cards`, `quiz`, `summary`, `stats`, `info`, `speech`, `backup`, `plan`, `goal`, `realm`, `placement`, `breakthrough`, `gate` (the gate ceremony), `research` (opt-in research code), `soul-page`, `reminder`, `notes`, `settings` (Settings sheet, display modes, cultivation-day calendar, short tour), `egg` (easter egg), `share` (cultivation card, after `soul-page`), `widget` (home-screen widget data), `mock` (HSK simulation, after `summary`), `keys`, `start` |
-| `web/src/learn.js` | **learning engine** `LM` (memory model, answer log, goals/daily plan, question choice, optimizer, realms, rest numbers); see below. Loaded after `app/mastery.js` |
-| `web/src/soul.js` | `SOUL`: the Soul Sea orb (canvas word network, realm core) and the five-element ring (SVG) |
-| `web/src/glass.css.html` | Liquid Glass look; injected right after the base `</style>` so it overrides it |
-| `web/src/glass.js` | Liquid Glass interactions (HSK lens, screen zoom, theme reveal, haptics), run last |
-| `web/data/vocab.json` | 10,896 words, one per line: HSK 1–6 (5,334) and HSK 7–9 (5,562 = hsk30's level "7", split by jieba Zipf frequency into three levels of 1,854; content written by Claude in Oct 2026, v1.13). **Canonical data** — edit here. `build.py` splits it into `data/core.json` ({cols, rows}: l n u h p s z zp f g + `pm` = short first Indonesian meaning, for the placement bank) and `data/{id,en,th,vi}.json` ({rows: [meaning, translation]}, same order) for HSK 1–6; HSK 7–9 go sealed into `data/s0.bin` + `data/s-<lang>.bin` (see *The seal*; **never opened before the gate**) |
-| `web/tools/jsmin.py` | (v1.16) strips comments and indentation from the built page's JS (a small tokenizer: strings, templates with `${}`, regex literals), CSS and HTML; names and code stay as written. Token streams were checked identical with acorn |
-| `web/tools/word_freq.py` | adds `f` (Zipf frequency) and `g` (part of speech) from jieba's `dict.txt` (MIT); run with a jieba checkout path after adding words |
-| `web/build.py` | builds `app/src/main/assets/index.html` + `assets/data/*.json` (committed; local fonts) and `web/dist/xueci-mandarin.html` + `web/dist/data/` (web copy, ignored; Google Fonts; needs a web server, not `file://`). Page = base css + glass css + markup + `<script>` store.js + boot.js + `<script type="text/x-xueci" id="xc-app">` (the APP list without start.js) + `#xc-start` (start.js) + `<script type="text/x-xueci" id="xc-glass">`; no comments (`tools/jsmin.py`), sealed blocks moved into `data/s0.bin` |
-| `web/make_fonts.py` | makes `app/src/main/assets/fonts/*.woff` (+ OFL licences), `web/fonts/fonts.css`, `web/fonts/charset.txt` from the original fonts (see its docstring for where to get them; `web/fonts/src/` is not committed). Chinese fonts are cut to the ~2,000 characters the app uses — **re-run after adding words**; `build.py` warns about missing characters |
-| `app/` | single-module Android app: `MainActivity.java`, `Reminder.java` + `ReminderReceiver.java` (daily study reminder), `res/drawable/ic_stat_xueci.xml` (notification icon) |
-| `art/` | icon artwork (v1.17, from Josh): `icon-source-square.png` (rounded square) and `icon-source-round.png` (circle), 学词 with a sword, a star and a golden arc on a vermilion→violet→blue gradient; `python3 art/make_icons.py` (needs numpy + scipy) cuts them out, extends the gradient full-bleed and writes the adaptive icon (the whole design is the background layer at 70 % so the star and arc stay in every mask; transparent foreground; `ic_launcher_monochrome` for Android 13 themed icons), legacy square/round icons, `drawable-nodpi/ic_splash.webp` (splash), `play-icon-512.png` (full square), `icon-badge.png` (store graphics), `docs/privacy/icon.png` and `icon-preview.png` (check it) |
-| `tests/smoke.py` | Playwright smoke test of the built page (all flows, 5 sizes/themes/languages, legacy-progress, store/migration/backup, realm/tribulation, gate/ceremony, Android-reminder, `perf` and `a11y` cases (`a11y`: `tests/a11y.js` in light/dark/black over the main screens and sheets: every control named, targets ≥24 px, text contrast ≥3:1); `perf` slows the CPU 4× and checks boot < 4 s, Home redraw < 250 ms, median frame ≤ 40 ms on screen changes, list open without a frame ≥ 400 ms). `no_leak()` checks that nothing in the page (text, labels, hidden sheets) names 真仙/玄仙/大罗/仙门/HSK 7–9 before the gate; `files` checks the built index.html and the data files themselves. `python3 tests/smoke.py gate realm` runs only the named cases (`main` = the 5 full runs) |
-| `tests/engine.js` | Node tests (vm sandbox, stand-in localStorage, fixed time and random): store schema/migrations, FSRS, legacy progress, placement, realm progress with test credit, elements, breakthrough, backup days; v1.13: typed pinyin, the way in, strikes and grades, the gate and make-up tribulation, stability, model check, optimizer. `sandbox(saved, {band:true})` loads HSK 7–9 like an open gate. `require` it for `sandbox()` in experiments |
-| `CHANGELOG.md` | release notes, **in English** (Josh asked, Oct 2026). CI publishes the `## v1.N` section as the GitHub release text, so **add the section before pushing app changes** |
-| `store/` | Play listing: `listing.md` (ID + EN texts and other Play Console answers), screenshots 1080×1920 and feature graphics 1024×500 per language; `python3 store/make_store_assets.py` regenerates them from the built app with sample progress (captions in the script). Re-run after visible UI changes |
-
-After a change in `web/` (words, texts): regenerate the Flutter assets (`python3 mobile/tool/make_assets.py`) and run the Flutter tests. The v1 build/tests (`web/build.py`, `tests/engine.js`, `tests/smoke.py`) belong to the frozen line and are no longer run by CI.
-The smoke test serves the assets over http (so fonts load), fails on any request leaving the app, and runs one case with text at 160%.
-
-### Text size
-Write font sizes in **px** in the sources. `build.py` rewrites every `font-size:Npx` to `calc(Npx*var(--fs,1))` (and `≥26px` or `clamp()` to `--fsd`).
-The first script in `base.css.html` sets `--fs` from `MMAndroid.fontScale()` (the phone's text size, clamped 0.85–1.6; `?fs=1.3` in the URL for testing),
-`--fsd = 1 + (fs−1)/2`, and adds `html.bigtext` from 1.15. Compact chrome that must not grow fully (header capsule title/chips, HSK pills, brand, tile
-subtitles, stats scale labels) is written directly as `calc(Npx*var(--fsd,1))` — the rewrite leaves values starting with `calc(` alone. WebView `textZoom` stays 100.
-CI also runs `web/build.py`, so a forgotten rebuild only matters for local Android Studio builds.
+Version numbers in this section (v1.6 … v1.17) are the **WebView line's**, not the Flutter app's. Files named here
+that are not in this repo (`app.html`, `web/src/app/*.js`, `build.py`, `tests/smoke.py`, `tests/engine.js`, `glass.js`)
+are in Merdeka-Mandarin; their checks now live in `mobile/test/` (`smoke` `no_leak`/`files` → `secret_test`,
+`engine.js` → `engine_trace_test` + `store_test` + `backup_test`, `a11y` → `contrast_test`) and the sealing that
+`build.py` did is done by `mobile/tool/make_assets.py` (same format).
 
 ### Data fields (`vocab.json`)
 `l` level 1–6 · `n` number in level · `u` unit · `h` hanzi · `p` pinyin · `s` pinyin per character (tone colours) ·
@@ -97,7 +64,7 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 尽力 jìnlì, 牛仔裤 niúzǎikù, 适当 shìdàng, 水分 shuǐfèn, 挑战 tiǎozhàn, 相册 xiàngcè, 行业 hángyè, 背包 bēibāo.
 `M(d)` / `TR(d)` pick the meaning/translation for the current study language.
 
-### App logic worth knowing (`app.html`)
+### App logic worth knowing
 - Screens: `#scr-home`, `#scr-focus` (`data-mode` = list / card / quiz / session / placement / bt), `#scr-stats`, `#scr-soul`. `go(s)` → `window.mmTransition(run, from, to)` when defined.
 - Mastery: `stats[id] = [right, wrong, level]`, `MAXL = 20`. Since v1.8 the level comes from the learning engine (below), not from +1/−3. Bands: 0–6 red, 7–13 yellow, 14–20 green; `.m0`–`.m20` colour classes.
 - Screens: Home has the **plan card** (`#plan`, `renderPlan()`, goal chip → `#goalSheet`) above the HSK pills. `#scr-focus` modes: `list`, `card`, `quiz`, `session` (today's session), `placement` (placement test) and `bt` (breakthrough); HSK/unit chips are hidden in the last three. `body[data-screen]` mirrors the screen.
@@ -159,10 +126,10 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 ## Android
 - `applicationId` / package **`com.armstrang.xueci`** (from v1.3 — the Play Store ID; it can never change once on Play).
   Up to v1.2 the app was `com.jorgi.merdekamandarin`; v1.2 is the last build of that ID and has Back up, so people can move their progress.
-- v2.0+: `mobile/android` (Flutter template, AGP/Kotlin from Flutter 3.47). `versionCode` = **2000 + run** of the release
-  workflow (`--build-number`), `versionName` 2.N (run 19 = v2.0). v1.x used 100 + run, the Flutter dev builds 1000 + run,
-  so a release always installs over both. `compileSdk`/`targetSdk 36`, `minSdk 24`.
-- Signing: `keystore/merdeka.jks` (same key as v1.x, so v2.0 installs over it; checked: same certificate SHA-256
+- `mobile/android` (Flutter template, AGP/Kotlin from Flutter 3.47). `versionCode` = **2000 + run** of the release
+  workflow (`--build-number`), `versionName` 1.N (run 19 = v1.0 of the Flutter app). The WebView line used 100 + run,
+  the Flutter dev builds 1000 + run, so a release always installs over both. `compileSdk`/`targetSdk 36`, `minSdk 24`.
+- Signing: `keystore/merdeka.jks` (same key as the WebView line, so the Flutter app installs over it; checked: same certificate SHA-256
   AC:92:19:…:B4:16). **This repo is public, so that key is exposed.** Fine for the sideload line only; the Play bundle
   is signed with the upload key from secrets `XC_UPLOAD_KEYSTORE_B64`, `XC_UPLOAD_STORE_PASSWORD`, `XC_UPLOAD_KEY_ALIAS`,
   `XC_UPLOAD_KEY_PASSWORD` when `XC_PLAY=1` (`flutter build appbundle`); without them it falls back to the old key
@@ -171,19 +138,21 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
   (first frame) or 2.5 s. Edge-to-edge is Flutter's (`SystemUiMode.edgeToEdge`, bar icons from `AnnotatedRegion`).
 - Reminder: `Reminder.java` keeps the settings in SharedPreferences, sets one inexact `AlarmManager.setAndAllowWhileIdle` alarm for the next time, shows a `NotificationCompat` notification (channel `study`) unless `markStudied` was called that day or it is a meditation day (`setRestDays`, weekday 0 = Sunday). `ReminderReceiver` handles the alarm and re-schedules on BOOT_COMPLETED, MY_PACKAGE_REPLACED, TIME_SET, TIMEZONE_CHANGED; `onResume` re-schedules too. Permissions: POST_NOTIFICATIONS (asked with `ActivityCompat.requestPermissions`, answer → `notifResult`), RECEIVE_BOOT_COMPLETED.
 - Widget: `XueciWidget.java` (SharedPreferences `widget`), fed by `App.syncWidget` (JSON, only when changed).
-- The frozen v1 project (`app/`, root Gradle files) documents the WebView line: `MainActivity.java` with the `MMAndroid` bridge.
+- The WebView line's Android project (`MainActivity.java` with the `MMAndroid` bridge) is in Merdeka-Mandarin.
 
 ## CI
 - `.github/workflows/build-apk.yml` (push to `main`): assets → `flutter analyze` → JS traces → `flutter test` → signed APK
-  + Play bundle → GitHub release `v2.N` with `XueCiMandarin.apk` and `.aab` (marked latest); the release text is the
-  `## v2.N` section of `CHANGELOG.md` (a warning and a link if missing). The install footer of the release text is English too.
+  + Play bundle → GitHub release `v1.N` with `XueCiMandarin.apk` and `.aab` (marked latest); the release text is the
+  `## v1.N` section of `CHANGELOG.md` (a warning and a link if missing). The install footer of the release text is English too.
   Docs/art/store-only changes do not trigger a build (`paths-ignore`); add `[skip ci]` to a commit message to skip one otherwise.
   A guard step refuses to publish into an existing release tag.
 - `.github/workflows/flutter.yml` (push to `flutter/**`): the same steps without publishing; everything it produces
-  (summary, analyzer/test/build logs, screenshots, `xueci-dev.apk` = versionCode 1000 + run, signed with the v1 key)
+  (summary, analyzer/test/build logs, screenshots, `xueci-dev.apk` = versionCode 1000 + run, name 0.9.run, signed with the same key)
   is pushed to branch `ci-out/<branch>`: `git fetch origin "+refs/heads/ci-out/flutter/v2:refs/remotes/origin/ci-out/flutter/v2"`.
   Develop there, then fast-forward `main`.
 - `.github/workflows/flutter-sdk.yml` made the `dev-flutter-sdk` pre-release (the SDK for Claude's cloud sessions,
-  `mobile/tool/cloud_sdk.sh`); a dev tool, delete it after v2.0 when Josh agrees. `check.yml` is the v1 build check (frozen).
+  `mobile/tool/cloud_sdk.sh`); a dev tool, delete it after the first Flutter release when Josh agrees.
+- The release guard refuses an existing tag: the WebView releases v1.0–v1.17 still in this repo's Releases must be
+  deleted (Josh, by hand on GitHub) before the first Flutter release can be tagged v1.0.
 - CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets and branches can.
   In Claude's cloud sessions the GitHub proxy refuses API writes to releases/tags (HTTP 403), and GraphQL (`gh release list`), so let CI do the publishing and use `gh api`.

@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- v1.16: only the share card folder in the cache is ever exposed (to the app the learner picks) -->
-<paths>
-    <cache-path name="share" path="share/" />
-</paths>

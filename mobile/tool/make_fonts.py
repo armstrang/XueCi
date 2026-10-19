@@ -2,7 +2,7 @@
 
     python3 mobile/tool/make_fonts.py [SOURCE_DIR]
 
-SOURCE_DIR (default web/fonts/src, not committed) holds the original variable fonts, as for web/make_fonts.py
+SOURCE_DIR (default web/fonts/src, not committed) holds the original variable fonts, as the WebView line did
 (Plus Jakarta Sans, Noto Sans SC, Noto Serif SC, Noto Sans Thai; all SIL OFL 1.1). Writes mobile/assets/fonts/*.ttf
 and the licences (committed). Re-run after adding words or interface text with new Chinese characters:
 test/fonts_test.dart fails when a character the app can show is missing.

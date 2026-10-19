@@ -1,8 +1,9 @@
 name: Build APK
 
-# v2.0+: the Flutter app in mobile/. Push to main → assets from web/data + web/src (word data, interface text, the
-# sealed part) → analyzer → tests (engine against the JS engine's traces, screens, backup, the secret) → a signed APK
-# and the Play bundle → GitHub release v2.N. The WebView app (app/, v1.x) is frozen and no longer built.
+# The Flutter app in mobile/. Push to main → assets from web/data + web/src (word data, interface text, the sealed
+# part) → analyzer → tests (engine against the JS engine's traces, screens, contrast, backup, the secret) → a signed
+# APK and the Play bundle → GitHub release v1.N. The WebView line (v1.0–v1.17 until Oct 2026) lives on in
+# armstrang/Merdeka-Mandarin.
 on:
   push:
     branches: [main]
@@ -41,13 +42,14 @@ jobs:
           channel: stable
           cache: true
 
-      # v2.N: run 19 of this workflow made v2.0 (v1.17 was run 18). versionCode = 2000 + run: above every v1.x
-      # (100 + run) and every development build (1000 + run), so each release installs over what is on the phone.
+      # v1.N: the Flutter app starts again at v1.0 with run 19 of this workflow (the WebView line ended at v1.17, run
+      # 18). versionCode = 2000 + run: above every WebView build (100 + run) and every development build (1000 + run),
+      # so each release installs over what is on the phone.
       - name: Version
         run: |
           n=$(( GITHUB_RUN_NUMBER - 19 ))
           if [ "$n" -lt 0 ]; then n=0; fi
-          echo "VER=2.$n" >> "$GITHUB_ENV"
+          echo "VER=1.$n" >> "$GITHUB_ENV"
           echo "CODE=$(( 2000 + GITHUB_RUN_NUMBER ))" >> "$GITHUB_ENV"
 
       - name: Assets (word data, interface text, the sealed part)
@@ -121,7 +123,7 @@ jobs:
             exit 1
           fi
 
-      # Release notes: the "## v2.N" section of CHANGELOG.md, then how to install.
+      # Release notes: the "## v1.N" section of CHANGELOG.md, then how to install.
       - name: Release notes
         run: |
           awk -v v="## v$VER" 'index($0,"## ")==1{if(p)exit; p=($0==v||index($0,v" ")==1)} p' CHANGELOG.md | tail -n +2 > notes.md
