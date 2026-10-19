@@ -8,6 +8,7 @@ import '../i18n/l10.dart' show jsTruthy;
 import 'dart:async';
 
 import 'focus.dart';
+import 'fx.dart';
 import 'goal.dart';
 import 'info.dart';
 import 'settings.dart';
@@ -60,6 +61,7 @@ void wireSheets() {
   };
   if (app.startHooks.isNotEmpty) return; // once per App (tests boot several)
   app.beforeShow.add(leaveTest);
+  app.beforeShow.add(watchFrames);
   app.startHooks.add((context) {
     app.syncRest();
     // back after two or more days off: how much is still remembered (once a day)

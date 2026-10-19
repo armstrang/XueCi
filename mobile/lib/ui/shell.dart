@@ -9,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../app/app.dart';
 import '../app/native.dart';
+import 'fx.dart';
 import 'glass.dart';
 import 'home.dart';
 import 'icons.dart';
@@ -160,12 +161,15 @@ class _ShellState extends State<Shell> {
       onPopInvokedWithResult: (did, _) {
         if (!did) back(context);
       },
-      child: Scaffold(
+      child: Listener(
+        onPointerDown: (_) => fxWake.value++,
+        child: Scaffold(
         backgroundColor: th.p.bg,
         resizeToAvoidBottomInset: false,
         body: Stack(
           children: [
             Positioned.fill(child: GlowBackground(tone: th.acc)),
+            if (th.full && !const ['session', 'placement', 'bt'].contains(s)) const Positioned.fill(child: DriftGlow()),
             Positioned.fill(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 220),
@@ -183,6 +187,7 @@ class _ShellState extends State<Shell> {
             const Positioned(left: 0, right: 0, bottom: 0, child: ToastHost()),
           ],
         ),
+      ),
       ),
     );
   }
