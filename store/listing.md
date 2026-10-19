@@ -17,7 +17,7 @@ Feature graphic dan screenshot belum ada: dibuat dari aplikasi baru sebelum ungg
 **Nama aplikasi** (maks. 30): XueCi Mandarin
 
 **Deskripsi singkat** (maks. 80):
-Hafalkan 5.334 kata HSK 1–6 dengan rencana harian, kartu, dan kuis terarah.
+Hafalkan 5.334 kata HSK 1–6 dengan latihan harian, kartu, dan kuis.
 
 **Deskripsi lengkap** (maks. 4.000):
 
@@ -40,8 +40,8 @@ Saat kamu mulai lelah, aplikasi menawarkan jeda 5 menit. Pilih hari meditasi tan
 KARTU YANG MENGUJI
 Bilang "Saya tahu"? Buktikan dulu dengan cek kilat (pilih arti atau pinyin yang benar) sebelum kartu dibalik. Yakin tapi keliru membuat kata itu lebih cepat muncul lagi.
 
-KUIS TERARAH
-Lima jenis soal: kenali arti, ingat hanzi, nada, dengar, dan isi kalimat. Aplikasi memilih kata dan jenis soal sesuai kelemahanmu, dan pilihan jawaban makin mirip saat kamu makin mahir. Ada juga simulasi ujian berwaktu.
+KUIS SESUKAMU
+Kenali arti, ingat hanzi, nada, dengar, isi kalimat, ketik pinyin, dan terjemahan. Pilihan jawaban makin mirip saat kamu makin mahir. Ada juga ujian kilat dan simulasi HSK yang dinilai dan dibahas di akhir.
 
 MODEL MEMORI DI HP-MU
 Jadwal ulangan dihitung dengan FSRS, model memori open source, lalu disesuaikan dengan pola ingatanmu sendiri. Semua perhitungan dilakukan di HP, tanpa server.
@@ -65,7 +65,7 @@ Progres dan riwayat belajar hanya tersimpan di perangkatmu. Aplikasi tidak mengu
 Daftar kata dan pinyin berdasarkan data terbuka hsk30. XueCi Mandarin adalah aplikasi independen dan tidak berafiliasi dengan penyelenggara ujian HSK.
 
 **Catatan rilis pertama** (maks. 500):
-Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, ranah kultivasi dan Lautan Jiwa, tes penempatan, rencana harian sesuai tujuan, jeda istirahat, pengingat harian, kartu dengan cek kilat, kuis terarah (arti, hanzi, nada, dengar, kalimat), simulasi ujian, wawasan belajar, warna nada, 4 bahasa, dan tema terang/gelap/hitam pekat. Semua berjalan offline di HP.
+Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, ranah kultivasi dan Lautan Jiwa, tes penempatan, rencana harian sesuai tujuan, jeda istirahat, pengingat harian, kartu dengan cek kilat, kuis (arti, hanzi, nada, dengar, kalimat, ketik pinyin, terjemahan), simulasi HSK, wawasan belajar, warna nada, 4 bahasa, dan tema terang/gelap/hitam pekat. Semua berjalan offline di HP.
 
 ---
 
@@ -74,7 +74,7 @@ Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, ranah kultivasi dan Lautan J
 **App name** (max 30): XueCi Mandarin
 
 **Short description** (max 80):
-Learn 5,334 HSK 1–6 words with a daily plan, flashcards and a guided quiz.
+Learn 5,334 HSK 1–6 words with daily practice, flashcards and a quiz.
 
 **Full description** (max 4,000):
 
@@ -97,8 +97,8 @@ When you start to tire, the app offers a 5-minute break. Choose meditation days 
 FLASHCARDS THAT CHECK YOU
 Say "I know it"? Prove it first with a quick check (pick the right meaning or pinyin) before the card flips. Being sure but wrong brings the word back sooner.
 
-A GUIDED QUIZ
-Five question types: recognise the meaning, recall the hanzi, tones, listening, and fill the gap in a sentence. The app picks words and question types for your weak spots, and the options get trickier as you improve. There is a timed exam practice too.
+A QUIZ YOUR WAY
+Recognise the meaning, recall the hanzi, tones, listening, sentence gaps, typed pinyin and translation. The options get trickier as you improve. There is a quick exam and an HSK mock exam that is marked and explained at the end too.
 
 A MEMORY MODEL ON YOUR PHONE
 Reviews are scheduled with FSRS, an open-source memory model, which then adapts to how you remember. Everything is worked out on your phone, with no server.
@@ -122,7 +122,7 @@ Your progress and study history stay on your device. The app does not collect or
 Word list and pinyin based on the open hsk30 data. XueCi Mandarin is an independent app and is not affiliated with the organisers of the HSK exam.
 
 **First release notes** (max 500):
-First release of XueCi Mandarin: 5,334 HSK 1–6 words, cultivation realms and the Sea of Consciousness, a placement test, a daily plan built from your goal, rest breaks, daily reminders, flashcards with a quick check, a guided quiz (meaning, hanzi, tones, listening, sentences), exam practice, learning insights, tone colours, 4 languages, and light/dark/true black themes. Everything runs offline on your phone.
+First release of XueCi Mandarin: 5,334 HSK 1–6 words, cultivation realms and the Sea of Consciousness, a placement test, a daily plan built from your goal, rest breaks, daily reminders, flashcards with a quick check, a quiz (meaning, hanzi, tones, listening, sentences, typed pinyin, translation), an HSK mock exam, learning insights, tone colours, 4 languages, and light/dark/true black themes. Everything runs offline on your phone.
 
 ---
 

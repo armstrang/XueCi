@@ -1,174 +1,153 @@
 # XueCi Mandarin — project notes for Claude
 
-HSK 1–9 vocabulary app (HSK 7–9 hidden until the gate opens, see *Realms*; word list, flashcards, quiz, per-word mastery, goal-driven daily plan) by **Armstrang** (GitHub `armstrang`, goes by Josh).
-Formerly "Merdeka Mandarin". Josh writes in Indonesian: reply in Indonesian.
-Goal right now: a proper **Google Play** release. The plan and open decisions are in `docs/play-store.md`.
+HSK 1–9 vocabulary app for Android (HSK 7–9 hidden until the gate opens, see *Realms*): word list, flashcards, quiz,
+per-word mastery, a goal-driven daily plan. By **Armstrang** (GitHub `armstrang`, goes by Josh). Formerly "Merdeka
+Mandarin". Josh writes in Indonesian: **reply in Indonesian**. Goal: a proper **Google Play** release; plan and open
+decisions in `docs/play-store.md`.
 
-## The Flutter app (`mobile/`)
+The app is **Flutter** (Dart, `mobile/`). It is in testing as **1.0-alpha** (pre-releases `v1.0-alpha-N`). The earlier
+WebView version was removed from this repo (archived in `armstrang/Merdeka-Mandarin`; don't bring it back).
 
-The app is a **Flutter app** (Dart, `mobile/`). Josh (Oct 2026): versions start again at v1.0, the app is in testing
-as **1.0-alpha** (pre-releases `v1.0-alpha-N`), and everything of the earlier WebView version was removed from this repo
-(its code is archived in `armstrang/Merdeka-Mandarin`; don't bring it back). Sources of the app's content: `content/vocab.json`
-(words), `content/i18n/i18n*.js` (interface text, incl. the `/*<seal>*/` blocks; read by `mobile/tool/make_i18n.js`),
-`content/tools/` (sentence pinyin, word frequency).
+## Layout
 
 | Path | What |
 |---|---|
-| `mobile/lib/engine/` | `learn.dart` = `LM` (FSRS, plan, questions, realms, tests, optimizer…), `fsrs.dart`, `model.dart` (Mem, LogE, Item…), `js.dart` (JS-exact helpers: `jsRound`, V8 sort emulation `jsSort`, LCG random, `jsJson`). `test/engine_trace_test.dart` replays recorded runs (`test/fixtures/engine/*.json`, committed) and compares every number; keep them passing (a deliberate engine change = update the fixture with care) |
-| `mobile/lib/data/` | `store.dart` (progress store: same key names and JSON text as v1.x, one file per key in `files/store`, schema/migrations as v1.12), `words.dart` (Word, Vocab), `pinyin.dart`, `seal.dart` (unseal `s0.bin`/`s-<lang>.bin`) |
-| `mobile/lib/i18n/` | `l10.dart` + generated `keys.g.dart`: the JS text functions became expression trees (`tool/make_i18n.js`, acorn) evaluated by `Tpl`; only `<b>` markup (widget `Rich`) |
-| `mobile/lib/app/` | `app.dart` (`App`: boot, language, theme, fx, realms helpers, reminder/rest sync, backup timing, widget), `runner.dart` (Cards/Quiz/session/mock runs), `backup.dart` (XUECI1/XUECI0 codes, same format as v1.x), `native.dart` (method channel), `mastery.dart` |
-| `mobile/lib/ui/` | `shell.dart` (MaterialApp, background, tab bar, toasts, back), `home.dart`, `focus.dart` (capsule header, list, menus), `run_view.dart` (cards, questions, summary, mock), `stats.dart`, `soul.dart` (orb, five-element ring, Soul Sea page), `realm.dart` (realm sheet + pieces), `tests.dart` (placement, tribulation + lightning, gate ceremony), `settings.dart` (Settings, streak sheet, tour, egg), `goal.dart`, `backup_sheet.dart`, `info.dart` (tones & help), `share.dart` (cultivation card), `fx.dart` (drifting light, frame watcher), `glass.dart`/`theme.dart`/`lens.dart`/`widgets.dart`/`icons.dart`/`sheet.dart`/`word_ui.dart` (look), `screens.dart` (screen hosts, `wireSheets()`: hooks + start tasks) |
-| `mobile/tool/` | `make_assets.py` (needs `npm install --prefix mobile/tool acorn@8.15.0`): `assets/data/core.json` + `<lang>.json` (HSK 1–6), sealed `s0.bin` + `s-<lang>.bin`, `assets/i18n/<lang>.json`; refuses public text containing a secret word. `make_fonts.py`: static TTF subsets into `assets/fonts/` (re-run after new characters). `cloud_sdk.sh`: the Flutter SDK in Claude's cloud sessions |
-| `mobile/android/` | `MainActivity.kt` (method channel `xueci/native`: filesDir, legacy, ready, TTS, reminder, widget, share, openUrl, notifications), `Reminder.java`/`ReminderReceiver.java`/`XueciWidget.java` (from v1), `assets/legacy.html` (the v1.x progress move) |
-| `mobile/test/` | `engine_trace_test` (recorded runs), `i18n_test`, `store_test`, `backup_test` (codes from earlier versions), `secret_test` (no secret word in lib/android/assets; no screen shows one before the gate), `contrast_test` (renders every main screen and sheet in light/dark/black and measures each text against the pixels behind it: ≥4.5:1, ≥3:1 for large text; CI fails otherwise), `screens_test` (golden screenshots of every screen and sheet → `test/goldens/`, not committed; view them) |
+| `content/vocab.json` | the words (one per line), canonical: edit here |
+| `content/i18n/` | interface text: `base.js` (`I18N`, helper `r`), `id.js`, `en.js`, `th.js`, `vi.js` — **each key defined once per language**; strings, or arrow functions for text with numbers. Text past the gate sits between `/*<seal>*/ … /*</seal>*/` at the end of each file |
+| `content/tools/` | `sentence_pinyin.py` (field `zp`), `word_freq.py` (fields `f`, `g`) |
+| `mobile/lib/engine/` | `learn.dart` = `LM` (FSRS, plan, questions, realms, tests, optimizer…), `fsrs.dart`, `model.dart` (Mem, LogE, Item…), `js.dart` (exact helpers: `jsRound`, `jsSort`, LCG random, `jsJson`) |
+| `mobile/lib/data/` | `store.dart` (progress store, one file per key in `files/store`, schema + migrations), `words.dart`, `pinyin.dart`, `seal.dart` |
+| `mobile/lib/i18n/` | `l10.dart` + generated `keys.g.dart`; text functions are expression trees (`tool/make_i18n.js`, acorn) evaluated by `Tpl`; only `<b>` markup (`Rich`) |
+| `mobile/lib/app/` | `app.dart` (`App`: boot, language, theme, fx, realm helpers, reminder/rest sync, backup timing, widget, `memo`), `runner.dart` (Cards/Quiz/session/mock runs), `backup.dart` (XUECI1/XUECI0 codes), `native.dart` (method channel), `mastery.dart` |
+| `mobile/lib/ui/` | `shell.dart` (MaterialApp, background, tab bar, toasts, back), `home.dart`, `focus.dart` (capsule header, list, menus), `run_view.dart` (cards, questions, summary, mock), `stats.dart`, `soul.dart`, `realm.dart`, `tests.dart` (placement, tribulation, gate ceremony), `settings.dart`, `goal.dart`, `backup_sheet.dart`, `info.dart`, `share.dart`, `fx.dart`, look: `glass.dart`/`theme.dart`/`lens.dart`/`widgets.dart`/`icons.dart`/`sheet.dart`/`word_ui.dart`, `screens.dart` (screen hosts, `wireSheets()`) |
+| `mobile/tool/` | `make_assets.py` (needs `npm install --prefix mobile/tool acorn@8.15.0`): `assets/data` (core + per-language words, sealed `s0.bin`/`s-<lang>.bin`) and `assets/i18n`; refuses public text with a secret word. `make_fonts.py` (font subsets; re-run after new characters; sources in `fonts-src/`, not committed). `cloud_sdk.sh` (Flutter SDK for Claude's cloud sessions) |
+| `mobile/android/` | Kotlin: `MainActivity.kt` (method channel `xueci/native`), `Reminder.kt` (+ `ReminderReceiver`), `XueciWidget.kt`; `assets/legacy.html` (progress move) |
+| `mobile/test/` | `engine_trace_test` (replays `fixtures/engine/*.json` call by call; a deliberate engine change = update the fixture with care), `i18n_test`, `store_test`, `backup_test`, `secret_test`, `contrast_test`, `screens_test` (screenshots → `test/goldens/`, not committed: look at them), `perf_probe_test` (`PERF=1`) |
+| `art/` | icon artwork; `python3 art/make_icons.py` writes every icon into `mobile/android` |
+| `store/listing.md`, `docs/privacy/` | Play listing text; privacy policy (GitHub Pages) |
 
-Generated `assets/data`, `assets/i18n`, `test/goldens` are not committed.
 In Claude's cloud sessions: `. /opt/flutter-env.sh`, then in `mobile/`: `FLUTTER_ROOT=/opt/flutter dart pub get --offline`,
-`flutter analyze --no-pub`,
-`flutter test --no-pub [--update-goldens]`. There is no Android SDK there: Android code is compiled by CI only.
-After a change: assets (if content/ changed) → analyze → tests → look at the screenshots.
+`flutter analyze --no-pub`, `flutter test --no-pub [--update-goldens]`. No Android SDK here: Kotlin is compiled by CI only.
+After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) → analyze → tests → look at the screenshots.
 
-**Moving progress from the earlier version** (first start): `App.boot` asks `Native.legacy()` when the store has no `xc_schema`;
-`MainActivity` opens a hidden WebView on v1.x's origin `https://appassets.androidplatform.net` (WebViewAssetLoader,
-`assets/legacy.html`) that returns IndexedDB `xueci/kv` when it has `xc_schema` (v1.12+), else localStorage; the store
-takes it and runs the usual migrations. No `app_webview` folder → nothing to move. A failure (8 s timeout) answers
-`!`: `xc_legacy` = 1 and the next start tries again, adopting v1.x's data while fewer than 30 words were practised.
-**Never delete or rename the earlier version's keys or its WebView data** (that is where users' progress comes from).
+## Rules
 
-**Text size**: `MaterialApp.builder` clamps the phone's text scale to 0.85–1.6; `Th.fs`; compact chrome uses
-`Compact` (grows only half-way, like v1's `--fsd`).
+- **Progress keys never change** (users' data): `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme`, `hsk16_known`, `xc_mem`,
+  `xc_log`, `xc_logA`, `xc_goal`, `xc_w`, `xc_fit`, `xc_onb`, `xc_lvl` (+ `th`, `pt`, `gate`, `gs`, `stab`, `hist`),
+  `xc_rem`, `xc_tests`, `xc_rest`, `xc_game`, `xc_amb`, `xc_note`, `xc_schema`, `xc_days`, `xc_bk`, `xc_res`, `xc_fx`,
+  `xc_fxd`, `xc_mock`, `xc_legacy`; Android SharedPreferences `reminder`, `widget`. Schema `xc_schema` = 3; a data format
+  change = a new migration + schema + a test in `store_test`; migrations never delete keys.
+- **Moving progress from the earlier version** (first start): `App.boot` asks `Native.legacy()` when the store has no
+  `xc_schema`; `MainActivity` opens a hidden WebView on the old origin `https://appassets.androidplatform.net`
+  (`assets/legacy.html`) and returns its IndexedDB `xueci/kv` (or localStorage). On failure (8 s) it answers `!`,
+  `xc_legacy` = 1 and the next start tries again (adopting the old data while fewer than 30 words were practised).
+  **Never delete that WebView data or change the origin.**
+- **The secret** (Josh: HSK 7–9 must be a real surprise): before the gate nothing may hint at more — no realm after 飞升,
+  no help/glossary rows about it, no 译 strike, nothing in CHANGELOG, README, listing or privacy policy. Secret words:
+  真仙 玄仙 大罗 仙门 'HSK 7' 'HSK 8' 'HSK 9' '7–9' '7-9' xiānmén zhēnxiān xuánxiān dàluó. Text that names them goes in a
+  seal block; `make_assets.py` seals it (deflate + xoshiro128** keystream seeded by SHA-256 of `'天外有天|'` + all HSK 6
+  hanzi + `'|'` + file name; each file starts with a short readable header and a zero byte). `secret_test` enforces it.
+- **App text sounds human** (Josh, Oct 2026: "masih sangat AI"): short sentences, "kamu", concrete words; no stacked
+  colons, no "model memori/klaim/ulangan berjarak" jargon; say what to do, not how the algorithm works. Indonesian first.
+- Package **`com.armstrang.xueci`** never changes. `versionCode`: release 2000 + run, test builds 1000 + run (the earlier
+  version used 100 + run). Signing: `keystore/xueci.jks` (alias `merdeka`, same certificate as the earlier version so
+  updates install over it; public, so test builds only). The Play bundle uses the upload key from the secrets
+  `XC_UPLOAD_*` when `XC_PLAY=1`; Josh creates that key himself.
+- Privacy policy (`docs/privacy/index.html`, ID + EN): update it whenever data behaviour or permissions change. Contact
+  is GitHub Issues only — never publish an email. About never says who wrote the meanings/examples (README does).
+  "by Armstrang" only in About.
+- CHANGELOG is in English; the `## v1.N` section is the release text.
 
-**Look** (Josh, Oct 2026: the earlier One-UI cards looked cheap; wanted Samsung's Galaxy "Fluid AI" glass + Apple's
-Liquid Glass): `paintGlass()` in `glass.dart` is the one material — milky fill (`Pal.glassA/B`, `innerA/B`), light from
-the top left (`sheen`), a white glow inside the edge (strokes of growing width, top-weighted on dark), a rim bright
-along the top (`rimHi/rimLo`) with a glint at the bottom-right. Kinds `GK.panel` (on the background), `GK.inner`
-(inside a panel or sheet: `GlassDepth`), `GK.frost` (floating, real blur), `GK.lens` (chosen tab/level/segment:
-`TabLens`, `HskLens`, `LensPill`). `GlassFlat` draws a group's rows flat inside one glass (Settings `SGroup`). The
-background (`_BgPainter`) is an aurora: the level's tone + `auroraWarm` + `auroraCool`. Shadows only outside shapes
-(`OuterShadow`). `contrast_test` keeps every text readable over it: tune `Pal` values against it
-(`CDUMP=1 flutter test test/contrast_test.dart` writes what it measured to `test/cdump/`).
+## Look and motion (Josh notices)
 
-**Smoothness** (Josh, Oct 2026: transitions were choppy): screen and run-item switches show only the incoming
-child (`reverseDuration: Duration.zero`, `layoutBuilder` = current), each in a `RepaintBoundary`; `Press` springs inside
-their own boundary; frosted glass in the shell uses `BackdropGroup` + `BackdropFilter.grouped` (σ 16); shadows of
-rounded rectangles are analytic blurs (`OuterShadow` draws `drawRRect`, never a blurred path; the Home fluid shadow is a
-circle + a rounded rectangle); `paintGlass(rr:)` takes the RRect fast paths. Engine views used by screens go through
-`app.memo(key, f)` (kept while `Store.ver` and the minute are unchanged). Exam/break clocks redraw themselves, not the
-app. Avoid `dynamic` in hot loops (the Soul orb's build went from 180 ms to 5 ms in debug by typing it).
-`PERF=1 flutter test --no-pub test/perf_probe_test.dart` prints build/layout/paint per screen. Quiz type `auto`
-(Guided) was removed (Josh): `qTypes` no longer has it, a saved `auto` falls back to `m`.
+- **Glass** (Josh: Samsung Galaxy "Fluid AI" glass + Apple Liquid Glass; the earlier flat cards looked cheap):
+  `paintGlass()` in `glass.dart` is the one material — milky fill (`Pal.glassA/B`, `innerA/B`), light from the top left
+  (`sheen`), a white glow inside the edge (top-weighted on dark), a rim bright along the top with a glint at the
+  bottom-right. Kinds: `GK.panel`, `GK.inner` (inside a panel/sheet: `GlassDepth`), `GK.frost` (floating, real blur),
+  `GK.lens` (chosen tab/level/segment: `TabLens`, `HskLens`, `LensPill`). `GlassFlat` = grouped rows in one glass
+  (`SGroup`). Background `_BgPainter` = aurora (level tone + `auroraWarm` + `auroraCool`). Shadows only outside shapes
+  (`OuterShadow`). `contrast_test` (WCAG 4.5:1, large text 3:1, light/dark/black) must stay at 0 findings: tune `Pal`
+  against it (`CDUMP=1` writes the measured images to `test/cdump/`).
+- **Motion**: transform/opacity only, 200–300 ms; a 1 s morph with staggered entrances was rejected. No light that
+  follows the finger, no tilt. Screen and question switches show only the incoming view (`reverseDuration: Duration.zero`,
+  `layoutBuilder` = current) in a `RepaintBoundary`; `Press` springs inside its own boundary.
+- **Smoothness**: blur only on floating layers (tab bar, header capsule, sheets, menus, toasts), grouped with
+  `BackdropGroup` + `BackdropFilter.grouped` (σ 16); shadows of rounded rectangles are analytic (`drawRRect` with a mask
+  blur), never a blurred path; `paintGlass(rr:)` takes the RRect fast paths. Engine views go through `app.memo(key, f)`
+  (kept while `Store.ver` and the minute are unchanged). Clocks redraw themselves, not the app. No `dynamic` in hot loops.
+- Home must fit one screen (360×680 up) and keeps its order: header pills (wordmark, cultivation days, Settings) → the
+  realm orb flowing into one panel (realm line, stage bars, today's plan) → word mastery with the HSK lens → tab bar.
+  Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
+  uses `Compact`, half-way).
+- Tab bar: Home/List/Cards/Quiz/Stats (Soul Sea, flame icon), icons only except the open tab, a glass lens that can be
+  dragged; hidden in session/placement/tribulation, while typing and in exams.
+- HSK lens (Josh: clear, "murim"): clear glass tinted by the level, the realm's colour glowing inside, a faint ring of
+  the five elements, a thin gold line on top; the chosen number takes the level colour.
+- Focus header = one translucent capsule (back · title · HSK · unit), no glass on glass.
 
-**Sheets** open with `openSheet` (route under the app's `Th`, rebuilt on app changes); Home reaches them through the
-hooks on `App` (`openRealm`, `openSettings`, `openStreak`, `openInfo`, `openGoal`, `openShare`, `onWordmark`) set by
-`wireSheets()`. Screens: `screenFor()` in `shell.dart`; `App.go(s)` runs `beforeShow` (leaveTest, frame watcher).
+## How the app works
 
-## Behaviour reference (design notes; the Dart code does the same)
-
-Version numbers here (v1.6 … v1.17) and names like `#scr-home`, `app/x.js`, `build.py`, `smoke.py`, `glass.js` come from
-the earlier version's notes: the matching Dart code is in `mobile/lib/ui/x.dart` / `mobile/lib/app/`, the checks in
-`mobile/test/` (`no_leak`/`files` → `secret_test`, `engine.js` → `engine_trace_test` + `store_test` + `backup_test`,
-`a11y` → `contrast_test`), the sealing in `mobile/tool/make_assets.py` (same format).
-
-### Data fields (`vocab.json`)
-`l` level 1–6 · `n` number in level · `u` unit · `h` hanzi · `p` pinyin · `s` pinyin per character (tone colours) ·
-`z` example sentence · `zp` its pinyin (learned word in `{}`) · `m`/`t` meaning/sentence translation in Indonesian · `em`/`et` English · `vm`/`vt` Vietnamese · `hm`/`ht` Thai ·
-`f` Zipf word frequency (jieba dictionary; missing words get their level's mean) · `g` jieba part-of-speech tag (sentence-gap options of the same class).
-`zp` is generated by `content/tools/sentence_pinyin.py` (pypinyin + jieba, both MIT; see its docstring): app words keep the app's own pinyin, other
-characters are read in context, plus rules for 一/不 tone changes, 得/地/着, measure words, erhua; names are capitalised. **Re-run it after
-editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked against standard dictionaries): 目的 mùdì, 充分 chōngfèn, 更换 gēnghuàn,
-尽力 jìnlì, 牛仔裤 niúzǎikù, 适当 shìdàng, 水分 shuǐfèn, 挑战 tiǎozhàn, 相册 xiàngcè, 行业 hángyè, 背包 bēibāo.
-`M(d)` / `TR(d)` pick the meaning/translation for the current study language.
-
-### App logic worth knowing
-- Screens: `#scr-home`, `#scr-focus` (`data-mode` = list / card / quiz / session / placement / bt), `#scr-stats`, `#scr-soul`. `go(s)` → `window.mmTransition(run, from, to)` when defined.
-- Mastery: `stats[id] = [right, wrong, level]`, `MAXL = 20`. Since v1.8 the level comes from the learning engine (below), not from +1/−3. Bands: 0–6 red, 7–13 yellow, 14–20 green; `.m0`–`.m20` colour classes.
-- Screens: Home has the **plan card** (`#plan`, `renderPlan()`, goal chip → `#goalSheet`) above the HSK pills. `#scr-focus` modes: `list`, `card`, `quiz`, `session` (today's session), `placement` (placement test) and `bt` (breakthrough); HSK/unit chips are hidden in the last three. `body[data-screen]` mirrors the screen.
-- **Home must fit one screen** (Josh, v1.9): checked at 360×680, 412×680, 1280×680 in the smoke test. **v1.14 Home (Fluid Glass, Josh picked it from mockups)**: header pills (wordmark · `#streakBtn` cultivation days · `#setBtn` Settings), then `#fluid` = the realm orb `#curLvBtn` (`.rorb`, ring `#orbArc` = stage progress, `--ob` size by height) that flows into one panel (SVG path drawn by `fluidShape()` in home.js from the orb's box, redrawn by a ResizeObserver; static paint, no filter in light mode) holding `.rtext` (realm meaning · HSK + grade, one plain line, 4 stage bars) and `#plan`; then `.mast` (word mastery: `#lvPills` calendar-style with the lens as a solid accent pill, bar `#heroBar`, counts `#heroKeys`, `#hero` = "Stats ›"), then the **tab bar** (v1.15, Josh: persistent like Apple Music; v1.16: smaller (`--tabh` 54px), five tabs Home/List/Cards/Quiz/**Stats** = the Soul Sea with a flame icon, icons only except the open tab, which also shows its name (labels stay in the DOM for TalkBack), a glass lens under the open tab made by `makeLens(tabbar, {item:'.tab', on:'[aria-current="page"]', bare:true})` that can be dragged along the bar, `mmTabsChanged()` from `show()`) `#tabbar` (`.tiles.dock.tabbar`, fixed, frosted, `aria-current` set by `show()`, tapping the current tab scrolls to top; hidden in session/placement/bt, on `body.kb` (text input focused) and `body.menuopen` (quiz menu); `--tabh`). Home has a fixed height (100svh − tab bar) and `.fluid` is a size container: `--ob` (orb size) comes from `cqw`/`cqh`, container-height rules hide lines at 400/340/300 px. ≤760px tall: status line, counts and some padding go; a new learner (`isNewbie()`: 凡人, no stats, no placement) sees two ways in (`#nbZero` session / `#nbTest` placement) and on short phones no mastery panel. With `html.bigtext` Home still fits (v1.15): stage labels, status line and some chips step aside. Class names `.orb`/`.orbwrap`/`.st` belong to the Soul Sea: Home uses `.rorb`/`.rorbw`/`.stx`. Don't add rows to Home without taking space elsewhere.
-- Header (v1.14): wordmark pill, cultivation days (incense, `.lit` once practised today → `#strkSheet` five-week calendar, longest run), Settings gear (`#setSheet`: theme `#themeSeg`, visual effects `#fxSeg`, study language `#langBtn`/`#langMenu` inline list, goal row, backup `#bkBtn`, research `#setRes` → Stats, short tour `#setTour`, tones & help `#toneInfo`, privacy). The realm orb opens `#lvlSheet` (realm, stage bar, tests, "see more" → Soul Sea). The backup dot shows on `#setBtn`. No "by Armstrang" in the header — the credit lives in About only.
-- **Visual effects (v1.14, `settings.js`)**: `xc_fx` = `auto` (default) / `low` / `full`; `html.fx-low` / `fx-full`. Auto = low when data saver, reduced transparency, ≤3 GB memory or ≤4 cores, or `xc_fxd` (the frame watcher in glass.js saw median frames >30 ms over 4+ screen changes on auto → steps down once, toast `fxDown`). Low: no backdrop blur, no shape shadow/glow, Soul Sea at DPR 1 with ≤450 words. Full (v1.15): `canvas.fxbg` after `.liquid-bg`, a WebGL shader (glass.js part 7, `window.mmFxBg`) draws three slowly drifting glows (level colour, gold, warm) at ⅓ resolution, ≤30 fps, still 10 s after the last touch, asleep when hidden or in session/placement/bt; no WebGL → `html.nogl`, CSS glow only.
-- **First start (v1.14)**: a 3-step tour (`#tourSheet`, `L10.tour`) whose last step opens the goal sheet (`xc_onb` set either way); Settings › Short tour replays it.
-- **Realms (v1.10, Josh's cultivator idea)**: `RN` 凡人 (0, not tested) 炼气 筑基 金丹 元婴 化神 渡劫 (1–6 = HSK 1–6) 飞升 (7, HSK 6 mastered); meanings in `L10.realmM`. **Only tests change the realm — no manual pick** (Josh). Stage 初期/中期/后期/圆满 = **progress** at the realm's level: <25 / 25–50 / 50–80 / ≥80 %, where progress = (solid words (`LM.solid`: level ≥10 + passed f and s) + ½ × the placement test's estimate for the words not solid yet) ÷ the level's words (**v1.12, Josh: the placement test must count**). The estimate (`testP(L)`, `credit(L)`): `xc_lvl.th` = [θ mean, sd] from `placementDone`; each word's chance known = Σ N(θ)·pKnow(θ, itemB(L,'f',d)); a word whose last skill answer was wrong gets 0, a right one ≥.9. Older tests (v1.9–v1.11, only `per`) get θ fitted to `per`. A passed breakthrough raises an existing θ to the proven level (no placement → no estimate). `LM.stage()` returns `solid`, `test` (≈ words credited), `testShare`; the stage bar draws the test part as a striped layer (`.sg i.tc`), `.sttest` line. At 圆满 the breakthrough opens: see *Tribulation* below (fail shows the words to strengthen → `pendingRun` quiz). **One test a week** (placement or breakthrough, `xc_tests`, `LM.canTest/nextTestAt`); leaving a test after 10 answers counts (`leaveTest`). A v1.9 manual level (`src:'manual'`) shows 凡人 but keeps steering the plan (`LM.baseLevel`).
-- **Realm progress (v1.11, Josh: progress must be visible, terms explained one by one)**: chip ring `--p` (share ÷ 80 %), `pathH` (8 realms, tap → `rpInfo` hanzi/pinyin/meaning), `stageH` (4 segments with pinyin, `LM.forecast()` ETA from the last 14 days' new solid words, `LM.btChance()` at 圆满; for 凡人 a preparation bar), **guidance** `adviceH`/`advGo` from `LM.advice()` (ranked: test, words missing only f / s, due, weakest skill, young words with FSRS-simulated days to solid `LM.daysToSolid`, new words, confusions, calibration; each with a practice button via `pendingRun`). Help topics may contain `@realms`, `@stages`, `@elements`, `@gloss` → tables (`helpBlock`).
-- **Soul Sea `#scr-soul`** (`renderSoul`): `SOUL.mount` canvas orb (≤900 words, lines between words sharing a character, brightness = recall, colour = HSK, realm core; batched drawing (colour × brightness buckets, typed arrays, DPR ≤2, ~5× cheaper than v1.10), starts 330 ms after the screen opens, pauses off-screen (IntersectionObserver), flick momentum, eases to a stop after 10 s idle; hidden / reduced motion = still), `SOUL.wheel` = a thick **ring of five segments** (v1.12, Josh drew it: bigger, donut-like, not joined until full): ring radius .405W, thickness .09W, badges (r .056W) on the ring at −90°+i·72°; each segment `.wseg` (track `.wtrk`, fill `.wval`, number `.wnum`) runs between two badges and fills **clockwise from its element to the next** along the generating cycle 木→火→土→金→水; weakest = dashed badge, strongest = filled badge (五行 from `LM.soul()`, v1.12 measured versions: 土 root = realm progress share; 木 cult = memory days (log scale); 水 sense = Σ recall-now over the realm level's words ÷ their number; 金 dao = `daoStat()`: "I know" claims verified at once (cm/cs) or by the next answer within 14 days (unchecked `cu`), last 90 days, (right + 10)/(n + 20), shown from 5 verified claims; 火 insight = median days to solid, ≥10 words). Element rows show the counts behind each value (`L10.attrX`), rows with advice for the weakest and a title for the strongest, stage + tests, today's trial (`LM.challenge`: weakest skill, n and accuracy a bit above the last 7 days), cultivation days (`LM.streak`: meditation days and 1 free day a week keep it), rest numbers (`LM.restGain`), realm history. "?" opens the help topic.
-- **Rest (v1.10, Josh: rest is part of learning)**: a sitting (`sit`, answers with gaps ≤10 min) gets one 调息 break offer (`fatigue()`: last-10 accuracy −15 pts, median time ×1.4, or 25 min) with a 5-min breathing guide; meditation days `xc_rest` (0–2 weekdays, goal sheet; no plan, reminder quiet via `MMAndroid.setRestDays`, next day's reviews pulled earlier); summary notes: after-break accuracy, `LM.gainList` "repeat now vs tomorrow" after extra practice, one late-night note (23:00–04:00); welcome-back toast after ≥2 days (`LM.sinceLast`). Once-only notes in `xc_note`.
-- **Sentence gaps**: translation hidden until answered; sentence pinyin with a gap for HSK 1–3; *Show translation* sets `hint` (log flag 32, max grade 2, no skill credit; not in exam/tests); *My choice fits too* (3/day) → `LM.undo` + `LM.markAmbiguous` (`xc_amb`). Cards are shuffled by `LM.cardDeck` (`spread`: no look-alikes in a row).
-- **Help guide**: `L10.help` = 10 topics (incl. a glossary) as `<details>` in the info sheet (Home "Help & tones" button); `openInfo(topic)` opens one.
-- **v1.13 realms 0–10 and the gate (Josh: HSK 7–9 must be a real secret and surprise)**: `RN` adds 真仙 (8, studies HSK 8), 玄仙 (9, HSK 9), 大罗 (10, final); 飞升 (7) studies HSK 7 once the gate (仙门) is open. The gate opens when a breakthrough reaches 飞升 (`xc_lvl.gate` = time; a v1.10–v1.12 飞升 by breakthrough opens it at start; a 飞升 from the placement test gets a make-up tribulation 补劫 on HSK 6, `LM.makeupOpen`). Then `XC.loadBand()` + `addBand()` (core.js: indexes, `LEVELS` grows to 9, `LM.bandAdded()`), and `gate.js` shows the ceremony once (`xc_lvl.gs`; a restore on another phone gets a welcome toast instead). `LM.isFinal(r)` = r ≥ 10, or r ≥ 7 with the gate closed. **Before the gate nothing may hint at more**: no node after 飞升 in the realm path, no help/glossary rows (`GL` entries with flag 1 and `TOPR()`), no 译 strike in texts, research form shows "HSK 6+", gate dialog label set only when shown; CHANGELOG, README, store listing and privacy policy say nothing either. `smoke.py` `no_leak()` enforces it.
-- **The seal (v1.16, Josh: hide HSK 7–9 inside the app too)**: everything that names what lies past 飞升 sits in the sources between `/*<seal>*/` and `/*</seal>*/` (realm names/pinyin/short names 8–10 pushed onto `RN`/`RPY`/`RS`, the 11-entry `realmM`/`realmD` tails, gate texts, glossary `xm`, the gate ceremony in gate.js). `build.py` moves those blocks out of the page into `data/s0.bin` (+ the HSK 7–9 core rows), meanings into `data/s-<lang>.bin`: deflate (zlib) then a xoshiro128** keystream seeded by SHA-256(`'天外有天|'` + all HSK 6 hanzi + `'|'` + file name); each file starts with a short readable header (an easter egg for dataminers) and a zero byte. `boot.js` `unseal()` reverses it; the sealed code runs after `#xc-app` and before `#xc-start` (start.js is its own script now) at boot, or right away when the gate opens (`XC.loadBand`). The built page ships without comments (`jsmin.py`). **Rule: new text or code that names realms 8–10, the gate or HSK 7–9 goes inside a seal block**; smoke `files` fails if the page or a data file shows any of `SECRET`. Not real security (the key is in the app), only nothing to find by unzipping the APK.
-- **Easter egg (v1.16, `app/egg.js`)**: seven taps on the wordmark within 2.5 s → a vermilion seal stamps 天外有天 (tiān wài yǒu tiān, the saying in each language: `L10.eggM`), 封 before the seal opens, 开 after; counted in `xc_note.egg`.
-- **Cultivation card (v1.16, `app/share.js`)**: `drawCard()` paints a 1080×1350 PNG (dark ink, realm ring and colour (`CARD_C`, dark-theme values), meaning · HSK, stage, cultivation days, solid words at the realm's level, words practised, five element seals) → `#shareSheet` preview → `MMAndroid.shareImage(base64, text)` (cache `share/xueci-card.png` through `FileProvider` `${applicationId}.files`, `res/xml/file_paths.xml`), else Web Share with a file, else a download. Opened from the Soul Sea header (`#soulShare`) and a passed tribulation (`#btShare`). Only the learner's own realm is drawn.
-- **Lightning (v1.16, `bolt()` in breakthrough.js)**: each strike's first question flashes a random jagged bolt (SVG, non-scaling stroke) with the strike's seal character; a pass ends with a golden light. ~0.6 s, opacity/transform; reduced motion = a soft fade, no flicker.
-- **HSK simulation (v1.17, Josh: auto-corrected at the end, with advice; `app/mock.js`, engine `LM.mockExam/mockScore/mockSave`)**: quiz type `mock` (the 20-question `exam` is now "Quick exam"). `LM.mockExam(L)` builds parts like the HSK: 听力 listen (`l`, skipped without TTS), 阅读 read (`m`, `c`, `t`), 书写 write (`f`, `p`, from HSK 3); counts per level in `MOCK`, 70 % words of the level / 30 % below, seconds per type `MOCK_SEC` → one clock (`run.end`, started by `#mkStart`). Each part opens with a card (`renderMockPart`), `run.exam` = no feedback; `body.inexam` hides the tab bar and level pickers; the first back only warns (`L10.mkLeave`). At the end `renderMockResult`: each part /100, total vs 60 % (120/200, 180/300), every question with the answer given and the right one (`mockRowH`), advice from `mockAdvice` (weakest part, gaps, translations, tones, older words, time, compare with the last mock) with practice buttons (`data-mk`: wrong words, a part's wrong words, quick exam, next level). History `xc_mock` = [time, level, total, max, [listen, read, write], seconds] ≤50, in backup codes (`mock`). Smoke `mock` case.
-- **Widget (v1.17, `XueciWidget.java`, `res/layout/widget_xueci.xml`, `app/widget.js`)**: `syncWidget()` (called from `renderPlan`) sends ready-made text (realm, pinyin, meaning · HSK, stage, %, today's plan line, cultivation days, practised today) as JSON to `MMAndroid.setWidget` only when it changed; Java keeps it in SharedPreferences `widget` and redraws all widgets; tap opens the app. Gradient background like the icon.
-- **Tribulation 雷劫 (v1.13)** (`LM.STRIKES`, `btStart/btFinish`, `breakthrough.js`): strikes 识 m ×5, 忆 p (typed pinyin) ×5, 听 l ×5 (skipped without TTS), 读 c ×5, 速 m ×8 timed (`limitOf`: 6 s HSK 1–3, 5 s 4–6, 4 s 7–9), 译 t ×5 (HSK 7–9 only). Pass = every strike ≥ ceil(0.7·n) **and** total ≥ `cutOf` (75 %, 80 % from HSK 5, 85 % for 7–9). 道基 grade (`LM.GRADES`, hist entry `[r, t, 'bt', grade]`): 4 完美 = no wrong and no skipped strike, 3 上品 ≥ min(cut+.15,.97), 2 中品 ≥ min(cut+.08,.93), else 1 下品. Realms from the placement test are 认定 (no grade).
-- **Stability 境界不稳 (v1.13)** (`LM.stability()`): a realm r ≥ 2 rests on level r−1: unstable if ≥15 first-of-day spaced answers on it in 30 days are under 70 % right, or (not stabilised lately) ≥20 studied words have mean recall < 0.6. Unstable locks the breakthrough until a 试炼稳固 (`stabRun()`: the 15 most faded words as a quiz, ≥80 % → `LM.stabDone` sets `xc_lvl.stab`, valid 30 days; only answers after it count).
-- **The way in (v1.13)**: `LM.ptOpen()` = 'first' / 'wait' / 'retake' (one retake within 14 days of the first test, replaces it) / null; `placementDone` sets realm min(6, m+1) (at most 渡劫) and `xc_lvl.pt` (test times). After that only breakthroughs move the realm.
-- **Placement test** (`renderPlacement()`, engine `LM.ptStart/ptNext/ptAnswer/ptResult`): 50 adaptive questions with a "Don't know" button; Bayesian ability over a 0–7 grid, item model with guessing (guess rate estimated from the learner's own don't-knows) and word difficulty (`LM.wdiff`: frequency + new characters), bank = words with characters new at their level, HSK 5–6 only hard types and a 90% + 5-questions-at-70% rule. Simulated in `tests/engine.js`: pure guessers → HSK 1. Answers are logged with flag 16. `LM.placementDone(res)` sets the realm (`m+1`, at most 渡劫 since v1.13) in `xc_lvl`; `LM.curLevel()` = first level ≥ the realm's that still has unseen words. The plan and the session skip words below it; a goal below it counts as reached.
-- **Daily reminder** (Android only, `canRemind()`): settings in the goal sheet (`xc_rem` {on,h,m}); `syncReminder()` sends time + localised title/text to `MMAndroid.setReminder` when they change; `studied()` calls `MMAndroid.markStudied()` once a day so the reminder stays quiet; permission via `MMAndroid.requestNotifications()` → `window.mmNotifResult(granted)`.
-- **Runner** (`app/runner.js`, `cards.js`, `quiz.js`, `summary.js`): Cards, Quiz and the session share one `run` = list of items (`{k:'card'}` or `{k:'q', q:'m'|'f'|'s'|'l'|'c'}`), `renderRun()`, summary at the end. Cards: front → `#fcNo` "Don't know" / `#fcYes` "I know it" → quick check (`LM.checkP`, adaptive) → back with `.res` ok/over/no/trust; "I was wrong" (`#fcOops`) undoes an unchecked claim. Quiz types: `qType` (`auto` guided, `m`, `f`, `s` tones, `l` listening, `c` sentence, `p` typed pinyin (`LM.pyCheck`: tone numbers or marks, ü as v/u:, neutral free, 一/不 spoken tones, same-first-meaning words accepted), `t` sentence → translation (distractors: look-alikes, then sentences of similar length), `exam` = 20 questions, 5 min). Wrong items come back 4 items later (max twice). `show()` resets the run.
-- Hooks the glass layer defines: `mmTransition`, `mmHomeRendered(S)`, `mmStatsRendered()`, `mmFeedback(ok)`.
-- `window.mmBack()` is called by Android's back button: closes info sheet → backup sheet → quiz menu → lang/level/unit menus → screen; returns `false` on Home (app exits).
-- Progress backup (Home → Backup button beside tone info → Back up / Restore, `#bkSheet`): one line `XUECI1:` + base64url(deflate-raw(JSON {app:'xueci',v,at,stats,ui,lang,theme})) (`XUECI0:` = uncompressed). Restore finds the code inside any pasted text, validates every entry against `IDX`, shows a summary, then applies it in place (stats, level/unit, language, theme) — no reload (a write-then-reload can read stale localStorage). Native copy/share/paste go through `MMAndroid.copyText/shareText/pasteText`; in a browser it falls back to the Clipboard/Share APIs.
-- **Sentence pinyin rules (v1.13)**: `content/tools/sentence_pinyin.py` reads HSK 1–6 sentences with HSK 1–6 words only (advanced words like 都会/国有/作对 never split them) and HSK 7–9 sentences with the advanced words jieba also cuts; ties in the split go to jieba's boundaries, then to jieba's word counts; `NOT_BEFORE` (十分|钟 …) and `FIXED` (hand-read sentences) for the rest; 的 on its own is de, 周一 is yī.
-- Pronunciation (test, v1.6): speaker buttons (`spk(text, cls)` → `.spk`, `.sm`, `.lg`) on card front/back, list items and quiz feedback, for the word (`d.h`) and the example sentence (`d.z`). A capture-phase click handler calls `speak()`: Android TextToSpeech (zh-CN, rate 0.9) through the bridge, or `speechSynthesis` in a browser; `ttsStatus()` `missing`/`unsupported` opens the phone's TTS settings. Manifest declares the `TTS_SERVICE` `<queries>` (needed on Android 11+). Known limit: the engine guesses polyphonic characters (行, 长, 都, 还, 重…) from context. Alternative under discussion: bundled audio generated once with a cloud neural TTS.
-- **Learning engine `LM`** (`learn.js`, all on the device): FSRS-5 (default parameters `W0`) with one state per word (`w`, drives schedule + level) and per skill (`m` meaning, `f` form/recall + sentence, `s` sound/tones + listening). Level = `round(20·ln(1+S)/ln 121)`, capped at 13 until `f` and `s` were passed; same-day repeats add ≤0.5 day. Legacy progress (pre-1.8 `stats`) becomes states with the same level, `L:1` "needs confirming" until one `f` and one `s` answer. `LM.answer(d,{q,ok,ms,x,claim,over,unchecked,exam,placement,hint})` is the only way answers are recorded. New words' first state and the order of new words use `LM.wdiff` (frequency `f` + new characters). `LM.plan(goal)` → daily numbers/status/fixes; `LM.session()`, `LM.cardDeck()`, `LM.quizRound()`, `LM.exam()` build runs; `LM.question(d,q)` makes options (look-alike distractors from confusions, homophones, shared characters; tone variants keep 一/不 and neutral syllables). `LM.optimize()` fits the 19 parameters to the learner's own spaced reviews (≥100 since v1.13, `MINFIT`, with a penalty (30/N)·Σz² pulling towards `W0`), run from `maybeOptimize()` at most daily. `LM.modelCheck()` replays spaced reviews: predicted vs real recall in 5 bands, ECE, log loss (Stats, folded `details#mcheck`). Tested in Node by `tests/engine.js` (vm sandbox with the real store.js).
-- Backup code v2 also carries `mem`, `goal`, fitted `w`, `lvl`, `rest`, `tests`, `ui.qt` and (v1.12) `days` = study day numbers (≤730; restored into `xc_days`, which `LM.studyDays()` unions with the log, so the cultivation days survive a restore; `clearLog` clears it). Not the log itself. v1 codes still restore (levels kept as "needs confirming").
-- Last backup (v1.12): copying or sharing a code stores `xc_bk` (time). The menu shows `#bkLast` ("no backup yet" / date); `bkDue()` (≥30 practised words and no backup or >30 days) puts a quiet dot on `#bkBtn` (`.due::before`) — no notification.
-- Language: `langPref` = `auto` (follows the system: id/in/ms → id, th, vi, else en) or a code.
-- Themes: `auto`, `light`, `dark`, `black` (`window.MM_THEMES`, set by `build.py`). `notifyNative()` sends CSS `--bar`/`--bar2` to `MMAndroid.setBars(top, bottom, dark)`.
-- **Storage (v1.12, `store.js`)**: IndexedDB database `xueci`, object store `kv`, values = the same JSON text under the same key names. Everything is loaded into memory at start (`STORE.open`), the app reads/writes through `ls.get/set/remove` without waiting, changes are written in one transaction per moment and **mirrored to localStorage** (safety copy; also read by `boot.js` for the theme before the app runs). No IndexedDB / 3 failed writes → localStorage only (`STORE.info().mode` `'idb'`/`'ls'`). First v1.12 start: IndexedDB has no `xc_schema` → everything is copied from localStorage.
-  **Schema** `xc_schema` = 3. Version of old data: stored, else any `xc_` key → 2, else `mm_stats`/`hsk16_known` → 1. `MIGRATIONS[1]` (v1.7 → 2: records get a level, `hsk16_known` imported if no `mm_stats`), `MIGRATIONS[2]` (→ 3: nothing, the move is the change). **A data format change = a new `MIGRATIONS[n]` + `SCHEMA` n+1 + a test in `tests/engine.js`; migrations never delete keys.**
-- **Keys hold users' progress — never rename them:** `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme` (`hsk16_known` = legacy import),
-  and since v1.8 `xc_mem` (memory states), `xc_log` + `xc_logA` (answer log, capped at 30,000), `xc_goal`, `xc_w` (fitted parameters), `xc_fit`, `xc_onb` (goal sheet shown once),
-  since v1.9 `xc_lvl` (realm / placement result; `th` since v1.12) and `xc_rem` (reminder settings), since v1.10 `xc_tests`, `xc_rest`, `xc_game`, `xc_amb`, `xc_note`, since v1.12 `xc_schema`, `xc_days`, `xc_bk`, since v1.13 `xc_res` (research form: official HSK level/score/month), since v1.14 `xc_fx` (visual effects) and `xc_fxd` (automatic step-down happened), since v1.17 `xc_mock` (HSK simulation history); `xc_lvl` gained `pt`, `gate`, `gs`, `stab` and 4-element `hist` entries (no migration needed). Native side: SharedPreferences `reminder` (incl. `rest`) and `widget` (v1.17).
-- Backup codes (v1.14): a code with `lvl.gate` keeps it only if its realm history has a breakthrough to ≥7 and ≥50 % of HSK 6 words have stability ≥10 days in its `mem`; otherwise gate/gs are dropped (smoke `gate` case tests a forged code).
-- The WebView origin is `https://appassets.androidplatform.net` (WebViewAssetLoader). Changing it would also lose progress.
-
-### Design rules (from Josh's feedback — he notices)
-- Animations: transform/opacity only, ~200–300 ms. A 1 s morph + staggered entrance was rejected as slow and choppy.
-- `backdrop-filter` only on layers that float over scrolling content (header capsule `.frow`, menus, sheet, toast, stats bar). The background is a static glow, so blurring static panels costs frames and shows nothing.
-- No glow/light that follows the finger, no tilt effects.
-- Focus header = one translucent capsule (back · title · HSK · unit) with flat controls inside; no glass-on-glass, no gradient band behind it.
-- HSK selectors (Home and Stats) use the draggable glass lens from `glass.js` (`makeLens`). v1.16 (Josh: clear, not solid, realm + five elements, "murim"): the lens is clear glass tinted by the chosen level (`--lc` copied from the pill), an inner glow of the realm colour (`body --rc`, set in `renderCurLv`), a rim in a conic gradient of the five elements and a thin gold line on top; the chosen number takes the level colour.
-- Tablets (v1.16): `@media (min-width:900px) and (min-height:540px) and (orientation:landscape)`: Home is a two-column grid (realm | mastery with counts), Soul Sea keeps the orb sticky on the left. On tall screens `.fluid` stops growing at `--obmax + 330px` and the spare room goes around the panels.
-- Menus are moved into `.fbar` by JS because a parent with `backdrop-filter` stops a child's own blur from seeing the page.
-- Privacy policy: `docs/privacy/index.html` (ID + EN), served by GitHub Pages at https://armstrang.github.io/XueCi/privacy/ and linked from About (`.plink`). It describes exactly what the app does with data (on-device storage incl. the answer history and goal, recommendations computed on the device, backup code contents, Android backup, no internet use — fonts are bundled, INTERNET still declared but unused, VIBRATE). **Update it whenever data behaviour or permissions change.** Contact is GitHub Issues only — don't publish an email.
-- Guided-learning UI (v1.8, Josh asked for it): plan card on Home, goal sheet asked once on first start, card shrinks (`.flip.checking`) during the quick check so the options fit, no self-report buttons anywhere (Stats word detail shows skill levels instead).
-- Google sign-in / Drive sync was discussed and **dropped** (Josh, Oct 2026): the backup code + Android Auto Backup are enough.
-- The About section must not say who wrote the meanings/examples. (They were generated by Claude; the README says so.)
-- Credit "by Armstrang" appears only in About (tone colours & info sheet), not in the header (Josh, v1.9).
-
-## Android
-- `applicationId` / package **`com.armstrang.xueci`** (from v1.3 — the Play Store ID; it can never change once on Play).
-  Up to v1.2 the app was `com.jorgi.merdekamandarin`; v1.2 is the last build of that ID and has Back up, so people can move their progress.
-- `mobile/android` (Flutter template, AGP/Kotlin from Flutter 3.47). `versionCode` = **2000 + run** of the release
-  workflow (`--build-number`), `versionName` 1.N (run 19 = v1.0 of the Flutter app). The earlier version used 100 + run,
-  the Flutter dev builds 1000 + run, so a release always installs over both. `compileSdk`/`targetSdk 36`, `minSdk 24`.
-- Signing: `keystore/xueci.jks` (alias `merdeka`; same key as the earlier version, so the app installs over it; checked: same certificate SHA-256
-  AC:92:19:…:B4:16). **This repo is public, so that key is exposed.** Fine for the sideload line only; the Play bundle
-  is signed with the upload key from secrets `XC_UPLOAD_KEYSTORE_B64`, `XC_UPLOAD_STORE_PASSWORD`, `XC_UPLOAD_KEY_ALIAS`,
-  `XC_UPLOAD_KEY_PASSWORD` when `XC_PLAY=1` (`flutter build appbundle`); without them it falls back to the old key
-  (don't upload that one). Josh creates the key himself (docs/play-store.md).
-- Splash: `LaunchTheme` = `Theme.SplashScreen` (core-splashscreen) with `@drawable/ic_splash`, held until `Native.ready()`
-  (first frame) or 2.5 s. Edge-to-edge is Flutter's (`SystemUiMode.edgeToEdge`, bar icons from `AnnotatedRegion`).
-- Reminder: `Reminder.java` keeps the settings in SharedPreferences, sets one inexact `AlarmManager.setAndAllowWhileIdle` alarm for the next time, shows a `NotificationCompat` notification (channel `study`) unless `markStudied` was called that day or it is a meditation day (`setRestDays`, weekday 0 = Sunday). `ReminderReceiver` handles the alarm and re-schedules on BOOT_COMPLETED, MY_PACKAGE_REPLACED, TIME_SET, TIMEZONE_CHANGED; `onResume` re-schedules too. Permissions: POST_NOTIFICATIONS (asked with `ActivityCompat.requestPermissions`, answer → `notifResult`), RECEIVE_BOOT_COMPLETED.
-- Widget: `XueciWidget.java` (SharedPreferences `widget`), fed by `App.syncWidget` (JSON, only when changed).
+- **Words**: fields `l` level · `n` number · `u` unit · `h` hanzi · `p` pinyin · `s` pinyin per character · `z` example
+  sentence · `zp` its pinyin (word in `{}`) · `m`/`t` Indonesian meaning/translation · `em`/`et` English · `vm`/`vt`
+  Vietnamese · `hm`/`ht` Thai · `f` Zipf frequency · `g` jieba part of speech. Re-run `sentence_pinyin.py` after editing
+  any `z` or pinyin. Hand-fixed pinyin: 目的 mùdì, 充分 chōngfèn, 更换 gēnghuàn, 尽力 jìnlì, 牛仔裤 niúzǎikù, 适当 shìdàng,
+  水分 shuǐfèn, 挑战 tiǎozhàn, 相册 xiàngcè, 行业 hángyè, 背包 bēibāo. Sentence pinyin reads HSK 1–6 sentences with HSK 1–6
+  words only; `NOT_BEFORE` and `FIXED` cover the rest; 的 alone is de, 周一 is yī.
+- **Engine `LM`**: FSRS-5 with one state per word (`w`, drives schedule and level) and per skill (`m` meaning, `f`
+  form/recall + sentence, `s` sound/tones + listening). Level = round(20·ln(1+S)/ln 121), capped at 13 until `f` and
+  `s` were passed. `LM.answer(...)` is the only way answers are recorded. `plan(goal)`, `session()`, `cardDeck()`,
+  `quizRound()`, `exam()`, `question(d, q)` (look-alike distractors). `optimize()` fits the parameters to the
+  learner's reviews (≥100, pulled towards the defaults), at most daily. `modelCheck()` shows predicted vs real recall.
+  Mastery bands: 0–6 red, 7–13 yellow, 14–20 green; **solid** = level ≥10 + passed `f` and `s`.
+- **Runs** (`runner.dart`): Cards, Quiz and the session share one `Run` of items. Cards: "Don't know" / "I know it" →
+  adaptive quick check → back side; "I was wrong" undoes an unchecked claim. Quiz types `m`, `f`, `s`, `l`, `c`, `p`
+  (typed pinyin: tone numbers or marks, ü as v, same-meaning words accepted), `t` (sentence → translation, multiple
+  choice), `exam` (20 questions, 5 min), `mock`. The Guided type was removed (Josh); a saved `auto` falls back to `m`.
+  Wrong items come back 4 items later (max twice). Sentence gaps hide the translation until answered; *Show
+  translation* = no skill credit; *My choice fits too* (3/day) undoes and marks the pair.
+- **Realms** (Josh's cultivator idea): 凡人 (0, untested), 炼气 筑基 金丹 元婴 化神 渡劫 (1–6 = HSK 1–6), 飞升 (7). Only
+  tests change the realm. Stages 初期/中期/后期/圆满 = progress <25/25–50/50–80/≥80 %, progress = (solid words + ½ × the
+  placement estimate for the rest) ÷ the level's words. One test a week (placement or breakthrough); leaving after 10
+  answers counts. Placement: 50 adaptive questions with "Don't know", sets the realm once (at most 渡劫; one retake
+  within 14 days). Breakthrough = 雷劫 tribulation: strikes 识 m ×5, 忆 p ×5, 听 l ×5 (skipped without TTS), 读 c ×5,
+  速 m ×8 timed; pass = every strike ≥70 % and total ≥ 75 % (80 % from HSK 5). Grade 道基: 完美 no mistake, 上品, 中品,
+  下品; placement realms are 认定. Stability: a realm rests on the level below; fading (spaced answers <70 % or recall
+  <0.6) makes it 境界不稳 until a 试炼稳固 (15 words, 80 %). Guidance (`advice()`), forecast, breakthrough chance.
+- **The gate** (sealed): a breakthrough to 飞升 opens 仙门 (`xc_lvl.gate`), loads the sealed band (HSK 7–9, realms 8–10),
+  shows the ceremony once (`gs`); a 飞升 from placement gets a make-up tribulation on HSK 6 first. A restored backup
+  keeps the gate only with a real breakthrough and ≥50 % of HSK 6 words stable.
+- **Soul Sea** (Stats tab): the orb (≤900 words, lines between words sharing a character, brightness = recall, colour =
+  level; spins, slows to a stop), the five-element ring (土 root = realm progress, 木 cult = memory days, 水 sense =
+  recall now, 金 dao = "I know it" that held up, 火 insight = days to solid; segments fill clockwise along 木→火→土→金→水;
+  weakest = dashed, strongest = filled + title), today's trial, cultivation days (meditation days and one free day a
+  week keep the streak), rest numbers, realm history, the cultivation card (1080×1350 PNG, shared via the phone).
+- **Rest**: one 调息 break offer per sitting (accuracy drop, slowing, or 25 min) with a breathing guide; meditation days
+  (0–2 weekdays: no plan, reminder quiet, reviews pulled a day earlier); late-night note; welcome back after ≥2 days.
+- **HSK mock exam**: parts 听力/阅读/书写 like the real exam, one clock, no feedback until the end; then each part /100,
+  pass mark 60 %, every question reviewed, advice with practice buttons; history in `xc_mock`.
+- **Backup**: one line `XUECI1:` + base64url(deflate-raw(JSON)) (`XUECI0:` uncompressed) with progress, memory states,
+  goal, fitted parameters, realm, rest days, tests, mock history and study days (not the answer log). Restore finds the
+  code in any pasted text, checks every entry, shows a summary, applies in place. A quiet dot on Settings when ≥30 words
+  were practised and there's no backup in 30 days.
+- **Reminder** (Android): time and text from the goal sheet; quiet once practised that day or on a meditation day;
+  re-armed after reboot/update/time change. **Widget**: realm, stage, today's practice, cultivation days, fed by
+  `App.syncWidget` only when something changed.
+- **Visual effects** setting: auto/low/full; auto steps down once if frames are slow (toast). Low = no blur, no glow.
+- **First start**: a 3-step tour ending in the goal sheet; a new learner sees two ways in (start from zero / placement).
+- **Easter egg**: seven taps on the wordmark → a seal stamps 天外有天 (封 before the gate, 开 after).
+- Pronunciation uses the phone's TTS (zh-CN, rate 0.9); polyphonic characters are guessed by the engine.
 
 ## CI
-- `.github/workflows/build-apk.yml` (**run by hand only**, `workflow_dispatch` on `main`; Josh decides when): assets → `flutter analyze` → `flutter test` → signed APK
-  + Play bundle → GitHub release `v1.N` with `XueCiMandarin.apk` and `.aab` (marked latest); the release text is the
-  `## v1.N` section of `CHANGELOG.md` (a warning and a link if missing). The install footer of the release text is English too.
-  A guard step refuses to publish into an existing release tag.
-- **Work happens on `main`** (Josh, Oct 2026; the old branches were deleted). `.github/workflows/flutter.yml` (every push to
-  `main`): assets → analyze → tests → APK (`versionCode` 1000 + run); everything it produces (summary, logs, screenshots,
-  `xueci-dev.apk`) is pushed to branch `ci-out/main`
-  (`git fetch origin "+refs/heads/ci-out/main:refs/remotes/origin/ci-out/main"`); when analyze, tests and build pass,
-  the APK is published as a new pre-release **`v1.0-alpha-N`** (N = highest published + 1, versionName 1.0.0-alpha.N,
-  `XueCiMandarin-alpha.apk`, never latest; the first one was tagged plain `v1.0-alpha`). Add `[skip ci]` to a commit
-  that should not make an alpha (notes, docs).
-- `.github/workflows/flutter-sdk.yml` (run by hand) makes the `dev-flutter-sdk` pre-release (the SDK for Claude's cloud
-  sessions, `mobile/tool/cloud_sdk.sh`); a dev tool, delete it after the first Flutter release when Josh agrees.
-- The old releases v1.0–v1.17 and their tags, and the old branches, were deleted (Oct 2026, one-off CI jobs: this session's git proxy cannot delete branches, tags or releases).
-- CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets and branches can.
-  In Claude's cloud sessions the GitHub proxy refuses API writes to releases/tags (HTTP 403), and GraphQL (`gh release list`), so let CI do the publishing and use `gh api`.
+
+- **Work happens on `main`** (only branch). `.github/workflows/flutter.yml` (every push): assets → analyze → tests → APK;
+  its output (summary, logs, screenshots, `xueci-dev.apk`) goes to branch `ci-out/main`
+  (`git fetch origin "+refs/heads/ci-out/main:refs/remotes/origin/ci-out/main"`). When everything passes, the APK is
+  published as pre-release **`v1.0-alpha-N`** (N = highest + 1, versionName 1.0.0-alpha.N, `XueCiMandarin-alpha.apk`,
+  never latest; the first was plain `v1.0-alpha`). `[skip ci]` in a commit message = no build, no alpha.
+- `.github/workflows/build-apk.yml`: the official release, **run by hand only** when Josh says so (APK + Play bundle,
+  release `v1.N`, notes from `CHANGELOG.md`; refuses an existing tag).
+- `.github/workflows/flutter-sdk.yml` (by hand): the `dev-flutter-sdk` pre-release for Claude's cloud sessions; delete
+  it after the first release when Josh agrees.
+- From Claude's cloud sessions the GitHub proxy refuses deleting releases, tags and branches and API writes to releases
+  (HTTP 403), and GraphQL; let CI do it (a one-off workflow on a throwaway branch, only when Josh asks). CI artifact zips
+  can't be downloaded here; release assets and branches can.
