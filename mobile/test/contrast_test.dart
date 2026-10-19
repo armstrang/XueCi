@@ -49,7 +49,27 @@ Color? textColor(InlineSpan span, Color? inherited) {
   return best;
 }
 
-double fontSize(InlineSpan s) => s.style?.fontSize ?? ((s is TextSpan && (s.children?.isNotEmpty ?? false)) ? fontSize(s.children!.first) : 14);
+/// the size of the longest piece of text (the one whose colour is checked), with sizes inherited from the parents
+double fontSize(InlineSpan span) {
+  var best = 14.0;
+  var bestLen = -1;
+  void walk(InlineSpan s, double size) {
+    final fs = s.style?.fontSize ?? size;
+    if (s is TextSpan) {
+      final t = s.text ?? '';
+      if (t.trim().isNotEmpty && t.length > bestLen) {
+        best = fs;
+        bestLen = t.length;
+      }
+      for (final ch in s.children ?? const <InlineSpan>[]) {
+        walk(ch, fs);
+      }
+    }
+  }
+
+  walk(span, 14);
+  return best;
+}
 bool bold(InlineSpan s) => (s.style?.fontWeight?.value ?? 400) >= 700;
 
 bool hidden(RenderObject r) {

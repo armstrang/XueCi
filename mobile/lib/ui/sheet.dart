@@ -16,7 +16,7 @@ Future<T?> openSheet<T>(BuildContext context, Widget Function(BuildContext) body
     barrierDismissible: dismissible,
     barrierLabel: app.t.close,
     barrierColor: const Color.fromRGBO(8, 10, 16, .34),
-    transitionDuration: const Duration(milliseconds: 340),
+    transitionDuration: const Duration(milliseconds: 280),
     routeSettings: RouteSettings(name: name),
     // the route sits under the app's Th (MaterialApp.builder), so a theme change mid-sheet shows at once
     pageBuilder: (c, a1, a2) => _SheetFrame(

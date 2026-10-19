@@ -495,8 +495,8 @@ void openStreak(BuildContext context) {
     final p = Th.pal(c);
     final t = app.t;
     final lm = app.lm;
-    final s = lm.streak();
-    final days = lm.studyDays();
+    final s = app.memo('streak', lm.streak);
+    final days = app.memo('studyDays', lm.studyDays);
     final today = lm.today();
     final wd = lm.weekday(today);
     final start = today - wd - 28;

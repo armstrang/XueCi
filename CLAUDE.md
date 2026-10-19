@@ -52,6 +52,16 @@ background (`_BgPainter`) is an aurora: the level's tone + `auroraWarm` + `auror
 (`OuterShadow`). `contrast_test` keeps every text readable over it: tune `Pal` values against it
 (`CDUMP=1 flutter test test/contrast_test.dart` writes what it measured to `test/cdump/`).
 
+**Smoothness** (Josh, Oct 2026: transitions were choppy): screen and run-item switches show only the incoming
+child (`reverseDuration: Duration.zero`, `layoutBuilder` = current), each in a `RepaintBoundary`; `Press` springs inside
+their own boundary; frosted glass in the shell uses `BackdropGroup` + `BackdropFilter.grouped` (σ 16); shadows of
+rounded rectangles are analytic blurs (`OuterShadow` draws `drawRRect`, never a blurred path; the Home fluid shadow is a
+circle + a rounded rectangle); `paintGlass(rr:)` takes the RRect fast paths. Engine views used by screens go through
+`app.memo(key, f)` (kept while `Store.ver` and the minute are unchanged). Exam/break clocks redraw themselves, not the
+app. Avoid `dynamic` in hot loops (the Soul orb's build went from 180 ms to 5 ms in debug by typing it).
+`PERF=1 flutter test --no-pub test/perf_probe_test.dart` prints build/layout/paint per screen. Quiz type `auto`
+(Guided) was removed (Josh): `qTypes` no longer has it, a saved `auto` falls back to `m`.
+
 **Sheets** open with `openSheet` (route under the app's `Th`, rebuilt on app changes); Home reaches them through the
 hooks on `App` (`openRealm`, `openSettings`, `openStreak`, `openInfo`, `openGoal`, `openShare`, `onWordmark`) set by
 `wireSheets()`. Screens: `screenFor()` in `shell.dart`; `App.go(s)` runs `beforeShow` (leaveTest, frame watcher).

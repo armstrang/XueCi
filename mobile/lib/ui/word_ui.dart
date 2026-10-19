@@ -2,7 +2,6 @@
 /// sentence with the word marked, its pinyin, its translation; speaker buttons.
 library;
 
-import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
 
@@ -238,13 +237,25 @@ class _VeilState extends State<_Veil> {
   @override
   Widget build(BuildContext context) => GestureDetector(
     onTap: () => setState(() => open = !open),
-    child: AnimatedOpacity(
-      duration: const Duration(milliseconds: 200),
-      opacity: 1,
-      child: open
-          ? widget.child
-          : ImageFiltered(imageFilter: ui.ImageFilter.blur(sigmaX: 6, sigmaY: 6), child: Semantics(hidden: true, child: widget.child)),
-    ),
+    // a hidden meaning is a soft bar of its own size (no blur: a list of blurred rows would cost every frame)
+    child: open
+        ? widget.child
+        : Semantics(
+            hidden: true,
+            child: Stack(
+              children: [
+                Opacity(opacity: 0, child: widget.child),
+                Positioned.fill(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 3),
+                    child: DecoratedBox(
+                      decoration: BoxDecoration(color: Th.pal(context).fgA(.10), borderRadius: BorderRadius.circular(8)),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
   );
 }
 

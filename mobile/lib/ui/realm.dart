@@ -268,12 +268,12 @@ class StageBox extends StatelessWidget {
     final t = app.t;
     final lm = app.lm;
     final L = r < 1 ? lm.baseLevel() : r;
-    final st = lm.stage(L);
+    final st = app.memo('stageL@$L', () => lm.stage(L));
     if (st == null) return const SizedBox();
     final lc = rcol(context, r < 1 ? L : r);
     final i = st.i;
     final pct = ((st.share / .8).clamp(0, 1) * 100).round();
-    final fc = r >= 1 && !lm.isFinal(r) ? lm.forecast() : null;
+    final fc = r >= 1 && !lm.isFinal(r) ? app.memo('forecast', lm.forecast) : null;
     final sol = st.share - st.testShare;
     double fill(double x, int k) => ((x - th4[k]) / (th4[k + 1] - th4[k])).clamp(0, 1).toDouble();
     String note;
@@ -282,7 +282,7 @@ class StageBox extends StatelessWidget {
     } else if (lm.isFinal(r)) {
       note = r >= 10 ? t.stTop : t.stAll;
     } else if (i == 3) {
-      final c = lm.btChance();
+      final c = app.memo('btChance', lm.btChance);
       note = t.stOpen + (c == null ? '' : ' ${t.btChance(c < 5 ? '<5' : c > 95 ? '>95' : c)}');
     } else {
       note = t.stNext(app.fmt((fc?['next'] as num?) ?? 0), App.sn[i + 1]);
@@ -437,7 +437,7 @@ class TestBtns extends StatelessWidget {
     final lm = app.lm;
     final r = lm.realm();
     final can = lm.canTest();
-    final sb = lm.stability();
+    final sb = app.memo('stability', lm.stability);
     final pt = lm.ptOpen();
     void act(VoidCallback f) {
       before?.call();
@@ -649,7 +649,7 @@ class AdviceList extends StatelessWidget {
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
-    final a = app.lm.advice();
+    final a = app.memo('advice', app.lm.advice);
     if (a.items.isEmpty) return Rich(app.t.advNone, style: F.s(12, c: p.soft, h: 1.45));
     final items = a.items.take(max).toList();
     return Column(

@@ -115,7 +115,7 @@ class Runner {
       mock = MockRun(lm.mockExam(lv));
       items = mock.m.items;
     } else {
-      items = lm.quizRound(a.pool(), roundQ, a.qType == 'auto' ? null : a.qType);
+      items = lm.quizRound(a.pool(), roundQ, a.qType);
     }
     final r = run = Run(mode, items, exam: exam, lv: lv, after: after, mock: mock);
     if (exam && mock == null) {
@@ -136,8 +136,8 @@ class Runner {
       r.timer = null;
       r.timeUp = true;
       r.i = r.items.length;
+      a.changed();
     }
-    a.changed();
   }
 
   int secondsLeft() {
@@ -203,12 +203,13 @@ class Runner {
     if (b == null) return;
     b.end = nowMs() + 300000;
     b.t0 = nowMs();
+    // the break view counts down by itself; the app changes only when the break is over
     run!.brT = Timer.periodic(const Duration(seconds: 1), (_) {
       if (run?.brk != b) return;
       if (nowMs() >= b.end!) {
         run!.brT?.cancel();
+        a.changed();
       }
-      a.changed();
     });
     a.changed();
   }
@@ -510,11 +511,11 @@ class Runner {
     return out;
   }
 
-  /// a practice round from the exam's mistakes (the quiz type goes back to guided)
+  /// a practice round from the exam's mistakes (the quiz type goes back to Recognise)
   void mockPractice(List<Item> items) {
     if (items.isEmpty) return;
     pending = Pending('quiz', [for (final it in items) Item.q(it.d, it.q == 'l' && !ttsOK ? 'm' : it.q!)]);
-    a.qType = 'auto';
+    a.qType = 'm';
     a.saveUI();
     reset();
     a.changed();

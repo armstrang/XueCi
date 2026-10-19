@@ -2568,25 +2568,25 @@ Object.assign(I18N.vi.gloss, {
     'id',
     'quiz',
     0,
-    'Mode <b>Terarah</b> memilih kata dan jenis soal untuk kelemahanmu. Jenis lain: Kenali (hanzi → arti), Ingat (arti → hanzi), Nada, Dengar, Kalimat, <b>Ketik pinyin</b> (arti → pinyin dari ingatan, tanpa pilihan), <b>Terjemahan</b> (kalimat → terjemahannya), dan Simulasi ujian (20 soal, 5 menit).',
+    'Pilih jenis soal di menu: Kenali (hanzi → arti), Ingat (arti → hanzi), Nada, Dengar, Kalimat, <b>Ketik pinyin</b> (arti → pinyin dari ingatan, tanpa pilihan), <b>Terjemahan</b> (kalimat → pilih terjemahan yang maknanya cocok; kata-katanya tidak harus persis), Ujian kilat (20 soal, 5 menit) dan Simulasi HSK. Latihan hari ini di Beranda tetap memilihkan kata dan jenis soal untukmu.',
   );
   P(
     'en',
     'quiz',
     0,
-    '<b>Guided</b> picks the words and question types for your weak spots. Other types: Recognise (hanzi → meaning), Recall (meaning → hanzi), Tones, Listen, Sentence, <b>Type pinyin</b> (meaning → pinyin from memory, no options), <b>Translation</b> (sentence → its translation), and Exam practice (20 questions, 5 minutes).',
+    'Pick a question type in the menu: Recognise (hanzi → meaning), Recall (meaning → hanzi), Tones, Listen, Sentence, <b>Type pinyin</b> (meaning → pinyin from memory, no options), <b>Translation</b> (sentence → pick the translation whose meaning fits; the wording need not match exactly), Quick exam (20 questions, 5 minutes) and the HSK mock exam. Today\'s session on Home still picks the words and question types for you.',
   );
   P(
     'th',
     'quiz',
     0,
-    'โหมด <b>แนะนำ</b> เลือกคำและประเภทคำถามตามจุดอ่อนของคุณ ประเภทอื่น: รู้ความหมาย (อักษรจีน → ความหมาย) นึกตัวอักษร (ความหมาย → อักษรจีน) วรรณยุกต์ ฟัง ประโยค <b>พิมพ์พินอิน</b> (ความหมาย → พินอินจากความจำ ไม่มีตัวเลือก) <b>คำแปล</b> (ประโยค → คำแปล) และฝึกสอบ (20 ข้อ 5 นาที)',
+    'เลือกประเภทคำถามในเมนู: รู้ความหมาย (อักษรจีน → ความหมาย) นึกตัวอักษร (ความหมาย → อักษรจีน) วรรณยุกต์ ฟัง ประโยค <b>พิมพ์พินอิน</b> (ความหมาย → พินอินจากความจำ ไม่มีตัวเลือก) <b>คำแปล</b> (ประโยค → เลือกคำแปลที่ความหมายตรง ไม่จำเป็นต้องใช้คำตรงกันทุกคำ) สอบด่วน (20 ข้อ 5 นาที) และจำลองสอบ HSK การฝึกวันนี้ในหน้าหลักยังเลือกคำและประเภทคำถามให้คุณเหมือนเดิม',
   );
   P(
     'vi',
     'quiz',
     0,
-    'Chế độ <b>Có định hướng</b> chọn từ và loại câu hỏi theo điểm yếu của bạn. Các loại khác: Nhận biết (chữ Hán → nghĩa), Nhớ lại (nghĩa → chữ Hán), Thanh điệu, Nghe, Câu, <b>Gõ pinyin</b> (nghĩa → pinyin từ trí nhớ, không có lựa chọn), <b>Bản dịch</b> (câu → bản dịch) và Thi thử (20 câu, 5 phút).',
+    'Chọn loại câu hỏi trong menu: Nhận biết (chữ Hán → nghĩa), Nhớ lại (nghĩa → chữ Hán), Thanh điệu, Nghe, Câu, <b>Gõ pinyin</b> (nghĩa → pinyin từ trí nhớ, không có lựa chọn), <b>Bản dịch</b> (câu → chọn bản dịch có nghĩa phù hợp; từ ngữ không cần giống hệt), Kiểm tra nhanh (20 câu, 5 phút) và Thi thử HSK. Buổi học hôm nay ở Trang chủ vẫn chọn từ và loại câu hỏi cho bạn.',
   );
 }
 

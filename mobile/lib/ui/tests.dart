@@ -699,7 +699,7 @@ class _TribScreenState extends State<TribScreen> {
           _Card([
             RealmHead(r),
             StageBox(r),
-            _note(context, lm.stability().ok ? t.btNotOpen : t.btUnstable),
+            _note(context, app.memo('stability', lm.stability).ok ? t.btNotOpen : t.btUnstable),
             const SizedBox(height: 12),
             MainBtn(t.sumHome, wide: true, onTap: () => app.go('home')),
           ]),

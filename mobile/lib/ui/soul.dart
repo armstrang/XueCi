@@ -15,6 +15,7 @@ import '../app/runner.dart';
 import '../data/words.dart';
 import '../engine/fsrs.dart' as fsrs;
 import '../engine/learn.dart';
+import '../engine/model.dart' show Mem;
 import '../i18n/l10.dart';
 import 'focus.dart';
 import 'glass.dart';
@@ -256,12 +257,12 @@ class _SoulOrbState extends State<SoulOrb> with SingleTickerProviderStateMixin {
   void _build(bool lowFx) {
     final lm = app.lm;
     final t = lm.now();
-    final list = <(Word, dynamic)>[];
+    final list = <(Word, Mem)>[];
     for (final d in app.vocab.data) {
       final e = lm.mem[d.id];
       if (e != null) list.add((d, e));
     }
-    list.sort((a, b) => (b.$2.w[1] as double).compareTo(a.$2.w[1] as double));
+    list.sort((a, b) => b.$2.w[1].compareTo(a.$2.w[1]));
     final keep = list.take(lowFx ? 450 : 900).toList()
       ..sort((a, b) => a.$1.l != b.$1.l ? a.$1.l - b.$1.l : a.$1.n - b.$1.n);
     final n = keep.length;
@@ -282,8 +283,8 @@ class _SoulOrbState extends State<SoulOrb> with SingleTickerProviderStateMixin {
       x[i] = math.cos(th) * r * mist;
       y[i] = yy * mist;
       z[i] = math.sin(th) * r * mist;
-      final w = e.w as List<double>;
-      final k = e.k as int?;
+      final w = e.w;
+      final k = e.k;
       nodes.add(
         _Node(
           d,
@@ -654,8 +655,8 @@ class _SoulScreenState extends State<SoulScreen> {
       if (_scroll.hasClients) _scroll.animateTo(0, duration: const Duration(milliseconds: 300), curve: Curves.easeOut);
     }
     final r = lm.realm();
-    final st = lm.stage();
-    final s = lm.soul();
+    final st = app.memo('stage', () => lm.stage());
+    final s = app.memo('soul', lm.soul);
     final pad = MediaQuery.paddingOf(context);
     final size = MediaQuery.sizeOf(context);
     final wide = size.width >= 900 && size.height >= 540 && size.width > size.height;
@@ -935,7 +936,7 @@ class _SoulScreenState extends State<SoulScreen> {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final c = app.lm.challenge();
+    final c = app.memo('challenge', app.lm.challenge);
     final n = (c['n'] as num).toInt(), cnt = (c['cnt'] as num).toInt();
     final done = c['done'] == true;
     final total = (c['total'] as num?) ?? 0;
@@ -979,8 +980,8 @@ class _SoulScreenState extends State<SoulScreen> {
     final p = th.p;
     final t = app.t;
     final lm = app.lm;
-    final k = lm.streak();
-    final days = lm.studyDays();
+    final k = app.memo('streak', lm.streak);
+    final days = app.memo('studyDays', lm.studyDays);
     final today = lm.dayOf(lm.now());
     final rest = lm.rest;
     return _Card(
@@ -1028,7 +1029,7 @@ class _SoulScreenState extends State<SoulScreen> {
   Widget _rest(BuildContext context) {
     final p = Th.pal(context);
     final t = app.t;
-    final g = app.lm.restGain();
+    final g = app.memo('restGain', app.lm.restGain);
     String f(double x) => x < 10 ? app.fmt1(x) : app.fmt(x.round());
     if (g == null) {
       return _Card(children: [Shd('休息之道', 'xiūxi zhī dào', t.restM, top: 0), Rich(t.restEmpty, style: F.s(12, c: p.soft, h: 1.45))]);

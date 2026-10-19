@@ -399,7 +399,7 @@ class _InsightsState extends State<_Insights> {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final i = app.lm.insights();
+    final i = app.memo('insights', app.lm.insights);
     final head = Row(
       crossAxisAlignment: CrossAxisAlignment.baseline,
       textBaseline: TextBaseline.alphabetic,
@@ -512,7 +512,7 @@ class _InsightsState extends State<_Insights> {
   Widget _model(BuildContext context, Map i) {
     final p = Th.pal(context);
     final t = app.t;
-    final c = app.lm.modelCheck();
+    final c = app.memo('modelCheck', app.lm.modelCheck);
     String pc(num x) => '${(x * 100).round()}%';
     final model = i['model'] as Map?;
     final state = model != null

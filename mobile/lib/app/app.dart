@@ -31,7 +31,8 @@ late App app;
 const focusScreens = ['list', 'card', 'quiz', 'session', 'placement', 'bt'];
 const themes = ['auto', 'light', 'dark', 'black'];
 const fxModes = ['auto', 'low', 'full'];
-const qTypes = ['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam', 'mock'];
+// 'auto' (guided) was dropped (Josh, Oct 2026): a saved 'auto' falls back to Recognise
+const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't', 'exam', 'mock'];
 
 class App extends ChangeNotifier {
   final Store store;
@@ -204,8 +205,10 @@ class App extends ChangeNotifier {
   static const spy = ['chūqī', 'zhōngqī', 'hòuqī', 'yuánmǎn'];
   int get topR => band ? 10 : 7;
   int realmLv(int r) => math.max(1, math.min(band ? 9 : 6, r));
+  /// the stage of realm r (the base level for 凡人), shared by Home, the widget and the realm sheet
+  Stage? realmStage(int r) => memo('stage@$r', () => lm.stage(r < 1 ? lm.baseLevel() : r));
   int realmPct(int r) {
-    final st = lm.stage(r < 1 ? lm.baseLevel() : r);
+    final st = realmStage(r);
     return st != null ? (math.min(1, st.share / 0.8) * 100).round() : 0;
   }
 
@@ -223,7 +226,7 @@ class App extends ChangeNotifier {
   bool hide = false, weak = false;
   String screen = 'home';
   String prevScreen = 'home';
-  String qType = 'auto';
+  String qType = 'm';
   String theme = 'auto';
   String fxPref = 'auto';
   bool fxDown = false; // the frame watcher stepped down once (xc_fxd)
@@ -513,7 +516,7 @@ class App extends ChangeNotifier {
 
   String _remKey = '';
   String remBody() {
-    final p = lm.plan(), g = lm.goal;
+    final p = memo('plan', () => lm.plan()), g = lm.goal;
     final min = math.max(5, p.minutes);
     return g != null && g['t'] != 'none'
         ? t.remGoal(min, g['t'] == 'exam' ? t.gExamChip(g['lv'], dateS(g['date'] as String)) : 'HSK ${g['lv']}')
@@ -543,8 +546,8 @@ class App extends ChangeNotifier {
     if (!Native.I.isAndroid) return;
     final r = lm.realm();
     final p = realmPct(r);
-    final st = lm.stage(r < 1 ? lm.baseLevel() : r);
-    final k = lm.streak();
+    final st = realmStage(r);
+    final k = memo('streak', lm.streak);
     final o = {
       'r': rn[r],
       'py': rpy[r],
@@ -564,6 +567,24 @@ class App extends ChangeNotifier {
   }
 
   void changed() => notifyListeners();
+
+  /// The engine's views of the data (soul, streak, stability, advice…) cost real time on a phone, and several screens
+  /// and rebuilds ask for the same ones. They are kept while the stored data and the minute are the same; any write
+  /// to the store (an answer, a test, a setting) or the next minute computes them again.
+  final Map<String, Object?> _memo = {};
+  int _memoVer = -1, _memoMin = -1;
+  T memo<T>(String key, T Function() f) {
+    final v = store.ver, m = lm.now();
+    if (v != _memoVer || m != _memoMin) {
+      _memo.clear();
+      _memoVer = v;
+      _memoMin = m;
+    }
+    if (_memo.containsKey(key)) return _memo[key] as T;
+    final r = f();
+    _memo[key] = r;
+    return r;
+  }
 
   /// counts every change: the theme carries it, so every widget that reads the theme redraws with the app
   int tick = 0;

@@ -237,7 +237,7 @@ class _HskLensPainter extends CustomPainter {
     }
     final path = Path()..addRRect(rr.deflate(.5));
     // clear liquid glass with a breath of the level's colour
-    paintGlass(c, path, r, p, GK.lens, tint: lc.withValues(alpha: dark ? .10 : .12), low: low);
+    paintGlass(c, path, r, p, GK.lens, tint: lc.withValues(alpha: dark ? .10 : .12), low: low, rr: rr.deflate(.5));
     // the realm's qi from below
     c.save();
     c.clipRRect(rr);
@@ -301,10 +301,10 @@ class _TabLensPainter extends CustomPainter {
     final r = (Offset.zero & s).deflate(1);
     final path = Path()..addRRect(RRect.fromRectAndRadius(r, Radius.circular(r.height / 2)));
     if (!low) {
-      OuterShadow([BoxShadow(color: lc.withValues(alpha: p.dark ? .35 : .4), offset: const Offset(0, 6), blurRadius: 16, spreadRadius: -8)], 0,
-          shape: (_) => path).paint(c, s);
+      OuterShadow([BoxShadow(color: lc.withValues(alpha: p.dark ? .35 : .4), offset: const Offset(0, 6), blurRadius: 16, spreadRadius: -8)], s.height / 2)
+          .paint(c, s);
     }
-    paintGlass(c, path, r, p, GK.lens, tint: lc.withValues(alpha: p.dark ? .16 : .10), low: low);
+    paintGlass(c, path, r, p, GK.lens, tint: lc.withValues(alpha: p.dark ? .16 : .10), low: low, rr: RRect.fromRectAndRadius(r, Radius.circular(r.height / 2)));
   }
 
   @override
@@ -338,8 +338,9 @@ class _PillPainter extends CustomPainter {
           .paint(c, s);
     }
     // a little more body than the tab lens: the chosen label must read at once
-    c.drawPath(path, Paint()..color = Colors.white.withValues(alpha: p.dark ? .10 : .62));
-    paintGlass(c, path, r, p, GK.lens, tint: tint, low: low);
+    final rr = RRect.fromRectAndRadius(r.deflate(.5), Radius.circular(radius));
+    c.drawRRect(rr, Paint()..color = Colors.white.withValues(alpha: p.dark ? .10 : .62));
+    paintGlass(c, path, r, p, GK.lens, tint: tint, low: low, rr: rr);
   }
 
   @override

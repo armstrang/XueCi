@@ -31,7 +31,6 @@ String _mmss(num s) => '${s ~/ 60}:${(s.round() % 60).toString().padLeft(2, '0')
 Map<String, (String, String, String)> qtNames() {
   final t = app.t;
   return {
-    'auto': (t.tAuto, t.dAuto, '智'),
     'm': (t.tMean, t.dMean, '汉→a'),
     'f': (t.tHz, t.dHz, 'a→汉'),
     's': (t.tTone, t.dTone, 'mā'),
@@ -149,13 +148,17 @@ class _RunScreenState extends State<RunScreen> {
               Capsule(title: title, pickers: widget.mode != 'session'),
               const SizedBox(height: 12),
               if (!(m != null && it == null)) _RunHead(r),
+              // the next card or question comes in alone (the old one leaves at once): one glass card drawn, not two
               AnimatedSwitcher(
-                duration: const Duration(milliseconds: 220),
+                duration: const Duration(milliseconds: 200),
+                reverseDuration: Duration.zero,
+                layoutBuilder: (cur, prev) => cur ?? const SizedBox.shrink(),
+                switchInCurve: Curves.easeOutCubic,
                 transitionBuilder: (w, a) => FadeTransition(
                   opacity: a,
-                  child: SlideTransition(position: Tween(begin: const Offset(0, .02), end: Offset.zero).animate(a), child: w),
+                  child: SlideTransition(position: Tween(begin: const Offset(0, .015), end: Offset.zero).animate(a), child: w),
                 ),
-                child: KeyedSubtree(key: ValueKey('${r.hashCode}:${r.i}:${r.brk != null}:${it?.st}'), child: body),
+                child: RepaintBoundary(key: ValueKey('${r.hashCode}:${r.i}:${r.brk != null}:${it?.st}'), child: body),
               ),
             ],
           ),
@@ -224,7 +227,7 @@ class _RunHead extends StatelessWidget {
       );
     }
     final qt = qtNames();
-    final cur = qt[app.qType] ?? qt['auto']!;
+    final cur = qt[app.qType] ?? qt['m']!;
     final clockOn = r.exam && !(m != null && (!m.started || m.r != null));
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
@@ -1173,9 +1176,20 @@ class _BreakView extends StatefulWidget {
 
 class _BreakViewState extends State<_BreakView> with SingleTickerProviderStateMixin {
   late final AnimationController _b = AnimationController(vsync: this, duration: const Duration(seconds: 8));
+  Timer? _sec;
+
+  @override
+  void initState() {
+    super.initState();
+    // the countdown redraws only this view, once a second
+    _sec = Timer.periodic(const Duration(seconds: 1), (_) {
+      if (mounted && widget.r.brk?.end != null) setState(() {});
+    });
+  }
 
   @override
   void dispose() {
+    _sec?.cancel();
     _b.dispose();
     super.dispose();
   }

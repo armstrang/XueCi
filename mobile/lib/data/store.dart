@@ -83,6 +83,9 @@ class Store {
   String mode = 'file';
   int _fails = 0;
 
+  /// bumped by every write: what the screens computed from the data stays valid while it is unchanged
+  int ver = 0;
+
   Store(this.backend);
 
   /// load everything; [legacy] = the data of the WebView app (v1.x), used when this store is still empty, or —
@@ -159,6 +162,7 @@ class Store {
   }
 
   void put(String k, String? v) {
+    ver++;
     if (v == null) {
       _mem.remove(k);
     } else {

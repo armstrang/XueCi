@@ -113,7 +113,7 @@ class HomeHeader extends StatelessWidget {
     final p = th.p;
     final t = app.t;
     final h = short ? 44.0 : 48.0;
-    final s = app.lm.streak();
+    final s = app.memo('streak', app.lm.streak);
     final narrow = MediaQuery.sizeOf(context).width < 360;
     return Compact(
       child: Row(
@@ -359,8 +359,8 @@ class _FluidPainter extends CustomPainter {
     if (!low) {
       // a soft coloured glow under the panel (.fglow)
       final gr = Rect.fromLTWH(s.width * .12, s.height - 104, s.width * .76, 110);
-      c.drawOval(
-        gr,
+      c.drawRRect(
+        RRect.fromRectXY(gr, gr.width / 2, gr.height / 2),
         Paint()
           ..shader = ui.Gradient.linear(gr.centerLeft, gr.centerRight, [
             p.gold.withValues(alpha: .7 * .32),
@@ -369,8 +369,22 @@ class _FluidPainter extends CustomPainter {
           ], [0, .5, 1])
           ..maskFilter = blur(BlurStyle.normal, 30),
       );
-      // the shadow only outside the glass, never under it
-      OuterShadow(p.drop, 0, shape: (_) => path).paint(c, s);
+      // the shadow only outside the glass, never under it; drawn as a blurred circle (the orb) and a blurred rounded
+      // rectangle (the panel): both are cheap analytic blurs, a blurred path would need an offscreen pass every frame
+      if (!noBlur) {
+        final R = g.ob / 2 + 9;
+        final y = math.min(s.height - 60, g.cy + R * .6);
+        c.save();
+        c.clipPath(Path.combine(PathOperation.difference, Path()..addRect((Offset.zero & s).inflate(200)), path));
+        for (final b in p.drop) {
+          final pt = Paint()
+            ..color = b.color
+            ..maskFilter = MaskFilter.blur(BlurStyle.normal, b.blurSigma);
+          c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTRB(0, y, s.width, s.height).inflate(b.spreadRadius).shift(b.offset), const Radius.circular(34)), pt);
+          c.drawCircle(Offset(g.cx, g.cy) + b.offset, R + b.spreadRadius, pt);
+        }
+        c.restore();
+      }
     }
     paintGlass(c, path, Offset.zero & s, p, GK.panel, low: low);
   }
@@ -405,8 +419,8 @@ class _OrbState extends State<_Orb> with SingleTickerProviderStateMixin {
     final lc = p.realm(r, band: app.band);
     final pct = app.realmPct(r);
     final open = lm.btOpen() && lm.canTest();
-    final unst = !lm.stability().ok;
-    final st = lm.stage(r < 1 ? lm.baseLevel() : r);
+    final unst = !app.memo('stability', lm.stability).ok;
+    final st = app.realmStage(r);
     if (open && !th.low && !MediaQuery.of(context).disableAnimations) {
       if (!_glow.isAnimating) _glow.repeat(reverse: true);
     } else {
@@ -570,9 +584,9 @@ class _RealmText extends StatelessWidget {
     final t = app.t;
     final r = lm.realm();
     final lc = p.realm(r, band: app.band);
-    final st = lm.stage(r < 1 ? lm.baseLevel() : r);
+    final st = app.realmStage(r);
     final open = lm.btOpen() && lm.canTest();
-    final unst = !lm.stability().ok;
+    final unst = !app.memo('stability', lm.stability).ok;
     final pct = app.realmPct(r);
     final g = r > 0 ? (lm.grades()[r] ?? 0) : 0;
     final narrow = MediaQuery.sizeOf(context).width < 380;
@@ -716,8 +730,8 @@ class PlanCard extends StatelessWidget {
         ),
       );
     }
-    final P = lm.plan();
-    final c = lm.challenge();
+    final P = app.memo('plan', () => lm.plan());
+    final c = app.memo('challenge', lm.challenge);
     var todo = P.newToday + P.revToday > 0;
     final min = math.max(1, ((P.revToday * P.sp.rev + P.newToday * P.sp.neu) / 60).round());
     late Widget line;

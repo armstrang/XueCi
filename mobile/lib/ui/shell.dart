@@ -165,30 +165,41 @@ class _ShellState extends State<Shell> {
       child: Listener(
         onPointerDown: (_) => fxWake.value++,
         child: Scaffold(
-        backgroundColor: th.p.bg,
-        resizeToAvoidBottomInset: false,
-        body: Stack(
-          children: [
-            Positioned.fill(child: GlowBackground(tone: th.acc)),
-            if (th.full && !const ['session', 'placement', 'bt'].contains(s)) const Positioned.fill(child: DriftGlow()),
-            Positioned.fill(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 220),
-                layoutBuilder: (cur, prev) => Stack(fit: StackFit.expand, children: [...prev, ?cur]),
-                switchInCurve: Curves.easeOut,
-                switchOutCurve: Curves.easeIn,
-                transitionBuilder: (child, a) => FadeTransition(
-                  opacity: a,
-                  child: ScaleTransition(scale: Tween(begin: .985, end: 1.0).animate(a), child: child),
+          backgroundColor: th.p.bg,
+          resizeToAvoidBottomInset: false,
+          body: BackdropGroup(
+            child: Stack(
+              children: [
+                Positioned.fill(child: GlowBackground(tone: th.acc)),
+                if (th.full && !const ['session', 'placement', 'bt'].contains(s))
+                  const Positioned.fill(child: DriftGlow()),
+                Positioned.fill(
+                  // only the new screen comes in (the old one leaves at once, so no two screens are drawn together):
+                  // a short fade and rise, transform and opacity only
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 200),
+                    reverseDuration: Duration.zero,
+                    layoutBuilder: (cur, prev) => cur ?? const SizedBox.shrink(),
+                    switchInCurve: Curves.easeOutCubic,
+                    transitionBuilder: (child, a) => FadeTransition(
+                      opacity: a,
+                      child: SlideTransition(
+                        position: Tween(begin: const Offset(0, .012), end: Offset.zero).animate(a),
+                        child: child,
+                      ),
+                    ),
+                    child: RepaintBoundary(
+                      key: ValueKey(s == 'list' || focusScreens.contains(s) ? 'f:$s' : s),
+                      child: screenFor(s),
+                    ),
+                  ),
                 ),
-                child: KeyedSubtree(key: ValueKey(s == 'list' || focusScreens.contains(s) ? 'f:$s' : s), child: screenFor(s)),
-              ),
+                if (tabs) const Positioned(left: 0, right: 0, bottom: 0, child: RepaintBoundary(child: TabBar2())),
+                const Positioned(left: 0, right: 0, bottom: 0, child: RepaintBoundary(child: ToastHost())),
+              ],
             ),
-            if (tabs) const Positioned(left: 0, right: 0, bottom: 0, child: TabBar2()),
-            const Positioned(left: 0, right: 0, bottom: 0, child: ToastHost()),
-          ],
+          ),
         ),
-      ),
       ),
     );
   }
@@ -242,7 +253,12 @@ class TabBar2 extends StatelessWidget {
               radius: 999,
               frost: true,
               shadow: const [
-                BoxShadow(color: Color.fromRGBO(0, 0, 0, .45), offset: Offset(0, 18), blurRadius: 40, spreadRadius: -18),
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, .45),
+                  offset: Offset(0, 18),
+                  blurRadius: 40,
+                  spreadRadius: -18,
+                ),
                 BoxShadow(color: Color.fromRGBO(0, 0, 0, .2), offset: Offset(0, 2), blurRadius: 8, spreadRadius: -4),
               ],
               child: Compact(
@@ -317,7 +333,10 @@ class ToastHost extends StatelessWidget {
           duration: const Duration(milliseconds: 260),
           transitionBuilder: (w, a) => FadeTransition(
             opacity: a,
-            child: SlideTransition(position: Tween(begin: const Offset(0, .3), end: Offset.zero).animate(a), child: w),
+            child: SlideTransition(
+              position: Tween(begin: const Offset(0, .3), end: Offset.zero).animate(a),
+              child: w,
+            ),
           ),
           child: v == null
               ? const SizedBox(key: ValueKey(0))

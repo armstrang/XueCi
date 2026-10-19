@@ -73,9 +73,12 @@ enum GK { panel, inner, frost, lens }
 
 /// Paints glass into [path] (bounds [b]): milky fill, a tint, the light from the top left, a soft white glow inside
 /// the edge (Galaxy's fluid glass) and a bright rim strongest at the top-left and bottom-right (Liquid Glass).
-void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low = false, bool rim = true}) {
+/// A rounded rectangle ([rr]) takes the fast paths (clipRRect, drawRRect); other shapes use [path].
+void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low = false, bool rim = true, RRect? rr}) {
   final w = b.width, h = b.height;
   if (w <= 0 || h <= 0) return;
+  void draw(Paint pt) => rr != null ? c.drawRRect(rr, pt) : c.drawPath(path, pt);
+  void clip() => rr != null ? c.clipRRect(rr) : c.clipPath(path);
   final fill = switch (k) {
     GK.panel => [p.glassA, p.glassB],
     GK.inner => [p.innerA, p.innerB],
@@ -84,17 +87,16 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
   };
   // without effects the glass needs body to read on the background
   final lowBoost = low && k != GK.frost && k != GK.lens ? (p.dark ? .05 : .22) : 0.0;
-  c.drawPath(
-    path,
+  draw(
     Paint()
       ..shader = ui.Gradient.linear(b.topLeft, b.bottomRight, [
         fill[0].withValues(alpha: (fill[0].a + lowBoost).clamp(0, 1)),
         fill[1].withValues(alpha: (fill[1].a + lowBoost).clamp(0, 1)),
       ]),
   );
-  if (tint != null) c.drawPath(path, Paint()..color = tint);
+  if (tint != null) draw(Paint()..color = tint);
   c.save();
-  c.clipPath(path);
+  clip();
   // the light from the top left
   // small pieces (chips, pills) stay clear: less light inside them, so their text keeps its contrast
   final small = k == GK.inner && p.dark ? ((h - 24) / 64).clamp(.1, 1.0) : 1.0;
@@ -126,7 +128,7 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
       GK.inner => p.glowIn * (p.dark ? .5 * small : .75),
       _ => p.glowIn,
     };
-    const n = 6;
+    const n = 4;
     // on dark glass the light comes from above: the glow is strong along the top and fades towards the bottom
     final gp = Paint()
       ..style = PaintingStyle.stroke
@@ -135,7 +137,7 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
         Colors.white.withValues(alpha: p.dark ? a / n * .12 : a / n * .8),
       ]);
     for (var i = 1; i <= n; i++) {
-      c.drawPath(path, gp..strokeWidth = 2 * reach * i / n);
+      draw(gp..strokeWidth = 2 * reach * i / n);
     }
   }
   c.restore();
@@ -143,8 +145,7 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
     final hi = k == GK.lens ? 1.0 : p.rimHi, lo = k == GK.lens ? (p.dark ? .2 : .5) : p.rimLo;
     // the light falls from above: the rim shines along the top, fades down the sides and glints again at the bottom
     final top = b.top, span = math.min(b.height * .6, 90.0);
-    c.drawPath(
-      path,
+    draw(
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = k == GK.lens ? 1.5 : 1.2
@@ -155,8 +156,7 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
         ], const [0, .35, 1]),
     );
     if (b.height > 24) {
-      c.drawPath(
-        path,
+      draw(
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = 1
@@ -222,9 +222,11 @@ class Glass extends StatelessWidget {
       ),
     );
     if (frost && !th.low) {
+      // the floating layers of a screen (tab bar, header) share one backdrop read (BackdropGroup in the shell)
+      final f = ui.ImageFilter.blur(sigmaX: 16, sigmaY: 16, tileMode: TileMode.clamp);
       box = ClipRRect(
         borderRadius: br,
-        child: BackdropFilter(filter: ui.ImageFilter.blur(sigmaX: 22, sigmaY: 22), child: box),
+        child: BackdropGroup.of(context) != null ? BackdropFilter.grouped(filter: f, child: box) : BackdropFilter(filter: f, child: box),
       );
     }
     final shd = shadow ?? (th.low && frost ? const <BoxShadow>[] : (k == GK.inner ? p.dropIn : p.drop));
@@ -232,7 +234,7 @@ class Glass extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: list == null || list.isEmpty ? box : CustomPaint(painter: OuterShadow(list, radius, br: br), child: box),
+      child: list == null || list.isEmpty ? box : CustomPaint(painter: OuterShadow(list, radius, br: br, clip: k != GK.inner), child: box),
     );
   }
 }
@@ -247,12 +249,13 @@ class _GlassPainter extends CustomPainter {
   @override
   void paint(Canvas c, Size s) {
     final r = Offset.zero & s;
-    final path = Path()..addRRect(br.toRRect(r).deflate(.6));
+    final rr = br.toRRect(r).deflate(.6);
+    final path = Path()..addRRect(rr);
     if (solid && k != GK.frost) {
       // a little more body: text-heavy pieces (answers, lists)
-      if (!p.dark) c.drawPath(path, Paint()..color = Colors.white.withValues(alpha: .14));
+      if (!p.dark) c.drawRRect(rr, Paint()..color = Colors.white.withValues(alpha: .14));
     }
-    paintGlass(c, path, r, p, k, tint: tint, low: low, rim: rim);
+    paintGlass(c, path, r, p, k, tint: tint, low: low, rim: rim, rr: rr);
   }
 
   @override
@@ -267,18 +270,24 @@ class OuterShadow extends CustomPainter {
   final double radius;
   final BorderRadius? br;
   final Path Function(Size)? shape;
-  OuterShadow(this.shadows, this.radius, {this.shape, this.br});
+  final bool clip; // false: a faint shadow may sit under the glass too (cheaper: no clip)
+  OuterShadow(this.shadows, this.radius, {this.shape, this.br, this.clip = true});
   @override
   void paint(Canvas c, Size s) {
     RRect rr(Rect r) => br != null ? br!.toRRect(r) : RRect.fromRectAndRadius(r, Radius.circular(radius));
     final path = shape != null ? shape!(s) : (Path()..addRRect(rr(Offset.zero & s)));
     c.save();
-    c.clipPath(Path.combine(PathOperation.difference, Path()..addRect((Offset.zero & s).inflate(400)), path));
+    if (clip) c.clipPath(Path.combine(PathOperation.difference, Path()..addRect((Offset.zero & s).inflate(400)), path));
     for (final b in shadows) {
-      final grown = b.spreadRadius == 0 || shape != null ? path : (Path()..addRRect(rr(Offset.zero & s).inflate(b.spreadRadius)));
-      c.drawPath(grown.shift(b.offset), Paint()
+      final paint = Paint()
         ..color = b.color
-        ..maskFilter = b.blurRadius > 0 ? MaskFilter.blur(BlurStyle.normal, b.blurSigma) : null);
+        ..maskFilter = b.blurRadius > 0 ? MaskFilter.blur(BlurStyle.normal, b.blurSigma) : null;
+      if (shape == null) {
+        // a blurred rounded rectangle is drawn analytically (cheap); a blurred path needs an offscreen pass
+        c.drawRRect(rr(Offset.zero & s).inflate(b.spreadRadius).shift(b.offset), paint);
+      } else {
+        c.drawPath(path.shift(b.offset), paint);
+      }
     }
     c.restore();
   }
@@ -342,11 +351,14 @@ class _PressState extends State<Press> {
   @override
   Widget build(BuildContext context) {
     final on = widget.onTap != null;
-    Widget w = AnimatedScale(
-      scale: _down ? widget.scale : 1,
-      duration: Duration(milliseconds: _down ? 120 : 320),
-      curve: _down ? Curves.easeOut : const Cubic(.34, 1.56, .64, 1),
-      child: widget.child,
+    // the spring repaints only this piece, not the whole screen around it
+    Widget w = RepaintBoundary(
+      child: AnimatedScale(
+        scale: _down ? widget.scale : 1,
+        duration: Duration(milliseconds: _down ? 120 : 260),
+        curve: _down ? Curves.easeOut : const Cubic(.34, 1.4, .64, 1),
+        child: widget.child,
+      ),
     );
     w = GestureDetector(
       behavior: widget.behavior,
@@ -381,10 +393,12 @@ class GlowBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
-    return TweenAnimationBuilder<Color?>(
-      tween: ColorTween(end: tone),
-      duration: const Duration(milliseconds: 900),
-      builder: (c, col, _) => CustomPaint(painter: _BgPainter(th.p, col ?? tone, th.low), size: Size.infinite),
+    return RepaintBoundary(
+      child: TweenAnimationBuilder<Color?>(
+        tween: ColorTween(end: tone),
+        duration: const Duration(milliseconds: 600),
+        builder: (c, col, _) => CustomPaint(painter: _BgPainter(th.p, col ?? tone, th.low), size: Size.infinite, isComplex: true),
+      ),
     );
   }
 }
