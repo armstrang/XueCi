@@ -2,12 +2,12 @@
 
 Salin teks di bawah ke **Play Console → Grow → Store presence → Main store listing**.
 Bahasa utama: **Indonesia**; tambahkan **English** sebagai terjemahan.
-Feature graphic dan screenshot belum ada: dibuat dari aplikasi baru sebelum unggah ke Play.
+Gambar dibuat dari aplikasi baru: screenshot `STORE=1 flutter test --no-pub --update-goldens test/store_shots_test.dart`, lalu banner `python3 art/make_banner.py`.
 
 | Bagian | File / isi |
 |---|---|
 | Ikon aplikasi (512 × 512) | `art/play-icon-512.png` |
-| Feature graphic (1024 × 500) | belum dibuat |
+| Feature graphic (1024 × 500) | `store/feature-id.png`, `store/feature-en.png` |
 | Screenshot ponsel (1080 × 1920) | belum dibuat (Home, Lautan Jiwa, Kartu, Kuis, Statistik, Nada, Daftar, Tes penempatan) |
 
 ---
