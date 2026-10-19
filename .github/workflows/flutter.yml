@@ -1,0 +1,125 @@
+name: Flutter
+
+# v2.0 (Flutter) development builds: branches named flutter/... Everything the run produces (Flutter version,
+# analyzer and test output, screenshots, build log) is pushed to the branch ci-out/<branch>, because the logs of a
+# run cannot be read from Claude's cloud sessions but a branch can. Nothing is published.
+on:
+  push:
+    branches: ['flutter/**']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Prepare output folder
+        run: |
+          mkdir -p ci-out
+          flutter --version > ci-out/flutter-version.txt 2>&1
+          dart --version >> ci-out/flutter-version.txt 2>&1
+
+      # once: the standard Flutter project files (Android Gradle setup etc.) when mobile/ has none yet
+      - name: Scaffold
+        if: hashFiles('mobile/android/settings.gradle.kts', 'mobile/android/settings.gradle') == ''
+        run: |
+          flutter create --org com.armstrang --project-name xueci --platforms android --android-language kotlin scaffold > ci-out/scaffold.txt 2>&1
+          mkdir -p ci-out/scaffold && cp -r scaffold/. ci-out/scaffold/ && rm -rf ci-out/scaffold/build ci-out/scaffold/.dart_tool
+
+      - name: Generate assets
+        id: assets
+        if: hashFiles('mobile/pubspec.yaml') != ''
+        continue-on-error: true
+        run: |
+          pip install --quiet fonttools brotli
+          python3 mobile/tool/make_assets.py > ci-out/assets.txt 2>&1
+
+      - name: Pub get
+        id: pub
+        if: hashFiles('mobile/pubspec.yaml') != ''
+        continue-on-error: true
+        working-directory: mobile
+        run: flutter pub get > ../ci-out/pub.txt 2>&1
+
+      - name: Analyze
+        id: analyze
+        if: hashFiles('mobile/pubspec.yaml') != ''
+        continue-on-error: true
+        working-directory: mobile
+        run: flutter analyze --no-fatal-infos > ../ci-out/analyze.txt 2>&1
+
+      - name: Engine traces from the JS engine (reference for the Dart port)
+        id: traces
+        if: hashFiles('mobile/tool/js_traces.js') != ''
+        continue-on-error: true
+        run: node mobile/tool/js_traces.js mobile/test/traces > ci-out/traces.txt 2>&1
+
+      - name: Tests (engine, widgets, screenshots)
+        id: test
+        if: hashFiles('mobile/pubspec.yaml') != ''
+        continue-on-error: true
+        working-directory: mobile
+        run: |
+          flutter test --update-goldens --reporter expanded > ../ci-out/test.txt 2>&1
+          mkdir -p ../ci-out/shots && find test -name '*.png' -path '*goldens*' -exec cp {} ../ci-out/shots/ \; || true
+
+      - name: Build APK
+        id: apk
+        if: hashFiles('mobile/pubspec.yaml') != ''
+        continue-on-error: true
+        working-directory: mobile
+        run: |
+          flutter build apk --release --build-number=$((1000 + GITHUB_RUN_NUMBER)) --build-name=2.0.${GITHUB_RUN_NUMBER} > ../ci-out/build.txt 2>&1
+          ls -la build/app/outputs/flutter-apk/ >> ../ci-out/build.txt 2>&1
+          cp build/app/outputs/flutter-apk/app-release.apk ../ci-out/xueci-dev.apk || true
+
+      - name: Summary
+        if: always()
+        run: |
+          {
+            echo "run ${GITHUB_RUN_NUMBER} ${GITHUB_SHA}"
+            echo "assets: ${{ steps.assets.outcome }}"
+            echo "pub: ${{ steps.pub.outcome }}"
+            echo "analyze: ${{ steps.analyze.outcome }}"
+            echo "traces: ${{ steps.traces.outcome }}"
+            echo "test: ${{ steps.test.outcome }}"
+            echo "apk: ${{ steps.apk.outcome }}"
+          } > ci-out/summary.txt
+          cat ci-out/summary.txt
+
+      - name: Push the output to ci-out/<branch>
+        if: always()
+        run: |
+          cd ci-out
+          git init -q -b out
+          git config user.name "ci"
+          git config user.email "ci@users.noreply.github.com"
+          git add -A
+          git commit -q -m "ci output run ${GITHUB_RUN_NUMBER} [skip ci]"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "out:refs/heads/ci-out/${GITHUB_REF_NAME}"
+
+      - name: Fail when a step failed
+        if: steps.assets.outcome == 'failure' || steps.pub.outcome == 'failure' || steps.analyze.outcome == 'failure' || steps.test.outcome == 'failure' || steps.apk.outcome == 'failure'
+        run: exit 1
