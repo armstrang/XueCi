@@ -24,6 +24,7 @@ class Th extends InheritedWidget {
   final bool low; // visual effects: low (no blur, no glow)
   final bool full;
   final double fs; // the phone's text size (0.85–1.6)
+  final int tick; // App.tick: any change of the app's state
   const Th({
     super.key,
     required this.p,
@@ -32,6 +33,7 @@ class Th extends InheritedWidget {
     required this.low,
     required this.full,
     required this.fs,
+    this.tick = 0,
     required super.child,
   });
 
@@ -43,7 +45,7 @@ class Th extends InheritedWidget {
 
   @override
   bool updateShouldNotify(Th o) =>
-      o.p != p || o.acc != acc || o.rc != rc || o.low != low || o.full != full || o.fs != fs;
+      o.p != p || o.acc != acc || o.rc != rc || o.low != low || o.full != full || o.fs != fs || o.tick != tick;
 }
 
 /// A glass panel: fill, highlight, rim, shadow.
@@ -89,16 +91,16 @@ class Glass extends StatelessWidget {
     } else {
       deco = BoxDecoration(
         borderRadius: r,
-        color: solid ? Colors.white.withValues(alpha: p.gSolid) : null,
+        color: solid ? p.cardC.withValues(alpha: p.gSolid) : null,
         gradient: solid
             ? null
             : LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
                 colors: [
-                  Colors.white.withValues(alpha: p.gFillA),
-                  Colors.white.withValues(alpha: p.gFillB),
-                  Colors.white.withValues(alpha: p.gFillC),
+                  p.cardC.withValues(alpha: p.gFillA),
+                  p.cardC.withValues(alpha: p.gFillB),
+                  p.cardC.withValues(alpha: p.gFillC),
                 ],
                 stops: const [0, .55, 1],
               ),
@@ -112,13 +114,48 @@ class Glass extends StatelessWidget {
       );
     }
     final shd = shadow ?? (th.low && frost ? const <BoxShadow>[] : p.drop);
-    return Container(
+    final list = sh(shd);
+    return SizedBox(
       width: width,
       height: height,
-      decoration: BoxDecoration(borderRadius: r, boxShadow: sh(shd)),
-      child: box,
+      child: list == null || list.isEmpty ? box : CustomPaint(painter: OuterShadow(list, radius), child: box),
     );
   }
+}
+
+/// A shadow drawn only outside a shape (CSS box-shadow): Flutter's BoxShadow also paints under the box, which shows
+/// through translucent glass and makes it look murky.
+class OuterShadow extends CustomPainter {
+  final List<BoxShadow> shadows;
+  final double radius;
+  final Path Function(Size)? shape;
+  OuterShadow(this.shadows, this.radius, {this.shape});
+  @override
+  void paint(Canvas c, Size s) {
+    final path = shape != null ? shape!(s) : (Path()..addRRect(RRect.fromRectAndRadius(Offset.zero & s, Radius.circular(radius))));
+    c.save();
+    c.clipPath(Path.combine(PathOperation.difference, Path()..addRect((Offset.zero & s).inflate(400)), path));
+    for (final b in shadows) {
+      final grown = b.spreadRadius == 0
+          ? path
+          : (shape == null
+                ? (Path()
+                    ..addRRect(
+                      RRect.fromRectAndRadius(
+                        (Offset.zero & s).inflate(b.spreadRadius),
+                        Radius.circular((radius + b.spreadRadius).clamp(0, double.infinity)),
+                      ),
+                    ))
+                : path);
+      c.drawPath(grown.shift(b.offset), Paint()
+        ..color = b.color
+        ..maskFilter = b.blurRadius > 0 ? MaskFilter.blur(BlurStyle.normal, b.blurSigma) : null);
+    }
+    c.restore();
+  }
+
+  @override
+  bool shouldRepaint(OuterShadow o) => o.shadows != shadows || o.radius != radius;
 }
 
 /// the radial highlight from the top-left (part of --g-fill / --g-solid) and the bright line inside the top edge

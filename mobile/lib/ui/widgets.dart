@@ -225,11 +225,21 @@ class GChip extends StatelessWidget {
     onTap: onTap,
     scale: 1.05,
     label: label,
-    child: Glass(
-      radius: 999,
-      height: height,
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      child: Center(widthFactor: 1, child: child),
+    // One UI: a tinted pill in the accent, no glass inside a card
+    child: Builder(
+      builder: (c) {
+        final th = Th.of(c);
+        return Container(
+          height: height,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: BoxDecoration(
+            color: th.acc.withValues(alpha: th.p.dark ? .09 : .05),
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: th.acc.withValues(alpha: .28)),
+          ),
+          child: Center(widthFactor: 1, child: child),
+        );
+      },
     ),
   );
 }

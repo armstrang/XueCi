@@ -178,7 +178,7 @@ class _RealmPathState extends State<RealmPath> {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: cur ? lc : (done ? lc.withValues(alpha: .22) : Colors.transparent),
+          color: cur ? lc : (done ? lc.withValues(alpha: .07) : Colors.transparent),
           border: Border.all(color: cur || done ? lc : Color.lerp(p.line, lc, .45)!, width: 1.5),
           boxShadow: [
             if (cur) BoxShadow(color: lc.withValues(alpha: .25), spreadRadius: 3),
@@ -187,7 +187,7 @@ class _RealmPathState extends State<RealmPath> {
         ),
         child: Text(
           app.rs[i],
-          style: F.s(long ? 11 : 13, w: FontWeight.w900, family: F.hz, c: cur ? p.onAcc : (done ? lc : p.soft), h: 1),
+          style: F.s(long ? 11 : 13, w: FontWeight.w900, family: F.hz, c: cur ? Pal.on(lc) : (done ? lc : p.soft), h: 1),
         ),
       );
       if (cur) node = Transform.scale(scale: long ? 1.12 : 1.16, child: node);
@@ -673,8 +673,8 @@ class AdviceList extends StatelessWidget {
                       width: 22,
                       height: 22,
                       alignment: Alignment.center,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: th.acc.withValues(alpha: .16)),
-                      child: Text('${i + 1}', style: F.s(11.5, w: FontWeight.w800, c: th.acc)),
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: th.acc.withValues(alpha: .10)),
+                      child: Text('${i + 1}', style: F.s(11.5, w: FontWeight.w800, c: p.fg)),
                     ),
                     const SizedBox(width: 10),
                     Expanded(

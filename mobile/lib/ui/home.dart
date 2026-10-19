@@ -123,6 +123,7 @@ class HomeHeader extends StatelessWidget {
             scale: 1.06,
             label: 'XueCi Mandarin',
             child: Glass(
+              frost: true,
               radius: h / 2,
               height: h,
               padding: EdgeInsets.fromLTRB(narrow ? 12 : 16, 0, narrow ? 12 : 18, 0),
@@ -153,6 +154,7 @@ class HomeHeader extends StatelessWidget {
             scale: 1.06,
             label: L10.text(t.v('streakAria'), [app.fmt(s.days), s.today]),
             child: Glass(
+              frost: true,
               radius: h / 2,
               height: h,
               padding: const EdgeInsets.fromLTRB(7, 0, 15, 0),
@@ -177,7 +179,7 @@ class HomeHeader extends StatelessWidget {
             child: Stack(
               clipBehavior: Clip.none,
               children: [
-                Glass(radius: h / 2, width: h, height: h, child: Center(child: Icon2(I.gear, size: 21, color: p.fg))),
+                Glass(frost: true, radius: h / 2, width: h, height: h, child: Center(child: Icon2(I.gear, size: 21, color: p.fg))),
                 if (app.bkDue())
                   Positioned(
                     top: 7,
@@ -314,7 +316,7 @@ class _FluidLayout extends MultiChildLayoutDelegate {
   }
 
   @override
-  bool shouldRelayout(_FluidLayout o) => o.fsd != fsd || o.big != big;
+  bool shouldRelayout(_FluidLayout o) => !identical(o.g, g) || o.fsd != fsd || o.big != big;
 }
 
 /// the fluid glass shape: a circle around the orb flowing into the rounded panel below it, with soft fillets where
@@ -366,20 +368,24 @@ class _FluidPainter extends CustomPainter {
           ..maskFilter = blur(BlurStyle.normal, 30),
       );
       if (!p.black) {
+        // the shadow only outside the glass, never under it
+        c.save();
+        c.clipPath(Path.combine(PathOperation.difference, Path()..addRect((Offset.zero & s).inflate(200)), path));
         c.drawPath(
           path.shift(const Offset(0, 26)),
           Paint()
             ..color = (p.dark ? const Color.fromRGBO(0, 0, 0, .5) : const Color.fromRGBO(30, 45, 70, .16))
             ..maskFilter = blur(BlurStyle.normal, 15),
         );
+        c.restore();
       }
     }
     c.drawPath(
       path,
       Paint()
         ..shader = ui.Gradient.linear(Offset.zero, Offset(0, s.height), [
-          Colors.white.withValues(alpha: p.f0),
-          Colors.white.withValues(alpha: p.f1),
+          p.cardC.withValues(alpha: p.f0),
+          p.cardC.withValues(alpha: p.f1),
         ]),
     );
     if (low) {
@@ -709,12 +715,10 @@ class PlanCard extends StatelessWidget {
     final lm = app.lm;
     final big = th.fs >= 1.15;
     final short = MediaQuery.sizeOf(context).height <= 760;
+    // One UI: a card inside the panel is a shade apart (light grey on white, a lift on dark)
     final card = BoxDecoration(
-      color: Colors.white.withValues(alpha: p.card),
+      color: p.dark ? Colors.white.withValues(alpha: p.card) : const Color(0xfff1f3f6),
       borderRadius: BorderRadius.circular(26),
-      boxShadow: sh(p.dark
-          ? null
-          : const [BoxShadow(color: Color.fromRGBO(30, 40, 60, .35), offset: Offset(0, 12), blurRadius: 28, spreadRadius: -16)]),
       border: p.dark ? Border(top: BorderSide(color: Colors.white.withValues(alpha: p.black ? .1 : .12))) : null,
     );
     final chip = app.goalChip();
@@ -929,7 +933,7 @@ class _NbOpt extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(title, style: F.s(15.5, w: FontWeight.w800, c: fg)),
-              Text(sub, style: F.s(12.5, c: pri ? fg.withValues(alpha: .85) : p.soft)),
+              Text(sub, style: F.s(12.5, c: pri ? fg : p.soft)),
             ],
           ),
         ),

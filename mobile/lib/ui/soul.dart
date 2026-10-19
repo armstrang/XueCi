@@ -856,7 +856,7 @@ class _SoulScreenState extends State<SoulScreen> {
                 child: Container(
                   width: 38,
                   height: 38,
-                  decoration: BoxDecoration(shape: BoxShape.circle, color: ec.withValues(alpha: .15)),
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: ec.withValues(alpha: .09)),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

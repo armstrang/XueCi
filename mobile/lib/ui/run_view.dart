@@ -349,7 +349,7 @@ class _Qti extends StatelessWidget {
         color: on ? th.acc : th.acc.withValues(alpha: .15),
         borderRadius: BorderRadius.circular(999),
       ),
-      child: Text(s, style: F.s(11.5, w: FontWeight.w800, family: F.zh, c: on ? th.p.onAcc : th.acc)),
+      child: Text(s, style: F.s(11.5, w: FontWeight.w800, family: F.zh, c: on ? th.p.onAcc : th.p.fg)),
     );
   }
 }
@@ -478,7 +478,7 @@ class _CardView extends StatelessWidget {
       return Row(
         children: [
           Expanded(
-            child: _BigBtn(t.fcDont, color: p.sunk, fg: p.bad, onTap: () => R.cardDont(it)),
+            child: _BigBtn(t.fcDont, color: p.cardC, fg: p.bad, onTap: () => R.cardDont(it)),
           ),
           const SizedBox(width: 10),
           Expanded(
@@ -539,7 +539,7 @@ class _CardView extends StatelessWidget {
         Row(
           children: [
             if (it.res == 'trust') ...[
-              Expanded(child: _BigBtn(t.oops, color: p.sunk, fg: p.bad, onTap: () => R.cardOops(it))),
+              Expanded(child: _BigBtn(t.oops, color: p.cardC, fg: p.bad, onTap: () => R.cardOops(it))),
               const SizedBox(width: 10),
             ],
             Expanded(child: _BigBtn(t.next, color: th.acc, fg: p.onAcc, onTap: R.next, autofocus: true)),

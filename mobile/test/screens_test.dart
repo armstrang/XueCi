@@ -79,8 +79,18 @@ void main() {
   tearDown(() {});
 
   testWidgets('home: new learner, light', (t) async {
-    await t.runAsync(() => bootApp({'hsk16_theme': '"light"'}));
+    await t.runAsync(() => bootApp({'hsk16_theme': '"light"', 'xc_onb': '1'}));
     await shot(t, 'home-new-light');
+  });
+
+  testWidgets('home: progress, light', (t) async {
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"', 'xc_onb': '1'}, lang: 'id'));
+    await shot(t, 'home-progress-light');
+  });
+
+  testWidgets('soul sea, light', (t) async {
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"'}));
+    await shot(t, 'soul-light', size: const Size(412, 1400), before: () => app.go('soul'));
   });
 
   testWidgets('home: progress, dark', (t) async {

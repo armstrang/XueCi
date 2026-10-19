@@ -564,4 +564,12 @@ class App extends ChangeNotifier {
   }
 
   void changed() => notifyListeners();
+
+  /// counts every change: the theme carries it, so every widget that reads the theme redraws with the app
+  int tick = 0;
+  @override
+  void notifyListeners() {
+    tick++;
+    super.notifyListeners();
+  }
 }

@@ -101,6 +101,7 @@ class _XueCiAppState extends State<XueCiApp> with WidgetsBindingObserver {
                 low: app.fx == 'low',
                 full: app.fx == 'full',
                 fs: fs,
+                tick: app.tick,
                 child: AnnotatedRegion<SystemUiOverlayStyle>(
                   value: (p.dark ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark).copyWith(
                     statusBarColor: Colors.transparent,
@@ -283,7 +284,7 @@ class TabBar2 extends StatelessWidget {
                                 names[i],
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
-                                style: F.s(13, w: FontWeight.w800, c: col),
+                                style: F.s(13, w: FontWeight.w800, c: p.fg),
                               ),
                             ),
                           ],
