@@ -75,6 +75,7 @@ class Vocab {
   final List<int> levels = [];
   String lang;
   bool band = false; // HSK 7–9 loaded (the gate is open)
+  final Set<String> loaded = {}; // study languages whose meanings are loaded
 
   Vocab(List<Word> words, {this.lang = 'id'}) {
     add(words);
