@@ -12,13 +12,12 @@ import 'goal.dart';
 import 'info.dart';
 import 'settings.dart';
 import 'shell.dart' show navKey;
-import 'glass.dart';
 import 'realm.dart';
 import 'run_view.dart';
 import 'share.dart';
 import 'soul.dart';
 import 'stats.dart';
-import 'theme.dart';
+import 'tests.dart';
 
 class StatsScreenHost extends StatelessWidget {
   const StatsScreenHost({super.key});
@@ -39,23 +38,15 @@ class FocusScreenHost extends StatelessWidget {
   Widget build(BuildContext context) => switch (mode) {
     'list' => const ListScreen(),
     'card' || 'quiz' || 'session' => RunScreen(mode: mode),
-    _ => _Todo(mode),
+    'placement' => const PlacementScreen(),
+    'bt' => const TribScreen(),
+    _ => const SizedBox(),
   };
-}
-
-class _Todo extends StatelessWidget {
-  final String name;
-  const _Todo(this.name);
-  @override
-  Widget build(BuildContext context) => SafeArea(
-    child: Center(child: Text(name, style: F.s(20, c: Th.pal(context).fg))),
-  );
 }
 
 void unused() => app;
 
 /// the sheets Home and the other screens open, and the work after the first frame (registered once)
-var _wired = false;
 void wireSheets() {
   app.openRealm = openRealmSheet;
   app.openShare = openShareSheet;
@@ -67,8 +58,8 @@ void wireSheets() {
     final c = navKey.currentContext;
     if (c != null) eggTap(c);
   };
-  if (_wired) return;
-  _wired = true;
+  if (app.startHooks.isNotEmpty) return; // once per App (tests boot several)
+  app.beforeShow.add(leaveTest);
   app.startHooks.add((context) {
     app.syncRest();
     // back after two or more days off: how much is still remembered (once a day)
@@ -78,6 +69,14 @@ void wireSheets() {
       app.note['back'] = day;
       app.saveNote();
       Timer(const Duration(milliseconds: 900), () => app.toast(app.t.backMsg(s.gap, s.recall), 6500));
+    }
+    // the gate: its ceremony was not finished (or a v1.x breakthrough to 飞升 opened it)
+    final lv = app.lm.lvInfo;
+    if (app.band && lv != null && !jsTruthy(lv['gs'])) {
+      Timer(const Duration(milliseconds: 700), () {
+        final c = navKey.currentContext;
+        if (c != null) gateShow(c);
+      });
     }
     // first start: the short tour, which ends in the goal sheet
     if (app.lm.goal == null && !jsTruthy(app.store.get('xc_onb', 0))) {

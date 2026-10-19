@@ -52,6 +52,7 @@ Future<void> shot(
   double fs = 1,
   void Function()? before,
   void Function()? after,
+  Future<void> Function()? act,
 }) async {
   t.view.physicalSize = size * 2.625;
   t.view.devicePixelRatio = 2.625;
@@ -59,6 +60,7 @@ Future<void> shot(
   before?.call();
   await t.pumpWidget(const XueCiApp());
   await t.pump(const Duration(milliseconds: 600));
+  if (act != null) await act();
   if (after != null) {
     after();
     await t.pump(const Duration(milliseconds: 100));
@@ -178,6 +180,61 @@ void runs() {
       await shot(t, 'sheet-$name', size: const Size(412, 1400), after: () => open(navKey.currentContext!));
     });
   }
+  testWidgets('placement intro', (t) async {
+    await t.runAsync(() => bootApp({'xc_onb': '1'}));
+    await shot(t, 'placement-intro', before: () => app.go('placement'));
+  });
+  testWidgets('placement question', (t) async {
+    await t.runAsync(() => bootApp({'xc_onb': '1'}));
+    await shot(
+      t,
+      'placement-q',
+      before: () => app.go('placement'),
+      act: () async {
+        await t.tap(find.text(app.t.ptBegin));
+        await t.pump(const Duration(milliseconds: 300));
+        for (var i = 0; i < 4; i++) {
+          await t.tap(find.text(app.t.idk));
+          await t.pump(const Duration(milliseconds: 300));
+        }
+      },
+    );
+  });
+  testWidgets('tribulation intro', (t) async {
+    await t.runAsync(() => bootApp(sample(strong: true)));
+    expect(app.lm.btOpen(), isTrue);
+    await shot(t, 'bt-intro', size: const Size(412, 1100), before: () => app.go('bt'));
+  });
+  testWidgets('tribulation strike', (t) async {
+    await t.runAsync(() => bootApp(sample(strong: true)));
+    await shot(
+      t,
+      'bt-strike',
+      before: () => app.go('bt'),
+      act: () async {
+        await t.tap(find.text(app.t.btBegin));
+        await t.pump(const Duration(milliseconds: 100));
+      },
+    );
+  });
+  testWidgets('tribulation failed', (t) async {
+    await t.runAsync(() => bootApp(sample(strong: true)));
+    await shot(
+      t,
+      'bt-fail',
+      size: const Size(412, 1500),
+      before: () => app.go('bt'),
+      act: () async {
+        await t.tap(find.text(app.t.btBegin));
+        await t.pump(const Duration(milliseconds: 100));
+        for (var i = 0; i < 40 && find.text(app.t.idk).evaluate().isNotEmpty; i++) {
+          await t.tap(find.text(app.t.idk), warnIfMissed: false);
+          await t.pump(const Duration(milliseconds: 300));
+        }
+        await t.pump(const Duration(seconds: 2));
+      },
+    );
+  });
   testWidgets('mock intro', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_ui': '{"level":3,"qt":"mock"}'}));
     await shot(t, 'mock-intro', before: () => app.go('quiz'));
@@ -185,7 +242,7 @@ void runs() {
 }
 
 /// a learner at 筑基 (HSK 2) with progress on HSK 1–2
-Map<String, String> sample() {
+Map<String, String> sample({bool strong = false}) {
   final t = clockMin;
   final mem = <String, Object>{};
   final stats = <String, Object>{};
@@ -194,8 +251,8 @@ Map<String, String> sample() {
   var i = 0;
   for (final m in re.allMatches(words)) {
     final l = int.parse(m.group(1)!), n = int.parse(m.group(2)!);
-    if (l == 2 && n > 120) continue;
-    final s = l == 1 ? 20.0 + i % 40 : 2.0 + i % 9;
+    if (l == 2 && n > 120 && !strong) continue;
+    final s = l == 1 || strong ? 20.0 + i % 40 : 2.0 + i % 9;
     final at = t - 1440 * (1 + i % 6);
     final sk = [4.0, s, at.toDouble(), 3.0, 2.0];
     mem['$l:${m.group(3)}'] = {'w': [4.0, s, at], 'm': sk, 'f': sk, 's': sk, 'i': at - 1440 * 20, 'k': at};

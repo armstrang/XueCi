@@ -736,13 +736,12 @@ class _QViewState extends State<_QView> {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final d = it.d;
     final q = it.q!;
     final ans = it.done && !r.exam;
     final ok = it.ok == true;
     final children = <Widget>[];
     // the prompt
-    children.add(_prompt(context, d, q, it, r));
+    children.add(qPrompt(context, it, exam: r.exam));
     // the options or the typing box
     if (q == 'p') {
       children.add(const SizedBox(height: 12));
@@ -821,7 +820,7 @@ class _QViewState extends State<_QView> {
         children.add(
           OptBtn(
             n: i + 1,
-            label: _optLabel(context, it, i),
+            label: qOptLabel(context, it, i),
             state: !ans ? null : (i == it.ans ? true : (i == it.pick ? false : null)),
             selected: r.exam && it.done && i == it.pick,
             onTap: it.done ? null : () => R.qAnswer(it, i),
@@ -849,76 +848,6 @@ class _QViewState extends State<_QView> {
         ),
       ],
     );
-  }
-
-  Widget _optLabel(BuildContext context, Item it, int i) {
-    final p = Th.pal(context);
-    final q = it.q;
-    if (it.tones != null) return Text(pyOpt(it.tones![i]), style: F.s(15, w: FontWeight.w700, c: p.fg));
-    final o = it.words![i];
-    if (q == 'm') return Text(app.m1(o), style: F.s(15, w: FontWeight.w600, c: p.fg));
-    if (q == 't') return Text(app.tr(o), style: F.s(14, w: FontWeight.w600, c: p.fg, h: 1.4));
-    return Text(o.h, style: F.s(20, w: FontWeight.w900, family: F.hz, c: p.fg), locale: const Locale('zh', 'CN'));
-  }
-
-  Widget _prompt(BuildContext context, Word d, String q, Item it, Run r) {
-    final th = Th.of(context);
-    final p = th.p;
-    final t = app.t;
-    final big = math.min(72.0, math.max(48.0, MediaQuery.sizeOf(context).width * .13));
-    Widget lead(String s) => Padding(
-      padding: const EdgeInsets.only(top: 6, bottom: 6),
-      child: Text(s, textAlign: TextAlign.center, style: F.s(13, c: p.soft)),
-    );
-    Widget rest() {
-      final m = app.m(d).split(';').skip(1).map((x) => x.trim()).where((x) => x.isNotEmpty).join('; ');
-      return m.isEmpty ? const SizedBox.shrink() : Text(m, textAlign: TextAlign.center, style: F.s(12.5, c: p.soft, style: FontStyle.italic));
-    }
-
-    Widget m1() => Text(app.m1(d), textAlign: TextAlign.center, style: F.s(22, w: FontWeight.w800, c: p.fg));
-    final c = <Widget>[];
-    switch (q) {
-      case 'p':
-        c.addAll([lead(t.qPy), m1(), rest()]);
-        if (it.d.z.contains(it.d.h)) c.add(Padding(padding: const EdgeInsets.only(top: 6), child: Center(child: ExampleText(d, gap: true))));
-      case 't':
-        c.addAll([
-          lead(t.qTrans),
-          Center(child: ExampleText(d, size: 20)),
-          if (d.l <= 3) Center(child: ZpText(d, plainWord: true)),
-        ]);
-      case 'm':
-        c.addAll([lead(t.qMean), Center(child: Hz(d, size: big, weight: FontWeight.w900, family: F.hz))]);
-      case 'f':
-        c.addAll([lead(t.qHz), m1(), rest()]);
-      case 's':
-        c.addAll([
-          lead(t.qTone),
-          Center(child: Text(d.h, style: F.s(big, w: FontWeight.w900, family: F.hz, c: p.fg, h: 1.1), locale: const Locale('zh', 'CN'))),
-          Text(app.m1(d), textAlign: TextAlign.center, style: F.s(12.5, c: p.soft, style: FontStyle.italic)),
-        ]);
-      case 'l':
-        c.addAll([lead(t.qListen), Center(child: Spk(d.h, size: 76))]);
-      default:
-        c.addAll([
-          lead(t.qCloze),
-          Center(child: ExampleText(d, size: 20, gap: true)),
-          if (d.l <= 3) Center(child: ZpText(d, gap: true)),
-          if (it.hint && !it.done)
-            Text(app.tr(d), textAlign: TextAlign.center, style: F.s(12.5, c: p.soft, style: FontStyle.italic))
-          else if (!r.exam && !it.done)
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  it.hint = true;
-                  app.changed();
-                },
-                child: Text(t.showTr, style: F.s(13, w: FontWeight.w700, c: th.acc)),
-              ),
-            ),
-        ]);
-    }
-    return Padding(padding: const EdgeInsets.only(top: 8), child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: c));
   }
 
   Widget _feedback(BuildContext context, Item it, bool ok) {
@@ -974,6 +903,80 @@ class _QViewState extends State<_QView> {
       ),
     );
   }
+}
+
+/// an option's label: a meaning, a translation, tones or hanzi
+Widget qOptLabel(BuildContext context, Item it, int i) {
+  final p = Th.pal(context);
+  final q = it.q;
+  if (it.tones != null) return Text(pyOpt(it.tones![i]), style: F.s(15, w: FontWeight.w700, c: p.fg));
+  final o = it.words![i];
+  if (q == 'm') return Text(app.m1(o), style: F.s(15, w: FontWeight.w600, c: p.fg));
+  if (q == 't') return Text(app.tr(o), style: F.s(14, w: FontWeight.w600, c: p.fg, h: 1.4));
+  return Text(o.h, style: F.s(20, w: FontWeight.w900, family: F.hz, c: p.fg), locale: const Locale('zh', 'CN'));
+}
+
+/// a question's prompt (shared by Quiz, the session, the placement test and the tribulation)
+Widget qPrompt(BuildContext context, Item it, {bool exam = false}) {
+  final d = it.d;
+  final q = it.q!;
+  final th = Th.of(context);
+  final p = th.p;
+  final t = app.t;
+  final big = math.min(72.0, math.max(48.0, MediaQuery.sizeOf(context).width * .13));
+  Widget lead(String s) => Padding(
+    padding: const EdgeInsets.only(top: 6, bottom: 6),
+    child: Text(s, textAlign: TextAlign.center, style: F.s(13, c: p.soft)),
+  );
+  Widget rest() {
+    final m = app.m(d).split(';').skip(1).map((x) => x.trim()).where((x) => x.isNotEmpty).join('; ');
+    return m.isEmpty ? const SizedBox.shrink() : Text(m, textAlign: TextAlign.center, style: F.s(12.5, c: p.soft, style: FontStyle.italic));
+  }
+
+  Widget m1() => Text(app.m1(d), textAlign: TextAlign.center, style: F.s(22, w: FontWeight.w800, c: p.fg));
+  final c = <Widget>[];
+  switch (q) {
+    case 'p':
+      c.addAll([lead(t.qPy), m1(), rest()]);
+      if (it.d.z.contains(it.d.h)) c.add(Padding(padding: const EdgeInsets.only(top: 6), child: Center(child: ExampleText(d, gap: true))));
+    case 't':
+      c.addAll([
+        lead(t.qTrans),
+        Center(child: ExampleText(d, size: 20)),
+        if (d.l <= 3) Center(child: ZpText(d, plainWord: true)),
+      ]);
+    case 'm':
+      c.addAll([lead(t.qMean), Center(child: Hz(d, size: big, weight: FontWeight.w900, family: F.hz))]);
+    case 'f':
+      c.addAll([lead(t.qHz), m1(), rest()]);
+    case 's':
+      c.addAll([
+        lead(t.qTone),
+        Center(child: Text(d.h, style: F.s(big, w: FontWeight.w900, family: F.hz, c: p.fg, h: 1.1), locale: const Locale('zh', 'CN'))),
+        Text(app.m1(d), textAlign: TextAlign.center, style: F.s(12.5, c: p.soft, style: FontStyle.italic)),
+      ]);
+    case 'l':
+      c.addAll([lead(t.qListen), Center(child: Spk(d.h, size: 76))]);
+    default:
+      c.addAll([
+        lead(t.qCloze),
+        Center(child: ExampleText(d, size: 20, gap: true)),
+        if (d.l <= 3) Center(child: ZpText(d, gap: true)),
+        if (it.hint && !it.done)
+          Text(app.tr(d), textAlign: TextAlign.center, style: F.s(12.5, c: p.soft, style: FontStyle.italic))
+        else if (!exam && !it.done)
+          Center(
+            child: TextButton(
+              onPressed: () {
+                it.hint = true;
+                app.changed();
+              },
+              child: Text(t.showTr, style: F.s(13, w: FontWeight.w700, c: th.acc)),
+            ),
+          ),
+      ]);
+  }
+  return Padding(padding: const EdgeInsets.only(top: 8), child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: c));
 }
 
 /// a dashed outline (the "Don't know" button)
