@@ -7,12 +7,13 @@ import '../app/app.dart';
 import 'focus.dart';
 import 'glass.dart';
 import 'run_view.dart';
+import 'stats.dart';
 import 'theme.dart';
 
 class StatsScreenHost extends StatelessWidget {
   const StatsScreenHost({super.key});
   @override
-  Widget build(BuildContext context) => _Todo('stats');
+  Widget build(BuildContext context) => const StatsScreen();
 }
 
 class SoulScreenHost extends StatelessWidget {

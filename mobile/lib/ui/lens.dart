@@ -79,6 +79,7 @@ class _LensRowState extends State<LensRow> with SingleTickerProviderStateMixin {
       widget.widths?.call(total, sel) ?? List.filled(widget.count, total / widget.count);
 
   (double, double) _rect(List<double> w, int i) {
+    if (i < 0 || i >= w.length) return (0, 0);
     var l = 0.0;
     for (var k = 0; k < i; k++) {
       l += w[k];
@@ -108,6 +109,7 @@ class _LensRowState extends State<LensRow> with SingleTickerProviderStateMixin {
         return GestureDetector(
           behavior: HitTestBehavior.translucent,
           onHorizontalDragStart: (d) {
+            if (_to < 0) return;
             final w = _w(total, _to);
             _dragStart = _rect(w, _to).$1;
             _x0 = d.localPosition.dx;
@@ -115,7 +117,7 @@ class _LensRowState extends State<LensRow> with SingleTickerProviderStateMixin {
           },
           onHorizontalDragUpdate: (d) {
             final dx = d.localPosition.dx - _x0;
-            if (!_moved && dx.abs() < 7) return;
+            if (_to < 0 || (!_moved && dx.abs() < 7)) return;
             _moved = true;
             final w = _w(total, _to);
             final lw = w[_to];
@@ -131,9 +133,9 @@ class _LensRowState extends State<LensRow> with SingleTickerProviderStateMixin {
               final wFrom = _w(total, _from), wTo = _w(total, _to);
               final w = [for (var k = 0; k < widget.count; k++) ui.lerpDouble(wFrom[k], wTo[k], Curves.easeOutCubic.transform(t))!];
               final rTo = _rect(wTo, _to);
-              final rFrom = _fromDrag ? (_fromLeft, wFrom[_from]) : _rect(wFrom, _from);
+              final rFrom = _from < 0 ? rTo : (_fromDrag ? (_fromLeft, wFrom[_from]) : _rect(wFrom, _from));
               double left, width;
-              if (_dragL != null) {
+              if (_dragL != null && _to >= 0) {
                 left = _dragL!;
                 width = wTo[_to];
               } else {
@@ -150,6 +152,7 @@ class _LensRowState extends State<LensRow> with SingleTickerProviderStateMixin {
                   child: Stack(
                     clipBehavior: Clip.none,
                     children: [
+                      if (_to >= 0)
                       Positioned(
                         left: left,
                         width: width,

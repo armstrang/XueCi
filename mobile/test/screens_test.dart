@@ -143,6 +143,10 @@ void runs() {
       }
     });
   });
+  testWidgets('stats', (t) async {
+    await t.runAsync(() => bootApp(sample()));
+    await shot(t, 'stats', before: () => app.go('stats'));
+  });
   testWidgets('mock intro', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_ui': '{"level":3,"qt":"mock"}'}));
     await shot(t, 'mock-intro', before: () => app.go('quiz'));
