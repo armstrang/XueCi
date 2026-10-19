@@ -958,6 +958,15 @@ class PlanCard extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 12),
+                // a short way in on a slow day: about two minutes of today's practice
+                if (todo && min >= 4) ...[
+                  GChip(
+                    label: t.quickL,
+                    onTap: () => app.startSession(false, quick: true),
+                    child: Text('2′', style: F.s(14, w: FontWeight.w800, c: p.dark ? p.fg : th.acc, feat: F.tab)),
+                  ),
+                  const SizedBox(width: 8),
+                ],
                 btn,
               ],
             ),

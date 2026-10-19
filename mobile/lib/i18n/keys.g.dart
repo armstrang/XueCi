@@ -130,7 +130,6 @@ mixin L10Keys {
   String get credit => s('credit');
   String cultV(Object? a0) => f('cultV', [a0]);
   String get dCloze => s('dCloze');
-  String dExam(Object? a0, Object? a1) => f('dExam', [a0, a1]);
   String get dHz => s('dHz');
   String get dListen => s('dListen');
   String get dMean => s('dMean');
@@ -152,7 +151,6 @@ mixin L10Keys {
   String get etaL => s('etaL');
   String etaNext(Object? a0) => f('etaNext', [a0]);
   String get etaNone => s('etaNone');
-  String examScore(Object? a0, Object? a1, Object? a2) => f('examScore', [a0, a1, a2]);
   String get fcAllDone => s('fcAllDone');
   String fcBehind(Object? a0) => f('fcBehind', [a0]);
   String get fcDont => s('fcDont');
@@ -223,6 +221,8 @@ mixin L10Keys {
   String get insT => s('insT');
   String insWeak(Object? a0) => f('insWeak', [a0]);
   String insightV(Object? a0) => f('insightV', [a0]);
+  String get jdDiff => s('jdDiff');
+  String get jdSame => s('jdSame');
   String get langHead => s('langHead');
   String get level => s('level');
   String get list => s('list');
@@ -265,6 +265,8 @@ mixin L10Keys {
   String mkIntroT(Object? a0) => f('mkIntroT', [a0]);
   String mkLast(Object? a0, Object? a1, Object? a2) => f('mkLast', [a0, a1, a2]);
   String get mkLeave => s('mkLeave');
+  String get mkLenFull => s('mkLenFull');
+  String get mkLenShort => s('mkLenShort');
   String mkNeed(Object? a0, Object? a1) => f('mkNeed', [a0, a1]);
   String get mkNoTts => s('mkNoTts');
   String get mkNone => s('mkNone');
@@ -304,6 +306,8 @@ mixin L10Keys {
   String get orbEmpty => s('orbEmpty');
   String get orbHint => s('orbHint');
   String orbL(Object? a0) => f('orbL', [a0]);
+  String get orderClear => s('orderClear');
+  String get orderDone => s('orderDone');
   Map<String, dynamic> get partN => (v('partN') as Map?)?.cast<String, dynamic>() ?? const {};
   String get pathM => s('pathM');
   String perWeek(Object? a0) => f('perWeek', [a0]);
@@ -324,6 +328,8 @@ mixin L10Keys {
   String planRev(Object? a0) => f('planRev', [a0]);
   String get planSet => s('planSet');
   String get planT => s('planT');
+  String get playDone => s('playDone');
+  String playN(Object? a0) => f('playN', [a0]);
   String practiced(Object? a0) => f('practiced', [a0]);
   String get prepNote => s('prepNote');
   String prepT(Object? a0, Object? a1) => f('prepT', [a0, a1]);
@@ -354,14 +360,26 @@ mixin L10Keys {
   String get pyPh => s('pyPh');
   String get pyToneless => s('pyToneless');
   String get qCloze => s('qCloze');
+  String get qHeard => s('qHeard');
+  String get qHeardT => s('qHeardT');
   String get qHz => s('qHz');
+  String get qJudge => s('qJudge');
   String get qListen => s('qListen');
   String get qMean => s('qMean');
   String qN(Object? a0, Object? a1) => f('qN', [a0, a1]);
+  String get qOrder => s('qOrder');
   String get qPy => s('qPy');
+  String get qPyHz => s('qPyHz');
   String get qTone => s('qTone');
   String get qTrans => s('qTrans');
   String get qTypeL => s('qTypeL');
+  String get qtLj => s('qtLj');
+  String get qtLs => s('qtLs');
+  String get qtLt => s('qtLt');
+  String get qtWh => s('qtWh');
+  String get qtWo => s('qtWo');
+  String get quickL => s('quickL');
+  String get quickMore => s('quickMore');
   String get quiz => s('quiz');
   String get rLine0 => s('rLine0');
   List<dynamic> get realmD => v('realmD') as List<dynamic>? ?? const [];
@@ -479,7 +497,6 @@ mixin L10Keys {
   String get sumUp => s('sumUp');
   String get sumWrong => s('sumWrong');
   String get tCloze => s('tCloze');
-  String get tExam => s('tExam');
   String get tHz => s('tHz');
   String get tListen => s('tListen');
   String get tMean => s('tMean');

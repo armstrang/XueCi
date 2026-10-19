@@ -386,10 +386,11 @@ class Tile extends StatelessWidget {
   final Widget child;
   final EdgeInsetsGeometry? margin, padding;
   final double radius;
-  const Tile({super.key, required this.child, this.margin, this.padding, this.radius = 14});
+  final Color? color;
+  const Tile({super.key, required this.child, this.margin, this.padding, this.radius = 14, this.color});
   @override
   Widget build(BuildContext context) => Padding(
     padding: margin ?? EdgeInsets.zero,
-    child: Glass(inner: true, solid: true, radius: radius, padding: padding, shadow: const [], child: child),
+    child: Glass(inner: true, solid: true, radius: radius, padding: padding, color: color, shadow: const [], child: child),
   );
 }

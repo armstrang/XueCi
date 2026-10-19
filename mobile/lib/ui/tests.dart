@@ -191,7 +191,7 @@ class _QCardState extends State<_QCard> {
     final t = app.t;
     final it = widget.it;
     final busy = widget.pick != null;
-    final c = <Widget>[qPrompt(context, it, exam: true)];
+    final c = <Widget>[qPrompt(context, it, aid: 'test')];
     if (it.q == 'p') {
       c.addAll([
         const SizedBox(height: 12),

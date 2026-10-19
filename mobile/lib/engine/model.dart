@@ -88,7 +88,8 @@ class QMat {
   final List<List<String>>? tones;
   final int ans;
   final bool typed;
-  const QMat({this.words, this.tones, this.ans = -1, this.typed = false});
+  final List<String>? parts; // sentence building: the pieces, shuffled
+  const QMat({this.words, this.tones, this.ans = -1, this.typed = false, this.parts});
 }
 
 /// One step of a run (Cards, Quiz, today's session, a test). The engine fills in what it chooses; the screens keep
@@ -96,7 +97,7 @@ class QMat {
 class Item {
   final String k; // 'card' or 'q'
   final Word d;
-  String? q; // m f s l c p t (cm cs for card checks)
+  String? q; // m f s l c p t (cm cs for card checks); HSK simulation only: ls lt lj wh wo
   bool isNew;
   String? part; // HSK simulation part: listen / read / write
   String? strike; // tribulation strike
@@ -104,6 +105,7 @@ class Item {
   int? l; // level the question tests (placement, tribulation)
   List<Word>? words;
   List<List<String>>? tones;
+  List<String>? parts;
   int ans = -1;
   bool typed = false;
   String? r; // test answer: ok / ng / idk
@@ -125,6 +127,7 @@ class Item {
   bool heard = false;
   bool timedOut = false;
   Object? alt;
+  int plays = 0; // the simulation's listening: times the sentence was played
 
   Item.card(this.d, {this.isNew = false}) : k = 'card';
   Item.q(this.d, String this.q, {this.part, this.strike, this.l, this.limit}) : k = 'q', isNew = false;
@@ -134,6 +137,7 @@ class Item {
     tones = m.tones;
     ans = m.ans;
     typed = m.typed;
+    parts = m.parts;
   }
 
   /// a fresh copy for asking the same word again later in the run

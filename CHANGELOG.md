@@ -39,8 +39,19 @@ same progress, every screen drawn natively, with a new look that is easier to re
 ### Changed
 - The app's wording was rewritten to sound like a person, not a manual: shorter sentences, plain words, and
   explanations that say what to do (Indonesian and English first).
-- Quiz: the Guided type is gone. Pick the type you want (Recognise is the default); today's session on Home still
-  chooses the words and question types for you.
+- Quiz: the Guided type and the Quick exam are gone (the HSK mock exam covers what the Quick exam did). Pick the
+  type you want (Recognise is the default); today's session on Home still chooses the words and question types for
+  you.
+- The HSK mock exam was rebuilt after the new HSK 3.0 paper: the real number of questions per section, a clock for
+  each section, and new kinds of question: hear a sentence and pick the word in it, its meaning, or whether a
+  written sentence matches it (each sentence plays twice at most); put pieces in order to make a sentence; pick the
+  character for the pinyin in brackets. HSK 1–2 show pinyin like the real paper. Choose the full paper or a short
+  one (a third as long).
+- Sentence gaps help by level: HSK 1–2 show the meaning and pinyin, HSK 3–4 the meaning, HSK 5 and up the sentence
+  alone. Once a word is getting strong, the help fades. This help no longer costs the answer its credit; asking
+  for the translation yourself still does. The placement test shows the meaning for HSK 1–4 too.
+- After several misses in a row, a word you know well comes next, so a hard run doesn't turn into a losing streak.
+- A "2′" button next to today's practice: about two minutes, six reviews, for days with little time.
 - Every screen is drawn natively instead of in a web page: Home, the word list, Cards, Quiz, the daily session, the
   HSK mock exam, Stats, the Soul Sea (its orb and the five-element ring), the realm sheet, the placement test and the
   tribulation with its lightning, Settings and the help guide. They work as before.

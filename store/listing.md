@@ -41,7 +41,7 @@ KARTU YANG MENGUJI
 Bilang "Saya tahu"? Buktikan dulu dengan cek kilat (pilih arti atau pinyin yang benar) sebelum kartu dibalik. Yakin tapi keliru membuat kata itu lebih cepat muncul lagi.
 
 KUIS SESUKAMU
-Kenali arti, ingat hanzi, nada, dengar, isi kalimat, ketik pinyin, dan terjemahan. Pilihan jawaban makin mirip saat kamu makin mahir. Ada juga ujian kilat dan simulasi HSK yang dinilai dan dibahas di akhir.
+Kenali arti, ingat hanzi, nada, dengar, isi kalimat, ketik pinyin, dan terjemahan. Pilihan jawaban makin mirip saat kamu makin mahir. Ada juga simulasi HSK yang mengikuti susunan ujian HSK 3.0, dengan versi lengkap atau pendek, dinilai dan dibahas di akhir.
 
 MODEL MEMORI DI HP-MU
 Jadwal ulangan dihitung dengan FSRS, model memori open source, lalu disesuaikan dengan pola ingatanmu sendiri. Semua perhitungan dilakukan di HP, tanpa server.
@@ -98,7 +98,7 @@ FLASHCARDS THAT CHECK YOU
 Say "I know it"? Prove it first with a quick check (pick the right meaning or pinyin) before the card flips. Being sure but wrong brings the word back sooner.
 
 A QUIZ YOUR WAY
-Recognise the meaning, recall the hanzi, tones, listening, sentence gaps, typed pinyin and translation. The options get trickier as you improve. There is a quick exam and an HSK mock exam that is marked and explained at the end too.
+Recognise the meaning, recall the hanzi, tones, listening, sentence gaps, typed pinyin and translation. The options get trickier as you improve. There is also an HSK mock exam laid out like the HSK 3.0 paper, full or short, marked and explained at the end.
 
 A MEMORY MODEL ON YOUR PHONE
 Reviews are scheduled with FSRS, an open-source memory model, which then adapts to how you remember. Everything is worked out on your phone, with no server.

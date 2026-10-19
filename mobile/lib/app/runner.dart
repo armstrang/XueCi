@@ -6,7 +6,6 @@ library;
 import 'dart:async';
 import 'dart:math' as math;
 
-import '../data/pinyin.dart';
 import '../data/words.dart';
 import '../engine/learn.dart';
 import '../engine/model.dart';
@@ -14,7 +13,7 @@ import '../i18n/l10.dart';
 import 'app.dart';
 import 'native.dart';
 
-const examN = 20, examSec = 300, roundQ = 12, roundC = 20;
+const roundQ = 12, roundC = 20;
 
 int nowMs() => DateTime.now().millisecondsSinceEpoch;
 
@@ -28,6 +27,9 @@ class MockRun {
   List<({String t, String? bk, String? bl})> adv = [];
   double used = 0;
   int warned = 0;
+  String? sec; // the section whose clock runs
+  int secT0 = 0;
+  final Set<String> late = {}; // sections that ran out of time
   MockRun(this.m);
 }
 
@@ -49,12 +51,15 @@ class Run {
   final int lv;
   final void Function(int right, int words)? after;
   final MockRun? mock;
-  int? end; // the exam clock (ms)
+  int? end; // the clock of the simulation's section (ms)
   Timer? timer;
   bool timeUp = false, closed = false;
   List<String> notes = [];
   Brk? brk;
   Timer? brT;
+  bool quick = false; // today's practice, the two-minute version
+  final List<bool> recent = []; // answers in this run, for the easy word after a run of misses
+  int eased = 0, easedAt = -9;
   Run(this.mode, this.items, {this.exam = false, required this.lv, this.after, this.mock});
   Item? get cur => i < items.length ? items[i] : null;
 }
@@ -107,22 +112,45 @@ class Runner {
       items = [for (final d in lm.cardDeck(a.pool(), roundC)) Item.card(d)];
     } else if (mode == 'session') {
       items = lm.session(a.sessionExtra);
-    } else if (a.qType == 'exam') {
-      exam = true;
-      items = lm.exam(lv, examN);
+      if (a.sessionQuick) items = quickOf(items);
     } else if (a.qType == 'mock') {
       exam = true;
-      mock = MockRun(lm.mockExam(lv));
+      mock = MockRun(lm.mockExam(lv, short: a.mockShort));
       items = mock.m.items;
     } else {
       items = lm.quizRound(a.pool(), roundQ, a.qType);
     }
-    final r = run = Run(mode, items, exam: exam, lv: lv, after: after, mock: mock);
-    if (exam && mock == null) {
-      r.end = nowMs() + examSec * 1000;
-      r.timer = Timer.periodic(const Duration(seconds: 1), (_) => tick());
+    return run = Run(mode, items, exam: exam, lv: lv, after: after, mock: mock)..quick = mode == 'session' && a.sessionQuick;
+  }
+
+  /// two minutes: six of today's reviews (or, with none due, the first two new words and what comes with them)
+  static List<Item> quickOf(List<Item> all) {
+    final q = all.where((it) => it.k == 'q').take(6).toList();
+    if (q.length >= 4) return q;
+    final out = <Item>[];
+    var cards = 0;
+    for (final it in all) {
+      if (it.k == 'card' && ++cards > 2) break;
+      out.add(it);
     }
-    return r;
+    return out;
+  }
+
+  /// after several misses in a row, a word the learner is sure of comes next: a quick win keeps the run going
+  /// (at most four times a run, not in tests)
+  void _ease(Run r, bool ok) {
+    if (r.exam) return;
+    r.recent.add(ok);
+    final n = r.recent.length;
+    if (n < 6 || r.eased >= 4 || r.i - r.easedAt < 3) return;
+    final last = r.recent.sublist(math.max(0, n - 8));
+    if (last.where((x) => x).length / last.length >= .7) return;
+    final skip = {for (final it in r.items) it.d.id};
+    final d = lm.easyWord(r.mode == 'session' ? lm.data : a.pool(), skip);
+    if (d == null) return;
+    r.items.insert(math.min(r.items.length, r.i + 1), r.mode == 'card' ? Item.card(d) : Item.q(d, 'm'));
+    r.eased++;
+    r.easedAt = r.i;
   }
 
   /// the run of the screen, made when needed; the item to show next (null = the summary)
@@ -130,14 +158,47 @@ class Runner {
 
   void tick() {
     final r = run;
-    if (r == null || !r.exam || r.end == null) return;
+    final m = r?.mock;
+    if (r == null || m == null || r.end == null || m.sec == null) return;
     if (nowMs() >= r.end!) {
-      r.timer?.cancel();
-      r.timer = null;
+      // time's up for this section: what's left in it counts as unanswered, the next section waits for its start
+      final k = m.sec!;
+      for (final it in r.items.where((x) => x.part == k && !x.done)) {
+        it.done = true;
+        it.ok = false;
+      }
+      m.late.add(k);
       r.timeUp = true;
-      r.i = r.items.length;
+      while (r.i < r.items.length && r.items[r.i].part == k) {
+        r.i++;
+      }
+      _secEnd();
       a.changed();
     }
+  }
+
+  /// the section's clock stops: its time goes to the time used
+  void _secEnd() {
+    final r = run!, m = r.mock!;
+    if (m.sec == null) return;
+    r.timer?.cancel();
+    r.timer = null;
+    r.end = null;
+    final p = m.m.parts.firstWhere((x) => x.k == m.sec);
+    m.used += math.min(p.sec.toDouble(), (nowMs() - m.secT0) / 1000);
+    m.sec = null;
+  }
+
+  /// a section of the simulation starts: its own clock, like the real paper
+  void mockPart(String k) {
+    final r = run!, m = r.mock!;
+    m.shown.add(k);
+    m.sec = k;
+    m.secT0 = nowMs();
+    r.end = nowMs() + m.m.parts.firstWhere((x) => x.k == k).sec * 1000;
+    r.timer?.cancel();
+    r.timer = Timer.periodic(const Duration(seconds: 1), (_) => tick());
+    a.changed();
   }
 
   int secondsLeft() {
@@ -256,6 +317,7 @@ class Runner {
       r.wrong[it.d.id] = it.d;
     }
     noteAns(ok, nowMs() - it.t0);
+    _ease(r, ok);
     studied();
     a.changed();
   }
@@ -346,11 +408,12 @@ class Runner {
     it.pick = i;
     final ok = i == -2 || (i >= 0 && i == it.ans);
     it.ok = ok;
-    final x = !ok && i >= 0 && it.q != 's' && it.q != 't' && it.words != null ? it.words![i].id : null;
+    final x = !ok && i >= 0 && !const {'s', 't', 'lt', 'lj'}.contains(it.q) && it.words != null ? it.words![i].id : null;
     final ms = nowMs() - it.t0;
-    lm.answer(it.d, Ans(it.q!, ok, ms: ms, x: x, exam: r.exam, hint: it.hint));
+    lm.answer(it.d, Ans(LM.logQ(it.q!), ok, ms: ms, x: x, exam: r.exam, hint: it.hint));
     r.tot++;
     if (!r.exam) noteAns(ok, ms);
+    _ease(r, ok);
     if (ok) {
       r.ok++;
     } else {
@@ -359,8 +422,20 @@ class Runner {
       again(it, Item.q(it.d, it.q!));
     }
     studied();
-    if (r.exam) r.i++;
+    if (r.exam) {
+      r.i++;
+      final m = r.mock;
+      if (m != null && m.sec != null && (r.cur == null || r.cur!.part != m.sec)) _secEnd();
+    }
     a.changed();
+  }
+
+  /// sentence building: the pieces in the order tapped
+  void qOrder(Item it, List<String> picked) {
+    if (it.done) return;
+    it.typedText = picked.join();
+    final want = RegExp(r'[。！？!?.]+$').hasMatch(it.d.z.trim()) ? it.d.z.trim().replaceAll(RegExp(r'[。！？!?.]+$'), '') : it.d.z.trim();
+    qAnswer(it, picked.isNotEmpty && it.typedText == want ? -2 : -3);
   }
 
   /// the learner says their wrong pick also fits the sentence: taken back, the two never offered together again
@@ -446,8 +521,15 @@ class Runner {
     final m = run!.mock!;
     m.started = true;
     m.t0 = nowMs();
-    run!.end = nowMs() + m.m.sec * 1000;
-    run!.timer = Timer.periodic(const Duration(seconds: 1), (_) => tick());
+    a.changed();
+  }
+
+  /// the full paper or the short one (a third of it, same sections)
+  void mockLength(bool short) {
+    if (a.mockShort == short) return;
+    a.mockShort = short;
+    a.saveUI();
+    reset();
     a.changed();
   }
 
@@ -455,8 +537,8 @@ class Runner {
     final r = run!;
     final m = r.mock!;
     if (m.r != null) return;
+    _secEnd();
     r.timer?.cancel();
-    m.used = math.min(m.m.sec.toDouble(), (nowMs() - m.t0) / 1000);
     m.r = lm.mockScore(m.m);
     final prev = lm.mocks.where((x) => x[1] == m.m.L).toList();
     m.prev = prev.isEmpty ? null : prev.last;
@@ -490,18 +572,19 @@ class Runner {
     if (weak != null && weak.score < 85 && r.parts.length > 1) {
       out.add((t: l10f((mA['part'] as Map)[weak.k], [weak.score]), bk: 'part:${weak.k}', bl: f('partBtn')));
     }
-    int ng(String q) => wrong.where((it) => it.q == q).length;
-    int of(String q) => m.m.items.where((it) => it.q == q).length;
-    if (of('c') > 0 && ng('c') / of('c') >= .34) out.add((t: f('cloze'), bk: null, bl: null));
-    if (of('t') > 0 && ng('t') / of('t') >= .34) out.add((t: f('trans'), bk: null, bl: null));
-    final py = wrong.where((it) => it.q == 'p' && (it.typedText ?? '').isNotEmpty);
-    if (py.any((it) => plain(it.typedText!.replaceAll(RegExp('[1-5]'), '')) == plain(it.d.p))) {
-      out.add((t: f('tone'), bk: null, bl: null));
+    bool hard(Set<String> q) {
+      final n = m.m.items.where((it) => q.contains(it.q)).length;
+      return n > 0 && wrong.where((it) => q.contains(it.q)).length / n >= .34;
     }
+
+    if (hard({'c'})) out.add((t: f('cloze'), bk: null, bl: null));
+    if (hard({'t', 'lt'})) out.add((t: f('trans'), bk: null, bl: null));
+    if (hard({'wo'})) out.add((t: f('order'), bk: null, bl: null));
+    if (hard({'wh'})) out.add((t: f('hz'), bk: null, bl: null));
     final older = wrong.where((it) => it.d.l < L).length;
     if (older >= 2) out.add((t: f('older', [older, L]), bk: null, bl: null));
     if (run!.timeUp) {
-      out.add((t: f('time'), bk: 'exam', bl: f('examBtn')));
+      out.add((t: f('time'), bk: null, bl: null));
     } else if (m.used < m.m.sec * .35 && pct < .7) {
       out.add((t: f('fast'), bk: null, bl: null));
     }
@@ -511,10 +594,16 @@ class Runner {
     return out;
   }
 
+  /// the practice kind for a simulation question
+  String practiceQ(String q) {
+    final p = const {'ls': 'l', 'lj': 'l', 'lt': 't', 'wh': 'f', 'wo': 'c'}[q] ?? q;
+    return p == 'l' && !ttsOK ? 'm' : p;
+  }
+
   /// a practice round from the exam's mistakes (the quiz type goes back to Recognise)
   void mockPractice(List<Item> items) {
     if (items.isEmpty) return;
-    pending = Pending('quiz', [for (final it in items) Item.q(it.d, it.q == 'l' && !ttsOK ? 'm' : it.q!)]);
+    pending = Pending('quiz', [for (final it in items) Item.q(it.d, practiceQ(it.q!))]);
     a.qType = 'm';
     a.saveUI();
     reset();

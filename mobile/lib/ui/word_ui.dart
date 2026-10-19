@@ -85,12 +85,14 @@ class MeanText extends StatelessWidget {
   }
 }
 
-/// the example sentence with the learned word marked
+/// the example sentence with the learned word marked (or as a gap, or with other text in its place: [fill])
 class ExampleText extends StatelessWidget {
   final Word d;
   final double size;
   final bool gap;
-  const ExampleText(this.d, {super.key, this.size = 15, this.gap = false});
+  final String? fill;
+  final bool plainFill;
+  const ExampleText(this.d, {super.key, this.size = 15, this.gap = false, this.fill, this.plainFill = false});
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
@@ -103,7 +105,9 @@ class ExampleText extends StatelessWidget {
       TextSpan(
         children: [
           TextSpan(text: z.substring(0, i)),
-          gap
+          fill != null
+              ? TextSpan(text: fill, style: plainFill ? null : TextStyle(color: th.acc, fontWeight: FontWeight.w700))
+              : gap
               ? TextSpan(text: '＿＿', style: TextStyle(color: th.acc, fontWeight: FontWeight.w700))
               : TextSpan(text: w, style: TextStyle(fontWeight: FontWeight.w700, backgroundColor: p.mark)),
           TextSpan(text: z.substring(i + w.length)),
@@ -115,12 +119,13 @@ class ExampleText extends StatelessWidget {
   }
 }
 
-/// the sentence's pinyin (zp), the learned word {in braces} in the level's colour (or as a gap)
+/// the sentence's pinyin (zp), the learned word {in braces} in the level's colour (or as a gap, or [fill] instead)
 class ZpText extends StatelessWidget {
   final Word d;
   final bool gap;
   final bool plainWord;
-  const ZpText(this.d, {super.key, this.gap = false, this.plainWord = false});
+  final String? fill;
+  const ZpText(this.d, {super.key, this.gap = false, this.plainWord = false, this.fill});
   @override
   Widget build(BuildContext context) {
     final zp = d.zp;
@@ -129,6 +134,7 @@ class ZpText extends StatelessWidget {
     final p = th.p;
     final m = RegExp(r'\{([^}]*)\}').firstMatch(zp);
     final st = F.s(12.5, c: p.soft, h: 1.45);
+    if (m != null && fill != null) return Text(zp.substring(0, m.start) + fill! + zp.substring(m.end), style: st);
     if (m == null || plainWord) return Text(zp.replaceAll(RegExp('[{}]'), ''), style: st);
     return Text.rich(
       TextSpan(

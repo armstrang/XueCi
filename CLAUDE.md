@@ -96,15 +96,20 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - **Engine `LM`**: FSRS-5 with one state per word (`w`, drives schedule and level) and per skill (`m` meaning, `f`
   form/recall + sentence, `s` sound/tones + listening). Level = round(20·ln(1+S)/ln 121), capped at 13 until `f` and
   `s` were passed. `LM.answer(...)` is the only way answers are recorded. `plan(goal)`, `session()`, `cardDeck()`,
-  `quizRound()`, `exam()`, `question(d, q)` (look-alike distractors). `optimize()` fits the parameters to the
+  `quizRound()`, `mockExam()`, `question(d, q)` (look-alike distractors). `optimize()` fits the parameters to the
   learner's reviews (≥100, pulled towards the defaults), at most daily. `modelCheck()` shows predicted vs real recall.
   Mastery bands: 0–6 red, 7–13 yellow, 14–20 green; **solid** = level ≥10 + passed `f` and `s`.
 - **Runs** (`runner.dart`): Cards, Quiz and the session share one `Run` of items. Cards: "Don't know" / "I know it" →
   adaptive quick check → back side; "I was wrong" undoes an unchecked claim. Quiz types `m`, `f`, `s`, `l`, `c`, `p`
   (typed pinyin: tone numbers or marks, ü as v, same-meaning words accepted), `t` (sentence → translation, multiple
-  choice), `exam` (20 questions, 5 min), `mock`. The Guided type was removed (Josh); a saved `auto` falls back to `m`.
-  Wrong items come back 4 items later (max twice). Sentence gaps hide the translation until answered; *Show
-  translation* = no skill credit; *My choice fits too* (3/day) undoes and marks the pair.
+  choice), `mock`. Guided and the Quick exam were removed (Josh); a saved `auto`/`exam` falls back to `m`.
+  Wrong items come back 4 items later (max twice). **Sentence-gap help by level** (Josh: beginners give up or cheat;
+  change how questions are asked, never the word lists): HSK 1–2 meaning + pinyin, 3–4 meaning, ≥5 the sentence
+  alone (`clozeAid` in `run_view.dart`); in practice the help fades as the word gets strong (pinyin off from level 7,
+  meaning from 14); tests keep the level's help (placement counts helped gaps as easier, `itemB`); this help keeps
+  full credit, *Show translation* = no skill credit; *My choice fits too* (3/day) undoes and marks the pair. After
+  misses (<70 % of the last 8), a well-known word comes next (`_ease`, ≤4 per run, not in tests). **2′** on Home =
+  six of today's reviews (`quickOf`).
 - **Realms** (Josh's cultivator idea): 凡人 (0, untested), 炼气 筑基 金丹 元婴 化神 渡劫 (1–6 = HSK 1–6), 飞升 (7). Only
   tests change the realm. Stages 初期/中期/后期/圆满 = progress <25/25–50/50–80/≥80 %, progress = (solid words + ½ × the
   placement estimate for the rest) ÷ the level's words. One test a week (placement or breakthrough); leaving after 10
@@ -123,8 +128,14 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   week keep the streak), rest numbers, realm history, the cultivation card (1080×1350 PNG, shared via the phone).
 - **Rest**: one 调息 break offer per sitting (accuracy drop, slowing, or 25 min) with a breathing guide; meditation days
   (0–2 weekdays: no plan, reminder quiet, reviews pulled a day earlier); late-night note; welcome back after ≥2 days.
-- **HSK mock exam**: parts 听力/阅读/书写 like the real exam, one clock, no feedback until the end; then each part /100,
-  pass mark 60 %, every question reviewed, advice with practice buttons; history in `xc_mock`.
+- **HSK mock exam** (Josh: like the real exam; the **HSK 3.0** paper): `LM.mockPaper` = questions and minutes per
+  section (听力/阅读/书写; HSK 1 has no writing; HSK 5–6 essays are replaced by sentence building), full or short (⅓,
+  `mks` in `hsk16_ui`). Each section has its own clock, starting at its intro; time up = the rest of it unanswered.
+  Kinds: `l`, `ls` (word heard in a sentence), `lj` (same/different: a written sentence, maybe with one word swapped),
+  `lt` (meaning heard), `m`, `c`, `t`, `wo` (pieces in order; cut by the sentence's pinyin, `LM.pieces`), `wh`
+  (hanzi for the pinyin in brackets, sound-alike options). Sentences play twice at most; HSK 1–2 print pinyin. The
+  log keeps them as `l`/`f`/`c` (`LM.logQ`). No feedback until the end; each section /100, pass 60 % (HSK 3.0 marks
+  unpublished), every question reviewed, advice with practice buttons; history in `xc_mock` (+1 = short).
 - **Backup**: one line `XUECI1:` + base64url(deflate-raw(JSON)) (`XUECI0:` uncompressed) with progress, memory states,
   goal, fitted parameters, realm, rest days, tests, mock history and study days (not the answer log). Restore finds the
   code in any pasted text, checks every entry, shows a summary, applies in place. A quiet dot on Settings when ≥30 words

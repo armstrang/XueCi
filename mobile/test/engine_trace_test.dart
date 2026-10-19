@@ -85,6 +85,24 @@ Object qmatI(Item it) => it.typed
 
 Object? memJ(Map<String, Mem> m) => json.decode(jsJson(m.map((k, v) => MapEntry(k, v.toJson()))));
 
+/// the quick exam the app once had (removed in 1.0): one recorded run still calls it, so it lives on here
+List<Item> quickExam(LM lm, int lv, int n) {
+  final src = lm.data.where((d) => d.l <= lv).toList();
+  final out = <Item>[];
+  final seen = <String>{};
+  while (out.length < n && seen.length < src.length) {
+    final d = src[(lm.R() * src.length).floor()];
+    if (seen.contains(d.id)) continue;
+    seen.add(d.id);
+    final x = lm.R();
+    var q = x < 0.3 ? 'm' : (x < 0.55 ? 'f' : (x < 0.75 ? 's' : 'c'));
+    if (q == 'c' && !LM.clozeOK(d)) q = 'f';
+    if (q == 's' && lm.ttsReady() && lm.R() < 0.4) q = 'l';
+    out.add(Item.q(d, q));
+  }
+  return out;
+}
+
 class Replay {
   final Map<String, dynamic> tr;
   late int ms;
@@ -153,7 +171,7 @@ class Replay {
       case 'quizRound':
         return itemsJ(lm.quizRound(pool(a), a['n'], a['type']));
       case 'exam':
-        return itemsJ(lm.exam(a['lv'], a['n']));
+        return itemsJ(quickExam(lm, a['lv'], a['n']));
       case 'setGoal':
         lm.setGoal(a);
         return null;
@@ -285,10 +303,10 @@ class Replay {
       case 'stabDone':
         return lm.stabDone(a['right'], a['total']);
       case 'mockExam':
-        final m = mock = lm.mockExam(a['L']);
+        final m = mock = lm.mockExam(a['L'], short: a['short'] == true);
         return {
           'L': m.L,
-          'parts': [for (final p in m.parts) {'k': p.k, 'n': p.n}],
+          'parts': [for (final p in m.parts) {'k': p.k, 'n': p.n, 'sec': p.sec}],
           'sec': m.sec,
           'skipped': m.skipped,
           'items': itemsJ(m.items),
@@ -337,6 +355,7 @@ void main() {
   for (final f in files) {
     test('engine trace ${f.uri.pathSegments.last}', () async {
       final tr = json.decode(f.readAsStringSync()) as Map<String, dynamic>;
+      final update = (Platform.environment['TRACE_UPDATE'] ?? '').split(',').contains(f.uri.pathSegments.last);
       final r = Replay(tr);
       final ops = tr['ops'] as List;
       var fails = 0;
@@ -355,7 +374,13 @@ void main() {
         if (d != null) {
           fails++;
           if (msgs.length < 8) msgs.add(d);
+          if (update) o['o'] = got;
         }
+      }
+      // a deliberate engine change: TRACE_UPDATE=band.json,… records the new results (check the diff by hand)
+      if (update && fails > 0) {
+        f.writeAsStringSync(jsJson(tr));
+        return;
       }
       expect(msgs, isEmpty, reason: '$fails of ${ops.length} calls differ:\n${msgs.join('\n')}');
     });

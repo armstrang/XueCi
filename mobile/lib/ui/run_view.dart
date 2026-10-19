@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import '../app/app.dart';
 import '../app/runner.dart';
 import '../data/words.dart';
+import '../engine/learn.dart';
 import '../engine/model.dart';
 import '../i18n/l10.dart';
 import 'focus.dart';
@@ -38,7 +39,6 @@ Map<String, (String, String, String)> qtNames() {
     'c': (t.tCloze, t.dCloze, '汉＿'),
     'p': (t.tPy, t.dPy, 'pīn'),
     't': (t.tTrans, t.dTrans, '句→a'),
-    'exam': (t.tExam, t.dExam(examN, examSec ~/ 60), '考'),
     'mock': (t.tMock, t.dMock, '模'),
   };
 }
@@ -50,8 +50,27 @@ String tName(String q) => switch (q) {
   'l' => app.t.tListen,
   'c' => app.t.tCloze,
   'p' => app.t.tPy,
+  'ls' => app.t.qtLs,
+  'lt' => app.t.qtLt,
+  'lj' => app.t.qtLj,
+  'wo' => app.t.qtWo,
+  'wh' => app.t.qtWh,
   _ => app.t.tTrans,
 };
+
+/// how much help a sentence gap gets. The word's HSK level sets it: 1–2 the meaning and pinyin, 3–4 the meaning,
+/// 5 up the sentence alone. In practice a word getting strong lets it go (pinyin from level 7, the meaning from 14).
+/// Tests keep the level's help; the HSK simulation prints pinyin up to HSK 2, like the real paper.
+({bool py, bool tr}) clozeAid(Word d, String aid) {
+  if (aid == 'mock') return (py: d.l <= 2, tr: false);
+  var py = d.l <= 2, tr = d.l <= 4;
+  if (aid == 'practice') {
+    final v = app.lvl(d);
+    if (v >= 7) py = false;
+    if (v >= 14) tr = false;
+  }
+  return (py: py, tr: tr);
+}
 
 /// pinyin syllables written as one word (an apostrophe before a, e, o)
 String pyOpt(List<String> a) {
@@ -219,8 +238,7 @@ class _RunHead extends StatelessWidget {
             const SizedBox(width: 6),
             Text('${its.indexOf(it) + 1}/${its.length}', style: small),
             const Spacer(),
-            const _Clock(),
-            const SizedBox(width: 12),
+            if (m.sec == k) ...[const _Clock(), const SizedBox(width: 12)],
             Text(t.qN(r.i + 1, n), style: small),
           ],
         ),
@@ -769,7 +787,7 @@ class _QViewState extends State<_QView> {
   void initState() {
     super.initState();
     final it = widget.it;
-    if (it.q == 'l' && !it.heard && app.ttsOK) {
+    if (it.q == 'l' && !it.heard && app.ttsOK && widget.r.mock == null) {
       it.heard = true;
       Timer(const Duration(milliseconds: 250), () {
         if (mounted && !it.done) speak(it.d.h);
@@ -804,9 +822,13 @@ class _QViewState extends State<_QView> {
     final ok = it.ok == true;
     final children = <Widget>[];
     // the prompt
-    children.add(qPrompt(context, it, exam: r.exam));
-    // the options or the typing box
-    if (q == 'p') {
+    final aid = r.mock != null ? 'mock' : 'practice';
+    children.add(qPrompt(context, it, aid: aid));
+    // the options, the pieces of a sentence or the typing box
+    if (q == 'wo') {
+      children.add(const SizedBox(height: 14));
+      children.add(_Order(it));
+    } else if (q == 'p') {
       children.add(const SizedBox(height: 12));
       if (it.done) {
         children.add(
@@ -876,14 +898,14 @@ class _QViewState extends State<_QView> {
         );
       }
     } else {
-      final n = it.words?.length ?? it.tones!.length;
+      final n = q == 'lj' ? 2 : (it.words?.length ?? it.tones!.length);
       children.add(const SizedBox(height: 14));
       for (var i = 0; i < n; i++) {
         if (i > 0) children.add(const SizedBox(height: 8));
         children.add(
           OptBtn(
             n: i + 1,
-            label: qOptLabel(context, it, i),
+            label: qOptLabel(context, it, i, py: aid == 'mock' && it.d.l <= 2),
             state: !ans ? null : (i == it.ans ? true : (i == it.pick ? false : null)),
             selected: r.exam && it.done && i == it.pick,
             onTap: it.done ? null : () => R.qAnswer(it, i),
@@ -968,19 +990,24 @@ class _QViewState extends State<_QView> {
   }
 }
 
-/// an option's label: a meaning, a translation, tones or hanzi
-Widget qOptLabel(BuildContext context, Item it, int i) {
+/// an option's label: a meaning, a translation, tones, same/different or hanzi ([py]: with pinyin under it, as the
+/// HSK 1–2 paper prints it)
+Widget qOptLabel(BuildContext context, Item it, int i, {bool py = false}) {
   final p = Th.pal(context);
   final q = it.q;
+  if (q == 'lj') return Text(i == 0 ? app.t.jdSame : app.t.jdDiff, style: F.s(15, w: FontWeight.w700, c: p.fg));
   if (it.tones != null) return Text(pyOpt(it.tones![i]), style: F.s(15, w: FontWeight.w700, c: p.fg));
   final o = it.words![i];
   if (q == 'm') return Text(app.m1(o), style: F.s(15, w: FontWeight.w600, c: p.fg));
-  if (q == 't') return Text(app.tr(o), style: F.s(14, w: FontWeight.w600, c: p.fg, h: 1.4));
-  return Text(o.h, style: F.s(20, w: FontWeight.w900, family: F.hz, c: p.fg), locale: const Locale('zh', 'CN'));
+  if (q == 't' || q == 'lt') return Text(app.tr(o), style: F.s(14, w: FontWeight.w600, c: p.fg, h: 1.4));
+  final hz = Text(o.h, style: F.s(20, w: FontWeight.w900, family: F.hz, c: p.fg), locale: const Locale('zh', 'CN'));
+  if (!py || q == 'wh' || q == 'l') return hz;
+  return Row(children: [hz, const SizedBox(width: 10), Text(o.p, style: F.s(13, c: p.soft))]);
 }
 
-/// a question's prompt (shared by Quiz, the session, the placement test and the tribulation)
-Widget qPrompt(BuildContext context, Item it, {bool exam = false}) {
+/// a question's prompt (shared by Quiz, the session, the placement test, the tribulation and the HSK simulation);
+/// [aid]: practice, test or mock (how much a sentence gap is helped, see [clozeAid])
+Widget qPrompt(BuildContext context, Item it, {String aid = 'practice'}) {
   final d = it.d;
   final q = it.q!;
   final th = Th.of(context);
@@ -1006,8 +1033,23 @@ Widget qPrompt(BuildContext context, Item it, {bool exam = false}) {
       c.addAll([
         lead(t.qTrans),
         Center(child: ExampleText(d, size: 20)),
-        if (d.l <= 3) Center(child: ZpText(d, plainWord: true)),
+        if (d.l <= (aid == 'mock' ? 2 : 3)) Center(child: ZpText(d, plainWord: true)),
       ]);
+    case 'ls' || 'lt':
+      c.addAll([lead(q == 'ls' ? t.qHeard : t.qHeardT), Center(child: _Play(it, d.z))]);
+    case 'lj':
+      final x = it.words?.first ?? d;
+      c.addAll([
+        lead(t.qJudge),
+        Center(child: _Play(it, d.z)),
+        const SizedBox(height: 10),
+        Center(child: ExampleText(d, size: 20, fill: x.h, plainFill: true)),
+        if (d.l <= 2) Center(child: ZpText(d, fill: x.p)),
+      ]);
+    case 'wh':
+      c.addAll([lead(t.qPyHz), Center(child: ExampleText(d, size: 20, fill: '（${d.p}）'))]);
+    case 'wo':
+      c.add(lead(t.qOrder));
     case 'm':
       c.addAll([lead(t.qMean), Center(child: Hz(d, size: big, weight: FontWeight.w900, family: F.hz))]);
     case 'f':
@@ -1019,15 +1061,19 @@ Widget qPrompt(BuildContext context, Item it, {bool exam = false}) {
         Text(app.m1(d), textAlign: TextAlign.center, style: F.s(12.5, c: p.soft, style: FontStyle.italic)),
       ]);
     case 'l':
-      c.addAll([lead(t.qListen), Center(child: Spk(d.h, size: 76))]);
+      c.addAll([lead(t.qListen), Center(child: aid == 'mock' ? _Play(it, d.h) : Spk(d.h, size: 76))]);
     default:
+      final help = clozeAid(d, aid);
       c.addAll([
         lead(t.qCloze),
         Center(child: ExampleText(d, size: 20, gap: true)),
-        if (d.l <= 3) Center(child: ZpText(d, gap: true)),
-        if (it.hint && !it.done)
-          Text(app.tr(d), textAlign: TextAlign.center, style: F.s(12.5, c: p.soft, style: FontStyle.italic))
-        else if (!exam && !it.done)
+        if (help.py) Center(child: ZpText(d, gap: true)),
+        if (help.tr || (it.hint && !it.done))
+          Padding(
+            padding: const EdgeInsets.only(top: 4),
+            child: Text(app.tr(d), textAlign: TextAlign.center, style: F.s(13.5, c: p.soft, h: 1.4)),
+          )
+        else if (aid == 'practice' && !it.done)
           Center(
             child: TextButton(
               onPressed: () {
@@ -1040,6 +1086,146 @@ Widget qPrompt(BuildContext context, Item it, {bool exam = false}) {
       ]);
   }
   return Padding(padding: const EdgeInsets.only(top: 8), child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: c));
+}
+
+/// the simulation's listening: the sentence plays by itself, and once more on a tap (twice in all, like the paper)
+class _Play extends StatefulWidget {
+  final Item it;
+  final String text;
+  const _Play(this.it, this.text);
+  @override
+  State<_Play> createState() => _PlayState();
+}
+
+class _PlayState extends State<_Play> {
+  @override
+  void initState() {
+    super.initState();
+    final it = widget.it;
+    if (it.plays == 0 && app.ttsOK) {
+      it.plays = 1;
+      Timer(const Duration(milliseconds: 300), () {
+        if (mounted && !it.done) speak(widget.text);
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final p = th.p;
+    final t = app.t;
+    final it = widget.it;
+    final left = math.max(0, 2 - it.plays);
+    final on = left > 0 && !it.done && app.ttsOK;
+    return Column(
+      children: [
+        Press(
+          onTap: on
+              ? () {
+                  setState(() => it.plays++);
+                  speak(widget.text);
+                }
+              : null,
+          scale: .9,
+          label: on ? t.playN(left) : t.playDone,
+          child: Container(
+            width: 76,
+            height: 76,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: th.acc.withValues(alpha: on ? .15 : .07)),
+            child: Center(child: Icon2(I.speaker, size: 36, color: on ? th.acc : p.mute)),
+          ),
+        ),
+        const SizedBox(height: 6),
+        Text(on ? t.playN(left) : t.playDone, style: F.s(12.5, w: FontWeight.w700, c: on ? p.soft : p.mute)),
+      ],
+    );
+  }
+}
+
+/// sentence building: tap the pieces in order; a placed piece goes back on a tap
+class _Order extends StatefulWidget {
+  final Item it;
+  const _Order(this.it);
+  @override
+  State<_Order> createState() => _OrderState();
+}
+
+class _OrderState extends State<_Order> {
+  final List<int> _pick = [];
+
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final p = th.p;
+    final t = app.t;
+    final it = widget.it;
+    final parts = it.parts ?? const <String>[];
+    final end = RegExp(r'[。！？!?.]+$').firstMatch(it.d.z.trim())?.group(0) ?? '';
+    final hz = F.s(19, w: FontWeight.w800, family: F.zh, c: p.fg);
+    Widget piece(String s, VoidCallback? onTap, {bool placed = false}) => Press(
+      onTap: onTap,
+      scale: .94,
+      label: s,
+      child: Tile(
+        radius: 14,
+        padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 9),
+        child: Text(s, style: placed ? hz.copyWith(color: th.acc) : hz, locale: const Locale('zh', 'CN')),
+      ),
+    );
+    final done = _pick.length == parts.length && parts.isNotEmpty;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        // the sentence so far
+        Container(
+          constraints: const BoxConstraints(minHeight: 58),
+          padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
+          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: p.line, width: 1.5))),
+          child: Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            children: [
+              for (var k = 0; k < _pick.length; k++)
+                piece(parts[_pick[k]], it.done ? null : () => setState(() => _pick.removeAt(k)), placed: true),
+              if (done && end.isNotEmpty) Text(end, style: hz),
+            ],
+          ),
+        ),
+        const SizedBox(height: 14),
+        // the pieces left
+        Wrap(
+          spacing: 8,
+          runSpacing: 8,
+          alignment: WrapAlignment.center,
+          children: [
+            for (var k = 0; k < parts.length; k++)
+              if (!_pick.contains(k)) piece(parts[k], it.done ? null : () => setState(() => _pick.add(k))),
+          ],
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: GhostBtn(t.orderClear, wide: true, onTap: _pick.isEmpty || it.done ? null : () => setState(_pick.clear)),
+            ),
+            const SizedBox(width: 8),
+            Expanded(
+              flex: 3,
+              child: MainBtn(
+                t.orderDone,
+                wide: true,
+                radius: 16,
+                onTap: done && !it.done ? () => app.runner.qOrder(it, [for (final k in _pick) parts[k]]) : null,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
 }
 
 /// a dashed outline (the "Don't know" button)
@@ -1094,13 +1280,8 @@ class _Summary extends StatelessWidget {
       final k = c.$1.compareTo(c.$2) < 0 ? '${c.$1}${c.$2}' : '${c.$2}${c.$1}';
       return seen.add(k);
     }).take(3).toList();
-    final kind = r.exam ? 'exam' : r.mode;
+    final kind = r.quick ? 'quick' : r.mode;
     final notes = <String>[];
-    if (r.exam) {
-      final est = math.max(0, (((ok / r.items.length - .25) / .75) * 100).round());
-      notes.add(t.examScore(pct, r.lv, est));
-      if (r.timeUp) notes.add(t.timeUp);
-    }
     if (r.over > 0) notes.add(t.sumOver(r.over));
     Widget cell(String a, String b) => Expanded(
       child: Tile(
@@ -1172,11 +1353,15 @@ class _Summary extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: MainBtn(
-                  r.mode == 'session' ? t.sumSessionMore : t.sumMore,
+                  r.quick ? t.quickMore : (r.mode == 'session' ? t.sumSessionMore : t.sumMore),
                   wide: true,
                   radius: 16,
                   onTap: () {
-                    if (r.mode == 'session') app.sessionExtra = true;
+                    if (r.quick) {
+                      app.sessionQuick = false;
+                    } else if (r.mode == 'session') {
+                      app.sessionExtra = true;
+                    }
                     R.reset();
                     app.changed();
                   },
@@ -1319,6 +1504,46 @@ class _MockIntro extends StatelessWidget {
     final t = app.t;
     final m = r.mock!.m;
     final prev = app.lm.mocks.where((x) => x[1] == m.L).toList();
+    ({int n, int min}) size(bool short) {
+      final pp = LM.mockPaper[math.min(m.L, 6)]!;
+      var n = 0, sec = 0;
+      for (var i = 0; i < 3; i++) {
+        var k = pp.n[i], s = pp.min[i] * 60;
+        if (k == 0 || (i == 0 && m.skipped)) continue;
+        if (short) {
+          final j = math.max(3, (k / 3).round());
+          s = math.max(180, (s * j / k / 60).round() * 60);
+          k = j;
+        }
+        n += k;
+        sec += s;
+      }
+      return (n: n, min: (sec / 60).round());
+    }
+
+    Widget len(bool short) {
+      final z = size(short), on = m.short == short;
+      return Expanded(
+        child: Press(
+          onTap: () => app.runner.mockLength(short),
+          scale: .96,
+          selected: on,
+          label: '${short ? t.mkLenShort : t.mkLenFull}, ${t.mkRows(z.n, z.min)}',
+          child: Tile(
+            radius: 16,
+            color: on ? th.acc.withValues(alpha: .14) : null,
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 9),
+            child: Column(
+              children: [
+                Text(short ? t.mkLenShort : t.mkLenFull, style: F.s(14, w: FontWeight.w800, c: on ? th.acc : p.fg)),
+                Text(t.mkRows(z.n, z.min), textAlign: TextAlign.center, style: F.s(11.5, c: p.soft)),
+              ],
+            ),
+          ),
+        ),
+      );
+    }
+
     return Glass(
       solid: true,
       radius: 30,
@@ -1330,6 +1555,9 @@ class _MockIntro extends StatelessWidget {
           const SizedBox(height: 6),
           Text(t.mkIntroT(m.L), textAlign: TextAlign.center, style: F.s(18, w: FontWeight.w800, c: p.fg)),
           _Note(t.mkIntro),
+          const SizedBox(height: 4),
+          Row(children: [len(false), const SizedBox(width: 8), len(true)]),
+          const SizedBox(height: 6),
           for (final pp in m.parts) ...[
             const SizedBox(height: 7),
             Row(
@@ -1342,7 +1570,7 @@ class _MockIntro extends StatelessWidget {
                     children: [
                       Text('${partHz[pp.k]!.$1} ${L10.text(t.partN[pp.k])}', style: F.s(14, w: FontWeight.w700, c: p.fg)),
                       Text(
-                        t.mkRows(pp.n, (m.items.where((it) => it.part == pp.k).fold<int>(0, (a, it) => a + LMSec.of(it.q!)) / 60).round()),
+                        t.mkRows(pp.n, (pp.sec / 60).round()),
                         style: F.s(12.5, c: p.soft),
                       ),
                     ],
@@ -1354,7 +1582,7 @@ class _MockIntro extends StatelessWidget {
           const SizedBox(height: 12),
           _Rules([
             '${t.mkTime((m.sec / 60).round())} · ${t.mkPass(m.parts.length * 60, m.parts.length * 100)}',
-            if (m.parts.any((x) => x.k == 'write')) t.mkWriteNote,
+            if (m.L >= 5 && m.parts.any((x) => x.k == 'write')) t.mkWriteNote,
             if (m.skipped) t.mkNoTts,
             if (prev.isNotEmpty) t.mkLast(prev.last[2], prev.last[3], app.dateS(app.tDate(prev.last[0] as num))),
             t.mkNote,
@@ -1365,10 +1593,6 @@ class _MockIntro extends StatelessWidget {
       ),
     );
   }
-}
-
-class LMSec {
-  static int of(String q) => const {'l': 25, 'm': 30, 'c': 60, 't': 75, 'f': 30, 'p': 45}[q] ?? 30;
 }
 
 class _Seal extends StatelessWidget {
@@ -1435,16 +1659,9 @@ class _MockPart extends StatelessWidget {
           const SizedBox(height: 8),
           Text('${t.mkPartT(i + 1, m.m.parts.length)} · ${L10.text(t.partN[k])}', textAlign: TextAlign.center, style: F.s(18, w: FontWeight.w800, c: p.fg)),
           _Note(L10.text(t.mkPartD[k], [pp.n])),
+          _Note(t.mkTime((pp.sec / 60).round())),
           const SizedBox(height: 10),
-          MainBtn(
-            t.mkPartGo,
-            wide: true,
-            radius: 16,
-            onTap: () {
-              m.shown.add(k);
-              app.changed();
-            },
-          ),
+          MainBtn(t.mkPartGo, wide: true, radius: 16, onTap: () => app.runner.mockPart(k)),
         ],
       ),
     );
@@ -1633,9 +1850,9 @@ class _MockResult extends StatelessWidget {
       R.mockPractice(wrong);
     } else if (k.startsWith('part:')) {
       R.mockPractice(wrong.where((it) => it.part == k.substring(5)).toList());
-    } else if (k == 'exam' || k == 'next') {
-      if (k == 'next') app.setLevel(m.m.L + 1);
-      app.qType = k == 'exam' ? 'exam' : 'mock';
+    } else if (k == 'next') {
+      app.setLevel(m.m.L + 1);
+      app.qType = 'mock';
       app.saveUI();
       R.reset();
       app.changed();
@@ -1668,25 +1885,34 @@ class _MockRow extends StatelessWidget {
     final q = it.q!;
     final ok = it.ok == true;
     final hz = F.s(15, w: FontWeight.w900, family: F.hz, c: p.fg);
+    final shown = q == 'lj' ? (it.words?.first ?? d) : d;
     Widget ask = switch (q) {
       'l' => Row(mainAxisSize: MainAxisSize.min, children: [Spk(d.h, size: 26), Text(t.tListen, style: F.s(12, c: p.soft))]),
+      'ls' || 'lt' => Row(mainAxisSize: MainAxisSize.min, children: [Spk(d.z, size: 26), Flexible(child: ExampleText(d, size: 14))]),
+      'lj' => Row(mainAxisSize: MainAxisSize.min, children: [Spk(d.z, size: 26), Flexible(child: ExampleText(d, size: 14, fill: shown.h))]),
       'm' => Text(d.h, style: hz),
       'c' => ExampleText(d, size: 14, gap: true),
-      't' => ExampleText(d, size: 14),
+      'wh' => ExampleText(d, size: 14, fill: '（${d.p}）'),
+      't' || 'wo' => ExampleText(d, size: 14),
       _ => Text(app.m1(d), style: F.s(13.5, c: p.fg)),
     };
+    final end = RegExp(r'[。！？!?.]+$');
     final right = switch (q) {
       'm' => app.m1(d),
-      't' => app.tr(d),
+      't' || 'lt' => app.tr(d),
       'p' => d.p,
+      'lj' => shown == d ? t.jdSame : '${t.jdDiff} (${d.h} ≠ ${shown.h})',
+      'wo' => d.z.trim().replaceAll(end, ''),
       _ => d.h,
     };
     String mine;
-    if (q == 'p') {
+    if (q == 'p' || q == 'wo') {
       mine = (it.typedText ?? '').isNotEmpty ? it.typedText! : (it.pick == -3 && it.typedText == '' ? t.mkIdk : t.mkNone);
+    } else if (q == 'lj') {
+      mine = (it.pick ?? -1) < 0 ? t.mkNone : (it.pick == 0 ? t.jdSame : t.jdDiff);
     } else {
       final o = it.words != null && (it.pick ?? -1) >= 0 ? it.words![it.pick!] : null;
-      mine = o == null ? (it.pick == -1 ? t.mkIdk : t.mkNone) : (q == 'm' ? app.m1(o) : (q == 't' ? app.tr(o) : o.h));
+      mine = o == null ? (it.pick == -1 ? t.mkIdk : t.mkNone) : (q == 'm' ? app.m1(o) : (q == 't' || q == 'lt' ? app.tr(o) : o.h));
       if (it.tones != null && (it.pick ?? -1) >= 0) mine = pyOpt(it.tones![it.pick!]);
     }
     return Padding(
@@ -1745,7 +1971,7 @@ KeyEventResult runKey(KeyEvent e) {
       : k == LogicalKeyboardKey.digit4
       ? 3
       : -1;
-  if (n >= 0 && it.k == 'q' && !it.done && it.q != 'p') {
+  if (n >= 0 && it.k == 'q' && !it.done && it.q != 'p' && it.q != 'wo' && (it.q != 'lj' || n < 2)) {
     R.qAnswer(it, n);
     return KeyEventResult.handled;
   }

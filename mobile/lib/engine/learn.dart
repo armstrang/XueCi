@@ -175,11 +175,11 @@ class PtResult {
 
 class Mock {
   final int L;
-  final List<({String k, int n})> parts;
+  final List<({String k, int n, int sec})> parts;
   final List<Item> items;
   final int sec;
-  final bool skipped;
-  Mock(this.L, this.parts, this.items, this.sec, this.skipped);
+  final bool skipped, short;
+  Mock(this.L, this.parts, this.items, this.sec, this.skipped, this.short);
 }
 
 class MockPart {
@@ -1117,39 +1117,200 @@ class LM {
     return [for (final d in shuf(words)) Item.q(d, type ?? pickType(d))];
   }
 
-  /// Quick exam: a uniform sample of the vocabulary up to the level, mixed question types
-  List<Item> exam(int lv, int n) {
-    final src = data.where((d) => d.l <= lv).toList();
-    final out = <Item>[];
-    final seen = <String>{};
-    while (out.length < n && seen.length < src.length) {
-      final d = src[(R() * src.length).floor()];
-      if (seen.contains(d.id)) continue;
-      seen.add(d.id);
-      final x = R();
-      var q = x < 0.3 ? 'm' : (x < 0.55 ? 'f' : (x < 0.75 ? 's' : 'c'));
-      if (q == 'c' && !clozeOK(d)) q = 'f';
-      if (q == 's' && ttsReady() && R() < 0.4) q = 'l';
-      out.add(Item.q(d, q));
+  /// a word the learner is sure of (the highest recall now, at least 0.9), for a quick win after misses
+  Word? easyWord(Iterable<Word> pool, Set<String> skip) {
+    final t = now();
+    Word? best;
+    var br = 0.9;
+    for (final d in pool) {
+      final e = mem[d.id];
+      if (e == null || skip.contains(d.id) || levelOf(e) < 7) continue;
+      final r = rNowE(e, t);
+      if (r >= br) {
+        br = r;
+        best = d;
+      }
+    }
+    return best;
+  }
+
+  // ---------------------------------------------------------------- HSK simulation (the HSK 3.0 paper)
+  /// the real paper per level: questions in listening, reading, writing and the minutes for each. HSK 5–6 write
+  /// two short essays; here that section builds sentences instead
+  static const mockPaper = {
+    1: (n: [20, 20, 0], min: [15, 17, 0]),
+    2: (n: [25, 25, 10], min: [17, 25, 10]),
+    3: (n: [30, 30, 10], min: [25, 33, 20]),
+    4: (n: [32, 32, 6], min: [25, 35, 20]),
+    5: (n: [35, 35, 6], min: [30, 45, 25]),
+    6: (n: [40, 40, 6], min: [35, 50, 30]),
+  };
+  static const mockSections = ['listen', 'read', 'write'];
+
+  /// the kinds of question in a section, with weights: l a word heard, ls which word was in the sentence heard,
+  /// lj is this what you heard (true/false), lt what the sentence heard means; m c t reading; wo sentence
+  /// building, wh the character for the pinyin in a sentence
+  static Map<String, int> mockMix(String part, int l) => switch (part) {
+    'listen' => l == 1
+        ? const {'l': 8, 'lj': 6, 'ls': 6}
+        : l == 2
+        ? const {'l': 5, 'lj': 10, 'ls': 10}
+        : l <= 4
+        ? const {'lj': 3, 'ls': 3, 'lt': 4}
+        : const {'lj': 1, 'ls': 1, 'lt': 2},
+    'read' => l == 1
+        ? const {'m': 1, 'c': 1}
+        : l == 2
+        ? const {'m': 1, 'c': 2, 't': 1}
+        : l <= 4
+        ? const {'c': 1, 't': 1}
+        : const {'c': 2, 't': 3},
+    _ => l <= 3 ? const {'wo': 1, 'wh': 1} : const {'wo': 1},
+  };
+
+  /// n split by weights (largest remainders first, ties in the given order)
+  static Map<String, int> split(int n, Map<String, int> w) {
+    final tot = w.values.fold<int>(0, (a, b) => a + b);
+    final out = {for (final e in w.entries) e.key: n * e.value ~/ tot};
+    var left = n - out.values.fold<int>(0, (a, b) => a + b);
+    final rem = w.keys.toList()..sort((a, b) => (n * w[b]! % tot) - (n * w[a]! % tot));
+    for (var i = 0; left > 0; i++, left--) {
+      out[rem[i % rem.length]] = out[rem[i % rem.length]]! + 1;
     }
     return out;
   }
 
-  // ---------------------------------------------------------------- HSK simulation
-  static const mockParts = {
-    1: {'l': 10, 'm': 6, 'c': 4},
-    2: {'l': 10, 'm': 6, 'c': 4},
-    3: {'l': 12, 'm': 4, 'c': 6, 't': 4, 'f': 4, 'p': 4},
-    4: {'l': 12, 'm': 4, 'c': 6, 't': 4, 'f': 4, 'p': 4},
-    5: {'l': 15, 'm': 2, 'c': 7, 't': 6, 'f': 3, 'p': 5},
-    6: {'l': 15, 'm': 2, 'c': 7, 't': 6, 'f': 3, 'p': 5},
-    7: {'l': 15, 'c': 7, 't': 8, 'f': 3, 'p': 5},
-  };
-  static const mockSec = {'l': 25, 'm': 30, 'c': 60, 't': 75, 'f': 30, 'p': 45};
-  static const mockPart = {'l': 'listen', 'm': 'read', 'c': 'read', 't': 'read', 'f': 'write', 'p': 'write'};
+  /// the answer as the log keeps it: listening kinds count as listening, writing kinds as form
+  static String logQ(String q) => const {'ls': 'l', 'lt': 'l', 'lj': 'l', 'wh': 'f', 'wo': 'c'}[q] ?? q;
 
-  Mock mockExam(int l) {
-    final P = mockParts[math.min(l, 7)]!;
+  Set<String>? _syl;
+
+  /// syllables in a word of pinyin (null when it doesn't read as pinyin)
+  int? sylCount(String w) {
+    final syl = _syl ??= {
+      for (final d in data)
+        for (final x in d.s) plain(x).replaceAll(RegExp('[^a-z]'), ''),
+    }..remove('');
+    final t = plain(w).replaceAll(RegExp('[^a-z]'), '');
+    if (t.isEmpty) return 0;
+    final best = List<int?>.filled(t.length + 1, null)..[0] = 0;
+    for (var i = 0; i < t.length; i++) {
+      if (best[i] == null) continue;
+      for (var j = i + 1; j <= math.min(t.length, i + 6); j++) {
+        if (syl.contains(t.substring(i, j)) && (best[j] == null || best[j]! > best[i]! + 1)) best[j] = best[i]! + 1;
+      }
+    }
+    return best[t.length];
+  }
+
+  static final _hz = RegExp(r'[一-鿿]');
+  static const _after = {'的', '了', '着', '过', '吗', '呢', '吧', '啊', '们', '得', '地'};
+  static const _before = {'这', '那', '一', '两', '几', '每', '很', '最', '不', '没', '也', '都', '还', '就', '太', '真', '更', '在', '把', '被', '给', '跟', '和', '对', '从'};
+
+  /// the example sentence cut into words by its pinyin, then into a few pieces for sentence building (null when
+  /// the sentence has a comma inside, doesn't line up with its pinyin, or gives fewer than three pieces)
+  List<String>? pieces(Word d, int max) {
+    final zp = d.zp;
+    var z = d.z.trim();
+    if (zp == null || zp.isEmpty || !clozeOK(d)) return null;
+    final end = RegExp(r'[。！？!?.]+$').firstMatch(z);
+    if (end != null) z = z.substring(0, end.start);
+    if (z.isEmpty || RegExp(r'[，、：；“”‘’（）,;:"\s0-9a-zA-Z]').hasMatch(z)) return null;
+    final cs = chars(z);
+    final words = <String>[];
+    var i = 0;
+    for (final tk in zp.replaceAll(RegExp('[{}]'), '').split(RegExp(r'\s+'))) {
+      final n = sylCount(tk);
+      if (n == null || n == 0) continue;
+      final b = StringBuffer();
+      var k = 0;
+      while (i < cs.length && k < n) {
+        if (_hz.hasMatch(cs[i])) k++;
+        b.write(cs[i++]);
+      }
+      if (k != n) return null;
+      words.add(b.toString());
+    }
+    if (i != cs.length || words.length < 3) return null;
+    // little words lean on a neighbour, then the shortest neighbours join until there are few enough pieces
+    final out = <String>[];
+    var glue = false;
+    for (final w in words) {
+      if (out.isNotEmpty && (glue || _after.contains(w))) {
+        out[out.length - 1] += w;
+      } else {
+        out.add(w);
+      }
+      glue = _before.contains(w) && w != d.h;
+    }
+    while (out.length > max) {
+      var j = 0;
+      for (var k = 1; k < out.length - 1; k++) {
+        if (out[k].length + out[k + 1].length < out[j].length + out[j + 1].length) j = k;
+      }
+      out[j] += out.removeAt(j + 1);
+    }
+    return out.length >= 3 && out.toSet().length == out.length ? out : null;
+  }
+
+  static int piecesMax(int l) => l <= 3 ? 4 : (l == 4 ? 5 : 6);
+
+  /// a word to swap into the sentence for "is this what you heard": same kind and length, another meaning
+  Word? swapFor(Word d) {
+    final n = charLen(d.h), dm = m1(d).toLowerCase();
+    final c = by(d.l)
+        .where((x) => x.id != d.id && charLen(x.h) == n && x.g == d.g && !d.z.contains(x.h) && m1(x).toLowerCase() != dm && x.pk != d.pk)
+        .toList();
+    return c.isEmpty ? null : c[(R() * c.length).floor()];
+  }
+
+  /// words that sound like it (same pinyin without tones, same length), for writing the character from pinyin
+  List<Word> soundAlikes(Word d) {
+    final by = _byPk ??= () {
+      final m = <String, List<Word>>{};
+      for (final x in data) {
+        (m[x.pk] ??= []).add(x);
+      }
+      return m;
+    }();
+    return (by[d.pk] ?? const <Word>[]).where((x) => x.id != d.id && x.h != d.h && charLen(x.h) == charLen(d.h)).toList();
+  }
+
+  Map<String, List<Word>>? _byPk;
+
+  QMat mockQ(Word d, String q) {
+    switch (q) {
+      case 'ls':
+        final o = wordOpts(d, 'l', 0.8);
+        return QMat(words: o, ans: o.indexOf(d));
+      case 'lt':
+        return transOpts(d, 0.8);
+      case 'lj':
+        final x = R() < 0.5 ? swapFor(d) : null;
+        return QMat(words: [x ?? d], ans: x == null ? 0 : 1);
+      case 'wh':
+        final seen = <String>{d.h};
+        final o = <Word>[d];
+        for (final x in [...shuf(soundAlikes(d)), ...wordOpts(d, 'f', 1)]) {
+          if (o.length == 4) break;
+          if (seen.add(x.h)) o.add(x);
+        }
+        final s = shuf(o);
+        return QMat(words: s, ans: s.indexOf(d));
+      case 'wo':
+        final p = pieces(d, piecesMax(d.l))!;
+        var s = shuf(p);
+        for (var k = 0; k < 4 && s.join() == p.join(); k++) {
+          s = shuf(p);
+        }
+        return QMat(parts: s);
+    }
+    return question(d, q, 0.8);
+  }
+
+  Mock mockExam(int l, {bool short = false}) {
+    final L = math.min(l, 6);
+    final paper = mockPaper[L]!;
     final own = shuf(data.where((d) => d.l == l).toList());
     final low = shuf(data.where((d) => d.l < l).toList());
     final used = <String>{};
@@ -1171,26 +1332,41 @@ class LM {
       'm': (_) => true,
       'c': clozeOK,
       't': clozeOK,
-      'f': (_) => true,
-      'p': (d) => charLen(d.h) <= 3,
+      'ls': clozeOK,
+      'lt': clozeOK,
+      'lj': (d) => clozeOK(d) && charLen(d.z) <= 24,
+      'wh': (d) => clozeOK(d) && charLen(d.h) <= 2 && soundAlikes(d).isNotEmpty,
+      'wo': (d) => pieces(d, piecesMax(d.l)) != null,
     };
-    final parts = <({String k, int n, List<Item> items})>[];
-    for (final part in const ['listen', 'read', 'write']) {
-      if (part == 'listen' && !ttsReady()) continue;
-      final items = <Item>[];
-      for (final q in const ['l', 'm', 'c', 't', 'f', 'p']) {
-        if (mockPart[q] == part) {
-          for (var i = 0; i < (P[q] ?? 0); i++) {
-            final d = take(fit[q]!);
-            if (d != null) items.add(Item.q(d, q, part: part));
-          }
-        }
+    final parts = <({String k, int n, int sec})>[];
+    final items = <Item>[];
+    for (var s = 0; s < 3; s++) {
+      final part = mockSections[s];
+      var n = paper.n[s];
+      if (n == 0 || (part == 'listen' && !ttsReady())) continue;
+      var sec = paper.min[s] * 60;
+      if (short) {
+        final m = math.max(3, (n / 3).round());
+        sec = math.max(180, (sec * m / n / 60).round() * 60);
+        n = m;
       }
-      if (items.isNotEmpty) parts.add((k: part, n: items.length, items: items));
+      final mine = <Item>[];
+      split(n, mockMix(part, L)).forEach((q, k) {
+        for (var i = 0; i < k; i++) {
+          var d = take(fit[q]!);
+          var qq = q;
+          if (d == null && q != 'l' && q != 'm') {
+            qq = part == 'listen' ? 'l' : (part == 'read' ? 'm' : 'wh');
+            d = take(fit[qq]!);
+          }
+          if (d != null) mine.add(Item.q(d, qq, part: part));
+        }
+      });
+      if (mine.isEmpty) continue;
+      items.addAll(mine);
+      parts.add((k: part, n: mine.length, sec: sec));
     }
-    final items = parts.expand((x) => x.items).toList();
-    final sec = items.fold<int>(0, (a, it) => a + mockSec[it.q]!);
-    return Mock(l, [for (final p in parts) (k: p.k, n: p.n)], items, sec, !ttsReady());
+    return Mock(l, parts, items, parts.fold<int>(0, (a, p) => a + p.sec), !ttsReady(), short);
   }
 
   MockScore mockScore(Mock m) {
@@ -1206,7 +1382,7 @@ class LM {
 
   List<List<dynamic>> mocks = [];
 
-  /// history: [time, level, total, max, [listen, read, write scores or null], seconds used]
+  /// history: [time, level, total, max, [listen, read, write scores or null], seconds used, 1 = the short paper]
   void mockSave(Mock m, MockScore r, num used) {
     int? by(String k) {
       for (final p in r.parts) {
@@ -1217,7 +1393,7 @@ class LM {
 
     mocks = [
       ...mocks,
-      [now(), m.L, r.total, r.max, [for (final k in const ['listen', 'read', 'write']) by(k)], jsRound(used)],
+      [now(), m.L, r.total, r.max, [for (final k in const ['listen', 'read', 'write']) by(k)], jsRound(used), if (m.short) 1],
     ];
     if (mocks.length > 50) mocks = mocks.sublist(mocks.length - 50);
     ls.set('xc_mock', mocks);
@@ -1349,7 +1525,9 @@ class LM {
   }
 
   static double pKnow(double th, double b) => 1 / (1 + math.exp(-ptK * (th - b)));
-  double itemB(int l, String q, Word? d) => l - 0.5 + ptDQ[q]! + (l >= 5 ? 0.15 : 0) + (d != null ? wdiff(d) * 0.8 : 0);
+  /// how hard a placement question is; a sentence gap up to HSK 4 shows its translation, so it counts as easier
+  double itemB(int l, String q, Word? d) =>
+      l - 0.5 + (q == 'c' && l <= 4 ? 0.0 : ptDQ[q]!) + (l >= 5 ? 0.15 : 0) + (d != null ? wdiff(d) * 0.8 : 0);
 
   static double likelihood(String r, double pk, double idk) {
     final nk = 1 - pk;
@@ -2654,6 +2832,7 @@ class LM {
     _ix = null;
     _tp = null;
     _charS = null;
+    _byPk = null;
   }
 
   // ---------------------------------------------------------------- backup, reset, history

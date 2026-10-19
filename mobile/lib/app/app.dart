@@ -31,7 +31,7 @@ const focusScreens = ['list', 'card', 'quiz', 'session', 'placement', 'bt'];
 const themes = ['auto', 'light', 'dark', 'black'];
 const fxModes = ['auto', 'low', 'full'];
 // 'auto' (guided) was dropped (Josh, Oct 2026): a saved 'auto' falls back to Recognise
-const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't', 'exam', 'mock'];
+const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't', 'mock']; // a saved 'exam' (the quick exam, removed) falls back to 'm'
 
 class App extends ChangeNotifier {
   final Store store;
@@ -228,6 +228,7 @@ class App extends ChangeNotifier {
   String screen = 'home';
   String prevScreen = 'home';
   String qType = 'm';
+  bool mockShort = false; // the HSK simulation: the short paper
   String theme = 'auto';
   String fxPref = 'auto';
   bool fxDown = false; // the frame watcher stepped down once (xc_fxd)
@@ -238,6 +239,7 @@ class App extends ChangeNotifier {
     'level': level,
     'unitBy': {for (final e in unitBy.entries) '${e.key}': e.value},
     'qt': qType,
+    if (mockShort) 'mks': 1,
   });
   void saveNote() => store.set('xc_note', note);
 
@@ -254,6 +256,7 @@ class App extends ChangeNotifier {
         });
       }
       if (qTypes.contains(ui['qt'])) qType = ui['qt'] as String;
+      mockShort = ui['mks'] == 1;
     }
     final th = store.get('hsk16_theme', null);
     theme = themes.contains(th) ? th as String : 'auto';
@@ -455,6 +458,7 @@ class App extends ChangeNotifier {
   bool menuOpen = false; // the quiz type menu is open: the tab bar steps aside
   bool inExam = false; // an HSK simulation is running: the tab bar steps aside
   bool sessionExtra = false;
+  bool sessionQuick = false; // the two-minute version of today's practice
 
   /// a brand-new learner: no test, no practice yet (Home shows two ways in instead of numbers)
   bool isNewbie() {
@@ -478,8 +482,11 @@ class App extends ChangeNotifier {
     _ => t.skS,
   };
 
-  void startSession(bool extra) {
+  void startSession(bool extra, {bool quick = false}) {
     sessionExtra = extra;
+    sessionQuick = quick && !extra;
+    final r = runner.run;
+    if (r != null && r.mode == 'session' && r.quick != sessionQuick) runner.reset();
     go('session');
   }
 
