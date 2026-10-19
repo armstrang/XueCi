@@ -16,7 +16,10 @@ class Native {
   Native._() {
     _ch.setMethodCallHandler((c) async {
       if (c.method == 'notifResult') _notif?.complete(c.arguments == true);
-      if (c.method == 'ttsReady') ttsChanged?.call();
+      if (c.method == 'ttsReady') {
+        if (c.arguments is String) _tts = c.arguments as String;
+        ttsChanged?.call();
+      }
       return null;
     });
   }

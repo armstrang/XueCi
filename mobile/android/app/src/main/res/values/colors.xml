@@ -1,0 +1,6 @@
+<resources>
+    <color name="mm_bg">#F4F5F7</color>
+    <color name="mm_brand">#C62F2F</color>
+    <!-- launcher icon background: matches the logo artwork -->
+    <color name="ic_bg">#FDFDFD</color>
+</resources>

@@ -1,0 +1,40 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>XueCi</title>
+<script>
+/* v2.0 moves the progress of the WebView app (v1.x) once: this page runs in a hidden WebView on v1.x's origin
+   (https://appassets.androidplatform.net) and hands back what v1.x kept there. v1.12+ kept everything in IndexedDB
+   (database xueci, store kv: the JSON text under the old key names) and loaded it from there at start; older versions,
+   or phones where IndexedDB failed, kept it in localStorage only. The same choice is made here. */
+(async () => {
+  const ls = {};
+  try {
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      ls[k] = localStorage.getItem(k);
+    }
+  } catch (e) {}
+  let idb = null;
+  try {
+    const db = await new Promise((res, rej) => {
+      const r = indexedDB.open('xueci');
+      r.onupgradeneeded = () => r.transaction.abort(); /* no database: don't create one */
+      r.onsuccess = () => res(r.result);
+      r.onerror = () => rej(r.error);
+    });
+    if (db.objectStoreNames.contains('kv')) {
+      const st = db.transaction('kv', 'readonly').objectStore('kv');
+      const req = q => new Promise((res, rej) => ((q.onsuccess = () => res(q.result)), (q.onerror = () => rej(q.error))));
+      const keys = await req(st.getAllKeys()),
+        vals = await req(st.getAll());
+      idb = {};
+      keys.forEach((k, i) => {
+        if (typeof vals[i] === 'string') idb[k] = vals[i];
+      });
+    }
+    db.close();
+  } catch (e) {}
+  const out = idb && idb.xc_schema ? idb : ls;
+  XcLegacy.done(JSON.stringify(out));
+})();
+</script>

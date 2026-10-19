@@ -241,6 +241,9 @@ class App extends ChangeNotifier {
     lm.ttsReady = () => ttsOK;
     loadRem();
     canRemind = Native.I.isAndroid;
+    // speech: the engine starts with the activity; its state arrives now or a moment later (ttsReady)
+    Native.I.ttsChanged = notifyListeners;
+    if (Native.I.isAndroid) await Native.I.ttsStatus();
     lm.saveStats();
   }
 
