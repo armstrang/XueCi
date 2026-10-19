@@ -8,6 +8,7 @@ import 'focus.dart';
 import 'glass.dart';
 import 'realm.dart';
 import 'run_view.dart';
+import 'share.dart';
 import 'soul.dart';
 import 'stats.dart';
 import 'theme.dart';
@@ -49,4 +50,5 @@ void unused() => app;
 /// the sheets Home and the other screens open (registered once, before the first frame)
 void wireSheets() {
   app.openRealm = openRealmSheet;
+  app.openShare = openShareSheet;
 }

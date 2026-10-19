@@ -11,6 +11,7 @@ import 'package:xueci/data/store.dart';
 import 'package:xueci/engine/fsrs.dart' as fsrs;
 import 'package:xueci/engine/js.dart';
 import 'package:xueci/ui/glass.dart';
+import 'package:xueci/ui/share.dart';
 import 'package:xueci/ui/shell.dart';
 
 Future<void> loadFonts() async {
@@ -154,6 +155,13 @@ void runs() {
   testWidgets('realm sheet', (t) async {
     await t.runAsync(() => bootApp(sample(), lang: 'id'));
     await shot(t, 'realm-sheet', after: () => app.openRealm!(navKey.currentContext!));
+  });
+  testWidgets('share card', (t) async {
+    await t.runAsync(() => bootApp(sample()));
+    final png = (await t.runAsync(drawCard))!;
+    Directory('test/goldens').createSync(recursive: true);
+    File('test/goldens/share-card.png').writeAsBytesSync(png);
+    expect(png.length, greaterThan(10000));
   });
   testWidgets('mock intro', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_ui': '{"level":3,"qt":"mock"}'}));
