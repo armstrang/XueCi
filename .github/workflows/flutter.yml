@@ -53,8 +53,8 @@ jobs:
         if: hashFiles('mobile/tool/make_assets.py') != ''
         continue-on-error: true
         run: |
-          pip install --quiet fonttools brotli
-          python3 mobile/tool/make_assets.py > ci-out/assets.txt 2>&1
+          npm install --silent --no-save --prefix mobile/tool acorn@8.15.0 > ci-out/assets.txt 2>&1
+          python3 mobile/tool/make_assets.py >> ci-out/assets.txt 2>&1
 
       - name: Pub get
         id: pub

@@ -49,3 +49,6 @@ app.*.map.json
 /test/traces/
 /assets/data/
 /assets/i18n/
+/tool/node_modules/
+/tool/package-lock.json
+/test/goldens/
