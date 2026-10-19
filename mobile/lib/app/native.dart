@@ -42,10 +42,11 @@ class Native {
   Future<String?> filesDir() => _call<String>('filesDir');
 
   /// the progress the WebView app (v1.x) kept: its localStorage and IndexedDB, read once by a hidden WebView on the
-  /// old origin. null when there is none (or no Android).
+  /// old origin. null when there is none (or no Android); {'!': '1'} when reading it failed (try again later).
   Future<Map<String, String>?> legacy() async {
     final s = await _call<String>('legacy');
     if (s == null || s.isEmpty) return null;
+    if (s == '!') return const {'!': '1'};
     try {
       final m = json.decode(s) as Map;
       return m.map((k, v) => MapEntry('$k', '$v'));

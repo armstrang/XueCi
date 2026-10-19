@@ -85,8 +85,9 @@ class Store {
 
   Store(this.backend);
 
-  /// load everything; [legacy] = the data of the WebView app (v1.x), used when this store is still empty
-  void open({Map<String, String>? legacy}) {
+  /// load everything; [legacy] = the data of the WebView app (v1.x), used when this store is still empty, or —
+  /// [adopt] — when an earlier move failed and only a near-empty start was made since (v1.x's progress wins)
+  void open({Map<String, String>? legacy, bool adopt = false}) {
     Map<String, String> saved;
     try {
       saved = backend.loadAll();
@@ -94,11 +95,14 @@ class Store {
       saved = {};
       mode = 'memory';
     }
-    if (saved.containsKey('xc_schema') || legacy == null || legacy.isEmpty) {
-      _mem.addAll(saved);
-      return;
-    }
     _mem.addAll(saved);
+    if (legacy == null || legacy.isEmpty) return;
+    if (saved.containsKey('xc_schema') && !adopt) return;
+    if (adopt) {
+      // v1.x's data replaces the near-empty start (its own keys decide which migrations run)
+      _dirty.addAll(_mem.keys);
+      _mem.clear();
+    }
     legacy.forEach((k, v) {
       _mem[k] = v;
       _dirty.add(k);

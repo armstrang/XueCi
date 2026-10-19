@@ -1,14 +1,16 @@
 name: Build APK
 
+# v2.0+: the Flutter app in mobile/. Push to main → assets from web/data + web/src (word data, interface text, the
+# sealed part) → analyzer → tests (engine against the JS engine's traces, screens, backup, the secret) → a signed APK
+# and the Play bundle → GitHub release v2.N. The WebView app (app/, v1.x) is frozen and no longer built.
 on:
   push:
     branches: [main]
-    # Notes, artwork and tests don't change the app, so they don't make a new release.
+    # Notes, artwork and store graphics don't change the app, so they don't make a new release.
     paths-ignore:
       - '**.md'
       - 'docs/**'
       - 'art/**'
-      - 'tests/**'
       - 'store/**'
   workflow_dispatch:
 
@@ -26,20 +28,6 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - uses: gradle/actions/setup-gradle@v4
-
-      # Version shown to people: 1.0, 1.1, ... (matches versionName in app/build.gradle)
-      - name: Version
-        run: |
-          n=$(( GITHUB_RUN_NUMBER - 1 ))
-          if [ "$n" -lt 0 ]; then n=0; fi
-          echo "VER=1.$n" >> "$GITHUB_ENV"
-
-      # The app page is built from web/src + web/data, so the APK always matches the source.
-      - name: Build app page
-        run: python3 web/build.py
-
-      # Tests: the engine in Node, then every screen in Chromium. No APK when a test fails.
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -48,50 +36,65 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Engine tests
-        run: node tests/engine.js
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
 
-      - name: Browser smoke test
+      # v2.N: run 19 of this workflow made v2.0 (v1.17 was run 18). versionCode = 2000 + run: above every v1.x
+      # (100 + run) and every development build (1000 + run), so each release installs over what is on the phone.
+      - name: Version
         run: |
-          pip install --quiet playwright
-          python -m playwright install --with-deps chromium
-          # timing on a shared runner can vary; a real failure fails twice
-          python tests/smoke.py || { echo "::warning title=Smoke test retried::first run failed, running again"; python tests/smoke.py; }
+          n=$(( GITHUB_RUN_NUMBER - 19 ))
+          if [ "$n" -lt 0 ]; then n=0; fi
+          echo "VER=2.$n" >> "$GITHUB_ENV"
+          echo "CODE=$(( 2000 + GITHUB_RUN_NUMBER ))" >> "$GITHUB_ENV"
+
+      - name: Assets (word data, interface text, the sealed part)
+        run: |
+          npm install --silent --no-save --prefix mobile/tool acorn@8.15.0
+          python3 mobile/tool/make_assets.py
+
+      - name: Pub get
+        working-directory: mobile
+        run: flutter pub get
+
+      - name: Analyze
+        working-directory: mobile
+        run: flutter analyze --no-fatal-infos
+
+      # the Dart engine is checked against traces of the JS engine (same answers, same numbers)
+      - name: Engine traces
+        run: TZ=UTC node mobile/tool/js_traces.js mobile/test/traces
+
+      # No APK when a test fails.
+      - name: Tests
+        working-directory: mobile
+        run: flutter test --update-goldens
 
       - name: Keep the test screenshots
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: smoke-screenshots
-          path: tests/out/
+          name: screenshots
+          path: mobile/test/goldens/
           if-no-files-found: ignore
 
       - name: Build signed APK
-        shell: bash
+        working-directory: mobile
         run: |
-          chmod +x gradlew
-          set -o pipefail
-          if ! ./gradlew assembleRelease --no-daemon --stacktrace 2>&1 | tee build.log; then
-            # Surface the Gradle error as an annotation so it shows on the run summary page.
-            msg=$(grep -A 30 "What went wrong" build.log | head -60)
-            [ -z "$msg" ] && msg=$(grep -iE "error|exception" build.log | head -40)
-            [ -z "$msg" ] && msg=$(tail -40 build.log)
-            msg="${msg//'%'/'%25'}"; msg="${msg//$'\r'/'%0D'}"; msg="${msg//$'\n'/'%0A'}"
-            echo "::error title=Gradle build failed::$msg"
-            exit 1
-          fi
-          cp app/build/outputs/apk/release/app-release.apk XueCiMandarin.apk
+          flutter build apk --release --build-number=$CODE --build-name=$VER
+          cp build/app/outputs/flutter-apk/app-release.apk ../XueCiMandarin.apk
 
       # Google Play bundle, signed with the upload key from the repository secrets when they are set
       - name: Build Play bundle (AAB)
-        shell: bash
+        working-directory: mobile
         env:
           KS_B64: ${{ secrets.XC_UPLOAD_KEYSTORE_B64 }}
           XC_UPLOAD_STORE_PASSWORD: ${{ secrets.XC_UPLOAD_STORE_PASSWORD }}
           XC_UPLOAD_KEY_ALIAS: ${{ secrets.XC_UPLOAD_KEY_ALIAS }}
           XC_UPLOAD_KEY_PASSWORD: ${{ secrets.XC_UPLOAD_KEY_PASSWORD }}
         run: |
-          chmod +x gradlew
           if [ -n "$KS_B64" ]; then
             echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
             export XC_UPLOAD_KEYSTORE="$RUNNER_TEMP/upload.jks"
@@ -99,8 +102,8 @@ jobs:
           else
             echo "::notice title=No upload key::XC_UPLOAD_KEYSTORE_B64 is not set; the bundle is signed with the sideload key (not for Play)"
           fi
-          ./gradlew bundlePlay --no-daemon --stacktrace
-          cp app/build/outputs/bundle/play/app-play.aab XueCiMandarin.aab
+          XC_PLAY=1 flutter build appbundle --release --build-number=$CODE --build-name=$VER
+          cp build/app/outputs/bundle/release/app-release.aab ../XueCiMandarin.aab
           rm -f "$RUNNER_TEMP/upload.jks"
 
       - uses: actions/upload-artifact@v4
@@ -108,7 +111,7 @@ jobs:
           name: XueCiMandarin-apk
           path: XueCiMandarin.apk
 
-      # Never mix a new build into an old release that happens to share its name (e.g. an old v1.3).
+      # Never mix a new build into an old release that happens to share its name.
       - name: Check the version name is free
         env:
           GH_TOKEN: ${{ github.token }}
@@ -118,7 +121,7 @@ jobs:
             exit 1
           fi
 
-      # Release notes: the "## v1.N" section of CHANGELOG.md, then how to install.
+      # Release notes: the "## v2.N" section of CHANGELOG.md, then how to install.
       - name: Release notes
         run: |
           awk -v v="## v$VER" 'index($0,"## ")==1{if(p)exit; p=($0==v||index($0,v" ")==1)} p' CHANGELOG.md | tail -n +2 > notes.md

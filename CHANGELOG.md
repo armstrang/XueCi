@@ -1,8 +1,33 @@
 # Changelog
 
 Every push of app changes to `main` makes a new release on [GitHub Releases](https://github.com/armstrang/XueCi/releases)
-(v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
-before pushing.
+(v1.0 … v1.17, then v2.0, v2.1, …). CI uses the `## vX.N` section below as the release notes for that version, so
+write the section before pushing.
+
+## v2.0 — October 2026
+
+**XueCi is rebuilt as a native app (Flutter) instead of a web page inside the app: the same app and the same
+progress, with every screen drawn natively.**
+
+### Your progress comes with you
+- Install v2.0 over v1.x as usual. On the first start the app moves everything from v1.x by itself: word progress,
+  memory model, goal, realm and its history, tests, mock exams, meditation days, reminder, theme and language.
+- To be extra safe, make a backup code in v1.x first (Settings › Backup › Back up) and keep it somewhere. Codes made
+  by v1.x restore in v2.0, and v2.0's codes work the same way.
+
+### Changed
+- Every screen is drawn natively instead of in a web page: Home, the word list, Cards, Quiz, the daily session, the
+  HSK mock exam, Stats, the Soul Sea (its orb and the five-element ring), the realm sheet, the placement test and the
+  tribulation with its lightning, Settings and the help guide. They look as before, with small refinements.
+- Text follows the phone's text size, from small to very large, without breaking the layout.
+- Backup codes are copied and pasted with the phone's own clipboard; sharing a code or the cultivation card uses the
+  phone's share sheet.
+- The learning engine (memory model, daily plan, question choice, realms, tests) is the same engine, rewritten and
+  checked answer by answer against v1.x, so your plan and numbers stay the same.
+- The list footer says that progress is saved on this device.
+
+### Under the hood
+- The app no longer runs inside a WebView. It still works fully offline and sends nothing anywhere.
 
 ## v1.17 — 19 October 2026
 

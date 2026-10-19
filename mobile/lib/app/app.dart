@@ -69,8 +69,22 @@ class App extends ChangeNotifier {
     final store = Store(be);
     final saved = be.loadAll();
     var leg = legacy;
-    if (leg == null && backend == null && !saved.containsKey('xc_schema')) leg = await Native.I.legacy();
-    store.open(legacy: leg);
+    // v1.x's progress moves once. When reading it failed (not "nothing there"), the next starts try again, and it
+    // still wins as long as hardly anything was practised in between.
+    final retry = saved['xc_legacy'] == '1';
+    var adopt = false;
+    if (leg == null && backend == null && (!saved.containsKey('xc_schema') || retry)) {
+      leg = await Native.I.legacy();
+      if (leg != null && leg.containsKey('!')) {
+        leg = null;
+        be.write({'xc_legacy': '1'});
+      } else if (retry) {
+        be.write({'xc_legacy': null});
+        adopt = leg != null && _practised(saved['mm_stats']) < 30;
+        if (!adopt) leg = null;
+      }
+    }
+    store.open(legacy: leg, adopt: adopt);
 
     final texts = <String, L10>{};
     for (final l in langs) {
@@ -94,6 +108,15 @@ class App extends ChangeNotifier {
     a.lm = LM(store, vocab, random: random, clock: clock, tzOffset: tzOffset);
     await a._init();
     return a;
+  }
+
+  static int _practised(String? statsJson) {
+    try {
+      final m = json.decode(statsJson ?? '{}') as Map;
+      return m.values.where((e) => e is List && e.length > 1 && (e[0] as num) + (e[1] as num) > 0).length;
+    } catch (_) {
+      return 0;
+    }
   }
 
   static String _sysLang([List<String>? list]) {

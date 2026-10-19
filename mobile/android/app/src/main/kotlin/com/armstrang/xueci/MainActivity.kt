@@ -151,9 +151,9 @@ class MainActivity : FlutterActivity() {
                 override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest) = true
             }
             w.loadUrl("https://$host/assets/legacy.html")
-            main.postDelayed({ answer(null) }, 8000)
+            main.postDelayed({ answer("!") }, 8000) // failed: the app tries again at the next start
         } catch (e: Exception) {
-            answer(null)
+            answer("!")
         }
     }
 
