@@ -4,8 +4,10 @@ library;
 
 import 'dart:convert';
 import 'dart:io' show ZLibEncoder;
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart' show SemanticsProperties;
 import 'package:flutter/services.dart';
 
 import '../app/app.dart';
@@ -166,30 +168,8 @@ class StatsScreenState extends State<StatsScreen> {
             ),
           ),
           const SizedBox(height: 6),
-          Wrap(
-            spacing: 4,
-            runSpacing: 4,
-            children: [
-              for (final d in it)
-                Semantics(
-                  button: true,
-                  selected: d.id == sel,
-                  label: d.h,
-                  child: GestureDetector(
-                    onTap: () => setState(() => sel = d.id),
-                    child: Container(
-                      width: 22,
-                      height: 22,
-                      decoration: BoxDecoration(
-                        color: levelColor(p, app.lvl(d)),
-                        borderRadius: BorderRadius.circular(6),
-                        border: d.id == sel ? Border.all(color: p.fg, width: 2) : null,
-                      ),
-                    ),
-                  ),
-                ),
-            ],
-          ),
+          // one painted grid per unit instead of a widget per word: much cheaper to lay out and scroll
+          _DotGrid(words: it, sel: sel, onPick: (id) => setState(() => sel = id)),
         ],
       ),
     );
@@ -806,3 +786,87 @@ void openResearch() {
   app.go('stats');
 }
 
+
+
+/// the words of a unit as coloured squares (22 px, 4 px apart), one per word; tap one to see it
+class _DotGrid extends StatelessWidget {
+  final List<Word> words;
+  final String? sel;
+  final ValueChanged<String> onPick;
+  const _DotGrid({required this.words, required this.sel, required this.onPick});
+  static const _s = 22.0, _g = 4.0;
+  @override
+  Widget build(BuildContext context) {
+    final p = Th.pal(context);
+    return LayoutBuilder(
+      builder: (c, bc) {
+        final cols = math.max(1, ((bc.maxWidth + _g) / (_s + _g)).floor());
+        final rows = (words.length / cols).ceil();
+        final h = rows == 0 ? 0.0 : rows * (_s + _g) - _g;
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTapUp: (e) {
+            final col = (e.localPosition.dx / (_s + _g)).floor(), row = (e.localPosition.dy / (_s + _g)).floor();
+            final i = row * cols + col;
+            if (col < cols && i >= 0 && i < words.length) onPick(words[i].id);
+          },
+          child: RepaintBoundary(
+            child: CustomPaint(
+              size: Size(bc.maxWidth, h),
+              painter: _DotPainter([for (final d in words) levelColor(p, app.lvl(d))], [for (final d in words) d.h], words.indexWhere((d) => d.id == sel), cols, p.fg, (i) => onPick(words[i].id)),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class _DotPainter extends CustomPainter {
+  final List<Color> colors;
+  final List<String> labels;
+  final int sel, cols;
+  final Color ring;
+  final void Function(int) pick;
+  _DotPainter(this.colors, this.labels, this.sel, this.cols, this.ring, this.pick);
+  static const _s = 22.0, _g = 4.0;
+  Rect _rect(int i) => Rect.fromLTWH((i % cols) * (_s + _g), (i ~/ cols) * (_s + _g), _s, _s);
+  @override
+  void paint(Canvas c, Size size) {
+    final pt = Paint();
+    for (var i = 0; i < colors.length; i++) {
+      c.drawRRect(RRect.fromRectAndRadius(_rect(i), const Radius.circular(6)), pt..color = colors[i]);
+    }
+    if (sel >= 0) {
+      c.drawRRect(
+        RRect.fromRectAndRadius(_rect(sel).deflate(1), const Radius.circular(5)),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2
+          ..color = ring,
+      );
+    }
+  }
+
+  // each square is still its own button for TalkBack
+  @override
+  SemanticsBuilderCallback get semanticsBuilder => (size) => [
+    for (var i = 0; i < labels.length; i++)
+      CustomPainterSemantics(
+        rect: _rect(i),
+        properties: SemanticsProperties(label: labels[i], textDirection: TextDirection.ltr, button: true, selected: i == sel, onTap: () => pick(i)),
+      ),
+  ];
+
+  @override
+  bool shouldRepaint(_DotPainter o) => o.sel != sel || o.cols != cols || o.ring != ring || !_same(o.colors, colors);
+  @override
+  bool shouldRebuildSemantics(_DotPainter o) => o.sel != sel || o.cols != cols || o.labels.length != labels.length;
+  static bool _same(List<Color> a, List<Color> b) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i] != b[i]) return false;
+    }
+    return true;
+  }
+}

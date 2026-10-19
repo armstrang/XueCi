@@ -135,14 +135,20 @@ class HomeHeader extends StatelessWidget {
                     TextSpan(
                       children: [
                         const TextSpan(text: 'Xue'),
-                        TextSpan(text: 'Ci', style: TextStyle(color: th.acc)),
+                        TextSpan(
+                          text: 'Ci',
+                          style: TextStyle(color: th.acc),
+                        ),
                       ],
                     ),
                     style: F.s(narrow ? 18 : 20, w: FontWeight.w800, c: p.fg, ls: -.9, h: 1),
                   ),
                   if (th.fs < 1.15) ...[
                     const SizedBox(height: 4),
-                    Text('MANDARIN', style: F.s(8, w: FontWeight.w800, c: p.soft, ls: 2.9, h: 1)),
+                    Text(
+                      'MANDARIN',
+                      style: F.s(8, w: FontWeight.w800, c: p.soft, ls: 2.9, h: 1),
+                    ),
                   ],
                 ],
               ),
@@ -162,10 +168,16 @@ class HomeHeader extends StatelessWidget {
                 children: [
                   Incense(lit: s.today, size: 32),
                   const SizedBox(width: 7),
-                  Text(app.fmt(s.days), style: F.s(14.5, w: FontWeight.w800, c: p.fg, feat: F.tab)),
+                  Text(
+                    app.fmt(s.days),
+                    style: F.s(14.5, w: FontWeight.w800, c: p.fg, feat: F.tab),
+                  ),
                   if (!narrow) ...[
                     const SizedBox(width: 5),
-                    Text(t.streakU(s.days), style: F.s(12.5, w: FontWeight.w700, c: p.soft)),
+                    Text(
+                      t.streakU(s.days),
+                      style: F.s(12.5, w: FontWeight.w700, c: p.soft),
+                    ),
                   ],
                 ],
               ),
@@ -179,7 +191,13 @@ class HomeHeader extends StatelessWidget {
             child: Stack(
               clipBehavior: Clip.none,
               children: [
-                Glass(frost: true, radius: h / 2, width: h, height: h, child: Center(child: Icon2(I.gear, size: 21, color: p.fg))),
+                Glass(
+                  frost: true,
+                  radius: h / 2,
+                  width: h,
+                  height: h,
+                  child: Center(child: Icon2(I.gear, size: 21, color: p.fg)),
+                ),
                 if (app.bkDue())
                   Positioned(
                     top: 7,
@@ -224,7 +242,11 @@ class Incense extends StatelessWidget {
                 colors: [Color(0xfff2a15c), Color(0xffd9573a)],
               )
             : null,
-        boxShadow: sh(lit ? const [BoxShadow(color: Color(0xffd9573a), offset: Offset(0, 6), blurRadius: 14, spreadRadius: -6)] : null),
+        boxShadow: sh(
+          lit
+              ? const [BoxShadow(color: Color(0xffd9573a), offset: Offset(0, 6), blurRadius: 14, spreadRadius: -6)]
+              : null,
+        ),
       ),
       child: Center(
         child: SizedBox(
@@ -232,7 +254,9 @@ class Incense extends StatelessWidget {
           height: size * .6,
           child: Stack(
             children: [
-              Positioned.fill(child: Icon2(I.incense, size: size * .6, color: lit ? Colors.white : p.mute)),
+              Positioned.fill(
+                child: Icon2(I.incense, size: size * .6, color: lit ? Colors.white : p.mute),
+              ),
               Positioned.fill(
                 child: Opacity(
                   opacity: lit ? 1 : .35,
@@ -265,10 +289,22 @@ class Fluid extends StatelessWidget {
         return CustomMultiChildLayout(
           delegate: _FluidLayout(geom, th.fsd, big),
           children: [
-            LayoutId(id: 's', child: CustomPaint(painter: _FluidPainter(geom, p, lc, th.acc, th.low))),
-            LayoutId(id: 'o', child: _Orb(geom: geom)),
-            LayoutId(id: 'q', child: _RingQ(small: h <= 300)),
-            LayoutId(id: 't', child: _RealmText(lines: lines, big: big)),
+            LayoutId(
+              id: 's',
+              child: CustomPaint(painter: _FluidPainter(geom, p, lc, th.acc, th.low)),
+            ),
+            LayoutId(
+              id: 'o',
+              child: _Orb(geom: geom),
+            ),
+            LayoutId(
+              id: 'q',
+              child: _RingQ(small: h <= 300),
+            ),
+            LayoutId(
+              id: 't',
+              child: _RealmText(lines: lines, big: big),
+            ),
             LayoutId(id: 'p', child: const PlanCard()),
           ],
         );
@@ -291,7 +327,9 @@ class _FluidLayout extends MultiChildLayoutDelegate {
     final w = size.width, h = size.height;
     final ps = layoutChild('p', BoxConstraints(maxWidth: w - 24, minWidth: w - 24));
     final ts = layoutChild('t', BoxConstraints(maxWidth: w - 40, minWidth: w - 40));
-    var ob = big ? math.min(w * .48, h - 300 * fsd).clamp(72, 200).toDouble() : math.min(w * .52, h - 250 * fsd).clamp(76, 214).toDouble();
+    var ob = big
+        ? math.min(w * .48, h - 300 * fsd).clamp(72, 200).toDouble()
+        : math.min(w * .52, h - 250 * fsd).clamp(76, 214).toDouble();
     var free = h - 12 - ps.height - ob - ts.height;
     if (free < 0) {
       ob = math.max(56, ob + free);
@@ -362,11 +400,16 @@ class _FluidPainter extends CustomPainter {
       c.drawRRect(
         RRect.fromRectXY(gr, gr.width / 2, gr.height / 2),
         Paint()
-          ..shader = ui.Gradient.linear(gr.centerLeft, gr.centerRight, [
-            p.gold.withValues(alpha: .7 * .32),
-            acc.withValues(alpha: .32),
-            Pal.mix(lc, .6, const Color(0xffe89ab0)).withValues(alpha: .32),
-          ], [0, .5, 1])
+          ..shader = ui.Gradient.linear(
+            gr.centerLeft,
+            gr.centerRight,
+            [
+              p.gold.withValues(alpha: .7 * .32),
+              acc.withValues(alpha: .32),
+              Pal.mix(lc, .6, const Color(0xffe89ab0)).withValues(alpha: .32),
+            ],
+            [0, .5, 1],
+          )
           ..maskFilter = blur(BlurStyle.normal, 30),
       );
       // the shadow only outside the glass, never under it; drawn as a blurred circle (the orb) and a blurred rounded
@@ -380,7 +423,13 @@ class _FluidPainter extends CustomPainter {
           final pt = Paint()
             ..color = b.color
             ..maskFilter = MaskFilter.blur(BlurStyle.normal, b.blurSigma);
-          c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTRB(0, y, s.width, s.height).inflate(b.spreadRadius).shift(b.offset), const Radius.circular(34)), pt);
+          c.drawRRect(
+            RRect.fromRectAndRadius(
+              Rect.fromLTRB(0, y, s.width, s.height).inflate(b.spreadRadius).shift(b.offset),
+              const Radius.circular(34),
+            ),
+            pt,
+          );
           c.drawCircle(Offset(g.cx, g.cy) + b.offset, R + b.spreadRadius, pt);
         }
         c.restore();
@@ -440,45 +489,57 @@ class _OrbState extends State<_Orb> with SingleTickerProviderStateMixin {
             builder: (c, child) => DecoratedBox(
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                boxShadow: sh(open
-                    ? [
-                        BoxShadow(
-                          color: p.gold.withValues(alpha: th.low ? .55 : .45 * _glow.value),
-                          blurRadius: th.low ? 0 : 34 * _glow.value,
-                          spreadRadius: th.low ? 3 : 6 * _glow.value,
-                        ),
-                      ]
-                    : null),
+                boxShadow: sh(
+                  open
+                      ? [
+                          BoxShadow(
+                            color: p.gold.withValues(alpha: th.low ? .55 : .45 * _glow.value),
+                            blurRadius: th.low ? 0 : 34 * _glow.value,
+                            spreadRadius: th.low ? 3 : 6 * _glow.value,
+                          ),
+                        ]
+                      : null,
+                ),
               ),
               child: child,
             ),
-            child: CustomPaint(
-              painter: _OrbRing(p, lc, pct / 100, unst, ob),
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      app.rn[r],
-                      style: F.s(
-                        ob * .3,
-                        w: FontWeight.w900,
-                        family: F.hz,
-                        c: r == 0 ? p.soft : lc,
-                        h: 1.05,
-                        ls: ob * .3 * .04,
-                      ).copyWith(shadows: r == 0 || th.low ? null : [Shadow(color: lc.withValues(alpha: .3), blurRadius: 22)]),
-                      textScaler: TextScaler.noScaling,
-                    ),
-                    if (ob > 110) Text(app.rpy[r], style: F.s(11.5, c: p.soft)),
-                    Text(
-                      r > 0 ? '$pct%' : t.chipTest,
-                      style: r > 0
-                          ? F.s(ob * .125, c: p.fg, feat: F.tab)
-                          : F.s(12, w: FontWeight.w800, c: th.acc),
-                      textScaler: r > 0 ? TextScaler.noScaling : null,
-                    ),
-                  ],
+            // the ring fills up when Home appears and glides to a new value (only the orb redraws)
+            child: RepaintBoundary(
+              child: TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0, end: pct / 100),
+                duration: MediaQuery.of(context).disableAnimations ? Duration.zero : const Duration(milliseconds: 650),
+                curve: Curves.easeOutCubic,
+                builder: (c, v, child) => CustomPaint(painter: _OrbRing(p, lc, v, unst, ob), child: child),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        app.rn[r],
+                        style: F
+                            .s(
+                              ob * .3,
+                              w: FontWeight.w900,
+                              family: F.hz,
+                              c: r == 0 ? p.soft : lc,
+                              h: 1.05,
+                              ls: ob * .3 * .04,
+                            )
+                            .copyWith(
+                              shadows: r == 0 || th.low
+                                  ? null
+                                  : [Shadow(color: lc.withValues(alpha: .3), blurRadius: 22)],
+                            ),
+                        textScaler: TextScaler.noScaling,
+                      ),
+                      if (ob > 110) Text(app.rpy[r], style: F.s(11.5, c: p.soft)),
+                      Text(
+                        r > 0 ? '$pct%' : t.chipTest,
+                        style: r > 0 ? F.s(ob * .125, c: p.fg, feat: F.tab) : F.s(12, w: FontWeight.w800, c: th.acc),
+                        textScaler: r > 0 ? TextScaler.noScaling : null,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -566,7 +627,12 @@ class _RingQ extends StatelessWidget {
           boxShadow: sh([BoxShadow(color: Colors.white.withValues(alpha: p.dark ? .4 : .85), blurRadius: 16)]),
         ),
         child: Center(
-          child: Compact(child: Text('?', style: F.s(15, w: FontWeight.w800, c: p.fg))),
+          child: Compact(
+            child: Text(
+              '?',
+              style: F.s(15, w: FontWeight.w800, c: p.fg),
+            ),
+          ),
         ),
       ),
     );
@@ -593,11 +659,23 @@ class _RealmText extends StatelessWidget {
     final nameSize = big ? 15.0 : (narrow ? 16.5 : 19.0);
     Widget line;
     if (r == 0) {
-      line = Text(t.rLine0, textAlign: TextAlign.center, style: F.s(13.5, c: p.soft, h: 1.4));
+      line = Text(
+        t.rLine0,
+        textAlign: TextAlign.center,
+        style: F.s(13.5, c: p.soft, h: 1.4),
+      );
     } else if (unst) {
-      line = Text(t.unstT, textAlign: TextAlign.center, style: F.s(13.5, w: FontWeight.w800, c: p.sRed, h: 1.4));
+      line = Text(
+        t.unstT,
+        textAlign: TextAlign.center,
+        style: F.s(13.5, w: FontWeight.w800, c: p.sRed, h: 1.4),
+      );
     } else if (open) {
-      line = Text(t.stOpen, textAlign: TextAlign.center, style: F.s(13.5, w: FontWeight.w800, c: p.gold, h: 1.4));
+      line = Text(
+        t.stOpen,
+        textAlign: TextAlign.center,
+        style: F.s(13.5, w: FontWeight.w800, c: p.gold, h: 1.4),
+      );
     } else {
       line = Text(
         '${st != null ? '${L10.text(t.stageS[st.i])} · ' : ''}${t.toNext(pct)}',
@@ -703,7 +781,9 @@ class PlanCard extends StatelessWidget {
     Widget card({required EdgeInsets padding, required Widget child}) =>
         Glass(inner: true, solid: true, radius: 26, padding: padding, child: child);
     final chip = app.goalChip();
-    final pad = big ? const EdgeInsets.fromLTRB(12, 9, 12, 11) : (short ? const EdgeInsets.fromLTRB(12, 10, 12, 12) : const EdgeInsets.fromLTRB(14, 12, 14, 14));
+    final pad = big
+        ? const EdgeInsets.fromLTRB(12, 9, 12, 11)
+        : (short ? const EdgeInsets.fromLTRB(12, 10, 12, 12) : const EdgeInsets.fromLTRB(14, 12, 14, 14));
     if (app.isNewbie()) {
       return card(
         padding: pad,
@@ -715,7 +795,10 @@ class PlanCard extends StatelessWidget {
                 Expanded(
                   child: Semantics(
                     header: true,
-                    child: Text(t.nbT, style: F.s(17 * 1.0, w: FontWeight.w800, c: p.fg, ls: -.3)),
+                    child: Text(
+                      t.nbT,
+                      style: F.s(17 * 1.0, w: FontWeight.w800, c: p.fg, ls: -.3),
+                    ),
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -759,7 +842,10 @@ class PlanCard extends StatelessWidget {
       line = Text.rich(
         TextSpan(
           children: [
-            TextSpan(text: '闭关 ', style: F.s(15, w: FontWeight.w900, family: F.hz, c: p.elWater)),
+            TextSpan(
+              text: '闭关 ',
+              style: F.s(15, w: FontWeight.w900, family: F.hz, c: p.elWater),
+            ),
             TextSpan(text: t.planRestT),
           ],
         ),
@@ -807,7 +893,13 @@ class PlanCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Semantics(header: true, child: Text(t.planT, style: F.s(17, w: FontWeight.w800, c: p.fg, ls: -.3))),
+              Semantics(
+                header: true,
+                child: Text(
+                  t.planT,
+                  style: F.s(17, w: FontWeight.w800, c: p.fg, ls: -.3),
+                ),
+              ),
               const Spacer(),
               if (!big) ...[
                 GChip(
@@ -816,7 +908,10 @@ class PlanCard extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('试', style: F.s(14, w: FontWeight.w900, family: F.hz, c: p.dark ? p.fg : th.acc)),
+                      Text(
+                        '试',
+                        style: F.s(14, w: FontWeight.w900, family: F.hz, c: p.dark ? p.fg : th.acc),
+                      ),
                       const SizedBox(width: 5),
                       Text(
                         cDone ? '✓' : '$cc/${c['n']}',
@@ -832,10 +927,7 @@ class PlanCard extends StatelessWidget {
           ),
           SizedBox(height: short ? 4 : 6),
           if (big)
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [line, const SizedBox(height: 8), btn],
-            )
+            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [line, const SizedBox(height: 8), btn])
           else
             Row(
               children: [
@@ -911,7 +1003,10 @@ class _NbOpt extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(title, style: F.s(15.5, w: FontWeight.w800, c: fg)),
+              Text(
+                title,
+                style: F.s(15.5, w: FontWeight.w800, c: fg),
+              ),
               Text(sub, style: F.s(12.5, c: pri ? fg : p.soft)),
             ],
           ),
@@ -936,7 +1031,14 @@ class _NbOpt extends StatelessWidget {
                   colors: [Color.lerp(th.acc, Colors.white, .3)!, th.acc],
                   stops: const [0, .52],
                 ),
-                boxShadow: sh([BoxShadow(color: th.acc.withValues(alpha: .6), offset: const Offset(0, 10), blurRadius: 22, spreadRadius: -10)]),
+                boxShadow: sh([
+                  BoxShadow(
+                    color: th.acc.withValues(alpha: .6),
+                    offset: const Offset(0, 10),
+                    blurRadius: 22,
+                    spreadRadius: -10,
+                  ),
+                ]),
               ),
               child: child,
             )
@@ -974,7 +1076,10 @@ class _Mastery extends StatelessWidget {
             children: [
               Semantics(
                 header: true,
-                child: Text(t.masT, style: F.s(15 * th.fsd / th.fs, w: FontWeight.w800, c: p.fg)),
+                child: Text(
+                  t.masT,
+                  style: F.s(15 * th.fsd / th.fs, w: FontWeight.w800, c: p.fg),
+                ),
               ),
               const SizedBox(width: 8),
               Expanded(
@@ -993,25 +1098,26 @@ class _Mastery extends StatelessWidget {
                   constraints: const BoxConstraints(minHeight: 36),
                   child: Center(
                     widthFactor: 1,
-                    child: Text('${t.statsShort} ›', style: F.s(13, w: FontWeight.w800, c: th.acc)),
+                    child: Text(
+                      '${t.statsShort} ›',
+                      style: F.s(13, w: FontWeight.w800, c: th.acc),
+                    ),
                   ),
                 ),
               ),
             ],
           ),
           const SizedBox(height: 2),
-          LevelLens(
-            level: L,
-            onPick: app.setLevel,
-            showPct: !big,
-            compact: short,
-          ),
+          LevelLens(level: L, onPick: app.setLevel, showPct: !big, compact: short),
           SizedBox(height: short ? 4 : 6),
           Row(
             children: [
               ConstrainedBox(
                 constraints: const BoxConstraints(minWidth: 44),
-                child: Text(pc, style: F.s(19, w: FontWeight.w700, c: p.fg, feat: F.tab)),
+                child: Text(
+                  pc,
+                  style: F.s(19, w: FontWeight.w700, c: p.fg, feat: F.tab),
+                ),
               ),
               const SizedBox(width: 10),
               Expanded(
@@ -1032,7 +1138,10 @@ class _Mastery extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(app.fmt(S.band(b)), style: F.s(14, w: FontWeight.w800, c: p.fg, h: 1.2, feat: F.tab)),
+                          Text(
+                            app.fmt(S.band(b)),
+                            style: F.s(14, w: FontWeight.w800, c: p.fg, h: 1.2, feat: F.tab),
+                          ),
                           Row(
                             children: [
                               Dot(p.band(b), size: 7),
@@ -1094,13 +1203,20 @@ class LevelLens extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                if (!nine) Text('HSK', style: F.s(9.5, w: FontWeight.w700, c: on ? p.fg : p.soft, ls: .2, h: 1.1)),
+                if (!nine)
+                  Text(
+                    'HSK',
+                    style: F.s(9.5, w: FontWeight.w700, c: on ? p.fg : p.soft, ls: .2, h: 1.1),
+                  ),
                 Text(
                   '$l',
                   style: F.s(nine ? 16 : 20, w: on ? FontWeight.w800 : FontWeight.w500, c: on ? p.l(l) : p.fg, h: 1.05),
                 ),
                 if (showPct)
-                  Text(pc, style: F.s(10, w: FontWeight.w700, c: on ? p.fg : p.soft, feat: F.tab, h: 1.2)),
+                  Text(
+                    pc,
+                    style: F.s(10, w: FontWeight.w700, c: on ? p.fg : p.soft, feat: F.tab, h: 1.2),
+                  ),
               ],
             ),
           );

@@ -320,17 +320,23 @@ class StackBar extends StatelessWidget {
       child: Container(
         height: height,
         color: track ?? p.fgA(.09),
-        child: LayoutBuilder(
-          builder: (c, bc) => Row(
-            children: [
-              for (final (s, col) in parts)
-                if (s > 0)
-                  Container(
-                    width: (bc.maxWidth * s - gap).clamp(0, bc.maxWidth),
-                    margin: EdgeInsets.only(right: gap),
-                    color: col,
-                  ),
-            ],
+        // the bar grows in when it first appears
+        child: TweenAnimationBuilder<double>(
+          tween: Tween(begin: 0, end: 1),
+          duration: MediaQuery.of(context).disableAnimations ? Duration.zero : const Duration(milliseconds: 520),
+          curve: Curves.easeOutCubic,
+          builder: (c, k, _) => LayoutBuilder(
+            builder: (c, bc) => Row(
+              children: [
+                for (final (s, col) in parts)
+                  if (s > 0)
+                    Container(
+                      width: (bc.maxWidth * s * k - gap).clamp(0, bc.maxWidth),
+                      margin: EdgeInsets.only(right: gap),
+                      color: col,
+                    ),
+              ],
+            ),
           ),
         ),
       ),

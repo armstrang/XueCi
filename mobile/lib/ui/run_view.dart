@@ -660,7 +660,7 @@ class _BigBtn extends StatelessWidget {
 }
 
 /// an answer option: glass, green when right, red when the wrong pick
-class OptBtn extends StatelessWidget {
+class OptBtn extends StatefulWidget {
   final int n;
   final Widget label;
   final VoidCallback? onTap;
@@ -668,47 +668,85 @@ class OptBtn extends StatelessWidget {
   final bool selected;
   const OptBtn({super.key, required this.n, required this.label, this.onTap, this.state, this.selected = false});
   @override
+  State<OptBtn> createState() => _OptBtnState();
+}
+
+/// the answer reacts when it is judged: a small pop when right, a short shake when it was the wrong pick
+class _OptBtnState extends State<OptBtn> with SingleTickerProviderStateMixin {
+  late final AnimationController _a = AnimationController(vsync: this, duration: const Duration(milliseconds: 280));
+
+  @override
+  void didUpdateWidget(OptBtn o) {
+    super.didUpdateWidget(o);
+    if (o.state == null && widget.state != null && !MediaQuery.of(context).disableAnimations) {
+      _a.forward(from: 0);
+      if (widget.state == false) HapticFeedback.mediumImpact();
+    }
+  }
+
+  @override
+  void dispose() {
+    _a.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
+    final state = widget.state;
     final Color? fill = state == true
         ? p.good.withValues(alpha: .16)
         : state == false
         ? p.bad.withValues(alpha: .13)
-        : selected
+        : widget.selected
         ? th.acc.withValues(alpha: .14)
         : null;
     final Color? border = state == true ? p.good.withValues(alpha: .65) : (state == false ? p.bad.withValues(alpha: .65) : null);
-    return Press(
-      onTap: onTap,
-      scale: .97,
-      child: Stack(
-        children: [
-          Glass(
-            solid: true,
-            inner: true,
-            radius: 18,
-            color: fill,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-            child: Row(
-              children: [
-                Text('$n. ', style: F.s(15, w: FontWeight.w600, c: p.fg)),
-                Expanded(child: label),
-              ],
-            ),
+    final body = Stack(
+      children: [
+        Glass(
+          solid: true,
+          inner: true,
+          radius: 18,
+          color: fill,
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
+          child: Row(
+            children: [
+              Text('${widget.n}. ', style: F.s(15, w: FontWeight.w600, c: p.fg)),
+              Expanded(child: widget.label),
+            ],
           ),
-          if (border != null)
-            Positioned.fill(
-              child: IgnorePointer(
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(color: border, width: 1.5),
-                  ),
+        ),
+        if (border != null)
+          Positioned.fill(
+            child: IgnorePointer(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: border, width: 1.5),
                 ),
               ),
             ),
-        ],
+          ),
+      ],
+    );
+    return Press(
+      onTap: widget.onTap,
+      scale: .97,
+      child: RepaintBoundary(
+        child: AnimatedBuilder(
+          animation: _a,
+          child: body,
+          builder: (c, child) {
+            final t = _a.value;
+            if (t == 0 || t == 1 || widget.state == null) return child!;
+            if (widget.state == true) {
+              return Transform.scale(scale: 1 + .035 * math.sin(t * math.pi), child: child);
+            }
+            return Transform.translate(offset: Offset(7 * math.sin(t * math.pi * 3) * (1 - t), 0), child: child);
+          },
+        ),
       ),
     );
   }
