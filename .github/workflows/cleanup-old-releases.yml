@@ -1,0 +1,31 @@
+name: Delete the old WebView releases
+
+# One-off (Josh, Oct 2026): delete the WebView line's releases v1.0–v1.17 and their tags from this repo. The WebView
+# code lives on in armstrang/Merdeka-Mandarin. Keeps dev-flutter-sdk and v1.0-alpha. Runs once on a push to the
+# branch cleanup/old-releases; the branch is deleted afterwards.
+on:
+  push:
+    branches: ['cleanup/old-releases']
+
+permissions:
+  contents: write
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete releases and tags v1.0–v1.17
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          for n in $(seq 0 17); do
+            tag="v1.$n"
+            if gh release view "$tag" -R "$REPO" >/dev/null 2>&1; then
+              gh release delete "$tag" -R "$REPO" --yes --cleanup-tag && echo "deleted release $tag"
+            fi
+            if gh api "repos/$REPO/git/refs/tags/$tag" >/dev/null 2>&1; then
+              gh api -X DELETE "repos/$REPO/git/refs/tags/$tag" && echo "deleted tag $tag"
+            fi
+          done
+          echo "left:"; gh release list -R "$REPO" --limit 50
