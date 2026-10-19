@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import '../app/app.dart';
 import 'focus.dart';
 import 'glass.dart';
+import 'realm.dart';
 import 'run_view.dart';
+import 'soul.dart';
 import 'stats.dart';
 import 'theme.dart';
 
@@ -19,7 +21,7 @@ class StatsScreenHost extends StatelessWidget {
 class SoulScreenHost extends StatelessWidget {
   const SoulScreenHost({super.key});
   @override
-  Widget build(BuildContext context) => _Todo('soul');
+  Widget build(BuildContext context) => const SoulScreen();
 }
 
 class FocusScreenHost extends StatelessWidget {
@@ -43,3 +45,8 @@ class _Todo extends StatelessWidget {
 }
 
 void unused() => app;
+
+/// the sheets Home and the other screens open (registered once, before the first frame)
+void wireSheets() {
+  app.openRealm = openRealmSheet;
+}

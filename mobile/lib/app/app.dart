@@ -187,6 +187,10 @@ class App extends ChangeNotifier {
 
   String realmHSK(int r) => r < 1 ? '' : (lm.isFinal(r) ? 'HSK ${realmLv(r)} ✓' : 'HSK $r');
 
+  /// weekdays Monday first (0 = Sunday, as JS getDay); names in the study language (4 Jan 2026 was a Sunday)
+  static const wk = [1, 2, 3, 4, 5, 6, 0];
+  String wkName(int w, {bool long = false}) => (long ? DateFormat.EEEE(intlLoc) : DateFormat.E(intlLoc)).format(DateTime(2026, 1, 4 + w));
+
   // ---------------------------------------------------------------- the screen state (state.js)
   int level = 1;
   Map<int, int> unitBy = {for (var l = 1; l <= 9; l++) l: 1};
@@ -408,7 +412,8 @@ class App extends ChangeNotifier {
   // ---------------------------------------------------------------- what the screens register (sheets live in the UI)
   void Function(BuildContext)? openStreak, openSettings, openRealm;
   void Function(BuildContext, String?)? openInfo;
-  void Function(BuildContext, bool)? openGoal;
+  void Function(BuildContext, bool, [String?])? openGoal;
+  void Function(BuildContext)? openShare;
   VoidCallback? onWordmark;
 
   /// the back button asks this first (a run or a test may want to warn); true = handled

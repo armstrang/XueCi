@@ -29,6 +29,7 @@ class _XueCiAppState extends State<XueCiApp> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+    wireSheets();
   }
 
   @override

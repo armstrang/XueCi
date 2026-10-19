@@ -275,12 +275,13 @@ class LMNames {
 /// a section title in the sheets: 指点 zhǐdiǎn · Guidance
 class Shd extends StatelessWidget {
   final String hz, py, t;
-  const Shd(this.hz, this.py, this.t, {super.key});
+  final double top;
+  const Shd(this.hz, this.py, this.t, {super.key, this.top = 14});
   @override
   Widget build(BuildContext context) {
     final p = Th.pal(context);
     return Padding(
-      padding: const EdgeInsets.only(top: 14, bottom: 8),
+      padding: EdgeInsets.only(top: top, bottom: 8),
       child: Text.rich(
         TextSpan(
           children: [
@@ -324,6 +325,43 @@ class StackBar extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// a labelled bar: label · bar · value (the WebView app's .skrow)
+class SkRow extends StatelessWidget {
+  final Widget label;
+  final double frac;
+  final Color color;
+  final String value;
+  final double valueW;
+  final Color? valueColor;
+  const SkRow({super.key, required this.label, required this.frac, required this.color, required this.value, this.valueW = 44, this.valueColor});
+  @override
+  Widget build(BuildContext context) {
+    final p = Th.pal(context);
+    return Row(
+      children: [
+        label,
+        const SizedBox(width: 10),
+        Expanded(
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(99),
+            child: Container(
+              height: 7,
+              color: p.sunk,
+              alignment: Alignment.centerLeft,
+              child: FractionallySizedBox(widthFactor: frac.clamp(0, 1).toDouble(), heightFactor: 1, child: ColoredBox(color: color)),
+            ),
+          ),
+        ),
+        const SizedBox(width: 10),
+        SizedBox(
+          width: valueW,
+          child: Text(value, textAlign: TextAlign.right, maxLines: 1, style: F.s(12.5, w: FontWeight.w700, c: valueColor ?? p.fg, feat: F.tab)),
+        ),
+      ],
     );
   }
 }

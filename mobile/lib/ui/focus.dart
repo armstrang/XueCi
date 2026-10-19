@@ -39,7 +39,7 @@ class Capsule extends StatelessWidget {
         shadow: const [BoxShadow(color: Color.fromRGBO(20, 25, 40, .45), offset: Offset(0, 10), blurRadius: 26, spreadRadius: -16)],
         child: Row(
           children: [
-            _CapBtn(
+            CapBtn(
               label: t.back,
               onTap: onBack ?? () => backFrom(context),
               child: Icon2(I.back, size: 22, color: p.fg),
@@ -57,7 +57,7 @@ class Capsule extends StatelessWidget {
               ),
             ),
             if (pickers) ...[
-              _CapBtn(
+              CapBtn(
                 label: '${t.pickLv}: HSK ${app.level}',
                 onTap: () => openLevelMenu(context),
                 child: Row(
@@ -70,7 +70,7 @@ class Capsule extends StatelessWidget {
                 ),
               ),
               Container(width: 1, height: 18, color: p.fgA(.14)),
-              _CapBtn(
+              CapBtn(
                 label: '${t.pickU}: ${u != 0 ? '${t.unit} $u' : t.allU}',
                 onTap: () => openUnitMenu(context),
                 child: Row(
@@ -100,11 +100,11 @@ void backFrom(BuildContext context) {
   app.go(app.screen == 'stats' ? app.prevScreen : 'home');
 }
 
-class _CapBtn extends StatelessWidget {
+class CapBtn extends StatelessWidget {
   final Widget child;
   final VoidCallback onTap;
   final String label;
-  const _CapBtn({required this.child, required this.onTap, required this.label});
+  const CapBtn({super.key, required this.child, required this.onTap, required this.label});
   @override
   Widget build(BuildContext context) => Press(
     onTap: onTap,

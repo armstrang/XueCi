@@ -147,6 +147,14 @@ void runs() {
     await t.runAsync(() => bootApp(sample()));
     await shot(t, 'stats', before: () => app.go('stats'));
   });
+  testWidgets('soul sea', (t) async {
+    await t.runAsync(() => bootApp(sample()));
+    await shot(t, 'soul', size: const Size(412, 2700), before: () => app.go('soul'));
+  });
+  testWidgets('realm sheet', (t) async {
+    await t.runAsync(() => bootApp(sample(), lang: 'id'));
+    await shot(t, 'realm-sheet', after: () => app.openRealm!(navKey.currentContext!));
+  });
   testWidgets('mock intro', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_ui': '{"level":3,"qt":"mock"}'}));
     await shot(t, 'mock-intro', before: () => app.go('quiz'));
