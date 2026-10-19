@@ -1,4 +1,4 @@
-/* ---------- language menu ---------- */
+/* ---------- study language (a list that opens inside Settings since v1.14) ---------- */
 const langBtn = $('langBtn'),
   langMenu = $('langMenu'),
   langList = $('langList');
@@ -55,7 +55,7 @@ function applyStatic() {
   document.querySelectorAll('[data-i18n-aria]').forEach(el => el.setAttribute('aria-label', L10[el.dataset.i18nAria]));
   document.querySelectorAll('[data-i18n-ph]').forEach(el => (el.placeholder = L10[el.dataset.i18nPh]));
   $('langCode').textContent = lang.toUpperCase();
-  langBtn.title = L10.langHead + ': ' + L10.name;
+  $('langName').textContent = langPref === 'auto' ? `${L10.auto} · ${L10.name}` : L10.name;
   langBtn.setAttribute('aria-label', L10.langHead + ': ' + L10.name);
   $('legend').innerHTML = [
     ['妈', 'mā', 1],
@@ -85,6 +85,7 @@ function setLang(pref, silent) {
   }
   langPref = pref;
   ls.set('mm_lang', pref);
+  $('langName').textContent = pref === 'auto' ? `${L10.auto} · ${I18N[l].name}` : I18N[l].name;
   const changed = l !== lang;
   lang = l;
   L10 = I18N[l];

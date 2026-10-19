@@ -35,7 +35,7 @@ APP = ['i18n.js', 'i18n-app.js', 'i18n-learn.js',
        'app/state.js', 'app/screens.js', 'app/home.js', 'app/pickers.js', 'app/language.js', 'app/list.js',
        'app/runner.js', 'app/cards.js', 'app/quiz.js', 'app/summary.js', 'app/stats.js', 'app/research.js', 'app/info.js',
        'app/speech.js', 'app/backup.js', 'app/plan.js', 'app/goal.js', 'app/realm.js', 'app/placement.js',
-       'app/breakthrough.js', 'app/gate.js', 'app/soul-page.js', 'app/reminder.js', 'app/notes.js', 'app/keys.js', 'app/start.js']
+       'app/breakthrough.js', 'app/gate.js', 'app/soul-page.js', 'app/reminder.js', 'app/notes.js', 'app/settings.js', 'app/keys.js', 'app/start.js']
 
 # vocab.json fields: everything but the meanings goes to core.json; meanings per study language go to <lang>.json.
 CORE = ['l', 'n', 'u', 'h', 'p', 's', 'z', 'zp', 'f', 'g', 'pm']

@@ -44,6 +44,13 @@ LEAKS = '''words => { const out = new Set(), w = document.createTreeWalker(docum
   return [...out] }'''
 
 
+async def via_settings(pg, sel):
+    """v1.14: theme, language, backup and help moved from Home into Settings (gear in the header)"""
+    await pg.click('#setBtn')
+    await pg.wait_for_timeout(300)
+    await pg.click(sel)
+
+
 async def no_leak(pg, tag, where):
     found = await pg.evaluate(LEAKS, SECRET)
     check(not found, f'{tag}: no hint of what lies past 飞升 ({where}) {found}')
@@ -87,6 +94,14 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
 
     # first start: the goal sheet opens once; set an exam goal with too little time, take the suggested fix, save
     if onboarding:
+        # v1.14: a short tour comes first (3 steps, can be skipped); its last step opens the goal sheet
+        check(await pg.locator('#tourSheet').is_visible() and await pg.locator('.tdots i').count() == 3, f'{tag}: a short tour opens on first start')
+        check(await pg.locator('#nbZero').count() == 1 and await pg.locator('#nbTest').count() == 1, f'{tag}: a new learner sees two ways in (from zero / placement test)')
+        await no_leak(pg, tag, 'tour')
+        for _ in range(3):
+            await pg.click('#tourNext')
+            await pg.wait_for_timeout(120)
+        await pg.wait_for_timeout(300)
         check(await pg.locator('#goalSheet').is_visible(), f'{tag}: goal sheet opens on first start')
         check(await pg.locator('#gPt').count() == 1, f'{tag}: first start suggests the placement test')
         await pg.click('.gseg[data-g="t"][data-v="exam"]')
@@ -114,11 +129,15 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         check(await pg.locator('#goalSheet').is_hidden(), f'{tag}: no goal sheet after the first start')
 
     check(await pg.evaluate('state.screen') == 'home' and not await overflow(), f'{tag}: home, no sideways scroll')
-    check(await pg.locator('#planGo').is_visible(), f'{tag}: plan card with a start button')
+    check(await pg.locator('#nbZero').is_visible() and await pg.locator('#nbTest').is_visible(), f'{tag}: a new learner\'s plan card offers "from zero" and the placement test')
     check(await pg.locator('#curLvName').text_content() == '凡人' and 'Armstrang' not in await pg.locator('header.top').text_content(),
           f'{tag}: header shows the realm (凡人 before any test) and no "by Armstrang"')
-    check(await pg.locator('#chalBtn').is_visible(), f'{tag}: plan card shows today\'s trial')
+    check(await pg.locator('#chalBtn').count() == 0, f'{tag}: no daily trial before any practice')
     check(await pg.evaluate("getComputedStyle(document.getElementById('curLvBtn')).getPropertyValue('--p').trim()") == '0', f'{tag}: the realm chip has a progress ring')
+    rim = await pg.evaluate('''[...document.querySelectorAll('.isheet,.menu,.face')].filter(e => {
+        const s = getComputedStyle(e), a = getComputedStyle(e, '::after');
+        return /auto|scroll/.test(s.overflowY) && a.content !== 'none' && a.position === 'absolute' }).map(e => e.id || e.className)''')
+    check(not rim, f'{tag}: no box-sized overlay inside a scrolling box (it scrolls away and leaves a line) {rim}')
     if fs == 1 and width >= 360:
         await pg.set_viewport_size({'width': width, 'height': 680})
         await pg.wait_for_timeout(250)
@@ -243,7 +262,7 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     await pg.wait_for_timeout(350)
 
     # today's session from Home: every item can be answered through to the summary
-    await pg.click('#planGo')
+    await pg.click('#planGo, #nbZero')
     await pg.wait_for_timeout(400)
     check(await pg.evaluate('state.screen') == 'session' and await pg.locator('#lvbtn').is_hidden(), f'{tag}: session opens without level pickers')
     await shot('session')
@@ -358,8 +377,25 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         await pg.evaluate('mmBack()')
         await pg.wait_for_timeout(350)
 
+    # Settings: theme (4), visual effects (3), language, goal, backup, research, help; then the tone/help sheet
+    await pg.click('#setBtn')
+    await pg.wait_for_timeout(350)
+    check(await pg.locator('#themeSeg [role="radio"]').count() == 4 and await pg.locator('#fxSeg [role="radio"]').count() == 3
+          and await pg.locator('#setSheet #bkBtn').is_visible() and await pg.locator('#setSheet #toneInfo').is_visible(), f'{tag}: Settings holds theme, effects, backup and help')
+    await no_leak(pg, tag, 'Settings')
+    await pg.click('#fxSeg [data-fx="low"]')
+    check(await pg.evaluate("document.documentElement.classList.contains('fx-low') && ls.get('xc_fx') === 'low'"), f'{tag}: light visual effects can be chosen')
+    await pg.click('#fxSeg [data-fx="auto"]')
+    await pg.evaluate('mmBack()')
+    await pg.wait_for_timeout(200)
+    check(await pg.locator('#setSheet').is_hidden(), f'{tag}: back closes Settings')
+    await pg.click('#streakBtn')
+    await pg.wait_for_timeout(300)
+    check(await pg.locator('#strkBody .scal .sc').count() >= 29, f'{tag}: cultivation days open a five-week calendar')
+    await pg.evaluate('mmBack()')
+    await pg.wait_for_timeout(200)
     # tone info sheet
-    await pg.click('#toneInfo')
+    await via_settings(pg, '#toneInfo')
     await pg.wait_for_timeout(450)
     check(await pg.locator('.tone').count() == 5, f'{tag}: tone sheet lists 5 tones')
     check(await pg.locator('details.hlp').count() == 10, f'{tag}: help guide has 10 topics')
@@ -380,7 +416,7 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     # progress backup -> restore round trip (levels, memory states and goal)
     await pg.evaluate('LM.setRest([2])')
     before = await pg.evaluate('[stats, LM.exportMem(), LM.goal, LM.rest, LM.tests]')
-    await pg.click('#bkBtn')
+    await via_settings(pg, '#bkBtn')
     await pg.wait_for_timeout(350)
     check(await pg.locator('.bkopt').count() == 2, f'{tag}: backup sheet offers back up and restore')
     await pg.click('.bkopt[data-bk="make"]')
@@ -403,16 +439,15 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     await pg.wait_for_timeout(400)
     check(await pg.locator('#bkSheet').is_hidden(), f'{tag}: sheet closes after restoring')
     check(await pg.evaluate('[stats, LM.exportMem(), LM.goal, LM.rest, LM.tests]') == before, f'{tag}: restore brings the same progress, memory, goal, meditation days and tests back')
-    tone_row = await pg.evaluate('''() => { const a = document.getElementById('toneInfo').getBoundingClientRect(), b = document.getElementById('bkBtn').getBoundingClientRect();
-        return Math.abs(a.top - b.top) < 2 && b.left >= a.right && b.right <= innerWidth - 8 }''')
-    check(tone_row, f'{tag}: backup button sits beside tone info')
 
-    # language switch
-    await pg.click('#langBtn')
+    # language switch (Settings › study language)
+    await via_settings(pg, '#langBtn')
     await pg.wait_for_timeout(200)
     await pg.click('.lgrow[data-lang="vi"]')
     await pg.wait_for_timeout(300)
     check('Kiểm tra' in await pg.locator('.tiles').text_content() and 'Hôm nay' in await pg.locator('#plan').text_content(), f'{tag}: switch to Vietnamese')
+    await pg.evaluate('mmBack()')
+    await pg.wait_for_timeout(200)
 
     check(await pg.evaluate('mmBack()') is False, f'{tag}: back on Home leaves the app')
     check(not outside, f'{tag}: no requests leave the app {outside[:2]}')
@@ -500,15 +535,15 @@ async def store_case(browser):
     await pg.wait_for_timeout(300)
     # backup: a quiet dot after real progress with no backup; the sheet says when the last one was made
     await pg.evaluate("BY[1].slice(0, 40).forEach(d => stats[d.id] = [1, 0, 3]); renderHome()")
-    check(await pg.locator('#bkBtn.due').count() == 1, f'{tag}: a dot on Backup when there is progress and no backup')
-    await pg.click('#bkBtn')
+    check(await pg.locator('#bkBtn.due').count() == 1 and await pg.locator('#setBtn.due').count() == 1, f'{tag}: a dot on Settings and Backup when there is progress and no backup')
+    await via_settings(pg, '#bkBtn')
     await pg.wait_for_timeout(300)
     check(await pg.locator('#bkLast.old').is_visible() and await pg.locator('#bkLast').text_content() == await pg.evaluate('L10.bkNever'), f'{tag}: the sheet says no backup yet')
     await pg.click('.bkopt[data-bk="make"]')
     await pg.wait_for_timeout(400)
     await pg.click('#bkCopy')
     await pg.wait_for_timeout(300)
-    check(await pg.evaluate("ls.get('xc_bk', 0) > 0") and await pg.locator('#bkBtn.due').count() == 0, f'{tag}: copying the code records the backup and clears the dot')
+    check(await pg.evaluate("ls.get('xc_bk', 0) > 0") and await pg.locator('#setBtn.due').count() == 0, f'{tag}: copying the code records the backup and clears the dot')
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(200)
     check('2026' in await pg.locator('#bkLast').text_content() and await pg.locator('#bkLast.old').count() == 0, f'{tag}: the sheet shows the last backup date')
@@ -681,6 +716,13 @@ async def gate_case(browser):
     check(await pg.locator('#gateOv').is_hidden() and await pg.evaluate('state.screen') == 'soul' and await pg.evaluate('LM.level.gs') == 1, f'{tag}: entering leads to the Soul Sea')
     check(await pg.locator('#soulBody .rpath .rp').count() == 11 and await pg.locator('#curLvName').text_content() == '飞升', f'{tag}: the realm path now reaches 大罗')
     await pg.screenshot(path=os.path.join(OUT, f'{tag}-soul.png'), full_page=True)
+    gate_codes = await pg.evaluate('''async () => {
+        const real = await readCode(await makeCode());
+        const o = {app: 'xueci', v: 2, at: Date.now(), stats: {}, lvl: Object.assign({}, LM.level, {gate: 1, hist: [[7, 1, 'bt', 3]]}), mem: {}};
+        const b = new TextEncoder().encode(JSON.stringify(o)); let s = ''; b.forEach(x => s += String.fromCharCode(x));
+        const forged = await readCode('XUECI0:' + btoa(s).replace(/\\+/g, '-').replace(/\\//g, '_').replace(/=+$/, ''));
+        return [!!(real && real.lvl && real.lvl.gate), !!forged, !!(forged && forged.lvl && forged.lvl.gate)] }''')
+    check(gate_codes == [True, True, False], f'{tag}: a real backup code keeps the gate; an edited one without solid HSK 6 words loses it {gate_codes}')
     await pg.evaluate("go('home')")
     await pg.wait_for_timeout(450)
     check(await pg.locator('.lvpill').count() == 9 and not await pg.evaluate('document.documentElement.scrollWidth > innerWidth'), f'{tag}: Home has nine HSK pills and still fits')
@@ -695,7 +737,7 @@ async def gate_case(browser):
     await pg.screenshot(path=os.path.join(OUT, f'{tag}-list7.png'))
     await pg.evaluate("mmBack()")
     await pg.wait_for_timeout(300)
-    await pg.click('#toneInfo')
+    await via_settings(pg, '#toneInfo')
     await pg.wait_for_timeout(400)
     rows = await pg.locator('details.hlp[data-k="realm"] .hrow2').count()
     gl = await pg.locator('details.hlp[data-k="gloss"] .hrow2').count()
@@ -707,6 +749,51 @@ async def gate_case(browser):
     await pg.reload()
     await pg.wait_for_timeout(1200)
     check(await pg.evaluate('XC.band') and await pg.evaluate('BY[9].length') > 1000 and await pg.locator('#gateOv').is_hidden(), f'{tag}: after a restart HSK 7–9 load at once, no second ceremony')
+    check(not errors, f'{tag}: no page errors {errors[:2]}')
+    await ctx.close()
+
+
+PERF_JS = '''async (act) => {
+  const iv = []; let last = performance.now(), on = true;
+  const tick = t => { iv.push(t - last); last = t; if (on) requestAnimationFrame(tick); };
+  requestAnimationFrame(tick);
+  const t0 = performance.now();
+  await eval(act);
+  const work = performance.now() - t0;
+  await new Promise(r => setTimeout(r, 450));
+  on = false;
+  const s = iv.slice(1).sort((a, b) => a - b);
+  return {work: Math.round(work), med: Math.round(s[s.length >> 1] || 0), max: Math.round(s[s.length - 1] || 0)};
+}'''
+
+
+async def perf_case(browser):
+    """Speed on a slow phone (CPU 4x slower): Home redraws quickly, screen changes keep a smooth frame rate, the list
+    opens without a long freeze, and the frame watcher does not step a phone down when it runs well."""
+    tag = 'perf'
+    ctx = await browser.new_context(viewport={'width': 390, 'height': 844}, device_scale_factor=2.6, locale='id-ID')
+    await ctx.add_init_script("localStorage.setItem('xc_onb','1')")
+    pg = await ctx.new_page()
+    errors = []
+    pg.on('pageerror', lambda e: errors.append(str(e)))
+    cdp = await ctx.new_cdp_session(pg)
+    await cdp.send('Emulation.setCPUThrottlingRate', {'rate': 4})
+    await pg.goto(PAGE)
+    await pg.wait_for_function('!document.documentElement.classList.contains("booting") && !!document.getElementById("plan").textContent', timeout=20000)
+    boot = await pg.evaluate('performance.now()')
+    check(boot < 4000, f'{tag}: Home is ready within 4 s on a slow phone ({boot:.0f} ms)')
+    await pg.evaluate("BY[1].slice(0, 120).forEach((d, i) => stats[d.id] = [3, i % 3, i % 20]); renderHome()")
+    await pg.wait_for_timeout(800)
+    r = {}
+    for name, act in (('home', 'Promise.resolve(renderHome())'), ('list', "Promise.resolve(go('list'))"), ('back', "Promise.resolve(go('home'))"),
+                      ('cards', "Promise.resolve(go('card'))"), ('back2', "Promise.resolve(go('home'))"), ('stats', "Promise.resolve(go('stats'))"),
+                      ('back3', "Promise.resolve(go('home'))"), ('settings', "Promise.resolve(document.getElementById('setBtn').click())")):
+        r[name] = await pg.evaluate(PERF_JS, act)
+    print('     perf', json.dumps(r))
+    check(r['home']['work'] < 250, f'{tag}: Home redraws in under 250 ms ({r["home"]["work"]} ms)')
+    check(all(r[k]['med'] <= 40 for k in ('back', 'cards', 'back2', 'stats', 'back3', 'settings')), f'{tag}: screen changes keep a smooth frame rate')
+    check(r['list']['max'] < 400, f'{tag}: the word list opens without a long freeze (longest frame {r["list"]["max"]} ms)')
+    check(not await pg.evaluate("ls.get('xc_fxd', 0)") or r['back']['med'] > 30, f'{tag}: the frame watcher only steps down a phone that is really slow')
     check(not errors, f'{tag}: no page errors {errors[:2]}')
     await ctx.close()
 
@@ -728,6 +815,10 @@ async def reminder_case(browser):
     pg.on('pageerror', lambda e: errors.append(str(e)))
     await pg.goto(PAGE)
     await pg.wait_for_timeout(900)
+    for _ in range(3):
+        await pg.click('#tourNext')
+        await pg.wait_for_timeout(120)
+    await pg.wait_for_timeout(300)
     check(await pg.locator('#gTime').count() == 1 and await pg.get_attribute('[data-rem="1"]', 'aria-pressed') == 'true', f'{tag}: reminder suggested on first start')
     await pg.fill('#gTime', '20:30')
     await pg.dispatch_event('#gTime', 'change')
@@ -755,7 +846,8 @@ async def main():
             for width, locale, theme, fs, onb in ((360, 'id-ID', 'light', 1, True), (412, 'en-US', 'dark', 1, False), (320, 'th-TH', 'black', 1, False),
                                                   (1280, 'vi-VN', 'auto', 1, False), (360, 'vi-VN', 'light', 1.6, True)):
                 await run_case(browser, width, locale, theme, fs, onb)
-        for name, case in (('legacy', legacy_case), ('store', store_case), ('realm', realm_case), ('gate', gate_case), ('reminder', reminder_case)):
+        for name, case in (('legacy', legacy_case), ('store', store_case), ('realm', realm_case), ('gate', gate_case), ('reminder', reminder_case),
+                           ('perf', perf_case)):
             if not only or name in only:
                 await case(browser)
         await browser.close()

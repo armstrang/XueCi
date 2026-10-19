@@ -117,7 +117,7 @@
     }),
   );
 
-  /* 2. on Home the ring draws itself and the percentage counts up (short, so it never holds you up) */
+  /* 2. on Home the mastery percentage counts up (short, so it never holds you up) */
   let cuT = 0;
   function countUp(el, to) {
     cancelAnimationFrame(cuT);
@@ -134,21 +134,6 @@
   window.mmHomeRendered = S => {
     homeLens.sync(true);
     if (reduce) return;
-    const arcs = [...document.querySelectorAll('#ringArcs circle')];
-    arcs.forEach(c => {
-      c.style.transition = 'none';
-      c.style.strokeDasharray = `0 ${RING_C}`;
-      c.style.strokeDashoffset = '0';
-    });
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() =>
-        arcs.forEach(c => {
-          c.style.transition = '';
-          c.style.strokeDasharray = '';
-          c.style.strokeDashoffset = '';
-        }),
-      ),
-    );
     countUp(document.getElementById('heroPct'), S.p);
   };
   window.mmStatsRendered = () => statLens.sync(true);
@@ -177,6 +162,30 @@
     if (!el || !el.isConnected || !el.offsetParent) return '50% 120px';
     const r = el.getBoundingClientRect();
     return `${Math.round(r.left + r.width / 2 - s.left)}px ${Math.round(r.top + r.height / 2 - s.top)}px`;
+  }
+  /* frame watcher: in automatic mode, if screen changes keep running slowly on this phone (median frame over 30 ms
+     across several of them), step down to light effects once, remember it, and say so. Never in manual modes. */
+  const fw = { iv: [], n: 0, done: !!ls.get('xc_fxd', 0) };
+  function watchFrames() {
+    if (fw.done || fxPref !== 'auto' || document.visibilityState !== 'visible' || root.classList.contains('fx-low'))
+      return;
+    let last = 0;
+    const t0 = performance.now(),
+      tick = t => {
+        if (last) fw.iv.push(t - last);
+        last = t;
+        if (t - t0 < 320) requestAnimationFrame(tick);
+        else if (++fw.n >= 4 && fw.iv.length >= 30) {
+          const s = fw.iv.slice().sort((a, b) => a - b);
+          if (s[s.length >> 1] > 30) {
+            fw.done = true;
+            ls.set('xc_fxd', 1);
+            applyFx();
+            toast(L10.fxDown);
+          } else if (fw.n >= 12) fw.done = true; /* it ran well: stop watching for this session */
+        }
+      };
+    requestAnimationFrame(tick);
   }
   window.mmTransition = (run, from, to) => {
     const fwd = from === 'home' || to === 'stats' || (from === 'soul' && to !== 'home');
@@ -213,6 +222,7 @@
       origin = originIn(sec, el);
     }
     sec.style.transformOrigin = origin;
+    watchFrames();
     const a = sec.animate(
       fwd
         ? [
@@ -234,26 +244,25 @@
     };
   };
 
-  /* 4. switching theme spreads the new look out from the button */
-  const tb = document.getElementById('themeBtn'),
-    themeClick = tb.onclick;
-  tb.onclick = e => {
-    if (!hasVT) {
-      themeClick(e);
+  /* 4. switching theme spreads the new look out from the option you tapped (Settings) */
+  const themeGo = pickTheme;
+  pickTheme = (t, btn) => {
+    if (!hasVT || !btn) {
+      themeGo(t, btn);
       return;
     }
-    const r = tb.getBoundingClientRect();
+    const r = btn.getBoundingClientRect();
     root.style.setProperty('--vt-x', r.left + r.width / 2 + 'px');
     root.style.setProperty('--vt-y', r.top + r.height / 2 + 'px');
     root.dataset.vt = 'theme';
     try {
       document
-        .startViewTransition(() => themeClick(e))
+        .startViewTransition(() => themeGo(t, btn))
         .finished.finally(() => {
           delete root.dataset.vt;
         });
     } catch (_) {
-      themeClick(e);
+      themeGo(t, btn);
     }
   };
 
@@ -262,7 +271,7 @@
   document.addEventListener(
     'click',
     e => {
-      if (e.target.closest && e.target.closest('.tile,.lvpill,#hero,.planbtn')) buzz(7);
+      if (e.target.closest && e.target.closest('.tile,.lvpill,#hero,.planbtn,.orb,.hp')) buzz(7);
     },
     { capture: true },
   );

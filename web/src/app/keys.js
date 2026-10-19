@@ -18,6 +18,22 @@ window.mmBack = function () {
     closeInfo();
     return true;
   }
+  if (!langMenu.hidden) {
+    closeLang(true);
+    return true;
+  }
+  if (!tourSheet.hidden) {
+    closeTour(false);
+    return true;
+  }
+  if (!setSheet.hidden) {
+    closeSettings();
+    return true;
+  }
+  if (!strkSheet.hidden) {
+    closeStreak();
+    return true;
+  }
   if (!bkSheet.hidden) {
     bkBack();
     return true;
@@ -53,6 +69,9 @@ document.addEventListener('keydown', e => {
     !bkSheet.hidden ||
     !goalSheet.hidden ||
     !lvlSheet.hidden ||
+    !setSheet.hidden ||
+    !tourSheet.hidden ||
+    !strkSheet.hidden ||
     qMenuOpen()
   )
     return;

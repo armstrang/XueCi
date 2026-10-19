@@ -121,7 +121,6 @@ function setLevel(l) {
   $('q').value = '';
   saveUI();
   document.body.dataset.level = l;
-  $('seal').textContent = NUM[l - 1];
   startCards();
   startQuiz();
   refresh();

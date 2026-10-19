@@ -2654,3 +2654,242 @@ Object.assign(I18N.vi.gloss, {
     'Chế độ <b>Có định hướng</b> chọn từ và loại câu hỏi theo điểm yếu của bạn. Các loại khác: Nhận biết (chữ Hán → nghĩa), Nhớ lại (nghĩa → chữ Hán), Thanh điệu, Nghe, Câu, <b>Gõ pinyin</b> (nghĩa → pinyin từ trí nhớ, không có lựa chọn), <b>Bản dịch</b> (câu → bản dịch) và Thi thử (20 câu, 5 phút).',
   );
 }
+
+/* ---- v1.14: Home in one fluid glass shape, Settings, cultivation days in the header, display mode ---- */
+Object.assign(I18N.id, {
+  setT: 'Pengaturan',
+  setLook: 'Tampilan',
+  setStudy: 'Belajar',
+  setData: 'Data',
+  setHelp: 'Bantuan & tentang',
+  setGoalT: 'Tujuan, hari meditasi & pengingat',
+  fxT: 'Efek tampilan',
+  fxM: { auto: 'Otomatis', low: 'Hemat', full: 'Penuh' },
+  fxNote: (m, d) =>
+    m === 'auto'
+      ? `Disesuaikan dengan HP ini: sekarang ${d === 'low' ? 'hemat' : 'penuh'}.`
+      : m === 'low'
+        ? 'Kaca dan efek dikurangi: lebih ringan dan hemat baterai.'
+        : 'Semua efek kaca menyala, juga di HP yang lebih lambat.',
+  fxDown: 'Tampilan dibuat lebih ringan supaya tetap lancar di HP ini.',
+  masT: 'Penguasaan kata',
+  realmQ: 'Apa itu ranah?',
+  stageS: ['Awal', 'Tengah', 'Akhir', 'Sempurna'],
+  toNext: p => `${p}% menuju tahap berikutnya`,
+  rLine0: 'Ranah = level kemampuanmu. Ikuti tes singkat untuk menemukannya.',
+  streakU: n => (n === 1 ? 'hari' : 'hari'),
+  streakAria: (n, t) => `Hari kultivasi: ${n} hari${t ? ', sudah latihan hari ini' : ', belum latihan hari ini'}`,
+  strkT: 'Hari kultivasi',
+  strkLead:
+    'Hari dengan latihan, sekecil apa pun, menambah satu hari. Hari meditasi yang kamu pilih dan satu hari libur per minggu tidak memutusnya.',
+  strkToday: 'Hari ini sudah latihan ✓',
+  strkNot: 'Hari ini belum latihan: satu latihan kecil sudah cukup.',
+  strkBest: n => `Rekor terpanjang: ${n} hari`,
+  strkKey: ['latihan', 'meditasi', 'hari libur', 'hari ini'],
+  strkWd: ['M', 'S', 'S', 'R', 'K', 'J', 'S'],
+});
+Object.assign(I18N.en, {
+  setT: 'Settings',
+  setLook: 'Appearance',
+  setStudy: 'Studying',
+  setData: 'Data',
+  setHelp: 'Help & about',
+  setGoalT: 'Goal, meditation days & reminder',
+  fxT: 'Visual effects',
+  fxM: { auto: 'Automatic', low: 'Light', full: 'Full' },
+  fxNote: (m, d) =>
+    m === 'auto'
+      ? `Matched to this phone: now ${d === 'low' ? 'light' : 'full'}.`
+      : m === 'low'
+        ? 'Less glass and fewer effects: lighter and easier on the battery.'
+        : 'All glass effects on, even on slower phones.',
+  fxDown: 'The display was made lighter so it stays smooth on this phone.',
+  masT: 'Word mastery',
+  realmQ: 'What is a realm?',
+  stageS: ['Early', 'Middle', 'Late', 'Perfect'],
+  toNext: p => `${p}% of the way to the next stage`,
+  rLine0: 'A realm is your level. Take a short test to find it.',
+  streakU: n => (n === 1 ? 'day' : 'days'),
+  streakAria: (n, t) => `Cultivation days: ${n}${t ? ', practised today' : ', not practised today yet'}`,
+  strkT: 'Cultivation days',
+  strkLead:
+    'Every day with some practice, however small, adds a day. Your meditation days and one day off a week do not break it.',
+  strkToday: 'Practised today ✓',
+  strkNot: 'Not practised today yet: one small session is enough.',
+  strkBest: n => `Longest run: ${n} days`,
+  strkKey: ['practice', 'meditation', 'day off', 'today'],
+  strkWd: ['S', 'M', 'T', 'W', 'T', 'F', 'S'],
+});
+Object.assign(I18N.th, {
+  setT: 'การตั้งค่า',
+  setLook: 'การแสดงผล',
+  setStudy: 'การเรียน',
+  setData: 'ข้อมูล',
+  setHelp: 'ความช่วยเหลือและเกี่ยวกับ',
+  setGoalT: 'เป้าหมาย วันพักสมาธิ และการแจ้งเตือน',
+  fxT: 'เอฟเฟกต์การแสดงผล',
+  fxM: { auto: 'อัตโนมัติ', low: 'ประหยัด', full: 'เต็มที่' },
+  fxNote: (m, d) =>
+    m === 'auto'
+      ? `ปรับตามมือถือเครื่องนี้: ตอนนี้${d === 'low' ? 'ประหยัด' : 'เต็มที่'}`
+      : m === 'low'
+        ? 'ลดกระจกและเอฟเฟกต์: เบากว่าและประหยัดแบตเตอรี่'
+        : 'เปิดเอฟเฟกต์กระจกทั้งหมด แม้ในมือถือที่ช้ากว่า',
+  fxDown: 'ปรับการแสดงผลให้เบาลงเพื่อให้ลื่นไหลบนมือถือเครื่องนี้',
+  masT: 'ความแม่นคำศัพท์',
+  realmQ: 'ขั้นพลังคืออะไร?',
+  stageS: ['ต้น', 'กลาง', 'ปลาย', 'สมบูรณ์'],
+  toNext: p => `${p}% สู่ขั้นถัดไป`,
+  rLine0: 'ขั้นพลังคือระดับของคุณ ทำแบบทดสอบสั้น ๆ เพื่อหาระดับนั้น',
+  streakU: () => 'วัน',
+  streakAria: (n, t) => `วันบำเพ็ญ: ${n} วัน${t ? ' ฝึกวันนี้แล้ว' : ' วันนี้ยังไม่ได้ฝึก'}`,
+  strkT: 'วันบำเพ็ญ',
+  strkLead:
+    'ทุกวันที่ได้ฝึกแม้เพียงเล็กน้อยนับเป็นหนึ่งวัน วันพักสมาธิที่คุณเลือกและวันหยุดหนึ่งวันต่อสัปดาห์จะไม่ทำให้นับใหม่',
+  strkToday: 'วันนี้ฝึกแล้ว ✓',
+  strkNot: 'วันนี้ยังไม่ได้ฝึก: ฝึกเล็กน้อยก็พอ',
+  strkBest: n => `ต่อเนื่องนานที่สุด: ${n} วัน`,
+  strkKey: ['ฝึก', 'พักสมาธิ', 'วันหยุด', 'วันนี้'],
+  strkWd: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
+});
+Object.assign(I18N.vi, {
+  setT: 'Cài đặt',
+  setLook: 'Giao diện',
+  setStudy: 'Học tập',
+  setData: 'Dữ liệu',
+  setHelp: 'Trợ giúp & giới thiệu',
+  setGoalT: 'Mục tiêu, ngày tĩnh tâm & nhắc nhở',
+  fxT: 'Hiệu ứng hiển thị',
+  fxM: { auto: 'Tự động', low: 'Tiết kiệm', full: 'Đầy đủ' },
+  fxNote: (m, d) =>
+    m === 'auto'
+      ? `Theo máy này: hiện là ${d === 'low' ? 'tiết kiệm' : 'đầy đủ'}.`
+      : m === 'low'
+        ? 'Ít kính và hiệu ứng hơn: nhẹ hơn, tiết kiệm pin.'
+        : 'Bật mọi hiệu ứng kính, kể cả trên máy chậm hơn.',
+  fxDown: 'Giao diện đã được làm nhẹ hơn để luôn mượt trên máy này.',
+  masT: 'Mức thuộc từ',
+  realmQ: 'Cảnh giới là gì?',
+  stageS: ['Đầu', 'Giữa', 'Cuối', 'Viên mãn'],
+  toNext: p => `${p}% đến giai đoạn sau`,
+  rLine0: 'Cảnh giới là trình độ của bạn. Làm một bài kiểm tra ngắn để tìm ra.',
+  streakU: () => 'ngày',
+  streakAria: (n, t) => `Ngày tu luyện: ${n}${t ? ', hôm nay đã học' : ', hôm nay chưa học'}`,
+  strkT: 'Ngày tu luyện',
+  strkLead:
+    'Mỗi ngày có luyện tập, dù ít, thêm một ngày. Ngày tĩnh tâm bạn chọn và một ngày nghỉ mỗi tuần không làm đứt chuỗi.',
+  strkToday: 'Hôm nay đã luyện tập ✓',
+  strkNot: 'Hôm nay chưa luyện tập: một buổi nhỏ là đủ.',
+  strkBest: n => `Chuỗi dài nhất: ${n} ngày`,
+  strkKey: ['luyện tập', 'tĩnh tâm', 'ngày nghỉ', 'hôm nay'],
+  strkWd: ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'],
+});
+/* v1.14: a clear way in for new learners, and a short tour */
+Object.assign(I18N.id, {
+  nbT: 'Mulai dari mana?',
+  nbZero: 'Mulai dari nol',
+  nbZeroS: 'HSK 1 · kata-kata pertamamu · ±5 menit',
+  nbTest: 'Sudah pernah belajar?',
+  nbTestS: 'Tes penempatan menemukan levelmu · 50 soal · ±10 menit',
+  tour: [
+    [
+      'Ranahmu',
+      'Bola di tengah adalah <b>ranah</b>, level kemampuanmu, dari HSK 1 sampai HSK 6. Cincinnya terisi saat kata-katamu makin kokoh. Ketuk bola itu untuk melihat jalurnya.',
+    ],
+    [
+      'Latihan hari ini',
+      'Aplikasi menyusun latihan harian dari tujuanmu: kata yang perlu diulang dan beberapa kata baru. Cukup ketuk <b>Mulai</b>, sekali sehari.',
+    ],
+    [
+      'Penguasaan & menu',
+      'Di bawahnya terlihat seberapa kuat kamu menguasai tiap level HSK. Daftar kata, Kartu, dan Kuis ada di menu paling bawah; tema, bahasa, dan cadangan ada di <b>Pengaturan</b>.',
+    ],
+  ],
+  tourNext: 'Lanjut',
+  tourSkip: 'Lewati',
+  tourDone: 'Selesai',
+  tourGoal: 'Atur tujuan',
+  tourLater: 'Nanti saja',
+  tourRow: 'Tur singkat',
+});
+Object.assign(I18N.en, {
+  nbT: 'Where to start?',
+  nbZero: 'Start from zero',
+  nbZeroS: 'HSK 1 · your first words · ~5 min',
+  nbTest: 'Studied before?',
+  nbTestS: 'The placement test finds your level · 50 questions · ~10 min',
+  tour: [
+    [
+      'Your realm',
+      'The orb in the middle is your <b>realm</b>, your level, from HSK 1 to HSK 6. Its ring fills as your words become solid. Tap it to see the whole path.',
+    ],
+    [
+      "Today's practice",
+      'The app builds a daily session from your goal: words due for review and a few new ones. Just tap <b>Start</b>, once a day.',
+    ],
+    [
+      'Mastery & menu',
+      'Below it you see how well you know each HSK level. Word list, Cards and Quiz are in the bar at the bottom; theme, language and backup are in <b>Settings</b>.',
+    ],
+  ],
+  tourNext: 'Next',
+  tourSkip: 'Skip',
+  tourDone: 'Done',
+  tourGoal: 'Set a goal',
+  tourLater: 'Later',
+  tourRow: 'Short tour',
+});
+Object.assign(I18N.th, {
+  nbT: 'เริ่มจากตรงไหน?',
+  nbZero: 'เริ่มจากศูนย์',
+  nbZeroS: 'HSK 1 · คำแรก ๆ ของคุณ · ~5 นาที',
+  nbTest: 'เคยเรียนมาก่อน?',
+  nbTestS: 'แบบทดสอบวัดระดับหาระดับของคุณ · 50 ข้อ · ~10 นาที',
+  tour: [
+    [
+      'ขั้นพลังของคุณ',
+      'ลูกกลมตรงกลางคือ<b>ขั้นพลัง</b> หรือระดับของคุณ ตั้งแต่ HSK 1 ถึง HSK 6 วงแหวนจะเต็มขึ้นเมื่อคำศัพท์แน่นขึ้น แตะเพื่อดูเส้นทางทั้งหมด',
+    ],
+    [
+      'การฝึกวันนี้',
+      'แอปจัดการฝึกประจำวันจากเป้าหมายของคุณ: คำที่ต้องทบทวนและคำใหม่ไม่กี่คำ แค่แตะ<b>เริ่ม</b>วันละครั้ง',
+    ],
+    [
+      'ความแม่นและเมนู',
+      'ด้านล่างแสดงว่าคุณรู้แต่ละระดับ HSK แค่ไหน รายการคำ บัตรคำ และแบบทดสอบอยู่ที่แถบล่างสุด ธีม ภาษา และการสำรองข้อมูลอยู่ใน<b>การตั้งค่า</b>',
+    ],
+  ],
+  tourNext: 'ถัดไป',
+  tourSkip: 'ข้าม',
+  tourDone: 'เสร็จ',
+  tourGoal: 'ตั้งเป้าหมาย',
+  tourLater: 'ไว้ทีหลัง',
+  tourRow: 'แนะนำสั้น ๆ',
+});
+Object.assign(I18N.vi, {
+  nbT: 'Bắt đầu từ đâu?',
+  nbZero: 'Bắt đầu từ số 0',
+  nbZeroS: 'HSK 1 · những từ đầu tiên · ~5 phút',
+  nbTest: 'Đã từng học?',
+  nbTestS: 'Bài kiểm tra xếp lớp tìm trình độ của bạn · 50 câu · ~10 phút',
+  tour: [
+    [
+      'Cảnh giới của bạn',
+      'Quả cầu ở giữa là <b>cảnh giới</b>, trình độ của bạn, từ HSK 1 đến HSK 6. Vòng sáng đầy dần khi từ vựng vững hơn. Chạm vào để xem cả con đường.',
+    ],
+    [
+      'Luyện tập hôm nay',
+      'Ứng dụng xếp buổi học hằng ngày theo mục tiêu của bạn: từ cần ôn và vài từ mới. Chỉ cần chạm <b>Bắt đầu</b>, mỗi ngày một lần.',
+    ],
+    [
+      'Mức thuộc & menu',
+      'Bên dưới là mức bạn nắm từng cấp HSK. Danh sách từ, Thẻ và Kiểm tra ở thanh dưới cùng; giao diện, ngôn ngữ và sao lưu ở <b>Cài đặt</b>.',
+    ],
+  ],
+  tourNext: 'Tiếp',
+  tourSkip: 'Bỏ qua',
+  tourDone: 'Xong',
+  tourGoal: 'Đặt mục tiêu',
+  tourLater: 'Để sau',
+  tourRow: 'Giới thiệu nhanh',
+});

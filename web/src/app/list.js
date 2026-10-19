@@ -21,15 +21,32 @@ function renderList() {
   const label = q
     ? L10.results(fmt(total), esc(state.q))
     : (u ? `No. ${(u - 1) * 50 + 1}–${Math.min(u * 50, BY[L].length)} · ` : '') + L10.words(fmt(total));
+  /* the first dozen words paint at once: opening the list never stalls a slow phone */
+  const tok = ++listTok,
+    first = list.slice(0, 12);
   view.innerHTML =
     `<p class="meta">${label}</p>` +
     (total
-      ? `<div class="list ${state.hide ? 'hidemean' : ''}">${list.map(d => itemH(d, q)).join('')}</div>` +
+      ? `<div class="list ${state.hide ? 'hidemean' : ''}" id="listEl">${first.map(d => itemH(d, q)).join('')}</div>` +
         (total > state.shown
           ? `<button class="more" id="more">${L10.more(Math.min(60, total - state.shown))}</button>`
           : '')
       : `<div class="empty">${L10.empty}</div>`);
+  /* the rest follow in small batches, one per frame */
+  const more = from => {
+    if (tok !== listTok || !$('listEl') || from >= list.length) return;
+    $('listEl').insertAdjacentHTML(
+      'beforeend',
+      list
+        .slice(from, from + 12)
+        .map(d => itemH(d, q))
+        .join(''),
+    );
+    requestAnimationFrame(() => more(from + 12));
+  };
+  if (list.length > 12) requestAnimationFrame(() => more(12));
 }
+let listTok = 0;
 view.addEventListener('click', e => {
   if (state.screen === 'list' && e.target.id === 'more') {
     state.shown += 60;

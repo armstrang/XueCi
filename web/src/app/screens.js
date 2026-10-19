@@ -56,12 +56,6 @@ document.querySelector('.tiles').onclick = e => {
 };
 const hero = $('hero');
 hero.onclick = () => go('stats');
-hero.onkeydown = e => {
-  if (e.key === 'Enter' || e.key === ' ') {
-    e.preventDefault();
-    go('stats');
-  }
-};
 function refresh() {
   renderChips();
   if (state.screen === 'home') renderHome();

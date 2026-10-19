@@ -202,7 +202,7 @@ async def app_shot(browser, base, lang, locale, kind, sample, out):
             await pg.wait_for_timeout(180)
         await pg.wait_for_timeout(900)
     if kind == 'tones':
-        await pg.click('#toneInfo')
+        await pg.evaluate("openInfo()")   # v1.14: tones & help live in Settings
         await pg.wait_for_timeout(900)
     await pg.screenshot(path=out)
     await ctx.close()

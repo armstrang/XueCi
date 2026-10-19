@@ -58,7 +58,9 @@ const SOUL = (() => {
       return false;
     }
   };
-  const DPR = () => Math.min(2, window.devicePixelRatio || 1);
+  /* light visual effects (Settings, or automatic on slower phones): one pixel per CSS pixel and fewer words */
+  const lowFx = () => document.documentElement.classList.contains('fx-low');
+  const DPR = () => (lowFx() ? 1 : Math.min(2, window.devicePixelRatio || 1));
   function hash(s) {
     let h = 2166136261;
     for (const c of s) {
@@ -75,7 +77,7 @@ const SOUL = (() => {
       if (e) list.push([d, e]);
     }
     list.sort((a, b) => b[1].w[1] - a[1].w[1]);
-    const keep = list.slice(0, 900).sort((a, b) => a[0].l - b[0].l || a[0].n - b[0].n);
+    const keep = list.slice(0, lowFx() ? 450 : 900).sort((a, b) => a[0].l - b[0].l || a[0].n - b[0].n);
     N = keep.length;
     const ga = Math.PI * (3 - Math.sqrt(5)),
       week = t - 7 * 1440;

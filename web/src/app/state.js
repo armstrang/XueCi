@@ -15,7 +15,7 @@ const pad = n => String(n).padStart(2, '0');
 const FOCUS = ['list', 'card', 'quiz', 'session', 'placement', 'bt'];
 const fTitleOf = s => L10[s === 'placement' ? 'ptT' : s === 'bt' ? 'btT' : s];
 
-/* theme: one button cycles auto → light → dark */
+/* theme: chosen in Settings (four options); v1.14 moved it out of the header */
 const TH_ICON = {
   auto: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17A8.5 8.5 0 0 0 12 3.5z" fill="currentColor"/></svg>',
   light:
@@ -27,7 +27,6 @@ const TH_ICON = {
 /* the Liquid Glass layer adds a fourth theme, true black (window.MM_THEMES); without it: auto → light → dark */
 const themeList = () => window.MM_THEMES || ['auto', 'light', 'dark'];
 let theme = 'auto';
-const themeBtn = $('themeBtn');
 const darkMQ = (() => {
   try {
     return matchMedia('(prefers-color-scheme: dark)');
@@ -51,9 +50,14 @@ function notifyNative() {
   } catch (e) {}
 }
 function themeLabels() {
-  const n = L10.th[theme];
-  themeBtn.title = L10.theme + ': ' + n;
-  themeBtn.setAttribute('aria-label', L10.theme + ': ' + n + '. ' + L10.tap);
+  const el = $('themeSeg');
+  if (!el) return;
+  el.innerHTML = themeList()
+    .map(
+      t =>
+        `<button role="radio" data-th="${t}" aria-checked="${t === theme}"><span class="thi" aria-hidden="true">${TH_ICON[t]}</span>${esc(L10.th[t])}</button>`,
+    )
+    .join('');
 }
 function applyTheme(t, persist) {
   if (!themeList().includes(t)) t = 'auto';
@@ -61,7 +65,6 @@ function applyTheme(t, persist) {
   const r = document.documentElement;
   if (t !== 'auto') r.setAttribute('data-theme', t);
   else if (persist) r.removeAttribute('data-theme');
-  themeBtn.innerHTML = TH_ICON[t];
   themeLabels();
   notifyNative();
   if (persist) {
@@ -70,9 +73,11 @@ function applyTheme(t, persist) {
   }
   if (state.screen === 'soul') requestAnimationFrame(() => renderSoul());
 }
-themeBtn.onclick = () => {
-  const L = themeList();
-  applyTheme(L[(L.indexOf(theme) + 1) % L.length], true);
+/* the Liquid Glass layer may wrap this to spread the new look out from the tapped option */
+let pickTheme = (t, btn) => applyTheme(t, true);
+$('themeSeg').onclick = e => {
+  const b = e.target.closest('[data-th]');
+  if (b && b.dataset.th !== theme) pickTheme(b.dataset.th, b);
 };
 try {
   darkMQ && darkMQ.addEventListener('change', notifyNative);

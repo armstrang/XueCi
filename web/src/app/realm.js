@@ -18,12 +18,44 @@ function renderCurLv() {
     unst = !LM.stability().ok,
     p = realmPct(r);
   $('curLvName').textContent = RN[r];
-  $('curLvSub').textContent = r ? realmHSK(r) : L10.chipTest;
+  $('curLvPy').textContent = RPY[r];
+  $('curLvSub').textContent = r ? p + '%' : L10.chipTest;
   b.style.setProperty('--lc', rc(r));
   b.style.setProperty('--p', p);
+  $('orbArc').style.strokeDasharray = `${((p / 100) * 351.86).toFixed(1)} 400`;
   b.classList.toggle('mortal', !r);
   b.classList.toggle('btready', open);
   b.classList.toggle('unstable', unst);
+  /* under the orb: the realm's meaning and level, one plain sentence, the four stages */
+  const fl = $('fluid');
+  fl.style.setProperty('--lc', rc(r));
+  fl.classList.toggle('mortal', !r);
+  const g = r ? LM.grades()[r] : 0;
+  $('realmName').innerHTML =
+    `${esc(L10.realmM[r])}${r ? ` <span>· ${realmHSK(r)}</span>` : ''}` +
+    (g ? ` <span class="grade g${g} sm" title="${esc(L10.gradeM[g])}"><b lang="zh-CN">${LM.GRADES[g]}</b></span>` : '');
+  $('realmLine').innerHTML = !r
+    ? esc(L10.rLine0)
+    : unst
+      ? `<b class="rwarn">${esc(L10.unstT)}</b>`
+      : open
+        ? `<b class="rgo">${esc(L10.stOpen)}</b>`
+        : `${st ? esc(L10.stageS[st.i]) + ' · ' : ''}${esc(L10.toNext(p))}`;
+  const sh = st ? st.share : 0,
+    seg = [
+      [0, 0.25],
+      [0.25, 0.5],
+      [0.5, 0.8],
+      [0.8, 0.8001],
+    ];
+  $('realmStage').innerHTML = r
+    ? seg
+        .map(
+          ([a, z], i) =>
+            `<span class="rs${st && st.i === i ? ' on' : ''}"><i><u style="width:${(Math.max(0, Math.min(1, (sh - a) / (z - a))) * 100).toFixed(1)}%"></u></i><small>${esc(L10.stageS[i])}</small></span>`,
+        )
+        .join('')
+    : '';
   b.setAttribute(
     'aria-label',
     `${L10.realmL}: ${RN[r]} ${RPY[r]}, ${L10.realmM[r]}${r && st ? `, ${SN[st.i]} ${L10.stageM[st.i]}` : ''}${r ? `, ${realmHSK(r)}` : ''}, ${L10.chipProg(p)}${unst ? '. ' + L10.unstT : open ? '. ' + L10.stOpen : ''}`,

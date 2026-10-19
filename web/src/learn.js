@@ -2364,6 +2364,8 @@ const LM = (() => {
     daysToSolid,
     streak,
     studyDays,
+    today: () => dayOf(now()),
+    dayDate: d => new Date((d * 1440 + TZ) * 6e4 + EPOCH),
     noteTest,
     challenge,
     setRest,

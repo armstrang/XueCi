@@ -4,6 +4,36 @@ Every push of app changes to `main` makes a new release on [GitHub Releases](htt
 (v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
 before pushing.
 
+## v1.14 — 19 October 2026
+
+**A new Home in fluid glass with your realm in the middle, Settings in one place, cultivation days in the header, a
+clear start for new learners, and display modes that keep the app smooth on any phone.**
+
+### New
+- **New Home.** Your realm is a glass orb in the middle: its name, pinyin and a ring that fills with your progress
+  in the current stage. It flows into one glass panel with the realm's meaning, a plain sentence about where you are,
+  the four stages, and today's practice. Below it: word mastery with the HSK picker, and a bar with Word list,
+  Cards and Quiz. Tap the orb for the Soul Sea and the realm path; "?" explains what a realm is.
+- **Settings** (gear, top right): theme, visual effects, study language, goal and meditation days and reminder,
+  backup, research data, a short tour, tones and help, and the privacy policy. The language and theme buttons and
+  the backup and tone buttons moved here, so Home has room to breathe.
+- **Cultivation days in the header**: an incense stick with the number of days, lit once you have practised today.
+  Tap it for a five-week calendar of practice and meditation days and your longest run.
+- **A clear start for new learners**: "Start from zero" or "Studied before? Take the placement test", and a short
+  three-step tour on first start (also in Settings).
+- **Visual effects: Automatic, Light or Full.** Automatic matches the phone: slower phones (and phones with data
+  saver or reduced transparency) get lighter glass, a lighter Soul Sea and no glow. If screens still run slowly on
+  automatic, the app steps down once by itself and says so.
+
+### Changed
+- The word list paints its first words at once and the rest in small steps, so opening it never stalls.
+- The backup reminder dot now shows on the Settings button.
+
+### Fixed
+- Long sheets (realm, help, goal), the unit menu and long card backs no longer show a stray line with square corners
+  while scrolling.
+- Restoring a backup code checks the realm data in it more strictly.
+
 ## v1.13 — 19 October 2026
 
 **The breakthrough becomes a tribulation in strikes, realms have a foundation quality and can become unstable, the

@@ -47,7 +47,9 @@ function bkNoted() {
   bkDot();
 }
 function bkDot() {
-  $('bkBtn').classList.toggle('due', bkDue());
+  const d = bkDue();
+  $('bkBtn').classList.toggle('due', d);
+  $('setBtn').classList.toggle('due', d); /* the quiet dot shows on the Settings button, where Backup now lives */
 }
 function bkLastLine() {
   const a = bkAge(),
@@ -94,6 +96,20 @@ async function readCode(text) {
     }
     const o = JSON.parse(new TextDecoder().decode(u));
     if (!o || o.app !== 'xueci' || !o.stats || typeof o.stats !== 'object') return null;
+    /* the gate past 飞升 comes back only with what it took to open it: a breakthrough to 飞升 in the realm history and
+       HSK 6 words that are actually solid in the code (half of them). An edited code that just adds the gate loses it
+       and meets the make-up tribulation instead. */
+    if (o.lvl && o.lvl.gate) {
+      const h = Array.isArray(o.lvl.hist) ? o.lvl.hist : [],
+        bt = h.some(e => Array.isArray(e) && e[0] >= 7 && e[2] === 'bt'),
+        m = o.mem && typeof o.mem === 'object' ? o.mem : {},
+        solid6 = BY[6].filter(d => m[d.id] && Array.isArray(m[d.id].w) && +m[d.id].w[1] >= 10).length;
+      if (!bt || solid6 < BY[6].length * 0.5) {
+        o.lvl = Object.assign({}, o.lvl);
+        delete o.lvl.gate;
+        delete o.lvl.gs;
+      }
+    }
     /* a code from past the gate: HSK 7–9 ids are checked against the HSK 7–9 file without opening anything yet */
     const extra = o.lvl && o.lvl.gate && !XC.band ? await XC.bandIds().catch(() => null) : null;
     const known = k => IDX.has(k) || !!(extra && extra.has(k));

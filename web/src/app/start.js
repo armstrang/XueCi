@@ -1,6 +1,5 @@
 /* ---------- start on Home ---------- */
 document.body.dataset.level = state.level;
-$('seal').textContent = NUM[state.level - 1];
 applyStatic();
 saveStats();
 document.body.dataset.screen = 'home';
@@ -19,7 +18,7 @@ syncRest();
 /* first start: ask for a goal once (can be skipped); later, fit the memory model to this learner when enough answers exist */
 if (!LM.goal && !ls.get('xc_onb', 0))
   setTimeout(() => {
-    if (state.screen === 'home' && goalSheet.hidden && bkSheet.hidden && infoSheet.hidden) openGoal(true);
+    if (state.screen === 'home' && goalSheet.hidden && bkSheet.hidden && infoSheet.hidden) openTour(true);
   }, 500);
 setTimeout(() => LM.maybeOptimize(), 6000);
 /* the gate after 飞升: opened by a breakthrough in an earlier version, or its ceremony was not finished */
