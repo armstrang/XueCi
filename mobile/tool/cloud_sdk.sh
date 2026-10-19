@@ -1,6 +1,6 @@
 #!/bin/sh
 # Development only: set up the pinned Flutter SDK in a Claude cloud session, which cannot reach Flutter's download
-# servers or pub.dev. The workflow .github/workflows/flutter-sdk.yml (push to tools/flutter-sdk) packs the SDK and
+# servers or pub.dev. The workflow .github/workflows/flutter-sdk.yml (run by hand) packs the SDK and
 # the pub cache into the pre-release "dev-flutter-sdk"; this downloads and unpacks it to /opt/flutter + /opt/pub-cache.
 #
 #   sh mobile/tool/cloud_sdk.sh && . /opt/flutter-env.sh

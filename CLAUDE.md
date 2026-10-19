@@ -159,18 +159,16 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 - `.github/workflows/build-apk.yml` (**run by hand only**, `workflow_dispatch` on `main`; Josh decides when): assets → `flutter analyze` → `flutter test` → signed APK
   + Play bundle → GitHub release `v1.N` with `XueCiMandarin.apk` and `.aab` (marked latest); the release text is the
   `## v1.N` section of `CHANGELOG.md` (a warning and a link if missing). The install footer of the release text is English too.
-  `main` is kept equal to `flutter/v2` (fast-forward) so the repo page shows the current app; pushing to it publishes nothing.
   A guard step refuses to publish into an existing release tag.
-- `.github/workflows/flutter.yml` (push to `flutter/**`): the same steps without publishing; everything it produces
-  (summary, analyzer/test/build logs, screenshots, `xueci-dev.apk` = versionCode 1000 + run, name 1.0.0-alpha.run, signed with
-  the same key) is pushed to branch `ci-out/<branch>`; from `flutter/v2`, when analyze, tests and build pass, the APK is
-  also published as a new pre-release **`v1.0-alpha-N`** (Josh: v1.0-alpha-1, -2, … before the official release; N =
-  highest published + 1, versionName 1.0.0-alpha.N; `XueCiMandarin-alpha.apk`, never latest). The first one was tagged
-  plain `v1.0-alpha`.
-  Josh, Oct 2026: the app stays in testing as 1.0-alpha; don't run build-apk.yml (= a real release) until he says so.
-  Read the output with `git fetch origin "+refs/heads/ci-out/flutter/v2:refs/remotes/origin/ci-out/flutter/v2"`.
-- `.github/workflows/flutter-sdk.yml` made the `dev-flutter-sdk` pre-release (the SDK for Claude's cloud sessions,
-  `mobile/tool/cloud_sdk.sh`); a dev tool, delete it after the first Flutter release when Josh agrees.
-- The old releases v1.0–v1.17 and their tags were deleted (Oct 2026, a one-off CI job; branch `cleanup/old-releases` may still exist and can be deleted).
+- **Work happens on `main`** (Josh, Oct 2026; the old branches were deleted). `.github/workflows/flutter.yml` (every push to
+  `main`): assets → analyze → tests → APK (`versionCode` 1000 + run); everything it produces (summary, logs, screenshots,
+  `xueci-dev.apk`) is pushed to branch `ci-out/main`
+  (`git fetch origin "+refs/heads/ci-out/main:refs/remotes/origin/ci-out/main"`); when analyze, tests and build pass,
+  the APK is published as a new pre-release **`v1.0-alpha-N`** (N = highest published + 1, versionName 1.0.0-alpha.N,
+  `XueCiMandarin-alpha.apk`, never latest; the first one was tagged plain `v1.0-alpha`). Add `[skip ci]` to a commit
+  that should not make an alpha (notes, docs).
+- `.github/workflows/flutter-sdk.yml` (run by hand) makes the `dev-flutter-sdk` pre-release (the SDK for Claude's cloud
+  sessions, `mobile/tool/cloud_sdk.sh`); a dev tool, delete it after the first Flutter release when Josh agrees.
+- The old releases v1.0–v1.17 and their tags, and the old branches, were deleted (Oct 2026, one-off CI jobs: this session's git proxy cannot delete branches, tags or releases).
 - CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets and branches can.
   In Claude's cloud sessions the GitHub proxy refuses API writes to releases/tags (HTTP 403), and GraphQL (`gh release list`), so let CI do the publishing and use `gh api`.

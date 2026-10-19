@@ -3,9 +3,9 @@ name: Flutter SDK for cloud sessions
 # Development only. Claude's cloud sessions cannot reach Flutter's download servers or pub.dev, only GitHub. This
 # packs the pinned Flutter SDK (Linux, with the test engine and the Dart SDK) and the pub cache for mobile/ into a
 # pre-release, so a session can download it and run `flutter analyze` and `flutter test` itself. Not an app release.
+# Run by hand (Actions → Flutter SDK for cloud sessions → Run workflow) after changing the Flutter version.
 on:
-  push:
-    branches: ['tools/flutter-sdk']
+  workflow_dispatch:
 
 permissions:
   contents: write
