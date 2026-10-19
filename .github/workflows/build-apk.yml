@@ -1,9 +1,8 @@
 name: Build APK
 
-# The Flutter app in mobile/. Push to main → assets from web/data + web/src (word data, interface text, the sealed
-# part) → analyzer → tests (engine against the JS engine's traces, screens, contrast, backup, the secret) → a signed
-# APK and the Play bundle → GitHub release v1.N. The WebView line (v1.0–v1.17 until Oct 2026) lives on in
-# armstrang/Merdeka-Mandarin.
+# The app in mobile/. Push to main → assets from content/ (word data, interface text, the sealed part) → analyzer →
+# tests (engine against its recorded runs, screens, contrast, backup, the secret) → a signed APK and the Play bundle →
+# GitHub release v1.N. Only when Josh says a version is ready; test builds come from flutter.yml as v1.0-alpha-N.
 on:
   push:
     branches: [main]
@@ -42,9 +41,8 @@ jobs:
           channel: stable
           cache: true
 
-      # v1.N: the Flutter app starts again at v1.0 with run 19 of this workflow (the WebView line ended at v1.17, run
-      # 18). versionCode = 2000 + run: above every WebView build (100 + run) and every development build (1000 + run),
-      # so each release installs over what is on the phone.
+      # v1.N from run 19 of this workflow. versionCode = 2000 + run: above every earlier build (100 + run) and every test
+      # build (1000 + run), so each release installs over what is on the phone.
       - name: Version
         run: |
           n=$(( GITHUB_RUN_NUMBER - 19 ))
@@ -64,10 +62,6 @@ jobs:
       - name: Analyze
         working-directory: mobile
         run: flutter analyze --no-fatal-infos
-
-      # the Dart engine is checked against traces of the JS engine (same answers, same numbers)
-      - name: Engine traces
-        run: TZ=UTC node mobile/tool/js_traces.js mobile/test/traces
 
       # No APK when a test fails.
       - name: Tests

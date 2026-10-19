@@ -2,7 +2,7 @@
 
     python3 mobile/tool/make_fonts.py [SOURCE_DIR]
 
-SOURCE_DIR (default web/fonts/src, not committed) holds the original variable fonts, as the WebView line did
+SOURCE_DIR (default fonts-src/, not committed) holds the original variable fonts
 (Plus Jakarta Sans, Noto Sans SC, Noto Serif SC, Noto Sans Thai; all SIL OFL 1.1). Writes mobile/assets/fonts/*.ttf
 and the licences (committed). Re-run after adding words or interface text with new Chinese characters:
 test/fonts_test.dart fails when a character the app can show is missing.
@@ -18,7 +18,7 @@ from fontTools.ttLib import TTFont
 from fontTools.varLib import instancer
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-SRC = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'web', 'fonts', 'src')
+SRC = sys.argv[1] if len(sys.argv) > 1 else os.path.join(ROOT, 'fonts-src')
 OUT = os.path.join(ROOT, 'mobile', 'assets', 'fonts')
 
 
@@ -30,7 +30,7 @@ def is_han(c):
 def app_text():
     """Every character the app can show: the word data, the interface text and the Dart sources."""
     parts = []
-    for pat in ('web/src/**/*', 'mobile/lib/**/*.dart'):
+    for pat in ('content/i18n/**/*', 'mobile/lib/**/*.dart'):
         for p in glob.glob(os.path.join(ROOT, pat), recursive=True):
             if os.path.isfile(p):
                 with open(p, encoding='utf8') as f:

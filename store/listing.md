@@ -1,14 +1,14 @@
 # XueCi Mandarin — isi halaman Google Play
 
 Salin teks di bawah ke **Play Console → Grow → Store presence → Main store listing**.
-Bahasa utama: **Indonesia**; tambahkan **English** sebagai terjemahan. Gambar ada di folder ini
-(dari versi WebView; perlu dibuat ulang dari aplikasi Flutter).
+Bahasa utama: **Indonesia**; tambahkan **English** sebagai terjemahan.
+Feature graphic dan screenshot belum ada: dibuat dari aplikasi baru sebelum unggah ke Play.
 
 | Bagian | File / isi |
 |---|---|
 | Ikon aplikasi (512 × 512) | `art/play-icon-512.png` |
-| Feature graphic (1024 × 500) | `store/feature-graphic-id.jpg`, `store/feature-graphic-en.jpg` |
-| Screenshot ponsel (1080 × 1920) | `store/screenshots/id/*.jpg`, `store/screenshots/en/*.jpg` (urutan 01–07) |
+| Feature graphic (1024 × 500) | belum dibuat |
+| Screenshot ponsel (1080 × 1920) | belum dibuat (Home, Lautan Jiwa, Kartu, Kuis, Statistik, Nada, Daftar, Tes penempatan) |
 
 ---
 

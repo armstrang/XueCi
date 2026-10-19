@@ -1,4 +1,4 @@
-/// The realm sheet (the WebView app's realm.js) and the pieces the Soul Sea shares with it: the realm's name, the path
+/// The realm sheet and the pieces the Soul Sea shares with it: the realm's name, the path
 /// of the realms, progress inside the realm, the tests, the stabilising trial and the guidance (指点).
 /// The realm changes only through a test: the placement test, or a breakthrough (突破) once the stage is 圆满.
 library;

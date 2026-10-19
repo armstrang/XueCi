@@ -256,7 +256,7 @@ Map<String, String> sample({bool strong = false}) {
   final t = clockMin;
   final mem = <String, Object>{};
   final stats = <String, Object>{};
-  final words = File('../web/data/vocab.json').readAsStringSync();
+  final words = File('../content/vocab.json').readAsStringSync();
   final re = RegExp(r'"l":\s*([12]),\s*"n":\s*(\d+),.*?"h":\s*"([^"]+)"');
   var i = 0;
   for (final m in re.allMatches(words)) {

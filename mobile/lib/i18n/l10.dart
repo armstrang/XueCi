@@ -1,4 +1,4 @@
-/// Interface text in the four study languages. The text comes from the WebView app's sources (web/src/i18n*.js),
+/// Interface text in the four study languages. The text comes from content/i18n/i18n*.js,
 /// converted by tool/make_i18n.js: plain strings stay strings, text with numbers in it is a small expression tree
 /// evaluated here with JavaScript's rules (so `${n}` prints 3, not 3.0). Only `<b>` is used as markup.
 library;

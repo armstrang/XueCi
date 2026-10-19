@@ -1,4 +1,4 @@
-/// The app's icons, drawn from the same SVG path data as the WebView app (24×24 viewBox, round strokes).
+/// The app's icons, drawn from SVG path data (24×24 viewBox, round strokes).
 library;
 
 import 'package:flutter/widgets.dart';

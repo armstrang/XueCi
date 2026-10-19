@@ -1,4 +1,4 @@
-// Backup codes: this app's codes restore, and codes made by the WebView app (deflate-raw + base64url) read the same.
+// Backup codes: this app's codes restore, and codes made by the earlier version (deflate-raw + base64url) read the same.
 import 'dart:convert';
 import 'dart:io';
 
@@ -24,7 +24,7 @@ const jsCode =
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
-  test('a code from the WebView app reads and applies', () async {
+  test('a code from the earlier version reads and applies', () async {
     app = await boot({});
     final b = await readCode(app, 'Backup XueCi:\n$jsCode\n— thanks');
     expect(b, isNotNull);

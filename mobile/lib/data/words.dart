@@ -1,5 +1,5 @@
 /// The word list: HSK 1–6 from assets/data/core.json + the meanings of each study language (`assets/data/<lang>.json`),
-/// the levels past the gate from the sealed part once it opens (seal.dart). Same fields as web/data/vocab.json.
+/// the levels past the gate from the sealed part once it opens (seal.dart). Same fields as content/vocab.json.
 library;
 
 import 'dart:math' as math;

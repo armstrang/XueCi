@@ -1,4 +1,4 @@
-/// The progress store. Same keys and values as the WebView app (v1.x): JSON text under the old key names, which must
+/// The progress store. Same keys and values as the earlier version (up to 1.17): JSON text under the old key names, which must
 /// never be renamed (a backup code, the Android backup and the move from v1.x all rely on them).
 ///
 /// Everything is kept in memory; each change is written to a file per key in the app's own files folder (written
@@ -88,7 +88,7 @@ class Store {
 
   Store(this.backend);
 
-  /// load everything; [legacy] = the data of the WebView app (v1.x), used when this store is still empty, or —
+  /// load everything; [legacy] = the data of the earlier version, used when this store is still empty, or —
   /// [adopt] — when an earlier move failed and only a near-empty start was made since (v1.x's progress wins)
   void open({Map<String, String>? legacy, bool adopt = false}) {
     Map<String, String> saved;

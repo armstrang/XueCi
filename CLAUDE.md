@@ -1,43 +1,40 @@
 # XueCi Mandarin — project notes for Claude
 
 HSK 1–9 vocabulary app (HSK 7–9 hidden until the gate opens, see *Realms*; word list, flashcards, quiz, per-word mastery, goal-driven daily plan) by **Armstrang** (GitHub `armstrang`, goes by Josh).
-Formerly "Merdeka Mandarin" (repo `armstrang/Merdeka-Mandarin`, now the archive of the WebView line). Josh writes in Indonesian: reply in Indonesian.
+Formerly "Merdeka Mandarin". Josh writes in Indonesian: reply in Indonesian.
 Goal right now: a proper **Google Play** release. The plan and open decisions are in `docs/play-store.md`.
 
 ## The Flutter app (`mobile/`)
 
-The app is a **Flutter app** (Dart, `mobile/`), not a web page in a WebView (Josh, Oct 2026: "ubah semuanya
-ke flutter dart"; engine ported fully and verified against JS). Josh: XueCi focuses on Flutter, versions **start again
-at v1.0**; the WebView line (v1.0–v1.17, last release v1.17) was **moved to `armstrang/Merdeka-Mandarin`** (main =
-v1.17 + an archive commit; its release workflow runs only by hand). This repo keeps from it only what the Flutter app
-still uses: `web/data/vocab.json` (words), `web/src/i18n*.js` (interface text, incl. the `/*<seal>*/` blocks),
-`web/src/learn.js` + `store.js` (the JS engine, reference for the traces) and `web/tools/` (sentence pinyin, word
-frequency). The *behaviour reference* below still names the WebView files (`web/src/app/x.js` → now
-`mobile/lib/ui/x.dart` or the screen that took it over); read them in Merdeka-Mandarin when needed.
+The app is a **Flutter app** (Dart, `mobile/`). Josh (Oct 2026): versions start again at v1.0, the app is in testing
+as **1.0-alpha** (pre-releases `v1.0-alpha-N`), and everything of the earlier WebView version was removed from this repo
+(its code is archived in `armstrang/Merdeka-Mandarin`; don't bring it back). Sources of the app's content: `content/vocab.json`
+(words), `content/i18n/i18n*.js` (interface text, incl. the `/*<seal>*/` blocks; read by `mobile/tool/make_i18n.js`),
+`content/tools/` (sentence pinyin, word frequency).
 
 | Path | What |
 |---|---|
-| `mobile/lib/engine/` | `learn.dart` = `LM` (port of `web/src/learn.js`: FSRS, plan, questions, realms, tests, optimizer…), `fsrs.dart`, `model.dart` (Mem, LogE, Item…), `js.dart` (JS-exact helpers: `jsRound`, V8 sort emulation `jsSort`, LCG random, `jsJson`). Exactness matters: `test/engine_trace_test.dart` replays traces of the JS engine (`tool/js_traces.js`, run with `TZ=UTC`) and compares every number |
+| `mobile/lib/engine/` | `learn.dart` = `LM` (FSRS, plan, questions, realms, tests, optimizer…), `fsrs.dart`, `model.dart` (Mem, LogE, Item…), `js.dart` (JS-exact helpers: `jsRound`, V8 sort emulation `jsSort`, LCG random, `jsJson`). `test/engine_trace_test.dart` replays recorded runs (`test/fixtures/engine/*.json`, committed) and compares every number; keep them passing (a deliberate engine change = update the fixture with care) |
 | `mobile/lib/data/` | `store.dart` (progress store: same key names and JSON text as v1.x, one file per key in `files/store`, schema/migrations as v1.12), `words.dart` (Word, Vocab), `pinyin.dart`, `seal.dart` (unseal `s0.bin`/`s-<lang>.bin`) |
 | `mobile/lib/i18n/` | `l10.dart` + generated `keys.g.dart`: the JS text functions became expression trees (`tool/make_i18n.js`, acorn) evaluated by `Tpl`; only `<b>` markup (widget `Rich`) |
 | `mobile/lib/app/` | `app.dart` (`App`: boot, language, theme, fx, realms helpers, reminder/rest sync, backup timing, widget), `runner.dart` (Cards/Quiz/session/mock runs), `backup.dart` (XUECI1/XUECI0 codes, same format as v1.x), `native.dart` (method channel), `mastery.dart` |
 | `mobile/lib/ui/` | `shell.dart` (MaterialApp, background, tab bar, toasts, back), `home.dart`, `focus.dart` (capsule header, list, menus), `run_view.dart` (cards, questions, summary, mock), `stats.dart`, `soul.dart` (orb, five-element ring, Soul Sea page), `realm.dart` (realm sheet + pieces), `tests.dart` (placement, tribulation + lightning, gate ceremony), `settings.dart` (Settings, streak sheet, tour, egg), `goal.dart`, `backup_sheet.dart`, `info.dart` (tones & help), `share.dart` (cultivation card), `fx.dart` (drifting light, frame watcher), `glass.dart`/`theme.dart`/`lens.dart`/`widgets.dart`/`icons.dart`/`sheet.dart`/`word_ui.dart` (look), `screens.dart` (screen hosts, `wireSheets()`: hooks + start tasks) |
 | `mobile/tool/` | `make_assets.py` (needs `npm install --prefix mobile/tool acorn@8.15.0`): `assets/data/core.json` + `<lang>.json` (HSK 1–6), sealed `s0.bin` + `s-<lang>.bin`, `assets/i18n/<lang>.json`; refuses public text containing a secret word. `make_fonts.py`: static TTF subsets into `assets/fonts/` (re-run after new characters). `cloud_sdk.sh`: the Flutter SDK in Claude's cloud sessions |
 | `mobile/android/` | `MainActivity.kt` (method channel `xueci/native`: filesDir, legacy, ready, TTS, reminder, widget, share, openUrl, notifications), `Reminder.java`/`ReminderReceiver.java`/`XueciWidget.java` (from v1), `assets/legacy.html` (the v1.x progress move) |
-| `mobile/test/` | `engine_trace_test` (vs JS), `i18n_test`, `store_test`, `backup_test` (codes from the WebView line), `secret_test` (no secret word in lib/android/assets; no screen shows one before the gate), `contrast_test` (renders every main screen and sheet in light/dark/black and measures each text against the pixels behind it: ≥4.5:1, ≥3:1 for large text; CI fails otherwise), `screens_test` (golden screenshots of every screen and sheet → `test/goldens/`, not committed; view them) |
+| `mobile/test/` | `engine_trace_test` (recorded runs), `i18n_test`, `store_test`, `backup_test` (codes from earlier versions), `secret_test` (no secret word in lib/android/assets; no screen shows one before the gate), `contrast_test` (renders every main screen and sheet in light/dark/black and measures each text against the pixels behind it: ≥4.5:1, ≥3:1 for large text; CI fails otherwise), `screens_test` (golden screenshots of every screen and sheet → `test/goldens/`, not committed; view them) |
 
-Generated `assets/data`, `assets/i18n`, `test/traces`, `test/goldens` are not committed.
+Generated `assets/data`, `assets/i18n`, `test/goldens` are not committed.
 In Claude's cloud sessions: `. /opt/flutter-env.sh`, then in `mobile/`: `FLUTTER_ROOT=/opt/flutter dart pub get --offline`,
-`flutter analyze --no-pub`, `TZ=UTC node tool/js_traces.js test/traces` (from the repo root: `mobile/tool/…`, `mobile/test/traces`),
+`flutter analyze --no-pub`,
 `flutter test --no-pub [--update-goldens]`. There is no Android SDK there: Android code is compiled by CI only.
-After a change: assets (if web/ changed) → analyze → tests → look at the screenshots.
+After a change: assets (if content/ changed) → analyze → tests → look at the screenshots.
 
-**Moving the WebView line's progress** (first start of the Flutter app): `App.boot` asks `Native.legacy()` when the store has no `xc_schema`;
+**Moving progress from the earlier version** (first start): `App.boot` asks `Native.legacy()` when the store has no `xc_schema`;
 `MainActivity` opens a hidden WebView on v1.x's origin `https://appassets.androidplatform.net` (WebViewAssetLoader,
 `assets/legacy.html`) that returns IndexedDB `xueci/kv` when it has `xc_schema` (v1.12+), else localStorage; the store
 takes it and runs the usual migrations. No `app_webview` folder → nothing to move. A failure (8 s timeout) answers
 `!`: `xc_legacy` = 1 and the next start tries again, adopting v1.x's data while fewer than 30 words were practised.
-**Never delete or rename the WebView line's keys or its WebView data.**
+**Never delete or rename the earlier version's keys or its WebView data** (that is where users' progress comes from).
 
 **Text size**: `MaterialApp.builder` clamps the phone's text scale to 0.85–1.6; `Th.fs`; compact chrome uses
 `Compact` (grows only half-way, like v1's `--fsd`).
@@ -66,19 +63,18 @@ app. Avoid `dynamic` in hot loops (the Soul orb's build went from 180 ms to 5 ms
 hooks on `App` (`openRealm`, `openSettings`, `openStreak`, `openInfo`, `openGoal`, `openShare`, `onWordmark`) set by
 `wireSheets()`. Screens: `screenFor()` in `shell.dart`; `App.go(s)` runs `beforeShow` (leaveTest, frame watcher).
 
-## Behaviour reference (written for the WebView line; the Dart code does the same)
+## Behaviour reference (design notes; the Dart code does the same)
 
-Version numbers in this section (v1.6 … v1.17) are the **WebView line's**, not the Flutter app's. Files named here
-that are not in this repo (`app.html`, `web/src/app/*.js`, `build.py`, `tests/smoke.py`, `tests/engine.js`, `glass.js`)
-are in Merdeka-Mandarin; their checks now live in `mobile/test/` (`smoke` `no_leak`/`files` → `secret_test`,
-`engine.js` → `engine_trace_test` + `store_test` + `backup_test`, `a11y` → `contrast_test`) and the sealing that
-`build.py` did is done by `mobile/tool/make_assets.py` (same format).
+Version numbers here (v1.6 … v1.17) and names like `#scr-home`, `app/x.js`, `build.py`, `smoke.py`, `glass.js` come from
+the earlier version's notes: the matching Dart code is in `mobile/lib/ui/x.dart` / `mobile/lib/app/`, the checks in
+`mobile/test/` (`no_leak`/`files` → `secret_test`, `engine.js` → `engine_trace_test` + `store_test` + `backup_test`,
+`a11y` → `contrast_test`), the sealing in `mobile/tool/make_assets.py` (same format).
 
 ### Data fields (`vocab.json`)
 `l` level 1–6 · `n` number in level · `u` unit · `h` hanzi · `p` pinyin · `s` pinyin per character (tone colours) ·
 `z` example sentence · `zp` its pinyin (learned word in `{}`) · `m`/`t` meaning/sentence translation in Indonesian · `em`/`et` English · `vm`/`vt` Vietnamese · `hm`/`ht` Thai ·
 `f` Zipf word frequency (jieba dictionary; missing words get their level's mean) · `g` jieba part-of-speech tag (sentence-gap options of the same class).
-`zp` is generated by `web/tools/sentence_pinyin.py` (pypinyin + jieba, both MIT; see its docstring): app words keep the app's own pinyin, other
+`zp` is generated by `content/tools/sentence_pinyin.py` (pypinyin + jieba, both MIT; see its docstring): app words keep the app's own pinyin, other
 characters are read in context, plus rules for 一/不 tone changes, 得/地/着, measure words, erhua; names are capitalised. **Re-run it after
 editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked against standard dictionaries): 目的 mùdì, 充分 chōngfèn, 更换 gēnghuàn,
 尽力 jìnlì, 牛仔裤 niúzǎikù, 适当 shìdàng, 水分 shuǐfèn, 挑战 tiǎozhàn, 相册 xiàngcè, 行业 hángyè, 背包 bēibāo.
@@ -114,7 +110,7 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 - Hooks the glass layer defines: `mmTransition`, `mmHomeRendered(S)`, `mmStatsRendered()`, `mmFeedback(ok)`.
 - `window.mmBack()` is called by Android's back button: closes info sheet → backup sheet → quiz menu → lang/level/unit menus → screen; returns `false` on Home (app exits).
 - Progress backup (Home → Backup button beside tone info → Back up / Restore, `#bkSheet`): one line `XUECI1:` + base64url(deflate-raw(JSON {app:'xueci',v,at,stats,ui,lang,theme})) (`XUECI0:` = uncompressed). Restore finds the code inside any pasted text, validates every entry against `IDX`, shows a summary, then applies it in place (stats, level/unit, language, theme) — no reload (a write-then-reload can read stale localStorage). Native copy/share/paste go through `MMAndroid.copyText/shareText/pasteText`; in a browser it falls back to the Clipboard/Share APIs.
-- **Sentence pinyin rules (v1.13)**: `web/tools/sentence_pinyin.py` reads HSK 1–6 sentences with HSK 1–6 words only (advanced words like 都会/国有/作对 never split them) and HSK 7–9 sentences with the advanced words jieba also cuts; ties in the split go to jieba's boundaries, then to jieba's word counts; `NOT_BEFORE` (十分|钟 …) and `FIXED` (hand-read sentences) for the rest; 的 on its own is de, 周一 is yī.
+- **Sentence pinyin rules (v1.13)**: `content/tools/sentence_pinyin.py` reads HSK 1–6 sentences with HSK 1–6 words only (advanced words like 都会/国有/作对 never split them) and HSK 7–9 sentences with the advanced words jieba also cuts; ties in the split go to jieba's boundaries, then to jieba's word counts; `NOT_BEFORE` (十分|钟 …) and `FIXED` (hand-read sentences) for the rest; 的 on its own is de, 周一 is yī.
 - Pronunciation (test, v1.6): speaker buttons (`spk(text, cls)` → `.spk`, `.sm`, `.lg`) on card front/back, list items and quiz feedback, for the word (`d.h`) and the example sentence (`d.z`). A capture-phase click handler calls `speak()`: Android TextToSpeech (zh-CN, rate 0.9) through the bridge, or `speechSynthesis` in a browser; `ttsStatus()` `missing`/`unsupported` opens the phone's TTS settings. Manifest declares the `TTS_SERVICE` `<queries>` (needed on Android 11+). Known limit: the engine guesses polyphonic characters (行, 长, 都, 还, 重…) from context. Alternative under discussion: bundled audio generated once with a cloud neural TTS.
 - **Learning engine `LM`** (`learn.js`, all on the device): FSRS-5 (default parameters `W0`) with one state per word (`w`, drives schedule + level) and per skill (`m` meaning, `f` form/recall + sentence, `s` sound/tones + listening). Level = `round(20·ln(1+S)/ln 121)`, capped at 13 until `f` and `s` were passed; same-day repeats add ≤0.5 day. Legacy progress (pre-1.8 `stats`) becomes states with the same level, `L:1` "needs confirming" until one `f` and one `s` answer. `LM.answer(d,{q,ok,ms,x,claim,over,unchecked,exam,placement,hint})` is the only way answers are recorded. New words' first state and the order of new words use `LM.wdiff` (frequency `f` + new characters). `LM.plan(goal)` → daily numbers/status/fixes; `LM.session()`, `LM.cardDeck()`, `LM.quizRound()`, `LM.exam()` build runs; `LM.question(d,q)` makes options (look-alike distractors from confusions, homophones, shared characters; tone variants keep 一/不 and neutral syllables). `LM.optimize()` fits the 19 parameters to the learner's own spaced reviews (≥100 since v1.13, `MINFIT`, with a penalty (30/N)·Σz² pulling towards `W0`), run from `maybeOptimize()` at most daily. `LM.modelCheck()` replays spaced reviews: predicted vs real recall in 5 bands, ECE, log loss (Stats, folded `details#mcheck`). Tested in Node by `tests/engine.js` (vm sandbox with the real store.js).
 - Backup code v2 also carries `mem`, `goal`, fitted `w`, `lvl`, `rest`, `tests`, `ui.qt` and (v1.12) `days` = study day numbers (≤730; restored into `xc_days`, which `LM.studyDays()` unions with the log, so the cultivation days survive a restore; `clearLog` clears it). Not the log itself. v1 codes still restore (levels kept as "needs confirming").
@@ -147,9 +143,9 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
 - `applicationId` / package **`com.armstrang.xueci`** (from v1.3 — the Play Store ID; it can never change once on Play).
   Up to v1.2 the app was `com.jorgi.merdekamandarin`; v1.2 is the last build of that ID and has Back up, so people can move their progress.
 - `mobile/android` (Flutter template, AGP/Kotlin from Flutter 3.47). `versionCode` = **2000 + run** of the release
-  workflow (`--build-number`), `versionName` 1.N (run 19 = v1.0 of the Flutter app). The WebView line used 100 + run,
+  workflow (`--build-number`), `versionName` 1.N (run 19 = v1.0 of the Flutter app). The earlier version used 100 + run,
   the Flutter dev builds 1000 + run, so a release always installs over both. `compileSdk`/`targetSdk 36`, `minSdk 24`.
-- Signing: `keystore/merdeka.jks` (same key as the WebView line, so the Flutter app installs over it; checked: same certificate SHA-256
+- Signing: `keystore/xueci.jks` (alias `merdeka`; same key as the earlier version, so the app installs over it; checked: same certificate SHA-256
   AC:92:19:…:B4:16). **This repo is public, so that key is exposed.** Fine for the sideload line only; the Play bundle
   is signed with the upload key from secrets `XC_UPLOAD_KEYSTORE_B64`, `XC_UPLOAD_STORE_PASSWORD`, `XC_UPLOAD_KEY_ALIAS`,
   `XC_UPLOAD_KEY_PASSWORD` when `XC_PLAY=1` (`flutter build appbundle`); without them it falls back to the old key
@@ -158,10 +154,9 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
   (first frame) or 2.5 s. Edge-to-edge is Flutter's (`SystemUiMode.edgeToEdge`, bar icons from `AnnotatedRegion`).
 - Reminder: `Reminder.java` keeps the settings in SharedPreferences, sets one inexact `AlarmManager.setAndAllowWhileIdle` alarm for the next time, shows a `NotificationCompat` notification (channel `study`) unless `markStudied` was called that day or it is a meditation day (`setRestDays`, weekday 0 = Sunday). `ReminderReceiver` handles the alarm and re-schedules on BOOT_COMPLETED, MY_PACKAGE_REPLACED, TIME_SET, TIMEZONE_CHANGED; `onResume` re-schedules too. Permissions: POST_NOTIFICATIONS (asked with `ActivityCompat.requestPermissions`, answer → `notifResult`), RECEIVE_BOOT_COMPLETED.
 - Widget: `XueciWidget.java` (SharedPreferences `widget`), fed by `App.syncWidget` (JSON, only when changed).
-- The WebView line's Android project (`MainActivity.java` with the `MMAndroid` bridge) is in Merdeka-Mandarin.
 
 ## CI
-- `.github/workflows/build-apk.yml` (push to `main`): assets → `flutter analyze` → JS traces → `flutter test` → signed APK
+- `.github/workflows/build-apk.yml` (push to `main`): assets → `flutter analyze` → `flutter test` → signed APK
   + Play bundle → GitHub release `v1.N` with `XueCiMandarin.apk` and `.aab` (marked latest); the release text is the
   `## v1.N` section of `CHANGELOG.md` (a warning and a link if missing). The install footer of the release text is English too.
   Docs/art/store-only changes do not trigger a build (`paths-ignore`); add `[skip ci]` to a commit message to skip one otherwise.
@@ -176,7 +171,6 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
   Read the output with `git fetch origin "+refs/heads/ci-out/flutter/v2:refs/remotes/origin/ci-out/flutter/v2"`.
 - `.github/workflows/flutter-sdk.yml` made the `dev-flutter-sdk` pre-release (the SDK for Claude's cloud sessions,
   `mobile/tool/cloud_sdk.sh`); a dev tool, delete it after the first Flutter release when Josh agrees.
-- The release guard refuses an existing tag: the WebView releases v1.0–v1.17 in this repo's Releases (Josh: delete
-  them all) must be gone, with their tags, before the first Flutter release can be tagged v1.0.
+- The old releases v1.0–v1.17 and their tags were deleted (Oct 2026, a one-off CI job; branch `cleanup/old-releases` may still exist and can be deleted).
 - CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets and branches can.
   In Claude's cloud sessions the GitHub proxy refuses API writes to releases/tags (HTTP 403), and GraphQL (`gh release list`), so let CI do the publishing and use `gh api`.

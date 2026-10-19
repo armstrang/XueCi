@@ -43,13 +43,6 @@ jobs:
           flutter --version > ci-out/flutter-version.txt 2>&1
           dart --version >> ci-out/flutter-version.txt 2>&1
 
-      # once: the standard Flutter project files (Android Gradle setup etc.) when mobile/ has none yet
-      - name: Scaffold
-        if: hashFiles('mobile/android/settings.gradle.kts', 'mobile/android/settings.gradle') == ''
-        run: |
-          flutter create --org com.armstrang --project-name xueci --platforms android --android-language kotlin scaffold > ci-out/scaffold.txt 2>&1
-          mkdir -p ci-out/scaffold && cp -r scaffold/. ci-out/scaffold/ && rm -rf ci-out/scaffold/build ci-out/scaffold/.dart_tool
-
       - name: Generate assets
         id: assets
         if: hashFiles('mobile/tool/make_assets.py') != ''
@@ -71,12 +64,6 @@ jobs:
         continue-on-error: true
         working-directory: mobile
         run: flutter analyze --no-fatal-infos > ../ci-out/analyze.txt 2>&1
-
-      - name: Engine traces from the JS engine (reference for the Dart port)
-        id: traces
-        if: hashFiles('mobile/tool/js_traces.js') != ''
-        continue-on-error: true
-        run: TZ=UTC node mobile/tool/js_traces.js mobile/test/traces > ci-out/traces.txt 2>&1
 
       - name: Tests (engine, widgets, screenshots)
         id: test
@@ -113,7 +100,6 @@ jobs:
             echo "assets: ${{ steps.assets.outcome }}"
             echo "pub: ${{ steps.pub.outcome }}"
             echo "analyze: ${{ steps.analyze.outcome }}"
-            echo "traces: ${{ steps.traces.outcome }}"
             echo "test: ${{ steps.test.outcome }}"
             echo "apk: ${{ steps.apk.outcome }}"
           } > ci-out/summary.txt

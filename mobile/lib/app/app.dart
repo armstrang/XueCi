@@ -1,5 +1,4 @@
-/// The app's state and its services, in one place (the WebView app kept these as globals: state.js, core.js,
-/// boot.js, language.js, screens.js). Widgets listen to [app] and rebuild when it changes.
+/// The app's state and its services, in one place. Widgets listen to [app] and rebuild when it changes.
 library;
 
 import 'dart:async';
@@ -205,6 +204,7 @@ class App extends ChangeNotifier {
   static const spy = ['chūqī', 'zhōngqī', 'hòuqī', 'yuánmǎn'];
   int get topR => band ? 10 : 7;
   int realmLv(int r) => math.max(1, math.min(band ? 9 : 6, r));
+
   /// the stage of realm r (the base level for 凡人), shared by Home, the widget and the realm sheet
   Stage? realmStage(int r) => memo('stage@$r', () => lm.stage(r < 1 ? lm.baseLevel() : r));
   int realmPct(int r) {
@@ -216,7 +216,8 @@ class App extends ChangeNotifier {
 
   /// weekdays Monday first (0 = Sunday, as JS getDay); names in the study language (4 Jan 2026 was a Sunday)
   static const wk = [1, 2, 3, 4, 5, 6, 0];
-  String wkName(int w, {bool long = false}) => (long ? DateFormat.EEEE(intlLoc) : DateFormat.E(intlLoc)).format(DateTime(2026, 1, 4 + w));
+  String wkName(int w, {bool long = false}) =>
+      (long ? DateFormat.EEEE(intlLoc) : DateFormat.E(intlLoc)).format(DateTime(2026, 1, 4 + w));
 
   // ---------------------------------------------------------------- the screen state (state.js)
   int level = 1;
@@ -466,7 +467,9 @@ class App extends ChangeNotifier {
     final g = lm.goal;
     if (g == null) return t.planSet;
     if (g['t'] == 'none') return t.gNone;
-    return g['t'] == 'exam' ? t.gExamChip(g['lv'], dateS(g['date'] as String)) : t.gLvChip(g['lv'], dateS(g['date'] as String));
+    return g['t'] == 'exam'
+        ? t.gExamChip(g['lv'], dateS(g['date'] as String))
+        : t.gLvChip(g['lv'], dateS(g['date'] as String));
   }
 
   String skName(String k) => switch (k) {
@@ -482,7 +485,8 @@ class App extends ChangeNotifier {
 
   // ---------------------------------------------------------------- backup timing (xc_bk = ms since 1970, as v1.x)
   int nowMs() => lm.now() * 60000 + fsrs.epochMs;
-  int practisedN([Map<String, List<num>>? st]) => (st ?? lm.stats).values.where((e) => e.length > 1 && e[0] + e[1] > 0).length;
+  int practisedN([Map<String, List<num>>? st]) =>
+      (st ?? lm.stats).values.where((e) => e.length > 1 && e[0] + e[1] > 0).length;
   int bkLastAt() {
     final t = store.get('xc_bk', 0);
     return t is num && t.isFinite && t > 0 ? t.toInt() : 0;
@@ -510,7 +514,11 @@ class App extends ChangeNotifier {
   void loadRem() {
     final r = store.get('xc_rem', {});
     if (r is Map) {
-      rem = {'on': r['on'] == true, 'h': r['h'] is num ? (r['h'] as num).toInt() : 19, 'm': r['m'] is num ? (r['m'] as num).toInt() : 0};
+      rem = {
+        'on': r['on'] == true,
+        'h': r['h'] is num ? (r['h'] as num).toInt() : 19,
+        'm': r['m'] is num ? (r['m'] as num).toInt() : 0,
+      };
     }
   }
 
@@ -525,7 +533,14 @@ class App extends ChangeNotifier {
 
   void syncReminder() {
     if (!canRemind) return;
-    final o = {'on': rem['on'] == true, 'h': rem['h'], 'm': rem['m'], 'title': t.remTitle, 'body': remBody(), 'channel': t.remChannel};
+    final o = {
+      'on': rem['on'] == true,
+      'h': rem['h'],
+      'm': rem['m'],
+      'title': t.remTitle,
+      'body': remBody(),
+      'channel': t.remChannel,
+    };
     final k = json.encode(o);
     if (k == _remKey) return;
     _remKey = k;
@@ -538,7 +553,18 @@ class App extends ChangeNotifier {
 
   // ---------------------------------------------------------------- the home-screen widget (Android)
   String _widgetLast = '';
-  static const cardC = ['#a3a9b3', '#6fd08f', '#5cc8cf', '#6dbbea', '#94a3f5', '#bf9af0', '#ec8dbd', '#e8bd57', '#ff8f78', '#a7b4dc'];
+  static const cardC = [
+    '#a3a9b3',
+    '#6fd08f',
+    '#5cc8cf',
+    '#6dbbea',
+    '#94a3f5',
+    '#bf9af0',
+    '#ec8dbd',
+    '#e8bd57',
+    '#ff8f78',
+    '#a7b4dc',
+  ];
   String cardColour(int r) => r < 1 ? cardC[0] : (r > 9 || (r > 6 && !band) ? '#e6c36a' : cardC[r]);
 
   /// ready-made text for the widget (it cannot run the app's code): sent only when something changed

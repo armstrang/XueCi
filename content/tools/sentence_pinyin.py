@@ -1,6 +1,6 @@
-"""Add pinyin to every example sentence: field `zp` in web/data/vocab.json.
+"""Add pinyin to every example sentence: field `zp` in content/vocab.json.
 
-    python3 web/tools/sentence_pinyin.py PYPINYIN_DIR JIEBA_DIR
+    python3 content/tools/sentence_pinyin.py PYPINYIN_DIR JIEBA_DIR
 
 Needs two MIT-licensed libraries (pip install pypinyin jieba, or clones of
 https://github.com/mozillazg/python-pinyin and https://github.com/fxsjy/jieba; pass the folders that contain the
@@ -38,7 +38,7 @@ from pypinyin.constants import PHRASES_DICT  # noqa: E402
 
 jieba.setLogLevel(logging.WARNING)
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-VOCAB = os.path.join(ROOT, 'web', 'data', 'vocab.json')
+VOCAB = os.path.join(ROOT, 'content', 'vocab.json')
 
 PUNCT = {'，': ',', '。': '.', '？': '?', '！': '!', '：': ':', '；': ';', '、': ',', '“': '"', '”': '"', '‘': "'", '’': "'",
          '（': '(', '）': ')', '《': '«', '》': '»', '…': '…', '—': '—', '～': '~', '"': '"'}

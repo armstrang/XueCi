@@ -1,4 +1,4 @@
-"""Data and text for the Flutter app, from the same sources as the WebView app.
+"""Data and text for the app, from content/ (vocab.json, i18n/*.js).
 
     python3 mobile/tool/make_assets.py          (needs node + acorn for the text: see make_i18n.js)
 
@@ -10,7 +10,7 @@ Writes (not committed; CI and local builds run this first):
   mobile/assets/data/s-<lang>.bin     sealed: HSK 7–9 meanings in each language
   mobile/assets/i18n/<lang>.json      interface text (functions as expression trees, lib/i18n/l10.dart)
 
-The seal is the one of the WebView line's build.py (zlib, then a xoshiro128** keystream seeded by SHA-256 of a phrase, the HSK 6
+The seal (zlib, then a xoshiro128** keystream seeded by SHA-256 of a phrase, the HSK 6
 words and the file name), opened by lib/data/seal.dart. Not real secrecy, only nothing to find by unzipping the app.
 """
 import hashlib
@@ -75,7 +75,7 @@ def main():
     with open(os.path.join(GEN, 'i18n-sealed.json'), encoding='utf8') as f:
         sealed_text = json.load(f)
 
-    with open(os.path.join(ROOT, 'web', 'data', 'vocab.json'), encoding='utf8') as f:
+    with open(os.path.join(ROOT, 'content', 'vocab.json'), encoding='utf8') as f:
         words = json.load(f)
     for d in words:
         d['pm'] = 1 if d['l'] <= 6 and len(d['m'].split(';')[0]) <= 28 else 0

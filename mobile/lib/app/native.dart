@@ -1,4 +1,4 @@
-/// The Android side (MainActivity.kt): the same services the WebView app reached through its MMAndroid bridge —
+/// The Android side (MainActivity.kt):
 /// speech, the daily reminder, sharing, the home-screen widget — plus the move of v1.x progress. Every call is
 /// safe without Android (tests, other platforms): it then does nothing and returns a neutral answer.
 library;
@@ -41,7 +41,7 @@ class Native {
   /// the app's own files folder (the store lives in `files/store`)
   Future<String?> filesDir() => _call<String>('filesDir');
 
-  /// the progress the WebView app (v1.x) kept: its localStorage and IndexedDB, read once by a hidden WebView on the
+  /// the progress the earlier version (up to 1.17) kept: its localStorage and IndexedDB, read once by a hidden WebView on the
   /// old origin. null when there is none (or no Android); {'!': '1'} when reading it failed (try again later).
   Future<Map<String, String>?> legacy() async {
     final s = await _call<String>('legacy');
@@ -88,8 +88,7 @@ class Native {
   Future<void> setWidget(Map<String, Object?> data) => _call('setWidget', json.encode(data));
 
   /// the device's languages (first = preferred), e.g. ['in-ID', 'en-US']
-  List<String> sysLangs() =>
-      PlatformDispatcher.instance.locales.map((l) => l.toLanguageTag()).toList();
+  List<String> sysLangs() => PlatformDispatcher.instance.locales.map((l) => l.toLanguageTag()).toList();
 
   bool get isAndroid => !off && !kIsWeb && Platform.isAndroid;
 }

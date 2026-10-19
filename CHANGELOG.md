@@ -4,8 +4,7 @@ Every push of app changes to `main` makes a new release on [GitHub Releases](htt
 (v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
 before pushing.
 
-The Flutter app started again at v1.0 in October 2026. The earlier WebView app (v1.0–v1.17) and its changelog now
-live in [armstrang/Merdeka-Mandarin](https://github.com/armstrang/Merdeka-Mandarin).
+Test builds before a release are published as pre-releases v1.0-alpha-N.
 
 ## v1.0 — in testing (1.0-alpha), not released yet
 
@@ -13,7 +12,7 @@ live in [armstrang/Merdeka-Mandarin](https://github.com/armstrang/Merdeka-Mandar
 same progress, every screen drawn natively, with a new look that is easier to read.**
 
 ### Your progress comes with you
-- Install it over the previous version (the WebView app, up to 1.17) as usual. On the first start the app moves
+- Install it over the previous version (up to 1.17) as usual. On the first start the app moves
   everything by itself: word progress, memory model, goal, realm and its history, tests, mock exams, meditation
   days, reminder, theme and language.
 - To be extra safe, make a backup code in the previous version first (Settings › Backup › Back up) and keep it
@@ -49,4 +48,4 @@ same progress, every screen drawn natively, with a new look that is easier to re
 - The list footer says that progress is saved on this device.
 
 ### Under the hood
-- The app no longer runs inside a WebView. It still works fully offline and sends nothing anywhere.
+- The app is now fully native. It still works fully offline and sends nothing anywhere.

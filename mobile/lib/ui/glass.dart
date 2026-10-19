@@ -1,4 +1,4 @@
-/// Liquid Glass, as in the WebView app (glass.css.html): light from the top left; clear panels with a bright rim
+/// Glass: light from the top left; clear panels with a bright rim
 /// (strongest top-left and bottom-right), a glossy highlight along the top and a soft shadow. Real frosting (blur)
 /// only on layers that float over scrolling content: the tab bar, sheets, menus, toasts.
 library;
@@ -15,7 +15,8 @@ import 'theme.dart';
 /// Tests: Flutter's test renderer draws blurred shadows sharp, so screenshots leave them out.
 bool noBlur = false;
 List<BoxShadow>? sh(List<BoxShadow>? s) => noBlur ? null : s;
-MaskFilter? blur(BlurStyle st, double sigma) => noBlur ? const MaskFilter.blur(BlurStyle.normal, 0.01) : MaskFilter.blur(st, sigma);
+MaskFilter? blur(BlurStyle st, double sigma) =>
+    noBlur ? const MaskFilter.blur(BlurStyle.normal, 0.01) : MaskFilter.blur(st, sigma);
 
 /// The palette and accent of the moment, for every widget below the shell.
 class Th extends InheritedWidget {
@@ -111,7 +112,12 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
       Offset.zero,
       rx,
       Paint()
-        ..shader = ui.Gradient.radial(Offset.zero, rx, [Colors.white.withValues(alpha: sheen), Colors.white.withValues(alpha: 0)], [0, .6]),
+        ..shader = ui.Gradient.radial(
+          Offset.zero,
+          rx,
+          [Colors.white.withValues(alpha: sheen), Colors.white.withValues(alpha: 0)],
+          [0, .6],
+        ),
     );
     c.restore();
   }
@@ -149,11 +155,16 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = k == GK.lens ? 1.5 : 1.2
-        ..shader = ui.Gradient.linear(Offset(b.left, top), Offset(b.left, top + span), [
-          Colors.white.withValues(alpha: hi),
-          Colors.white.withValues(alpha: hi * .3),
-          Colors.white.withValues(alpha: lo),
-        ], const [0, .35, 1]),
+        ..shader = ui.Gradient.linear(
+          Offset(b.left, top),
+          Offset(b.left, top + span),
+          [
+            Colors.white.withValues(alpha: hi),
+            Colors.white.withValues(alpha: hi * .3),
+            Colors.white.withValues(alpha: lo),
+          ],
+          const [0, .35, 1],
+        ),
     );
     if (b.height > 24) {
       draw(
@@ -206,11 +217,16 @@ class Glass extends StatelessWidget {
     final br = borderRadius ?? BorderRadius.circular(radius);
     if (!frost && GlassFlat.of(context)) {
       Widget body = Padding(padding: padding ?? EdgeInsets.zero, child: child);
-      if (color != null) body = DecoratedBox(decoration: BoxDecoration(color: color, borderRadius: br), child: body);
+      if (color != null) {
+        body = DecoratedBox(decoration: BoxDecoration(color: color, borderRadius: br), child: body);
+      }
       return SizedBox(
         width: width,
         height: height,
-        child: GlassFlat(on: false, child: GlassDepth(d: depth + 1, child: body)),
+        child: GlassFlat(
+          on: false,
+          child: GlassDepth(d: depth + 1, child: body),
+        ),
       );
     }
     final k = frost ? GK.frost : ((inner ?? depth > 0) ? GK.inner : GK.panel);
@@ -226,7 +242,9 @@ class Glass extends StatelessWidget {
       final f = ui.ImageFilter.blur(sigmaX: 16, sigmaY: 16, tileMode: TileMode.clamp);
       box = ClipRRect(
         borderRadius: br,
-        child: BackdropGroup.of(context) != null ? BackdropFilter.grouped(filter: f, child: box) : BackdropFilter(filter: f, child: box),
+        child: BackdropGroup.of(context) != null
+            ? BackdropFilter.grouped(filter: f, child: box)
+            : BackdropFilter(filter: f, child: box),
       );
     }
     final shd = shadow ?? (th.low && frost ? const <BoxShadow>[] : (k == GK.inner ? p.dropIn : p.drop));
@@ -234,7 +252,12 @@ class Glass extends StatelessWidget {
     return SizedBox(
       width: width,
       height: height,
-      child: list == null || list.isEmpty ? box : CustomPaint(painter: OuterShadow(list, radius, br: br, clip: k != GK.inner), child: box),
+      child: list == null || list.isEmpty
+          ? box
+          : CustomPaint(
+              painter: OuterShadow(list, radius, br: br, clip: k != GK.inner),
+              child: box,
+            ),
     );
   }
 }
@@ -311,9 +334,14 @@ class GlassRim extends CustomPainter {
       Paint()
         ..style = PaintingStyle.stroke
         ..strokeWidth = width
-        ..shader = ui.Gradient.linear(Offset.zero, Offset(s.width, s.height), [
-          for (final x in [hi, hi * .35, lo, lo, hi * .3, hi * .75]) Colors.white.withValues(alpha: x),
-        ], const [0, .14, .32, .72, .9, 1]),
+        ..shader = ui.Gradient.linear(
+          Offset.zero,
+          Offset(s.width, s.height),
+          [
+            for (final x in [hi, hi * .35, lo, lo, hi * .3, hi * .75]) Colors.white.withValues(alpha: x),
+          ],
+          const [0, .14, .32, .72, .9, 1],
+        ),
     );
   }
 
@@ -397,7 +425,8 @@ class GlowBackground extends StatelessWidget {
       child: TweenAnimationBuilder<Color?>(
         tween: ColorTween(end: tone),
         duration: const Duration(milliseconds: 600),
-        builder: (c, col, _) => CustomPaint(painter: _BgPainter(th.p, col ?? tone, th.low), size: Size.infinite, isComplex: true),
+        builder: (c, col, _) =>
+            CustomPaint(painter: _BgPainter(th.p, col ?? tone, th.low), size: Size.infinite, isComplex: true),
       ),
     );
   }
@@ -424,17 +453,24 @@ class _BgPainter extends CustomPainter {
         Offset.zero,
         rad,
         Paint()
-          ..shader = ui.Gradient.radial(Offset.zero, rad, [
-            col.withValues(alpha: a),
-            col.withValues(alpha: a * .45),
-            col.withValues(alpha: 0),
-          ], const [0, .45, 1]),
+          ..shader = ui.Gradient.radial(
+            Offset.zero,
+            rad,
+            [col.withValues(alpha: a), col.withValues(alpha: a * .45), col.withValues(alpha: 0)],
+            const [0, .45, 1],
+          ),
       );
       c.restore();
     }
 
     blob(Offset(s.width * .18, s.height * .06), vmax * .62, tn, p.auroraTone, sy: .8);
-    blob(Offset(s.width * 1.02, s.height * .66), vmax * .55, p.auroraWarm, low ? p.auroraWarm.a * .6 : p.auroraWarm.a, sy: .75);
+    blob(
+      Offset(s.width * 1.02, s.height * .66),
+      vmax * .55,
+      p.auroraWarm,
+      low ? p.auroraWarm.a * .6 : p.auroraWarm.a,
+      sy: .75,
+    );
     if (!low) {
       blob(Offset(-s.width * .05, s.height * .42), vmax * .42, p.auroraCool, p.auroraCool.a, sy: .9);
       blob(Offset(s.width * .78, s.height * .2), vmax * .3, tn, p.auroraTone * .5);
@@ -468,8 +504,11 @@ class Dot extends StatelessWidget {
   final double size;
   const Dot(this.color, {super.key, this.size = 9});
   @override
-  Widget build(BuildContext context) =>
-      Container(width: size, height: size, decoration: BoxDecoration(color: color, shape: BoxShape.circle));
+  Widget build(BuildContext context) => Container(
+    width: size,
+    height: size,
+    decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+  );
 }
 
 /// app-wide: the current palette (theme setting + the phone's dark mode)

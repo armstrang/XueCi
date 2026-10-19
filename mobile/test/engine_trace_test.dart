@@ -1,5 +1,5 @@
-// The Dart engine against the JavaScript engine it replaces: every trace in test/traces (written by
-// tool/js_traces.js from web/src/learn.js) is replayed call by call, and each result must match.
+// The learning engine against recorded runs: every trace in test/fixtures/engine (calls and their results, recorded
+// from the reference engine the Dart one was ported from) is replayed call by call, and each result must match.
 import 'dart:convert';
 import 'dart:io';
 
@@ -12,7 +12,7 @@ import 'package:xueci/engine/learn.dart';
 import 'package:xueci/engine/model.dart';
 
 List<Word> loadVocab({bool band = false}) {
-  final raw = json.decode(File('../web/data/vocab.json').readAsStringSync()) as List;
+  final raw = json.decode(File('../content/vocab.json').readAsStringSync()) as List;
   final out = <Word>[];
   for (final r in raw.cast<Map<String, dynamic>>()) {
     final l = (r['l'] as num).toInt();
@@ -328,12 +328,12 @@ class Replay {
 }
 
 void main() {
-  final dir = Directory('test/traces');
+  final dir = Directory('test/fixtures/engine');
   final files = dir.existsSync()
       ? (dir.listSync().whereType<File>().where((f) => f.path.endsWith('.json')).toList()
           ..sort((a, b) => a.path.compareTo(b.path)))
       : <File>[];
-  test('traces exist', () => expect(files, isNotEmpty, reason: 'run tool/js_traces.js first'));
+  test('traces exist', () => expect(files, isNotEmpty, reason: 'test/fixtures/engine is empty'));
   for (final f in files) {
     test('engine trace ${f.uri.pathSegments.last}', () async {
       final tr = json.decode(f.readAsStringSync()) as Map<String, dynamic>;

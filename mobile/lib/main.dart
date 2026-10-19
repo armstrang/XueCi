@@ -17,7 +17,7 @@ Future<void> main() async {
   runApp(const XueCiApp());
 }
 
-/// the word list could not be loaded (as the WebView app's .bootfail)
+/// the word list could not be loaded
 class BootFail extends StatelessWidget {
   const BootFail({super.key});
   @override

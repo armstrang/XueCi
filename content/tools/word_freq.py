@@ -1,6 +1,6 @@
-"""Add word frequency and part of speech to web/data/vocab.json (fields f and g).
+"""Add word frequency and part of speech to content/vocab.json (fields f and g).
 
-    python3 web/tools/word_freq.py JIEBA_DIR
+    python3 content/tools/word_freq.py JIEBA_DIR
 
 JIEBA_DIR is a checkout of https://github.com/fxsjy/jieba (MIT licence, the same library sentence_pinyin.py uses);
 its dictionary jieba/dict.txt lists about 350,000 words with a corpus count and a part-of-speech tag.
@@ -19,7 +19,7 @@ import statistics
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-VOCAB = os.path.join(ROOT, 'web', 'data', 'vocab.json')
+VOCAB = os.path.join(ROOT, 'content', 'vocab.json')
 
 
 def main(jieba_dir):

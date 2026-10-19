@@ -338,7 +338,7 @@ class StackBar extends StatelessWidget {
   }
 }
 
-/// a labelled bar: label · bar · value (the WebView app's .skrow)
+/// a labelled bar: label · bar · value
 class SkRow extends StatelessWidget {
   final Widget label;
   final double frac;

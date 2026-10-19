@@ -1,6 +1,6 @@
 /// Opening the sealed part (assets/data/s0.bin, `s-<lang>.bin`): a short readable header, a zero byte, then deflated
 /// JSON under a xoshiro128** keystream seeded by SHA-256 of a phrase, the HSK 6 words and the file name
-/// (tool/make_assets.py writes it the same way web/build.py did).
+/// (written by tool/make_assets.py).
 library;
 
 import 'dart:convert';

@@ -34,7 +34,7 @@ android {
     signingConfigs {
         // One fixed key for every sideload build: Android only accepts an update signed with the same key.
         create("merdeka") {
-            storeFile = rootProject.file("../../keystore/merdeka.jks")
+            storeFile = rootProject.file("../../keystore/xueci.jks")
             storePassword = "merdekamandarin"
             keyAlias = "merdeka"
             keyPassword = "merdekamandarin"

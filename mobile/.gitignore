@@ -46,7 +46,6 @@ app.*.map.json
 
 # Widget Preview related
 .widget_preview/
-/test/traces/
 /assets/data/
 /assets/i18n/
 /tool/node_modules/

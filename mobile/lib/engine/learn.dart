@@ -1,4 +1,4 @@
-/// The learning engine, ported from web/src/learn.js (v1.17) line by line: same model, same storage, same choices.
+/// The learning engine: memory model, storage, plan and question choice (checked by test/engine_trace_test.dart).
 /// Everything runs on the phone; nothing is sent anywhere.
 ///
 /// Memory model: FSRS-5 (fsrs.dart). Every word has one state for the word (drives scheduling and the 0–20 level)

@@ -1,4 +1,4 @@
-/// Sheets (the WebView app's .isheet): frosted glass from the bottom (a centred card on wide screens), a title row
+/// Sheets: frosted glass from the bottom (a centred card on wide screens), a title row
 /// with a close button, the back button closes them.
 library;
 

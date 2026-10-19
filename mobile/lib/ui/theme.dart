@@ -1,4 +1,4 @@
-/// Colours and type, from the WebView app's CSS (base.css.html + glass.css.html): the light, dark and true-black
+/// Colours and type: the light, dark and true-black
 /// themes, level colours, tone colours, the five elements, and the Liquid Glass materials.
 library;
 
@@ -108,8 +108,7 @@ class Pal {
   Color l(int level) => lv[(level.clamp(1, 9)) - 1];
 
   /// the colour of a realm (0 凡人 = mute, past the last level = gold)
-  Color realm(int r, {bool band = false}) =>
-      r < 1 ? mute : (r > 9 || (r > 6 && !band) ? gold : l(r));
+  Color realm(int r, {bool band = false}) => r < 1 ? mute : (r > 9 || (r > 6 && !band) ? gold : l(r));
 
   Color t(int n) => tone[(n.clamp(1, 5)) - 1];
 
@@ -204,7 +203,9 @@ class Pal {
     auroraTone: .55,
     auroraWarm: const Color.fromRGBO(255, 138, 88, .58),
     auroraCool: const Color.fromRGBO(128, 136, 255, .46),
-    dropIn: const [BoxShadow(color: Color.fromRGBO(60, 40, 90, .10), offset: Offset(0, 6), blurRadius: 16, spreadRadius: -6)],
+    dropIn: const [
+      BoxShadow(color: Color.fromRGBO(60, 40, 90, .10), offset: Offset(0, 6), blurRadius: 16, spreadRadius: -6),
+    ],
   );
 
   static final darkP = Pal(
@@ -255,7 +256,9 @@ class Pal {
     card: .06,
     warm: _c(0xffebc277).withValues(alpha: .12),
     cardC: const Color(0xff2a2d35),
-    drop: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .55), offset: Offset(0, 20), blurRadius: 44, spreadRadius: -16)],
+    drop: const [
+      BoxShadow(color: Color.fromRGBO(0, 0, 0, .55), offset: Offset(0, 20), blurRadius: 44, spreadRadius: -16),
+    ],
     insetTop: .18,
     glassA: _w(.065),
     glassB: _w(.03),
@@ -269,7 +272,9 @@ class Pal {
     auroraTone: .34,
     auroraWarm: const Color.fromRGBO(255, 112, 50, .18),
     auroraCool: const Color.fromRGBO(110, 90, 255, .32),
-    dropIn: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .35), offset: Offset(0, 6), blurRadius: 16, spreadRadius: -8)],
+    dropIn: const [
+      BoxShadow(color: Color.fromRGBO(0, 0, 0, .35), offset: Offset(0, 6), blurRadius: 16, spreadRadius: -8),
+    ],
   );
 
   static final blackP = Pal(
@@ -318,7 +323,9 @@ class Pal {
     card: .06,
     warm: _c(0xffebc277).withValues(alpha: .10),
     cardC: const Color(0xff141417),
-    drop: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .9), offset: Offset(0, 20), blurRadius: 40, spreadRadius: -18)],
+    drop: const [
+      BoxShadow(color: Color.fromRGBO(0, 0, 0, .9), offset: Offset(0, 20), blurRadius: 40, spreadRadius: -18),
+    ],
     insetTop: .14,
     glassA: _w(.085),
     glassB: _w(.035),
