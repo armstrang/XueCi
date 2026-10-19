@@ -30,11 +30,15 @@ same progress, every screen drawn natively, with a new look that is easier to re
   button's spring redraws only the button; the frosted layers share one blur; shadows are drawn the cheap way; hidden
   meanings in the list are a soft bar instead of a blur; the Soul Sea opens several times faster; what the screens
   show from your progress is worked out once and reused until something changes; timers redraw only their clock.
+- Little touches: the realm ring and the progress bars grow in, a right answer gives a small pop and a wrong one a
+  short shake (with a buzz), and the word grid in Stats is drawn in one go, so it opens about twice as fast.
 - Every text is checked for contrast against what is really behind it, on every main screen and sheet, in the
   light, dark and true-black themes (WCAG: 4.5:1, 3:1 for large text). Level, tone and element colours were
   darkened in the light theme where they were too pale to read.
 
 ### Changed
+- The app's wording was rewritten to sound like a person, not a manual: shorter sentences, plain words, and
+  explanations that say what to do (Indonesian and English first).
 - Quiz: the Guided type is gone. Pick the type you want (Recognise is the default); today's session on Home still
   chooses the words and question types for you.
 - Every screen is drawn natively instead of in a web page: Home, the word list, Cards, Quiz, the daily session, the
