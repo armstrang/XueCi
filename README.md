@@ -15,22 +15,26 @@ by Armstrang
 Versi baru dipasang dengan cara yang sama, langsung di atas versi sebelumnya. Progres belajar tidak hilang.
 
 **Pindah dari versi lama (v1.2 atau sebelumnya).** Mulai v1.3 aplikasinya memakai nama paket baru (`com.armstrang.xueci`), jadi terpasang sebagai aplikasi terpisah.
-Untuk memindahkan progres: perbarui aplikasi lama ke v1.2, buka **Statistik → Cadangkan → Salin**, lalu di aplikasi baru ketuk **Cadangan** (di Home, di samping tombol warna nada) **→ Pulihkan → Tempel → Periksa kode → Ganti progres**.
+Untuk memindahkan progres: perbarui aplikasi lama ke v1.2, buka **Statistik → Cadangkan → Salin**, lalu di aplikasi baru buka **Pengaturan → Cadangan → Pulihkan → Tempel → Periksa kode → Ganti progres**.
 Setelah itu aplikasi lama boleh di-uninstall.
 
 ## Struktur
 
-- `web/src/` — sumber halaman aplikasi: `base.css.html` (tata letak), `app.html` (tampilan), `app/*.js` (logika aplikasi, satu file per layar atau fitur), `store.js` (penyimpanan progres: IndexedDB dengan nomor versi skema dan migrasi), `boot.js` (memuat data kata lalu menjalankan aplikasi), `learn.js` (mesin belajar: model memori, riwayat jawaban, rencana harian, pemilihan soal, ranah, angka istirahat), `soul.js` (bola jiwa dan cincin lima elemen), `i18n.js`, `i18n-app.js` dan `i18n-learn.js` (teks antarmuka 4 bahasa), `glass.css.html` dan `glass.js` (tampilan dan interaksi Liquid Glass). Kode JavaScript dirapikan dengan Prettier (`.prettierrc.json`).
-- `web/data/vocab.json` — kosakata beserta arti dan contoh kalimat dalam 4 bahasa (satu kata per baris). Saat build dipecah menjadi `data/core.json` (hanzi, pinyin, contoh, level) dan satu file arti per bahasa, yang dimuat hanya saat bahasanya dipakai.
+Sejak v2.0 aplikasinya dibuat dengan **Flutter** (Dart) di `mobile/`. Versi 1.x (halaman web di dalam WebView) dibekukan; `web/` tetap menjadi sumber kosakata dan teks antarmuka.
+
+- `mobile/lib/` — aplikasi: `engine/` (mesin belajar: model memori FSRS, rencana harian, pemilihan soal, ranah, tes), `data/` (penyimpanan progres dengan nama kunci yang sama seperti v1.x, kosakata, pinyin), `i18n/` (teks 4 bahasa), `app/` (keadaan aplikasi, sesi latihan, kode cadangan, jembatan ke Android), `ui/` (semua layar dan lembar).
+- `mobile/android/` — sisi Android: pengucapan (TextToSpeech), pengingat harian, widget layar utama, berbagi, dan pemindahan progres v1.x saat v2.0 pertama kali dibuka.
+- `mobile/tool/` — `make_assets.py` (data kata dan teks dari `web/` untuk aplikasi), `make_fonts.py` (font yang dipotong ke karakter yang dipakai).
+- `mobile/test/` — uji otomatis (`flutter test`): mesin belajar dibandingkan jawaban demi jawaban dengan mesin JavaScript v1.x, penyimpanan dan migrasi, kode cadangan, serta screenshot setiap layar.
+- `web/data/vocab.json` — kosakata beserta arti dan contoh kalimat dalam 4 bahasa (satu kata per baris).
+- `web/src/` — sumber v1.x; teks antarmuka (`i18n*.js`) dan mesin JavaScript (`learn.js`, acuan untuk mesin Dart) masih dipakai.
 - `web/tools/` — `sentence_pinyin.py` (pinyin contoh kalimat) dan `word_freq.py` (frekuensi kata dan jenis kata dari kamus jieba).
-- `web/build.py` — menggabungkan sumbernya menjadi `app/src/main/assets/index.html` plus file data di `app/src/main/assets/data/`.
-- `app/` — aplikasi Android (satu layar WebView yang memuat halaman tadi).
-- `tests/smoke.py` — uji otomatis halaman aplikasi di browser (`python3 tests/smoke.py`); `tests/engine.js` — uji mesin belajar dan migrasi data di Node (`node tests/engine.js`).
-- `store/` — bahan halaman Google Play: teks (`listing.md`), screenshot, dan feature graphic (`python3 store/make_store_assets.py` membuatnya ulang).
+- `app/`, `web/build.py`, `tests/` — aplikasi Android v1.x dan ujinya (dibekukan).
+- `store/` — bahan halaman Google Play: teks (`listing.md`), screenshot, dan feature graphic.
 - `art/` — gambar ikon (`python3 art/make_icons.py` membuat semua ukuran ikon dari `art/icon-source-square.png` dan `art/icon-source-round.png`); `docs/play-store.md` — rencana rilis di Google Play.
 
-Setelah mengubah sesuatu di `web/`, jalankan `python3 web/build.py`. GitHub Actions juga menjalankannya di setiap push ke `main`, menjalankan kedua uji otomatis (APK hanya dibuat kalau semuanya lulus), lalu membangun APK dan menerbitkannya di Releases (v1.0, v1.1, …) dengan catatan rilis dari bagian versinya di `CHANGELOG.md`.
-APK ditandatangani dengan kunci di `keystore/` supaya setiap versi bisa memperbarui versi sebelumnya.
+GitHub Actions membuat data aplikasi, menjalankan analisis dan semua uji di setiap push ke `main` (APK hanya dibuat kalau semuanya lulus), lalu membangun APK dan bundle Play dan menerbitkannya di Releases (v2.0, v2.1, …) dengan catatan rilis dari bagian versinya di `CHANGELOG.md`.
+APK ditandatangani dengan kunci di `keystore/` supaya setiap versi bisa memperbarui versi sebelumnya (termasuk dari v1.x ke v2.0).
 
 ## Sumber data
 
