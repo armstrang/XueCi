@@ -171,6 +171,7 @@ function qMenu(open) {
     b = $('qTypeBtn');
   if (!m) return;
   m.hidden = !open;
+  document.body.classList.toggle('menuopen', !!open); /* the tab bar steps aside so the whole list can be reached */
   b.setAttribute('aria-expanded', open);
   if (open) (m.querySelector('[aria-selected="true"]') || m.firstElementChild).focus();
 }

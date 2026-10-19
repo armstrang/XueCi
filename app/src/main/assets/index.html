@@ -18,10 +18,10 @@ if(!(f>0))f=1;f=Math.min(1.6,Math.max(.85,f));var d=document.documentElement,r=d
    and focused screens (List / Cards / Quiz / Stats) that show only that task, with a back button and compact pickers.
    Level accent per HSK; tone colors on hanzi/pinyin; green/yellow/red = understanding. */
 :root{
-  --bg:#f4f5f7; --surface:#ffffff; --sunk:#e8ebf1; --fg:#161a22; --soft:#535b6b; --mute:#7d8494; --line:#e1e5ec;
+  --bg:#f4f5f7; --surface:#ffffff; --sunk:#e8ebf1; --fg:#161a22; --soft:#4f5767; --mute:#636a78; --line:#e1e5ec;
   --mark:#ffe1a8; --on-acc:#ffffff; --shadow:0 18px 50px rgba(22,26,34,.18);
   --l1:#2f8a4c; --l2:#0f7f88; --l3:#1f78b4; --l4:#3c4fb8; --l5:#7a46b8; --l6:#a3386f;
-  --t1:#cf3b2b; --t2:#d27a12; --t3:#24905a; --t4:#2a62c0; --t5:#8b928e;
+  --t1:#c4362a; --t2:#a85c06; --t3:#1d7d4d; --t4:#2a62c0; --t5:#6a716d;   /* v1.15: tone colours meet 4.5:1 on light glass */
   --s-red:#e5484d; --s-yellow:#f0bf26; --s-green:#3fae4c; --s-none:#d3d8e0;
   --good:#1d7a4d; --bad:#c2412d;
   --acc:var(--l1);
@@ -808,7 +808,7 @@ body[data-level="7"]{--acc:var(--l7)} body[data-level="8"]{--acc:var(--l8)} body
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#23262c; --surface:#2a2d34; --sunk:#353840; --line:#3a3e46; --s-none:#454952;
-  --fg:#eceef2; --soft:#a9aeb8; --mute:#80868f;
+  --fg:#eceef2; --soft:#c0c5ce; --mute:#a3a9b3;
   --bg-top:#2f3238; --bg-bot:#15171b; --bar:#2f3238; --bar2:#15171b; --glow-o:46%;
   --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.17),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 55%,rgba(255,255,255,.05));
   --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),rgba(255,255,255,.05);
@@ -821,7 +821,7 @@ body[data-level="7"]{--acc:var(--l7)} body[data-level="8"]{--acc:var(--l8)} body
   --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06))}}
 :root[data-theme="dark"]{
   --bg:#23262c; --surface:#2a2d34; --sunk:#353840; --line:#3a3e46; --s-none:#454952;
-  --fg:#eceef2; --soft:#a9aeb8; --mute:#80868f;
+  --fg:#eceef2; --soft:#c0c5ce; --mute:#a3a9b3;
   --bg-top:#2f3238; --bg-bot:#15171b; --bar:#2f3238; --bar2:#15171b; --glow-o:46%;
   --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.17),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 55%,rgba(255,255,255,.05));
   --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),rgba(255,255,255,.05);
@@ -834,7 +834,7 @@ body[data-level="7"]{--acc:var(--l7)} body[data-level="8"]{--acc:var(--l8)} body
   --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06))}
 /* True black: pure #000 for OLED screens; only the level glow and the glass edges catch the light */
 :root[data-theme="black"]{
-  --bg:#000000; --surface:#0b0b0c; --sunk:#1a1a1d; --fg:#f4f4f6; --soft:#a2a2a9; --mute:#75757c; --line:#26262a;
+  --bg:#000000; --surface:#0b0b0c; --sunk:#1a1a1d; --fg:#f4f4f6; --soft:#b4b4bb; --mute:#8d8d94; --line:#26262a;
   --mark:#4a3a10; --on-acc:#000000; --shadow:0 18px 50px rgba(0,0,0,.8);
   --l1:#6fd08f; --l2:#5cc8cf; --l3:#6dbbea; --l4:#94a3f5; --l5:#bf9af0; --l6:#ec8dbd;
   --t1:#ff7a66; --t2:#f2a64a; --t3:#5fd38f; --t4:#79a6ff; --t5:#9aa39e;
@@ -1047,7 +1047,7 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
    One screen, top to bottom: header pills (wordmark · cultivation days · Settings), the realm orb flowing into the
    panel with the realm line and today's plan (one SVG shape, static), word mastery with the HSK picker, the dock.
    Nothing here blurs (Home does not scroll under anything) and nothing moves except on a tap. */
-:root{--gold:#c8902a;--f0:rgba(255,255,255,.66);--f1:rgba(255,255,255,.36);--r0:rgba(255,255,255,.98);--r1:rgba(255,255,255,.22);--r2:rgba(255,255,255,.75);
+:root{--gold:#9a6a12;--f0:rgba(255,255,255,.66);--f1:rgba(255,255,255,.36);--r0:rgba(255,255,255,.98);--r1:rgba(255,255,255,.22);--r2:rgba(255,255,255,.75);
   --card:rgba(255,255,255,.88);--card-sh:0 12px 28px -16px rgba(30,40,60,.35);--shape-sh:drop-shadow(0 26px 30px rgba(30,45,70,.16));--warm:rgba(255,190,140,.42)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gold:#ebc277;--f0:rgba(255,255,255,.115);--f1:rgba(255,255,255,.045);--r0:rgba(255,255,255,.4);--r1:rgba(255,255,255,.05);--r2:rgba(255,255,255,.2);
   --card:rgba(255,255,255,.075);--card-sh:inset 0 1px 0 rgba(255,255,255,.12);--shape-sh:drop-shadow(0 26px 30px rgba(0,0,0,.5));--warm:color-mix(in srgb,var(--gold) 16%,transparent)}}
@@ -1249,11 +1249,65 @@ header.top .brand{margin-right:auto}
    that need a blur pass, no glow, no breathing orb */
 .fx-low .fshape{filter:none}
 .fx-low .fglow,.fx-low .liquid-bg::before{display:none}
+/* v1.15 full effects: the drifting light canvas (glass.js) between the base background and the page */
+.fxbg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:none;opacity:0;transition:opacity .3s ease}
+html.fx-full .fxbg{display:block;opacity:1}
 .fx-low .rorb.btready{animation:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 55%,transparent)}
 .fx-low .menu,.fx-low .stdetail,.fx-low .toast,.fx-low .isheet,.fx-low .frow,.fx-low .stbar{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 .fx-low .isheet{background:var(--surface)}
 .fx-low .menu,.fx-low .toast{background:var(--surface)}
 .fx-low .rorb b{text-shadow:none}
+
+/* ===== v1.15: a tab bar that stays (Josh: like Apple Music) and a Home that always fits above it =====
+   The bar floats over the scrolling screens, so it is real frosted glass (the one place outside sheets and menus);
+   light effects drop the blur. Home is exactly the screen minus the bar: the orb takes what is left (container query). */
+:root{--tabh:64px;--tabgap:calc(10px + env(safe-area-inset-bottom,0px))}
+.tabbar{position:fixed;z-index:40;left:50%;bottom:var(--tabgap);transform:translateX(-50%);width:min(528px,calc(100% - 32px));
+  grid-template-columns:repeat(4,minmax(0,1fr));height:var(--tabh);box-sizing:border-box;
+  background:var(--g-head);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);
+  box-shadow:var(--g-inset),0 18px 40px -18px rgba(0,0,0,.45),0 2px 8px -4px rgba(0,0,0,.2)}
+.tabbar .tab{min-height:0;height:100%;color:color-mix(in srgb,var(--fg) 88%,transparent);border-radius:24px;transition:transform .25s var(--spring),background .2s,color .2s}
+.tabbar .tab .ic{color:inherit}
+.tabbar .tab[aria-current="page"]{color:var(--acc);background:color-mix(in srgb,var(--fg) 8%,transparent)}
+.tabbar .tab[aria-current="page"] b{font-weight:800}
+body[data-screen="session"] .tabbar,body[data-screen="placement"] .tabbar,body[data-screen="bt"] .tabbar,body.kb .tabbar,body.menuopen .tabbar{display:none}
+body{padding-bottom:calc(var(--tabh) + 20px + env(safe-area-inset-bottom,0px))}
+body[data-screen="home"]{padding-bottom:0}
+body[data-screen="session"],body[data-screen="placement"],body[data-screen="bt"]{padding-bottom:40px}
+.toast{bottom:calc(var(--tabh) + 22px + env(safe-area-inset-bottom,0px))}
+body[data-screen="session"] .toast,body[data-screen="placement"] .toast,body[data-screen="bt"] .toast{bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.stdetail{bottom:calc(var(--tabh) + 14px + env(safe-area-inset-bottom,0px));border-radius:18px}
+.fx-low .tabbar{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--surface)}
+
+/* Home: one screen above the tab bar, whatever the phone and its text size */
+body[data-screen="home"] #scr-home{height:calc(100svh - var(--tabh) - 22px - env(safe-area-inset-bottom,0px));min-height:0;padding-bottom:0}
+.bigtext body[data-screen="home"] #scr-home{min-height:0}
+.fluid{flex:1 1 0;min-height:0;container-type:size;container-name:fluid}
+/* the orb is whatever room is left after the realm line and the plan card (they grow with the phone's text size) */
+.fluid{--ob:clamp(76px,min(52cqw,calc(100cqh - 250px * var(--fsd,1))),214px)}
+.bigtext .fluid{flex:1 1 0;--ob:clamp(72px,min(48cqw,calc(100cqh - 300px * var(--fsd,1))),200px)}
+.rorb .opy{display:block}
+@container fluid (max-height:400px){.rline{display:none}.rtext{padding-top:4px}.fluid .rtext{padding-bottom:8px}.rstage{margin-top:5px}}
+@container fluid (max-height:340px){.rstage small{display:none}.rorb .opy{display:none}.fluid .pst{display:none}}
+@container fluid (max-height:300px){.rstage{display:none}.ringq{width:34px;height:34px}}
+/* the mastery panel gives up its counts first, then its spacing, on short screens */
+@media (max-height:820px){.mkeys{display:none}}
+.bigtext .mkeys{display:none}
+.bigtext .mast .lvpill small{display:none}
+.tabbar .tab b{display:block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:calc(12px*min(var(--fsd,1),1.12))}
+.tabbar .tab .ic svg{width:calc(23px*min(var(--fsd,1),1.1));height:calc(23px*min(var(--fsd,1),1.1))}
+/* large phone text: Home keeps the essentials (realm, today's numbers and button, the HSK picker) */
+.bigtext .fluid .pst,.bigtext .rline,.bigtext .rstage small{display:none}
+.bigtext .rname2{font-size:calc(15px*var(--fsd,1))}
+.bigtext .fluid .ptop .chalchip{display:none}
+.bigtext .fluid .plan{padding:9px 12px 11px;gap:6px}
+@media (max-width:360px){.bigtext .fluid .ptop .gchip{display:none}}
+@media (max-height:700px){.bigtext .rstage{display:none}.bigtext .fluid{--ob:clamp(64px,min(44cqw,calc(100cqh - 260px * var(--fsd,1))),160px)}}
+/* v1.15 accessibility: text links and link buttons get at least a 24px touch area */
+.linkbtn,.isheet p a,.foot-note a{display:inline-block;min-height:24px;padding-block:3px}
+/* v1.15 accessibility: coloured numbers and the learned word in sentence pinyin stay readable on light glass */
+.eln em{color:color-mix(in srgb,var(--ec) 72%,var(--fg))}
+.zp mark{color:color-mix(in srgb,var(--acc) 82%,var(--fg))}
 </style>
 
 
@@ -1291,11 +1345,6 @@ header.top .brand{margin-right:auto}
     <div class="mkeys" id="heroKeys"></div>
   </section>
 
-  <nav class="tiles dock" data-i18n-aria="modesL">
-    <button class="tile" data-go="list"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h1M4 12h1M4 18h1"/></svg></span><b data-i18n="list"></b></button>
-    <button class="tile" data-go="card"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="13" height="14" rx="2.5"/><path d="M8 3h10.5A2.5 2.5 0 0 1 21 5.5V17"/></svg></span><b data-i18n="card"></b></button>
-    <button class="tile" data-go="quiz"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></span><b data-i18n="quiz"></b></button>
-  </nav>
 </section>
 
 <!-- ===== List / Cards / Quiz (one focused task at a time) ===== -->
@@ -1360,6 +1409,14 @@ header.top .brand{margin-right:auto}
   </div>
   <div class="soulbody" id="soulBody"></div>
 </section>
+
+<!-- the tab bar (v1.14.1, Josh: like Apple Music): always there on the browsing screens, gone during tests and sessions -->
+<nav class="tiles dock tabbar" id="tabbar" data-i18n-aria="modesL">
+  <button class="tile tab" data-go="home"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 10.5 12 3.8l8.5 6.7V19a1.5 1.5 0 0 1-1.5 1.5h-4v-6h-6v6H5A1.5 1.5 0 0 1 3.5 19z"/></svg></span><b data-i18n="tabHome"></b></button>
+  <button class="tile tab" data-go="list"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M4 6h1M4 12h1M4 18h1"/></svg></span><b data-i18n="list"></b></button>
+  <button class="tile tab" data-go="card"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="13" height="14" rx="2.5"/><path d="M8 3h10.5A2.5 2.5 0 0 1 21 5.5V17"/></svg></span><b data-i18n="card"></b></button>
+  <button class="tile tab" data-go="quiz"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></svg></span><b data-i18n="quiz"></b></button>
+</nav>
 
 </div>
 <div class="sheetwrap" id="infoSheet" hidden>
@@ -5237,6 +5294,11 @@ Object.assign(I18N.vi, {
   tourLater: 'Để sau',
   tourRow: 'Giới thiệu nhanh',
 });
+/* v1.15: the tab bar */
+Object.assign(I18N.id, { tabHome: 'Beranda' });
+Object.assign(I18N.en, { tabHome: 'Home' });
+Object.assign(I18N.th, { tabHome: 'หน้าแรก' });
+Object.assign(I18N.vi, { tabHome: 'Trang chủ' });
 /* ---- app/core.js ---- */
 /* the word list, loaded by boot.js from data/core.json + data/<lang>.json: HSK 1–6, plus HSK 7–9 (data/core-b.json)
    once the gate after 飞升 is open. LEVELS lists the levels that are open; it grows in place when the gate opens. */
@@ -8508,11 +8570,15 @@ function show(s) {
   if (s === 'bt' || state.screen === 'bt') bt = null;
   if (s === 'stats') stHist = false;
   state.screen = s;
+  document.body.classList.remove('menuopen', 'kb');
   document.body.dataset.screen = s;
   scrHome.hidden = s !== 'home';
   scrFocus.hidden = !FOCUS.includes(s);
   scrStats.hidden = s !== 'stats';
   scrSoul.hidden = s !== 'soul';
+  document
+    .querySelectorAll('#tabbar .tab')
+    .forEach(t => (t.dataset.go === s ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current')));
   if (FOCUS.includes(s)) {
     scrFocus.dataset.mode = s;
     $('fTitle').textContent = fTitleOf(s);
@@ -8531,10 +8597,19 @@ function back() {
 }
 $('backBtn').onclick = back;
 $('stBack').onclick = back;
-document.querySelector('.tiles').onclick = e => {
+$('tabbar').onclick = e => {
   const t = e.target.closest('[data-go]');
-  if (t) go(t.dataset.go);
+  if (!t) return;
+  if (t.dataset.go === state.screen)
+    window.scrollTo({ top: 0, behavior: 'smooth' }); /* tapping the open tab: back to the top */
+  else go(t.dataset.go);
 };
+/* while typing (search, pinyin), the keyboard needs the room: the tab bar steps aside */
+document.addEventListener('focusin', e => {
+  if (/^(INPUT|TEXTAREA)$/.test(e.target.tagName) && !/^(checkbox|radio|range|button)$/.test(e.target.type))
+    document.body.classList.add('kb');
+});
+document.addEventListener('focusout', () => document.body.classList.remove('kb'));
 const hero = $('hero');
 hero.onclick = () => go('stats');
 function refresh() {
@@ -9195,6 +9270,7 @@ function runHead() {
   }
   const QT = qtList(),
     cur = QT.find(q => q[0] === qType) || QT[0];
+  document.body.classList.remove('menuopen'); /* the menu is drawn closed */
   return `<div class="qhead"><div class="qsel" id="qsel">
       <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>
       <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q => `<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0] === qType}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>
@@ -9636,6 +9712,7 @@ function qMenu(open) {
     b = $('qTypeBtn');
   if (!m) return;
   m.hidden = !open;
+  document.body.classList.toggle('menuopen', !!open); /* the tab bar steps aside so the whole list can be reached */
   b.setAttribute('aria-expanded', open);
   if (open) (m.querySelector('[aria-selected="true"]') || m.firstElementChild).focus();
 }
@@ -12063,6 +12140,12 @@ if (!LM.goal && !ls.get('xc_onb', 0))
     if (state.screen === 'home' && goalSheet.hidden && bkSheet.hidden && infoSheet.hidden) openTour(true);
   }, 500);
 setTimeout(() => LM.maybeOptimize(), 6000);
+/* Android: Home is drawn, the splash may go (next frame, so the first paint is really on screen) */
+requestAnimationFrame(() => {
+  try {
+    window.MMAndroid && MMAndroid.ready && MMAndroid.ready();
+  } catch (e) {}
+});
 /* the gate after 飞升: opened by a breakthrough in an earlier version, or its ceremony was not finished */
 if (LM.gateOpen() && !XC.band) setTimeout(() => openGate(true), 700);
 else if (XC.band && LM.level && !LM.level.gs) setTimeout(gateShow, 700);
@@ -12352,6 +12435,132 @@ else if (XC.band && LM.level && !LM.level.gs) setTimeout(gateShow, 700);
     const fb = document.querySelector('#scr-focus .fbar');
     ['lvMenu', 'uMenu'].forEach(id => fb.appendChild(document.getElementById(id)));
   }
+
+  /* 7. Full visual effects (v1.15): a field of soft light that drifts slowly behind the glass, drawn by a small WebGL
+      shader into a low-resolution canvas under the page (the glass panels show it moving through them). Only with
+      html.fx-full; 30 frames a second at most; it settles to a still picture 10 s after the last touch and sleeps
+      while the app is in the background or during a test or session. Without WebGL the CSS glow stays as it is. */
+  const fxbg = (() => {
+    const cv = document.createElement('canvas');
+    cv.className = 'fxbg';
+    cv.setAttribute('aria-hidden', 'true');
+    const lb = document.querySelector('.liquid-bg');
+    lb ? lb.after(cv) : document.body.prepend(cv);
+    let gl = null;
+    try {
+      gl = cv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'low-power' });
+    } catch (e) {}
+    if (!gl) {
+      cv.remove();
+      root.classList.add('nogl');
+      return null;
+    }
+    const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}',
+      fs = `precision mediump float;uniform vec2 r;uniform float t,k;uniform vec3 c1,c2,c3;
+        float b(vec2 p,vec2 c,float s){vec2 d=p-c;return exp(-dot(d,d)/s);}
+        void main(){vec2 p=gl_FragCoord.xy/r;p.x*=r.x/r.y;float a=r.x/r.y;
+          vec2 q1=vec2(a*(.18+.10*sin(t*.07)),.86+.06*cos(t*.09));
+          vec2 q2=vec2(a*(.92+.06*cos(t*.05+1.)),.42+.12*sin(t*.06+2.));
+          vec2 q3=vec2(a*(.30+.16*sin(t*.045+4.)),.10+.08*cos(t*.08+1.));
+          vec3 c=c1*b(p,q1,.16)*.62+c2*b(p,q2,.12)*.42+c3*b(p,q3,.14)*.40;
+          c*=k;float m=max(max(c.r,c.g),c.b);gl_FragColor=vec4(c,min(1.,m));}`;
+    const sh = (type, src) => {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      return s;
+    };
+    const pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs));
+    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) {
+      cv.remove();
+      return null;
+    }
+    gl.useProgram(pr);
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(pr, 'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const U = n => gl.getUniformLocation(pr, n),
+      uR = U('r'),
+      uT = U('t'),
+      uK = U('k'),
+      uC = [U('c1'), U('c2'), U('c3')];
+    /* the colours come from the theme: the level colour, the realm gold, a warm light (resolved through probes) */
+    const probe = document.createElement('i');
+    probe.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+    document.body.appendChild(probe);
+    const rgb = v => {
+      probe.style.color = v;
+      const m = getComputedStyle(probe).color.match(/[\d.]+/g) || [0, 0, 0];
+      return [m[0] / 255, m[1] / 255, m[2] / 255];
+    };
+    function colours() {
+      const dark = isDark();
+      gl.uniform3fv(uC[0], rgb('var(--acc)'));
+      gl.uniform3fv(uC[1], rgb('var(--gold)'));
+      gl.uniform3fv(uC[2], rgb(dark ? 'var(--l5)' : '#ffb07a'));
+      gl.uniform1f(uK, theme === 'black' ? 0.32 : dark ? 0.42 : 0.7);
+    }
+    let raf = 0,
+      last = 0,
+      t0 = performance.now(),
+      awake = 0;
+    function size() {
+      const w = Math.max(64, Math.round(innerWidth / 3)),
+        h = Math.max(64, Math.round(innerHeight / 3));
+      if (cv.width !== w || cv.height !== h) {
+        cv.width = w;
+        cv.height = h;
+        gl.viewport(0, 0, w, h);
+        gl.uniform2f(uR, w, h);
+      }
+    }
+    const on = () =>
+      root.classList.contains('fx-full') && !document.hidden && !['session', 'placement', 'bt'].includes(state.screen);
+    function draw(now) {
+      gl.uniform1f(uT, (now - t0) / 1000);
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    function frame(now) {
+      raf = 0;
+      if (!on()) return;
+      if (now - last >= 33) {
+        last = now;
+        draw(now);
+      }
+      if (!reduce && now < awake) raf = requestAnimationFrame(frame);
+    }
+    function wake() {
+      if (!on()) return;
+      awake = performance.now() + 10000;
+      if (!raf) raf = requestAnimationFrame(frame);
+    }
+    function refresh() {
+      size();
+      colours();
+      draw(performance.now());
+      wake();
+    }
+    ['pointerdown', 'keydown'].forEach(ev => addEventListener(ev, wake, { passive: true, capture: true }));
+    addEventListener('scroll', wake, { passive: true });
+    addEventListener('resize', refresh);
+    document.addEventListener('visibilitychange', wake);
+    new MutationObserver(refresh).observe(root, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+    new MutationObserver(refresh).observe(document.body, { attributes: true, attributeFilter: ['data-level', 'data-screen'] });
+    try {
+      darkMQ && darkMQ.addEventListener('change', refresh);
+    } catch (e) {}
+    refresh();
+    return { wake, refresh, cv };
+  })();
+  window.mmFxBg = fxbg;
 
   /* first paint of Home with the lens and the animated ring */
   if (state.screen === 'home') renderHome();

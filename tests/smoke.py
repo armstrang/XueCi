@@ -385,7 +385,12 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     await no_leak(pg, tag, 'Settings')
     await pg.click('#fxSeg [data-fx="low"]')
     check(await pg.evaluate("document.documentElement.classList.contains('fx-low') && ls.get('xc_fx') === 'low'"), f'{tag}: light visual effects can be chosen')
+    await pg.click('#fxSeg [data-fx="full"]')
+    await pg.wait_for_timeout(150)
+    check(await pg.evaluate("document.documentElement.classList.contains('fx-full') && (!window.mmFxBg || getComputedStyle(mmFxBg.cv).display === 'block')"),
+          f'{tag}: full visual effects show the moving light (or the CSS glow without WebGL)')
     await pg.click('#fxSeg [data-fx="auto"]')
+    check(await pg.evaluate("!window.mmFxBg || getComputedStyle(mmFxBg.cv).display === 'none'"), f'{tag}: the moving light goes away outside full effects')
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(200)
     check(await pg.locator('#setSheet').is_hidden(), f'{tag}: back closes Settings')
@@ -767,6 +772,36 @@ PERF_JS = '''async (act) => {
 }'''
 
 
+A11Y = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'a11y.js'), encoding='utf8').read()
+
+
+async def a11y_case(browser):
+    """Accessibility on the main screens and sheets in all three looks: every control has a name for TalkBack, no small
+    touch targets, and no text under 3:1 contrast (the selected HSK pill sits on the lens, which is not its parent)."""
+    tag = 'a11y'
+    for theme in ('light', 'dark', 'black'):
+        ctx = await browser.new_context(viewport={'width': 390, 'height': 844}, locale='id-ID')
+        await ctx.add_init_script(f"localStorage.setItem('xc_onb','1');localStorage.setItem('hsk16_theme','\"{theme}\"');")
+        pg = await ctx.new_page()
+        await pg.goto(PAGE)
+        await pg.wait_for_timeout(900)
+        await pg.evaluate("BY[1].slice(0, 60).forEach((d, i) => stats[d.id] = [3, i % 3, i % 20]); renderHome()")
+        bad = []
+        for name, js in (('home', ''), ('settings', "document.getElementById('setBtn').click()"), ('streak', "closeSettings();document.getElementById('streakBtn').click()"),
+                         ('realm', "closeStreak();document.getElementById('curLvBtn').click()"), ('list', "closeLvl();go('list')"), ('card', "go('card')"),
+                         ('quiz', "go('quiz')"), ('soul', "go('soul')"), ('help', "go('home');openInfo()")):
+            if js:
+                await pg.evaluate(js)
+                await pg.wait_for_timeout(500)
+            r = await pg.evaluate(A11Y)
+            low = [c for c in r['contrast'] if float(c.split()[0]) < 3]
+            tgt = [t for t in r['targets'] if 's-none' not in t and 'mbg' not in t]
+            if r['names'] or low or tgt:
+                bad.append((name, r['names'][:3], low[:3], tgt[:3]))
+        check(not bad, f'{tag}: {theme}: controls are named, targets ≥24px, text contrast ≥3:1 {bad[:2]}')
+        await ctx.close()
+
+
 async def perf_case(browser):
     """Speed on a slow phone (CPU 4x slower): Home redraws quickly, screen changes keep a smooth frame rate, the list
     opens without a long freeze, and the frame watcher does not step a phone down when it runs well."""
@@ -847,7 +882,7 @@ async def main():
                                                   (1280, 'vi-VN', 'auto', 1, False), (360, 'vi-VN', 'light', 1.6, True)):
                 await run_case(browser, width, locale, theme, fs, onb)
         for name, case in (('legacy', legacy_case), ('store', store_case), ('realm', realm_case), ('gate', gate_case), ('reminder', reminder_case),
-                           ('perf', perf_case)):
+                           ('perf', perf_case), ('a11y', a11y_case)):
             if not only or name in only:
                 await case(browser)
         await browser.close()

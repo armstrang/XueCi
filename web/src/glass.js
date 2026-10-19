@@ -282,6 +282,132 @@
     ['lvMenu', 'uMenu'].forEach(id => fb.appendChild(document.getElementById(id)));
   }
 
+  /* 7. Full visual effects (v1.15): a field of soft light that drifts slowly behind the glass, drawn by a small WebGL
+      shader into a low-resolution canvas under the page (the glass panels show it moving through them). Only with
+      html.fx-full; 30 frames a second at most; it settles to a still picture 10 s after the last touch and sleeps
+      while the app is in the background or during a test or session. Without WebGL the CSS glow stays as it is. */
+  const fxbg = (() => {
+    const cv = document.createElement('canvas');
+    cv.className = 'fxbg';
+    cv.setAttribute('aria-hidden', 'true');
+    const lb = document.querySelector('.liquid-bg');
+    lb ? lb.after(cv) : document.body.prepend(cv);
+    let gl = null;
+    try {
+      gl = cv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'low-power' });
+    } catch (e) {}
+    if (!gl) {
+      cv.remove();
+      root.classList.add('nogl');
+      return null;
+    }
+    const vs = 'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}',
+      fs = `precision mediump float;uniform vec2 r;uniform float t,k;uniform vec3 c1,c2,c3;
+        float b(vec2 p,vec2 c,float s){vec2 d=p-c;return exp(-dot(d,d)/s);}
+        void main(){vec2 p=gl_FragCoord.xy/r;p.x*=r.x/r.y;float a=r.x/r.y;
+          vec2 q1=vec2(a*(.18+.10*sin(t*.07)),.86+.06*cos(t*.09));
+          vec2 q2=vec2(a*(.92+.06*cos(t*.05+1.)),.42+.12*sin(t*.06+2.));
+          vec2 q3=vec2(a*(.30+.16*sin(t*.045+4.)),.10+.08*cos(t*.08+1.));
+          vec3 c=c1*b(p,q1,.16)*.62+c2*b(p,q2,.12)*.42+c3*b(p,q3,.14)*.40;
+          c*=k;float m=max(max(c.r,c.g),c.b);gl_FragColor=vec4(c,min(1.,m));}`;
+    const sh = (type, src) => {
+      const s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      return s;
+    };
+    const pr = gl.createProgram();
+    gl.attachShader(pr, sh(gl.VERTEX_SHADER, vs));
+    gl.attachShader(pr, sh(gl.FRAGMENT_SHADER, fs));
+    gl.linkProgram(pr);
+    if (!gl.getProgramParameter(pr, gl.LINK_STATUS)) {
+      cv.remove();
+      return null;
+    }
+    gl.useProgram(pr);
+    const buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
+    const loc = gl.getAttribLocation(pr, 'p');
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+    const U = n => gl.getUniformLocation(pr, n),
+      uR = U('r'),
+      uT = U('t'),
+      uK = U('k'),
+      uC = [U('c1'), U('c2'), U('c3')];
+    /* the colours come from the theme: the level colour, the realm gold, a warm light (resolved through probes) */
+    const probe = document.createElement('i');
+    probe.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden';
+    document.body.appendChild(probe);
+    const rgb = v => {
+      probe.style.color = v;
+      const m = getComputedStyle(probe).color.match(/[\d.]+/g) || [0, 0, 0];
+      return [m[0] / 255, m[1] / 255, m[2] / 255];
+    };
+    function colours() {
+      const dark = isDark();
+      gl.uniform3fv(uC[0], rgb('var(--acc)'));
+      gl.uniform3fv(uC[1], rgb('var(--gold)'));
+      gl.uniform3fv(uC[2], rgb(dark ? 'var(--l5)' : '#ffb07a'));
+      gl.uniform1f(uK, theme === 'black' ? 0.32 : dark ? 0.42 : 0.7);
+    }
+    let raf = 0,
+      last = 0,
+      t0 = performance.now(),
+      awake = 0;
+    function size() {
+      const w = Math.max(64, Math.round(innerWidth / 3)),
+        h = Math.max(64, Math.round(innerHeight / 3));
+      if (cv.width !== w || cv.height !== h) {
+        cv.width = w;
+        cv.height = h;
+        gl.viewport(0, 0, w, h);
+        gl.uniform2f(uR, w, h);
+      }
+    }
+    const on = () =>
+      root.classList.contains('fx-full') && !document.hidden && !['session', 'placement', 'bt'].includes(state.screen);
+    function draw(now) {
+      gl.uniform1f(uT, (now - t0) / 1000);
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    function frame(now) {
+      raf = 0;
+      if (!on()) return;
+      if (now - last >= 33) {
+        last = now;
+        draw(now);
+      }
+      if (!reduce && now < awake) raf = requestAnimationFrame(frame);
+    }
+    function wake() {
+      if (!on()) return;
+      awake = performance.now() + 10000;
+      if (!raf) raf = requestAnimationFrame(frame);
+    }
+    function refresh() {
+      size();
+      colours();
+      draw(performance.now());
+      wake();
+    }
+    ['pointerdown', 'keydown'].forEach(ev => addEventListener(ev, wake, { passive: true, capture: true }));
+    addEventListener('scroll', wake, { passive: true });
+    addEventListener('resize', refresh);
+    document.addEventListener('visibilitychange', wake);
+    new MutationObserver(refresh).observe(root, { attributes: true, attributeFilter: ['class', 'data-theme'] });
+    new MutationObserver(refresh).observe(document.body, { attributes: true, attributeFilter: ['data-level', 'data-screen'] });
+    try {
+      darkMQ && darkMQ.addEventListener('change', refresh);
+    } catch (e) {}
+    refresh();
+    return { wake, refresh, cv };
+  })();
+  window.mmFxBg = fxbg;
+
   /* first paint of Home with the lens and the animated ring */
   if (state.screen === 'home') renderHome();
   else if (state.screen === 'stats') renderStats();

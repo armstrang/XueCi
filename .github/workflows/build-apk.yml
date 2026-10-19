@@ -82,6 +82,27 @@ jobs:
           fi
           cp app/build/outputs/apk/release/app-release.apk XueCiMandarin.apk
 
+      # Google Play bundle, signed with the upload key from the repository secrets when they are set
+      - name: Build Play bundle (AAB)
+        shell: bash
+        env:
+          KS_B64: ${{ secrets.XC_UPLOAD_KEYSTORE_B64 }}
+          XC_UPLOAD_STORE_PASSWORD: ${{ secrets.XC_UPLOAD_STORE_PASSWORD }}
+          XC_UPLOAD_KEY_ALIAS: ${{ secrets.XC_UPLOAD_KEY_ALIAS }}
+          XC_UPLOAD_KEY_PASSWORD: ${{ secrets.XC_UPLOAD_KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+            export XC_UPLOAD_KEYSTORE="$RUNNER_TEMP/upload.jks"
+            echo "Signing the bundle with the Play upload key"
+          else
+            echo "::notice title=No upload key::XC_UPLOAD_KEYSTORE_B64 is not set; the bundle is signed with the sideload key (not for Play)"
+          fi
+          ./gradlew bundlePlay --no-daemon --stacktrace
+          cp app/build/outputs/bundle/play/app-play.aab XueCiMandarin.aab
+          rm -f "$RUNNER_TEMP/upload.jks"
+
       - uses: actions/upload-artifact@v4
         with:
           name: XueCiMandarin-apk
@@ -105,7 +126,7 @@ jobs:
             echo "::warning title=No changelog entry::CHANGELOG.md has no section for v$VER"
             echo "See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)." > notes.md
           fi
-          printf '\n---\n\nDownload **XueCiMandarin.apk** below and open it on an Android phone to install.\nUpdates install over the previous version; your study progress is kept.\n' >> notes.md
+          printf '\n---\n\nDownload **XueCiMandarin.apk** below and open it on an Android phone to install (the .aab file is the Google Play bundle).\nUpdates install over the previous version; your study progress is kept.\n' >> notes.md
           cat notes.md
 
       - name: Publish release
@@ -114,5 +135,7 @@ jobs:
           tag_name: v${{ env.VER }}
           name: XueCi Mandarin v${{ env.VER }}
           body_path: notes.md
-          files: XueCiMandarin.apk
+          files: |
+            XueCiMandarin.apk
+            XueCiMandarin.aab
           make_latest: true

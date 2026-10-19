@@ -65,6 +65,27 @@ jobs:
           fi
           grep -E "^w: |warning:" build.log | head -20 || true
 
+      # Google Play bundle, signed with the upload key from the repository secrets when they are set
+      - name: Build Play bundle (AAB)
+        shell: bash
+        env:
+          KS_B64: ${{ secrets.XC_UPLOAD_KEYSTORE_B64 }}
+          XC_UPLOAD_STORE_PASSWORD: ${{ secrets.XC_UPLOAD_STORE_PASSWORD }}
+          XC_UPLOAD_KEY_ALIAS: ${{ secrets.XC_UPLOAD_KEY_ALIAS }}
+          XC_UPLOAD_KEY_PASSWORD: ${{ secrets.XC_UPLOAD_KEY_PASSWORD }}
+        run: |
+          chmod +x gradlew
+          if [ -n "$KS_B64" ]; then
+            echo "$KS_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+            export XC_UPLOAD_KEYSTORE="$RUNNER_TEMP/upload.jks"
+            echo "Signing the bundle with the Play upload key"
+          else
+            echo "::notice title=No upload key::XC_UPLOAD_KEYSTORE_B64 is not set; the bundle is signed with the sideload key (not for Play)"
+          fi
+          ./gradlew bundlePlay --no-daemon --stacktrace
+          cp app/build/outputs/bundle/play/app-play.aab XueCiMandarin.aab
+          rm -f "$RUNNER_TEMP/upload.jks"
+
       - uses: actions/upload-artifact@v4
         with:
           name: check-apk

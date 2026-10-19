@@ -27,11 +27,15 @@ function show(s) {
   if (s === 'bt' || state.screen === 'bt') bt = null;
   if (s === 'stats') stHist = false;
   state.screen = s;
+  document.body.classList.remove('menuopen', 'kb');
   document.body.dataset.screen = s;
   scrHome.hidden = s !== 'home';
   scrFocus.hidden = !FOCUS.includes(s);
   scrStats.hidden = s !== 'stats';
   scrSoul.hidden = s !== 'soul';
+  document
+    .querySelectorAll('#tabbar .tab')
+    .forEach(t => (t.dataset.go === s ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current')));
   if (FOCUS.includes(s)) {
     scrFocus.dataset.mode = s;
     $('fTitle').textContent = fTitleOf(s);
@@ -50,10 +54,19 @@ function back() {
 }
 $('backBtn').onclick = back;
 $('stBack').onclick = back;
-document.querySelector('.tiles').onclick = e => {
+$('tabbar').onclick = e => {
   const t = e.target.closest('[data-go]');
-  if (t) go(t.dataset.go);
+  if (!t) return;
+  if (t.dataset.go === state.screen)
+    window.scrollTo({ top: 0, behavior: 'smooth' }); /* tapping the open tab: back to the top */
+  else go(t.dataset.go);
 };
+/* while typing (search, pinyin), the keyboard needs the room: the tab bar steps aside */
+document.addEventListener('focusin', e => {
+  if (/^(INPUT|TEXTAREA)$/.test(e.target.tagName) && !/^(checkbox|radio|range|button)$/.test(e.target.type))
+    document.body.classList.add('kb');
+});
+document.addEventListener('focusout', () => document.body.classList.remove('kb'));
 const hero = $('hero');
 hero.onclick = () => go('stats');
 function refresh() {

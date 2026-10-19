@@ -27,7 +27,15 @@ Centang item di bawah saat selesai.
   - [x] `compileSdk`/`targetSdk` 36, Android Gradle Plugin 8.13.2, Gradle 8.13.
   - [x] *Edge-to-edge*: jalur berwarna di bawah status bar dan navigation bar, mengikuti tema halaman, dan ikut naik saat keyboard muncul.
   - [ ] Uji di HP/emulator Android 15 dan 16: status bar, navigation bar (gesture dan 3 tombol), keyboard di kolom cari, mode lanskap.
-- [ ] **Android App Bundle (.aab).** Play hanya menerima AAB untuk aplikasi baru. CI menjalankan `bundleRelease`, ditandatangani dengan upload key dari GitHub Secrets. Kata sandi dibaca dari environment, tidak ditulis di `build.gradle`.
+- [x] **Android App Bundle (.aab)** (v1.15). Play hanya menerima AAB untuk aplikasi baru. CI menjalankan `bundlePlay` (build type `play`) dan melampirkan `XueCiMandarin.aab` di setiap rilis. Selama secret di bawah belum ada, AAB ditandatangani dengan kunci lama: jangan diunggah ke Play.
+  - [ ] **Josh: buat upload key** di komputer sendiri (jangan di repo, jangan kirim ke siapa pun), lalu simpan baik-baik (kalau hilang, harus minta reset ke Google):
+
+    ```
+    keytool -genkeypair -v -keystore xueci-upload.jks -alias upload -keyalg RSA -keysize 4096 -validity 10000
+    base64 -w0 xueci-upload.jks > upload.b64      # Windows: certutil -encode xueci-upload.jks upload.b64
+    ```
+  - [ ] Isi di repo → **Settings → Secrets and variables → Actions → New repository secret**: `XC_UPLOAD_KEYSTORE_B64` (isi `upload.b64`), `XC_UPLOAD_STORE_PASSWORD`, `XC_UPLOAD_KEY_ALIAS` (`upload`), `XC_UPLOAD_KEY_PASSWORD`. Rilis berikutnya menandatangani AAB dengan kunci ini.
+  - [ ] Di Play Console pilih **Play App Signing** (Google memegang kunci aplikasi, kita hanya upload key).
 - [x] **ID baru** `com.armstrang.xueci`: `applicationId`, `namespace`, dan paket Java (v1.3).
 - [x] **Cadangkan/pulihkan progres**: tombol **Cadangan** di Home (sejak v1.4; di v1.2 ada di Statistik). Cadangkan menghasilkan satu kode teks untuk disalin atau dibagikan; Pulihkan menerima kode itu di aplikasi atau HP lain.
 - [x] **Font dibundel di dalam aplikasi** (v1.5): Plus Jakarta Sans, Noto Sans/Serif SC (dipotong ke ±2.000 hanzi yang dipakai), Noto Sans Thai; lisensi OFL ikut di `assets/fonts/`. Aplikasi tidak lagi menghubungi internet, dan kebijakan privasi sudah diperbarui.
@@ -38,7 +46,7 @@ Centang item di bawah saat selesai.
 - [x] **Ranah kultivasi, terobosan, Lautan Jiwa, istirahat** (v1.10). Level hanya lewat tes (satu per minggu), hari meditasi dikirim ke pengingat Android. Tidak ada izin baru; semua data baru (tanggal tes, hari meditasi, ujian harian, pasangan kata yang dilaporkan) tetap di perangkat, jadi Data safety tetap "tidak mengumpulkan data". Kebijakan privasi sudah diperbarui.
   - [ ] Uji di HP: notifikasi muncul di jam yang dipilih, tidak muncul setelah latihan di hari itu, dan tetap ada setelah HP restart.
 - [ ] **Login Google opsional + sinkron ke Google Drive pengguna** (dibahas, belum dibuat). Butuh dari Josh: project Google Cloud, layar izin OAuth (nama, logo, beranda, kebijakan privasi), Google Drive API aktif, dan OAuth client Android dengan nama paket + SHA-1 (termasuk SHA-1 dari Play App Signing). Setelah itu: izin `INTERNET` dipakai sungguhan, kebijakan privasi dan Data safety diperbarui.
-- [ ] **Splash screen** dengan SplashScreen API (Android 12+), supaya tidak ada layar kosong saat aplikasi dibuka.
+- [x] **Splash screen** dengan SplashScreen API (v1.15): logo di warna tema sampai halaman siap (`MMAndroid.ready()`, paling lama 2,5 detik).
 - [ ] **Performa** (dari diskusi sebelumnya):
   - latar WebView solid (bukan transparan);
   - data kosakata dimuat per bahasa;

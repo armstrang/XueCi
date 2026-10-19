@@ -7,6 +7,11 @@ plugins {
 // The application ID is com.armstrang.xueci (the Play Store ID). Builds up to v1.2 used com.jorgi.merdekamandarin;
 // people move their progress over with Stats → Back up / Restore.
 def runNumber = (System.getenv('GITHUB_RUN_NUMBER') ?: '1').toInteger()
+// Google Play: the app bundle (AAB) is signed with an upload key that never enters this public repo. CI writes it
+// from the GitHub secret XC_UPLOAD_KEYSTORE_B64 to a file and passes the path and passwords as environment
+// variables. Without them (forks, local builds) the bundle falls back to the old sideload key.
+def upStore = System.getenv('XC_UPLOAD_KEYSTORE')
+def hasUpload = upStore != null && new File(upStore).exists()
 
 android {
     namespace 'com.armstrang.xueci'
@@ -28,6 +33,14 @@ android {
             keyAlias 'merdeka'
             keyPassword 'merdekamandarin'
         }
+        if (hasUpload) {
+            upload {
+                storeFile file(upStore)
+                storePassword System.getenv('XC_UPLOAD_STORE_PASSWORD')
+                keyAlias System.getenv('XC_UPLOAD_KEY_ALIAS')
+                keyPassword System.getenv('XC_UPLOAD_KEY_PASSWORD')
+            }
+        }
     }
 
     buildTypes {
@@ -37,6 +50,12 @@ android {
         }
         debug {
             signingConfig signingConfigs.merdeka
+        }
+        // The Play Store build: same app, signed with the upload key (./gradlew bundlePlay → app-play.aab)
+        play {
+            initWith release
+            signingConfig hasUpload ? signingConfigs.upload : signingConfigs.merdeka
+            matchingFallbacks = ['release']
         }
     }
 
@@ -62,4 +81,6 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'androidx.core:core:1.13.1'
     implementation 'androidx.webkit:webkit:1.12.1'
+    // Splash screen on every Android version (system splash on 12+), held until the page is ready
+    implementation 'androidx.core:core-splashscreen:1.0.1'
 }

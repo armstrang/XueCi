@@ -227,6 +227,7 @@ function runHead() {
   }
   const QT = qtList(),
     cur = QT.find(q => q[0] === qType) || QT[0];
+  document.body.classList.remove('menuopen'); /* the menu is drawn closed */
   return `<div class="qhead"><div class="qsel" id="qsel">
       <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>
       <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q => `<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0] === qType}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>

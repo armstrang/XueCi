@@ -2893,3 +2893,8 @@ Object.assign(I18N.vi, {
   tourLater: 'Để sau',
   tourRow: 'Giới thiệu nhanh',
 });
+/* v1.15: the tab bar */
+Object.assign(I18N.id, { tabHome: 'Beranda' });
+Object.assign(I18N.en, { tabHome: 'Home' });
+Object.assign(I18N.th, { tabHome: 'หน้าแรก' });
+Object.assign(I18N.vi, { tabHome: 'Trang chủ' });

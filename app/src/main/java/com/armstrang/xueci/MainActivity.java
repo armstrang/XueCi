@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.provider.Settings;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
@@ -32,6 +33,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.splashscreen.SplashScreen;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -72,9 +74,17 @@ public class MainActivity extends AppCompatActivity {
     // Daily study reminder: Android 13+ asks the learner before an app may post notifications.
     private ActivityResultLauncher<String> notifPermission;
 
+    // The splash (Android 12+ system splash, earlier versions the same window) stays until the page has drawn Home,
+    // or 2.5 s at most, so there is never an empty screen between the icon and the app.
+    private volatile boolean pageReady = false;
+    private long startedAt;
+
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        startedAt = SystemClock.uptimeMillis();
+        SplashScreen splash = SplashScreen.installSplashScreen(this);
+        splash.setKeepOnScreenCondition(() -> !pageReady && SystemClock.uptimeMillis() - startedAt < 2500);
         super.onCreate(savedInstanceState);
 
         Window window = getWindow();
@@ -275,6 +285,12 @@ public class MainActivity extends AppCompatActivity {
 
     /** Called from the page as window.MMAndroid. */
     private class Bridge {
+        /** The page has drawn its first screen: the splash may go. */
+        @JavascriptInterface
+        public void ready() {
+            pageReady = true;
+        }
+
         /** Older pages: light or dark only. */
         @JavascriptInterface
         public void setTheme(final boolean dark) {

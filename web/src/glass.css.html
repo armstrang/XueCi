@@ -21,7 +21,7 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#23262c; --surface:#2a2d34; --sunk:#353840; --line:#3a3e46; --s-none:#454952;
-  --fg:#eceef2; --soft:#a9aeb8; --mute:#80868f;
+  --fg:#eceef2; --soft:#c0c5ce; --mute:#a3a9b3;
   --bg-top:#2f3238; --bg-bot:#15171b; --bar:#2f3238; --bar2:#15171b; --glow-o:46%;
   --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.17),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 55%,rgba(255,255,255,.05));
   --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),rgba(255,255,255,.05);
@@ -34,7 +34,7 @@
   --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06))}}
 :root[data-theme="dark"]{
   --bg:#23262c; --surface:#2a2d34; --sunk:#353840; --line:#3a3e46; --s-none:#454952;
-  --fg:#eceef2; --soft:#a9aeb8; --mute:#80868f;
+  --fg:#eceef2; --soft:#c0c5ce; --mute:#a3a9b3;
   --bg-top:#2f3238; --bg-bot:#15171b; --bar:#2f3238; --bar2:#15171b; --glow-o:46%;
   --g-fill:radial-gradient(140% 90% at 12% -30%,rgba(255,255,255,.17),rgba(255,255,255,0) 58%),linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.03) 55%,rgba(255,255,255,.05));
   --g-solid:radial-gradient(140% 70% at 12% -30%,rgba(255,255,255,.10),rgba(255,255,255,0) 60%),rgba(255,255,255,.05);
@@ -47,7 +47,7 @@
   --lens:radial-gradient(120% 80% at 20% -20%,rgba(255,255,255,.35),rgba(255,255,255,0) 60%),linear-gradient(180deg,rgba(255,255,255,.18),rgba(255,255,255,.06))}
 /* True black: pure #000 for OLED screens; only the level glow and the glass edges catch the light */
 :root[data-theme="black"]{
-  --bg:#000000; --surface:#0b0b0c; --sunk:#1a1a1d; --fg:#f4f4f6; --soft:#a2a2a9; --mute:#75757c; --line:#26262a;
+  --bg:#000000; --surface:#0b0b0c; --sunk:#1a1a1d; --fg:#f4f4f6; --soft:#b4b4bb; --mute:#8d8d94; --line:#26262a;
   --mark:#4a3a10; --on-acc:#000000; --shadow:0 18px 50px rgba(0,0,0,.8);
   --l1:#6fd08f; --l2:#5cc8cf; --l3:#6dbbea; --l4:#94a3f5; --l5:#bf9af0; --l6:#ec8dbd;
   --t1:#ff7a66; --t2:#f2a64a; --t3:#5fd38f; --t4:#79a6ff; --t5:#9aa39e;
@@ -260,7 +260,7 @@ html[data-vt="theme"]::view-transition-new(root){animation:reveal .45s cubic-bez
    One screen, top to bottom: header pills (wordmark · cultivation days · Settings), the realm orb flowing into the
    panel with the realm line and today's plan (one SVG shape, static), word mastery with the HSK picker, the dock.
    Nothing here blurs (Home does not scroll under anything) and nothing moves except on a tap. */
-:root{--gold:#c8902a;--f0:rgba(255,255,255,.66);--f1:rgba(255,255,255,.36);--r0:rgba(255,255,255,.98);--r1:rgba(255,255,255,.22);--r2:rgba(255,255,255,.75);
+:root{--gold:#9a6a12;--f0:rgba(255,255,255,.66);--f1:rgba(255,255,255,.36);--r0:rgba(255,255,255,.98);--r1:rgba(255,255,255,.22);--r2:rgba(255,255,255,.75);
   --card:rgba(255,255,255,.88);--card-sh:0 12px 28px -16px rgba(30,40,60,.35);--shape-sh:drop-shadow(0 26px 30px rgba(30,45,70,.16));--warm:rgba(255,190,140,.42)}
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--gold:#ebc277;--f0:rgba(255,255,255,.115);--f1:rgba(255,255,255,.045);--r0:rgba(255,255,255,.4);--r1:rgba(255,255,255,.05);--r2:rgba(255,255,255,.2);
   --card:rgba(255,255,255,.075);--card-sh:inset 0 1px 0 rgba(255,255,255,.12);--shape-sh:drop-shadow(0 26px 30px rgba(0,0,0,.5));--warm:color-mix(in srgb,var(--gold) 16%,transparent)}}
@@ -462,9 +462,63 @@ header.top .brand{margin-right:auto}
    that need a blur pass, no glow, no breathing orb */
 .fx-low .fshape{filter:none}
 .fx-low .fglow,.fx-low .liquid-bg::before{display:none}
+/* v1.15 full effects: the drifting light canvas (glass.js) between the base background and the page */
+.fxbg{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none;display:none;opacity:0;transition:opacity .3s ease}
+html.fx-full .fxbg{display:block;opacity:1}
 .fx-low .rorb.btready{animation:none;box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 55%,transparent)}
 .fx-low .menu,.fx-low .stdetail,.fx-low .toast,.fx-low .isheet,.fx-low .frow,.fx-low .stbar{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 .fx-low .isheet{background:var(--surface)}
 .fx-low .menu,.fx-low .toast{background:var(--surface)}
 .fx-low .rorb b{text-shadow:none}
+
+/* ===== v1.15: a tab bar that stays (Josh: like Apple Music) and a Home that always fits above it =====
+   The bar floats over the scrolling screens, so it is real frosted glass (the one place outside sheets and menus);
+   light effects drop the blur. Home is exactly the screen minus the bar: the orb takes what is left (container query). */
+:root{--tabh:64px;--tabgap:calc(10px + env(safe-area-inset-bottom,0px))}
+.tabbar{position:fixed;z-index:40;left:50%;bottom:var(--tabgap);transform:translateX(-50%);width:min(528px,calc(100% - 32px));
+  grid-template-columns:repeat(4,minmax(0,1fr));height:var(--tabh);box-sizing:border-box;
+  background:var(--g-head);-webkit-backdrop-filter:var(--g-blur);backdrop-filter:var(--g-blur);
+  box-shadow:var(--g-inset),0 18px 40px -18px rgba(0,0,0,.45),0 2px 8px -4px rgba(0,0,0,.2)}
+.tabbar .tab{min-height:0;height:100%;color:color-mix(in srgb,var(--fg) 88%,transparent);border-radius:24px;transition:transform .25s var(--spring),background .2s,color .2s}
+.tabbar .tab .ic{color:inherit}
+.tabbar .tab[aria-current="page"]{color:var(--acc);background:color-mix(in srgb,var(--fg) 8%,transparent)}
+.tabbar .tab[aria-current="page"] b{font-weight:800}
+body[data-screen="session"] .tabbar,body[data-screen="placement"] .tabbar,body[data-screen="bt"] .tabbar,body.kb .tabbar,body.menuopen .tabbar{display:none}
+body{padding-bottom:calc(var(--tabh) + 20px + env(safe-area-inset-bottom,0px))}
+body[data-screen="home"]{padding-bottom:0}
+body[data-screen="session"],body[data-screen="placement"],body[data-screen="bt"]{padding-bottom:40px}
+.toast{bottom:calc(var(--tabh) + 22px + env(safe-area-inset-bottom,0px))}
+body[data-screen="session"] .toast,body[data-screen="placement"] .toast,body[data-screen="bt"] .toast{bottom:calc(20px + env(safe-area-inset-bottom,0px))}
+.stdetail{bottom:calc(var(--tabh) + 14px + env(safe-area-inset-bottom,0px));border-radius:18px}
+.fx-low .tabbar{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--surface)}
+
+/* Home: one screen above the tab bar, whatever the phone and its text size */
+body[data-screen="home"] #scr-home{height:calc(100svh - var(--tabh) - 22px - env(safe-area-inset-bottom,0px));min-height:0;padding-bottom:0}
+.bigtext body[data-screen="home"] #scr-home{min-height:0}
+.fluid{flex:1 1 0;min-height:0;container-type:size;container-name:fluid}
+/* the orb is whatever room is left after the realm line and the plan card (they grow with the phone's text size) */
+.fluid{--ob:clamp(76px,min(52cqw,calc(100cqh - 250px * var(--fsd,1))),214px)}
+.bigtext .fluid{flex:1 1 0;--ob:clamp(72px,min(48cqw,calc(100cqh - 300px * var(--fsd,1))),200px)}
+.rorb .opy{display:block}
+@container fluid (max-height:400px){.rline{display:none}.rtext{padding-top:4px}.fluid .rtext{padding-bottom:8px}.rstage{margin-top:5px}}
+@container fluid (max-height:340px){.rstage small{display:none}.rorb .opy{display:none}.fluid .pst{display:none}}
+@container fluid (max-height:300px){.rstage{display:none}.ringq{width:34px;height:34px}}
+/* the mastery panel gives up its counts first, then its spacing, on short screens */
+@media (max-height:820px){.mkeys{display:none}}
+.bigtext .mkeys{display:none}
+.bigtext .mast .lvpill small{display:none}
+.tabbar .tab b{display:block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:calc(12px*min(var(--fsd,1),1.12))}
+.tabbar .tab .ic svg{width:calc(23px*min(var(--fsd,1),1.1));height:calc(23px*min(var(--fsd,1),1.1))}
+/* large phone text: Home keeps the essentials (realm, today's numbers and button, the HSK picker) */
+.bigtext .fluid .pst,.bigtext .rline,.bigtext .rstage small{display:none}
+.bigtext .rname2{font-size:calc(15px*var(--fsd,1))}
+.bigtext .fluid .ptop .chalchip{display:none}
+.bigtext .fluid .plan{padding:9px 12px 11px;gap:6px}
+@media (max-width:360px){.bigtext .fluid .ptop .gchip{display:none}}
+@media (max-height:700px){.bigtext .rstage{display:none}.bigtext .fluid{--ob:clamp(64px,min(44cqw,calc(100cqh - 260px * var(--fsd,1))),160px)}}
+/* v1.15 accessibility: text links and link buttons get at least a 24px touch area */
+.linkbtn,.isheet p a,.foot-note a{display:inline-block;min-height:24px;padding-block:3px}
+/* v1.15 accessibility: coloured numbers and the learned word in sentence pinyin stay readable on light glass */
+.eln em{color:color-mix(in srgb,var(--ec) 72%,var(--fg))}
+.zp mark{color:color-mix(in srgb,var(--acc) 82%,var(--fg))}
 </style>

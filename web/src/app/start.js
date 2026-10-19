@@ -21,6 +21,12 @@ if (!LM.goal && !ls.get('xc_onb', 0))
     if (state.screen === 'home' && goalSheet.hidden && bkSheet.hidden && infoSheet.hidden) openTour(true);
   }, 500);
 setTimeout(() => LM.maybeOptimize(), 6000);
+/* Android: Home is drawn, the splash may go (next frame, so the first paint is really on screen) */
+requestAnimationFrame(() => {
+  try {
+    window.MMAndroid && MMAndroid.ready && MMAndroid.ready();
+  } catch (e) {}
+});
 /* the gate after 飞升: opened by a breakthrough in an earlier version, or its ceremony was not finished */
 if (LM.gateOpen() && !XC.band) setTimeout(() => openGate(true), 700);
 else if (XC.band && LM.level && !LM.level.gs) setTimeout(gateShow, 700);

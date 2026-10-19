@@ -4,6 +4,30 @@ Every push of app changes to `main` makes a new release on [GitHub Releases](htt
 (v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
 before pushing.
 
+## v1.15 — 19 October 2026
+
+**A tab bar that stays put, a Home that always fits the screen, a splash screen, clearer colours, and full visual
+effects with slowly drifting light.**
+
+### New
+- **Tab bar.** Home, Word list, Cards and Quiz now sit in a glass bar at the bottom that stays on every screen, like
+  a music app. Tap the tab you are on to jump back to the top. It steps aside during a session, a test, a
+  breakthrough, while the keyboard is open and while a menu is open.
+- **Splash screen.** The app shows its logo in the theme colour while it starts, instead of an empty screen.
+- **Full visual effects** now have soft light that drifts slowly behind the glass. It settles after 10 seconds
+  without a touch and sleeps while the app is in the background or during a session or test, so it costs little
+  battery. Automatic and Light are unchanged.
+
+### Changed
+- **Home fits one screen on every phone and at every text size.** The realm orb grows and shrinks with the room
+  left, and smaller lines step aside on short screens or with large text, instead of the page running off the
+  bottom.
+- **Easier to read:** grey text, tone colours and labels have more contrast in light, dark and black themes;
+  small links have bigger touch areas; every button has a name for TalkBack.
+
+### For the Play Store
+- Each release now also carries an Android App Bundle (`XueCiMandarin.aab`) for Google Play.
+
 ## v1.14 — 19 October 2026
 
 **A new Home in fluid glass with your realm in the middle, Settings in one place, cultivation days in the header, a
