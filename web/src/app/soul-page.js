@@ -154,6 +154,10 @@ scrSoul.addEventListener('click', e => {
     openInfo('soul');
     return;
   }
+  if (id === 'soulShare') {
+    openShare();
+    return;
+  }
   if (id === 'btGo') {
     go('bt');
     return;

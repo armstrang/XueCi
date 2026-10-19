@@ -46,8 +46,10 @@ const GL = [
   ['境界不稳', 'jìngjiè bù wěn', 'bw'],
   ['试炼稳固', 'shìliàn wěngù', 'wg'],
   ['补劫', 'bǔjié', 'bj'],
-  ['仙门', 'xiānmén', 'xm', 1] /* shown once the gate is open */,
 ];
+/*<seal>*/
+GL.push(['仙门', 'xiānmén', 'xm', 1]);
+/*</seal>*/
 const hrow2 = (hz, py, main, sub, lc) =>
   `<div class="hrow2"${lc ? ` style="--lc:${lc}"` : ''}><span class="hz2"><b lang="zh-CN">${hz}</b><small>${py}</small></span><span class="hm"><em>${main}</em>${sub ? `<small>${sub}</small>` : ''}</span></div>`;
 function helpBlock(x) {

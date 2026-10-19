@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.provider.Settings;
+import android.util.Base64;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.UtteranceProgressListener;
 import android.view.View;
@@ -33,6 +34,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.core.splashscreen.SplashScreen;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -411,6 +413,40 @@ public class MainActivity extends AppCompatActivity {
                 } catch (ActivityNotFoundException ignored) {
                 }
             });
+        }
+
+        /**
+         * v1.16 share card: the page draws a PNG and hands it over as base64; it is written to the app's cache
+         * (share/xueci-card.png, replaced each time) and offered through the system share sheet via FileProvider.
+         * Nothing leaves the phone unless the learner picks an app.
+         */
+        @JavascriptInterface
+        public boolean shareImage(final String base64Png, final String text) {
+            try {
+                byte[] png = Base64.decode(base64Png, Base64.DEFAULT);
+                java.io.File dir = new java.io.File(getCacheDir(), "share");
+                if (!dir.isDirectory() && !dir.mkdirs()) return false;
+                java.io.File f = new java.io.File(dir, "xueci-card.png");
+                try (java.io.FileOutputStream out = new java.io.FileOutputStream(f)) {
+                    out.write(png);
+                }
+                final Uri uri = FileProvider.getUriForFile(MainActivity.this, getPackageName() + ".files", f);
+                runOnUiThread(() -> {
+                    Intent send = new Intent(Intent.ACTION_SEND);
+                    send.setType("image/png");
+                    send.putExtra(Intent.EXTRA_STREAM, uri);
+                    send.putExtra(Intent.EXTRA_TEXT, text);
+                    send.setClipData(ClipData.newRawUri("", uri));
+                    send.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    try {
+                        startActivity(Intent.createChooser(send, null));
+                    } catch (ActivityNotFoundException ignored) {
+                    }
+                });
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
         }
 
         /** Progress restore: read the clipboard (the app is in front, so Android allows it). */

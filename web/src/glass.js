@@ -18,23 +18,34 @@
 
   /* 1. HSK selectors (Home and Stats): a glass lens slides between levels and can be dragged with a finger */
   const lenses = [];
-  function makeLens(pills) {
-    const seg = document.createElement('div');
-    seg.className = 'lvseg';
-    pills.parentNode.insertBefore(seg, pills);
-    seg.appendChild(pills);
+  /* opts (v1.16, also the tab bar): item = the buttons, on = the chosen one, bare = the container is the track itself */
+  function makeLens(pills, opts = {}) {
+    const item = opts.item || '.lvpill',
+      on = opts.on || '[aria-pressed="true"]';
+    let seg = pills;
+    if (!opts.bare) {
+      seg = document.createElement('div');
+      seg.className = 'lvseg';
+      pills.parentNode.insertBefore(seg, pills);
+      seg.appendChild(pills);
+      seg.style.touchAction = 'pan-y';
+    }
     const lens = document.createElement('div');
     lens.className = 'lens';
+    lens.setAttribute('aria-hidden', 'true');
     seg.prepend(lens);
-    seg.style.touchAction = 'pan-y';
     let at = null,
       drag = null;
-    const cur = () => pills.querySelector('[aria-pressed="true"]');
+    const cur = () => pills.querySelector(item + on);
     function to(btn, animate) {
-      if (!btn || !seg.offsetParent) {
+      if (!btn || !seg.getClientRects().length) {
         at = null;
         return;
       }
+      /* the lens takes the chosen level's colour (its glass is tinted, the rim carries the five elements) */
+      const lc = getComputedStyle(btn).getPropertyValue('--lc');
+      if (lc && lc.trim()) lens.style.setProperty('--lc', lc.trim());
+      else lens.style.removeProperty('--lc');
       const sr = seg.getBoundingClientRect(),
         br = btn.getBoundingClientRect(),
         L = br.left - sr.left,
@@ -84,7 +95,7 @@
         c = at + lens.offsetWidth / 2;
       let best = null,
         bd = 1e9;
-      pills.querySelectorAll('.lvpill').forEach(b => {
+      pills.querySelectorAll(item).forEach(b => {
         const r = b.getBoundingClientRect(),
           m = r.left - sr.left + r.width / 2;
         if (Math.abs(m - c) < bd) {
@@ -92,7 +103,7 @@
           best = b;
         }
       });
-      if (best && best.getAttribute('aria-pressed') !== 'true') {
+      if (best && !best.matches(on)) {
         buzz(8);
         best.click();
       } else to(best, true);
@@ -110,6 +121,14 @@
   }
   const homeLens = makeLens(document.getElementById('lvPills'));
   const statLens = makeLens(document.getElementById('stLevels'));
+  /* v1.16: the tab bar has the same lens; drag it along the bar and let go on a tab to open it */
+  const tabLens = makeLens(document.getElementById('tabbar'), {
+    item: '.tab',
+    on: '[aria-current="page"]',
+    bare: true,
+  });
+  window.mmTabsChanged = () => requestAnimationFrame(() => tabLens.sync(true));
+  requestAnimationFrame(() => tabLens.sync(false));
   addEventListener('resize', () =>
     lenses.forEach(l => {
       l.reset();
@@ -294,7 +313,12 @@
     lb ? lb.after(cv) : document.body.prepend(cv);
     let gl = null;
     try {
-      gl = cv.getContext('webgl', { alpha: true, premultipliedAlpha: true, antialias: false, powerPreference: 'low-power' });
+      gl = cv.getContext('webgl', {
+        alpha: true,
+        premultipliedAlpha: true,
+        antialias: false,
+        powerPreference: 'low-power',
+      });
     } catch (e) {}
     if (!gl) {
       cv.remove();
@@ -399,7 +423,10 @@
     addEventListener('resize', refresh);
     document.addEventListener('visibilitychange', wake);
     new MutationObserver(refresh).observe(root, { attributes: true, attributeFilter: ['class', 'data-theme'] });
-    new MutationObserver(refresh).observe(document.body, { attributes: true, attributeFilter: ['data-level', 'data-screen'] });
+    new MutationObserver(refresh).observe(document.body, {
+      attributes: true,
+      attributeFilter: ['data-level', 'data-screen'],
+    });
     try {
       darkMQ && darkMQ.addEventListener('change', refresh);
     } catch (e) {}

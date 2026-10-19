@@ -29,9 +29,9 @@ const XC = (() => {
   } catch (e) {}
 
   const COLS = { id: ['m', 't'], en: ['em', 'et'], th: ['hm', 'ht'], vi: ['vm', 'vt'] };
-  /* the word list comes in parts: HSK 1–6 (data/core.json + data/<lang>.json) and, once the gate after 飞升 is open,
-     HSK 7–9 (data/core-b.json + data/<lang>-b.json). Every part keeps the languages it has loaded. */
-  const parts = [{ key: '', words: null, langs: new Set() }];
+  /* the word list comes in parts: HSK 1–6 (data/core.json + data/<lang>.json) and, when its time comes, the sealed
+     part (data/s0.bin + data/s-<lang>.bin, see build.py). Every part keeps the languages it has loaded. */
+  const parts = [{ key: '', words: null, langs: new Set(), file: l => get(`data/${l}.json`) }];
   const data = [];
   const get = path =>
     fetch(path).then(r => {
@@ -56,26 +56,74 @@ const XC = (() => {
     });
     part.langs.add(l);
   }
-  const partLang = (l, part) =>
-    part.langs.has(l) ? Promise.resolve() : get(`data/${l}${part.key}.json`).then(j => addLang(l, part, j));
+  const partLang = (l, part) => (part.langs.has(l) ? Promise.resolve() : part.file(l).then(j => addLang(l, part, j)));
+  /* the seal (build.py): a short text, a zero byte, then deflated JSON under a keystream (xoshiro128**) whose seed is
+     SHA-256 of a phrase, the HSK 6 words and the file name. Opened here only; nothing is downloaded. */
+  async function unseal(name) {
+    const r = await fetch('data/' + name);
+    if (!r.ok) throw new Error(name + ' ' + r.status);
+    const buf = new Uint8Array(await r.arrayBuffer()),
+      z = buf.indexOf(0),
+      x = buf.slice(z + 1);
+    const mat =
+      '天外有天|' +
+      parts[0].words
+        .filter(d => d.l === 6)
+        .map(d => d.h)
+        .join('') +
+      '|' +
+      name;
+    const sd = new DataView(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(mat)));
+    let a = sd.getUint32(0, true),
+      b = sd.getUint32(4, true),
+      c = sd.getUint32(8, true),
+      d = sd.getUint32(12, true);
+    const rotl = (v, k) => (v << k) | (v >>> (32 - k));
+    for (let i = 0; i < x.length; i += 4) {
+      const o = Math.imul(rotl(Math.imul(b, 5), 7), 9),
+        t = b << 9;
+      c ^= a;
+      d ^= b;
+      b ^= c;
+      a ^= d;
+      c ^= t;
+      d = rotl(d, 11);
+      x[i] ^= o & 255;
+      if (i + 1 < x.length) x[i + 1] ^= (o >>> 8) & 255;
+      if (i + 2 < x.length) x[i + 2] ^= (o >>> 16) & 255;
+      if (i + 3 < x.length) x[i + 3] ^= (o >>> 24) & 255;
+    }
+    const text = await new Response(new Blob([x]).stream().pipeThrough(new DecompressionStream('deflate'))).text();
+    return JSON.parse(text);
+  }
   const has = l => parts.every(p => p.langs.has(l));
   function loadLang(l) {
     return Promise.all(parts.map(p => partLang(l, p)));
   }
-  /* HSK 7–9: loaded at start when the gate is already open, or right when it opens; returns the new words */
-  let band = null;
+  /* the sealed part: opened at start when its time has already come, or right then; returns the new words. Its code
+     runs once the app's own code has run (at start: between the app and start.js). */
+  let band = null,
+    sealJs = null,
+    appRan = false;
+  const runText = t => {
+    const s = document.createElement('script');
+    s.textContent = t;
+    document.body.appendChild(s);
+  };
   function loadBand() {
     if (band) return band;
-    const part = { key: '-b', words: null, langs: new Set() };
+    const part = { key: '-b', words: null, langs: new Set(), file: l => unseal(`s-${l}.bin`) };
     const langs = [...parts[0].langs];
-    band = get('data/core-b.json')
-      .then(c => {
-        part.words = toWords(c);
-        return Promise.all(langs.map(l => get(`data/${l}-b.json`).then(j => addLang(l, part, j))));
+    band = unseal('s0.bin')
+      .then(pk => {
+        part.words = toWords(pk.core);
+        sealJs = pk.js || '';
+        return Promise.all(langs.map(l => part.file(l).then(j => addLang(l, part, j))));
       })
       .then(() => {
         parts.push(part);
         data.push(...part.words);
+        if (appRan) runText(sealJs);
         return part.words;
       })
       .catch(e => {
@@ -84,11 +132,11 @@ const XC = (() => {
       });
     return band;
   }
-  /* the ids of the HSK 7–9 words, without opening them (checking a backup code from a learner past the gate) */
+  /* the ids of the sealed words, without adding them (checking a backup code from a learner who is past the seal) */
   let bandIdSet = null;
   function bandIds() {
     if (!bandIdSet)
-      bandIdSet = get('data/core-b.json').then(c => {
+      bandIdSet = unseal('s0.bin').then(({ core: c }) => {
         const l = c.cols.indexOf('l'),
           h = c.cols.indexOf('h');
         return new Set(c.rows.map(r => r[l] + ':' + r[h]));
@@ -122,6 +170,9 @@ const XC = (() => {
     if (gate) await loadBand();
     STORE.migrate({ ids: new Set(data.map(d => d.l + ':' + d.h)) });
     run('xc-app');
+    appRan = true;
+    if (sealJs) runText(sealJs);
+    run('xc-start');
     run('xc-glass');
     root.classList.remove('booting');
   }

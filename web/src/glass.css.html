@@ -363,6 +363,7 @@ header.top .brand{margin-right:auto}
 .mkeys .hkey b{margin:0}
 .mkeys b{font-size:14px;font-weight:800;color:var(--fg);font-variant-numeric:tabular-nums;line-height:1.2}
 .mkeys small{display:block;font-size:calc(11px*var(--fsd,1));color:var(--soft);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mkeys small{align-self:stretch;max-width:100%}
 .mkeys .sd{width:7px;height:7px;margin-right:4px;vertical-align:1px}
 /* the plan's status line stays one line on Home (the full text is in the goal sheet) */
 .fluid .pst span{display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
@@ -492,6 +493,73 @@ body[data-screen="session"] .toast,body[data-screen="placement"] .toast,body[dat
 .stdetail{bottom:calc(var(--tabh) + 14px + env(safe-area-inset-bottom,0px));border-radius:18px}
 .fx-low .tabbar{-webkit-backdrop-filter:none;backdrop-filter:none;background:var(--surface)}
 
+/* v1.16 (Josh): a smaller bar, five tabs, a glass lens under the chosen one that can be dragged along the bar;
+   the other tabs show only their icon, the chosen one also its name (the names stay readable for TalkBack) */
+:root{--tabh:54px}
+.tabbar{display:flex;gap:0;padding:4px;width:min(430px,calc(100% - 40px));border-radius:999px;touch-action:none;
+  grid-template-columns:none}
+.tabbar .tab{flex:1 1 0;min-width:0;display:flex;flex-direction:row;align-items:center;justify-content:center;gap:6px;
+  padding:0 6px;border-radius:999px;background:none;border:0;box-shadow:none;position:relative;z-index:3}
+.tabbar .tab::after{content:none}
+.tabbar .tab[aria-current="page"]{flex:1 0 auto;min-width:min(34%,140px);background:none;color:var(--lc,var(--acc))}
+.tabbar .tab b{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;transition:opacity .22s ease;font-size:calc(13px*min(var(--fsd,1),1.12))}
+.tabbar .tab[aria-current="page"] b{max-width:9em;opacity:1;text-overflow:ellipsis}
+.tabbar .tab .ic svg{width:calc(22px*min(var(--fsd,1),1.1));height:calc(22px*min(var(--fsd,1),1.1))}
+.tabbar .tab:active .ic{transform:scale(.88)}
+.tabbar .tab .ic{transition:transform .2s var(--spring)}
+.tabbar .lens{top:4px;bottom:4px;border-radius:999px}
+.tabbar .tab[data-go="soul"]{--lc:var(--el-fire)}
+
+/* v1.16 (Josh): the HSK lens is clear glass, not a solid pill. Its body takes a breath of the chosen level's colour,
+   its rim runs through the five elements (木 火 土 金 水, the Soul Sea's ring) and inside it glows with the realm's qi.
+   Same lens on Home and in Stats; the tab bar's lens is the quieter sibling (glass and the tab's colour only). */
+body{--rc:var(--mute)}
+.lvseg .lens,.mast .lens{--lc:var(--acc);border-radius:20px;
+  background:radial-gradient(120% 85% at 28% -10%,rgba(255,255,255,.5),rgba(255,255,255,0) 58%),
+    radial-gradient(90% 70% at 70% 120%,color-mix(in srgb,var(--rc) 30%,transparent),transparent 70%),
+    linear-gradient(160deg,color-mix(in srgb,var(--el-wood) 7%,transparent),transparent 40%,color-mix(in srgb,var(--el-water) 8%,transparent)),
+    color-mix(in srgb,var(--lc) 12%,rgba(255,255,255,.10));
+  box-shadow:0 10px 24px -12px color-mix(in srgb,var(--lc) 85%,transparent),0 0 22px -6px color-mix(in srgb,var(--rc) 60%,transparent),
+    0 0 0 3px color-mix(in srgb,var(--gold) 9%,transparent),
+    inset 0 1px 0 rgba(255,255,255,.7),inset 0 -12px 18px -12px color-mix(in srgb,var(--rc) 85%,transparent)}
+.lvseg .lens::after,.mast .lens::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
+  padding:2px;background:conic-gradient(from 210deg,var(--el-wood),var(--el-fire),var(--el-earth),var(--el-metal),var(--el-water),var(--el-wood));
+  opacity:.95;-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.lvseg .lens::before,.mast .lens::before{content:"";position:absolute;left:22%;right:22%;top:-1px;height:2px;border-radius:2px;
+  background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.85}
+.lvseg .lvpill[aria-pressed="true"] b,.mast .lvpill[aria-pressed="true"] b{color:var(--lc);font-weight:800}
+.mast .lvpill[aria-pressed="true"] .hl,.mast .lvpill[aria-pressed="true"] small{color:var(--fg)}
+:root[data-theme="dark"] .lvseg .lens,:root[data-theme="black"] .lvseg .lens,:root[data-theme="dark"] .mast .lens,:root[data-theme="black"] .mast .lens{
+  background:radial-gradient(120% 85% at 28% -10%,rgba(255,255,255,.22),rgba(255,255,255,0) 58%),
+    radial-gradient(90% 70% at 70% 120%,color-mix(in srgb,var(--rc) 34%,transparent),transparent 70%),color-mix(in srgb,var(--lc) 16%,rgba(255,255,255,.04));
+  box-shadow:0 0 20px -6px color-mix(in srgb,var(--rc) 60%,transparent),inset 0 1px 0 rgba(255,255,255,.28),inset 0 -10px 16px -12px color-mix(in srgb,var(--rc) 80%,transparent)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .lvseg .lens,:root:not([data-theme="light"]) .mast .lens{
+  background:radial-gradient(120% 85% at 28% -10%,rgba(255,255,255,.22),rgba(255,255,255,0) 58%),
+    radial-gradient(90% 70% at 70% 120%,color-mix(in srgb,var(--rc) 34%,transparent),transparent 70%),color-mix(in srgb,var(--lc) 16%,rgba(255,255,255,.04));
+  box-shadow:0 0 20px -6px color-mix(in srgb,var(--rc) 60%,transparent),inset 0 1px 0 rgba(255,255,255,.28),inset 0 -10px 16px -12px color-mix(in srgb,var(--rc) 80%,transparent)}}
+.tabbar .lens{--lc:var(--acc);background:radial-gradient(120% 90% at 30% -20%,rgba(255,255,255,.45),rgba(255,255,255,0) 60%),color-mix(in srgb,var(--lc) 14%,rgba(255,255,255,.08));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 0 0 1px color-mix(in srgb,var(--lc) 26%,transparent),0 6px 16px -10px color-mix(in srgb,var(--lc) 70%,transparent)}
+.tabbar .lens::after{content:none}
+.fx-low .lvseg .lens::before,.fx-low .mast .lens::before{display:none}
+.fx-low .lvseg .lens,.fx-low .mast .lens{box-shadow:inset 0 1px 0 rgba(255,255,255,.5)}
+
+/* v1.16: the easter egg, a vermilion seal stamped over the screen */
+.eggov{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:24px;background:radial-gradient(60% 45% at 50% 42%,rgba(120,24,18,.55),transparent 75%),rgba(14,10,8,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);animation:eggin .25s ease both}
+.fx-low .eggov{-webkit-backdrop-filter:none;backdrop-filter:none}
+.eggov[hidden]{display:none}
+.eggbox{text-align:center;color:#f6efe4;max-width:340px}
+.eggseal{width:112px;height:112px;margin:0 auto 18px;border-radius:18px;background:#b3261e;display:grid;place-items:center;
+  box-shadow:inset 0 0 0 5px #b3261e,inset 0 0 0 7px rgba(255,236,220,.85),0 18px 40px -12px rgba(179,38,30,.7);
+  transform:rotate(-6deg);animation:eggstamp .3s cubic-bezier(.2,1.4,.4,1) .05s both}
+.eggseal span{font-family:var(--f-hz);font-weight:900;font-size:64px;line-height:1;color:#fff4ea}
+.egghz{margin:0;font-family:var(--f-hz);font-weight:900;font-size:40px;letter-spacing:.12em;color:#f3d9a0;animation:eggin .3s ease .2s both}
+.eggpy{margin:4px 0 12px;font-size:14px;color:#e8dccb;letter-spacing:.04em;animation:eggin .3s ease .25s both}
+.eggm{margin:0 0 6px;font-size:16px;font-weight:700;animation:eggin .3s ease .3s both}
+.eggs{margin:0;font-size:13.5px;color:#d9cfc0;animation:eggin .3s ease .35s both}
+@keyframes eggin{from{opacity:0}to{opacity:1}}
+@keyframes eggstamp{from{opacity:0;transform:rotate(-6deg) scale(1.7)}to{opacity:1;transform:rotate(-6deg) scale(1)}}
+@media (prefers-reduced-motion: reduce){.eggov,.eggseal,.egghz,.eggpy,.eggm,.eggs{animation:none}}
+
 /* Home: one screen above the tab bar, whatever the phone and its text size */
 body[data-screen="home"] #scr-home{height:calc(100svh - var(--tabh) - 22px - env(safe-area-inset-bottom,0px));min-height:0;padding-bottom:0}
 .bigtext body[data-screen="home"] #scr-home{min-height:0}
@@ -503,12 +571,16 @@ body[data-screen="home"] #scr-home{height:calc(100svh - var(--tabh) - 22px - env
 @container fluid (max-height:400px){.rline{display:none}.rtext{padding-top:4px}.fluid .rtext{padding-bottom:8px}.rstage{margin-top:5px}}
 @container fluid (max-height:340px){.rstage small{display:none}.rorb .opy{display:none}.fluid .pst{display:none}}
 @container fluid (max-height:300px){.rstage{display:none}.ringq{width:34px;height:34px}}
+/* v1.16: on tall screens (big phones, tablets) the realm panel stops growing once the orb is at full size; the spare
+   room goes above and below the two panels instead of into an empty middle */
+.fluid{max-height:calc(var(--obmax,214px) + 330px * var(--fsd,1))}
+#scr-home>.fluid{margin-top:auto}
+#scr-home>.mast{margin-bottom:auto}
+@media (min-width:700px) and (min-height:900px){.fluid{--obmax:256px;--ob:clamp(76px,min(52cqw,calc(100cqh - 250px * var(--fsd,1))),256px)}}
 /* the mastery panel gives up its counts first, then its spacing, on short screens */
 @media (max-height:820px){.mkeys{display:none}}
 .bigtext .mkeys{display:none}
 .bigtext .mast .lvpill small{display:none}
-.tabbar .tab b{display:block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:calc(12px*min(var(--fsd,1),1.12))}
-.tabbar .tab .ic svg{width:calc(23px*min(var(--fsd,1),1.1));height:calc(23px*min(var(--fsd,1),1.1))}
 /* large phone text: Home keeps the essentials (realm, today's numbers and button, the HSK picker) */
 .bigtext .fluid .pst,.bigtext .rline,.bigtext .rstage small{display:none}
 .bigtext .rname2{font-size:calc(15px*var(--fsd,1))}
@@ -521,4 +593,54 @@ body[data-screen="home"] #scr-home{height:calc(100svh - var(--tabh) - 22px - env
 /* v1.15 accessibility: coloured numbers and the learned word in sentence pinyin stay readable on light glass */
 .eln em{color:color-mix(in srgb,var(--ec) 72%,var(--fg))}
 .zp mark{color:color-mix(in srgb,var(--acc) 82%,var(--fg))}
+
+/* ===== v1.16: tablets and wide windows (landscape, at least 900 px wide) =====
+   Home in two columns: the realm on the left, word mastery (with its counts) on the right. The Soul Sea keeps its orb
+   on the left while its cards scroll on the right. The word list already flows into columns. */
+@media (min-width:900px) and (min-height:540px) and (orientation:landscape){
+  .wrap{max-width:1180px}
+  .home{max-width:1120px}
+  body[data-screen="home"] #scr-home{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);column-gap:22px;row-gap:12px}
+  #scr-home>header.top{grid-column:1/-1}
+  #scr-home>.fluid{grid-column:1;grid-row:2;align-self:center;height:100%;margin:0;--obmax:240px;--ob:clamp(76px,min(52cqw,calc(100cqh - 250px * var(--fsd,1))),240px)}
+  #scr-home>.mast{grid-column:2;grid-row:2;align-self:center;margin:0;padding:16px 18px 18px}
+  #scr-home .mkeys{display:grid;margin-top:12px}
+  #scr-home.newbie .mast{display:block}
+  #scr-home .mast .lvpill{padding:8px 0 9px}
+  #scr-home .mbar2{margin-top:12px}
+  .soulbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px 22px;align-items:start}
+  .soulhero{grid-column:1;grid-row:1/span 12;position:sticky;top:84px}
+  .soulbody>.scard{grid-column:2}
+}
+
+/* ===== v1.16: the tribulation's lightning (breakthrough.js bolt()) ===== */
+.bolt{position:fixed;inset:0;z-index:60;pointer-events:none;opacity:0;display:grid;place-items:center;overflow:hidden}
+.bolt::before{content:"";position:absolute;inset:0;background:radial-gradient(75% 60% at var(--bx,50%) 0%,rgba(205,225,255,.7),rgba(150,185,255,.16) 48%,transparent 72%)}
+.bolt.gold::before{background:radial-gradient(70% 55% at 50% 38%,color-mix(in srgb,var(--gold) 55%,transparent),transparent 72%)}
+.bolt svg{position:absolute;inset:0;width:100%;height:100%}
+.bolt path{fill:none;stroke:#f6f9ff;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.bolt .b0{stroke-width:4.2px;filter:drop-shadow(0 0 2px #2e5bd8) drop-shadow(0 0 7px #8fb4ff) drop-shadow(0 0 18px #5f8fff)}
+.bolt .b1{stroke-width:2px;opacity:.85;filter:drop-shadow(0 0 2px #2e5bd8) drop-shadow(0 0 6px #a9c8ff)}
+.bolt b{position:relative;font-family:var(--f-hz);font-weight:900;font-size:128px;line-height:1;color:#fff;text-shadow:0 0 26px #8fb6ff,0 0 60px #4f7fff}
+.bolt.on{animation:boltf .62s ease-out both}
+.bolt.on b{animation:bolthz .62s cubic-bezier(.2,1.2,.4,1) both}
+.bolt.gold.on{animation:boltg 1.05s ease-out both}
+@keyframes boltf{0%{opacity:0}8%{opacity:1}20%{opacity:.35}30%{opacity:1}100%{opacity:0}}
+@keyframes bolthz{from{transform:scale(1.35)}to{transform:scale(1)}}
+@keyframes boltg{0%{opacity:0}25%{opacity:1}100%{opacity:0}}
+.fx-low .bolt path{filter:none}
+.fx-low .bolt b{text-shadow:0 0 18px #6f9cff}
+@media (prefers-reduced-motion: reduce){
+  .bolt.on,.bolt.gold.on{animation:boltsoft .5s ease both}.bolt.on b{animation:none}.bolt svg{display:none}
+  @keyframes boltsoft{0%{opacity:0}35%{opacity:.7}100%{opacity:0}}}
+
+/* ===== v1.16: the cultivation card sheet ===== */
+.sharesheet{text-align:center}
+.sharepic{margin:4px auto 14px;width:min(100%,calc((100svh - 260px) * .8),420px);aspect-ratio:4/5;border-radius:20px;overflow:hidden;
+  background:linear-gradient(#121b29,#06090e);box-shadow:0 18px 40px -18px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.08)}
+.sharepic img{display:block;width:100%;height:100%;object-fit:cover}
+.sharepic img:not([src]){visibility:hidden}
+.sharenote{margin-top:10px}
+.sharechip svg{width:18px;height:18px}
+.btshare{display:block;margin:4px auto 0}
 </style>

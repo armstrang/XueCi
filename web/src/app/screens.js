@@ -36,6 +36,7 @@ function show(s) {
   document
     .querySelectorAll('#tabbar .tab')
     .forEach(t => (t.dataset.go === s ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current')));
+  window.mmTabsChanged && window.mmTabsChanged();
   if (FOCUS.includes(s)) {
     scrFocus.dataset.mode = s;
     $('fTitle').textContent = fTitleOf(s);

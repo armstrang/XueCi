@@ -2083,9 +2083,6 @@ Object.assign(I18N.id, {
     'Transformasi Roh',
     'Melewati Kesengsaraan',
     'Naik ke Langit',
-    'Abadi Sejati',
-    'Abadi Misterius',
-    'Daluo, Puncak Abadi',
   ],
   realmD: [
     'Belum dites. Tes penempatan membuka jalan kultivasi.',
@@ -2096,9 +2093,6 @@ Object.assign(I18N.id, {
     'Roh berubah: kosakata abstrak dan formal HSK 5.',
     'Ujian terberat dunia fana: kata langka dan bernuansa HSK 6.',
     'Melampaui dunia fana: HSK 6 dikuasai.',
-    'Lapis kedua HSK 7–9: bahasa tulis, formal, dan khusus.',
-    'Lapis ketiga HSK 7–9: kata langka, chengyu, dan nuansa halus.',
-    'Semua lapis HSK 7–9 dikuasai: puncak jalan kultivasi.',
   ],
   qPy: 'Ketik pinyin kata ini, lengkap dengan nadanya',
   qTrans: 'Pilih terjemahan kalimat ini',
@@ -2137,13 +2131,6 @@ Object.assign(I18N.id, {
   gateGo: 'Ada sesuatu di balik 飞升… ›',
   mkIntroT: 'Tribulasi susulan (补劫): buktikan HSK 6 lewat 雷劫',
   btUnstable: 'Ranahmu sedang tidak stabil (境界不稳). Stabilkan dulu dengan 试炼稳固, lalu terobosan terbuka lagi.',
-  gateWelcome: '仙门 terbuka. Selamat datang kembali di dunia abadi.',
-  gate0:
-    'Selama ini jalanmu berakhir di 飞升. Di baliknya ada gerbang yang tertutup: <b>仙门 xiānmén</b>, Gerbang Abadi. Kini gerbang itu bergetar.',
-  gate4: n =>
-    `仙门 terbuka: <b>HSK 7–9</b>, ${n} kata baru, dan tiga ranah di atas 飞升. Ujiannya lebih berat: setiap terobosan kini juga menguji terjemahan.`,
-  gateOn: 'Lanjut ›',
-  gateEnter: 'Masuki dunia abadi',
   unstT: 'Ranah tidak stabil',
   unstAcc: (p, a) =>
     `Kata HSK ${p} yang menopang ranahmu mulai pudar: hanya ${a}% benar pada ulangan berjarak 30 hari terakhir.`,
@@ -2198,9 +2185,6 @@ Object.assign(I18N.en, {
     'Spirit Transformation',
     'Tribulation Crossing',
     'Ascension',
-    'True Immortal',
-    'Mystic Immortal',
-    'Daluo, Beyond All',
   ],
   realmD: [
     'Not tested yet. The placement test opens the path of cultivation.',
@@ -2211,9 +2195,6 @@ Object.assign(I18N.en, {
     'The spirit transforms: abstract and formal HSK 5 words.',
     'The hardest trial of the mortal world: rare and subtle HSK 6 words.',
     'Beyond the mortal world: HSK 6 mastered.',
-    'The second tier of HSK 7–9: written, formal and specialist language.',
-    'The third tier of HSK 7–9: rare words, chengyu and fine shades of meaning.',
-    'Every tier of HSK 7–9 mastered: the summit of the path.',
   ],
   qPy: 'Type this word’s pinyin, with its tones',
   qTrans: 'Choose the translation of this sentence',
@@ -2253,13 +2234,6 @@ Object.assign(I18N.en, {
   gateGo: 'Something waits beyond 飞升… ›',
   mkIntroT: 'Make-up tribulation (补劫): prove HSK 6 through 雷劫',
   btUnstable: 'Your realm is unstable (境界不稳). Steady it first with 试炼稳固; then the breakthrough opens again.',
-  gateWelcome: '仙门 is open. Welcome back to the immortal world.',
-  gate0:
-    'Until now your path ended at 飞升. Beyond it stood a closed gate: <b>仙门 xiānmén</b>, the Immortal Gate. Now it trembles.',
-  gate4: n =>
-    `仙门 is open: <b>HSK 7–9</b>, ${n} new words and three realms above 飞升. The trials are harder: every breakthrough now tests translation too.`,
-  gateOn: 'Continue ›',
-  gateEnter: 'Enter the immortal world',
   unstT: 'Unstable realm',
   unstAcc: (p, a) =>
     `The HSK ${p} words your realm rests on are fading: only ${a}% right in spaced reviews over the last 30 days.`,
@@ -2312,9 +2286,6 @@ Object.assign(I18N.th, {
     'แปรเปลี่ยนวิญญาณ',
     'ฝ่าทัณฑ์สวรรค์',
     'เหินสู่สวรรค์',
-    'เซียนแท้',
-    'เซียนลึกลับ',
-    'ต้าหลัว ยอดแห่งเซียน',
   ],
   realmD: [
     'ยังไม่ได้ทดสอบ แบบทดสอบวัดระดับจะเปิดเส้นทางการบำเพ็ญ',
@@ -2325,9 +2296,6 @@ Object.assign(I18N.th, {
     'วิญญาณแปรเปลี่ยน: คำศัพท์นามธรรมและทางการ HSK 5',
     'บททดสอบที่ยากที่สุดของโลกมนุษย์: คำหายากและละเอียดอ่อน HSK 6',
     'พ้นโลกมนุษย์: เชี่ยวชาญ HSK 6',
-    'ชั้นที่สองของ HSK 7–9: ภาษาเขียน ภาษาทางการ และศัพท์เฉพาะทาง',
-    'ชั้นที่สามของ HSK 7–9: คำหายาก สำนวนจีน (เฉิงอวี่) และความหมายที่ละเอียดอ่อน',
-    'เชี่ยวชาญทุกชั้นของ HSK 7–9: ยอดสูงสุดของเส้นทาง',
   ],
   qPy: 'พิมพ์พินอินของคำนี้ พร้อมวรรณยุกต์',
   qTrans: 'เลือกคำแปลของประโยคนี้',
@@ -2366,13 +2334,6 @@ Object.assign(I18N.th, {
   gateGo: 'มีบางอย่างรออยู่หลัง 飞升… ›',
   mkIntroT: 'ทัณฑ์ซ่อม (补劫): พิสูจน์ HSK 6 ผ่าน 雷劫',
   btUnstable: 'ขั้นพลังของคุณยังไม่มั่นคง (境界不稳) ทำ 试炼稳固 ก่อน แล้วการทะลวงขั้นจะเปิดอีกครั้ง',
-  gateWelcome: '仙门 เปิดแล้ว ยินดีต้อนรับกลับสู่โลกเซียน',
-  gate0:
-    'ที่ผ่านมาเส้นทางของคุณสิ้นสุดที่ 飞升 เบื้องหลังมีประตูที่ปิดอยู่: <b>仙门 xiānmén</b> ประตูเซียน บัดนี้ประตูนั้นสั่นไหว',
-  gate4: n =>
-    `仙门 เปิดแล้ว: <b>HSK 7–9</b> คำใหม่ ${n} คำ และสามขั้นพลังเหนือ 飞升 บททดสอบยากขึ้น: การทะลวงขั้นทุกครั้งจะทดสอบการแปลด้วย`,
-  gateOn: 'ต่อไป ›',
-  gateEnter: 'เข้าสู่โลกเซียน',
   unstT: 'ขั้นพลังไม่มั่นคง',
   unstAcc: (p, a) =>
     `คำ HSK ${p} ที่ค้ำขั้นพลังของคุณเริ่มเลือนหาย: ถูกเพียง ${a}% ในการทบทวนแบบเว้นระยะ 30 วันที่ผ่านมา`,
@@ -2415,19 +2376,7 @@ Object.assign(I18N.th, {
   insModelSoon: 'ข้อมูลเพียงพอแล้ว: โมเดลความจำจะปรับตามวิธีจำของคุณเมื่อเปิดแอปครั้งถัดไป',
 });
 Object.assign(I18N.vi, {
-  realmM: [
-    'Phàm Nhân',
-    'Luyện Khí',
-    'Trúc Cơ',
-    'Kim Đan',
-    'Nguyên Anh',
-    'Hóa Thần',
-    'Độ Kiếp',
-    'Phi Thăng',
-    'Chân Tiên',
-    'Huyền Tiên',
-    'Đại La',
-  ],
+  realmM: ['Phàm Nhân', 'Luyện Khí', 'Trúc Cơ', 'Kim Đan', 'Nguyên Anh', 'Hóa Thần', 'Độ Kiếp', 'Phi Thăng'],
   realmD: [
     'Chưa kiểm tra. Bài kiểm tra xếp cấp mở ra con đường tu luyện.',
     'Hấp thu luồng khí đầu tiên: từ vựng cơ bản HSK 1.',
@@ -2437,9 +2386,6 @@ Object.assign(I18N.vi, {
     'Linh hồn biến hóa: từ vựng trừu tượng và trang trọng HSK 5.',
     'Thử thách khó nhất của cõi phàm: từ hiếm và nhiều sắc thái HSK 6.',
     'Vượt khỏi cõi phàm: nắm vững HSK 6.',
-    'Tầng thứ hai của HSK 7–9: ngôn ngữ viết, trang trọng và chuyên ngành.',
-    'Tầng thứ ba của HSK 7–9: từ hiếm, thành ngữ và sắc thái tinh tế.',
-    'Nắm vững mọi tầng HSK 7–9: đỉnh cao của con đường.',
   ],
   qPy: 'Gõ pinyin của từ này, kèm thanh điệu',
   qTrans: 'Chọn bản dịch của câu này',
@@ -2470,13 +2416,6 @@ Object.assign(I18N.vi, {
   gateGo: 'Có điều gì đó chờ sau 飞升… ›',
   mkIntroT: 'Bổ kiếp (补劫): chứng minh HSK 6 qua 雷劫',
   btUnstable: 'Cảnh giới của bạn đang bất ổn (境界不稳). Hãy củng cố bằng 试炼稳固 trước, rồi đột phá sẽ mở lại.',
-  gateWelcome: '仙门 đã mở. Chào mừng trở lại tiên giới.',
-  gate0:
-    'Từ trước đến nay con đường của bạn dừng ở 飞升. Phía sau là một cánh cổng đóng kín: <b>仙门 xiānmén</b>, Tiên Môn. Giờ cánh cổng ấy đang rung chuyển.',
-  gate4: n =>
-    `仙门 đã mở: <b>HSK 7–9</b>, ${n} từ mới và ba cảnh giới trên 飞升. Thử thách khó hơn: mỗi lần đột phá giờ còn kiểm tra cả dịch.`,
-  gateOn: 'Tiếp ›',
-  gateEnter: 'Bước vào tiên giới',
   unstT: 'Cảnh giới bất ổn',
   unstAcc: (p, a) =>
     `Các từ HSK ${p} nâng đỡ cảnh giới của bạn đang phai: chỉ đúng ${a}% trong các lượt ôn giãn cách 30 ngày qua.`,
@@ -2526,7 +2465,6 @@ Object.assign(I18N.id.gloss, {
   bw: 'Ranah tidak stabil: kata level di bawahnya mulai pudar; terobosan terkunci sampai distabilkan',
   wg: 'Ujian penstabil: 15 kata yang paling pudar; 80% benar menstabilkan ranah',
   bj: 'Tribulasi susulan: 雷劫 HSK 6 bagi yang mencapai 飞升 lewat tes penempatan',
-  xm: 'Gerbang Abadi: terbuka setelah 飞升 ditembus; di baliknya HSK 7–9 dan ranah 真仙, 玄仙, 大罗',
 });
 Object.assign(I18N.en.gloss, {
   lj: 'Lightning tribulation: a breakthrough in strikes (识 meaning, 忆 typed pinyin, 听 listening, 读 sentence, 速 speed); every strike must hold',
@@ -2535,7 +2473,6 @@ Object.assign(I18N.en.gloss, {
   bw: 'Unstable realm: the level below it is fading; the breakthrough is locked until it is steadied',
   wg: 'Steadying trial: 15 of the most faded words; 80% right steadies the realm',
   bj: 'Make-up tribulation: an HSK 6 雷劫 for those who reached 飞升 by the placement test',
-  xm: 'Immortal Gate: opens once 飞升 is broken through; behind it HSK 7–9 and the realms 真仙, 玄仙, 大罗',
 });
 Object.assign(I18N.th.gloss, {
   lj: 'ทัณฑ์สายฟ้า: การทะลวงขั้นเป็นหลายการโจมตี (识 ความหมาย 忆 พิมพ์พินอิน 听 ฟัง 读 ประโยค 速 ความเร็ว) ต้องผ่านทุกการโจมตี',
@@ -2544,7 +2481,6 @@ Object.assign(I18N.th.gloss, {
   bw: 'ขั้นพลังไม่มั่นคง: คำในระดับด้านล่างเริ่มเลือนหาย การทะลวงขั้นถูกล็อกจนกว่าจะทำให้มั่นคง',
   wg: 'ด่านทำให้มั่นคง: 15 คำที่เลือนที่สุด ถูก 80% ขั้นพลังจะมั่นคง',
   bj: 'ทัณฑ์ซ่อม: 雷劫 ระดับ HSK 6 สำหรับผู้ที่ถึง 飞升 ด้วยแบบทดสอบวัดระดับ',
-  xm: 'ประตูเซียน: เปิดเมื่อทะลวงถึง 飞升 เบื้องหลังคือ HSK 7–9 และขั้นพลัง 真仙 玄仙 大罗',
 });
 Object.assign(I18N.vi.gloss, {
   lj: 'Lôi kiếp: đột phá gồm nhiều đòn (识 nghĩa, 忆 gõ pinyin, 听 nghe, 读 câu, 速 tốc độ); đòn nào cũng phải đạt',
@@ -2553,7 +2489,6 @@ Object.assign(I18N.vi.gloss, {
   bw: 'Cảnh giới bất ổn: các từ của cấp bên dưới đang phai; đột phá bị khóa cho đến khi củng cố',
   wg: 'Thử luyện củng cố: 15 từ phai nhiều nhất; đúng 80% thì cảnh giới vững lại',
   bj: 'Bổ kiếp: 雷劫 HSK 6 dành cho người đạt 飞升 qua bài kiểm tra xếp cấp',
-  xm: 'Tiên Môn: mở khi đột phá đến 飞升; phía sau là HSK 7–9 và các cảnh giới 真仙, 玄仙, 大罗',
 });
 {
   const T = (l, k, v) => {
@@ -2898,3 +2833,146 @@ Object.assign(I18N.id, { tabHome: 'Beranda' });
 Object.assign(I18N.en, { tabHome: 'Home' });
 Object.assign(I18N.th, { tabHome: 'หน้าแรก' });
 Object.assign(I18N.vi, { tabHome: 'Trang chủ' });
+
+/* v1.16: the Soul Sea tab in the tab bar, and the share card */
+Object.assign(I18N.id, { tabStats: 'Stats' });
+Object.assign(I18N.en, { tabStats: 'Stats' });
+Object.assign(I18N.th, { tabStats: 'สถิติ' });
+Object.assign(I18N.vi, { tabStats: 'Thống kê' });
+
+/* v1.16: the easter egg (seven taps on the wordmark) */
+Object.assign(I18N.id, {
+  eggM: 'Di atas langit masih ada langit.',
+  eggSealed: 'Segel ini belum waktunya terbuka. Teruslah berkultivasi.',
+  eggOpen: 'Kamu sudah melihat langit di atas langit.',
+});
+Object.assign(I18N.en, {
+  eggM: 'Above the sky, there is another sky.',
+  eggSealed: 'This seal is not ready to open. Keep cultivating.',
+  eggOpen: 'You have seen the sky above the sky.',
+});
+Object.assign(I18N.th, {
+  eggM: 'เหนือฟ้ายังมีฟ้า',
+  eggSealed: 'ผนึกนี้ยังไม่ถึงเวลาเปิด จงบำเพ็ญเพียรต่อไป',
+  eggOpen: 'คุณได้เห็นฟ้าเหนือฟ้าแล้ว',
+});
+Object.assign(I18N.vi, {
+  eggM: 'Ngoài trời còn có trời.',
+  eggSealed: 'Phong ấn này chưa đến lúc mở. Hãy tiếp tục tu luyện.',
+  eggOpen: 'Bạn đã thấy bầu trời ngoài bầu trời.',
+});
+
+/* v1.16: the cultivation card */
+Object.assign(I18N.id, {
+  shareT: 'Kartu kultivasi',
+  shareL: 'Bagikan kartu kultivasi',
+  shareGo: 'Bagikan',
+  shareNote: 'Gambar ini dibuat di HP ini dan hanya dikirim ke aplikasi yang kamu pilih.',
+  shareTxt: (n, m, h) => `Ranahku di XueCi Mandarin: ${n} ${m}${h ? ' · ' + h : ''}`,
+  shareFail: 'Gambar tidak bisa dibagikan. Coba lagi.',
+  cardDays: 'hari kultivasi',
+  cardSolid: l => `kata HSK ${l} kokoh`,
+  cardWords: 'kata dilatih',
+});
+Object.assign(I18N.en, {
+  shareT: 'Cultivation card',
+  shareL: 'Share your cultivation card',
+  shareGo: 'Share',
+  shareNote: 'The picture is made on this phone and goes only to the app you choose.',
+  shareTxt: (n, m, h) => `My realm in XueCi Mandarin: ${n} ${m}${h ? ' · ' + h : ''}`,
+  shareFail: 'The picture could not be shared. Try again.',
+  cardDays: 'cultivation days',
+  cardSolid: l => `solid HSK ${l} words`,
+  cardWords: 'words practised',
+});
+Object.assign(I18N.th, {
+  shareT: 'การ์ดการบำเพ็ญ',
+  shareL: 'แชร์การ์ดการบำเพ็ญ',
+  shareGo: 'แชร์',
+  shareNote: 'รูปนี้สร้างบนโทรศัพท์เครื่องนี้ และส่งไปยังแอปที่คุณเลือกเท่านั้น',
+  shareTxt: (n, m, h) => `ขั้นพลังของฉันใน XueCi Mandarin: ${n} ${m}${h ? ' · ' + h : ''}`,
+  shareFail: 'แชร์รูปไม่ได้ ลองอีกครั้ง',
+  cardDays: 'วันบำเพ็ญ',
+  cardSolid: l => `คำ HSK ${l} ที่มั่นคง`,
+  cardWords: 'คำที่ฝึกแล้ว',
+});
+Object.assign(I18N.vi, {
+  shareT: 'Thẻ tu luyện',
+  shareL: 'Chia sẻ thẻ tu luyện',
+  shareGo: 'Chia sẻ',
+  shareNote: 'Ảnh được tạo trên điện thoại này và chỉ gửi tới ứng dụng bạn chọn.',
+  shareTxt: (n, m, h) => `Cảnh giới của tôi trong XueCi Mandarin: ${n} ${m}${h ? ' · ' + h : ''}`,
+  shareFail: 'Không chia sẻ được ảnh. Hãy thử lại.',
+  cardDays: 'ngày tu luyện',
+  cardSolid: l => `từ HSK ${l} vững chắc`,
+  cardWords: 'từ đã luyện',
+});
+
+/*<seal>*/
+/* sealed until the gate opens: build.py moves this into the sealed data, so the page itself never names what is behind it */
+I18N.id.realmM.push('Abadi Sejati', 'Abadi Misterius', 'Daluo, Puncak Abadi');
+I18N.id.realmD.push(
+  'Lapis kedua HSK 7–9: bahasa tulis, formal, dan khusus.',
+  'Lapis ketiga HSK 7–9: kata langka, chengyu, dan nuansa halus.',
+  'Semua lapis HSK 7–9 dikuasai: puncak jalan kultivasi.',
+);
+Object.assign(I18N.id, {
+  gateWelcome: '仙门 terbuka. Selamat datang kembali di dunia abadi.',
+  gate0:
+    'Selama ini jalanmu berakhir di 飞升. Di baliknya ada gerbang yang tertutup: <b>仙门 xiānmén</b>, Gerbang Abadi. Kini gerbang itu bergetar.',
+  gate4: n =>
+    `仙门 terbuka: <b>HSK 7–9</b>, ${n} kata baru, dan tiga ranah di atas 飞升. Ujiannya lebih berat: setiap terobosan kini juga menguji terjemahan.`,
+  gateOn: 'Lanjut ›',
+  gateEnter: 'Masuki dunia abadi',
+});
+I18N.id.gloss.xm = 'Gerbang Abadi: terbuka setelah 飞升 ditembus; di baliknya HSK 7–9 dan ranah 真仙, 玄仙, 大罗';
+I18N.en.realmM.push('True Immortal', 'Mystic Immortal', 'Daluo, Beyond All');
+I18N.en.realmD.push(
+  'The second tier of HSK 7–9: written, formal and specialist language.',
+  'The third tier of HSK 7–9: rare words, chengyu and fine shades of meaning.',
+  'Every tier of HSK 7–9 mastered: the summit of the path.',
+);
+Object.assign(I18N.en, {
+  gateWelcome: '仙门 is open. Welcome back to the immortal world.',
+  gate0:
+    'Until now your path ended at 飞升. Beyond it stood a closed gate: <b>仙门 xiānmén</b>, the Immortal Gate. Now it trembles.',
+  gate4: n =>
+    `仙门 is open: <b>HSK 7–9</b>, ${n} new words and three realms above 飞升. The trials are harder: every breakthrough now tests translation too.`,
+  gateOn: 'Continue ›',
+  gateEnter: 'Enter the immortal world',
+});
+I18N.en.gloss.xm =
+  'Immortal Gate: opens once 飞升 is broken through; behind it HSK 7–9 and the realms 真仙, 玄仙, 大罗';
+I18N.th.realmM.push('เซียนแท้', 'เซียนลึกลับ', 'ต้าหลัว ยอดแห่งเซียน');
+I18N.th.realmD.push(
+  'ชั้นที่สองของ HSK 7–9: ภาษาเขียน ภาษาทางการ และศัพท์เฉพาะทาง',
+  'ชั้นที่สามของ HSK 7–9: คำหายาก สำนวนจีน (เฉิงอวี่) และความหมายที่ละเอียดอ่อน',
+  'เชี่ยวชาญทุกชั้นของ HSK 7–9: ยอดสูงสุดของเส้นทาง',
+);
+Object.assign(I18N.th, {
+  gateWelcome: '仙门 เปิดแล้ว ยินดีต้อนรับกลับสู่โลกเซียน',
+  gate0:
+    'ที่ผ่านมาเส้นทางของคุณสิ้นสุดที่ 飞升 เบื้องหลังมีประตูที่ปิดอยู่: <b>仙门 xiānmén</b> ประตูเซียน บัดนี้ประตูนั้นสั่นไหว',
+  gate4: n =>
+    `仙门 เปิดแล้ว: <b>HSK 7–9</b> คำใหม่ ${n} คำ และสามขั้นพลังเหนือ 飞升 บททดสอบยากขึ้น: การทะลวงขั้นทุกครั้งจะทดสอบการแปลด้วย`,
+  gateOn: 'ต่อไป ›',
+  gateEnter: 'เข้าสู่โลกเซียน',
+});
+I18N.th.gloss.xm = 'ประตูเซียน: เปิดเมื่อทะลวงถึง 飞升 เบื้องหลังคือ HSK 7–9 และขั้นพลัง 真仙 玄仙 大罗';
+I18N.vi.realmM.push('Chân Tiên', 'Huyền Tiên', 'Đại La');
+I18N.vi.realmD.push(
+  'Tầng thứ hai của HSK 7–9: ngôn ngữ viết, trang trọng và chuyên ngành.',
+  'Tầng thứ ba của HSK 7–9: từ hiếm, thành ngữ và sắc thái tinh tế.',
+  'Nắm vững mọi tầng HSK 7–9: đỉnh cao của con đường.',
+);
+Object.assign(I18N.vi, {
+  gateWelcome: '仙门 đã mở. Chào mừng trở lại tiên giới.',
+  gate0:
+    'Từ trước đến nay con đường của bạn dừng ở 飞升. Phía sau là một cánh cổng đóng kín: <b>仙门 xiānmén</b>, Tiên Môn. Giờ cánh cổng ấy đang rung chuyển.',
+  gate4: n =>
+    `仙门 đã mở: <b>HSK 7–9</b>, ${n} từ mới và ba cảnh giới trên 飞升. Thử thách khó hơn: mỗi lần đột phá giờ còn kiểm tra cả dịch.`,
+  gateOn: 'Tiếp ›',
+  gateEnter: 'Bước vào tiên giới',
+});
+I18N.vi.gloss.xm = 'Tiên Môn: mở khi đột phá đến 飞升; phía sau là HSK 7–9 và các cảnh giới 真仙, 玄仙, 大罗';
+/*</seal>*/

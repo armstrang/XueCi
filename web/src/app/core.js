@@ -96,27 +96,19 @@ function mH(m) {
 const chip = l => `<span class="lvchip" style="background:var(--l${l})">HSK ${l}</span>`;
 const CHEV =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
-/* realms (境界): 0 凡人 not tested yet · 1–6 studying HSK 1–6 · 7 飞升, 8 真仙, 9 玄仙 studying the HSK 7, 8, 9 tiers
-   (behind the gate, which opens when 飞升 is reached by a breakthrough) · 10 大罗 everything mastered.
-   Before the gate is open only realms 0–7 exist for the learner: the path ends at 飞升 and a sealed gate.
+/* realms (境界): 0 凡人 not tested yet · 1–6 studying HSK 1–6 · 7 飞升 (the summit as far as the learner knows).
+   What lies beyond is added by the sealed part (see build.py, "the seal") once it opens.
    Four stages inside a realm. */
-const RN = ['凡人', '炼气', '筑基', '金丹', '元婴', '化神', '渡劫', '飞升', '真仙', '玄仙', '大罗'],
-  RPY = [
-    'fánrén',
-    'liànqì',
-    'zhùjī',
-    'jīndān',
-    'yuányīng',
-    'huàshén',
-    'dùjié',
-    'fēishēng',
-    'zhēnxiān',
-    'xuánxiān',
-    'dàluó',
-  ];
+const RN = ['凡人', '炼气', '筑基', '金丹', '元婴', '化神', '渡劫', '飞升'],
+  RPY = ['fánrén', 'liànqì', 'zhùjī', 'jīndān', 'yuányīng', 'huàshén', 'dùjié', 'fēishēng'];
 const SN = ['初期', '中期', '后期', '圆满'],
   SPY = ['chūqī', 'zhōngqī', 'hòuqī', 'yuánmǎn'],
-  RS = '凡炼筑金元化渡飞真玄罗';
+  RS = [...'凡炼筑金元化渡飞'];
+/*<seal>*/
+RN.push('真仙', '玄仙', '大罗');
+RPY.push('zhēnxiān', 'xuánxiān', 'dàluó');
+RS.push('真', '玄', '罗');
+/*</seal>*/
 const TOPR = () => (XC.band ? 10 : 7); /* the highest realm the learner can see */
 const realmLv = r => Math.max(1, Math.min(XC.band ? 9 : 6, r)),
   rc = r => (r < 1 ? 'var(--mute)' : r > 9 || (r > 6 && !XC.band) ? 'var(--gold)' : `var(--l${r})`);

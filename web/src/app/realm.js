@@ -29,6 +29,7 @@ function renderCurLv() {
   /* under the orb: the realm's meaning and level, one plain sentence, the four stages */
   const fl = $('fluid');
   fl.style.setProperty('--lc', rc(r));
+  document.body.style.setProperty('--rc', rc(r)); /* the realm colour, for the HSK lens's qi (v1.16) */
   fl.classList.toggle('mortal', !r);
   const g = r ? LM.grades()[r] : 0;
   $('realmName').innerHTML =

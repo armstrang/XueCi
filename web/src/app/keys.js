@@ -2,6 +2,10 @@
 /* Back closes the topmost layer: a menu, then the focused screen (back to Home). false lets the app exit. */
 window.mmBack = function () {
   if (window.mmBusy && mmBusy()) return true; /* a screen animation is still running */
+  if (!eggOv.hidden) {
+    eggHide();
+    return true;
+  }
   if (!gateOv.hidden) {
     gateClose();
     return true;
@@ -32,6 +36,10 @@ window.mmBack = function () {
   }
   if (!strkSheet.hidden) {
     closeStreak();
+    return true;
+  }
+  if (!shareSheet.hidden) {
+    closeShare();
     return true;
   }
   if (!bkSheet.hidden) {
@@ -72,6 +80,7 @@ document.addEventListener('keydown', e => {
     !setSheet.hidden ||
     !tourSheet.hidden ||
     !strkSheet.hidden ||
+    !shareSheet.hidden ||
     qMenuOpen()
   )
     return;

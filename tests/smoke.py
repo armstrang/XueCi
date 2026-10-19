@@ -81,7 +81,7 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         theme, '' if onboarding else "localStorage.setItem('xc_onb','1');"))
     pg = await ctx.new_page()
     pg.on('pageerror', lambda e: errors.append(str(e)))
-    pg.on('request', lambda r: r.url.startswith(HOST) or r.url.startswith('data:') or outside.append(r.url))
+    pg.on('request', lambda r: r.url.startswith(HOST) or r.url.startswith('data:') or r.url.startswith('blob:' + HOST) or outside.append(r.url))
     await pg.goto(PAGE + (f'?fs={fs}' if fs != 1 else ''))
     await pg.wait_for_timeout(900)
     fonts = await pg.evaluate("""() => document.fonts.check('900 40px "Noto Serif SC"', '学') && document.fonts.check('700 16px "Plus Jakarta Sans"', 'A')""")
@@ -374,6 +374,15 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
         check(await pg.locator('details.hlp[data-k="soul"][open]').count() == 1, f'{tag}: "?" opens the help topic')
         await pg.evaluate('mmBack()')
         await pg.wait_for_timeout(200)
+        # v1.16: the cultivation card
+        await pg.click('#soulShare')
+        await pg.wait_for_function("document.getElementById('shareImg').naturalWidth === 1080", timeout=5000)
+        check(await pg.locator('#shareSheet').is_visible() and await pg.locator('#shareGo').is_visible(), f'{tag}: the cultivation card is drawn and can be shared')
+        await no_leak(pg, tag, 'cultivation card')
+        await shot('share', False)
+        await pg.evaluate('mmBack()')
+        await pg.wait_for_timeout(200)
+        check(await pg.locator('#shareSheet').is_hidden(), f'{tag}: back closes the card')
         await pg.evaluate('mmBack()')
         await pg.wait_for_timeout(350)
 
@@ -399,6 +408,22 @@ async def run_case(browser, width, locale, theme, fs=1, onboarding=False):
     check(await pg.locator('#strkBody .scal .sc').count() >= 29, f'{tag}: cultivation days open a five-week calendar')
     await pg.evaluate('mmBack()')
     await pg.wait_for_timeout(200)
+    # v1.16: the tab bar (five tabs, the open one shows its name, a glass lens under it) and the easter egg
+    tabs = await pg.evaluate('''[...document.querySelectorAll('#tabbar .tab')].map(t => [t.dataset.go, t.hasAttribute('aria-current'),
+        getComputedStyle(t.querySelector('b')).opacity, t.querySelector('b').textContent.trim().length > 0])''')
+    check([t[0] for t in tabs] == ['home', 'list', 'card', 'quiz', 'soul'] and [t[1] for t in tabs] == [True, False, False, False, False]
+          and tabs[0][2] == '1' and all(t[2] == '0' for t in tabs[1:]) and all(t[3] for t in tabs), f'{tag}: tab bar: five named tabs, only the open one shows its name {tabs}')
+    lens = await pg.evaluate('''(() => { const l = document.querySelector('#tabbar .lens').getBoundingClientRect(), t = document.querySelector('#tabbar .tab[aria-current]').getBoundingClientRect();
+        return Math.abs(l.left - t.left) < 2 && Math.abs(l.width - t.width) < 2 })()''')
+    check(lens, f'{tag}: the glass lens sits under the open tab')
+    for _ in range(7):
+        await pg.click('.brand.hp')
+    await pg.wait_for_timeout(400)
+    check(await pg.locator('#eggOv').is_visible() and '封' in await pg.locator('#eggOv').text_content(), f'{tag}: seven taps on the wordmark show the sealed easter egg')
+    await no_leak(pg, tag, 'easter egg')
+    await pg.evaluate('mmBack()')
+    await pg.wait_for_timeout(200)
+    check(await pg.locator('#eggOv').is_hidden(), f'{tag}: back closes the easter egg')
     # tone info sheet
     await via_settings(pg, '#toneInfo')
     await pg.wait_for_timeout(450)
@@ -720,6 +745,17 @@ async def gate_case(browser):
         await pg.wait_for_timeout(320)
     check(await pg.locator('#gateOv').is_hidden() and await pg.evaluate('state.screen') == 'soul' and await pg.evaluate('LM.level.gs') == 1, f'{tag}: entering leads to the Soul Sea')
     check(await pg.locator('#soulBody .rpath .rp').count() == 11 and await pg.locator('#curLvName').text_content() == '飞升', f'{tag}: the realm path now reaches 大罗')
+    check(await pg.evaluate("RN.length === 11 && L10.realmM.length === 11 && typeof gateShow === 'function' && GL.some(g => g[2] === 'xm')"),
+          f'{tag}: the sealed part has opened (realms, texts, the ceremony)')
+    await pg.evaluate("go('home')")
+    await pg.wait_for_timeout(400)
+    for _ in range(7):
+        await pg.click('.brand.hp')
+    await pg.wait_for_timeout(400)
+    check('开' in await pg.locator('#eggOv').text_content(), f'{tag}: past the seal the easter egg reads 开')
+    await pg.evaluate('eggHide()')
+    await pg.evaluate("go('soul')")
+    await pg.wait_for_timeout(400)
     await pg.screenshot(path=os.path.join(OUT, f'{tag}-soul.png'), full_page=True)
     gate_codes = await pg.evaluate('''async () => {
         const real = await readCode(await makeCode());
@@ -754,6 +790,8 @@ async def gate_case(browser):
     await pg.reload()
     await pg.wait_for_timeout(1200)
     check(await pg.evaluate('XC.band') and await pg.evaluate('BY[9].length') > 1000 and await pg.locator('#gateOv').is_hidden(), f'{tag}: after a restart HSK 7–9 load at once, no second ceremony')
+    check(await pg.evaluate("RN.length === 11 && L10.realmM.length === 11 && !!L10.gateWelcome && document.querySelectorAll('#soulBody .rp, .rorb').length > 0"),
+          f'{tag}: after a restart the sealed part opens before Home starts')
     check(not errors, f'{tag}: no page errors {errors[:2]}')
     await ctx.close()
 
@@ -872,6 +910,24 @@ async def reminder_case(browser):
     await ctx.close()
 
 
+async def files_case(browser):
+    """v1.16: the built app files themselves say nothing about what lies past 飞升: no secret word in the page (no
+    comments are shipped either), no open word file for it, and the sealed files read as noise after their short header."""
+    import zlib
+    page = open(os.path.join(ASSETS, 'index.html'), encoding='utf8').read()
+    found = [w for w in SECRET if w in page]
+    check(not found, f'files: the page names nothing past 飞升 {found}')
+    check('/*' not in page.split('<script>', 1)[1].replace("'/*'", ''), 'files: the page ships without comments')
+    data = os.listdir(os.path.join(ASSETS, 'data'))
+    check(not [f for f in data if '-b.' in f], f'files: no open band files {data}')
+    for f in [f for f in data if f.endswith('.bin')]:
+        b = open(os.path.join(ASSETS, 'data', f), 'rb').read()
+        head, body = b.split(b'\0', 1)
+        txt = head.decode()
+        ratio = len(zlib.compress(body, 9)) / len(body)
+        check(not [w for w in SECRET if w in txt] and ratio > 0.98, f'files: {f} is sealed (header says nothing, body is noise: {ratio:.3f})')
+
+
 async def main():
     os.makedirs(OUT, exist_ok=True)
     async with async_playwright() as p:
@@ -882,7 +938,7 @@ async def main():
                                                   (1280, 'vi-VN', 'auto', 1, False), (360, 'vi-VN', 'light', 1.6, True)):
                 await run_case(browser, width, locale, theme, fs, onb)
         for name, case in (('legacy', legacy_case), ('store', store_case), ('realm', realm_case), ('gate', gate_case), ('reminder', reminder_case),
-                           ('perf', perf_case), ('a11y', a11y_case)):
+                           ('perf', perf_case), ('a11y', a11y_case), ('files', files_case)):
             if not only or name in only:
                 await case(browser)
         await browser.close()

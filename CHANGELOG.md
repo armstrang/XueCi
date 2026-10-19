@@ -4,6 +4,32 @@ Every push of app changes to `main` makes a new release on [GitHub Releases](htt
 (v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
 before pushing.
 
+## v1.16 — 19 October 2026
+
+**A smaller tab bar with a glass lens you can slide and the Soul Sea one tap away, an HSK picker in clear glass with
+the colours of your realm and the five elements, lightning in the tribulation, a cultivation card to share, and a
+layout for tablets.**
+
+### New
+- **Tab bar, smaller and with the Soul Sea.** Home, Word list, Cards, Quiz and **Stats** (the Soul Sea, with a
+  cultivation-flame icon). The tabs show only their icon; the open one also shows its name. A glass lens sits under
+  the open tab: slide it along the bar and let go on a tab to open it.
+- **Cultivation card.** A picture of your realm, its ring, stage, cultivation days, solid words and words practised,
+  to share with any app. Open it with the share button at the top of the Soul Sea, or after a successful
+  breakthrough. It is made on your phone and goes only to the app you pick.
+- **Lightning in the tribulation (雷劫).** Every strike opens with a bolt of lightning and its seal character; a
+  passed tribulation ends in golden light. With reduced motion turned on, only a soft fade.
+- **Tablets and wide windows.** Home in two columns (your realm on the left, word mastery with its counts on the
+  right); the Soul Sea keeps its orb on the left while its cards scroll on the right.
+- A small secret for the curious.
+
+### Changed
+- **HSK picker.** The lens over the chosen level is now clear glass instead of a solid pill: tinted with the level's
+  colour, glowing with your realm's colour inside, with a rim that runs through the five elements (木 火 土 金 水).
+- On tall phones the realm panel no longer stretches with empty space inside; the room goes around the panels.
+- Word-mastery counts no longer run into each other in longer languages.
+- The app page is about 15% smaller and starts a little faster.
+
 ## v1.15 — 19 October 2026
 
 **A tab bar that stays put, a Home that always fits the screen, a splash screen, clearer colours, and full visual

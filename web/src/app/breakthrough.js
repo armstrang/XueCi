@@ -8,6 +8,45 @@ const gradeH = (g, r) =>
     ? `<span class="grade g${g}"><b lang="zh-CN">${LM.GRADES[g]}${RN[r]}</b><small>${GPY[g]} ${RPY[r]}</small></span>`
     : '';
 const GPY = ['', 'xiàpǐn', 'zhōngpǐn', 'shàngpǐn', 'wánměi'];
+/* v1.16 (Josh's list): every strike opens with a bolt of lightning across the screen and its seal character; a passed
+   tribulation ends in a golden light. A fresh jagged path each time, ~0.6 s, opacity/transform only; with reduced
+   motion just a soft fade, never a flicker. */
+let boltEl = null;
+function bolt(hz, gold) {
+  if (!boltEl) {
+    boltEl = document.createElement('div');
+    boltEl.className = 'bolt';
+    boltEl.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(boltEl);
+  }
+  const path = (x, y, steps, dx, dy) => {
+    const p = [[x, y]];
+    for (let k = 0; k < steps; k++) {
+      y += dy * (0.6 + Math.random() * 0.8);
+      x += (Math.random() - 0.5) * dx;
+      p.push([x, y]);
+    }
+    return p;
+  };
+  const x0 = 22 + Math.random() * 56,
+    main = path(x0, -4, 7, 16, 9),
+    at = main[2 + Math.floor(Math.random() * 3)],
+    side = path(at[0], at[1], 3, 12, 7),
+    d = p => 'M' + p.map(q => q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join('L');
+  boltEl.innerHTML = gold
+    ? ''
+    : `<svg viewBox="0 0 100 100" preserveAspectRatio="none"><path class="b0" d="${d(main)}"/><path class="b1" d="${d(side)}"/></svg>${hz ? `<b lang="zh-CN">${hz}</b>` : ''}`;
+  boltEl.style.setProperty('--bx', x0.toFixed(0) + '%');
+  boltEl.classList.toggle('gold', !!gold);
+  boltEl.classList.remove('on');
+  void boltEl.offsetWidth;
+  boltEl.classList.add('on');
+  try {
+    navigator.vibrate && navigator.vibrate(gold ? [0, 20, 60, 30] : [0, 28, 50, 16]);
+  } catch (e) {}
+  clearTimeout(boltEl.t);
+  boltEl.t = setTimeout(() => boltEl.classList.remove('on'), gold ? 1100 : 700);
+}
 /* the strikes as a row of seals: done, current, still to come */
 function strikeRow(st, cur) {
   return `<div class="strikes" aria-hidden="true">${st.strikes
@@ -38,7 +77,7 @@ function renderBt() {
     view.innerHTML = x.pass
       ? `<div class="qcard sum btres pass"><div class="q">${x.makeup ? '补劫' : '突破'} · ${L10.btPassT}</div>${realmHead(to, true)}
         ${gradeH(x.grade, to)}<p class="sumnote">${esc(L10.gradeM[x.grade])}</p>
-        <p class="sumnote">${L10.btPass(RN[to], esc(L10.realmM[to]))}</p><p class="sumnote">${L10.btScore(x.right, x.n)}</p>${strikeResults(x)}
+        <p class="sumnote">${L10.btPass(RN[to], esc(L10.realmM[to]))}</p><p class="sumnote">${L10.btScore(x.right, x.n)}</p>${strikeResults(x)}<button class="linkbtn btshare" id="btShare">${L10.shareGo} · ${esc(L10.shareT)} ›</button>
         <div class="sumbtns">${x.gate ? `<button class="next wide" id="btGate">${L10.gateGo}</button>` : `<button class="ghost" id="btHome">${L10.sumHome}</button><button class="next" id="btSoul">${L10.soulGo}</button>`}</div></div>`
       : `<div class="qcard sum btres"><div class="big t5" lang="zh-CN">未破</div><h3>${L10.btFailT}</h3><p class="sumnote">${L10.btFail(x.right, x.n, Math.round(x.need * 100))}</p>
         ${strikeResults(x)}<p class="sumnote">${
@@ -93,10 +132,15 @@ function renderBt() {
   }
   if (!it.t0) it.t0 = performance.now();
   const S = st.strikes.find(s => s.k === it.strike),
-    body =
-      it.q === 'p'
-        ? `<form class="pyform" id="btPyForm"><input class="pyin" id="btPyIn" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="${esc(L10.pyPh)}" aria-label="${esc(L10.qPy)}"><button class="next pygo" type="submit">${L10.pyCheck}</button></form><p class="pyhelp">${L10.pyHelp}</p>`
-        : `<div class="opts" id="btOpts">${it.opts.map((o, i) => `<button data-b="${i}">${i + 1}. ${qLab(o, it.q)}</button>`).join('')}</div>`;
+    first = st.items.findIndex(x => x.strike === it.strike) === st.i;
+  if (first && !it.bolted) {
+    it.bolted = 1;
+    bolt(S.hz);
+  }
+  const body =
+    it.q === 'p'
+      ? `<form class="pyform" id="btPyForm"><input class="pyin" id="btPyIn" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done" placeholder="${esc(L10.pyPh)}" aria-label="${esc(L10.qPy)}"><button class="next pygo" type="submit">${L10.pyCheck}</button></form><p class="pyhelp">${L10.pyHelp}</p>`
+      : `<div class="opts" id="btOpts">${it.opts.map((o, i) => `<button data-b="${i}">${i + 1}. ${qLab(o, it.q)}</button>`).join('')}</div>`;
   view.innerHTML = `<div class="fcmeta"><span>${L10.qN(st.i + 1, st.items.length)}</span>${progH(st.i, st.items.length)}</div>${strikeRow(st, st.i)}
     <div class="stkhead"><b lang="zh-CN">${S.hz}</b> ${esc(L10.strike[S.k])}</div>
     ${it.limit ? `<div class="tbar" aria-hidden="true"><i style="animation-duration:${it.limit}s"></i></div>` : ''}
@@ -144,6 +188,7 @@ function btDone() {
   renderCurLv();
   if (bt.res.pass) {
     window.mmFeedback && mmFeedback(true);
+    bolt(null, true);
     if (!bt.res.gate) {
       const l = LM.baseLevel();
       if (l !== state.level) setLevel(l);
@@ -168,6 +213,10 @@ view.addEventListener('click', e => {
   }
   if (id === 'btSoul') {
     go('soul');
+    return;
+  }
+  if (id === 'btShare') {
+    openShare();
     return;
   }
   if (id === 'btGate') {

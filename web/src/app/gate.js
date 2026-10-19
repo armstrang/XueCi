@@ -1,5 +1,5 @@
-/* ---------- the gate (仙门) after 飞升 ----------
-   HSK 7–9 and the realms above 飞升 stay hidden until 飞升 is reached by a breakthrough: before that nothing in the
+/* ---------- the gate after 飞升 ----------
+   What lies beyond 飞升 stays hidden until 飞升 is reached by a breakthrough: before that nothing in the
    app hints at them (the realm path just ends at 飞升; Josh wants a real surprise). When it opens, the HSK 7–9 word files are
    loaded (they ship inside the app, nothing is downloaded) and a short ceremony shows what was behind it: the three
    new realms one by one, each step at the learner's own pace (a tap), every animation a quick fade or scale.
@@ -24,6 +24,7 @@ function openGate(ceremony) {
       toast(L10.dataFail);
     });
 }
+/*<seal>*/
 const GATE_R = [8, 9, 10];
 function gateRender() {
   const n = BY[7] && BY[8] && BY[9] ? BY[7].length + BY[8].length + BY[9].length : 0;
@@ -69,3 +70,4 @@ gateOv.addEventListener('keydown', e => {
     gateClose();
   }
 });
+/*</seal>*/
