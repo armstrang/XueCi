@@ -1,8 +1,9 @@
 name: Flutter
 
-# v2.0 (Flutter) development builds: branches named flutter/... Everything the run produces (Flutter version,
-# analyzer and test output, screenshots, build log) is pushed to the branch ci-out/<branch>, because the logs of a
-# run cannot be read from Claude's cloud sessions but a branch can. Nothing is published.
+# Test builds of the Flutter app (v1.0-alpha): branches named flutter/... Everything the run produces (Flutter
+# version, analyzer and test output, screenshots, build log) is pushed to the branch ci-out/<branch>, because the logs
+# of a run cannot be read from Claude's cloud sessions but a branch can. When every check passes, the APK also goes to
+# the pre-release v1.0-alpha (replaced on each run, never marked latest) so testers can download it.
 on:
   push:
     branches: ['flutter/**']
@@ -91,7 +92,7 @@ jobs:
         continue-on-error: true
         working-directory: mobile
         run: |
-          flutter build apk --release --build-number=$((1000 + GITHUB_RUN_NUMBER)) --build-name=0.9.${GITHUB_RUN_NUMBER} > ../ci-out/build.txt 2>&1
+          flutter build apk --release --build-number=$((1000 + GITHUB_RUN_NUMBER)) --build-name=1.0.0-alpha.${GITHUB_RUN_NUMBER} > ../ci-out/build.txt 2>&1
           ls -la build/app/outputs/flutter-apk/ >> ../ci-out/build.txt 2>&1
           cp build/app/outputs/flutter-apk/app-release.apk ../ci-out/xueci-dev.apk || true
 
@@ -119,6 +120,34 @@ jobs:
           git add -A
           git commit -q -m "ci output run ${GITHUB_RUN_NUMBER} [skip ci]"
           git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "out:refs/heads/ci-out/${GITHUB_REF_NAME}"
+
+      # the alpha for testers: only from flutter/v2 and only when everything passed
+      - name: Alpha notes
+        id: alpha
+        if: github.ref_name == 'flutter/v2' && steps.analyze.outcome == 'success' && steps.test.outcome == 'success' && steps.apk.outcome == 'success'
+        run: |
+          cp ci-out/xueci-dev.apk XueCiMandarin-alpha.apk
+          {
+            echo "**Test build — not a release yet.** Build 1.0.0-alpha.${GITHUB_RUN_NUMBER} ($(git rev-parse --short HEAD)), replaced by every new test build."
+            echo
+            awk 'index($0,"## ")==1{if(p)exit; p=(index($0,"## v1.0 ")==1)} p' CHANGELOG.md | tail -n +2
+            echo
+            echo "---"
+            echo
+            echo "Download **XueCiMandarin-alpha.apk** and open it on an Android phone. It installs over the earlier app and keeps your progress."
+          } > alpha.md
+
+      - name: Publish the alpha (pre-release)
+        if: steps.alpha.outcome == 'success'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0-alpha
+          target_commitish: ${{ github.sha }}
+          name: XueCi Mandarin 1.0 alpha
+          body_path: alpha.md
+          prerelease: true
+          make_latest: false
+          files: XueCiMandarin-alpha.apk
 
       - name: Fail when a step failed
         if: steps.assets.outcome == 'failure' || steps.pub.outcome == 'failure' || steps.analyze.outcome == 'failure' || steps.test.outcome == 'failure' || steps.apk.outcome == 'failure'

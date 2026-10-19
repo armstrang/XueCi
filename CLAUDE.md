@@ -167,12 +167,14 @@ editing any `z` or word pinyin.** Pinyin fixed by hand (Oct 2026, checked agains
   Docs/art/store-only changes do not trigger a build (`paths-ignore`); add `[skip ci]` to a commit message to skip one otherwise.
   A guard step refuses to publish into an existing release tag.
 - `.github/workflows/flutter.yml` (push to `flutter/**`): the same steps without publishing; everything it produces
-  (summary, analyzer/test/build logs, screenshots, `xueci-dev.apk` = versionCode 1000 + run, name 0.9.run, signed with the same key)
-  is pushed to branch `ci-out/<branch>`: `git fetch origin "+refs/heads/ci-out/flutter/v2:refs/remotes/origin/ci-out/flutter/v2"`.
+  (summary, analyzer/test/build logs, screenshots, `xueci-dev.apk` = versionCode 1000 + run, name 1.0.0-alpha.run, signed with
+  the same key) is pushed to branch `ci-out/<branch>`; from `flutter/v2`, when analyze, tests and build pass, the APK is
+  also published as the pre-release **`v1.0-alpha`** (`XueCiMandarin-alpha.apk`, replaced each run, never latest).
+  Josh, Oct 2026: the Flutter app stays in testing as 1.0-alpha; don't merge to `main` (= a real release) until he says so: `git fetch origin "+refs/heads/ci-out/flutter/v2:refs/remotes/origin/ci-out/flutter/v2"`.
   Develop there, then fast-forward `main`.
 - `.github/workflows/flutter-sdk.yml` made the `dev-flutter-sdk` pre-release (the SDK for Claude's cloud sessions,
   `mobile/tool/cloud_sdk.sh`); a dev tool, delete it after the first Flutter release when Josh agrees.
-- The release guard refuses an existing tag: the WebView releases v1.0–v1.17 still in this repo's Releases must be
-  deleted (Josh, by hand on GitHub) before the first Flutter release can be tagged v1.0.
+- The release guard refuses an existing tag: the WebView releases v1.0–v1.17 in this repo's Releases (Josh: delete
+  them all) must be gone, with their tags, before the first Flutter release can be tagged v1.0.
 - CI artifact zips can't be downloaded from Claude's cloud sessions (blob storage is blocked); release assets and branches can.
   In Claude's cloud sessions the GitHub proxy refuses API writes to releases/tags (HTTP 403), and GraphQL (`gh release list`), so let CI do the publishing and use `gh api`.

@@ -7,7 +7,7 @@ before pushing.
 The Flutter app started again at v1.0 in October 2026. The earlier WebView app (v1.0–v1.17) and its changelog now
 live in [armstrang/Merdeka-Mandarin](https://github.com/armstrang/Merdeka-Mandarin).
 
-## v1.0 — October 2026
+## v1.0 — in testing (1.0-alpha), not released yet
 
 **XueCi starts again at 1.0 as a native app (Flutter) instead of a web page inside the app: the same app and the
 same progress, every screen drawn natively, with a new look that is easier to read.**
