@@ -17,6 +17,7 @@ import 'package:intl/intl.dart';
 import '../data/seal.dart';
 import '../data/store.dart';
 import '../data/words.dart';
+import '../engine/fsrs.dart' as fsrs;
 import '../engine/js.dart';
 import '../engine/learn.dart';
 import '../i18n/l10.dart';
@@ -238,6 +239,8 @@ class App extends ChangeNotifier {
       await initializeDateFormatting(_intlLoc(l));
     }
     lm.ttsReady = () => ttsOK;
+    loadRem();
+    canRemind = Native.I.isAndroid;
     lm.saveStats();
   }
 
@@ -448,13 +451,60 @@ class App extends ChangeNotifier {
     go('session');
   }
 
-  /// the last backup code made (xc_bk): a quiet dot on Settings after 30 practised words and no backup for 30 days
+  // ---------------------------------------------------------------- backup timing (xc_bk = ms since 1970, as v1.x)
+  int nowMs() => lm.now() * 60000 + fsrs.epochMs;
+  int practisedN([Map<String, List<num>>? st]) => (st ?? lm.stats).values.where((e) => e.length > 1 && e[0] + e[1] > 0).length;
+  int bkLastAt() {
+    final t = store.get('xc_bk', 0);
+    return t is num && t.isFinite && t > 0 ? t.toInt() : 0;
+  }
+
+  int? bkAge() {
+    final t = bkLastAt();
+    return t > 0 ? ((nowMs() - t) / 864e5).floor() : null;
+  }
+
+  /// worth a reminder: some real progress, and no backup yet or the last one is over a month old (a quiet dot)
   bool bkDue() {
-    final n = lm.stats.length;
-    if (n < 30) return false;
-    final at = store.get('xc_bk', null);
-    if (at is! num) return true;
-    return lm.now() - at > 30 * 1440;
+    final a = bkAge();
+    return practisedN() >= 30 && (a == null || a > 30);
+  }
+
+  void bkNoted() {
+    store.set('xc_bk', nowMs());
+    notifyListeners();
+  }
+
+  // ---------------------------------------------------------------- daily reminder (Android)
+  bool canRemind = false;
+  Map<String, dynamic> rem = {'on': false, 'h': 19, 'm': 0};
+  void loadRem() {
+    final r = store.get('xc_rem', {});
+    if (r is Map) {
+      rem = {'on': r['on'] == true, 'h': r['h'] is num ? (r['h'] as num).toInt() : 19, 'm': r['m'] is num ? (r['m'] as num).toInt() : 0};
+    }
+  }
+
+  String _remKey = '';
+  String remBody() {
+    final p = lm.plan(), g = lm.goal;
+    final min = math.max(5, p.minutes);
+    return g != null && g['t'] != 'none'
+        ? t.remGoal(min, g['t'] == 'exam' ? t.gExamChip(g['lv'], dateS(g['date'] as String)) : 'HSK ${g['lv']}')
+        : t.remFree(min);
+  }
+
+  void syncReminder() {
+    if (!canRemind) return;
+    final o = {'on': rem['on'] == true, 'h': rem['h'], 'm': rem['m'], 'title': t.remTitle, 'body': remBody(), 'channel': t.remChannel};
+    final k = json.encode(o);
+    if (k == _remKey) return;
+    _remKey = k;
+    Native.I.setReminder(o);
+  }
+
+  void syncRest() {
+    if (Native.I.isAndroid) Native.I.setRestDays(lm.rest);
   }
 
   // ---------------------------------------------------------------- the home-screen widget (Android)

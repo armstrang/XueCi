@@ -12,7 +12,6 @@ import 'icons.dart';
 import 'theme.dart';
 
 Future<T?> openSheet<T>(BuildContext context, Widget Function(BuildContext) body, {bool dismissible = true, String? name}) {
-  final th = Th.of(context);
   return showGeneralDialog<T>(
     context: context,
     barrierDismissible: dismissible,
@@ -20,14 +19,9 @@ Future<T?> openSheet<T>(BuildContext context, Widget Function(BuildContext) body
     barrierColor: const Color.fromRGBO(8, 10, 16, .34),
     transitionDuration: const Duration(milliseconds: 340),
     routeSettings: RouteSettings(name: name),
-    pageBuilder: (c, a1, a2) => Th(
-      p: th.p,
-      acc: th.acc,
-      rc: th.rc,
-      low: th.low,
-      full: th.full,
-      fs: th.fs,
-      child: _SheetFrame(child: Builder(builder: body)),
+    // the route sits under the app's Th (MaterialApp.builder), so a theme change mid-sheet shows at once
+    pageBuilder: (c, a1, a2) => _SheetFrame(
+      child: ListenableBuilder(listenable: app, builder: (c, _) => Builder(builder: body)),
     ),
     transitionBuilder: (c, a, _, child) {
       final wide = MediaQuery.sizeOf(c).width >= 600;

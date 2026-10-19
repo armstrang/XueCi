@@ -4,7 +4,14 @@ library;
 import 'package:flutter/material.dart';
 
 import '../app/app.dart';
+import '../i18n/l10.dart' show jsTruthy;
+import 'dart:async';
+
 import 'focus.dart';
+import 'goal.dart';
+import 'info.dart';
+import 'settings.dart';
+import 'shell.dart' show navKey;
 import 'glass.dart';
 import 'realm.dart';
 import 'run_view.dart';
@@ -47,8 +54,37 @@ class _Todo extends StatelessWidget {
 
 void unused() => app;
 
-/// the sheets Home and the other screens open (registered once, before the first frame)
+/// the sheets Home and the other screens open, and the work after the first frame (registered once)
+var _wired = false;
 void wireSheets() {
   app.openRealm = openRealmSheet;
   app.openShare = openShareSheet;
+  app.openSettings = openSettings;
+  app.openStreak = openStreak;
+  app.openInfo = (c, topic) => openInfo(c, topic);
+  app.openGoal = (c, first, [focus]) => openGoal(c, first, focus);
+  app.onWordmark = () {
+    final c = navKey.currentContext;
+    if (c != null) eggTap(c);
+  };
+  if (_wired) return;
+  _wired = true;
+  app.startHooks.add((context) {
+    app.syncRest();
+    // back after two or more days off: how much is still remembered (once a day)
+    final s = app.lm.sinceLast();
+    final day = app.lm.today();
+    if (s != null && s.gap >= 2 && s.recall != null && app.note['back'] != day) {
+      app.note['back'] = day;
+      app.saveNote();
+      Timer(const Duration(milliseconds: 900), () => app.toast(app.t.backMsg(s.gap, s.recall), 6500));
+    }
+    // first start: the short tour, which ends in the goal sheet
+    if (app.lm.goal == null && !jsTruthy(app.store.get('xc_onb', 0))) {
+      Timer(const Duration(milliseconds: 500), () {
+        final c = navKey.currentContext;
+        if (c != null && app.screen == 'home' && ModalRoute.of(c)?.isCurrent != false) openTour(c, true);
+      });
+    }
+  });
 }

@@ -803,6 +803,7 @@ class PlanCard extends StatelessWidget {
       line = Text('${t.planDone} ✓', style: lineStyle);
     }
     app.syncWidget(todo ? '${P.revToday}·${P.newToday}' : t.planDone);
+    app.syncReminder();
     final cc = math.min(c['cnt'] as int, c['n'] as int);
     final cDone = c['done'] == true;
     final cl =

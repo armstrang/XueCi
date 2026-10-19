@@ -11,6 +11,8 @@ import 'package:xueci/data/store.dart';
 import 'package:xueci/engine/fsrs.dart' as fsrs;
 import 'package:xueci/engine/js.dart';
 import 'package:xueci/ui/glass.dart';
+import 'package:xueci/ui/backup_sheet.dart';
+import 'package:xueci/ui/settings.dart';
 import 'package:xueci/ui/share.dart';
 import 'package:xueci/ui/shell.dart';
 
@@ -163,6 +165,19 @@ void runs() {
     File('test/goldens/share-card.png').writeAsBytesSync(png);
     expect(png.length, greaterThan(10000));
   });
+  for (final (name, open) in <(String, void Function(BuildContext))>[
+    ('settings', (c) => app.openSettings!(c)),
+    ('streak', (c) => app.openStreak!(c)),
+    ('goal', (c) => app.openGoal!(c, false)),
+    ('backup', (c) => openBackup(c)),
+    ('info', (c) => app.openInfo!(c, 'realm')),
+    ('tour', (c) => openTour(c, false)),
+  ]) {
+    testWidgets('sheet $name', (t) async {
+      await t.runAsync(() => bootApp({...sample(), 'xc_onb': '1'}));
+      await shot(t, 'sheet-$name', size: const Size(412, 1400), after: () => open(navKey.currentContext!));
+    });
+  }
   testWidgets('mock intro', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_ui': '{"level":3,"qt":"mock"}'}));
     await shot(t, 'mock-intro', before: () => app.go('quiz'));
