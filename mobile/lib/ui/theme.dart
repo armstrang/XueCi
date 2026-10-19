@@ -226,7 +226,7 @@ class Pal {
       _c(0xff85d7a0), _c(0xff74d0d6), _c(0xff83c5ed), _c(0xffa4b1f6), _c(0xffc9a9f2), _c(0xffef9ec7), //
       _c(0xffebc770), _c(0xffffa08c), _c(0xffb4bfe1),
     ],
-    tone: [_c(0xffff7a66), _c(0xfff2a64a), _c(0xff5fd38f), _c(0xff86aeff), _c(0xffb7bfba)],
+    tone: [_c(0xffff7a66), _c(0xfff2a64a), _c(0xff5fd38f), _c(0xff9cbcff), _c(0xffb7bfba)],
     sRed: _c(0xffff6b6b),
     sYellow: _c(0xfff5d04a),
     sGreen: _c(0xff62d26f),
