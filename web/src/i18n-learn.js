@@ -2908,6 +2908,304 @@ Object.assign(I18N.vi, {
   cardWords: 'từ đã luyện',
 });
 
+/* v1.17: the HSK simulation (mock exam) with correction and advice; the 20-question exam becomes the quick exam */
+Object.assign(I18N.id, {
+  tExam: 'Ujian kilat',
+  tMock: 'Simulasi HSK',
+  dMock: 'Seperti ujian asli: mendengar, membaca, menulis · dinilai dan dibahas di akhir',
+  partN: { listen: 'Mendengar', read: 'Membaca', write: 'Menulis' },
+  mkIntroT: l => `Simulasi HSK ${l}`,
+  mkIntro:
+    'Soal disusun seperti ujian HSK. Tidak ada koreksi selama ujian; di akhir kamu mendapat nilai per bagian, pembahasan setiap soal, dan saran latihan.',
+  mkRows: (n, m) => `${n} soal · ±${m} menit`,
+  mkTime: m => `Waktu ${m} menit`,
+  mkPass: (need, max) => `lulus dengan ${need} dari ${max} poin`,
+  mkWriteNote: 'Bagian menulis di simulasi ini: pilih hanzi untuk sebuah arti dan ketik pinyin dari ingatan.',
+  mkNoTts: 'Suara Mandarin tidak tersedia di HP ini, jadi bagian mendengar dilewati. Nilai dihitung dari bagian lain.',
+  mkNote: 'Nilai ini perkiraan dari kosakata di aplikasi, bukan nilai resmi HSK.',
+  mkLast: (t, max, d) => `Simulasi terakhir: ${t} dari ${max} (${d}).`,
+  mkStart: 'Mulai simulasi',
+  mkPartT: (i, n) => `Bagian ${i} dari ${n}`,
+  mkPartD: {
+    listen: n => `${n} soal. Dengarkan kata, lalu pilih hanzinya. Tombol speaker bisa ditekan lagi.`,
+    read: n => `${n} soal: arti kata, isian kalimat, dan terjemahan kalimat.`,
+    write: n => `${n} soal: pilih hanzi untuk arti yang diberikan, lalu ketik pinyin dari ingatan.`,
+  },
+  mkPartGo: 'Mulai bagian ini',
+  mkPassY: 'LULUS',
+  mkPassN: 'BELUM LULUS',
+  mkNeed: (need, max) => `Batas lulus ${need} dari ${max}`,
+  mkUsed: (a, b) => `waktu ${a} dari ${b}`,
+  mkRight: (r, n) => `${r} dari ${n} benar`,
+  mkAdvT: 'Saran',
+  mkRevT: 'Koreksi',
+  mkHistT: 'Riwayat simulasi di level ini',
+  mkYour: 'Jawabanmu',
+  mkAns: 'Jawaban benar',
+  mkNone: 'tidak dijawab',
+  mkIdk: 'tidak tahu',
+  mkWrongN: n => `${n} salah`,
+  mkAllRight: 'semua benar',
+  mkAgain: 'Ulangi simulasi',
+  mkA: {
+    top: (l, nx) =>
+      nx
+        ? `Nilaimu sangat baik untuk HSK ${l}. Saatnya mencoba simulasi HSK ${nx}.`
+        : `Nilaimu sangat baik untuk HSK ${l}. Pertahankan dengan ulangan rutin.`,
+    pass: 'Lulus. Untuk hasil yang lebih aman (85% ke atas), perkuat bagian yang paling lemah.',
+    near: p => `Hampir lulus: kurang ${p} poin lagi.`,
+    low: l =>
+      `Kosakata HSK ${l} belum cukup kuat. Ikuti rencana harian dulu, lalu ulangi simulasi dalam satu atau dua minggu.`,
+    part: {
+      listen: s => `Bagian mendengar paling lemah (${s}). Latih kata-kata yang salah lewat kuis mendengar.`,
+      read: s => `Bagian membaca paling lemah (${s}). Latih kata-kata yang salah bersama kalimat contohnya.`,
+      write: s => `Bagian menulis paling lemah (${s}). Latih mengingat hanzi dan pinyin tanpa melihat pilihan.`,
+    },
+    cloze: 'Isian kalimat sering meleset: pelajari kalimat contoh setiap kata, bukan artinya saja.',
+    trans: 'Terjemahan kalimat sering meleset: baca seluruh kalimat, bukan hanya satu kata yang dikenal.',
+    tone: 'Bunyi pinyin yang diketik sudah benar, tetapi nadanya salah. Hafalkan nada bersama bunyinya.',
+    older: (n, l) => `${n} kata dari level di bawah HSK ${l} terlupa. Dasar ini juga diuji, jadi ulangi juga.`,
+    time: 'Waktu habis sebelum semua soal selesai. Latih kecepatan dengan Ujian kilat (20 soal, 5 menit).',
+    fast: 'Kamu menjawab jauh lebih cepat dari batas waktu. Waktunya cukup, jadi baca soal lebih teliti.',
+    cmp: (d, dt) =>
+      d > 0
+        ? `Naik ${d} poin dari simulasi sebelumnya (${dt}).`
+        : d < 0
+          ? `Turun ${-d} poin dari simulasi sebelumnya (${dt}).`
+          : `Sama dengan simulasi sebelumnya (${dt}).`,
+    wrong: n => `Ulangi ${n} soal yang salah sekarang, selagi masih segar.`,
+    wrongBtn: n => `Latih ${n} kata`,
+    partBtn: 'Latih bagian ini',
+    examBtn: 'Ujian kilat',
+    nextBtn: l => `Simulasi HSK ${l}`,
+    planBtn: 'Ke rencana hari ini',
+  },
+});
+I18N.id.mkLeave = 'Tekan kembali sekali lagi untuk keluar. Jawaban simulasi ini tidak disimpan.';
+I18N.id.sumT.exam = 'Ujian kilat selesai';
+Object.assign(I18N.en, {
+  tExam: 'Quick exam',
+  tMock: 'HSK mock exam',
+  dMock: 'Like the real exam: listening, reading, writing · marked and explained at the end',
+  partN: { listen: 'Listening', read: 'Reading', write: 'Writing' },
+  mkIntroT: l => `HSK ${l} mock exam`,
+  mkIntro:
+    'The questions are laid out like the HSK. Nothing is marked during the exam; at the end you get a score for each part, every question explained, and advice on what to practise.',
+  mkRows: (n, m) => `${n} questions · about ${m} min`,
+  mkTime: m => `${m} minutes`,
+  mkPass: (need, max) => `pass with ${need} of ${max} points`,
+  mkWriteNote: 'Writing in this mock exam: pick the hanzi for a meaning, and type the pinyin from memory.',
+  mkNoTts: 'This phone has no Chinese voice, so the listening part is left out. The score comes from the other parts.',
+  mkNote: 'This score is an estimate from the app’s vocabulary, not an official HSK score.',
+  mkLast: (t, max, d) => `Last mock exam: ${t} of ${max} (${d}).`,
+  mkStart: 'Start the exam',
+  mkPartT: (i, n) => `Part ${i} of ${n}`,
+  mkPartD: {
+    listen: n => `${n} questions. Listen to a word, then pick its hanzi. You can press the speaker again.`,
+    read: n => `${n} questions: word meanings, sentence gaps and sentence translations.`,
+    write: n => `${n} questions: pick the hanzi for a meaning, then type the pinyin from memory.`,
+  },
+  mkPartGo: 'Start this part',
+  mkPassY: 'PASSED',
+  mkPassN: 'NOT YET',
+  mkNeed: (need, max) => `Pass mark ${need} of ${max}`,
+  mkUsed: (a, b) => `time ${a} of ${b}`,
+  mkRight: (r, n) => `${r} of ${n} right`,
+  mkAdvT: 'Advice',
+  mkRevT: 'Corrections',
+  mkHistT: 'Mock exams at this level',
+  mkYour: 'Your answer',
+  mkAns: 'Right answer',
+  mkNone: 'not answered',
+  mkIdk: 'didn’t know',
+  mkWrongN: n => `${n} wrong`,
+  mkAllRight: 'all right',
+  mkAgain: 'Take it again',
+  mkA: {
+    top: (l, nx) =>
+      nx
+        ? `An excellent score for HSK ${l}. Time to try the HSK ${nx} mock exam.`
+        : `An excellent score for HSK ${l}. Keep it with regular reviews.`,
+    pass: 'Passed. For a safer result (85% or more), strengthen your weakest part.',
+    near: p => `Almost there: ${p} more points to pass.`,
+    low: l =>
+      `Your HSK ${l} vocabulary is not strong enough yet. Follow the daily plan first, then take the mock exam again in a week or two.`,
+    part: {
+      listen: s => `Listening is your weakest part (${s}). Practise the words you missed with listening questions.`,
+      read: s =>
+        `Reading is your weakest part (${s}). Practise the words you missed together with their example sentences.`,
+      write: s =>
+        `Writing is your weakest part (${s}). Practise recalling hanzi and pinyin without options to choose from.`,
+    },
+    cloze: 'Sentence gaps often went wrong: learn each word’s example sentence, not only its meaning.',
+    trans: 'Sentence translations often went wrong: read the whole sentence, not just the one word you know.',
+    tone: 'The pinyin you typed had the right sounds but the wrong tones. Learn the tone together with the sound.',
+    older: (n, l) => `${n} words from below HSK ${l} were forgotten. The exam tests them too, so review them as well.`,
+    time: 'Time ran out before every question was done. Build speed with the Quick exam (20 questions, 5 minutes).',
+    fast: 'You answered much faster than the time allows. There is time, so read each question more carefully.',
+    cmp: (d, dt) =>
+      d > 0
+        ? `${d} points up on your last mock exam (${dt}).`
+        : d < 0
+          ? `${-d} points down on your last mock exam (${dt}).`
+          : `The same score as your last mock exam (${dt}).`,
+    wrong: n => `Go over the ${n} questions you missed now, while they are fresh.`,
+    wrongBtn: n => `Practise ${n} words`,
+    partBtn: 'Practise this part',
+    examBtn: 'Quick exam',
+    nextBtn: l => `HSK ${l} mock exam`,
+    planBtn: 'To today’s plan',
+  },
+});
+I18N.en.mkLeave = 'Press back once more to leave. This mock exam will not be saved.';
+I18N.en.sumT.exam = 'Quick exam complete';
+Object.assign(I18N.th, {
+  tExam: 'สอบด่วน',
+  tMock: 'จำลองสอบ HSK',
+  dMock: 'เหมือนข้อสอบจริง: ฟัง อ่าน เขียน · ตรวจและอธิบายให้ตอนจบ',
+  partN: { listen: 'การฟัง', read: 'การอ่าน', write: 'การเขียน' },
+  mkIntroT: l => `จำลองสอบ HSK ${l}`,
+  mkIntro:
+    'ข้อสอบจัดเหมือน HSK ระหว่างสอบจะไม่มีการเฉลย เมื่อจบคุณจะได้คะแนนแต่ละส่วน คำอธิบายทุกข้อ และคำแนะนำว่าควรฝึกอะไร',
+  mkRows: (n, m) => `${n} ข้อ · ประมาณ ${m} นาที`,
+  mkTime: m => `เวลา ${m} นาที`,
+  mkPass: (need, max) => `ผ่านเมื่อได้ ${need} จาก ${max} คะแนน`,
+  mkWriteNote: 'การเขียนในการจำลองสอบนี้: เลือกตัวอักษรจีนตามความหมาย และพิมพ์พินอินจากความจำ',
+  mkNoTts: 'โทรศัพท์เครื่องนี้ไม่มีเสียงภาษาจีน จึงข้ามส่วนการฟัง คะแนนคิดจากส่วนอื่น',
+  mkNote: 'คะแนนนี้เป็นการประมาณจากคำศัพท์ในแอป ไม่ใช่คะแนน HSK อย่างเป็นทางการ',
+  mkLast: (t, max, d) => `จำลองสอบครั้งล่าสุด: ${t} จาก ${max} (${d})`,
+  mkStart: 'เริ่มสอบ',
+  mkPartT: (i, n) => `ส่วนที่ ${i} จาก ${n}`,
+  mkPartD: {
+    listen: n => `${n} ข้อ ฟังคำแล้วเลือกตัวอักษรจีน กดปุ่มลำโพงซ้ำได้`,
+    read: n => `${n} ข้อ: ความหมายของคำ เติมคำในประโยค และคำแปลประโยค`,
+    write: n => `${n} ข้อ: เลือกตัวอักษรจีนตามความหมาย แล้วพิมพ์พินอินจากความจำ`,
+  },
+  mkPartGo: 'เริ่มส่วนนี้',
+  mkPassY: 'ผ่าน',
+  mkPassN: 'ยังไม่ผ่าน',
+  mkNeed: (need, max) => `เกณฑ์ผ่าน ${need} จาก ${max}`,
+  mkUsed: (a, b) => `ใช้เวลา ${a} จาก ${b}`,
+  mkRight: (r, n) => `ถูก ${r} จาก ${n}`,
+  mkAdvT: 'คำแนะนำ',
+  mkRevT: 'เฉลย',
+  mkHistT: 'ประวัติการจำลองสอบระดับนี้',
+  mkYour: 'คำตอบของคุณ',
+  mkAns: 'คำตอบที่ถูก',
+  mkNone: 'ไม่ได้ตอบ',
+  mkIdk: 'ไม่รู้',
+  mkWrongN: n => `ผิด ${n} ข้อ`,
+  mkAllRight: 'ถูกทั้งหมด',
+  mkAgain: 'สอบอีกครั้ง',
+  mkA: {
+    top: (l, nx) =>
+      nx
+        ? `คะแนนดีมากสำหรับ HSK ${l} ถึงเวลาลองจำลองสอบ HSK ${nx} แล้ว`
+        : `คะแนนดีมากสำหรับ HSK ${l} รักษาไว้ด้วยการทบทวนสม่ำเสมอ`,
+    pass: 'ผ่านแล้ว ถ้าอยากได้ผลที่มั่นใจกว่า (85% ขึ้นไป) ให้เสริมส่วนที่อ่อนที่สุด',
+    near: p => `เกือบผ่านแล้ว ขาดอีก ${p} คะแนน`,
+    low: l => `คำศัพท์ HSK ${l} ยังไม่แน่นพอ ทำตามแผนรายวันก่อน แล้วจำลองสอบใหม่ในอีกหนึ่งถึงสองสัปดาห์`,
+    part: {
+      listen: s => `ส่วนการฟังอ่อนที่สุด (${s}) ฝึกคำที่ผิดด้วยคำถามการฟัง`,
+      read: s => `ส่วนการอ่านอ่อนที่สุด (${s}) ฝึกคำที่ผิดพร้อมประโยคตัวอย่าง`,
+      write: s => `ส่วนการเขียนอ่อนที่สุด (${s}) ฝึกนึกตัวอักษรจีนและพินอินโดยไม่ดูตัวเลือก`,
+    },
+    cloze: 'เติมคำในประโยคผิดบ่อย: เรียนประโยคตัวอย่างของแต่ละคำ ไม่ใช่แค่ความหมาย',
+    trans: 'แปลประโยคผิดบ่อย: อ่านทั้งประโยค ไม่ใช่แค่คำเดียวที่รู้จัก',
+    tone: 'พินอินที่พิมพ์มีเสียงถูกแต่วรรณยุกต์ผิด จำวรรณยุกต์ไปพร้อมกับเสียง',
+    older: (n, l) => `ลืมคำจากระดับต่ำกว่า HSK ${l} ไป ${n} คำ ข้อสอบวัดคำเหล่านี้ด้วย จึงควรทบทวนเช่นกัน`,
+    time: 'หมดเวลาก่อนทำครบทุกข้อ ฝึกความเร็วด้วยสอบด่วน (20 ข้อ 5 นาที)',
+    fast: 'คุณตอบเร็วกว่าเวลาที่มีมาก ยังมีเวลาพอ อ่านโจทย์ให้ละเอียดขึ้น',
+    cmp: (d, dt) =>
+      d > 0
+        ? `เพิ่มขึ้น ${d} คะแนนจากครั้งก่อน (${dt})`
+        : d < 0
+          ? `ลดลง ${-d} คะแนนจากครั้งก่อน (${dt})`
+          : `เท่ากับครั้งก่อน (${dt})`,
+    wrong: n => `ทบทวน ${n} ข้อที่ผิดตอนนี้เลย ขณะที่ยังจำได้`,
+    wrongBtn: n => `ฝึก ${n} คำ`,
+    partBtn: 'ฝึกส่วนนี้',
+    examBtn: 'สอบด่วน',
+    nextBtn: l => `จำลองสอบ HSK ${l}`,
+    planBtn: 'ไปที่แผนวันนี้',
+  },
+});
+I18N.th.mkLeave = 'กดย้อนกลับอีกครั้งเพื่อออก การจำลองสอบนี้จะไม่ถูกบันทึก';
+I18N.th.sumT.exam = 'จบการสอบด่วนแล้ว';
+Object.assign(I18N.vi, {
+  tExam: 'Kiểm tra nhanh',
+  tMock: 'Thi thử HSK',
+  dMock: 'Như kỳ thi thật: nghe, đọc, viết · chấm và giải thích khi kết thúc',
+  partN: { listen: 'Nghe', read: 'Đọc', write: 'Viết' },
+  mkIntroT: l => `Thi thử HSK ${l}`,
+  mkIntro:
+    'Câu hỏi được sắp xếp như kỳ thi HSK. Trong khi thi không có chấm điểm; khi kết thúc bạn nhận điểm từng phần, lời giải cho mọi câu và gợi ý nên luyện gì.',
+  mkRows: (n, m) => `${n} câu · khoảng ${m} phút`,
+  mkTime: m => `${m} phút`,
+  mkPass: (need, max) => `đạt khi được ${need}/${max} điểm`,
+  mkWriteNote: 'Phần viết trong bài thi thử này: chọn chữ Hán theo nghĩa và gõ pinyin theo trí nhớ.',
+  mkNoTts: 'Điện thoại này không có giọng tiếng Trung, nên bỏ qua phần nghe. Điểm tính từ các phần còn lại.',
+  mkNote: 'Điểm này là ước tính từ từ vựng trong ứng dụng, không phải điểm HSK chính thức.',
+  mkLast: (t, max, d) => `Lần thi thử gần nhất: ${t}/${max} (${d}).`,
+  mkStart: 'Bắt đầu thi',
+  mkPartT: (i, n) => `Phần ${i}/${n}`,
+  mkPartD: {
+    listen: n => `${n} câu. Nghe một từ rồi chọn chữ Hán. Có thể bấm loa để nghe lại.`,
+    read: n => `${n} câu: nghĩa của từ, điền vào câu và dịch câu.`,
+    write: n => `${n} câu: chọn chữ Hán theo nghĩa, rồi gõ pinyin theo trí nhớ.`,
+  },
+  mkPartGo: 'Bắt đầu phần này',
+  mkPassY: 'ĐẠT',
+  mkPassN: 'CHƯA ĐẠT',
+  mkNeed: (need, max) => `Điểm đạt ${need}/${max}`,
+  mkUsed: (a, b) => `thời gian ${a}/${b}`,
+  mkRight: (r, n) => `đúng ${r}/${n}`,
+  mkAdvT: 'Gợi ý',
+  mkRevT: 'Chữa bài',
+  mkHistT: 'Các lần thi thử ở cấp này',
+  mkYour: 'Bạn chọn',
+  mkAns: 'Đáp án đúng',
+  mkNone: 'chưa trả lời',
+  mkIdk: 'không biết',
+  mkWrongN: n => `sai ${n} câu`,
+  mkAllRight: 'đúng hết',
+  mkAgain: 'Thi lại',
+  mkA: {
+    top: (l, nx) =>
+      nx
+        ? `Điểm rất tốt cho HSK ${l}. Đã đến lúc thử bài thi thử HSK ${nx}.`
+        : `Điểm rất tốt cho HSK ${l}. Hãy giữ vững bằng cách ôn tập đều đặn.`,
+    pass: 'Đạt. Để chắc chắn hơn (từ 85% trở lên), hãy củng cố phần yếu nhất.',
+    near: p => `Gần đạt rồi: còn thiếu ${p} điểm.`,
+    low: l => `Từ vựng HSK ${l} chưa đủ vững. Hãy theo kế hoạch hằng ngày trước, rồi thi thử lại sau một hai tuần.`,
+    part: {
+      listen: s => `Phần nghe yếu nhất (${s}). Luyện các từ sai bằng câu hỏi nghe.`,
+      read: s => `Phần đọc yếu nhất (${s}). Luyện các từ sai cùng câu ví dụ của chúng.`,
+      write: s => `Phần viết yếu nhất (${s}). Luyện nhớ chữ Hán và pinyin mà không nhìn đáp án.`,
+    },
+    cloze: 'Điền vào câu hay sai: hãy học câu ví dụ của từng từ, không chỉ nghĩa của nó.',
+    trans: 'Dịch câu hay sai: hãy đọc cả câu, không chỉ một từ bạn biết.',
+    tone: 'Pinyin bạn gõ đúng âm nhưng sai thanh. Hãy nhớ thanh điệu cùng với âm.',
+    older: (n, l) => `Quên ${n} từ của các cấp dưới HSK ${l}. Bài thi cũng kiểm tra chúng, nên hãy ôn lại.`,
+    time: 'Hết giờ trước khi làm xong. Luyện tốc độ với Kiểm tra nhanh (20 câu, 5 phút).',
+    fast: 'Bạn trả lời nhanh hơn nhiều so với thời gian cho phép. Còn thời gian, hãy đọc đề kỹ hơn.',
+    cmp: (d, dt) =>
+      d > 0
+        ? `Tăng ${d} điểm so với lần trước (${dt}).`
+        : d < 0
+          ? `Giảm ${-d} điểm so với lần trước (${dt}).`
+          : `Bằng điểm lần trước (${dt}).`,
+    wrong: n => `Ôn lại ${n} câu sai ngay bây giờ, khi còn nhớ.`,
+    wrongBtn: n => `Luyện ${n} từ`,
+    partBtn: 'Luyện phần này',
+    examBtn: 'Kiểm tra nhanh',
+    nextBtn: l => `Thi thử HSK ${l}`,
+    planBtn: 'Đến kế hoạch hôm nay',
+  },
+});
+I18N.vi.mkLeave = 'Bấm quay lại lần nữa để thoát. Bài thi thử này sẽ không được lưu.';
+I18N.vi.sumT.exam = 'Đã xong bài kiểm tra nhanh';
+
 /*<seal>*/
 /* sealed until the gate opens: build.py moves this into the sealed data, so the page itself never names what is behind it */
 I18N.id.realmM.push('Abadi Sejati', 'Abadi Misterius', 'Daluo, Puncak Abadi');

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- the icon's colours: vermilion into violet into deep blue -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="24dp" />
+    <gradient
+        android:angle="315"
+        android:centerColor="#FF6E1E86"
+        android:endColor="#FF1B2CA6"
+        android:startColor="#FFE5452E"
+        android:type="linear" />
+</shape>

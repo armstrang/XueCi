@@ -34,6 +34,10 @@ function renderSummary() {
     clearInterval(run.timer);
     run.timer = 0;
   }
+  if (run.mock) {
+    renderMockResult();
+    return;
+  }
   if (!run.closed) {
     run.closed = true;
     LM.updWeak();

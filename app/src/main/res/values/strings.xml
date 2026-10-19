@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">XueCi Mandarin</string>
+    <string name="widget_desc">Your realm, today\'s plan and cultivation days</string>
+    <string name="widget_empty">Open the app to begin</string>
 </resources>

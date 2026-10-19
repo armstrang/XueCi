@@ -32,6 +32,7 @@ function makeRun(mode) {
   let items,
     after = null,
     exam = false,
+    mock = null,
     lv = state.level;
   if (pendingRun && pendingRun.mode === mode) {
     items = pendingRun.items;
@@ -42,6 +43,10 @@ function makeRun(mode) {
   else if (qType === 'exam') {
     exam = true;
     items = LM.exam(lv, EXAM_N);
+  } else if (qType === 'mock') {
+    exam = true; /* no feedback until the end */
+    mock = mockMake(lv);
+    items = mock.items;
   } else items = LM.quizRound(pool(), ROUND_Q, qType === 'auto' ? null : qType);
   run = {
     mode,
@@ -57,14 +62,21 @@ function makeRun(mode) {
     lv,
     over: 0,
     after,
+    mock,
   };
-  if (exam) {
+  if (exam && !mock) {
     run.end = Date.now() + EXAM_SEC * 1000;
     run.timer = setInterval(tick, 1000);
   }
 }
 function renderRun() {
   if (!run) makeRun(state.screen);
+  /* during an HSK simulation the tab bar steps aside (a tap on it would end the exam) */
+  document.body.classList.toggle('inexam', !!(run.mock && run.mock.started && !run.mock.r && run.i < run.items.length));
+  if (run.mock && !run.mock.started) {
+    renderMockIntro();
+    return;
+  }
   if (run.brk) {
     renderBreak();
     return;
@@ -72,6 +84,10 @@ function renderRun() {
   const it = run.items[run.i];
   if (!it) {
     renderSummary();
+    return;
+  }
+  if (run.mock && !run.mock.shown.has(it.part)) {
+    renderMockPart(it.part);
     return;
   }
   if (!run.exam && !it.st && !it.opts) {
@@ -198,6 +214,7 @@ function qtList() {
     ['p', L10.tPy, L10.dPy, 'pīn'],
     ['t', L10.tTrans, L10.dTrans, '句→a'],
     ['exam', L10.tExam, L10.dExam(EXAM_N, EXAM_SEC / 60), '考'],
+    ['mock', L10.tMock, L10.dMock, '模'],
   ];
 }
 function clock() {
@@ -225,15 +242,22 @@ function runHead() {
     const lab = !it || it.k === 'card' ? '' : TNAME()[it.q]; /* a card shows "new word" or its level on its face */
     return `<div class="fcmeta"><span>${L10.qN(i, n)}</span><span class="tlabel">${esc(lab)}</span>${progH(run.i, n)}</div>`;
   }
+  if (run.mock) {
+    const h = mockHead();
+    if (h) return h;
+  }
   const QT = qtList(),
-    cur = QT.find(q => q[0] === qType) || QT[0];
+    cur = QT.find(q => q[0] === qType) || QT[0],
+    clockOn = run.exam && !(run.mock && (!run.mock.started || run.mock.r));
   document.body.classList.remove('menuopen'); /* the menu is drawn closed */
   return `<div class="qhead"><div class="qsel" id="qsel">
       <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>
       <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q => `<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0] === qType}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>
      </div><div class="score">${
-       run.exam
-         ? `<span class="timer" id="exTimer">${clock()}</span><span>${L10.qN(i, n)}</span>`
-         : `<span>${L10.qN(i, n)}</span><span>${L10.right} <b>${run.ok}</b>/${run.tot}</span>`
+       run.mock && !clockOn
+         ? `<span>${L10.qN(run.mock.r ? n : 0, n)}</span>`
+         : run.exam
+           ? `<span class="timer" id="exTimer">${clock()}</span><span>${L10.qN(i, n)}</span>`
+           : `<span>${L10.qN(i, n)}</span><span>${L10.right} <b>${run.ok}</b>/${run.tot}</span>`
      }</div></div>`;
 }

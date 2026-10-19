@@ -70,6 +70,7 @@ async function makeCode() {
       lvl: LM.level,
       rest: LM.rest,
       tests: LM.tests,
+      mock: LM.mocks,
       days: [...LM.studyDays()].sort((a, b) => a - b).slice(-730),
       ui: { level: state.level, unitBy: state.unitBy, qt: qType },
       lang: langPref,
@@ -133,6 +134,7 @@ async function readCode(text) {
       lvl: o.lvl,
       rest: o.rest,
       tests: o.tests,
+      mock: o.mock,
       days: o.days,
     };
   } catch (e) {
@@ -267,7 +269,7 @@ async function bkApply() {
   stats = b.stats;
   LM.replace(b.mem || {}, b.goal, b.w);
   LM.restoreLevel(b.lvl);
-  LM.restoreExtra({ tests: b.tests, rest: b.rest, days: b.days });
+  LM.restoreExtra({ tests: b.tests, rest: b.rest, days: b.days, mock: b.mock });
   syncRest(); /* older codes (v1) have no memory states: their levels are kept as "needs confirming" */
   if (b.ui && LEVELS.includes(b.ui.level)) {
     const ub = b.ui.unitBy || {};
@@ -276,7 +278,7 @@ async function bkApply() {
       state.unitBy[l] = Number.isInteger(u) && u >= 0 && u <= UNITS[l] ? u : 1;
     });
     state.level = b.ui.level;
-    if (['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam'].includes(b.ui.qt)) qType = b.ui.qt;
+    if (['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam', 'mock'].includes(b.ui.qt)) qType = b.ui.qt;
   }
   if ((b.lang === 'auto' || LANGS.includes(b.lang)) && b.lang !== langPref) setLang(b.lang, true);
   if (themeList().includes(b.theme) && b.theme !== theme) applyTheme(b.theme, true);

@@ -554,12 +554,47 @@ async function v113Tests() {
   check(fit !== null && s.LM.params && s.LM.params.length === 19, 'optimizer: fits from 100 spaced reviews (was 400)', mc.n);
 }
 
+/* ---------------- v1.17: the HSK simulation ---------------- */
+async function v117Tests() {
+  let s = await sandbox();
+  s.LM.setTts(() => true);
+  const m3 = s.LM.mockExam(3);
+  const parts = m3.parts.map(p => p.k).join(','),
+    n = q => m3.items.filter(it => it.q === q).length;
+  check(parts === 'listen,read,write' && n('l') === 12 && n('m') === 4 && n('c') === 6 && n('t') === 4 && n('f') === 4 && n('p') === 4,
+    'mock HSK 3: listening, reading and writing with the planned question types', { parts, n: m3.items.length });
+  const ids = m3.items.map(it => it.d.id);
+  check(new Set(ids).size === ids.length, 'mock: no word twice');
+  const own = m3.items.filter(it => it.d.l === 3).length / m3.items.length;
+  check(own > 0.5 && own < 0.9 && m3.items.every(it => it.d.l <= 3), 'mock: about 70 % of the words from the level, the rest from below', +own.toFixed(2));
+  check(m3.items.filter(it => it.q === 'c' || it.q === 't').every(it => it.d.z.includes(it.d.h)) &&
+    m3.items.filter(it => it.q === 'p').every(it => [...it.d.h].length <= 3), 'mock: sentence questions only with usable sentences, typed pinyin only for short words');
+  check(m3.sec === 12 * 25 + 4 * 30 + 6 * 60 + 4 * 75 + 4 * 30 + 4 * 45, 'mock: the time limit adds up per question type', m3.sec);
+  const m1 = s.LM.mockExam(1);
+  check(m1.parts.map(p => p.k).join(',') === 'listen,read' && m1.items.every(it => it.d.l === 1), 'mock HSK 1: no writing part, only HSK 1 words');
+  s.LM.setTts(() => false);
+  const mq = s.LM.mockExam(2);
+  check(mq.skipped && mq.parts.every(p => p.k !== 'listen'), 'mock without a Chinese voice: the listening part is left out');
+  /* scoring: parts out of 100, pass at 60 % of the parts taken */
+  m3.items.forEach((it, i) => (it.ok = it.part === 'listen' ? i % 2 === 0 : it.part === 'read' ? true : i % 4 === 0));
+  const r = s.LM.mockScore(m3),
+    by = k => r.parts.find(p => p.k === k);
+  check(r.max === 300 && r.need === 180 && by('read').score === 100 && by('listen').score === 50 && r.total === by('listen').score + 100 + by('write').score && r.pass === r.total >= 180,
+    'mock score: each part out of 100, pass at 180 of 300', r);
+  s.LM.mockSave(m3, r, 600);
+  check(s.LM.mocks.length === 1 && s.LM.mocks[0][1] === 3 && s.LM.mocks[0][2] === r.total && JSON.parse(s.box.get('xc_mock')).length === 1,
+    'mock history kept in xc_mock');
+  s.LM.restoreExtra({ mock: [[1, 3, 200, 300, [60, 70, 70], 900], ['bad'], [2, 12, 1, 1, [], 1]] });
+  check(s.LM.mocks.length === 1 && s.LM.mocks[0][2] === 200, 'mock history from a backup code: bad entries dropped');
+}
+
 module.exports = { sandbox };
 if (require.main === module)
   (async () => {
     await storeTests();
     await engineTests();
     await v113Tests();
+    await v117Tests();
     console.log(failed ? `\n${failed} check(s) failed` : '\nall engine checks passed');
     process.exit(failed ? 1 : 0);
   })().catch(e => {

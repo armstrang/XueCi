@@ -910,6 +910,66 @@ async def reminder_case(browser):
     await ctx.close()
 
 
+MOCK_ANS = """ok => { const g = id => document.getElementById(id);
+  if (g('mkPartGo')) { g('mkPartGo').click(); return 'part' }
+  const it = run && run.items[run.i]; if (!it) return 'end';
+  if (it.q === 'p') { g('pyIn').value = ok ? it.d.s.join(' ') : it.d.p.normalize('NFD').replace(/\\p{M}/gu, ''); g('pyForm').requestSubmit(); return 'p' }
+  document.querySelectorAll('.opts button')[ok ? it.ans : (it.ans + 1) % it.opts.length].click(); return 'a' }"""
+
+
+async def mock_case(browser):
+    """v1.17: the HSK simulation: start card, parts, one clock, no feedback, then the correction and advice."""
+    tag = 'mock'
+    errors = []
+    ctx = await browser.new_context(viewport={'width': 390, 'height': 844}, locale='id-ID')
+    await ctx.add_init_script("""localStorage.setItem('xc_onb','1'); localStorage.setItem('hsk16_ui', JSON.stringify({level: 3, unitBy: {}, qt: 'mock'}));
+      speechSynthesis.getVoices = () => [{lang: 'zh-CN', name: 'zh'}]; speechSynthesis.speak = () => {};""")
+    pg = await ctx.new_page()
+    pg.on('pageerror', lambda e: errors.append(str(e)))
+    await pg.goto(PAGE)
+    await pg.wait_for_timeout(900)
+    await pg.click('#tabbar [data-go="quiz"]')
+    await pg.wait_for_timeout(500)
+    intro = await pg.evaluate("[!!document.getElementById('mkStart'), document.querySelectorAll('.mkintro .stkrow').length, run.mock.items.length, run.mock.sec]")
+    check(intro[0] and intro[1] == 3 and intro[2] == 34, f'{tag}: the HSK 3 simulation opens with its three parts {intro}')
+    await no_leak(pg, tag, 'simulation start')
+    await pg.click('#mkStart')
+    await pg.wait_for_timeout(250)
+    check(await pg.locator('#mkPartGo').is_visible() and await pg.locator('#tabbar').is_hidden() and await pg.evaluate("document.body.classList.contains('inexam')"),
+          f'{tag}: each part opens with its own card; the tab bar steps aside')
+    await pg.click('#mkPartGo')
+    await pg.wait_for_timeout(200)
+    head = await pg.evaluate("[document.querySelector('.mkhd .mksec')?.textContent || '', !!document.getElementById('exTimer'), !!document.getElementById('qTypeBtn')]")
+    check('听力' in head[0] and head[1] and not head[2], f'{tag}: the header shows the part and one clock, no type menu {head}')
+    await pg.evaluate("back()")
+    await pg.wait_for_timeout(150)
+    check(await pg.evaluate("state.screen") == 'quiz' and await pg.locator('#toast').is_visible(), f'{tag}: the first back only warns')
+    k = 0
+    while k < 120:
+        r = await pg.evaluate(MOCK_ANS, k % 3 != 0)
+        k += 1
+        if r == 'a' and k == 3:
+            check(await pg.locator('#fb .fbv').count() == 0, f'{tag}: no feedback during the exam')
+        if r == 'end':
+            break
+        await pg.wait_for_timeout(30)
+    await pg.wait_for_timeout(300)
+    res = await pg.evaluate("""(() => { const m = run.mock, r = m.r;
+        return [!!r, r && r.max, r && r.parts.length, document.querySelectorAll('.mkrow').length, m.items.length, document.querySelectorAll('.mkadv').length,
+                document.querySelectorAll('.mkrow.ng').length, m.items.filter(it => !it.ok).length, LM.mocks.length, !!document.querySelector('.mkverdict')] })()""")
+    check(res[0] and res[1] == 300 and res[2] == 3 and res[3] == res[4] and res[5] >= 2 and res[6] == res[7] > 0 and res[8] == 1 and res[9],
+          f'{tag}: corrected at the end: every question with the right answer, advice, the verdict, kept in history {res}')
+    check(not await pg.evaluate("document.body.classList.contains('inexam')") and await pg.locator('#tabbar').is_visible(), f'{tag}: after the exam the tab bar is back')
+    await no_leak(pg, tag, 'simulation result')
+    await pg.screenshot(path=os.path.join(OUT, f'{tag}-result.png'), full_page=True)
+    await pg.click('[data-mk="wrong"]')
+    await pg.wait_for_timeout(300)
+    pr = await pg.evaluate("[!run.mock, run.items.length, qType]")
+    check(pr[0] and pr[1] == res[7] and pr[2] == 'auto', f'{tag}: "practise the words" starts a round with exactly the missed words {pr}')
+    check(not errors, f'{tag}: no page errors {errors[:2]}')
+    await ctx.close()
+
+
 async def files_case(browser):
     """v1.16: the built app files themselves say nothing about what lies past 飞升: no secret word in the page (no
     comments are shipped either), no open word file for it, and the sealed files read as noise after their short header."""
@@ -938,7 +998,7 @@ async def main():
                                                   (1280, 'vi-VN', 'auto', 1, False), (360, 'vi-VN', 'light', 1.6, True)):
                 await run_case(browser, width, locale, theme, fs, onb)
         for name, case in (('legacy', legacy_case), ('store', store_case), ('realm', realm_case), ('gate', gate_case), ('reminder', reminder_case),
-                           ('perf', perf_case), ('a11y', a11y_case), ('files', files_case)):
+                           ('perf', perf_case), ('a11y', a11y_case), ('files', files_case), ('mock', mock_case)):
             if not only or name in only:
                 await case(browser)
         await browser.close()

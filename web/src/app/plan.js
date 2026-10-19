@@ -64,8 +64,10 @@ function renderPlan() {
       <button class="nbopt pri" id="nbZero">${PLAY}<span><b>${L10.nbZero}</b><small>${L10.nbZeroS}</small></span></button>
       <button class="nbopt" id="nbTest"><span><b>${L10.nbTest}</b><small>${L10.nbTestS}</small></span><span class="chev" aria-hidden="true">›</span></button>`;
     el.dataset.todo = '1';
+    syncWidget(L10.nbZero);
     return;
   }
+  syncWidget(line);
   const cc = Math.min(c.cnt, c.n),
     cl = L10.chalT + ': ' + (c.done ? L10.chalDone : `${L10.chalTxt(skName(c.k), c.n, c.a)} · ${cc}/${c.n}`);
   el.innerHTML = `<div class="ptop"><h2 id="planT">${L10.planT}</h2><button class="chalchip${c.done ? ' done' : ''}" id="chalBtn" aria-label="${esc(cl)}"><span lang="zh-CN" aria-hidden="true">试</span>${c.done ? '✓' : `${cc}/${c.n}`}</button><button class="gchip" id="goalBtn" aria-haspopup="dialog">${esc(chip)} ›</button></div>

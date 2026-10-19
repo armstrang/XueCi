@@ -857,6 +857,88 @@ const LM = (() => {
     return out;
   }
 
+  /* ---- HSK simulation (v1.17, Josh: a mock exam corrected automatically at the end, with advice) ----
+   Built like the HSK: 听力 listening (words heard, when the phone can speak), 阅读 reading (meanings, sentence gaps,
+   sentence translations from HSK 3) and 书写 writing (from HSK 3: pick the hanzi for a meaning, type the pinyin from
+   memory). Questions per level and part below; 70 % of the words come from the level itself, 30 % from the levels
+   under it (the exam builds on them). Each part is scored out of 100, like the HSK; passing = 60 % of the total
+   (120 of 200 for HSK 1–2, 180 of 300 from HSK 3). Seconds per question by type give the time limit. */
+  const MOCK = {
+    1: { l: 10, m: 6, c: 4 },
+    2: { l: 10, m: 6, c: 4 },
+    3: { l: 12, m: 4, c: 6, t: 4, f: 4, p: 4 },
+    4: { l: 12, m: 4, c: 6, t: 4, f: 4, p: 4 },
+    5: { l: 15, m: 2, c: 7, t: 6, f: 3, p: 5 },
+    6: { l: 15, m: 2, c: 7, t: 6, f: 3, p: 5 },
+    7: { l: 15, c: 7, t: 8, f: 3, p: 5 },
+  };
+  const MOCK_SEC = { l: 25, m: 30, c: 60, t: 75, f: 30, p: 45 };
+  const MOCK_PART = { l: 'listen', m: 'read', c: 'read', t: 'read', f: 'write', p: 'write' };
+  function mockExam(L) {
+    const P = MOCK[Math.min(L, 7)],
+      own = shuf(DATA.filter(d => d.l === L)),
+      low = shuf(DATA.filter(d => d.l < L)),
+      used = new Set();
+    const take = ok => {
+      const first = Math.random() < 0.7 || !low.length ? own : low;
+      for (const src of [first, first === own ? low : own]) {
+        const d = src.find(x => !used.has(x.id) && ok(x));
+        if (d) {
+          used.add(d.id);
+          return d;
+        }
+      }
+      return null;
+    };
+    const fit = {
+      l: () => true,
+      m: () => true,
+      c: clozeOK,
+      t: clozeOK,
+      f: () => true,
+      p: d => [...d.h].length <= 3,
+    };
+    const parts = [];
+    for (const part of ['listen', 'read', 'write']) {
+      if (part === 'listen' && !ttsReady()) continue;
+      const items = [];
+      for (const q of ['l', 'm', 'c', 't', 'f', 'p'])
+        if (MOCK_PART[q] === part)
+          for (let i = 0; i < (P[q] || 0); i++) {
+            const d = take(fit[q]);
+            if (d) items.push({ k: 'q', d, q, part });
+          }
+      if (items.length) parts.push({ k: part, n: items.length, items });
+    }
+    const items = parts.flatMap(x => x.items),
+      sec = items.reduce((a, it) => a + MOCK_SEC[it.q], 0);
+    return { L, parts: parts.map(({ k, n }) => ({ k, n })), items, sec, skipped: !ttsReady() };
+  }
+  /* the result: each part out of 100, the total, the pass mark (60 % of the parts taken) */
+  function mockScore(m) {
+    const parts = m.parts.map(p => {
+      const its = m.items.filter(it => it.part === p.k),
+        right = its.filter(it => it.ok).length;
+      return { k: p.k, n: its.length, right, score: Math.round((right / Math.max(1, its.length)) * 100) };
+    });
+    const total = parts.reduce((a, p) => a + p.score, 0),
+      max = parts.length * 100;
+    return { parts, total, max, need: Math.round(max * 0.6), pass: total >= max * 0.6 };
+  }
+  let mocks = ls.get('xc_mock', []);
+  if (!Array.isArray(mocks)) mocks = [];
+  /* history: [time (minutes), level, total, max, [part scores in listen/read/write order, null = not taken], seconds used] */
+  function mockSave(m, r, used) {
+    const by = k => {
+      const p = r.parts.find(x => x.k === k);
+      return p ? p.score : null;
+    };
+    mocks = mocks
+      .concat([[now(), m.L, r.total, r.max, ['listen', 'read', 'write'].map(by), Math.round(used)]])
+      .slice(-50);
+    ls.set('xc_mock', mocks);
+  }
+
   /* ---- current level and the placement test ----
    The placement test is 50 quick questions that adapt to the answers. Ability θ (0–7, "knows the words of HSK levels
    up to θ") has a probability over a grid; each answer updates it with an item-response model:
@@ -1081,6 +1163,12 @@ const LM = (() => {
     if (Array.isArray(o.days)) {
       days0 = o.days.filter(Number.isInteger).slice(-730);
       ls.set('xc_days', days0);
+    }
+    if (Array.isArray(o.mock)) {
+      mocks = o.mock
+        .filter(x => Array.isArray(x) && x.length >= 5 && Number.isFinite(x[0]) && x[1] >= 1 && x[1] <= 9)
+        .slice(-50);
+      ls.set('xc_mock', mocks);
     }
   }
   const nextTestAt = () => (tests.length ? Math.max(...tests) + WEEK : 0);
@@ -2322,6 +2410,13 @@ const LM = (() => {
     cardDeck,
     quizRound,
     exam,
+    mockExam,
+    mockScore,
+    mockSave,
+    get mocks() {
+      return mocks;
+    },
+    MOCK_SEC,
     session,
     plan,
     dr,

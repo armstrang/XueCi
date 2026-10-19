@@ -1261,6 +1261,58 @@ background:linear-gradient(#121b29,#06090e);box-shadow:0 18px 40px -18px rgba(0,
 .sharenote{margin-top:10px}
 .sharechip svg{width:18px;height:18px}
 .btshare{display:block;margin:4px auto 0}
+body.inexam .tabbar{display:none}
+body.inexam{padding-bottom:40px}
+body.inexam #lvbtn,body.inexam #ubtn{display:none}
+.mkhd .mksec{display:flex;align-items:baseline;gap:7px;font-weight:800;font-size:calc(14px*var(--fs,1));min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mkhd .mksec b{font-family:var(--f-hz);font-weight:900;font-size:calc(17px*var(--fs,1));color:var(--acc)}
+.mkhd .mksec small{font-weight:600;color:var(--soft);font-size:calc(12.5px*var(--fs,1))}
+.mkintro .btpath{font-size:calc(30px*var(--fsd,1));color:var(--acc)}
+.mkpart{text-align:center}
+.mkpart .big{font-size:calc(56px*var(--fsd,1));color:var(--acc)}
+.mkpy{font-size:calc(14px*var(--fs,1));color:var(--soft);margin:-2px 0 8px;letter-spacing:.04em}
+.mkres{text-align:left}
+.mkhead{text-align:center;margin-bottom:6px}
+.mklv{font-family:var(--f-hz);font-weight:900;font-size:calc(15px*var(--fs,1));letter-spacing:.08em;color:var(--soft)}
+.mktotal{display:flex;align-items:baseline;justify-content:center;gap:4px;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.mktotal b{font-size:calc(60px*var(--fsd,1));font-weight:800;line-height:1}
+.mktotal small{font-size:calc(20px*var(--fs,1));font-weight:700;color:var(--soft)}
+.mktotal.pass b{color:var(--good)}.mktotal.fail b{color:var(--bad)}
+.mkverdict{display:inline-block;padding:4px 14px;border-radius:999px;font-weight:800;font-size:calc(13px*var(--fs,1));letter-spacing:.08em}
+.mkverdict.pass{color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent)}
+.mkverdict.fail{color:var(--bad);background:color-mix(in srgb,var(--bad) 13%,transparent)}
+.mkparts{display:flex;flex-direction:column;gap:2px;margin:12px 0 4px}
+.mkp{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) 3em;font-size:calc(14px*var(--fs,1))}
+.mkp b:first-child{font-family:var(--f-hz)}.mkp>b{font-size:calc(16px*var(--fs,1))}
+.mkp.ok .mbar i{background:var(--good)}.mkp.ng .mbar i{background:var(--bad)}
+.mkpn{font-size:calc(12px*var(--fs,1));color:var(--soft);margin:0 0 6px}
+.mkt{margin:16px 0 8px;font-size:calc(15px*var(--fs,1));font-weight:800}
+.mkadvs{display:flex;flex-direction:column;gap:8px}
+.mkadv{display:grid;grid-template-columns:24px minmax(0,1fr);gap:4px 10px;align-items:start;padding:10px 12px;border-radius:16px;background:color-mix(in srgb,var(--fg) 5%,transparent)}
+.mkadv p{margin:2px 0 0;font-size:calc(13.5px*var(--fs,1));line-height:1.45}
+.mkadv button{grid-column:2;justify-self:start;min-height:36px;padding:0 14px;font-size:calc(13px*var(--fs,1))}
+.mkai{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:calc(12px*var(--fs,1));font-weight:800;color:var(--on-acc);background:var(--acc)}
+.mkrev{border-radius:16px;margin:6px 0;background:color-mix(in srgb,var(--fg) 4%,transparent)}
+.mkrev summary{cursor:pointer;padding:11px 12px;font-size:calc(14px*var(--fs,1));font-weight:700;min-height:24px}
+.mkrev summary b{font-family:var(--f-hz);font-weight:900;color:var(--acc)}
+.mkrow{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;padding:9px 12px;border-top:1px solid color-mix(in srgb,var(--fg) 8%,transparent)}
+.mkn{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:calc(11px*var(--fs,1));font-weight:800;margin-top:1px}
+.mkrow.ok .mkn{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.mkrow.ng .mkn{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.mkbody{min-width:0;display:flex;flex-direction:column;gap:3px;font-size:calc(13.5px*var(--fs,1));line-height:1.4}
+.mkask small{color:var(--soft);font-weight:700;font-size:calc(11.5px*var(--fs,1));margin-right:4px}
+.mkask b{font-family:var(--f-hz);font-size:calc(18px*var(--fs,1))}
+.mkans span:first-child{color:var(--soft);font-size:calc(12px*var(--fs,1))}
+.mkans.ok{color:color-mix(in srgb,var(--good) 78%,var(--fg))}.mkans.ng{color:color-mix(in srgb,var(--bad) 72%,var(--fg))}
+.mkans [lang="zh-CN"]{font-family:var(--f-hz);font-weight:700;font-size:calc(16px*var(--fs,1))}
+.mkno{color:var(--soft)}
+.mkword{font-size:calc(13px*var(--fs,1));color:var(--soft)}
+.mkword .hz{font-size:calc(16px*var(--fs,1))}
+.mkhist{display:flex;align-items:flex-end;gap:8px;height:74px;padding:4px 2px}
+.mkh{flex:1 1 0;max-width:46px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
+.mkh i{display:block;width:100%;border-radius:8px 8px 4px 4px;background:color-mix(in srgb,var(--bad) 55%,transparent)}
+.mkh.ok i{background:color-mix(in srgb,var(--good) 65%,transparent)}
+.mkh small{font-size:calc(11px*var(--fs,1));color:var(--soft);font-variant-numeric:tabular-nums}
 </style>
 
 
@@ -5243,6 +5295,302 @@ cardDays: 'ngày tu luyện',
 cardSolid: l => `từ HSK ${l} vững chắc`,
 cardWords: 'từ đã luyện',
 });
+Object.assign(I18N.id, {
+tExam: 'Ujian kilat',
+tMock: 'Simulasi HSK',
+dMock: 'Seperti ujian asli: mendengar, membaca, menulis · dinilai dan dibahas di akhir',
+partN: { listen: 'Mendengar', read: 'Membaca', write: 'Menulis' },
+mkIntroT: l => `Simulasi HSK ${l}`,
+mkIntro:
+'Soal disusun seperti ujian HSK. Tidak ada koreksi selama ujian; di akhir kamu mendapat nilai per bagian, pembahasan setiap soal, dan saran latihan.',
+mkRows: (n, m) => `${n} soal · ±${m} menit`,
+mkTime: m => `Waktu ${m} menit`,
+mkPass: (need, max) => `lulus dengan ${need} dari ${max} poin`,
+mkWriteNote: 'Bagian menulis di simulasi ini: pilih hanzi untuk sebuah arti dan ketik pinyin dari ingatan.',
+mkNoTts: 'Suara Mandarin tidak tersedia di HP ini, jadi bagian mendengar dilewati. Nilai dihitung dari bagian lain.',
+mkNote: 'Nilai ini perkiraan dari kosakata di aplikasi, bukan nilai resmi HSK.',
+mkLast: (t, max, d) => `Simulasi terakhir: ${t} dari ${max} (${d}).`,
+mkStart: 'Mulai simulasi',
+mkPartT: (i, n) => `Bagian ${i} dari ${n}`,
+mkPartD: {
+listen: n => `${n} soal. Dengarkan kata, lalu pilih hanzinya. Tombol speaker bisa ditekan lagi.`,
+read: n => `${n} soal: arti kata, isian kalimat, dan terjemahan kalimat.`,
+write: n => `${n} soal: pilih hanzi untuk arti yang diberikan, lalu ketik pinyin dari ingatan.`,
+},
+mkPartGo: 'Mulai bagian ini',
+mkPassY: 'LULUS',
+mkPassN: 'BELUM LULUS',
+mkNeed: (need, max) => `Batas lulus ${need} dari ${max}`,
+mkUsed: (a, b) => `waktu ${a} dari ${b}`,
+mkRight: (r, n) => `${r} dari ${n} benar`,
+mkAdvT: 'Saran',
+mkRevT: 'Koreksi',
+mkHistT: 'Riwayat simulasi di level ini',
+mkYour: 'Jawabanmu',
+mkAns: 'Jawaban benar',
+mkNone: 'tidak dijawab',
+mkIdk: 'tidak tahu',
+mkWrongN: n => `${n} salah`,
+mkAllRight: 'semua benar',
+mkAgain: 'Ulangi simulasi',
+mkA: {
+top: (l, nx) =>
+nx
+? `Nilaimu sangat baik untuk HSK ${l}. Saatnya mencoba simulasi HSK ${nx}.`
+: `Nilaimu sangat baik untuk HSK ${l}. Pertahankan dengan ulangan rutin.`,
+pass: 'Lulus. Untuk hasil yang lebih aman (85% ke atas), perkuat bagian yang paling lemah.',
+near: p => `Hampir lulus: kurang ${p} poin lagi.`,
+low: l =>
+`Kosakata HSK ${l} belum cukup kuat. Ikuti rencana harian dulu, lalu ulangi simulasi dalam satu atau dua minggu.`,
+part: {
+listen: s => `Bagian mendengar paling lemah (${s}). Latih kata-kata yang salah lewat kuis mendengar.`,
+read: s => `Bagian membaca paling lemah (${s}). Latih kata-kata yang salah bersama kalimat contohnya.`,
+write: s => `Bagian menulis paling lemah (${s}). Latih mengingat hanzi dan pinyin tanpa melihat pilihan.`,
+},
+cloze: 'Isian kalimat sering meleset: pelajari kalimat contoh setiap kata, bukan artinya saja.',
+trans: 'Terjemahan kalimat sering meleset: baca seluruh kalimat, bukan hanya satu kata yang dikenal.',
+tone: 'Bunyi pinyin yang diketik sudah benar, tetapi nadanya salah. Hafalkan nada bersama bunyinya.',
+older: (n, l) => `${n} kata dari level di bawah HSK ${l} terlupa. Dasar ini juga diuji, jadi ulangi juga.`,
+time: 'Waktu habis sebelum semua soal selesai. Latih kecepatan dengan Ujian kilat (20 soal, 5 menit).',
+fast: 'Kamu menjawab jauh lebih cepat dari batas waktu. Waktunya cukup, jadi baca soal lebih teliti.',
+cmp: (d, dt) =>
+d > 0
+? `Naik ${d} poin dari simulasi sebelumnya (${dt}).`
+: d < 0
+? `Turun ${-d} poin dari simulasi sebelumnya (${dt}).`
+: `Sama dengan simulasi sebelumnya (${dt}).`,
+wrong: n => `Ulangi ${n} soal yang salah sekarang, selagi masih segar.`,
+wrongBtn: n => `Latih ${n} kata`,
+partBtn: 'Latih bagian ini',
+examBtn: 'Ujian kilat',
+nextBtn: l => `Simulasi HSK ${l}`,
+planBtn: 'Ke rencana hari ini',
+},
+});
+I18N.id.mkLeave = 'Tekan kembali sekali lagi untuk keluar. Jawaban simulasi ini tidak disimpan.';
+I18N.id.sumT.exam = 'Ujian kilat selesai';
+Object.assign(I18N.en, {
+tExam: 'Quick exam',
+tMock: 'HSK mock exam',
+dMock: 'Like the real exam: listening, reading, writing · marked and explained at the end',
+partN: { listen: 'Listening', read: 'Reading', write: 'Writing' },
+mkIntroT: l => `HSK ${l} mock exam`,
+mkIntro:
+'The questions are laid out like the HSK. Nothing is marked during the exam; at the end you get a score for each part, every question explained, and advice on what to practise.',
+mkRows: (n, m) => `${n} questions · about ${m} min`,
+mkTime: m => `${m} minutes`,
+mkPass: (need, max) => `pass with ${need} of ${max} points`,
+mkWriteNote: 'Writing in this mock exam: pick the hanzi for a meaning, and type the pinyin from memory.',
+mkNoTts: 'This phone has no Chinese voice, so the listening part is left out. The score comes from the other parts.',
+mkNote: 'This score is an estimate from the app’s vocabulary, not an official HSK score.',
+mkLast: (t, max, d) => `Last mock exam: ${t} of ${max} (${d}).`,
+mkStart: 'Start the exam',
+mkPartT: (i, n) => `Part ${i} of ${n}`,
+mkPartD: {
+listen: n => `${n} questions. Listen to a word, then pick its hanzi. You can press the speaker again.`,
+read: n => `${n} questions: word meanings, sentence gaps and sentence translations.`,
+write: n => `${n} questions: pick the hanzi for a meaning, then type the pinyin from memory.`,
+},
+mkPartGo: 'Start this part',
+mkPassY: 'PASSED',
+mkPassN: 'NOT YET',
+mkNeed: (need, max) => `Pass mark ${need} of ${max}`,
+mkUsed: (a, b) => `time ${a} of ${b}`,
+mkRight: (r, n) => `${r} of ${n} right`,
+mkAdvT: 'Advice',
+mkRevT: 'Corrections',
+mkHistT: 'Mock exams at this level',
+mkYour: 'Your answer',
+mkAns: 'Right answer',
+mkNone: 'not answered',
+mkIdk: 'didn’t know',
+mkWrongN: n => `${n} wrong`,
+mkAllRight: 'all right',
+mkAgain: 'Take it again',
+mkA: {
+top: (l, nx) =>
+nx
+? `An excellent score for HSK ${l}. Time to try the HSK ${nx} mock exam.`
+: `An excellent score for HSK ${l}. Keep it with regular reviews.`,
+pass: 'Passed. For a safer result (85% or more), strengthen your weakest part.',
+near: p => `Almost there: ${p} more points to pass.`,
+low: l =>
+`Your HSK ${l} vocabulary is not strong enough yet. Follow the daily plan first, then take the mock exam again in a week or two.`,
+part: {
+listen: s => `Listening is your weakest part (${s}). Practise the words you missed with listening questions.`,
+read: s =>
+`Reading is your weakest part (${s}). Practise the words you missed together with their example sentences.`,
+write: s =>
+`Writing is your weakest part (${s}). Practise recalling hanzi and pinyin without options to choose from.`,
+},
+cloze: 'Sentence gaps often went wrong: learn each word’s example sentence, not only its meaning.',
+trans: 'Sentence translations often went wrong: read the whole sentence, not just the one word you know.',
+tone: 'The pinyin you typed had the right sounds but the wrong tones. Learn the tone together with the sound.',
+older: (n, l) => `${n} words from below HSK ${l} were forgotten. The exam tests them too, so review them as well.`,
+time: 'Time ran out before every question was done. Build speed with the Quick exam (20 questions, 5 minutes).',
+fast: 'You answered much faster than the time allows. There is time, so read each question more carefully.',
+cmp: (d, dt) =>
+d > 0
+? `${d} points up on your last mock exam (${dt}).`
+: d < 0
+? `${-d} points down on your last mock exam (${dt}).`
+: `The same score as your last mock exam (${dt}).`,
+wrong: n => `Go over the ${n} questions you missed now, while they are fresh.`,
+wrongBtn: n => `Practise ${n} words`,
+partBtn: 'Practise this part',
+examBtn: 'Quick exam',
+nextBtn: l => `HSK ${l} mock exam`,
+planBtn: 'To today’s plan',
+},
+});
+I18N.en.mkLeave = 'Press back once more to leave. This mock exam will not be saved.';
+I18N.en.sumT.exam = 'Quick exam complete';
+Object.assign(I18N.th, {
+tExam: 'สอบด่วน',
+tMock: 'จำลองสอบ HSK',
+dMock: 'เหมือนข้อสอบจริง: ฟัง อ่าน เขียน · ตรวจและอธิบายให้ตอนจบ',
+partN: { listen: 'การฟัง', read: 'การอ่าน', write: 'การเขียน' },
+mkIntroT: l => `จำลองสอบ HSK ${l}`,
+mkIntro:
+'ข้อสอบจัดเหมือน HSK ระหว่างสอบจะไม่มีการเฉลย เมื่อจบคุณจะได้คะแนนแต่ละส่วน คำอธิบายทุกข้อ และคำแนะนำว่าควรฝึกอะไร',
+mkRows: (n, m) => `${n} ข้อ · ประมาณ ${m} นาที`,
+mkTime: m => `เวลา ${m} นาที`,
+mkPass: (need, max) => `ผ่านเมื่อได้ ${need} จาก ${max} คะแนน`,
+mkWriteNote: 'การเขียนในการจำลองสอบนี้: เลือกตัวอักษรจีนตามความหมาย และพิมพ์พินอินจากความจำ',
+mkNoTts: 'โทรศัพท์เครื่องนี้ไม่มีเสียงภาษาจีน จึงข้ามส่วนการฟัง คะแนนคิดจากส่วนอื่น',
+mkNote: 'คะแนนนี้เป็นการประมาณจากคำศัพท์ในแอป ไม่ใช่คะแนน HSK อย่างเป็นทางการ',
+mkLast: (t, max, d) => `จำลองสอบครั้งล่าสุด: ${t} จาก ${max} (${d})`,
+mkStart: 'เริ่มสอบ',
+mkPartT: (i, n) => `ส่วนที่ ${i} จาก ${n}`,
+mkPartD: {
+listen: n => `${n} ข้อ ฟังคำแล้วเลือกตัวอักษรจีน กดปุ่มลำโพงซ้ำได้`,
+read: n => `${n} ข้อ: ความหมายของคำ เติมคำในประโยค และคำแปลประโยค`,
+write: n => `${n} ข้อ: เลือกตัวอักษรจีนตามความหมาย แล้วพิมพ์พินอินจากความจำ`,
+},
+mkPartGo: 'เริ่มส่วนนี้',
+mkPassY: 'ผ่าน',
+mkPassN: 'ยังไม่ผ่าน',
+mkNeed: (need, max) => `เกณฑ์ผ่าน ${need} จาก ${max}`,
+mkUsed: (a, b) => `ใช้เวลา ${a} จาก ${b}`,
+mkRight: (r, n) => `ถูก ${r} จาก ${n}`,
+mkAdvT: 'คำแนะนำ',
+mkRevT: 'เฉลย',
+mkHistT: 'ประวัติการจำลองสอบระดับนี้',
+mkYour: 'คำตอบของคุณ',
+mkAns: 'คำตอบที่ถูก',
+mkNone: 'ไม่ได้ตอบ',
+mkIdk: 'ไม่รู้',
+mkWrongN: n => `ผิด ${n} ข้อ`,
+mkAllRight: 'ถูกทั้งหมด',
+mkAgain: 'สอบอีกครั้ง',
+mkA: {
+top: (l, nx) =>
+nx
+? `คะแนนดีมากสำหรับ HSK ${l} ถึงเวลาลองจำลองสอบ HSK ${nx} แล้ว`
+: `คะแนนดีมากสำหรับ HSK ${l} รักษาไว้ด้วยการทบทวนสม่ำเสมอ`,
+pass: 'ผ่านแล้ว ถ้าอยากได้ผลที่มั่นใจกว่า (85% ขึ้นไป) ให้เสริมส่วนที่อ่อนที่สุด',
+near: p => `เกือบผ่านแล้ว ขาดอีก ${p} คะแนน`,
+low: l => `คำศัพท์ HSK ${l} ยังไม่แน่นพอ ทำตามแผนรายวันก่อน แล้วจำลองสอบใหม่ในอีกหนึ่งถึงสองสัปดาห์`,
+part: {
+listen: s => `ส่วนการฟังอ่อนที่สุด (${s}) ฝึกคำที่ผิดด้วยคำถามการฟัง`,
+read: s => `ส่วนการอ่านอ่อนที่สุด (${s}) ฝึกคำที่ผิดพร้อมประโยคตัวอย่าง`,
+write: s => `ส่วนการเขียนอ่อนที่สุด (${s}) ฝึกนึกตัวอักษรจีนและพินอินโดยไม่ดูตัวเลือก`,
+},
+cloze: 'เติมคำในประโยคผิดบ่อย: เรียนประโยคตัวอย่างของแต่ละคำ ไม่ใช่แค่ความหมาย',
+trans: 'แปลประโยคผิดบ่อย: อ่านทั้งประโยค ไม่ใช่แค่คำเดียวที่รู้จัก',
+tone: 'พินอินที่พิมพ์มีเสียงถูกแต่วรรณยุกต์ผิด จำวรรณยุกต์ไปพร้อมกับเสียง',
+older: (n, l) => `ลืมคำจากระดับต่ำกว่า HSK ${l} ไป ${n} คำ ข้อสอบวัดคำเหล่านี้ด้วย จึงควรทบทวนเช่นกัน`,
+time: 'หมดเวลาก่อนทำครบทุกข้อ ฝึกความเร็วด้วยสอบด่วน (20 ข้อ 5 นาที)',
+fast: 'คุณตอบเร็วกว่าเวลาที่มีมาก ยังมีเวลาพอ อ่านโจทย์ให้ละเอียดขึ้น',
+cmp: (d, dt) =>
+d > 0
+? `เพิ่มขึ้น ${d} คะแนนจากครั้งก่อน (${dt})`
+: d < 0
+? `ลดลง ${-d} คะแนนจากครั้งก่อน (${dt})`
+: `เท่ากับครั้งก่อน (${dt})`,
+wrong: n => `ทบทวน ${n} ข้อที่ผิดตอนนี้เลย ขณะที่ยังจำได้`,
+wrongBtn: n => `ฝึก ${n} คำ`,
+partBtn: 'ฝึกส่วนนี้',
+examBtn: 'สอบด่วน',
+nextBtn: l => `จำลองสอบ HSK ${l}`,
+planBtn: 'ไปที่แผนวันนี้',
+},
+});
+I18N.th.mkLeave = 'กดย้อนกลับอีกครั้งเพื่อออก การจำลองสอบนี้จะไม่ถูกบันทึก';
+I18N.th.sumT.exam = 'จบการสอบด่วนแล้ว';
+Object.assign(I18N.vi, {
+tExam: 'Kiểm tra nhanh',
+tMock: 'Thi thử HSK',
+dMock: 'Như kỳ thi thật: nghe, đọc, viết · chấm và giải thích khi kết thúc',
+partN: { listen: 'Nghe', read: 'Đọc', write: 'Viết' },
+mkIntroT: l => `Thi thử HSK ${l}`,
+mkIntro:
+'Câu hỏi được sắp xếp như kỳ thi HSK. Trong khi thi không có chấm điểm; khi kết thúc bạn nhận điểm từng phần, lời giải cho mọi câu và gợi ý nên luyện gì.',
+mkRows: (n, m) => `${n} câu · khoảng ${m} phút`,
+mkTime: m => `${m} phút`,
+mkPass: (need, max) => `đạt khi được ${need}/${max} điểm`,
+mkWriteNote: 'Phần viết trong bài thi thử này: chọn chữ Hán theo nghĩa và gõ pinyin theo trí nhớ.',
+mkNoTts: 'Điện thoại này không có giọng tiếng Trung, nên bỏ qua phần nghe. Điểm tính từ các phần còn lại.',
+mkNote: 'Điểm này là ước tính từ từ vựng trong ứng dụng, không phải điểm HSK chính thức.',
+mkLast: (t, max, d) => `Lần thi thử gần nhất: ${t}/${max} (${d}).`,
+mkStart: 'Bắt đầu thi',
+mkPartT: (i, n) => `Phần ${i}/${n}`,
+mkPartD: {
+listen: n => `${n} câu. Nghe một từ rồi chọn chữ Hán. Có thể bấm loa để nghe lại.`,
+read: n => `${n} câu: nghĩa của từ, điền vào câu và dịch câu.`,
+write: n => `${n} câu: chọn chữ Hán theo nghĩa, rồi gõ pinyin theo trí nhớ.`,
+},
+mkPartGo: 'Bắt đầu phần này',
+mkPassY: 'ĐẠT',
+mkPassN: 'CHƯA ĐẠT',
+mkNeed: (need, max) => `Điểm đạt ${need}/${max}`,
+mkUsed: (a, b) => `thời gian ${a}/${b}`,
+mkRight: (r, n) => `đúng ${r}/${n}`,
+mkAdvT: 'Gợi ý',
+mkRevT: 'Chữa bài',
+mkHistT: 'Các lần thi thử ở cấp này',
+mkYour: 'Bạn chọn',
+mkAns: 'Đáp án đúng',
+mkNone: 'chưa trả lời',
+mkIdk: 'không biết',
+mkWrongN: n => `sai ${n} câu`,
+mkAllRight: 'đúng hết',
+mkAgain: 'Thi lại',
+mkA: {
+top: (l, nx) =>
+nx
+? `Điểm rất tốt cho HSK ${l}. Đã đến lúc thử bài thi thử HSK ${nx}.`
+: `Điểm rất tốt cho HSK ${l}. Hãy giữ vững bằng cách ôn tập đều đặn.`,
+pass: 'Đạt. Để chắc chắn hơn (từ 85% trở lên), hãy củng cố phần yếu nhất.',
+near: p => `Gần đạt rồi: còn thiếu ${p} điểm.`,
+low: l => `Từ vựng HSK ${l} chưa đủ vững. Hãy theo kế hoạch hằng ngày trước, rồi thi thử lại sau một hai tuần.`,
+part: {
+listen: s => `Phần nghe yếu nhất (${s}). Luyện các từ sai bằng câu hỏi nghe.`,
+read: s => `Phần đọc yếu nhất (${s}). Luyện các từ sai cùng câu ví dụ của chúng.`,
+write: s => `Phần viết yếu nhất (${s}). Luyện nhớ chữ Hán và pinyin mà không nhìn đáp án.`,
+},
+cloze: 'Điền vào câu hay sai: hãy học câu ví dụ của từng từ, không chỉ nghĩa của nó.',
+trans: 'Dịch câu hay sai: hãy đọc cả câu, không chỉ một từ bạn biết.',
+tone: 'Pinyin bạn gõ đúng âm nhưng sai thanh. Hãy nhớ thanh điệu cùng với âm.',
+older: (n, l) => `Quên ${n} từ của các cấp dưới HSK ${l}. Bài thi cũng kiểm tra chúng, nên hãy ôn lại.`,
+time: 'Hết giờ trước khi làm xong. Luyện tốc độ với Kiểm tra nhanh (20 câu, 5 phút).',
+fast: 'Bạn trả lời nhanh hơn nhiều so với thời gian cho phép. Còn thời gian, hãy đọc đề kỹ hơn.',
+cmp: (d, dt) =>
+d > 0
+? `Tăng ${d} điểm so với lần trước (${dt}).`
+: d < 0
+? `Giảm ${-d} điểm so với lần trước (${dt}).`
+: `Bằng điểm lần trước (${dt}).`,
+wrong: n => `Ôn lại ${n} câu sai ngay bây giờ, khi còn nhớ.`,
+wrongBtn: n => `Luyện ${n} từ`,
+partBtn: 'Luyện phần này',
+examBtn: 'Kiểm tra nhanh',
+nextBtn: l => `Thi thử HSK ${l}`,
+planBtn: 'Đến kế hoạch hôm nay',
+},
+});
+I18N.vi.mkLeave = 'Bấm quay lại lần nữa để thoát. Bài thi thử này sẽ không được lưu.';
+I18N.vi.sumT.exam = 'Đã xong bài kiểm tra nhanh';
 const DATA = XC.data;
 const LEVELS = [...new Set(DATA.map(d => d.l))].sort((a, b) => a - b),
 NUM = '一二三四五六七八九';
@@ -6204,6 +6552,79 @@ out.push({ k: 'q', d, q });
 }
 return out;
 }
+const MOCK = {
+1: { l: 10, m: 6, c: 4 },
+2: { l: 10, m: 6, c: 4 },
+3: { l: 12, m: 4, c: 6, t: 4, f: 4, p: 4 },
+4: { l: 12, m: 4, c: 6, t: 4, f: 4, p: 4 },
+5: { l: 15, m: 2, c: 7, t: 6, f: 3, p: 5 },
+6: { l: 15, m: 2, c: 7, t: 6, f: 3, p: 5 },
+7: { l: 15, c: 7, t: 8, f: 3, p: 5 },
+};
+const MOCK_SEC = { l: 25, m: 30, c: 60, t: 75, f: 30, p: 45 };
+const MOCK_PART = { l: 'listen', m: 'read', c: 'read', t: 'read', f: 'write', p: 'write' };
+function mockExam(L) {
+const P = MOCK[Math.min(L, 7)],
+own = shuf(DATA.filter(d => d.l === L)),
+low = shuf(DATA.filter(d => d.l < L)),
+used = new Set();
+const take = ok => {
+const first = Math.random() < 0.7 || !low.length ? own : low;
+for (const src of [first, first === own ? low : own]) {
+const d = src.find(x => !used.has(x.id) && ok(x));
+if (d) {
+used.add(d.id);
+return d;
+}
+}
+return null;
+};
+const fit = {
+l: () => true,
+m: () => true,
+c: clozeOK,
+t: clozeOK,
+f: () => true,
+p: d => [...d.h].length <= 3,
+};
+const parts = [];
+for (const part of ['listen', 'read', 'write']) {
+if (part === 'listen' && !ttsReady()) continue;
+const items = [];
+for (const q of ['l', 'm', 'c', 't', 'f', 'p'])
+if (MOCK_PART[q] === part)
+for (let i = 0; i < (P[q] || 0); i++) {
+const d = take(fit[q]);
+if (d) items.push({ k: 'q', d, q, part });
+}
+if (items.length) parts.push({ k: part, n: items.length, items });
+}
+const items = parts.flatMap(x => x.items),
+sec = items.reduce((a, it) => a + MOCK_SEC[it.q], 0);
+return { L, parts: parts.map(({ k, n }) => ({ k, n })), items, sec, skipped: !ttsReady() };
+}
+function mockScore(m) {
+const parts = m.parts.map(p => {
+const its = m.items.filter(it => it.part === p.k),
+right = its.filter(it => it.ok).length;
+return { k: p.k, n: its.length, right, score: Math.round((right / Math.max(1, its.length)) * 100) };
+});
+const total = parts.reduce((a, p) => a + p.score, 0),
+max = parts.length * 100;
+return { parts, total, max, need: Math.round(max * 0.6), pass: total >= max * 0.6 };
+}
+let mocks = ls.get('xc_mock', []);
+if (!Array.isArray(mocks)) mocks = [];
+function mockSave(m, r, used) {
+const by = k => {
+const p = r.parts.find(x => x.k === k);
+return p ? p.score : null;
+};
+mocks = mocks
+.concat([[now(), m.L, r.total, r.max, ['listen', 'read', 'write'].map(by), Math.round(used)]])
+.slice(-50);
+ls.set('xc_mock', mocks);
+}
 let lvInfo = ls.get('xc_lvl', null);
 if (!lvInfo || typeof lvInfo !== 'object' || !(lvInfo.lv >= 1 && lvInfo.lv <= 9)) lvInfo = null;
 const realm = () =>
@@ -6401,6 +6822,12 @@ if (Array.isArray(o.rest)) setRest(o.rest);
 if (Array.isArray(o.days)) {
 days0 = o.days.filter(Number.isInteger).slice(-730);
 ls.set('xc_days', days0);
+}
+if (Array.isArray(o.mock)) {
+mocks = o.mock
+.filter(x => Array.isArray(x) && x.length >= 5 && Number.isFinite(x[0]) && x[1] >= 1 && x[1] <= 9)
+.slice(-50);
+ls.set('xc_mock', mocks);
 }
 }
 const nextTestAt = () => (tests.length ? Math.max(...tests) + WEEK : 0);
@@ -7547,6 +7974,13 @@ pickType,
 cardDeck,
 quizRound,
 exam,
+mockExam,
+mockScore,
+mockSave,
+get mocks() {
+return mocks;
+},
+MOCK_SEC,
 session,
 plan,
 dr,
@@ -8147,7 +8581,7 @@ hide: false,
 weak: false,
 screen: 'home',
 };
-let qType = ['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam'].includes(ui.qt) ? ui.qt : 'auto';
+let qType = ['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam', 'mock'].includes(ui.qt) ? ui.qt : 'auto';
 const saveUI = () => ls.set('hsk16_ui', { level: state.level, unitBy: state.unitBy, qt: qType });
 const unit = () => state.unitBy[state.level];
 const pad = n => String(n).padStart(2, '0');
@@ -8251,7 +8685,7 @@ if (s === 'placement' || state.screen === 'placement') pt = null;
 if (s === 'bt' || state.screen === 'bt') bt = null;
 if (s === 'stats') stHist = false;
 state.screen = s;
-document.body.classList.remove('menuopen', 'kb');
+document.body.classList.remove('menuopen', 'kb', 'inexam');
 document.body.dataset.screen = s;
 scrHome.hidden = s !== 'home';
 scrFocus.hidden = !FOCUS.includes(s);
@@ -8275,6 +8709,13 @@ h && h.focus({ preventScroll: true });
 } catch (e) {}
 }
 function back() {
+if (state.screen === 'quiz' && run && run.mock && run.mock.started && !run.mock.r) {
+if (Date.now() - (run.mock.warned || 0) > 3500) {
+run.mock.warned = Date.now();
+toast(L10.mkLeave);
+return;
+}
+}
 go(state.screen === 'stats' ? prevScreen : 'home');
 }
 $('backBtn').onclick = back;
@@ -8732,6 +9173,7 @@ resetRun();
 let items,
 after = null,
 exam = false,
+mock = null,
 lv = state.level;
 if (pendingRun && pendingRun.mode === mode) {
 items = pendingRun.items;
@@ -8742,6 +9184,10 @@ else if (mode === 'session') items = LM.session(sessionExtra);
 else if (qType === 'exam') {
 exam = true;
 items = LM.exam(lv, EXAM_N);
+} else if (qType === 'mock') {
+exam = true; 
+mock = mockMake(lv);
+items = mock.items;
 } else items = LM.quizRound(pool(), ROUND_Q, qType === 'auto' ? null : qType);
 run = {
 mode,
@@ -8757,14 +9203,20 @@ exam,
 lv,
 over: 0,
 after,
+mock,
 };
-if (exam) {
+if (exam && !mock) {
 run.end = Date.now() + EXAM_SEC * 1000;
 run.timer = setInterval(tick, 1000);
 }
 }
 function renderRun() {
 if (!run) makeRun(state.screen);
+document.body.classList.toggle('inexam', !!(run.mock && run.mock.started && !run.mock.r && run.i < run.items.length));
+if (run.mock && !run.mock.started) {
+renderMockIntro();
+return;
+}
 if (run.brk) {
 renderBreak();
 return;
@@ -8772,6 +9224,10 @@ return;
 const it = run.items[run.i];
 if (!it) {
 renderSummary();
+return;
+}
+if (run.mock && !run.mock.shown.has(it.part)) {
+renderMockPart(it.part);
 return;
 }
 if (!run.exam && !it.st && !it.opts) {
@@ -8893,6 +9349,7 @@ return [
 ['p', L10.tPy, L10.dPy, 'pīn'],
 ['t', L10.tTrans, L10.dTrans, '句→a'],
 ['exam', L10.tExam, L10.dExam(EXAM_N, EXAM_SEC / 60), '考'],
+['mock', L10.tMock, L10.dMock, '模'],
 ];
 }
 function clock() {
@@ -8920,14 +9377,21 @@ if (run.mode === 'session') {
 const lab = !it || it.k === 'card' ? '' : TNAME()[it.q]; 
 return `<div class="fcmeta"><span>${L10.qN(i, n)}</span><span class="tlabel">${esc(lab)}</span>${progH(run.i, n)}</div>`;
 }
+if (run.mock) {
+const h = mockHead();
+if (h) return h;
+}
 const QT = qtList(),
-cur = QT.find(q => q[0] === qType) || QT[0];
+cur = QT.find(q => q[0] === qType) || QT[0],
+clockOn = run.exam && !(run.mock && (!run.mock.started || run.mock.r));
 document.body.classList.remove('menuopen'); 
 return `<div class="qhead"><div class="qsel" id="qsel">
       <button class="qtbtn" id="qTypeBtn" aria-haspopup="listbox" aria-expanded="false" aria-label="${L10.qTypeL}: ${cur[1]}"><span class="qti">${cur[3]}</span><span class="qtl">${cur[1]}</span>${CHEV}</button>
       <div class="menu qmenu" id="qTypeMenu" role="listbox" aria-label="${L10.qTypeL}" hidden>${QT.map(q => `<button class="qtrow" role="option" data-qt="${q[0]}" aria-selected="${q[0] === qType}"><span class="qti">${q[3]}</span><span class="nm"><b>${q[1]}</b><small>${q[2]}</small></span>${CHECK}</button>`).join('')}</div>
      </div><div class="score">${
-run.exam
+run.mock && !clockOn
+? `<span>${L10.qN(run.mock.r ? n : 0, n)}</span>`
+: run.exam
 ? `<span class="timer" id="exTimer">${clock()}</span><span>${L10.qN(i, n)}</span>`
 : `<span>${L10.qN(i, n)}</span><span>${L10.right} <b>${run.ok}</b>/${run.tot}</span>`
 }</div></div>`;
@@ -9209,6 +9673,10 @@ if (run.timer) {
 clearInterval(run.timer);
 run.timer = 0;
 }
+if (run.mock) {
+renderMockResult();
+return;
+}
 if (!run.closed) {
 run.closed = true;
 LM.updWeak();
@@ -9367,6 +9835,234 @@ $('qTypeBtn').focus();
 });
 document.addEventListener('click', e => {
 if (qMenuOpen() && !e.target.closest('#qsel')) qMenu(false);
+});
+const PART = {
+listen: ['听力', 'tīnglì'],
+read: ['阅读', 'yuèdú'],
+write: ['书写', 'shūxiě'],
+};
+const mmss2 = s => `${(s / 60) | 0}:${String(Math.round(s) % 60).padStart(2, '0')}`;
+function mockMake(lv) {
+const m = LM.mockExam(lv);
+m.started = false;
+m.shown = new Set();
+return m;
+}
+function renderMockIntro() {
+const m = run.mock,
+S = LM.MOCK_SEC,
+rows = m.parts
+.map(p => {
+const its = m.items.filter(it => it.part === p.k),
+sec = its.reduce((a, it) => a + S[it.q], 0);
+return `<div class="stkrow"><b lang="zh-CN">${PART[p.k][0][0]}</b><span><em>${PART[p.k][0]} ${esc(L10.partN[p.k])}</em><small>${esc(L10.mkRows(p.n, Math.round(sec / 60)))}</small></span></div>`;
+})
+.join('');
+const prev = LM.mocks.filter(x => x[1] === m.L).slice(-1)[0];
+view.innerHTML =
+runHead() +
+`<div class="qcard ptintro mkintro"><div class="btpath"><span lang="zh-CN">模拟考试</span></div>
+    <h3>${esc(L10.mkIntroT(m.L))}</h3><p class="sumnote">${esc(L10.mkIntro)}</p>
+    <div class="stklist">${rows}</div>
+    <div class="btrules"><p>${esc(L10.mkTime(Math.round(m.sec / 60)))} · ${esc(L10.mkPass(m.parts.length * 60, m.parts.length * 100))}</p>
+    ${m.parts.some(p => p.k === 'write') ? `<p class="mute">${esc(L10.mkWriteNote)}</p>` : ''}${m.skipped ? `<p class="mute">${esc(L10.mkNoTts)}</p>` : ''}
+    ${prev ? `<p class="mute">${esc(L10.mkLast(prev[2], prev[3], dateS(tDate(prev[0]))))}</p>` : ''}<p class="mute">${esc(L10.mkNote)}</p></div>
+    <button class="next" id="mkStart">${esc(L10.mkStart)}</button></div>`;
+}
+function renderMockPart(k) {
+const m = run.mock,
+i = m.parts.findIndex(p => p.k === k),
+p = m.parts[i];
+view.innerHTML =
+runHead() +
+`<div class="qcard ptintro mkpart"><div class="big t1" lang="zh-CN">${PART[k][0]}</div><div class="mkpy">${PART[k][1]}</div>
+    <h3>${esc(L10.mkPartT(i + 1, m.parts.length))} · ${esc(L10.partN[k])}</h3><p class="sumnote">${esc(L10.mkPartD[k](p.n))}</p>
+    <button class="next" id="mkPartGo">${esc(L10.mkPartGo)}</button></div>`;
+$('mkPartGo')?.focus({ preventScroll: true });
+}
+function mockStart() {
+const m = run.mock;
+m.started = true;
+m.t0 = Date.now();
+run.end = Date.now() + m.sec * 1000;
+run.timer = setInterval(tick, 1000);
+renderRun();
+}
+function mockHead() {
+const m = run.mock,
+it = run.items[run.i],
+n = run.items.length;
+if (!m.started || !it) return null;
+const k = it.part,
+its = m.items.filter(x => x.part === k),
+j = its.indexOf(it) + 1;
+return `<div class="qhead mkhd"><div class="mksec"><b lang="zh-CN">${PART[k][0]}</b> ${esc(L10.partN[k])} <small>${j}/${its.length}</small></div><div class="score"><span class="timer" id="exTimer">${clock()}</span><span>${L10.qN(run.i + 1, n)}</span></div></div>`;
+}
+function mockAnswerH(it, o) {
+if (!o) return `<i class="mkno">${esc(it.pick === -1 ? L10.mkIdk : L10.mkNone)}</i>`;
+return it.q === 'm' ? esc(M1(o)) : it.q === 't' ? esc(TR(o)) : `<span lang="zh-CN">${esc(o.h)}</span>`;
+}
+function mockRowH(it, no) {
+const d = it.d,
+q = it.q;
+const ask =
+q === 'l'
+? `${spk(d.h, ' sm')} <small>${esc(L10.tListen)}</small>`
+: q === 'm'
+? `<b lang="zh-CN">${esc(d.h)}</b>`
+: q === 'c'
+? `<span lang="zh-CN">${gapZ(d)}</span>`
+: q === 't'
+? `<span lang="zh-CN">${esc(d.z)}</span>`
+: esc(M1(d));
+const right =
+q === 'm'
+? esc(M1(d))
+: q === 't'
+? esc(TR(d))
+: q === 'p'
+? `<span class="pyline">${pyH(d)}</span>`
+: `<span lang="zh-CN">${esc(d.h)}</span>`;
+const mine =
+q === 'p'
+? it.typed
+? `<span class="pyline">${esc(it.typed)}</span>`
+: `<i class="mkno">${esc(it.pick === -3 && it.typed === '' ? L10.mkIdk : L10.mkNone)}</i>`
+: mockAnswerH(it, it.opts && it.pick >= 0 ? it.opts[it.pick] : null);
+return `<div class="mkrow ${it.ok ? 'ok' : 'ng'}"><span class="mkn" aria-hidden="true">${no}</span><div class="mkbody">
+    <div class="mkask"><small>${esc(TNAME()[q])}</small> ${ask}</div>
+    ${it.ok ? `<div class="mkans ok">✓ ${right}</div>` : `<div class="mkans ng"><span>${esc(L10.mkYour)}:</span> ${mine}</div><div class="mkans ok"><span>${esc(L10.mkAns)}:</span> ${right}</div>`}
+    ${it.ok ? '' : `<div class="mkword"><span class="hz" lang="zh-CN">${hzH(d)}</span> <span class="py">${pyH(d)}</span> · ${esc(M1(d))} ${spk(d.h, ' sm')}</div>`}
+  </div></div>`;
+}
+function mockAdvice(m, r) {
+const out = [],
+L = m.L,
+wrong = m.items.filter(it => !it.ok),
+pct = r.total / r.max,
+next = LEVELS.includes(L + 1) ? L + 1 : 0;
+if (r.pass && pct >= 0.85) out.push({ t: L10.mkA.top(L, next), b: next ? ['next', L10.mkA.nextBtn(next)] : null });
+else if (r.pass) out.push({ t: L10.mkA.pass });
+else if (pct >= 0.5) out.push({ t: L10.mkA.near(r.need - r.total) });
+else out.push({ t: L10.mkA.low(L), b: ['plan', L10.mkA.planBtn] });
+const weak = r.parts.slice().sort((a, b) => a.score - b.score)[0];
+if (weak && weak.score < 85 && r.parts.length > 1)
+out.push({ t: L10.mkA.part[weak.k](weak.score), b: ['part:' + weak.k, L10.mkA.partBtn] });
+const ng = q => wrong.filter(it => it.q === q).length,
+of = q => m.items.filter(it => it.q === q).length;
+if (of('c') && ng('c') / of('c') >= 0.34) out.push({ t: L10.mkA.cloze });
+if (of('t') && ng('t') / of('t') >= 0.34) out.push({ t: L10.mkA.trans });
+const py = wrong.filter(it => it.q === 'p' && it.typed);
+if (py.length && py.some(it => plain(it.typed.replace(/[1-5]/g, '')) === plain(it.d.p)))
+out.push({ t: L10.mkA.tone });
+const older = wrong.filter(it => it.d.l < L).length;
+if (older >= 2) out.push({ t: L10.mkA.older(older, L) });
+if (run.timeUp) out.push({ t: L10.mkA.time, b: ['exam', L10.mkA.examBtn] });
+else if (m.used < m.sec * 0.35 && pct < 0.7) out.push({ t: L10.mkA.fast });
+if (wrong.length) out.push({ t: L10.mkA.wrong(wrong.length), b: ['wrong', L10.mkA.wrongBtn(wrong.length)] });
+return out;
+}
+function renderMockResult() {
+const m = run.mock;
+if (!m.r) {
+m.used = Math.min(m.sec, (Date.now() - m.t0) / 1000);
+m.r = LM.mockScore(m);
+m.prev = LM.mocks.filter(x => x[1] === m.L).slice(-1)[0] || null;
+LM.mockSave(m, m.r, m.used);
+m.adv = mockAdvice(m, m.r);
+LM.updWeak();
+}
+const r = m.r,
+ok = r.pass;
+const parts = r.parts
+.map(
+p =>
+`<div class="skrow mkp ${p.score >= 60 ? 'ok' : 'ng'}"><span><b lang="zh-CN">${PART[p.k][0]}</b> ${esc(L10.partN[p.k])}</span><span class="mbar"><span class="stack"><i style="width:${p.score}%"></i></span></span><b>${p.score}</b></div><div class="mkpn">${esc(L10.mkRight(p.right, p.n))}</div>`,
+)
+.join('');
+const cmp = m.prev ? `<p class="sumnote">${esc(L10.mkA.cmp(r.total - m.prev[2], dateS(tDate(m.prev[0]))))}</p>` : '';
+const adv = m.adv
+.map(
+(a, i) =>
+`<div class="mkadv"><span class="mkai" aria-hidden="true">${i + 1}</span><p>${esc(a.t)}</p>${a.b ? `<button class="ghost" data-mk="${a.b[0]}">${esc(a.b[1])}</button>` : ''}</div>`,
+)
+.join('');
+let no = 0;
+const rev = m.parts
+.map(p => {
+const its = m.items.filter(it => it.part === p.k),
+bad = its.filter(it => !it.ok).length;
+return `<details class="mkrev"${bad ? ' open' : ''}><summary><b lang="zh-CN">${PART[p.k][0]}</b> ${esc(L10.partN[p.k])} · ${esc(bad ? L10.mkWrongN(bad) : L10.mkAllRight)}</summary>${its.map(it => mockRowH(it, ++no)).join('')}</details>`;
+})
+.join('');
+const hist = LM.mocks
+.filter(x => x[1] === m.L)
+.slice(-6)
+.map(
+x =>
+`<span class="mkh ${x[2] >= x[3] * 0.6 ? 'ok' : 'ng'}" title="${esc(dateS(tDate(x[0])))}"><i style="height:${Math.max(6, (x[2] / x[3]) * 100)}%"></i><small>${x[2]}</small></span>`,
+)
+.join('');
+view.innerHTML =
+runHead() +
+`<div class="qcard sum mkres">
+    <div class="mkhead"><div class="mklv" lang="zh-CN">模拟考试 · HSK ${m.L}</div>
+      <div class="mktotal ${ok ? 'pass' : 'fail'}"><b>${r.total}</b><small>/${r.max}</small></div>
+      <div class="mkverdict ${ok ? 'pass' : 'fail'}">${esc(ok ? L10.mkPassY : L10.mkPassN)}</div>
+      <p class="sumnote">${esc(L10.mkNeed(r.need, r.max))} · ${esc(L10.mkUsed(mmss2(m.used), mmss2(m.sec)))}${run.timeUp ? ' · ' + esc(L10.timeUp) : ''}</p></div>
+    <div class="mkparts">${parts}</div>${cmp}
+    <h4 class="mkt">${esc(L10.mkAdvT)}</h4><div class="mkadvs">${adv}</div>
+    <h4 class="mkt">${esc(L10.mkRevT)}</h4>${rev}
+    ${hist ? `<h4 class="mkt">${esc(L10.mkHistT)}</h4><div class="mkhist" aria-hidden="true">${hist}</div>` : ''}
+    <p class="gnote">${esc(L10.mkNote)}</p>
+    <div class="sumbtns"><button class="ghost" id="sumHome">${L10.sumHome}</button><button class="next" id="mkAgain">${esc(L10.mkAgain)}</button></div></div>`;
+}
+function mockPractice(items) {
+if (!items.length) return;
+pendingRun = {
+mode: 'quiz',
+items: items.map(it => ({ k: 'q', d: it.d, q: it.q === 'l' && !ttsOK() ? 'm' : it.q })),
+};
+qType = 'auto';
+saveUI();
+resetRun();
+renderRun();
+window.scrollTo(0, 0);
+}
+view.addEventListener('click', e => {
+if (state.screen !== 'quiz' || !run || !run.mock) return;
+const m = run.mock,
+id = e.target.closest('[id]')?.id;
+if (id === 'mkStart' && !m.started) {
+mockStart();
+return;
+}
+if (id === 'mkPartGo') {
+m.shown.add(run.items[run.i]?.part);
+renderRun();
+window.scrollTo(0, 0);
+return;
+}
+if (id === 'mkAgain') {
+resetRun();
+renderRun();
+window.scrollTo(0, 0);
+return;
+}
+const b = e.target.closest('[data-mk]');
+if (!b || !m.r) return;
+const k = b.dataset.mk,
+wrong = m.items.filter(it => !it.ok);
+if (k === 'wrong') mockPractice(wrong);
+else if (k.startsWith('part:')) mockPractice(wrong.filter(it => it.part === k.slice(5)));
+else if (k === 'exam' || k === 'next') {
+if (k === 'next') setLevel(m.L + 1);
+qType = k === 'exam' ? 'exam' : 'mock';
+saveUI();
+resetRun();
+renderRun();
+window.scrollTo(0, 0);
+} else if (k === 'plan') go('home');
 });
 let stLevel = 1,
 stSel = null,
@@ -9851,6 +10547,7 @@ w: LM.params,
 lvl: LM.level,
 rest: LM.rest,
 tests: LM.tests,
+mock: LM.mocks,
 days: [...LM.studyDays()].sort((a, b) => a - b).slice(-730),
 ui: { level: state.level, unitBy: state.unitBy, qt: qType },
 lang: langPref,
@@ -9910,6 +10607,7 @@ w: o.w,
 lvl: o.lvl,
 rest: o.rest,
 tests: o.tests,
+mock: o.mock,
 days: o.days,
 };
 } catch (e) {
@@ -10042,7 +10740,7 @@ return;
 stats = b.stats;
 LM.replace(b.mem || {}, b.goal, b.w);
 LM.restoreLevel(b.lvl);
-LM.restoreExtra({ tests: b.tests, rest: b.rest, days: b.days });
+LM.restoreExtra({ tests: b.tests, rest: b.rest, days: b.days, mock: b.mock });
 syncRest(); 
 if (b.ui && LEVELS.includes(b.ui.level)) {
 const ub = b.ui.unitBy || {};
@@ -10051,7 +10749,7 @@ const u = ub[l];
 state.unitBy[l] = Number.isInteger(u) && u >= 0 && u <= UNITS[l] ? u : 1;
 });
 state.level = b.ui.level;
-if (['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam'].includes(b.ui.qt)) qType = b.ui.qt;
+if (['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam', 'mock'].includes(b.ui.qt)) qType = b.ui.qt;
 }
 if ((b.lang === 'auto' || LANGS.includes(b.lang)) && b.lang !== langPref) setLang(b.lang, true);
 if (themeList().includes(b.theme) && b.theme !== theme) applyTheme(b.theme, true);
@@ -10159,8 +10857,10 @@ el.innerHTML = `<div class="ptop"><h2 id="planT">${L10.nbT}</h2><button class="g
       <button class="nbopt pri" id="nbZero">${PLAY}<span><b>${L10.nbZero}</b><small>${L10.nbZeroS}</small></span></button>
       <button class="nbopt" id="nbTest"><span><b>${L10.nbTest}</b><small>${L10.nbTestS}</small></span><span class="chev" aria-hidden="true">›</span></button>`;
 el.dataset.todo = '1';
+syncWidget(L10.nbZero);
 return;
 }
+syncWidget(line);
 const cc = Math.min(c.cnt, c.n),
 cl = L10.chalT + ': ' + (c.done ? L10.chalDone : `${L10.chalTxt(skName(c.k), c.n, c.a)} · ${cc}/${c.n}`);
 el.innerHTML = `<div class="ptop"><h2 id="planT">${L10.planT}</h2><button class="chalchip${c.done ? ' done' : ''}" id="chalBtn" aria-label="${esc(cl)}"><span lang="zh-CN" aria-hidden="true">试</span>${c.done ? '✓' : `${cc}/${c.n}`}</button><button class="gchip" id="goalBtn" aria-haspopup="dialog">${esc(chip)} ›</button></div>
@@ -11512,6 +12212,34 @@ e.stopPropagation();
 closeShare();
 }
 });
+let widgetLast = '';
+function syncWidget(today) {
+if (!window.MMAndroid || typeof MMAndroid.setWidget !== 'function') return;
+const r = LM.realm(),
+p = realmPct(r),
+st = LM.stage(r < 1 ? LM.baseLevel() : r),
+k = LM.streak();
+const o = {
+r: RN[r],
+py: RPY[r],
+m: L10.realmM[r] + (r ? ' · ' + realmHSK(r) : ''),
+p: r ? Math.max(0, Math.min(100, p)) : 0,
+s: r && st ? `${SN[st.i]} ${L10.stageM[st.i]} · ${p}%` : L10.rLine0,
+tl: L10.planT || '',
+t: String(today || '')
+.replace(/<[^>]+>/g, '')
+.trim(),
+d: L10.strDays(fmt(k.days)),
+lit: !!k.today,
+c: cardColour(r),
+};
+const j = JSON.stringify(o);
+if (j === widgetLast) return;
+widgetLast = j;
+try {
+MMAndroid.setWidget(j);
+} catch (e) {}
+}
 const canRemind = () => NATIVE('setReminder');
 let rem = Object.assign({ on: false, h: 19, m: 0 }, ls.get('xc_rem', {})),
 remKey = '',

@@ -643,4 +643,58 @@ body[data-screen="home"] #scr-home{height:calc(100svh - var(--tabh) - 22px - env
 .sharenote{margin-top:10px}
 .sharechip svg{width:18px;height:18px}
 .btshare{display:block;margin:4px auto 0}
+
+/* ===== v1.17: the HSK simulation (app/mock.js) ===== */
+body.inexam .tabbar{display:none}
+body.inexam{padding-bottom:40px}
+body.inexam #lvbtn,body.inexam #ubtn{display:none}
+.mkhd .mksec{display:flex;align-items:baseline;gap:7px;font-weight:800;font-size:14px;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mkhd .mksec b{font-family:var(--f-hz);font-weight:900;font-size:17px;color:var(--acc)}
+.mkhd .mksec small{font-weight:600;color:var(--soft);font-size:12.5px}
+.mkintro .btpath{font-size:30px;color:var(--acc)}
+.mkpart{text-align:center}
+.mkpart .big{font-size:56px;color:var(--acc)}
+.mkpy{font-size:14px;color:var(--soft);margin:-2px 0 8px;letter-spacing:.04em}
+.mkres{text-align:left}
+.mkhead{text-align:center;margin-bottom:6px}
+.mklv{font-family:var(--f-hz);font-weight:900;font-size:15px;letter-spacing:.08em;color:var(--soft)}
+.mktotal{display:flex;align-items:baseline;justify-content:center;gap:4px;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.mktotal b{font-size:60px;font-weight:800;line-height:1}
+.mktotal small{font-size:20px;font-weight:700;color:var(--soft)}
+.mktotal.pass b{color:var(--good)}.mktotal.fail b{color:var(--bad)}
+.mkverdict{display:inline-block;padding:4px 14px;border-radius:999px;font-weight:800;font-size:13px;letter-spacing:.08em}
+.mkverdict.pass{color:var(--good);background:color-mix(in srgb,var(--good) 14%,transparent)}
+.mkverdict.fail{color:var(--bad);background:color-mix(in srgb,var(--bad) 13%,transparent)}
+.mkparts{display:flex;flex-direction:column;gap:2px;margin:12px 0 4px}
+.mkp{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr) 3em;font-size:14px}
+.mkp b:first-child{font-family:var(--f-hz)}.mkp>b{font-size:16px}
+.mkp.ok .mbar i{background:var(--good)}.mkp.ng .mbar i{background:var(--bad)}
+.mkpn{font-size:12px;color:var(--soft);margin:0 0 6px}
+.mkt{margin:16px 0 8px;font-size:15px;font-weight:800}
+.mkadvs{display:flex;flex-direction:column;gap:8px}
+.mkadv{display:grid;grid-template-columns:24px minmax(0,1fr);gap:4px 10px;align-items:start;padding:10px 12px;border-radius:16px;background:color-mix(in srgb,var(--fg) 5%,transparent)}
+.mkadv p{margin:2px 0 0;font-size:13.5px;line-height:1.45}
+.mkadv button{grid-column:2;justify-self:start;min-height:36px;padding:0 14px;font-size:13px}
+.mkai{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:800;color:var(--on-acc);background:var(--acc)}
+.mkrev{border-radius:16px;margin:6px 0;background:color-mix(in srgb,var(--fg) 4%,transparent)}
+.mkrev summary{cursor:pointer;padding:11px 12px;font-size:14px;font-weight:700;min-height:24px}
+.mkrev summary b{font-family:var(--f-hz);font-weight:900;color:var(--acc)}
+.mkrow{display:grid;grid-template-columns:26px minmax(0,1fr);gap:8px;padding:9px 12px;border-top:1px solid color-mix(in srgb,var(--fg) 8%,transparent)}
+.mkn{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;margin-top:1px}
+.mkrow.ok .mkn{background:color-mix(in srgb,var(--good) 18%,transparent);color:var(--good)}
+.mkrow.ng .mkn{background:color-mix(in srgb,var(--bad) 16%,transparent);color:var(--bad)}
+.mkbody{min-width:0;display:flex;flex-direction:column;gap:3px;font-size:13.5px;line-height:1.4}
+.mkask small{color:var(--soft);font-weight:700;font-size:11.5px;margin-right:4px}
+.mkask b{font-family:var(--f-hz);font-size:18px}
+.mkans span:first-child{color:var(--soft);font-size:12px}
+.mkans.ok{color:color-mix(in srgb,var(--good) 78%,var(--fg))}.mkans.ng{color:color-mix(in srgb,var(--bad) 72%,var(--fg))}
+.mkans [lang="zh-CN"]{font-family:var(--f-hz);font-weight:700;font-size:16px}
+.mkno{color:var(--soft)}
+.mkword{font-size:13px;color:var(--soft)}
+.mkword .hz{font-size:16px}
+.mkhist{display:flex;align-items:flex-end;gap:8px;height:74px;padding:4px 2px}
+.mkh{flex:1 1 0;max-width:46px;height:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;gap:3px}
+.mkh i{display:block;width:100%;border-radius:8px 8px 4px 4px;background:color-mix(in srgb,var(--bad) 55%,transparent)}
+.mkh.ok i{background:color-mix(in srgb,var(--good) 65%,transparent)}
+.mkh small{font-size:11px;color:var(--soft);font-variant-numeric:tabular-nums}
 </style>

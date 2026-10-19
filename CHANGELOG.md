@@ -4,6 +4,27 @@ Every push of app changes to `main` makes a new release on [GitHub Releases](htt
 (v1.0, v1.1, …). CI uses the `## v1.N` section below as the release notes for that version, so write the section
 before pushing.
 
+## v1.17 — 19 October 2026
+
+**A new icon, an HSK mock exam that marks itself and tells you what to practise, and a home-screen widget.**
+
+### New
+- **HSK mock exam** (Quiz › HSK mock exam). Laid out like the HSK: listening, reading and, from HSK 3, writing
+  (pick the hanzi for a meaning, type the pinyin from memory), each part opened by its own card, one clock for the
+  whole exam and no marking until the end. Then everything is corrected at once: a score out of 100 for each part,
+  the total against the pass mark (120 of 200 for HSK 1–2, 180 of 300 from HSK 3), every question with your answer
+  and the right one, and advice drawn from your mistakes (your weakest part, sentence gaps, tones, older words,
+  time) with buttons that practise exactly the words you missed. Your mock exams are kept, so you can see the trend.
+  If the phone has no Chinese voice, the listening part is left out and the score comes from the other parts.
+- **Home-screen widget**: your realm, its stage and progress, today's plan and your cultivation days. Tap it to open
+  the app.
+- **New app icon**: 学词 with a sword, a star and a golden arc. On Android 13 and later it can follow your wallpaper
+  colours (themed icons), and the splash screen shows it too.
+
+### Changed
+- The 20-question timed exam is now called **Quick exam**.
+- While a mock exam is running, the tab bar and the level pickers step aside, and the first press of Back only warns.
+
 ## v1.16 — 19 October 2026
 
 **A smaller tab bar with a glass lens you can slide and the Soul Sea one tap away, an HSK picker in clear glass with

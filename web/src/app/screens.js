@@ -27,7 +27,7 @@ function show(s) {
   if (s === 'bt' || state.screen === 'bt') bt = null;
   if (s === 'stats') stHist = false;
   state.screen = s;
-  document.body.classList.remove('menuopen', 'kb');
+  document.body.classList.remove('menuopen', 'kb', 'inexam');
   document.body.dataset.screen = s;
   scrHome.hidden = s !== 'home';
   scrFocus.hidden = !FOCUS.includes(s);
@@ -51,6 +51,14 @@ function show(s) {
   } catch (e) {}
 }
 function back() {
+  /* leaving an HSK simulation half way loses it: the first back only warns (v1.17) */
+  if (state.screen === 'quiz' && run && run.mock && run.mock.started && !run.mock.r) {
+    if (Date.now() - (run.mock.warned || 0) > 3500) {
+      run.mock.warned = Date.now();
+      toast(L10.mkLeave);
+      return;
+    }
+  }
   go(state.screen === 'stats' ? prevScreen : 'home');
 }
 $('backBtn').onclick = back;

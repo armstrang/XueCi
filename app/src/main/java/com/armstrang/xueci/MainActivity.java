@@ -352,6 +352,12 @@ public class MainActivity extends AppCompatActivity {
             Reminder.save(getApplicationContext(), on, hour, minute, title, text, channel);
         }
 
+        /** v1.17: what the home-screen widget shows (ready-made, localised text as JSON; see XueciWidget). */
+        @JavascriptInterface
+        public void setWidget(String json) {
+            XueciWidget.save(getApplicationContext(), json);
+        }
+
         /** The learner answered something today, so today's reminder is not needed. */
         @JavascriptInterface
         public void markStudied() {

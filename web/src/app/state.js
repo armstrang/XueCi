@@ -8,7 +8,7 @@ let state = {
   weak: false,
   screen: 'home',
 };
-let qType = ['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam'].includes(ui.qt) ? ui.qt : 'auto';
+let qType = ['auto', 'm', 'f', 's', 'l', 'c', 'p', 't', 'exam', 'mock'].includes(ui.qt) ? ui.qt : 'auto';
 const saveUI = () => ls.set('hsk16_ui', { level: state.level, unitBy: state.unitBy, qt: qType });
 const unit = () => state.unitBy[state.level];
 const pad = n => String(n).padStart(2, '0');
