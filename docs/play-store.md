@@ -43,7 +43,8 @@ GitHub Releases). Centang item di bawah saat selesai.
   (gesture dan 3 tombol, keyboard, lanskap).
 - [ ] **GitHub Pages** untuk kebijakan privasi: repo → **Settings → Pages** → *Deploy from a branch* → `main`, folder
   `/docs`. Alamatnya: **https://armstrang.github.io/XueCi/privacy/** (diisi di Play Console).
-- [ ] **Lisensi data.** Cek lisensi `harukicoder/hsk30` (daftar kata dan pinyin), lalu cantumkan atribusinya sesuai lisensi.
+- [ ] **Lisensi data.** `harukicoder/hsk30`: tabel level MIT, korpus CC BY 4.0. Daftar kata kita berasal dari tabel level
+  (MIT), jadi teks lisensi MIT + hak ciptanya harus ikut di aplikasi (layar Tentang/lisensi) dan di repo.
 
 ## 4. Halaman toko (Play Console → Store listing)
 
@@ -51,7 +52,7 @@ Teks ada di `store/listing.md`.
 
 - [x] Nama aplikasi: **XueCi Mandarin**; deskripsi singkat dan lengkap (ID + EN).
 - [x] Ikon 512×512: `art/play-icon-512.png`.
-- [ ] Feature graphic 1024×500 dan screenshot HP 1080×1920 dari aplikasi baru (ID + EN).
+- [x] Feature graphic 1024×500 (`store/feature-*.png`) dan 12 screenshot HP 1080×1920 per bahasa (`store/shots/`).
 - [ ] Email kontak di Play Console (wajib, tampil di halaman toko).
 - [ ] Kuesioner rating konten (IARC), target usia 13+, Data safety "tidak mengumpulkan data" (jawaban di `store/listing.md`).
 

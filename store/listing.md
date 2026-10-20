@@ -8,7 +8,7 @@ Gambar dibuat dari aplikasi baru: screenshot `STORE=1 flutter test --no-pub --up
 |---|---|
 | Ikon aplikasi (512 × 512) | `art/play-icon-512.png` |
 | Feature graphic (1024 × 500) | `store/feature-id.png`, `store/feature-en.png` |
-| Screenshot ponsel (1080 × 1920) | belum dibuat (Home, Lautan Jiwa, Kartu, Kuis, Statistik, Nada, Daftar, Tes penempatan) |
+| Screenshot ponsel (1080 × 1920) | `store/shots/id/`, `store/shots/en/` (12 layar; Play menerima maks. 8: pakai 1–5, 8, 9, 10) |
 
 ---
 
