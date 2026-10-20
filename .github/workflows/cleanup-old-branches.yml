@@ -1,0 +1,25 @@
+name: Delete the old branches
+
+# One-off (Josh, Oct 2026): work happens on main now; delete every other branch except the CI output of main.
+on:
+  push:
+    branches: ['cleanup/old-branches']
+
+permissions:
+  contents: write
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          for b in $(gh api "repos/$REPO/branches?per_page=100" --paginate --jq '.[].name'); do
+            case "$b" in main|ci-out/main|cleanup/old-branches) continue ;; esac
+            gh api -X DELETE "repos/$REPO/git/refs/heads/$b" && echo "deleted $b"
+          done
+          gh api -X DELETE "repos/$REPO/git/refs/heads/cleanup/old-branches" && echo "deleted cleanup/old-branches"
+          echo "left:"; gh api "repos/$REPO/branches?per_page=100" --jq '.[].name'
