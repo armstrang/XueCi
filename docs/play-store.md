@@ -21,7 +21,8 @@ GitHub Releases). Centang item di bawah saat selesai.
 
 `keystore/xueci.jks` dan kata sandinya ada di repo publik, jadi hanya untuk APK uji di GitHub. Untuk Play:
 
-- [ ] **Josh: buat upload key** di komputer sendiri (jangan di repo, jangan kirim ke siapa pun), simpan baik-baik:
+- [x] **Upload key dibuat** (20 Okt 2026, oleh Claude karena Josh tidak punya komputer; file `.jks` + kata sandi
+  disimpan Josh, tidak ada di repo). Cara manual, kalau suatu saat perlu kunci baru: **buat upload key** di komputer sendiri (jangan di repo, jangan kirim ke siapa pun), simpan baik-baik:
 
   ```
   keytool -genkeypair -v -keystore xueci-upload.jks -alias upload -keyalg RSA -keysize 4096 -validity 10000
