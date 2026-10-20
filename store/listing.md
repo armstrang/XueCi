@@ -41,7 +41,7 @@ KUIS DAN SIMULASI HSK
 Kenali arti, ingat hanzi, nada, dengar, isi kalimat, ketik pinyin, dan terjemahan. Soal isi kalimat memberi bantuan sesuai level, jadi pemula tidak langsung menyerah. Simulasi HSK mengikuti susunan ujian HSK 3.0, dengan waktu per bagian dan pembahasan setiap soal di akhir.
 
 ISTIRAHAT JUGA BELAJAR
-Kalau kamu mulai lelah, aplikasi mengajak jeda 5 menit. Pilih hari bertapa tanpa latihan dan tanpa pengingat, dan hitungan harimu tetap jalan.
+Kalau kamu mulai lelah, aplikasi mengajak jeda 5 menit. Pilih hari meditasi tanpa latihan dan tanpa pengingat, dan hitungan harimu tetap jalan.
 
 WARNA NADA
 Hanzi dan pinyin diwarnai sesuai nadanya, jadi nada ikut teringat bersama katanya.
