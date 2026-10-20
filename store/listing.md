@@ -47,7 +47,7 @@ WARNA NADA
 Hanzi dan pinyin diwarnai sesuai nadanya, jadi nada ikut teringat bersama katanya.
 
 GRATIS DAN PRIBADI
-Tanpa iklan, tanpa akun, bisa dipakai offline. Progresmu hanya tersimpan di HP dan bisa dipindah ke HP lain dengan kode cadangan. Tersedia dalam bahasa Indonesia, English, ไทย, dan Tiếng Việt.
+Tanpa iklan, tanpa akun, bisa dipakai offline. Kalau mau, kamu bisa berdonasi sebagai 护法, tapi tidak ada fitur yang dikunci. Progresmu hanya tersimpan di HP dan bisa dipindah ke HP lain dengan kode cadangan. Tersedia dalam bahasa Indonesia, English, ไทย, dan Tiếng Việt.
 
 Daftar kata dan pinyin berdasarkan data terbuka hsk30. XueCi Mandarin adalah aplikasi independen dan tidak berafiliasi dengan penyelenggara ujian HSK.
 
@@ -91,7 +91,7 @@ TONE COLOURS
 Hanzi and pinyin are coloured by tone, so you remember the tone with the word.
 
 FREE AND PRIVATE
-No ads, no account, works offline. Your progress stays on your phone and moves to a new one with a backup code. Available in Indonesian, English, Thai and Vietnamese.
+No ads, no account, works offline. You can donate as a 护法 if you like, but nothing is ever locked. Your progress stays on your phone and moves to a new one with a backup code. Available in Indonesian, English, Thai and Vietnamese.
 
 Word list and pinyin based on the open hsk30 data. XueCi Mandarin is an independent app and is not affiliated with the organisers of the HSK exam.
 
@@ -107,6 +107,7 @@ First release of XueCi Mandarin: 5,334 HSK 1–6 words, cultivation realms and t
 - **Kebijakan privasi:** https://armstrang.github.io/XueCi/privacy/ (aktifkan GitHub Pages dulu, lihat `docs/play-store.md`).
 - **Akses aplikasi:** semua fitur bisa dipakai tanpa login.
 - **Iklan:** tidak ada.
+- **Pembelian dalam aplikasi:** ya, hanya donasi sukarela 护法 (tiga produk sekali bayar yang bisa dibeli berulang: `dukung_teh` Rp15.000, `dukung_makan` Rp39.000, `dukung_traktir` Rp99.000). Tidak membuka fitur apa pun. Halaman toko akan menampilkan "Pembelian dalam aplikasi".
 - **Izin aplikasi:** notifikasi (pengingat harian, Android 13+ meminta izin), mulai saat HP dinyalakan (memasang ulang jadwal pengingat), getar.
 - **Data safety:** tidak mengumpulkan data, tidak membagikan data. Riwayat jawaban dan rekomendasi belajar diproses di perangkat saja; menurut definisi Play, data yang tidak keluar dari perangkat tidak termasuk "dikumpulkan".
 - **Rating konten (IARC):** kuesioner dijawab "tidak" untuk kekerasan, konten seksual, bahasa kasar, obat-obatan, judi, interaksi pengguna, dan pembelian. Hasilnya biasanya rating untuk semua umur.

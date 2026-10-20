@@ -88,6 +88,27 @@ class Native {
   Future<void> openUrl(String url) => _call('openUrl', url);
   Future<void> setWidget(Map<String, Object?> data) => _call('setWidget', json.encode(data));
 
+  // ---- 护法: donations through Google Play Billing (Donate.kt) ----
+  /// the products with their prices in the phone's currency, plus donations finished earlier but not counted yet;
+  /// null when Google Play can't sell here (no Play, the APK from GitHub, no products yet)
+  Future<({List<({String id, String price})> items, int done})?> donProducts(List<String> ids) async {
+    final s = await _call<String>('donProducts', json.encode(ids));
+    if (s == null) return null;
+    try {
+      final m = json.decode(s) as Map;
+      if (m['ok'] != true) return null;
+      return (
+        items: [for (final e in m['items'] as List) (id: '${(e as Map)['id']}', price: '${e['price']}')],
+        done: (m['done'] as num?)?.toInt() ?? 0,
+      );
+    } catch (_) {
+      return null;
+    }
+  }
+
+  /// ok | pending | cancel | error
+  Future<String> donBuy(String id) async => await _call<String>('donBuy', id) ?? 'error';
+
   /// the device's languages (first = preferred), e.g. ['in-ID', 'en-US']
   List<String> sysLangs() => PlatformDispatcher.instance.locales.map((l) => l.toLanguageTag()).toList();
 

@@ -15,6 +15,7 @@ import '../app/runner.dart';
 import '../engine/learn.dart';
 import '../engine/model.dart';
 import '../i18n/l10.dart';
+import 'donate.dart';
 import 'focus.dart';
 import 'goal.dart';
 import 'glass.dart';
@@ -915,6 +916,7 @@ class _TribScreenState extends State<TribScreen> {
           child: Text('${t.shareGo} · ${t.shareT} ›', style: F.s(12.5, w: FontWeight.w800, c: th.acc)),
         ),
         const SizedBox(height: 6),
+        if (!x.gate && !x.makeup) DonateAsk(to),
         if (x.gate)
           MainBtn(t.gateGo, wide: true, onTap: () => openGate(context, true))
         else

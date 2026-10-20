@@ -35,7 +35,7 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - **Progress keys never change** (users' data): `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme`, `hsk16_known`, `xc_mem`,
   `xc_log`, `xc_logA`, `xc_goal`, `xc_w`, `xc_fit`, `xc_onb`, `xc_lvl` (+ `th`, `pt`, `gate`, `gs`, `stab`, `hist`),
   `xc_rem`, `xc_tests`, `xc_rest`, `xc_game`, `xc_amb`, `xc_note`, `xc_schema`, `xc_days`, `xc_bk`, `xc_res`, `xc_fx`,
-  `xc_fxd`, `xc_mock`, `xc_legacy`; Android SharedPreferences `reminder`, `widget`. Schema `xc_schema` = 3; a data format
+  `xc_fxd`, `xc_mock`, `xc_legacy`, `xc_dn`; Android SharedPreferences `reminder`, `widget`. Schema `xc_schema` = 3; a data format
   change = a new migration + schema + a test in `store_test`; migrations never delete keys.
 - **Moving progress from the earlier version** (first start): `App.boot` asks `Native.legacy()` when the store has no
   `xc_schema`; `MainActivity` opens a hidden WebView on the old origin `https://appassets.androidplatform.net`
@@ -144,6 +144,13 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - **Reminder** (Android): time and text from the goal sheet; quiet once practised that day or on a meditation day;
   re-armed after reboot/update/time change. **Widget**: realm, stage, today's practice, cultivation days, fed by
   `App.syncWidget` only when something changed.
+- **护法 donations** (Josh: no ads; honest, never guilt or urgency): the coin next to Settings on Home opens
+  `donate.dart` (three tiers 一杯茶/一碗面/一桌宴 = Play one-time consumables `dukung_teh`/`dukung_makan`/`dukung_traktir`,
+  prices from Play). Google Play Billing 8 in `Donate.kt` (method channel `donProducts`/`donBuy`; purchases are consumed at
+  once, finished-earlier ones counted on the next open). Unlocks nothing; `xc_dn` = `n` donations + `r` realms already
+  invited. After a passed breakthrough (not placement, not the make-up, not the gate) a quiet invitation once per realm
+  (`DonateAsk`); donors get a 护法 seal in the Soul Sea. Off Google Play (GitHub APK) the sheet says donations need Play.
+  Never an outside donation link in the app (Play payments policy).
 - **Visual effects** setting: auto/low/full; auto steps down once if frames are slow (toast). Low = no blur, no glow.
 - **First start**: a 3-step tour ending in the goal sheet; a new learner sees two ways in (start from zero / placement).
 - **Easter egg**: seven taps on the wordmark → a seal stamps 天外有天 (封 before the gate, 开 after).

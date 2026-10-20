@@ -17,6 +17,7 @@ import '../engine/fsrs.dart' as fsrs;
 import '../engine/learn.dart';
 import '../engine/model.dart' show Mem;
 import '../i18n/l10.dart';
+import 'donate.dart';
 import 'focus.dart';
 import 'glass.dart';
 import 'icons.dart';
@@ -810,6 +811,7 @@ class _SoulScreenState extends State<SoulScreen> {
           ),
         ),
         RealmHead(r, big: true),
+        const PatronBadge(),
         Semantics(
           liveRegion: true,
           child: Padding(padding: const EdgeInsets.only(top: 4), child: ConstrainedBox(constraints: const BoxConstraints(minHeight: 20), child: pick)),

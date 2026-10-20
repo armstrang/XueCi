@@ -445,6 +445,39 @@ class App extends ChangeNotifier {
   /// the engine fits its model to this learner now and then (in the background)
   void maybeOptimize() => lm.maybeOptimize(runner: (job) => Isolate.run(job));
 
+  // ---------------------------------------------------------------- 护法: donations (xc_dn: n = how many, r = realms asked)
+  static const donIds = ['dukung_teh', 'dukung_makan', 'dukung_traktir'];
+  Map<String, dynamic> get _dn {
+    final v = store.get('xc_dn', null);
+    return v is Map ? Map<String, dynamic>.from(v) : <String, dynamic>{};
+  }
+
+  int get donN => (_dn['n'] as num?)?.toInt() ?? 0;
+  bool get patron => donN > 0;
+  void donAdd(int k) {
+    if (k <= 0) return;
+    final d = _dn;
+    d['n'] = donN + k;
+    store.set('xc_dn', d);
+    notifyListeners();
+  }
+
+  final Set<int> _donShown = {};
+
+  /// after a breakthrough (never after placement): one quiet invitation per realm
+  bool donAskOnce(int realm) {
+    if (_donShown.contains(realm)) return true;
+    final d = _dn;
+    final asked = [for (final e in (d['r'] as List?) ?? const []) (e as num).toInt()];
+    if (asked.contains(realm)) return false;
+    _donShown.add(realm);
+    d['r'] = [...asked, realm];
+    store.set('xc_dn', d);
+    return true;
+  }
+
+  void Function(BuildContext)? openDonate;
+
   // ---------------------------------------------------------------- what the screens register (sheets live in the UI)
   void Function(BuildContext)? openStreak, openSettings, openRealm;
   void Function(BuildContext, String?)? openInfo;

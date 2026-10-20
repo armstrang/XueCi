@@ -114,7 +114,7 @@ class HomeHeader extends StatelessWidget {
     final t = app.t;
     final h = short ? 44.0 : 48.0;
     final s = app.memo('streak', app.lm.streak);
-    final narrow = MediaQuery.sizeOf(context).width < 360;
+    final narrow = MediaQuery.sizeOf(context).width / Th.of(context).fs.clamp(1.0, 1.6) < 400; // the coin and Settings need the room
     return Compact(
       child: Row(
         children: [
@@ -181,6 +181,19 @@ class HomeHeader extends StatelessWidget {
                   ],
                 ],
               ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Press(
+            onTap: () => app.openDonate?.call(context),
+            scale: 1.06,
+            label: t.dnAria,
+            child: Glass(
+              frost: true,
+              radius: h / 2,
+              width: h,
+              height: h,
+              child: Center(child: Icon2(I.coin, size: 24, color: p.gold)),
             ),
           ),
           const SizedBox(width: 8),

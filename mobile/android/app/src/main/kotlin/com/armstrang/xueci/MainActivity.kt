@@ -35,7 +35,8 @@ import java.util.Locale
 
 /**
  * The Flutter app's Android side: the services the WebView app (v1.x) reached through its MMAndroid bridge, on the
- * method channel "xueci/native" — speech, the daily reminder, sharing, the home-screen widget — plus the one-time move
+ * method channel "xueci/native" — speech, the daily reminder, sharing, the home-screen widget, donations (Donate.kt) —
+ * plus the one-time move
  * of v1.x progress (read by a hidden WebView on v1.x's origin, see assets/legacy.html).
  */
 class MainActivity : FlutterActivity() {
@@ -49,6 +50,10 @@ class MainActivity : FlutterActivity() {
     private var startedAt = 0L
     private var legacyView: WebView? = null
     private val main = Handler(Looper.getMainLooper())
+    private var donate: Donate? = null
+
+    /** Google Play Billing, connected the first time the donation sheet asks */
+    private fun don(): Donate = donate ?: Donate(this).also { donate = it }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         startedAt = SystemClock.uptimeMillis()
@@ -100,6 +105,11 @@ class MainActivity : FlutterActivity() {
                 "shareImage" -> result.success(shareImage(call.argument<ByteArray>("png"), call.argument<String>("text") ?: ""))
                 "openUrl" -> { openUrl(call.arguments as String); result.success(null) }
                 "setWidget" -> { XueciWidget.save(applicationContext, call.arguments as String); result.success(null) }
+                "donProducts" -> {
+                    val a = JSONArray(call.arguments as String)
+                    don().products((0 until a.length()).map { a.getString(it) }) { main.post { result.success(it) } }
+                }
+                "donBuy" -> don().buy(call.arguments as String) { main.post { result.success(it) } }
                 else -> result.notImplemented()
             }
         }
@@ -291,6 +301,8 @@ class MainActivity : FlutterActivity() {
         tts = null
         legacyView?.destroy()
         legacyView = null
+        donate?.end()
+        donate = null
         super.onDestroy()
     }
 

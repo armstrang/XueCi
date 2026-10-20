@@ -85,6 +85,26 @@ I18N.id = {
   aboutT: 'Tentang',
   privacy: 'Kebijakan privasi',
   licT: 'Lisensi',
+  dnT: '护法 · Pelindung Perguruan',
+  dnAria: 'Dukung XueCi',
+  dnLead:
+    'XueCi dibuat oleh satu orang, di waktu luang. Tanpa iklan dan tanpa menjual data. Semua fitur tetap gratis untuk semua orang.',
+  dnUse:
+    'Donasimu membantu menambah dan memperbaiki kata, terjemahan, dan suara, dan menjaga XueCi tetap gratis untuk pelajar lain.',
+  dnTier: [
+    ['一杯茶', 'Secangkir teh'],
+    ['一碗面', 'Semangkuk mi'],
+    ['一桌宴', 'Satu jamuan'],
+  ],
+  dnNone: 'Donasi hanya bisa lewat aplikasi yang dipasang dari Google Play.',
+  dnLoad: 'Menghubungi Google Play…',
+  dnThanks: 'Terima kasih, 护法. Dukunganmu menjaga gerbang perguruan tetap terbuka.',
+  dnPending: 'Pembayaranmu masih diproses Google Play. Terima kasih!',
+  dnErr: 'Belum berhasil. Coba lagi nanti.',
+  dnCount: n => `Kamu sudah ${n}× menjadi 护法. Terima kasih.`,
+  dnFree: 'Tidak ada yang dikunci. Donasi tidak membuka fitur apa pun.',
+  dnAsk: 'Senang dengan XueCi? Kamu bisa ikut menjadi 护法, pelindung perguruan.',
+  dnAskBtn: 'Lihat',
   about: 'XueCi Mandarin dibuat oleh Armstrang.',
   tones: [
     ['Nada 1', 'Tinggi dan datar', 'ibu'],
@@ -735,14 +755,17 @@ I18N.id = {
   mkRows: (n, m) => `${n} soal · ±${m} menit`,
   mkTime: m => `Waktu ${m} menit`,
   mkPass: (need, max) => `lulus dengan ${need} dari ${max} poin`,
-  mkWriteNote: 'Di ujian asli level ini, bagian menulis berupa karangan pendek. Aplikasi belum bisa menilai karangan, jadi di sini kamu menyusun kalimat.',
+  mkWriteNote:
+    'Di ujian asli level ini, bagian menulis berupa karangan pendek. Aplikasi belum bisa menilai karangan, jadi di sini kamu menyusun kalimat.',
   mkNoTts: 'HP ini belum punya suara Mandarin, jadi bagian mendengar dilewati. Nilai dihitung dari bagian lain.',
-  mkNote: 'Nilai ini perkiraan dari kosakata di aplikasi, bukan nilai resmi. Batas lulus resmi HSK 3.0 belum diumumkan, jadi di sini dipakai 60%.',
+  mkNote:
+    'Nilai ini perkiraan dari kosakata di aplikasi, bukan nilai resmi. Batas lulus resmi HSK 3.0 belum diumumkan, jadi di sini dipakai 60%.',
   mkLast: (t, max, d) => `Simulasi terakhir: ${t} dari ${max} (${d}).`,
   mkStart: 'Mulai simulasi',
   mkPartT: (i, n) => `Bagian ${i} dari ${n}`,
   mkPartD: {
-    listen: n => `${n} soal. Kalimatnya diputar otomatis, dan boleh diputar sekali lagi. Pilih kata yang kamu dengar, artinya, atau apakah kalimatnya sama.`,
+    listen: n =>
+      `${n} soal. Kalimatnya diputar otomatis, dan boleh diputar sekali lagi. Pilih kata yang kamu dengar, artinya, atau apakah kalimatnya sama.`,
     read: n => `${n} soal: arti kata, isian kalimat, dan arti kalimat.`,
     write: n => `${n} soal: susun potongan jadi kalimat, dan pilih hanzi untuk pinyin di dalam kurung.`,
   },
@@ -779,7 +802,8 @@ I18N.id = {
     cloze: 'Isian kalimat sering meleset. Pelajari contoh kalimat tiap kata, jangan artinya saja.',
     trans:
       'Terjemahan kalimat sering meleset. Baca kalimatnya sampai habis, jangan berhenti di satu kata yang kamu kenal.',
-    order: 'Menyusun kalimat masih sering keliru. Baca contoh kalimat tiap kata keras-keras, lalu perhatikan urutannya: siapa, kapan, di mana, lalu kerjanya.',
+    order:
+      'Menyusun kalimat masih sering keliru. Baca contoh kalimat tiap kata keras-keras, lalu perhatikan urutannya: siapa, kapan, di mana, lalu kerjanya.',
     hz: 'Hanzi yang bunyinya sama masih tertukar. Latih Ingat (arti → hanzi) untuk kata-kata itu.',
     older: (n, l) => `${n} kata dari level di bawah HSK ${l} terlupa. Dasar ini ikut diuji, jadi ulangi juga.`,
     time: 'Waktu habis sebelum semua soal selesai. Coba simulasi pendek dulu untuk melatih tempo.',

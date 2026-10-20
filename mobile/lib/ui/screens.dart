@@ -7,6 +7,7 @@ import '../app/app.dart';
 import '../i18n/l10.dart' show jsTruthy;
 import 'dart:async';
 
+import 'donate.dart';
 import 'focus.dart';
 import 'fx.dart';
 import 'goal.dart';
@@ -53,6 +54,7 @@ void wireSheets() {
   app.openShare = openShareSheet;
   app.openSettings = openSettings;
   app.openStreak = openStreak;
+  app.openDonate = openDonate;
   app.openInfo = (c, topic) => openInfo(c, topic);
   app.openGoal = (c, first, [focus]) => openGoal(c, first, focus);
   app.onWordmark = () {

@@ -179,6 +179,7 @@ void runs() {
   });
   for (final (name, open) in <(String, void Function(BuildContext))>[
     ('settings', (c) => app.openSettings!(c)),
+    ('donate', (c) => app.openDonate!(c)),
     ('streak', (c) => app.openStreak!(c)),
     ('goal', (c) => app.openGoal!(c, false)),
     ('backup', (c) => openBackup(c)),

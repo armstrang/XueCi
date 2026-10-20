@@ -85,6 +85,25 @@ I18N.en = {
   aboutT: 'About',
   privacy: 'Privacy policy',
   licT: 'Licences',
+  dnT: '护法 · Patron of the Sect',
+  dnAria: 'Support XueCi',
+  dnLead:
+    'XueCi is made by one person, in spare time. No ads, and no data sold. Every feature stays free for everyone.',
+  dnUse: 'Your donation helps add and fix words, translations and sound, and keeps XueCi free for other learners.',
+  dnTier: [
+    ['一杯茶', 'A cup of tea'],
+    ['一碗面', 'A bowl of noodles'],
+    ['一桌宴', 'A feast'],
+  ],
+  dnNone: 'Donations only work in the app installed from Google Play.',
+  dnLoad: 'Connecting to Google Play…',
+  dnThanks: 'Thank you, 护法. Your support keeps the sect’s gate open.',
+  dnPending: 'Google Play is still processing your payment. Thank you!',
+  dnErr: 'That didn’t go through. Try again later.',
+  dnCount: n => `You’ve been a 护法 ${n}×. Thank you.`,
+  dnFree: 'Nothing is locked. A donation unlocks no features.',
+  dnAsk: 'Enjoying XueCi? You can become a 护法, a patron of the sect.',
+  dnAskBtn: 'See',
   about: 'XueCi Mandarin is made by Armstrang.',
   tones: [
     ['Tone 1', 'High and level', 'mother'],
@@ -735,16 +754,20 @@ I18N.en = {
   mkRows: (n, m) => `${n} questions · about ${m} min`,
   mkTime: m => `${m} minutes`,
   mkPass: (need, max) => `pass with ${need} of ${max} points`,
-  mkWriteNote: 'At this level the real exam asks for short essays in writing. The app can’t mark essays yet, so here you build sentences instead.',
+  mkWriteNote:
+    'At this level the real exam asks for short essays in writing. The app can’t mark essays yet, so here you build sentences instead.',
   mkNoTts: 'This phone has no Chinese voice, so the listening part is left out. The score comes from the other parts.',
-  mkNote: 'This score is an estimate from the app’s vocabulary, not an official score. HSK 3.0 pass marks haven’t been published yet, so 60% is used here.',
+  mkNote:
+    'This score is an estimate from the app’s vocabulary, not an official score. HSK 3.0 pass marks haven’t been published yet, so 60% is used here.',
   mkLast: (t, max, d) => `Last mock exam: ${t} of ${max} (${d}).`,
   mkStart: 'Start the exam',
   mkPartT: (i, n) => `Part ${i} of ${n}`,
   mkPartD: {
-    listen: n => `${n} questions. Each sentence plays by itself, and you can play it once more. Pick the word you heard, what it meant, or whether it matches.`,
+    listen: n =>
+      `${n} questions. Each sentence plays by itself, and you can play it once more. Pick the word you heard, what it meant, or whether it matches.`,
     read: n => `${n} questions: word meanings, sentence gaps and what a sentence means.`,
-    write: n => `${n} questions: put pieces in order to make a sentence, and pick the hanzi for the pinyin in brackets.`,
+    write: n =>
+      `${n} questions: put pieces in order to make a sentence, and pick the hanzi for the pinyin in brackets.`,
   },
   mkPartGo: 'Start this part',
   mkPassY: 'PASSED',
@@ -780,7 +803,8 @@ I18N.en = {
     },
     cloze: 'Sentence gaps often went wrong: learn each word’s example sentence, not only its meaning.',
     trans: 'Sentence translations often went wrong: read the whole sentence, not just the one word you know.',
-    order: 'Building sentences still goes wrong often. Read each word’s example sentence out loud and notice the order: who, when, where, then what happens.',
+    order:
+      'Building sentences still goes wrong often. Read each word’s example sentence out loud and notice the order: who, when, where, then what happens.',
     hz: 'Characters that sound the same still get mixed up. Practise Recall (meaning → hanzi) for those words.',
     older: (n, l) => `${n} words from below HSK ${l} were forgotten. The exam tests them too, so review them as well.`,
     time: 'Time ran out before every question was done. Try the short mock first to get used to the pace.',

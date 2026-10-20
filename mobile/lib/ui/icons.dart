@@ -6,7 +6,9 @@ import 'package:flutter/widgets.dart';
 /// SVG path data → a Flutter Path (M L H V C S Q T A Z, absolute and relative)
 Path svgPath(String d) {
   final p = Path();
-  final re = RegExp(r'([MmLlHhVvCcSsQqTtAaZz])|(-?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)');
+  final re = RegExp(
+    r'([MmLlHhVvCcSsQqTtAaZz])|(-?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?)',
+  );
   final toks = re.allMatches(d).map((m) => m.group(0)!).toList();
   var i = 0;
   var cmd = '';
@@ -65,8 +67,12 @@ Path svgPath(String d) {
         cy2 = y2;
         break;
       case 'S':
-        final x1 = (last == 'C' || last == 'S') && cx2 != null ? 2 * x - cx2 : x;
-        final y1 = (last == 'C' || last == 'S') && cy2 != null ? 2 * y - cy2 : y;
+        final x1 = (last == 'C' || last == 'S') && cx2 != null
+            ? 2 * x - cx2
+            : x;
+        final y1 = (last == 'C' || last == 'S') && cy2 != null
+            ? 2 * y - cy2
+            : y;
         final x2 = ox + n(), y2 = oy + n();
         x = ox + n();
         y = oy + n();
@@ -83,8 +89,12 @@ Path svgPath(String d) {
         cy2 = y1;
         break;
       case 'T':
-        final x1 = (last == 'Q' || last == 'T') && cx2 != null ? 2 * x - cx2 : x;
-        final y1 = (last == 'Q' || last == 'T') && cy2 != null ? 2 * y - cy2 : y;
+        final x1 = (last == 'Q' || last == 'T') && cx2 != null
+            ? 2 * x - cx2
+            : x;
+        final y1 = (last == 'Q' || last == 'T') && cy2 != null
+            ? 2 * y - cy2
+            : y;
         x = ox + n();
         y = oy + n();
         p.quadraticBezierTo(x1, y1, x, y);
@@ -96,7 +106,13 @@ Path svgPath(String d) {
         final large = flag(), sweep = flag();
         x = ox + n();
         y = oy + n();
-        p.arcToPoint(Offset(x, y), radius: Radius.elliptical(rx, ry), rotation: rot, largeArc: large, clockwise: sweep);
+        p.arcToPoint(
+          Offset(x, y),
+          radius: Radius.elliptical(rx, ry),
+          rotation: rot,
+          largeArc: large,
+          clockwise: sweep,
+        );
         cx2 = null;
         break;
       case 'Z':
@@ -118,7 +134,8 @@ class Ic {
   final List<String> fill;
   final List<(double, double, double)> circles; // cx, cy, r (stroked)
   final List<(double, double, double)> dots; // filled circles
-  final List<(double, double, double, double, double)> rects; // x, y, w, h, rx (stroked)
+  final List<(double, double, double, double, double)>
+  rects; // x, y, w, h, rx (stroked)
   final double width;
   final double vb;
   const Ic({
@@ -140,10 +157,19 @@ class Icon2 extends StatelessWidget {
   final double size;
   final Color color;
   final double? width;
-  const Icon2(this.icon, {super.key, this.size = 22, required this.color, this.width});
+  const Icon2(
+    this.icon, {
+    super.key,
+    this.size = 22,
+    required this.color,
+    this.width,
+  });
   @override
   Widget build(BuildContext context) => ExcludeSemantics(
-    child: CustomPaint(size: Size.square(size), painter: _IcPainter(icon, color, width)),
+    child: CustomPaint(
+      size: Size.square(size),
+      painter: _IcPainter(icon, color, width),
+    ),
   );
 }
 
@@ -176,20 +202,37 @@ class _IcPainter extends CustomPainter {
       c.drawCircle(Offset(x, y), r, fl);
     }
     for (final (x, y, w, h, r) in ic.rects) {
-      c.drawRRect(RRect.fromRectAndRadius(Rect.fromLTWH(x, y, w, h), Radius.circular(r)), st);
+      c.drawRRect(
+        RRect.fromRectAndRadius(Rect.fromLTWH(x, y, w, h), Radius.circular(r)),
+        st,
+      );
     }
   }
 
   @override
-  bool shouldRepaint(_IcPainter o) => o.ic != ic || o.color != color || o.width != width;
+  bool shouldRepaint(_IcPainter o) =>
+      o.ic != ic || o.color != color || o.width != width;
 }
 
 /// the icons of app.html and the screens' scripts
 class I {
-  static const home = Ic(stroke: ['M3.5 10.5 12 3.8l8.5 6.7V19a1.5 1.5 0 0 1-1.5 1.5h-4v-6h-6v6H5A1.5 1.5 0 0 1 3.5 19z']);
-  static const list = Ic(stroke: ['M9 6h11M9 12h11M9 18h11', 'M4 6h1M4 12h1M4 18h1']);
-  static const cards = Ic(stroke: ['M8 3h10.5A2.5 2.5 0 0 1 21 5.5V17'], rects: [(3, 7, 13, 14, 2.5)]);
-  static const star = Ic(stroke: ['M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z']);
+  static const home = Ic(
+    stroke: [
+      'M3.5 10.5 12 3.8l8.5 6.7V19a1.5 1.5 0 0 1-1.5 1.5h-4v-6h-6v6H5A1.5 1.5 0 0 1 3.5 19z',
+    ],
+  );
+  static const list = Ic(
+    stroke: ['M9 6h11M9 12h11M9 18h11', 'M4 6h1M4 12h1M4 18h1'],
+  );
+  static const cards = Ic(
+    stroke: ['M8 3h10.5A2.5 2.5 0 0 1 21 5.5V17'],
+    rects: [(3, 7, 13, 14, 2.5)],
+  );
+  static const star = Ic(
+    stroke: [
+      'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z',
+    ],
+  );
   static const flame = Ic(
     stroke: [
       'M12 21c-3.9 0-6.5-2.6-6.5-6.2 0-3.3 2.2-5.4 3.6-7.6.3 1.7 1.2 2.9 2.3 3.4C11.2 7.5 12.6 4.6 15 3c-.3 3 .9 4.8 2.1 6.6 1 1.5 1.4 3 1.4 4.6C18.5 18.4 15.9 21 12 21z',
@@ -205,34 +248,71 @@ class I {
   static const back = Ic(stroke: ['M15 5l-7 7 7 7'], width: 2.4);
   static const chev = Ic(stroke: ['m6 9 6 6 6-6'], width: 2.4);
   static const check = Ic(stroke: ['m5 12.5 4.5 4.5L19 7.5'], width: 2.6);
-  static const play = Ic(fill: ['M8 5.5v13a1 1 0 0 0 1.5.86l10.6-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z']);
+  static const play = Ic(
+    fill: [
+      'M8 5.5v13a1 1 0 0 0 1.5.86l10.6-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z',
+    ],
+  );
   static const share = Ic(
-    stroke: ['M12 15V3.5M7.5 8 12 3.5 16.5 8', 'M5 12.5V18a2.5 2.5 0 0 0 2.5 2.5h9A2.5 2.5 0 0 0 19 18v-5.5'],
+    stroke: [
+      'M12 15V3.5M7.5 8 12 3.5 16.5 8',
+      'M5 12.5V18a2.5 2.5 0 0 0 2.5 2.5h9A2.5 2.5 0 0 0 19 18v-5.5',
+    ],
     width: 2.2,
   );
-  static const search = Ic(stroke: ['m20 20-3.5-3.5'], circles: [(11, 11, 7)], width: 2.4);
+  static const search = Ic(
+    stroke: ['m20 20-3.5-3.5'],
+    circles: [(11, 11, 7)],
+    width: 2.4,
+  );
   static const eyeOff = Ic(
     stroke: [
       'M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c5 0 9 4.5 10 7a13 13 0 0 1-3.2 4.2M6.2 6.2A13 13 0 0 0 2 12c1 2.5 5 7 10 7a9.8 9.8 0 0 0 4.3-1',
     ],
     width: 2.2,
   );
-  static const lock = Ic(stroke: ['M8 11V8a4 4 0 0 1 8 0v3'], rects: [(5, 11, 14, 9.5, 2)], width: 2.2);
-  static const device = Ic(stroke: ['M11 18.5h2'], rects: [(6.5, 2.5, 11, 19, 2.5)], width: 2.2);
-  static const incense = Ic(stroke: ['M10 20.5V10.2', 'M5.4 20.5h9.2'], width: 2.4, vb: 20);
-  static const smoke = Ic(stroke: ['M10 7.6c-2.6-2 1.4-3.6 0-6.4'], width: 2.4, vb: 20);
+  static const lock = Ic(
+    stroke: ['M8 11V8a4 4 0 0 1 8 0v3'],
+    rects: [(5, 11, 14, 9.5, 2)],
+    width: 2.2,
+  );
+  static const device = Ic(
+    stroke: ['M11 18.5h2'],
+    rects: [(6.5, 2.5, 11, 19, 2.5)],
+    width: 2.2,
+  );
+  static const incense = Ic(
+    stroke: ['M10 20.5V10.2', 'M5.4 20.5h9.2'],
+    width: 2.4,
+    vb: 20,
+  );
+  static const smoke = Ic(
+    stroke: ['M10 7.6c-2.6-2 1.4-3.6 0-6.4'],
+    width: 2.4,
+    vb: 20,
+  );
   static const speaker = Ic(
     stroke: ['M15.5 9a4 4 0 0 1 0 6', 'M18 6.5a7.5 7.5 0 0 1 0 11'],
     fill: ['M4 9.5v5h3.5L12 19V5L7.5 9.5z'],
     width: 2.2,
   );
-  static const themeAuto = Ic(stroke: [], circles: [(12, 12, 8.5)], fill: ['M12 3.5v17A8.5 8.5 0 0 0 12 3.5z'], width: 2.2);
+  static const themeAuto = Ic(
+    stroke: [],
+    circles: [(12, 12, 8.5)],
+    fill: ['M12 3.5v17A8.5 8.5 0 0 0 12 3.5z'],
+    width: 2.2,
+  );
   static const themeLight = Ic(
-    stroke: ['M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8'],
+    stroke: [
+      'M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8',
+    ],
     circles: [(12, 12, 4.5)],
     width: 2.2,
   );
-  static const themeDark = Ic(stroke: ['M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z'], width: 2.2);
+  static const themeDark = Ic(
+    stroke: ['M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z'],
+    width: 2.2,
+  );
   static const themeBlack = Ic(
     fill: ['M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z'],
     dots: [(18.5, 4.5, 1.3), (21.2, 8.6, .85)],
@@ -241,24 +321,56 @@ class I {
 
   // settings rows
   static const globe = Ic(
-    stroke: ['M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3C9.5 5.6 8.2 8.6 8.2 12s1.3 6.4 3.8 9'],
+    stroke: [
+      'M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9M12 3C9.5 5.6 8.2 8.6 8.2 12s1.3 6.4 3.8 9',
+    ],
     circles: [(12, 12, 9)],
     width: 2,
   );
   static const target = Ic(circles: [(12, 12, 9), (12, 12, 4.5)], width: 2);
   static const sync = Ic(
-    stroke: ['M20 11a8 8 0 0 0-14.6-4.5L4 8', 'M4 3.5V8h4.5', 'M4 13a8 8 0 0 0 14.6 4.5L20 16', 'M20 20.5V16h-4.5'],
+    stroke: [
+      'M20 11a8 8 0 0 0-14.6-4.5L4 8',
+      'M4 3.5V8h4.5',
+      'M4 13a8 8 0 0 0 14.6 4.5L20 16',
+      'M20 20.5V16h-4.5',
+    ],
     width: 2.1,
   );
-  static const flask = Ic(stroke: ['M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3'], width: 2);
-  static const tour = Ic(stroke: ['m10 8 5 4-5 4z'], circles: [(12, 12, 9)], width: 2);
-  static const shield = Ic(stroke: ['M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6z'], width: 2);
+  static const flask = Ic(
+    stroke: ['M9 3h6M10 3v6l-5 9a2 2 0 0 0 1.8 3h10.4a2 2 0 0 0 1.8-3l-5-9V3'],
+    width: 2,
+  );
+  static const tour = Ic(
+    stroke: ['m10 8 5 4-5 4z'],
+    circles: [(12, 12, 9)],
+    width: 2,
+  );
+
+  /// a cash coin (铜钱): the 护法 donation button
+  static const coin = Ic(
+    fill: [
+      'M2 12A10 10 0 1 1 22 12A10 10 0 1 1 2 12Z M3.6 12A8.4 8.4 0 1 0 20.4 12A8.4 8.4 0 1 0 3.6 12Z M4.6 12A7.4 7.4 0 1 1 19.4 12A7.4 7.4 0 1 1 4.6 12Z M9.2 9.2V14.8H14.8V9.2Z',
+    ],
+  );
+  static const shield = Ic(
+    stroke: ['M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6z'],
+    width: 2,
+  );
   static const upload = Ic(
-    stroke: ['M12 15V4', 'M7.5 8.5 12 4l4.5 4.5', 'M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14'],
+    stroke: [
+      'M12 15V4',
+      'M7.5 8.5 12 4l4.5 4.5',
+      'M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14',
+    ],
     width: 2.3,
   );
   static const download = Ic(
-    stroke: ['M12 4v11', 'M7.5 10.5 12 15l4.5-4.5', 'M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14'],
+    stroke: [
+      'M12 4v11',
+      'M7.5 10.5 12 15l4.5-4.5',
+      'M5 14v4.5A1.5 1.5 0 0 0 6.5 20h11a1.5 1.5 0 0 0 1.5-1.5V14',
+    ],
     width: 2.3,
   );
   static const github = Ic(
