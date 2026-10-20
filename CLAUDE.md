@@ -158,6 +158,8 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   never latest; the first was plain `v1.0-alpha`). `[skip ci]` in a commit message = no build, no alpha.
 - `.github/workflows/build-apk.yml`: the official release, **run by hand only** when Josh says so (APK + Play bundle,
   release `v1.N`, notes from `CHANGELOG.md`; refuses an existing tag).
+- `.github/workflows/play-test.yml` (by hand): a Play bundle for internal/closed testing, upload key only (fails
+  without it), `1.0.0-beta.N`, versionCode 1500 + run, artifact only (nothing published on GitHub).
 - `.github/workflows/flutter-sdk.yml` (by hand): the `dev-flutter-sdk` pre-release for Claude's cloud sessions; delete
   it after the first release when Josh agrees.
 - From Claude's cloud sessions the GitHub proxy refuses deleting releases, tags and branches and API writes to releases

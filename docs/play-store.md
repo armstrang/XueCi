@@ -1,6 +1,6 @@
 # Rencana rilis XueCi Mandarin di Google Play
 
-Status per 20 Oktober 2026. Aplikasi (Flutter) sedang diuji sebagai **1.0-alpha** (pre-release `v1.0-alpha-N` di
+Status per 20 Oktober 2026: akun Play Console, GitHub Pages, email kontak, 12 tester dan uji di HP sudah siap (Josh). Aplikasi (Flutter) sedang diuji sebagai **1.0-alpha** (pre-release `v1.0-alpha-N` di
 GitHub Releases). Centang item di bawah saat selesai.
 
 ## 1. Keputusan
@@ -38,10 +38,10 @@ GitHub Releases). Centang item di bawah saat selesai.
 - [x] Android App Bundle (.aab) dibuat CI bersama APK.
 - [x] Font dibundel, aplikasi sepenuhnya offline; kebijakan privasi di `docs/privacy/index.html` (ID + EN).
 - [x] Kontras teks diuji otomatis di setiap layar dan tema.
-- [ ] **Uji di HP sungguhan** (alpha): pindah progres dari versi sebelumnya, tampilan dan kelancaran, notifikasi
+- [x] **Uji di HP sungguhan** (alpha, Josh 20 Okt 2026): pindah progres dari versi sebelumnya, tampilan dan kelancaran, notifikasi
   pengingat (jam yang dipilih, diam setelah latihan, tetap ada setelah restart), widget, berbagi kartu, Android 15/16
   (gesture dan 3 tombol, keyboard, lanskap).
-- [ ] **GitHub Pages** untuk kebijakan privasi: repo → **Settings → Pages** → *Deploy from a branch* → `main`, folder
+- [x] **GitHub Pages** untuk kebijakan privasi: repo → **Settings → Pages** → *Deploy from a branch* → `main`, folder
   `/docs`. Alamatnya: **https://armstrang.github.io/XueCi/privacy/** (diisi di Play Console).
 - [x] **Lisensi data.** `harukicoder/hsk30`: tabel level MIT, korpus CC BY 4.0. Daftar kata kita berasal dari tabel level
   (MIT): teks lisensinya ada di aplikasi (Bantuan → Tentang → Lisensi, bersama lisensi font OFL) dan di
@@ -54,10 +54,17 @@ Teks ada di `store/listing.md`.
 - [x] Nama aplikasi: **XueCi Mandarin**; deskripsi singkat dan lengkap (ID + EN).
 - [x] Ikon 512×512: `art/play-icon-512.png`.
 - [x] Feature graphic 1024×500 (`store/feature-*.png`) dan 12 screenshot HP 1080×1920 per bahasa (`store/shots/`).
-- [ ] Email kontak di Play Console (wajib, tampil di halaman toko).
+- [x] Email kontak di Play Console (wajib, tampil di halaman toko).
 - [ ] Kuesioner rating konten (IARC), target usia 13+, Data safety "tidak mengumpulkan data" (jawaban di `store/listing.md`).
 
-## 5. Urutan
+## 5. Bundle untuk uji Play
+
+Workflow **Play test bundle** (Actions → *Play test bundle* → *Run workflow* di `main`) membuat `.aab` bertanda tangan
+upload key, versi `1.0.0-beta.N` (versionCode 1500 + run). Tidak menerbitkan apa pun di GitHub: unduh `.aab` dari
+*Artifacts* di halaman run itu, lalu unggah di Play Console → Testing. Gagal dengan pesan jelas kalau secret
+`XC_UPLOAD_*` belum diisi.
+
+## 6. Urutan
 
 1. Buat akun Play Console dan selesaikan verifikasi identitas (bisa beberapa hari).
 2. Selesaikan uji alpha di HP, buat upload key, lalu unggah AAB ke *internal testing*.
