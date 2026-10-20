@@ -17,50 +17,37 @@ Gambar dibuat dari aplikasi baru: screenshot `STORE=1 flutter test --no-pub --up
 **Nama aplikasi** (maks. 30): XueCi Mandarin
 
 **Deskripsi singkat** (maks. 80):
-Hafalkan 5.334 kata HSK 1–6 dengan latihan harian, kartu, dan kuis.
+Hafal 5.334 kata HSK sambil naik ranah, dari 凡人 sampai 飞升.
 
 **Deskripsi lengkap** (maks. 4.000):
 
-XueCi Mandarin (学词, "belajar kata") membantu kamu menghafal seluruh kosakata HSK 1–6 versi terbaru (silabus HSK 3.0, November 2025): 5.334 kata, lengkap dengan pinyin, arti, dan contoh kalimat berpinyin.
+XueCi Mandarin (学词, "belajar kata") membantu kamu menghafal semua kosakata HSK 1 sampai 6 dari silabus HSK 3.0: 5.334 kata, lengkap dengan pinyin, arti, dan contoh kalimat berpinyin.
 
-BELAJAR SESUAI TUJUANMU
-• Pilih tujuan: capai level tertentu sebelum tanggal tertentu, siapkan ujian HSK, atau belajar tanpa target.
-• Atur porsi harian dalam menit atau jumlah kata baru. Aplikasi menghitung apakah targetmu realistis dan memberi saran kalau belum.
-• Setiap hari ada sesi berisi ulangan kata yang paling berisiko terlupa, kata baru, dan latihan untuk kelemahanmu.
-• Tes penempatan 50 soal menentukan ranah awalmu. Tesnya adaptif dan ketat: untuk lulus HSK 5–6 kamu harus benar-benar menguasainya.
-• Pengingat harian di jam pilihanmu, dan tidak muncul kalau hari itu kamu sudah belajar.
+Kenapa kata yang kamu hafal minggu lalu bisa hilang? Karena cara mengulangnya. XueCi dibangun dari riset tentang ingatan: kamu mengulang dengan jeda, bukan sekaligus. Kamu diminta mengingat, bukan sekadar membaca ulang. Dan aplikasi tahu kapan sebaiknya kamu berhenti dan tidur.
 
-RANAH KULTIVASI
-Level kamu adalah ranah kultivasi: 凡人, 炼气 (HSK 1), 筑基, 金丹, 元婴, 化神, 渡劫 (HSK 6), sampai 飞升. Ranah hanya naik lewat tes: kuatkan kata di levelmu sampai tahap 圆满, lalu tempuh terobosan (突破): 雷劫, beberapa sambaran (arti, ketik pinyin, dengar, kalimat, kecepatan) yang harus lulus semuanya dan menentukan mutu fondasimu (道基). Satu tes per minggu.
-Di Lautan Jiwa (识海) ingatanmu tampil sebagai bola jaringan kata, dikelilingi lima elemen: fondasi, kultivasi, indra jiwa, hati dao, dan pencerahan. Ada juga ujian harian untuk keterampilan terlemahmu.
+LATIHAN SETIAP HARI
+Buka aplikasi, ketuk Mulai. Isinya kata yang hampir kamu lupa, beberapa kata baru, dan latihan untuk kelemahanmu. Jadwalnya memakai FSRS dan menyesuaikan diri dengan cara kamu mengingat. Pilih tujuanmu: naik level sebelum tanggal tertentu, siap ujian HSK, atau santai tanpa target. Aplikasi memberi tahu kalau targetmu terlalu berat. Tidak punya banyak waktu? Ada latihan 2 menit.
 
-ISTIRAHAT JUGA BELAJAR
-Saat kamu mulai lelah, aplikasi menawarkan jeda 5 menit. Pilih hari meditasi tanpa rencana dan tanpa pengingat; hari kultivasimu tidak putus. Angka dari model memori menunjukkan kenapa kembali besok lebih kuat daripada mengulang terus sekarang.
+NAIK RANAH SEPERTI PENDEKAR
+Levelmu adalah ranah kultivasi, dari 凡人 sampai 飞升. Ranah hanya naik kalau ingatanmu benar-benar menguat. Kuatkan kata di levelmu sampai tahap 圆满, lalu hadapi 雷劫: lima sambaran yang menguji arti, pinyin, pendengaran, kalimat, dan kecepatan. Mulai dari tes penempatan 50 soal yang menyesuaikan diri dengan jawabanmu.
+
+LAUTAN JIWA
+Semua kata yang sudah kamu pelajari tampil sebagai satu bola cahaya. Kata yang masih kamu ingat bersinar terang. Di sekelilingnya ada lima elemen yang menunjukkan sisi belajarmu yang kuat dan yang perlu dilatih.
 
 KARTU YANG MENGUJI
-Bilang "Saya tahu"? Buktikan dulu dengan cek kilat (pilih arti atau pinyin yang benar) sebelum kartu dibalik. Yakin tapi keliru membuat kata itu lebih cepat muncul lagi.
+Bilang "Saya tahu"? Buktikan dulu. Yakin tapi keliru membuat kata itu cepat kembali.
 
-KUIS SESUKAMU
-Kenali arti, ingat hanzi, nada, dengar, isi kalimat, ketik pinyin, dan terjemahan. Pilihan jawaban makin mirip saat kamu makin mahir. Ada juga simulasi HSK yang mengikuti susunan ujian HSK 3.0, dengan versi lengkap atau pendek, dinilai dan dibahas di akhir.
+KUIS DAN SIMULASI HSK
+Kenali arti, ingat hanzi, nada, dengar, isi kalimat, ketik pinyin, dan terjemahan. Soal isi kalimat memberi bantuan sesuai level, jadi pemula tidak langsung menyerah. Simulasi HSK mengikuti susunan ujian HSK 3.0, dengan waktu per bagian dan pembahasan setiap soal di akhir.
 
-MODEL MEMORI DI HP-MU
-Jadwal ulangan dihitung dengan FSRS, model memori open source, lalu disesuaikan dengan pola ingatanmu sendiri. Semua perhitungan dilakukan di HP, tanpa server.
-
-PROGRES YANG TERLIHAT
-Setiap kata punya 20 tingkat, dari merah ke kuning ke hijau, sesuai seberapa lama kata itu diperkirakan tetap kamu ingat. Halaman Statistik menampilkan setiap kata per unit, kelemahanmu, dan kata yang sering tertukar.
+ISTIRAHAT JUGA BELAJAR
+Kalau kamu mulai lelah, aplikasi mengajak jeda 5 menit. Pilih hari bertapa tanpa latihan dan tanpa pengingat, dan hitungan harimu tetap jalan.
 
 WARNA NADA
-Hanzi dan pinyin diwarnai sesuai nadanya, jadi nada ikut terhafal bersama katanya. Setiap contoh kalimat dilengkapi pinyin.
+Hanzi dan pinyin diwarnai sesuai nadanya, jadi nada ikut teringat bersama katanya.
 
-NYAMAN DIPAKAI
-• Tampilan Liquid Glass dengan tema terang, gelap, dan hitam pekat.
-• Antarmuka dan arti kata dalam bahasa Indonesia, English, ไทย, dan Tiếng Việt.
-• Ukuran huruf mengikuti pengaturan HP.
-• Sepenuhnya offline: tanpa akun, tanpa iklan, tanpa internet.
-• Cadangkan progres sebagai kode untuk dipindah ke HP lain.
-
-PRIVASI
-Progres dan riwayat belajar hanya tersimpan di perangkatmu. Aplikasi tidak mengumpulkan atau membagikan data apa pun.
+GRATIS DAN PRIBADI
+Tanpa iklan, tanpa akun, bisa dipakai offline. Progresmu hanya tersimpan di HP dan bisa dipindah ke HP lain dengan kode cadangan. Tersedia dalam bahasa Indonesia, English, ไทย, dan Tiếng Việt.
 
 Daftar kata dan pinyin berdasarkan data terbuka hsk30. XueCi Mandarin adalah aplikasi independen dan tidak berafiliasi dengan penyelenggara ujian HSK.
 
@@ -74,50 +61,37 @@ Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, ranah kultivasi dan Lautan J
 **App name** (max 30): XueCi Mandarin
 
 **Short description** (max 80):
-Learn 5,334 HSK 1–6 words with daily practice, flashcards and a quiz.
+Learn 5,334 HSK words and rise through the realms, from 凡人 to 飞升.
 
 **Full description** (max 4,000):
 
-XueCi Mandarin (学词, "learn words") helps you learn the complete HSK 1–6 vocabulary of the latest syllabus (HSK 3.0, November 2025): 5,334 words, each with pinyin, meaning and an example sentence with pinyin.
+XueCi Mandarin (学词, "learn words") helps you learn every HSK 1 to 6 word from the HSK 3.0 syllabus: 5,334 words, each with pinyin, a meaning and an example sentence with pinyin.
 
-LEARN TOWARDS YOUR GOAL
-• Choose a goal: reach a level by a date, prepare for an HSK exam, or study without a target.
-• Set a daily amount in minutes or new words. The app works out whether your target is realistic and suggests a fix if it isn't.
-• Every day there is a session with the words you are most likely to forget, new words, and practice on your weak spots.
-• A 50-question placement test finds your starting realm. It adapts to you and is strict: to pass HSK 5–6 you really have to know them.
-• A daily reminder at the time you choose, which stays quiet on days you have already studied.
+Why do the words you learned last week slip away? It's how you review them. XueCi is built on memory research: you review with gaps, not all at once. You're asked to recall, not just reread. And the app knows when it's time to stop and sleep.
 
-CULTIVATION REALMS
-Your level is a cultivation realm: 凡人, 炼气 (HSK 1), 筑基, 金丹, 元婴, 化神, 渡劫 (HSK 6), up to 飞升. Realms rise only through tests: make your level's words solid until the 圆满 stage, then attempt a breakthrough (突破): the 雷劫, a series of strikes (meaning, typed pinyin, listening, sentences, speed) that must all hold and that set your foundation's quality (道基). One test a week.
-In the Sea of Consciousness (识海) your memory appears as an orb of connected words, ringed by five elements: foundation, cultivation, spirit sense, dao heart and insight. A daily trial targets your weakest skill.
+A LITTLE EVERY DAY
+Open the app and tap Start. You get the words you're about to forget, a few new ones, and practice on your weak spots. Reviews are scheduled with FSRS and adapt to how you remember. Pick a goal: a level by a date, the HSK exam, or no target at all. The app tells you if your target is too much. Short on time? There's a 2-minute practice.
+
+RISE LIKE A CULTIVATOR
+Your level is a cultivation realm, from 凡人 to 飞升. A realm only rises when your memory really gets stronger. Make your level's words solid until the 圆满 stage, then face the 雷劫: five strikes that test meaning, pinyin, listening, sentences and speed. Start with a 50-question placement test that adapts to your answers.
+
+THE SEA OF CONSCIOUSNESS
+Every word you've learned becomes one orb of light. The words you still remember shine brightest. Around it, five elements show which side of your learning is strong and which needs work.
+
+CARDS THAT CHECK YOU
+Say "I know it"? Prove it first. Being sure but wrong brings the word back sooner.
+
+QUIZ AND HSK MOCK EXAM
+Recognise meanings, recall hanzi, tones, listening, sentence gaps, typed pinyin and translation. Sentence questions give help by level, so beginners don't give up. The mock exam follows the HSK 3.0 paper, with a clock for each section and every question explained at the end.
 
 REST IS PART OF LEARNING
-When you start to tire, the app offers a 5-minute break. Choose meditation days with no plan and no reminder; your cultivation days don't break. Numbers from the memory model show why coming back tomorrow beats repeating everything now.
-
-FLASHCARDS THAT CHECK YOU
-Say "I know it"? Prove it first with a quick check (pick the right meaning or pinyin) before the card flips. Being sure but wrong brings the word back sooner.
-
-A QUIZ YOUR WAY
-Recognise the meaning, recall the hanzi, tones, listening, sentence gaps, typed pinyin and translation. The options get trickier as you improve. There is also an HSK mock exam laid out like the HSK 3.0 paper, full or short, marked and explained at the end.
-
-A MEMORY MODEL ON YOUR PHONE
-Reviews are scheduled with FSRS, an open-source memory model, which then adapts to how you remember. Everything is worked out on your phone, with no server.
-
-PROGRESS YOU CAN SEE
-Every word has 20 levels, from red to yellow to green, based on how long you are expected to keep remembering it. The Stats screen shows every word unit by unit, your weak spots, and the words you mix up.
+When you start to tire, the app suggests a 5-minute break. Pick meditation days with no practice and no reminder, and your streak keeps going.
 
 TONE COLOURS
-Hanzi and pinyin are coloured by tone, so you learn the tone together with the word. Every example sentence comes with its pinyin.
+Hanzi and pinyin are coloured by tone, so you remember the tone with the word.
 
-MADE FOR DAILY USE
-• Liquid Glass design with light, dark and true black themes.
-• Interface and meanings in Indonesian, English, Thai and Vietnamese.
-• Text size follows your phone's setting.
-• Fully offline: no account, no ads, no internet.
-• Back up your progress as a code and move it to another phone.
-
-PRIVACY
-Your progress and study history stay on your device. The app does not collect or share any data.
+FREE AND PRIVATE
+No ads, no account, works offline. Your progress stays on your phone and moves to a new one with a backup code. Available in Indonesian, English, Thai and Vietnamese.
 
 Word list and pinyin based on the open hsk30 data. XueCi Mandarin is an independent app and is not affiliated with the organisers of the HSK exam.
 
