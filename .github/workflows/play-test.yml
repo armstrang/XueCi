@@ -2,7 +2,7 @@ name: Play test bundle
 
 # A Google Play bundle (.aab) for internal or closed testing, signed with the upload key from the repository secrets.
 # Run by hand (Actions → Play test bundle → Run workflow on main). Publishes nothing on GitHub: download the .aab from
-# the run's artifacts and upload it in Play Console. versionCode = 1500 + run: above the alphas (1000 + run) and below
+# the run's artifacts (kept 3 days) and upload it in Play Console. versionCode = 1500 + run: above the alphas (1000 + run) and below
 # the official releases (2000 + run), so each bundle is accepted by Play and v1.0 later installs over it.
 on:
   workflow_dispatch:
@@ -78,3 +78,4 @@ jobs:
           name: XueCiMandarin-play-${{ env.VER }}
           path: XueCiMandarin-*.aab
           if-no-files-found: error
+          retention-days: 3 # public repo: any signed-in GitHub user can download artifacts
