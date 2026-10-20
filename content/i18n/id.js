@@ -84,6 +84,7 @@ I18N.id = {
   infoLead: 'Warna hanzi dan pinyin menandai nadanya. Ucapkan sesuai warnanya:',
   aboutT: 'Tentang',
   privacy: 'Kebijakan privasi',
+  licT: 'Lisensi',
   about: 'XueCi Mandarin dibuat oleh Armstrang.',
   tones: [
     ['Nada 1', 'Tinggi dan datar', 'ibu'],

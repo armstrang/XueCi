@@ -55,7 +55,8 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   `XC_UPLOAD_*` when `XC_PLAY=1`; Josh creates that key himself.
 - Privacy policy (`docs/privacy/index.html`, ID + EN): update it whenever data behaviour or permissions change. Contact
   is GitHub Issues only — never publish an email. About never says who wrote the meanings/examples (README does).
-  "by Armstrang" only in About.
+  "by Armstrang" only in About. About → Licences shows `mobile/assets/legal/licenses.txt` (hsk30 MIT + the fonts' OFL):
+  keep it when fonts or data sources change.
 - CHANGELOG is in English; the `## v1.N` section is the release text.
 
 ## Look and motion (Josh notices)

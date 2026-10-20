@@ -84,6 +84,7 @@ I18N.en = {
   infoLead: 'The colour of a hanzi and its pinyin is its tone. Say it the way the colour says:',
   aboutT: 'About',
   privacy: 'Privacy policy',
+  licT: 'Licences',
   about: 'XueCi Mandarin is made by Armstrang.',
   tones: [
     ['Tone 1', 'High and level', 'mother'],

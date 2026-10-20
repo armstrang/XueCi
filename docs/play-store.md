@@ -43,8 +43,9 @@ GitHub Releases). Centang item di bawah saat selesai.
   (gesture dan 3 tombol, keyboard, lanskap).
 - [ ] **GitHub Pages** untuk kebijakan privasi: repo → **Settings → Pages** → *Deploy from a branch* → `main`, folder
   `/docs`. Alamatnya: **https://armstrang.github.io/XueCi/privacy/** (diisi di Play Console).
-- [ ] **Lisensi data.** `harukicoder/hsk30`: tabel level MIT, korpus CC BY 4.0. Daftar kata kita berasal dari tabel level
-  (MIT), jadi teks lisensi MIT + hak ciptanya harus ikut di aplikasi (layar Tentang/lisensi) dan di repo.
+- [x] **Lisensi data.** `harukicoder/hsk30`: tabel level MIT, korpus CC BY 4.0. Daftar kata kita berasal dari tabel level
+  (MIT): teks lisensinya ada di aplikasi (Bantuan → Tentang → Lisensi, bersama lisensi font OFL) dan di
+  `content/LICENSE-hsk30.txt`.
 
 ## 4. Halaman toko (Play Console → Store listing)
 

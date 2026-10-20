@@ -3,6 +3,7 @@
 library;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 import '../app/app.dart';
 import '../app/native.dart';
@@ -50,6 +51,7 @@ class _Info extends StatefulWidget {
 
 class _InfoState extends State<_Info> {
   late final Set<String> open = {?widget.topic};
+  String? licText; // assets/legal/licenses.txt, loaded when first opened
   final keys = <String, GlobalKey>{};
 
   @override
@@ -220,6 +222,36 @@ class _InfoState extends State<_Info> {
               ),
             ),
           ),
+          const SizedBox(height: 8),
+          Press(
+            onTap: () async {
+              if (licText != null) return setState(() => licText = null);
+              final x = await rootBundle.loadString('assets/legal/licenses.txt');
+              if (mounted) setState(() => licText = x);
+            },
+            scale: .98,
+            label: t.licT,
+            child: Glass(
+              solid: true,
+              radius: 16,
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              child: Row(
+                children: [
+                  Expanded(child: Text(t.licT, style: F.s(14, w: FontWeight.w700, c: p.fg))),
+                  AnimatedRotation(
+                    turns: licText != null ? .5 : 0,
+                    duration: const Duration(milliseconds: 200),
+                    child: Icon2(I.chev, size: 14, color: p.mute),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          if (licText != null)
+            Padding(
+              padding: const EdgeInsets.fromLTRB(4, 10, 4, 0),
+              child: Text(licText!, style: F.s(10.5, c: p.soft, h: 1.4)),
+            ),
           Padding(
             padding: const EdgeInsets.only(top: 12),
             child: Text.rich(

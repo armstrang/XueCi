@@ -25,6 +25,7 @@ flutter:
   assets:
     - assets/data/
     - assets/i18n/
+    - assets/legal/
   fonts:
     - family: Jakarta
       fonts:

@@ -225,6 +225,7 @@ mixin L10Keys {
   String get jdSame => s('jdSame');
   String get langHead => s('langHead');
   String get level => s('level');
+  String get licT => s('licT');
   String get list => s('list');
   String get listen => s('listen');
   String get loc => s('loc');

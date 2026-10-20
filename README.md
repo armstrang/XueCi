@@ -35,5 +35,5 @@ APK ditandatangani dengan kunci di `keystore/` supaya setiap versi bisa memperba
 
 ## Sumber data
 
-Daftar kata dan pinyin dari [harukicoder/hsk30](https://github.com/harukicoder/hsk30). Arti, contoh kalimat, dan terjemahannya ditulis oleh Claude.
+Daftar kata dan pinyin dari [harukicoder/hsk30](https://github.com/harukicoder/hsk30) (lisensi MIT, © 2026 Alvaro Serrano; teksnya di `content/LICENSE-hsk30.txt`). Font: Plus Jakarta Sans, Noto Sans SC, Noto Serif SC, Noto Sans Thai (SIL Open Font License 1.1). Semua teks lisensi juga ada di aplikasi: Bantuan → Tentang → Lisensi. Arti, contoh kalimat, dan terjemahannya ditulis oleh Claude.
 Pinyin kalimat dibuat dengan [pypinyin](https://github.com/mozillazg/python-pinyin) dan [jieba](https://github.com/fxsjy/jieba); frekuensi dan jenis kata (untuk tingkat kesulitan kata) dari kamus jieba (`dict.txt`). Keduanya berlisensi MIT.

@@ -52,6 +52,8 @@ same progress, every screen drawn natively, with a new look that is easier to re
   for the translation yourself still does. The placement test shows the meaning for HSK 1–4 too.
 - After several misses in a row, a word you know well comes next, so a hard run doesn't turn into a losing streak.
 - A "2′" button next to today's practice: about two minutes, six reviews, for days with little time.
+- Thai and Vietnamese text rewritten to sound natural, like the Indonesian and English.
+- About has a Licences section: the word list's MIT licence and the fonts' Open Font Licence.
 - Every screen is drawn natively instead of in a web page: Home, the word list, Cards, Quiz, the daily session, the
   HSK mock exam, Stats, the Soul Sea (its orb and the five-element ring), the realm sheet, the placement test and the
   tribulation with its lightning, Settings and the help guide. They work as before.
