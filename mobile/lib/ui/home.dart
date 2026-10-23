@@ -842,16 +842,20 @@ class _NbOpt extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------- word mastery
-/// what the colours mean, with this level's counts (behind the small ? next to the bar)
-void _bandSheet(BuildContext context, int level, List<(String, int)> rows) {
+/// word mastery in a sheet: the HSK lens to change the level, what the colours mean, this level's counts
+void _masterySheet(BuildContext context) {
   openSheet(context, name: 'bands', (c) {
     final p = Th.pal(c);
     final t = app.t;
+    final L = app.level;
+    final S = app.summary(app.by(L));
     return SheetBody(
-      title: '${t.masT} · HSK $level',
+      title: t.masT,
       children: [
+        LevelLens(level: L, onPick: app.setLevel),
+        const SizedBox(height: 14),
         Lead(t.masHelp),
-        for (final (b, n) in rows)
+        for (final b in const ['green', 'yellow', 'red', 'none'])
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 7),
             child: Row(
@@ -859,7 +863,7 @@ void _bandSheet(BuildContext context, int level, List<(String, int)> rows) {
                 Dot(p.band(b), size: 10),
                 const SizedBox(width: 10),
                 Expanded(child: Text(L10.text(t.band[b]), style: F.s(15, w: FontWeight.w700, c: p.fg))),
-                Text(app.fmt(n), style: F.s(15, w: FontWeight.w800, c: p.fg, feat: F.tab)),
+                Text(app.fmt(S.band(b)), style: F.s(15, w: FontWeight.w800, c: p.fg, feat: F.tab)),
               ],
             ),
           ),
@@ -868,6 +872,8 @@ void _bandSheet(BuildContext context, int level, List<(String, int)> rows) {
   });
 }
 
+/// word mastery on Home (the mockup): the share in big numbers beside the bar; a tap opens the sheet with the HSK
+/// lens and the counts
 class _Mastery extends StatelessWidget {
   final bool keys, short;
   const _Mastery({required this.keys, required this.short});
@@ -879,125 +885,61 @@ class _Mastery extends StatelessWidget {
     final L = app.level;
     final S = app.summary(app.by(L));
     final pc = app.pctTxt(S.p);
-    final big = th.fs >= 1.15;
     if (app.isNewbie() && short) return const SizedBox.shrink();
-    return Glass(
-      radius: 30,
-      padding: short ? const EdgeInsets.fromLTRB(12, 8, 12, 10) : const EdgeInsets.fromLTRB(14, 10, 14, 12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Semantics(
-                header: true,
-                child: Text(
-                  t.masT,
-                  style: F.s(15 * th.fsd / th.fs, w: FontWeight.w800, c: p.fg),
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: big
-                    ? const SizedBox()
-                    : Text(
-                        'HSK $L · ${t.words(app.fmt(S.n))}',
-                        style: F.s(12.5, c: p.soft),
-                      ),
-              ),
-              Press(
-                onTap: () => app.go('stats'),
-                scale: 1.05,
-                label: '${t.stTitle} · HSK $L · $pc',
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(minHeight: 36),
-                  child: Center(
-                    widthFactor: 1,
-                    child: Text(
-                      '${t.statsShort} ›',
-                      style: F.s(13, w: FontWeight.w800, c: th.acc),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 2),
-          LevelLens(level: L, onPick: app.setLevel, showPct: !big, compact: short),
-          SizedBox(height: short ? 4 : 6),
-          Row(
-            children: [
-              ConstrainedBox(
-                constraints: const BoxConstraints(minWidth: 44),
-                child: Text(
-                  pc,
-                  style: F.s(19, w: FontWeight.w700, c: p.fg, feat: F.tab),
-                ),
-              ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: StackBar([
-                  for (final b in const ['green', 'yellow', 'red']) (S.band(b) / math.max(1, S.n), p.band(b)),
-                ]),
-              ),
-              const SizedBox(width: 8),
-              Press(
-                onTap: () => _bandSheet(context, L, [for (final b in const ['green', 'yellow', 'red', 'none']) (b, S.band(b))]),
-                scale: 1.1,
-                label: '${t.masT}: ${t.masHelp}',
-                child: SizedBox(
-                  width: 32,
-                  height: 32,
-                  child: Center(
-                    child: Container(
-                      width: 22,
-                      height: 22,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: p.fgA(.25), width: 1.4)),
-                      child: Text('?', textScaler: TextScaler.noScaling, style: F.s(12, w: FontWeight.w800, c: p.soft, h: 1)),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          if (keys) ...[
-            const SizedBox(height: 6),
+    return Press(
+      onTap: () => _masterySheet(context),
+      scale: .98,
+      label: '${t.masT} · HSK $L · $pc',
+      child: Glass(
+        radius: 28,
+        padding: short ? const EdgeInsets.fromLTRB(16, 10, 16, 12) : const EdgeInsets.fromLTRB(20, 14, 20, 16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
             Row(
               children: [
-                for (final b in const ['green', 'yellow', 'red', 'none'])
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 8),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                Expanded(
+                  child: Semantics(header: true, child: Text(t.masT, maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(17, w: FontWeight.w800, c: p.fg))),
+                ),
+                Press(
+                  onTap: () => app.go('stats'),
+                  scale: 1.05,
+                  label: '${t.stTitle} · HSK $L · $pc',
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 36, minWidth: 44),
+                    child: Center(widthFactor: 1, child: Text('${t.statsShort} ›', style: F.s(15, w: FontWeight.w800, c: th.acc))),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 4),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(pc, style: F.s(short ? 26 : 32, w: FontWeight.w700, c: p.fg, feat: F.tab, ls: -1, h: 1)),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      StackBar([
+                        for (final b in const ['green', 'yellow', 'red']) (S.band(b) / math.max(1, S.n), p.band(b)),
+                      ]),
+                      const SizedBox(height: 6),
+                      Row(
                         children: [
-                          Text(
-                            app.fmt(S.band(b)),
-                            style: F.s(14, w: FontWeight.w800, c: p.fg, h: 1.2, feat: F.tab),
-                          ),
-                          Row(
-                            children: [
-                              Dot(p.band(b), size: 7),
-                              const SizedBox(width: 4),
-                              Expanded(
-                                child: Text(
-                                  L10.text(t.band[b]),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: F.s(11, c: p.soft),
-                                ),
-                              ),
-                            ],
-                          ),
+                          Flexible(child: Text('HSK $L · ${t.words(app.fmt(S.n))}', maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(14, c: p.soft))),
+                          const SizedBox(width: 4),
+                          Icon2(I.chev, size: 13, color: p.soft),
                         ],
                       ),
-                    ),
+                    ],
                   ),
+                ),
               ],
             ),
           ],
-        ],
+        ),
       ),
     );
   }

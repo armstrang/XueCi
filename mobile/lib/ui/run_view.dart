@@ -6,9 +6,11 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 
 import '../app/app.dart';
+import '../data/pinyin.dart';
 import '../app/speech.dart';
 import '../app/runner.dart';
 import '../data/words.dart';
@@ -152,8 +154,10 @@ class _RunScreenState extends State<RunScreen> {
     } else {
       body = _QView(r, it, key: ValueKey(it));
     }
-    final tabs = !['session', 'quiz'].contains(widget.mode) && !app.inExam;
-    return SingleChildScrollView(
+    final tabs = !['session'].contains(widget.mode) && !app.inExam;
+    // Cards and Quiz: the count sits at the right of the pill row, only the progress line below it
+    final trail = (widget.mode == 'card' || widget.mode == 'quiz') && m == null && it != null && r.brk == null;
+    return Stack(children: [SingleChildScrollView(
       controller: _scroll,
       padding: EdgeInsets.fromLTRB(
         16,
@@ -171,9 +175,10 @@ class _RunScreenState extends State<RunScreen> {
                 title: title,
                 pickers: widget.mode != 'session',
                 lead: [if (widget.mode == 'quiz' && !(m != null && m.started && it != null)) _qTypePill(context)],
+                pillTrail: trail ? _RunCount(r) : null,
               ),
-              const SizedBox(height: 12),
-              if (!(m != null && it == null)) _RunHead(r),
+              if (!trail) SizedBox(height: widget.mode == 'session' ? 12 : 4),
+              if (!(m != null && it == null)) _RunHead(r, barOnly: trail),
               // the next card or question comes in alone (the old one leaves at once): one glass card drawn, not two
               AnimatedSwitcher(
                 duration: const Duration(milliseconds: 200),
@@ -190,14 +195,41 @@ class _RunScreenState extends State<RunScreen> {
           ),
         ),
       ),
-    );
+    ), FloatTitle(controller: _scroll, title: title)]);
   }
 }
 
 // ---------------------------------------------------------------- the head of a run
+/// the count at the right of the pill row (Cards: 3 / 20; Quiz: 3 / 12 over Right 2/2)
+class _RunCount extends StatelessWidget {
+  final Run r;
+  const _RunCount(this.r);
+  @override
+  Widget build(BuildContext context) {
+    final p = Th.pal(context);
+    final t = app.t;
+    final n = r.items.length;
+    final i = math.min(r.i + 1, n);
+    final top = Text('$i / $n', style: F.s(13.5, w: FontWeight.w700, c: p.soft, feat: F.tab));
+    if (r.mode == 'card') return Padding(padding: const EdgeInsets.only(left: 10), child: top);
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          top,
+          Text('${t.right} ${r.ok}/${r.tot}', style: F.s(13.5, w: FontWeight.w800, c: p.fg, feat: F.tab)),
+        ],
+      ),
+    );
+  }
+}
+
 class _RunHead extends StatelessWidget {
   final Run r;
-  const _RunHead(this.r);
+  final bool barOnly;
+  const _RunHead(this.r, {this.barOnly = false});
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
@@ -208,12 +240,11 @@ class _RunHead extends StatelessWidget {
     final it = r.cur;
     // a thin progress line across the whole width, under the row
     Widget withBar(Widget row) => Padding(
-      padding: const EdgeInsets.only(bottom: 14),
+      padding: EdgeInsets.only(bottom: 14, top: barOnly ? 4 : 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          row,
-          const SizedBox(height: 10),
+          if (!barOnly) ...[row, const SizedBox(height: 10)],
           TweenAnimationBuilder<double>(
             tween: Tween(end: (r.i / math.max(1, n)).clamp(0, 1).toDouble()),
             duration: const Duration(milliseconds: 300),
@@ -368,7 +399,10 @@ Widget _qTypePill(BuildContext context) {
   return HeadPill(
     onTap: () => _openQType(context),
     label: '${t.qTypeL}: ${cur.$1}',
-    icon: _Qti(cur.$3, on: false),
+    icon: Padding(
+      padding: const EdgeInsets.only(left: 8),
+      child: Text(cur.$3.split('→').first, style: F.s(15, w: FontWeight.w900, family: F.zh, c: Th.of(context).acc)),
+    ),
     child: Text(cur.$1, style: F.s(15, w: FontWeight.w800, c: p.fg)),
   );
 }
@@ -440,7 +474,7 @@ class _CardView extends StatelessWidget {
     final checking = it.st == 'check';
     // the card takes the room the screen has (head, pills, buttons and the tab bar around it)
     final mq = MediaQuery.of(context);
-    final room = mq.size.height - mq.padding.vertical - 330;
+    final room = mq.size.height - mq.padding.vertical - 370;
     final h = checking ? 230.0 : room.clamp(320.0, 520.0);
     final front = _Face(
       child: Stack(
@@ -473,13 +507,6 @@ class _CardView extends StatelessWidget {
               ],
             ),
           ),
-          if (!checking)
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Text(t.fcHint, textAlign: TextAlign.center, style: F.s(14, c: p.soft)),
-            ),
         ],
       ),
     );
@@ -501,7 +528,13 @@ class _CardView extends StatelessWidget {
           duration: const Duration(milliseconds: 260),
           curve: Curves.easeOutCubic,
           height: h,
-          child: _Flip(on: back, front: front, back: backFace),
+          child: it.st == 'front'
+              ? _Swipe(
+                  onLeft: () => app.runner.cardDont(it),
+                  onRight: () => app.runner.cardKnow(it),
+                  child: _Flip(on: back, front: front, back: backFace),
+                )
+              : _Flip(on: back, front: front, back: backFace),
         ),
         const SizedBox(height: 12),
         _cardAct(context),
@@ -515,7 +548,7 @@ class _CardView extends StatelessWidget {
     final t = app.t;
     final R = app.runner;
     if (it.st == 'front') {
-      return Row(
+      final row = Row(
         children: [
           Expanded(
             child: _BigBtn(t.fcDont, color: p.cardC, fg: p.bad, onTap: () => R.cardDont(it)),
@@ -524,6 +557,14 @@ class _CardView extends StatelessWidget {
           Expanded(
             child: _BigBtn(t.fcKnow, color: th.acc, fg: p.onAcc, onTap: () => R.cardKnow(it)),
           ),
+        ],
+      );
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text(t.fcHint, textAlign: TextAlign.center, style: F.s(15, c: p.soft, h: 1.35)),
+          const SizedBox(height: 12),
+          row,
         ],
       );
     }
@@ -601,6 +642,110 @@ class _Face extends StatelessWidget {
     padding: const EdgeInsets.all(22),
     child: scroll ? SingleChildScrollView(child: child) : child,
   );
+}
+
+/// the card follows the finger sideways and tilts a little: let go far or fast to the right = I know it, to the left
+/// = don't know (a tint and a word show which); otherwise it springs back
+class _Swipe extends StatefulWidget {
+  final Widget child;
+  final VoidCallback onLeft, onRight;
+  const _Swipe({required this.child, required this.onLeft, required this.onRight});
+  @override
+  State<_Swipe> createState() => _SwipeState();
+}
+
+class _SwipeState extends State<_Swipe> with SingleTickerProviderStateMixin {
+  late final AnimationController _a = AnimationController.unbounded(vsync: this)..addListener(() => setState(() {}));
+  bool _gone = false, _buzzed = false;
+
+  @override
+  void dispose() {
+    _a.dispose();
+    super.dispose();
+  }
+
+  void _end(double v, double w) {
+    if (_gone) return;
+    final x = _a.value;
+    final go = x.abs() > w * .28 || (v.abs() > 900 && v.sign == x.sign && x.abs() > 20);
+    if (!go) {
+      _a.animateWith(SpringSimulation(const SpringDescription(mass: 1, stiffness: 380, damping: 26), x, 0, v));
+      return;
+    }
+    _gone = true;
+    HapticFeedback.mediumImpact();
+    final right = x > 0;
+    _a.animateTo(right ? w * 1.3 : -w * 1.3, duration: const Duration(milliseconds: 200), curve: Curves.easeIn).then((_) {
+      if (!mounted) return;
+      right ? widget.onRight() : widget.onLeft();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final p = th.p;
+    final t = app.t;
+    return LayoutBuilder(
+      builder: (c, bc) {
+        final w = bc.maxWidth;
+        final x = _a.value;
+        final k = (x.abs() / (w * .28)).clamp(0.0, 1.0);
+        final right = x > 0;
+        if (k >= 1 && !_buzzed) {
+          _buzzed = true;
+          HapticFeedback.selectionClick();
+        } else if (k < 1) {
+          _buzzed = false;
+        }
+        return GestureDetector(
+          onHorizontalDragUpdate: _gone ? null : (d) => _a.value += d.delta.dx,
+          onHorizontalDragEnd: _gone ? null : (d) => _end(d.velocity.pixelsPerSecond.dx, w),
+          onHorizontalDragCancel: () => _end(0, w),
+          child: Transform(
+            alignment: Alignment.bottomCenter,
+            transform: Matrix4.identity()
+              ..translateByDouble(x, 0, 0, 1)
+              ..rotateZ(x / w * .14),
+            child: Stack(
+              children: [
+                Positioned.fill(child: widget.child),
+                if (k > 0)
+                  Positioned.fill(
+                    child: IgnorePointer(
+                      child: Opacity(
+                        opacity: k,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(32),
+                            color: (right ? p.good : p.bad).withValues(alpha: .14),
+                            border: Border.all(color: (right ? p.good : p.bad).withValues(alpha: .7), width: 2),
+                          ),
+                          child: Align(
+                            alignment: right ? const Alignment(-.8, -.85) : const Alignment(.8, -.85),
+                            child: Transform.rotate(
+                              angle: right ? -.2 : .2,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(color: right ? p.good : p.bad, width: 2.5),
+                                ),
+                                child: Text(right ? t.fcKnow : t.fcDont, style: F.s(18, w: FontWeight.w900, c: right ? p.good : p.bad)),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }
 
 /// the card turns over (a 3D turn around the vertical axis, .5 s)
@@ -1070,59 +1215,49 @@ class _QViewState extends State<_QView> {
     final p = th.p;
     final t = app.t;
     final R = app.runner;
-    final d = it.d;
     final q = it.q;
     final picked = !ok && q != 's' && q != 'p' && q != 't' && it.words != null && (it.pick ?? -1) >= 0 ? it.words![it.pick!] : null;
     final amb = q == 'c' && !ok && picked != null && !it.heard && R.ambLeft() > 0;
+    // the options already show right and wrong; words are added only where the screen can't show it
+    final note = <Widget>[
+      if (q == 'p') Text(ok ? t.ok : t.ng, textAlign: TextAlign.center, style: F.s(17, w: FontWeight.w800, c: ok ? p.good : p.bad)),
+      if (q == 'p' && !ok) Center(child: Py(it.d, size: 18)),
+      if (q == 'p' && !ok && it.timedOut) Text(t.pyToneless, textAlign: TextAlign.center, style: F.s(13.5, c: p.soft)),
+      if (q == 'p' && ok && it.alt is Word) Rich(t.pyAlt((it.alt as Word).h), style: F.s(13.5, c: p.soft), align: TextAlign.center),
+      if (it.heard && q == 'c') Text(t.ambDone, textAlign: TextAlign.center, style: F.s(13.5, w: FontWeight.w700, c: p.soft)),
+      if (picked != null && !(it.heard && q == 'c'))
+        Text.rich(
+          TextSpan(children: [
+            TextSpan(text: '${t.picked} '),
+            TextSpan(text: picked.h, style: F.s(16, w: FontWeight.w900, family: F.hz, c: p.fg)),
+            TextSpan(text: ' ${picked.p} · ${app.m1(picked)}'),
+          ]),
+          textAlign: TextAlign.center,
+          style: F.s(13.5, c: p.soft),
+        ),
+      if (amb)
+        Center(
+          child: TextButton(
+            onPressed: () => R.qAmbig(it),
+            child: Text(t.ambBtn, style: F.s(14, w: FontWeight.w700, c: th.acc)),
+          ),
+        ),
+    ];
     return Padding(
-      padding: const EdgeInsets.only(top: 16),
+      padding: const EdgeInsets.only(top: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Glass(
-            solid: true,
-            radius: 26,
-            padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-          Semantics(
-            liveRegion: true,
-            child: it.heard && q == 'c'
-                ? Text(t.ambDone, style: F.s(13.5, w: FontWeight.w700, c: p.soft))
-                : Text(ok ? t.ok : t.ng, style: F.s(17, w: FontWeight.w800, c: ok ? p.good : p.bad)),
-          ),
-          if (q == 'p' && !ok && it.timedOut) Text(t.pyToneless, style: F.s(13, c: p.soft)),
-          if (q == 'p' && ok && it.alt is Word) Rich(t.pyAlt((it.alt as Word).h), style: F.s(13, c: p.soft)),
-          if (picked != null)
-            Padding(
-              padding: const EdgeInsets.only(top: 2, bottom: 6),
-              child: Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(text: '${t.picked} '),
-                    TextSpan(text: picked.h, style: F.s(16, w: FontWeight.w900, family: F.hz, c: p.fg)),
-                    TextSpan(text: ' ${picked.p} · ${app.m1(picked)}'),
-                  ],
-                ),
-                style: F.s(13, c: p.soft),
+          if (note.isNotEmpty) Semantics(liveRegion: true, child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: note)),
+          if (app.canSpeak())
+            Center(
+              child: TextButton.icon(
+                onPressed: () => speak(it.d.h),
+                icon: Icon2(I.speaker, size: 20, color: th.acc),
+                label: Text(t.listenAgain, style: F.s(15, c: p.soft)),
               ),
             ),
-          if (amb)
-            TextButton(
-              onPressed: () => R.qAmbig(it),
-              child: Text(t.ambBtn, style: F.s(13, w: FontWeight.w700, c: th.acc)),
-            ),
-          const SizedBox(height: 4),
-          WordHead(d),
-          const SizedBox(height: 4),
-          WordBody(d),
-          const SizedBox(height: 6),
-          LevelLine(d),
-              ],
-            ),
-          ),
-          const SizedBox(height: 14),
+          const SizedBox(height: 8),
           KeyedSubtree(
             key: _nextKey,
             child: MainBtn(t.next, wide: true, radius: 28, big: true, onTap: R.next),
@@ -1152,7 +1287,18 @@ Widget qOptLabel(BuildContext context, Item it, int i, {bool py = false}) {
 Widget qTileLabel(BuildContext context, Item it, int i, {bool py = false}) {
   final p = Th.pal(context);
   if (it.tones != null) {
-    return FittedBox(fit: BoxFit.scaleDown, child: Text(pyOpt(it.tones![i]), style: F.s(24, w: FontWeight.w800, c: p.fg)));
+    final syl = it.tones![i];
+    final tn = syl.length == 1 ? tone(syl.first) : 0;
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(pyOpt(syl), style: F.s(28, w: FontWeight.w800, c: p.fg, h: 1.1)),
+          if (tn > 0) Text(tn == 5 ? app.t.toneNeutral : app.t.toneN(tn), style: F.s(13, w: FontWeight.w600, c: p.soft)),
+        ],
+      ),
+    );
   }
   final o = it.words![i];
   final hz = Text(o.h, maxLines: 1, style: F.s(28, w: FontWeight.w900, family: F.hz, c: p.fg, h: 1.1), locale: const Locale('zh', 'CN'));

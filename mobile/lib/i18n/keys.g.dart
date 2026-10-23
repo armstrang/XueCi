@@ -243,6 +243,7 @@ mixin L10Keys {
   String get licT => s('licT');
   String get list => s('list');
   String get listen => s('listen');
+  String get listenAgain => s('listenAgain');
   String get loc => s('loc');
   String lvAhead(Object? a0) => f('lvAhead', [a0]);
   String get lvNote => s('lvNote');
@@ -540,6 +541,7 @@ mixin L10Keys {
   String get tTone => s('tTone');
   String get tTrans => s('tTrans');
   String get tabHome => s('tabHome');
+  String get tabSoul => s('tabSoul');
   String get tabStats => s('tabStats');
   String get testLocked => s('testLocked');
   String testNext(Object? a0) => f('testNext', [a0]);
@@ -551,6 +553,8 @@ mixin L10Keys {
   String toNext(Object? a0) => f('toNext', [a0]);
   String tone(Object? a0) => f('tone', [a0]);
   String get toneL => s('toneL');
+  String toneN(Object? a0) => f('toneN', [a0]);
+  String get toneNeutral => s('toneNeutral');
   String get toneT => s('toneT');
   List<dynamic> get tones => v('tones') as List<dynamic>? ?? const [];
   List<dynamic> get tour => v('tour') as List<dynamic>? ?? const [];

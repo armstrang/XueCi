@@ -685,7 +685,7 @@ class _SoulScreenState extends State<SoulScreen> {
       _history(context, r),
     ];
     final head = Capsule(
-      title: t.soulT,
+      title: t.tabSoul,
       onBack: () => app.go('home'),
       trailing: [
         CapBtn(label: t.shareL, onTap: () => app.openShare?.call(context), child: Icon2(I.share, size: 19, color: p.fg)),
@@ -726,14 +726,19 @@ class _SoulScreenState extends State<SoulScreen> {
         ),
       );
     }
-    return ListView(
-      controller: _scroll,
-      padding: EdgeInsets.fromLTRB(16, pad.top + 10, 16, bottom),
+    return Stack(
       children: [
-        head,
-        const SizedBox(height: 12),
-        hero,
-        for (final c in cards) ...[const SizedBox(height: 12), c],
+        ListView(
+          controller: _scroll,
+          padding: EdgeInsets.fromLTRB(16, pad.top + 10, 16, bottom),
+          children: [
+            head,
+            const SizedBox(height: 12),
+            hero,
+            for (final c in cards) ...[const SizedBox(height: 12), c],
+          ],
+        ),
+        FloatTitle(controller: _scroll, title: t.tabSoul, onBack: () => app.go('home')),
       ],
     );
   }

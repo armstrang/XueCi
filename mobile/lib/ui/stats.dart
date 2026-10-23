@@ -146,6 +146,7 @@ class StatsScreenState extends State<StatsScreen> {
           bottom: pad.bottom + 90,
           child: d == null || d.l != lv ? _Hint(t.dotHint) : _Detail(d),
         ),
+        FloatTitle(controller: _scroll, title: t.stTitle),
       ],
     );
   }

@@ -31,7 +31,10 @@ same progress, every screen drawn natively, with a new look that is easier to re
   then word mastery.
 - Quiz: the question alone in its card, the answers below where the thumb is (rows, or a 2×2 grid for hanzi and
   tones), a tick or cross on the answer and a light buzz; the tab bar steps aside while you answer.
-- Cards: a bigger card and hanzi, bigger buttons. Sheets can be pulled down to close.
+- Cards: a bigger card and hanzi, bigger buttons. Swipe the card right for "I know it", left for "Don't know"; it
+  tilts with your finger and springs back if you let go early. Sheets can be pulled down to close.
+- Scroll a screen and its title moves into a small frosted bar at the top.
+- Word mastery on Home is one calm line; tap it for the HSK lens and the counts.
 
 ### New look
 - Glass all through: panels of soft milky glass that let a slow aurora of colour (your level's colour with warm

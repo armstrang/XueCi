@@ -26,10 +26,13 @@ class Capsule extends StatelessWidget {
 
   /// pills before the level and unit pickers (the quiz type)
   final List<Widget> lead;
-  const Capsule({super.key, required this.title, this.pickers = false, this.trailing = const [], this.onBack, this.lead = const []});
+
+  /// at the right end of the pill row (a run's count)
+  final Widget? pillTrail;
+  const Capsule({super.key, required this.title, this.pickers = false, this.trailing = const [], this.onBack, this.lead = const [], this.pillTrail});
 
   /// where the picker menus drop from (under the pill row)
-  static double menuTop(BuildContext c) => MediaQuery.paddingOf(c).top + 10 + 48 + 12 + 44 + 8;
+  static double menuTop(BuildContext c) => MediaQuery.paddingOf(c).top + 10 + 48 + 4 + 8 + 44 + 8;
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +51,9 @@ class Capsule extends StatelessWidget {
         HeadPill(
           label: '${t.pickU}: ${u != 0 ? '${t.unit} $u' : t.allU}',
           onTap: () => openUnitMenu(context),
+          // beside the quiz type there is less room: the unit's number alone
           child: Text(
-            u != 0 ? '${t.unit} ${u.toString().padLeft(2, '0')}' : t.allShort,
+            u != 0 ? (lead.isNotEmpty ? u.toString().padLeft(2, '0') : '${t.unit} ${u.toString().padLeft(2, '0')}') : t.allShort,
             style: F.s(15, w: FontWeight.w700, c: p.fg),
           ),
         ),
@@ -92,15 +96,24 @@ class Capsule extends StatelessWidget {
           ),
           if (pills.isNotEmpty)
             Padding(
-              padding: const EdgeInsets.only(top: 12),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                clipBehavior: Clip.none,
-                child: Row(
-                  children: [
-                    for (var i = 0; i < pills.length; i++) ...[if (i > 0) const SizedBox(width: 8), pills[i]],
-                  ],
-                ),
+              padding: const EdgeInsets.only(top: 4),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      clipBehavior: pillTrail == null ? Clip.none : Clip.hardEdge,
+                      // room for the pills' shadows inside the clip
+                      padding: const EdgeInsets.symmetric(vertical: 8),
+                      child: Row(
+                        children: [
+                          for (var i = 0; i < pills.length; i++) ...[if (i > 0) const SizedBox(width: 8), pills[i]],
+                        ],
+                      ),
+                    ),
+                  ),
+                  ?pillTrail,
+                ],
               ),
             ),
         ],
@@ -432,7 +445,7 @@ class _ListScreenState extends State<ListScreen> {
         ? t.results(app.fmt(total), app.q)
         : '${u != 0 ? 'No. ${(u - 1) * 50 + 1}–${(u * 50).clamp(0, app.by(L).length)} · ' : ''}${t.words(app.fmt(total))}';
     final bottom = MediaQuery.paddingOf(context).bottom + 90;
-    return CustomScrollView(
+    return Stack(children: [CustomScrollView(
       controller: _scroll,
       slivers: [
         SliverToBoxAdapter(child: SizedBox(height: MediaQuery.paddingOf(context).top + 10)),
@@ -443,7 +456,7 @@ class _ListScreenState extends State<ListScreen> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Capsule(title: t.list, pickers: true),
-                const SizedBox(height: 12),
+                const SizedBox(height: 4),
                 Wrap(
                   spacing: 8,
                   runSpacing: 8,
@@ -566,7 +579,7 @@ class _ListScreenState extends State<ListScreen> {
           ),
         SliverToBoxAdapter(child: _Foot(bottom: bottom)),
       ],
-    );
+    ), FloatTitle(controller: _scroll, title: t.list)]);
   }
 }
 
@@ -675,3 +688,65 @@ class WordChips extends StatelessWidget {
 }
 
 String langLabel(String l) => L10.text(app.texts[l]!.name);
+
+/// iOS: once the large title has scrolled away, a small title fades in on a frosted bar at the top (with the back
+/// chevron); only this bar redraws while scrolling
+class FloatTitle extends StatelessWidget {
+  final ScrollController controller;
+  final String title;
+  final VoidCallback? onBack;
+  const FloatTitle({super.key, required this.controller, required this.title, this.onBack});
+  @override
+  Widget build(BuildContext context) {
+    final p = Th.pal(context);
+    final top = MediaQuery.paddingOf(context).top;
+    return Positioned(
+      left: 0,
+      right: 0,
+      top: 0,
+      child: RepaintBoundary(
+        child: ListenableBuilder(
+          listenable: controller,
+          builder: (c, _) {
+            final off = controller.hasClients && controller.positions.length == 1 ? controller.offset : 0.0;
+            final k = ((off - 44) / 28).clamp(0.0, 1.0);
+            if (k == 0) return const SizedBox.shrink();
+            return IgnorePointer(
+              ignoring: k < .5,
+              child: Opacity(
+                opacity: k,
+                child: Glass(
+                  frost: true,
+                  radius: 0,
+                  borderRadius: BorderRadius.zero,
+                  rim: false,
+                  shadow: const [],
+                  child: SizedBox(
+                    height: top + 48,
+                    child: Padding(
+                      padding: EdgeInsets.only(top: top),
+                      child: Row(
+                        children: [
+                          Press(
+                            onTap: onBack ?? () => backFrom(context),
+                            scale: .9,
+                            label: app.t.back,
+                            child: SizedBox(width: 52, height: 48, child: Center(child: Icon2(I.back, size: 22, color: p.fg, width: 2.4))),
+                          ),
+                          Expanded(
+                            child: Text(title, textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(17, w: FontWeight.w800, c: p.fg)),
+                          ),
+                          const SizedBox(width: 52),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

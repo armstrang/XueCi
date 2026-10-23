@@ -79,7 +79,7 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - Home must fit one screen (360×680 up) and keeps its order (Apple redesign, Josh, Oct 2026): header (wordmark, one
   frosted capsule: cultivation days, 护法 coin, Settings) → `RealmRow` (small orb beside the realm name and stage bars,
   ? top right) → `PlanCard` (Today: big numbers, one wide Start, 2 min + 试 below, goal link; `tight` on small
-  phones/large text puts them in one row) → word mastery with the HSK lens → tab bar.
+  phones/large text puts them in one row) → word mastery (one line: % + bar + "HSK n · words ⌄"; a tap opens the sheet with the HSK lens and counts) → tab bar.
   Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
   uses `Compact`, half-way).
 - Tab bar: Home/List/Cards/Quiz/Soul Sea (orb icon), 64 tall, an icon with its name under it on every tab, a glass
@@ -89,7 +89,9 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - Focus header (`Capsule` in focus.dart, iOS large title): back chevron + 31 pt title (+ trailing buttons in one
   frosted capsule), then a row of glass `HeadPill`s (quiz type, HSK, unit); menus drop from under the pills
   (`Capsule.menuTop`). Quiz: the prompt alone in its card, answers below (rows; a 2×2 `tile` grid for hanzi/tones),
-  feedback card + a big Next. Big actions are 56 tall (`MainBtn(big: true)`). Sheets can be dragged down.
+  a line only where needed (typed pinyin, what you chose) + Listen again + a big Next; the run's count sits at the
+  right of the pill row (`pillTrail`). Big actions are 56 tall (`MainBtn(big: true)`). Gestures: sheets drag down,
+  the card front swipes (right = know, left = don't; `_Swipe`), scrolled screens show `FloatTitle`.
 
 ## How the app works
 

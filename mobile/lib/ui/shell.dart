@@ -157,7 +157,7 @@ class _ShellState extends State<Shell> {
     final s = app.screen;
     final kb = MediaQuery.viewInsetsOf(context).bottom > 80;
     // hidden while answering: a session, the quiz, the tests, typing, an open menu, an exam
-    final tabs = !const ['session', 'quiz', 'placement', 'bt'].contains(s) && !kb && !app.menuOpen && !app.inExam;
+    final tabs = !const ['session', 'placement', 'bt'].contains(s) && !kb && !app.menuOpen && !app.inExam;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (did, _) {
@@ -235,7 +235,7 @@ class TabBar2 extends StatelessWidget {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final names = [t.tabHome, t.list, t.card, t.quiz, t.tabStats];
+    final names = [t.tabHome, t.list, t.card, t.quiz, t.tabSoul];
     const icons = [I.home, I.list, I.cards, I.quiz, I.orb];
     final cur = tabs.indexOf(app.screen);
     final bottom = MediaQuery.paddingOf(context).bottom;
@@ -316,7 +316,7 @@ class ToastHost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.paddingOf(context).bottom;
-    final tabs = !const ['session', 'quiz', 'placement', 'bt'].contains(app.screen);
+    final tabs = !const ['session', 'placement', 'bt'].contains(app.screen);
     return ValueListenableBuilder(
       valueListenable: app.toastV,
       builder: (c, v, _) => IgnorePointer(
