@@ -9,3 +9,6 @@ fonts-src/
 store/raw/
 __pycache__/
 mobile/test/failures/
+
+# 4K feature pictures (art/make_features.py): made on demand, not kept in the repo
+store/features-*.png
