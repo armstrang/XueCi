@@ -114,112 +114,95 @@ class HomeHeader extends StatelessWidget {
     final t = app.t;
     final h = short ? 40.0 : 42.0;
     final s = app.memo('streak', app.lm.streak);
-    final narrow = MediaQuery.sizeOf(context).width / Th.of(context).fs.clamp(1.0, 1.6) < 400; // the coin and Settings need the room
+    // one button in the group: the same size for all three, the press springs inside it
+    Widget btn({required String label, required VoidCallback onTap, required Widget child}) => Press(
+      onTap: onTap,
+      scale: 1.08,
+      label: label,
+      child: SizedBox(width: h + 2, height: h, child: Center(child: child)),
+    );
     return Compact(
       child: Row(
         children: [
+          // the wordmark sits right on the aurora: no pill
           Press(
             onTap: app.onWordmark,
-            scale: 1.06,
+            scale: 1.04,
             label: 'XueCi Mandarin',
-            child: Glass(
-              frost: true,
-              radius: h / 2,
-              height: h,
-              padding: EdgeInsets.fromLTRB(narrow ? 12 : 16, 0, narrow ? 12 : 18, 0),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 4),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text.rich(
                     TextSpan(
                       children: [
                         const TextSpan(text: 'Xue'),
-                        TextSpan(
-                          text: 'Ci',
-                          style: TextStyle(color: th.acc),
-                        ),
+                        TextSpan(text: 'Ci', style: TextStyle(color: th.acc)),
                       ],
                     ),
-                    style: F.s(narrow ? 16.5 : 18, w: FontWeight.w800, c: p.fg, ls: -.8, h: 1),
+                    style: F.s(22, w: FontWeight.w800, c: p.fg, ls: -.9, h: 1),
                   ),
                   if (th.fs < 1.15) ...[
-                    const SizedBox(height: 4),
-                    Text(
-                      'MANDARIN',
-                      style: F.s(8, w: FontWeight.w800, c: p.soft, ls: 2.9, h: 1),
-                    ),
+                    const SizedBox(height: 3),
+                    Text('MANDARIN', style: F.s(8, w: FontWeight.w800, c: p.soft, ls: 2.9, h: 1)),
                   ],
                 ],
               ),
             ),
           ),
           const Spacer(),
-          Press(
-            onTap: () => app.openStreak?.call(context),
-            scale: 1.06,
-            label: L10.text(t.v('streakAria'), [app.fmt(s.days), s.today]),
-            child: Glass(
-              frost: true,
-              radius: h / 2,
-              height: h,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TaiJi(lit: s.today, size: 17),
-                  const SizedBox(height: 2),
-                  Text(
-                    app.fmt(s.days),
-                    textScaler: TextScaler.noScaling,
-                    style: F.s(10.5, w: FontWeight.w800, c: s.today ? p.fg : p.soft, h: 1, feat: F.tab),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Press(
-            onTap: () => app.openDonate?.call(context),
-            scale: 1.06,
-            label: t.dnAria,
-            child: Glass(
-              frost: true,
-              radius: h / 2,
-              width: h,
-              height: h,
-              child: Center(child: Icon2(I.coin, size: 21, color: p.gold)),
-            ),
-          ),
-          const SizedBox(width: 8),
-          Press(
-            onTap: () => app.openSettings?.call(context),
-            scale: 1.06,
-            label: t.setT,
-            child: Stack(
-              clipBehavior: Clip.none,
+          // cultivation days · 护法 · Settings in one glass capsule
+          Glass(
+            frost: true,
+            radius: h / 2,
+            height: h,
+            padding: const EdgeInsets.symmetric(horizontal: 3),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Glass(
-                  frost: true,
-                  radius: h / 2,
-                  width: h,
-                  height: h,
-                  child: Center(child: Icon2(I.gear, size: 19, color: p.fg)),
-                ),
-                if (app.bkDue())
-                  Positioned(
-                    top: 7,
-                    right: 8,
-                    child: Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        color: p.sYellow,
-                        shape: BoxShape.circle,
-                        border: Border.all(color: p.bgTop, width: 2),
+                btn(
+                  label: L10.text(t.v('streakAria'), [app.fmt(s.days), s.today]),
+                  onTap: () => app.openStreak?.call(context),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TaiJi(lit: s.today, size: 16),
+                      const SizedBox(height: 1.5),
+                      Text(
+                        app.fmt(s.days),
+                        textScaler: TextScaler.noScaling,
+                        style: F.s(10, w: FontWeight.w800, c: s.today ? p.fg : p.soft, h: 1, feat: F.tab),
                       ),
-                    ),
+                    ],
                   ),
+                ),
+                btn(
+                  label: t.dnAria,
+                  onTap: () => app.openDonate?.call(context),
+                  child: Icon2(I.coin, size: 19, color: p.gold),
+                ),
+                btn(
+                  label: t.setT,
+                  onTap: () => app.openSettings?.call(context),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Icon2(I.gear, size: 19, color: p.fg),
+                      if (app.bkDue())
+                        Positioned(
+                          top: -2,
+                          right: -3,
+                          child: Container(
+                            width: 7,
+                            height: 7,
+                            decoration: BoxDecoration(color: p.sYellow, shape: BoxShape.circle),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

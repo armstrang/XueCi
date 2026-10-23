@@ -123,12 +123,17 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
   }
   // the glow inside the edge: strokes of growing width, so the light is strongest at the rim and fades inwards
   if (!low) {
-    final reach = switch (k) {
-      GK.panel => 16.0,
-      GK.frost => 12.0,
-      GK.lens => 10.0,
-      GK.inner => 9.0,
-    };
+    // the glow hugs the edge: on small pieces (buttons, chips, pills) it stays a thin line, so they read as clear glass
+    // instead of a white tablet
+    final reach = math.min(
+      switch (k) {
+        GK.panel => 16.0,
+        GK.frost => 12.0,
+        GK.lens => 10.0,
+        GK.inner => 9.0,
+      },
+      math.max(3.0, math.min(w, h) * .14),
+    );
     final a = switch (k) {
       GK.lens => p.dark ? .22 : 1.0,
       GK.inner => p.glowIn * (p.dark ? .5 * small : .75),
@@ -276,7 +281,7 @@ class _GlassPainter extends CustomPainter {
     final path = Path()..addRRect(rr);
     if (solid && k != GK.frost) {
       // a little more body: text-heavy pieces (answers, lists)
-      if (!p.dark) c.drawRRect(rr, Paint()..color = Colors.white.withValues(alpha: .14));
+      if (!p.dark) c.drawRRect(rr, Paint()..color = Colors.white.withValues(alpha: .06));
     }
     paintGlass(c, path, r, p, k, tint: tint, low: low, rim: rim, rr: rr);
   }
