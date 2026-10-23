@@ -251,6 +251,7 @@ mixin L10Keys {
   String lvSrcTest(Object? a0) => f('lvSrcTest', [a0]);
   String get lvT => s('lvT');
   String get lvlWord => s('lvlWord');
+  String get masHelp => s('masHelp');
   String get masT => s('masT');
   String matureN(Object? a0) => f('matureN', [a0]);
   String matureOf(Object? a0, Object? a1) => f('matureOf', [a0, a1]);
@@ -470,6 +471,7 @@ mixin L10Keys {
   String get stOpen => s('stOpen');
   String get stPast => s('stPast');
   String get stReview => s('stReview');
+  Map<String, dynamic> get stS => (v('stS') as Map?)?.cast<String, dynamic>() ?? const {};
   String stShare(Object? a0, Object? a1) => f('stShare', [a0, a1]);
   String stTest(Object? a0) => f('stTest', [a0]);
   String get stTitle => s('stTitle');

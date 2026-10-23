@@ -83,6 +83,16 @@ I18N.vi = {
   aboutT: 'Giới thiệu',
   privacy: 'Chính sách quyền riêng tư',
   licT: 'Giấy phép',
+  stS: {
+    free: 'Không mục tiêu',
+    ok: 'Đúng tiến độ',
+    behind: 'Chậm tiến độ',
+    review: 'Giai đoạn ôn',
+    examweek: 'Tuần thi',
+    past: 'Đã quá hạn',
+    rest: 'Ngày bế quan',
+  },
+  masHelp: 'Màu cho biết bạn nhớ mỗi từ chắc đến đâu.',
   dnT: '护法 · Hộ Pháp tông môn',
   dnAria: 'Ủng hộ XueCi',
   dnLead:

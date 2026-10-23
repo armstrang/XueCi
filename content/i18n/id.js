@@ -85,6 +85,16 @@ I18N.id = {
   aboutT: 'Tentang',
   privacy: 'Kebijakan privasi',
   licT: 'Lisensi',
+  stS: {
+    free: 'Tanpa target',
+    ok: 'Sesuai jadwal',
+    behind: 'Terlambat dari jadwal',
+    review: 'Waktunya mengulang',
+    examweek: 'Minggu ujian',
+    past: 'Target terlewat',
+    rest: 'Hari meditasi',
+  },
+  masHelp: 'Warnanya menunjukkan seberapa kuat kamu mengingat kata itu.',
   dnT: '护法 · Pelindung Perguruan',
   dnAria: 'Dukung XueCi',
   dnLead:

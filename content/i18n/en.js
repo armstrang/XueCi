@@ -85,6 +85,16 @@ I18N.en = {
   aboutT: 'About',
   privacy: 'Privacy policy',
   licT: 'Licences',
+  stS: {
+    free: 'No target',
+    ok: 'On schedule',
+    behind: 'Behind schedule',
+    review: 'Review time',
+    examweek: 'Exam week',
+    past: 'Target passed',
+    rest: 'Meditation day',
+  },
+  masHelp: 'The colour shows how well you remember each word.',
   dnT: '护法 · Patron of the Sect',
   dnAria: 'Support XueCi',
   dnLead:

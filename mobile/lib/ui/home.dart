@@ -13,6 +13,7 @@ import '../i18n/l10.dart';
 import 'glass.dart';
 import 'icons.dart';
 import 'lens.dart';
+import 'sheet.dart';
 import 'theme.dart';
 import 'widgets.dart';
 
@@ -24,7 +25,6 @@ class HomeScreen extends StatelessWidget {
     final th = Th.of(context);
     final mq = MediaQuery.of(context);
     final bottom = mq.padding.bottom + 10 + 54 + 12; // above the tab bar
-    final big = th.fs >= 1.15;
     final size = mq.size;
     if (size.width >= 900 && size.height >= 540 && size.width > size.height) return const _HomeWide();
     return SafeArea(
@@ -35,7 +35,7 @@ class HomeScreen extends StatelessWidget {
           builder: (c, bc) {
             final maxFluid = 214 + 330 * th.fsd;
             final short = size.height <= 760;
-            final keys = size.height > 820 && !big;
+            const keys = false; // the counts live behind the small ? next to the bar
             return Column(
               children: [
                 HomeHeader(short: short),
@@ -92,7 +92,7 @@ class _HomeWide extends StatelessWidget {
                 children: [
                   const Expanded(child: Fluid()),
                   const SizedBox(width: 20),
-                  Expanded(child: Center(child: _Mastery(keys: true, short: false))),
+                  Expanded(child: Center(child: _Mastery(keys: false, short: false))),
                 ],
               ),
             ),
@@ -112,7 +112,7 @@ class HomeHeader extends StatelessWidget {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final h = short ? 44.0 : 48.0;
+    final h = short ? 40.0 : 42.0;
     final s = app.memo('streak', app.lm.streak);
     final narrow = MediaQuery.sizeOf(context).width / Th.of(context).fs.clamp(1.0, 1.6) < 400; // the coin and Settings need the room
     return Compact(
@@ -141,7 +141,7 @@ class HomeHeader extends StatelessWidget {
                         ),
                       ],
                     ),
-                    style: F.s(narrow ? 18 : 20, w: FontWeight.w800, c: p.fg, ls: -.9, h: 1),
+                    style: F.s(narrow ? 16.5 : 18, w: FontWeight.w800, c: p.fg, ls: -.8, h: 1),
                   ),
                   if (th.fs < 1.15) ...[
                     const SizedBox(height: 4),
@@ -163,22 +163,17 @@ class HomeHeader extends StatelessWidget {
               frost: true,
               radius: h / 2,
               height: h,
-              padding: const EdgeInsets.fromLTRB(7, 0, 15, 0),
-              child: Row(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Incense(lit: s.today, size: 32),
-                  const SizedBox(width: 7),
+                  TaiJi(lit: s.today, size: 17),
+                  const SizedBox(height: 2),
                   Text(
                     app.fmt(s.days),
-                    style: F.s(14.5, w: FontWeight.w800, c: p.fg, feat: F.tab),
+                    textScaler: TextScaler.noScaling,
+                    style: F.s(10.5, w: FontWeight.w800, c: s.today ? p.fg : p.soft, h: 1, feat: F.tab),
                   ),
-                  if (!narrow) ...[
-                    const SizedBox(width: 5),
-                    Text(
-                      t.streakU(s.days),
-                      style: F.s(12.5, w: FontWeight.w700, c: p.soft),
-                    ),
-                  ],
                 ],
               ),
             ),
@@ -193,7 +188,7 @@ class HomeHeader extends StatelessWidget {
               radius: h / 2,
               width: h,
               height: h,
-              child: Center(child: Icon2(I.coin, size: 24, color: p.gold)),
+              child: Center(child: Icon2(I.coin, size: 21, color: p.gold)),
             ),
           ),
           const SizedBox(width: 8),
@@ -209,7 +204,7 @@ class HomeHeader extends StatelessWidget {
                   radius: h / 2,
                   width: h,
                   height: h,
-                  child: Center(child: Icon2(I.gear, size: 21, color: p.fg)),
+                  child: Center(child: Icon2(I.gear, size: 19, color: p.fg)),
                 ),
                 if (app.bkDue())
                   Positioned(
@@ -284,6 +279,45 @@ class Incense extends StatelessWidget {
   }
 }
 
+/// 太极 for the cultivation days: black and white once today has some practice, faint grey before
+class TaiJi extends StatelessWidget {
+  final bool lit;
+  final double size;
+  const TaiJi({super.key, required this.lit, this.size = 18});
+  @override
+  Widget build(BuildContext context) {
+    final p = Th.pal(context);
+    return CustomPaint(size: Size.square(size), painter: _TaiJiPainter(lit, p.dark, p.fgA(.28), p.fgA(.10)));
+  }
+}
+
+class _TaiJiPainter extends CustomPainter {
+  final bool lit, dark;
+  final Color dim, faint;
+  _TaiJiPainter(this.lit, this.dark, this.dim, this.faint);
+  @override
+  void paint(Canvas c, Size s) {
+    final r = s.width / 2;
+    final o = Offset(r, r);
+    final yin = lit ? const Color(0xff15161b) : dim;
+    final yang = lit ? Colors.white : faint;
+    final edge = lit ? (dark ? Colors.white.withValues(alpha: .85) : const Color(0xff15161b)) : dim;
+    c.drawCircle(o, r, Paint()..color = yang);
+    // the dark half: the right half circle, swelling into the top small circle, carved by the bottom one
+    final half = Path()..addArc(Rect.fromCircle(center: o, radius: r), -math.pi / 2, math.pi);
+    final top = Path()..addOval(Rect.fromCircle(center: Offset(r, r / 2), radius: r / 2));
+    final bot = Path()..addOval(Rect.fromCircle(center: Offset(r, r * 1.5), radius: r / 2));
+    final shape = Path.combine(PathOperation.difference, Path.combine(PathOperation.union, half..close(), top), bot);
+    c.drawPath(shape, Paint()..color = yin);
+    c.drawCircle(Offset(r, r * .5), r * .16, Paint()..color = yang);
+    c.drawCircle(Offset(r, r * 1.5), r * .16, Paint()..color = yin);
+    c.drawCircle(o, r - .6, Paint()..style = PaintingStyle.stroke..strokeWidth = 1.2..color = edge);
+  }
+
+  @override
+  bool shouldRepaint(_TaiJiPainter o) => o.lit != lit || o.dark != dark || o.dim != dim;
+}
+
 // ---------------------------------------------------------------- the realm orb and its panel
 class Fluid extends StatelessWidget {
   const Fluid({super.key});
@@ -354,7 +388,7 @@ class _FluidLayout extends MultiChildLayoutDelegate {
     layoutChild('o', BoxConstraints.tight(Size.square(ob)));
     positionChild('o', Offset((w - ob) / 2, top));
     final qs = layoutChild('q', const BoxConstraints());
-    positionChild('q', Offset((w + ob) / 2 - 6, top + 2));
+    positionChild('q', Offset(w - qs.width - 4, 2));
     positionChild('t', Offset(20, top + ob));
     positionChild('p', Offset(12, h - 12 - ps.height));
     g
@@ -625,7 +659,7 @@ class _RingQ extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = Th.pal(context);
-    final s = small ? 34.0 : 42.0;
+    final s = small ? 24.0 : 28.0;
     return Press(
       onTap: () => app.openInfo?.call(context, 'realm'),
       scale: 1.08,
@@ -636,14 +670,14 @@ class _RingQ extends StatelessWidget {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: p.bg.withValues(alpha: .3),
-          border: Border.all(color: p.dark ? Colors.white.withValues(alpha: .8) : Colors.white, width: 2.5),
-          boxShadow: sh([BoxShadow(color: Colors.white.withValues(alpha: p.dark ? .4 : .85), blurRadius: 16)]),
+          border: Border.all(color: p.dark ? Colors.white.withValues(alpha: .7) : Colors.white, width: 1.6),
+          boxShadow: sh([BoxShadow(color: Colors.black.withValues(alpha: p.dark ? .25 : .08), blurRadius: 8, offset: const Offset(0, 2))]),
         ),
         child: Center(
           child: Compact(
             child: Text(
               '?',
-              style: F.s(15, w: FontWeight.w800, c: p.fg),
+              style: F.s(12.5, w: FontWeight.w800, c: p.soft),
             ),
           ),
         ),
@@ -832,6 +866,7 @@ class PlanCard extends StatelessWidget {
     final min = math.max(1, ((P.revToday * P.sp.rev + P.newToday * P.sp.neu) / 60).round());
     late Widget line;
     String stK, stT;
+    final sts = t.stS;
     switch (P.status) {
       case 'free':
         (stK, stT) = ('none', t.stFree(P.newPerDay));
@@ -864,7 +899,7 @@ class PlanCard extends StatelessWidget {
         ),
         style: lineStyle,
       );
-      (stK, stT) = ('none', t.planRest);
+      (stK, stT) = ('none', '${sts['rest'] ?? t.planRest}');
     } else if (todo) {
       final parts = [
         if (P.revToday > 0) t.planRev(app.fmt(P.revToday)),
@@ -898,13 +933,18 @@ class PlanCard extends StatelessWidget {
       semantics: todo ? (P.ansT > 0 ? t.planCont : t.planGo) : t.planExtra,
       onTap: () => app.startSession(!todo),
     );
-    final showSt = !short && !big;
+    // the status in a few words (the full sentence lives in the goal sheet)
+    if (!P.rest) stT = '${sts[P.status == 'free' || P.status == 'ok' || P.status == 'behind' || P.status == 'review' || P.status == 'examweek' ? P.status : 'past'] ?? stT}';
+    final showSt = !short || !big;
     return card(
       padding: pad,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
+          Wrap(
+            spacing: 8,
+            runSpacing: 6,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
               Semantics(
                 header: true,
@@ -913,29 +953,25 @@ class PlanCard extends StatelessWidget {
                   style: F.s(17, w: FontWeight.w800, c: p.fg, ls: -.3),
                 ),
               ),
-              const Spacer(),
-              if (!big) ...[
-                GChip(
-                  label: cl,
-                  onTap: () => app.go('soul'),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        '试',
-                        style: F.s(14, w: FontWeight.w900, family: F.hz, c: p.dark ? p.fg : th.acc),
-                      ),
-                      const SizedBox(width: 5),
-                      Text(
-                        cDone ? '✓' : '$cc/${c['n']}',
-                        style: F.s(12.5, w: FontWeight.w800, c: cDone ? p.good : p.fg, feat: F.tab),
-                      ),
-                    ],
-                  ),
+              GChip(
+                label: cl,
+                onTap: () => app.go('soul'),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      '试',
+                      style: F.s(14, w: FontWeight.w900, family: F.hz, c: p.dark ? p.fg : th.acc),
+                    ),
+                    const SizedBox(width: 5),
+                    Text(
+                      cDone ? '✓' : '$cc/${c['n']}',
+                      style: F.s(12.5, w: FontWeight.w800, c: cDone ? p.good : p.fg, feat: F.tab),
+                    ),
+                  ],
                 ),
-                const SizedBox(width: 6),
-              ],
-              if (!(big && MediaQuery.sizeOf(context).width <= 360)) Flexible(child: _GoalChip(chip)),
+              ),
+              _GoalChip(chip),
             ],
           ),
           SizedBox(height: short ? 4 : 6),
@@ -959,8 +995,6 @@ class PlanCard extends StatelessWidget {
                             Expanded(
                               child: Text(
                                 plainText(stT),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
                                 style: F.s(12.5, c: p.soft, h: 1.4),
                               ),
                             ),
@@ -1000,8 +1034,6 @@ class _GoalChip extends StatelessWidget {
       label: text,
       child: Text(
         '$text ›',
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
         style: F.s(12.5, w: FontWeight.w800, c: th.acc),
       ),
     );
@@ -1075,6 +1107,32 @@ class _NbOpt extends StatelessWidget {
 }
 
 // ---------------------------------------------------------------- word mastery
+/// what the colours mean, with this level's counts (behind the small ? next to the bar)
+void _bandSheet(BuildContext context, int level, List<(String, int)> rows) {
+  openSheet(context, name: 'bands', (c) {
+    final p = Th.pal(c);
+    final t = app.t;
+    return SheetBody(
+      title: '${t.masT} · HSK $level',
+      children: [
+        Lead(t.masHelp),
+        for (final (b, n) in rows)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 7),
+            child: Row(
+              children: [
+                Dot(p.band(b), size: 10),
+                const SizedBox(width: 10),
+                Expanded(child: Text(L10.text(t.band[b]), style: F.s(15, w: FontWeight.w700, c: p.fg))),
+                Text(app.fmt(n), style: F.s(15, w: FontWeight.w800, c: p.fg, feat: F.tab)),
+              ],
+            ),
+          ),
+      ],
+    );
+  });
+}
+
 class _Mastery extends StatelessWidget {
   final bool keys, short;
   const _Mastery({required this.keys, required this.short});
@@ -1105,12 +1163,12 @@ class _Mastery extends StatelessWidget {
               ),
               const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  'HSK $L · ${t.words(app.fmt(S.n))}',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: F.s(12.5, c: p.soft),
-                ),
+                child: big
+                    ? const SizedBox()
+                    : Text(
+                        'HSK $L · ${t.words(app.fmt(S.n))}',
+                        style: F.s(12.5, c: p.soft),
+                      ),
               ),
               Press(
                 onTap: () => app.go('stats'),
@@ -1146,6 +1204,25 @@ class _Mastery extends StatelessWidget {
                 child: StackBar([
                   for (final b in const ['green', 'yellow', 'red']) (S.band(b) / math.max(1, S.n), p.band(b)),
                 ]),
+              ),
+              const SizedBox(width: 8),
+              Press(
+                onTap: () => _bandSheet(context, L, [for (final b in const ['green', 'yellow', 'red', 'none']) (b, S.band(b))]),
+                scale: 1.1,
+                label: '${t.masT}: ${t.masHelp}',
+                child: SizedBox(
+                  width: 32,
+                  height: 32,
+                  child: Center(
+                    child: Container(
+                      width: 22,
+                      height: 22,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: p.fgA(.25), width: 1.4)),
+                      child: Text('?', textScaler: TextScaler.noScaling, style: F.s(12, w: FontWeight.w800, c: p.soft, h: 1)),
+                    ),
+                  ),
+                ),
               ),
             ],
           ),
