@@ -656,21 +656,20 @@ class _BigBtn extends StatelessWidget {
         if (color == th.p.cardC) {
           return Glass(radius: 22, solid: true, padding: pad, child: Center(heightFactor: 1, child: text));
         }
-        return Container(
-          padding: pad,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(22),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color.lerp(color, Colors.white, .2)!, color, Color.lerp(color, Colors.black, .06)!],
-              stops: const [0, .55, 1],
-            ),
-            border: Border.all(color: Colors.white.withValues(alpha: th.p.dark ? .28 : .45)),
-            boxShadow: sh(th.low ? null : [BoxShadow(color: color.withValues(alpha: .45), offset: const Offset(0, 10), blurRadius: 24, spreadRadius: -8)]),
+        // the coloured one: tinted liquid glass (as MainBtn)
+        return CustomPaint(
+          painter: OuterShadow(
+            th.low ? const [] : [BoxShadow(color: color.withValues(alpha: .36), offset: const Offset(0, 10), blurRadius: 24, spreadRadius: -10)],
+            22,
           ),
-          child: text,
+          child: Glass(
+            inner: true,
+            radius: 22,
+            padding: pad,
+            shadow: const [],
+            color: Color.lerp(color, Colors.black, th.p.dark ? 0 : .2)!.withValues(alpha: th.p.dark ? .80 : .78),
+            child: Center(heightFactor: 1, child: text),
+          ),
         );
       },
     ),

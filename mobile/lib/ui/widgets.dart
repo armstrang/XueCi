@@ -120,21 +120,19 @@ class MainBtn extends StatelessWidget {
         onTap: onTap,
         scale: .97,
         label: semantics ?? label,
-        child: Container(
+        // tinted liquid glass: the colour stays, the background still shows through, a bright rim on top
+        child: CustomPaint(
+          painter: OuterShadow(
+            th.low ? const [] : [BoxShadow(color: c.withValues(alpha: .38), offset: const Offset(0, 10), blurRadius: 24, spreadRadius: -10)],
+            radius,
+          ),
+          child: Glass(
+          inner: true,
+          radius: radius,
           width: wide ? double.infinity : null,
           padding: padding,
-          decoration: BoxDecoration(
-            color: c,
-            borderRadius: BorderRadius.circular(radius),
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [Color.lerp(c, Colors.white, .22)!, c, Color.lerp(c, Colors.black, .06)!],
-              stops: const [0, .55, 1],
-            ),
-            border: Border.all(color: Colors.white.withValues(alpha: th.p.dark ? .28 : .45), width: 1),
-            boxShadow: sh(th.low ? null : [BoxShadow(color: c.withValues(alpha: .5), offset: const Offset(0, 10), blurRadius: 24, spreadRadius: -8)]),
-          ),
+          shadow: const [],
+          color: Color.lerp(c, Colors.black, th.p.dark ? 0 : .2)!.withValues(alpha: th.p.dark ? .80 : .78),
           child: Row(
             mainAxisSize: wide ? MainAxisSize.max : MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -151,6 +149,7 @@ class MainBtn extends StatelessWidget {
                 ),
               ),
             ],
+          ),
           ),
         ),
       ),
