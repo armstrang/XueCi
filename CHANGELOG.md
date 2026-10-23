@@ -30,7 +30,7 @@ same progress, every screen drawn natively, with a new look that is easier to re
 - Home: a small realm orb beside the realm's name and stages, then one big Today card with a single Start button,
   then word mastery.
 - Quiz: the question alone in its card, the answers below where the thumb is (rows, or a 2×2 grid for hanzi and
-  tones), a tick or cross on the answer and a light buzz; the tab bar steps aside while you answer.
+  tones), a tick or cross on the answer and a light buzz, then one big Next.
 - Cards: a bigger card and hanzi, bigger buttons. Swipe the card right for "I know it", left for "Don't know"; it
   tilts with your finger and springs back if you let go early. Sheets can be pulled down to close.
 - Scroll a screen and its title moves into a small frosted bar at the top.
