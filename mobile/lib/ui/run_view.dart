@@ -149,7 +149,7 @@ class _RunScreenState extends State<RunScreen> {
     } else {
       body = _QView(r, it, key: ValueKey(it));
     }
-    final tabs = !['session'].contains(widget.mode) && !app.inExam;
+    final tabs = !['session', 'quiz'].contains(widget.mode) && !app.inExam;
     return SingleChildScrollView(
       controller: _scroll,
       padding: EdgeInsets.fromLTRB(
@@ -164,7 +164,11 @@ class _RunScreenState extends State<RunScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Capsule(title: title, pickers: widget.mode != 'session'),
+              Capsule(
+                title: title,
+                pickers: widget.mode != 'session',
+                lead: [if (widget.mode == 'quiz' && !(m != null && m.started && it != null)) _qTypePill(context)],
+              ),
               const SizedBox(height: 12),
               if (!(m != null && it == null)) _RunHead(r),
               // the next card or question comes in alone (the old one leaves at once): one glass card drawn, not two
@@ -199,27 +203,45 @@ class _RunHead extends StatelessWidget {
     final n = r.items.length;
     final i = math.min(r.i + 1, n);
     final it = r.cur;
-    Widget prog() => SizedBox(
-      width: 120,
-      child: StackBar([((r.i / math.max(1, n)).clamp(0, 1).toDouble(), th.acc)], height: 5),
+    // a thin progress line across the whole width, under the row
+    Widget withBar(Widget row) => Padding(
+      padding: const EdgeInsets.only(bottom: 14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          row,
+          const SizedBox(height: 10),
+          TweenAnimationBuilder<double>(
+            tween: Tween(end: (r.i / math.max(1, n)).clamp(0, 1).toDouble()),
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOutCubic,
+            builder: (c, v, _) => ClipRRect(
+              borderRadius: BorderRadius.circular(2),
+              child: SizedBox(
+                height: 4,
+                child: Stack(
+                  children: [
+                    Positioned.fill(child: ColoredBox(color: p.fgA(.10))),
+                    FractionallySizedBox(widthFactor: v, heightFactor: 1, child: ColoredBox(color: th.acc)),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
     final small = F.s(12.5, c: p.soft, feat: F.tab);
     if (r.mode == 'card') {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: Row(children: [Text(t.cardN(i, n), style: small), const Spacer(), prog()]),
-      );
+      return withBar(Row(children: [Text(t.cardN(i, n), style: small)]));
     }
     if (r.mode == 'session') {
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: Row(
+      return withBar(
+        Row(
           children: [
             Text(t.qN(i, n), style: small),
             const Spacer(),
-            if (it != null && it.k == 'q') Text(tName(it.q!), style: F.s(12.5, w: FontWeight.w800, c: th.acc)),
-            const SizedBox(width: 10),
-            prog(),
+            if (it != null && it.k == 'q') Text(tName(it.q!), style: F.s(13, w: FontWeight.w800, c: th.acc)),
           ],
         ),
       );
@@ -244,34 +266,11 @@ class _RunHead extends StatelessWidget {
         ),
       );
     }
-    final qt = qtNames();
-    final cur = qt[app.qType] ?? qt['m']!;
     final clockOn = r.exam && !(m != null && (!m.started || m.r != null));
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Row(
+    return withBar(
+      Row(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Press(
-            onTap: () => _openQType(context),
-            scale: 1.06,
-            label: '${t.qTypeL}: ${cur.$1}',
-            child: Glass(
-              radius: 999,
-              height: 40,
-              padding: const EdgeInsets.fromLTRB(5, 0, 10, 0),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  _Qti(cur.$3, on: false),
-                  const SizedBox(width: 8),
-                  Text(cur.$1, style: F.s(13, w: FontWeight.w800, c: p.fg)),
-                  const SizedBox(width: 6),
-                  Icon2(I.chev, size: 14, color: p.mute),
-                ],
-              ),
-            ),
-          ),
-          const Spacer(),
           if (m != null && !clockOn)
             Text(t.qN(m.r != null ? n : 0, n), style: small)
           else if (r.exam) ...[
@@ -280,7 +279,7 @@ class _RunHead extends StatelessWidget {
             Text(t.qN(i, n), style: small),
           ] else ...[
             Text(t.qN(i, n), style: small),
-            const SizedBox(width: 12),
+            const Spacer(),
             Text.rich(
               TextSpan(
                 children: [
@@ -297,7 +296,9 @@ class _RunHead extends StatelessWidget {
     );
   }
 
-  void _openQType(BuildContext context) {
+}
+
+void _openQType(BuildContext context) {
     final qt = qtNames();
     app.menuOpen = true;
     app.changed();
@@ -353,6 +354,20 @@ class _RunHead extends StatelessWidget {
       app.changed();
     });
   }
+
+
+/// the quiz type as a pill in the header (opens the menu of question types)
+Widget _qTypePill(BuildContext context) {
+  final p = Th.pal(context);
+  final t = app.t;
+  final qt = qtNames();
+  final cur = qt[app.qType] ?? qt['m']!;
+  return HeadPill(
+    onTap: () => _openQType(context),
+    label: '${t.qTypeL}: ${cur.$1}',
+    icon: _Qti(cur.$3, on: false),
+    child: Text(cur.$1, style: F.s(15, w: FontWeight.w800, c: p.fg)),
+  );
 }
 
 class _Qti extends StatelessWidget {
@@ -420,10 +435,11 @@ class _CardView extends StatelessWidget {
     final d = it.d;
     final back = it.st == 'back';
     final checking = it.st == 'check';
-    final narrow = MediaQuery.sizeOf(context).width <= 520;
-    final h = checking ? 230.0 : (narrow ? 380.0 : 340.0);
+    // the card takes the room the screen has (head, pills, buttons and the tab bar around it)
+    final mq = MediaQuery.of(context);
+    final room = mq.size.height - mq.padding.vertical - 330;
+    final h = checking ? 230.0 : room.clamp(320.0, 520.0);
     final front = _Face(
-      top: true,
       child: Stack(
         children: [
           Positioned(
@@ -443,7 +459,7 @@ class _CardView extends StatelessWidget {
               children: [
                 Text(
                   d.h,
-                  style: F.s(math.min(92, math.max(56, MediaQuery.sizeOf(context).width * .16)), w: FontWeight.w900, family: F.hz, c: p.fg, h: 1),
+                  style: F.s(math.min(150, math.max(72, MediaQuery.sizeOf(context).width * (d.h.length > 2 ? .2 : .3))), w: FontWeight.w900, family: F.hz, c: p.fg, h: 1),
                   locale: const Locale('zh', 'CN'),
                   textScaler: TextScaler.linear(th.fsd),
                 ),
@@ -459,7 +475,7 @@ class _CardView extends StatelessWidget {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Text(t.fcHint, textAlign: TextAlign.center, style: F.s(12, c: p.mute)),
+              child: Text(t.fcHint, textAlign: TextAlign.center, style: F.s(14, c: p.soft)),
             ),
         ],
       ),
@@ -469,9 +485,9 @@ class _CardView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          WordHead(d, hz: 34),
-          const SizedBox(height: 4),
-          WordBody(d, mean: 16),
+          WordHead(d, hz: 44),
+          const SizedBox(height: 6),
+          WordBody(d, mean: 18),
         ],
       ),
     );
@@ -573,38 +589,15 @@ class _CardView extends StatelessWidget {
 
 class _Face extends StatelessWidget {
   final Widget child;
-  final bool top;
   final bool scroll;
-  const _Face({required this.child, this.top = false, this.scroll = false});
+  const _Face({required this.child, this.scroll = false});
   @override
-  Widget build(BuildContext context) {
-    final th = Th.of(context);
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: Glass(
-            solid: true,
-            radius: 30,
-            padding: const EdgeInsets.all(22),
-            child: scroll ? SingleChildScrollView(child: child) : child,
-          ),
-        ),
-        if (top)
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: FractionallySizedBox(
-              widthFactor: .4,
-              child: Container(
-                height: 3,
-                decoration: BoxDecoration(color: th.acc, borderRadius: const BorderRadius.vertical(bottom: Radius.circular(4))),
-              ),
-            ),
-          ),
-      ],
-    );
-  }
+  Widget build(BuildContext context) => Glass(
+    solid: true,
+    radius: 32,
+    padding: const EdgeInsets.all(22),
+    child: scroll ? SingleChildScrollView(child: child) : child,
+  );
 }
 
 /// the card turns over (a 3D turn around the vertical axis, .5 s)
@@ -651,21 +644,21 @@ class _BigBtn extends StatelessWidget {
       builder: (c) {
         final th = Th.of(c);
         final tinted = color != th.p.cardC;
-        final text = Text(label, textAlign: TextAlign.center, style: F.s(15, w: FontWeight.w800, c: tinted && th.p.dark ? th.p.fg : fg));
-        const pad = EdgeInsets.symmetric(vertical: 14, horizontal: 10);
+        final text = Text(label, textAlign: TextAlign.center, style: F.s(17, w: FontWeight.w800, c: tinted && th.p.dark ? th.p.fg : fg));
+        const pad = EdgeInsets.symmetric(vertical: 17, horizontal: 10);
         // the quiet choice is glass, the coloured one a lit drop of colour (MainBtn)
         if (color == th.p.cardC) {
-          return Glass(radius: 22, solid: true, padding: pad, child: Center(heightFactor: 1, child: text));
+          return Glass(radius: 28, solid: true, padding: pad, child: Center(heightFactor: 1, child: text));
         }
         // the coloured one: tinted liquid glass (as MainBtn)
         return CustomPaint(
           painter: OuterShadow(
             th.low ? const [] : [BoxShadow(color: color.withValues(alpha: .36), offset: const Offset(0, 10), blurRadius: 24, spreadRadius: -10)],
-            22,
+            28,
           ),
           child: Glass(
             inner: true,
-            radius: 22,
+            radius: 28,
             padding: pad,
             shadow: const [],
             color: Color.lerp(color, Colors.black, th.p.dark ? .35 : .2)!.withValues(alpha: th.p.dark ? .5 : .78),
@@ -677,28 +670,31 @@ class _BigBtn extends StatelessWidget {
   );
 }
 
-/// an answer option: glass, green when right, red when the wrong pick
+/// an answer option: a row of glass (or a tile in a 2×2 grid), green with a tick when right, red with a cross when it
+/// was the wrong pick
 class OptBtn extends StatefulWidget {
   final int n;
   final Widget label;
   final VoidCallback? onTap;
   final bool? state; // true right, false the wrong pick, null neutral
   final bool selected;
-  const OptBtn({super.key, required this.n, required this.label, this.onTap, this.state, this.selected = false});
+  final bool tile; // a square-ish tile of the 2×2 grid (hanzi, tones)
+  const OptBtn({super.key, required this.n, required this.label, this.onTap, this.state, this.selected = false, this.tile = false});
   @override
   State<OptBtn> createState() => _OptBtnState();
 }
 
-/// the answer reacts when it is judged: a small pop when right, a short shake when it was the wrong pick
+/// the answer reacts when it is judged: a small pop and a light tap when right, a short shake and a firmer one when it
+/// was the wrong pick
 class _OptBtnState extends State<OptBtn> with SingleTickerProviderStateMixin {
-  late final AnimationController _a = AnimationController(vsync: this, duration: const Duration(milliseconds: 280));
+  late final AnimationController _a = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
 
   @override
   void didUpdateWidget(OptBtn o) {
     super.didUpdateWidget(o);
-    if (o.state == null && widget.state != null && !MediaQuery.of(context).disableAnimations) {
-      _a.forward(from: 0);
+    if (o.state == null && widget.state != null) {
       if (widget.state == false) HapticFeedback.mediumImpact();
+      if (!MediaQuery.of(context).disableAnimations) _a.forward(from: 0);
     }
   }
 
@@ -714,34 +710,53 @@ class _OptBtnState extends State<OptBtn> with SingleTickerProviderStateMixin {
     final p = th.p;
     final state = widget.state;
     final Color? fill = state == true
-        ? p.good.withValues(alpha: .16)
+        ? p.good.withValues(alpha: p.dark ? .22 : .18)
         : state == false
-        ? p.bad.withValues(alpha: .13)
+        ? p.bad.withValues(alpha: p.dark ? .2 : .14)
         : widget.selected
         ? th.acc.withValues(alpha: .14)
         : null;
-    final Color? border = state == true ? p.good.withValues(alpha: .65) : (state == false ? p.bad.withValues(alpha: .65) : null);
+    final Color? border = state == true ? p.good.withValues(alpha: .75) : (state == false ? p.bad.withValues(alpha: .7) : null);
+    final r = widget.tile ? 24.0 : 22.0;
+    final mark = state == null
+        ? null
+        : Icon2(state ? I.check : I.close, size: 18, color: state ? p.good : p.bad, width: 2.6);
+    final Widget content = widget.tile
+        ? SizedBox(
+            height: 84,
+            child: Stack(
+              children: [
+                Center(child: widget.label),
+                if (mark != null) Positioned(top: 0, right: 0, child: mark),
+              ],
+            ),
+          )
+        : ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 30),
+            child: Row(
+              children: [
+                SizedBox(width: 22, child: Text('${widget.n}', style: F.s(14, w: FontWeight.w800, c: p.mute, feat: F.tab))),
+                const SizedBox(width: 6),
+                Expanded(child: widget.label),
+                if (mark != null) ...[const SizedBox(width: 8), mark],
+              ],
+            ),
+          );
     final body = Stack(
       children: [
         Glass(
           solid: true,
-          inner: true,
-          radius: 18,
+          radius: r,
           color: fill,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 13),
-          child: Row(
-            children: [
-              Text('${widget.n}. ', style: F.s(15, w: FontWeight.w600, c: p.fg)),
-              Expanded(child: widget.label),
-            ],
-          ),
+          padding: widget.tile ? const EdgeInsets.all(10) : const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: content,
         ),
         if (border != null)
           Positioned.fill(
             child: IgnorePointer(
-              child: Container(
+              child: DecoratedBox(
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(18),
+                  borderRadius: BorderRadius.circular(r),
                   border: Border.all(color: border, width: 1.5),
                 ),
               ),
@@ -782,6 +797,8 @@ class _QView extends StatefulWidget {
 class _QViewState extends State<_QView> {
   final _in = TextEditingController();
   final _focus = FocusNode();
+  final _nextKey = GlobalKey();
+  bool _shown = false;
 
   @override
   void initState() {
@@ -820,24 +837,26 @@ class _QViewState extends State<_QView> {
     final q = it.q!;
     final ans = it.done && !r.exam;
     final ok = it.ok == true;
-    final children = <Widget>[];
-    // the prompt
+    // the prompt sits alone in its glass card; the answers come below it, near the thumb (typing and putting
+    // pieces in order stay inside the card)
+    final card = <Widget>[];
+    final below = <Widget>[];
     final aid = r.mock != null ? 'mock' : 'practice';
-    children.add(qPrompt(context, it, aid: aid));
-    // the options, the pieces of a sentence or the typing box
+    card.add(qPrompt(context, it, aid: aid));
     if (q == 'wo') {
-      children.add(const SizedBox(height: 14));
-      children.add(_Order(it));
+      card.add(const SizedBox(height: 14));
+      card.add(_Order(it));
     } else if (q == 'p') {
-      children.add(const SizedBox(height: 12));
+      card.add(const SizedBox(height: 14));
       if (it.done) {
-        children.add(
+        card.add(
           Glass(
-            solid: true,
-            radius: 14,
+            inner: true,
+            radius: 16,
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             child: Text(
               it.typedText ?? '',
+              textAlign: TextAlign.center,
               style: F.s(18, w: FontWeight.w700, c: ok ? p.good : p.bad).copyWith(decoration: ok ? null : TextDecoration.lineThrough),
             ),
           ),
@@ -848,13 +867,13 @@ class _QViewState extends State<_QView> {
             if (mounted && !it.done) _focus.requestFocus();
           });
         }
-        children.add(
+        card.add(
           Row(
             children: [
               Expanded(
                 child: Glass(
-                  solid: true,
-                  radius: 14,
+                  inner: true,
+                  radius: 16,
                   child: TextField(
                     controller: _in,
                     focusNode: _focus,
@@ -868,30 +887,29 @@ class _QViewState extends State<_QView> {
                       border: InputBorder.none,
                       hintText: t.pyPh,
                       hintStyle: F.s(16, c: p.mute),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 13),
                     ),
                   ),
                 ),
               ),
               const SizedBox(width: 8),
-              MainBtn(t.pyCheck, onTap: _submit, radius: 14, padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14)),
+              MainBtn(t.pyCheck, onTap: _submit, radius: 16, padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 15)),
             ],
           ),
         );
-        children.add(Padding(
-          padding: const EdgeInsets.fromLTRB(2, 6, 2, 0),
-          child: Rich(t.pyHelp, style: F.s(12, c: p.soft, h: 1.4)),
+        card.add(Padding(
+          padding: const EdgeInsets.fromLTRB(2, 8, 2, 0),
+          child: Rich(t.pyHelp, style: F.s(12.5, c: p.soft, h: 1.4), align: TextAlign.center),
         ));
-        children.add(const SizedBox(height: 10));
-        children.add(
+        below.add(
           Press(
             onTap: () => R.qTyped(it, null),
             scale: .97,
             label: t.idk,
             child: DottedBox(
               child: Padding(
-                padding: const EdgeInsets.all(11),
-                child: Text(t.idk, textAlign: TextAlign.center, style: F.s(14, w: FontWeight.w700, c: p.soft)),
+                padding: const EdgeInsets.all(14),
+                child: Text(t.idk, textAlign: TextAlign.center, style: F.s(15, w: FontWeight.w700, c: p.soft)),
               ),
             ),
           ),
@@ -899,38 +917,51 @@ class _QViewState extends State<_QView> {
       }
     } else {
       final n = q == 'lj' ? 2 : (it.words?.length ?? it.tones!.length);
-      children.add(const SizedBox(height: 14));
-      for (var i = 0; i < n; i++) {
-        if (i > 0) children.add(const SizedBox(height: 8));
-        children.add(
-          OptBtn(
-            n: i + 1,
-            label: qOptLabel(context, it, i, py: aid == 'mock' && it.d.l <= 2),
-            state: !ans ? null : (i == it.ans ? true : (i == it.pick ? false : null)),
-            selected: r.exam && it.done && i == it.pick,
-            onTap: it.done ? null : () => R.qAnswer(it, i),
-          ),
-        );
+      // hanzi and tones read best as big tiles in a 2×2 grid; meanings and sentences as rows
+      final tile = n == 4 && !const ['m', 't', 'lt', 'lj'].contains(q);
+      Widget opt(int i) => OptBtn(
+        n: i + 1,
+        tile: tile,
+        label: tile ? qTileLabel(context, it, i, py: aid == 'mock' && it.d.l <= 2) : qOptLabel(context, it, i, py: aid == 'mock' && it.d.l <= 2),
+        state: !ans ? null : (i == it.ans ? true : (i == it.pick ? false : null)),
+        selected: r.exam && it.done && i == it.pick,
+        onTap: it.done ? null : () => R.qAnswer(it, i),
+      );
+      if (tile) {
+        for (var i = 0; i < n; i += 2) {
+          if (i > 0) below.add(const SizedBox(height: 10));
+          below.add(Row(children: [Expanded(child: opt(i)), const SizedBox(width: 10), Expanded(child: opt(i + 1))]));
+        }
+      } else {
+        for (var i = 0; i < n; i++) {
+          if (i > 0) below.add(const SizedBox(height: 10));
+          below.add(opt(i));
+        }
       }
     }
-    // the feedback
-    if (ans) children.add(_feedback(context, it, ok));
-    return Stack(
+    if (ans) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final c = _nextKey.currentContext;
+        if (mounted && c != null && !_shown) {
+          _shown = true;
+          Scrollable.ensureVisible(c, duration: const Duration(milliseconds: 320), curve: Curves.easeOutCubic, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
+        }
+      });
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Glass(
           solid: true,
-          radius: 30,
-          padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: children),
-        ),
-        Positioned(
-          top: 14,
-          left: 0,
-          right: 0,
-          child: Center(
-            child: Container(width: 40, height: 4, decoration: BoxDecoration(color: th.acc, borderRadius: BorderRadius.circular(4))),
+          radius: 32,
+          padding: const EdgeInsets.fromLTRB(20, 22, 20, 24),
+          child: ConstrainedBox(
+            constraints: BoxConstraints(minHeight: q == 'p' || q == 'wo' ? 0 : 196),
+            child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.stretch, children: card),
           ),
         ),
+        if (below.isNotEmpty) ...[const SizedBox(height: 16), ...below],
+        if (ans) _feedback(context, it, ok),
       ],
     );
   }
@@ -947,8 +978,15 @@ class _QViewState extends State<_QView> {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          Glass(
+            solid: true,
+            radius: 26,
+            padding: const EdgeInsets.fromLTRB(18, 16, 18, 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
           Semantics(
             liveRegion: true,
             child: it.heard && q == 'c'
@@ -982,8 +1020,14 @@ class _QViewState extends State<_QView> {
           WordBody(d),
           const SizedBox(height: 6),
           LevelLine(d),
+              ],
+            ),
+          ),
           const SizedBox(height: 14),
-          MainBtn(t.next, wide: true, radius: 20, onTap: R.next),
+          KeyedSubtree(
+            key: _nextKey,
+            child: MainBtn(t.next, wide: true, radius: 28, big: true, onTap: R.next),
+          ),
         ],
       ),
     );
@@ -1005,6 +1049,23 @@ Widget qOptLabel(BuildContext context, Item it, int i, {bool py = false}) {
   return Row(children: [hz, const SizedBox(width: 10), Text(o.p, style: F.s(13, c: p.soft))]);
 }
 
+/// an option as a tile of the 2×2 grid: big hanzi (pinyin under it when asked) or big tone marks
+Widget qTileLabel(BuildContext context, Item it, int i, {bool py = false}) {
+  final p = Th.pal(context);
+  if (it.tones != null) {
+    return FittedBox(fit: BoxFit.scaleDown, child: Text(pyOpt(it.tones![i]), style: F.s(24, w: FontWeight.w800, c: p.fg)));
+  }
+  final o = it.words![i];
+  final hz = Text(o.h, maxLines: 1, style: F.s(28, w: FontWeight.w900, family: F.hz, c: p.fg, h: 1.1), locale: const Locale('zh', 'CN'));
+  return FittedBox(
+    fit: BoxFit.scaleDown,
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [hz, if (py && it.q != 'wh' && it.q != 'l') Text(o.p, style: F.s(13, c: p.soft))],
+    ),
+  );
+}
+
 /// a question's prompt (shared by Quiz, the session, the placement test, the tribulation and the HSK simulation);
 /// [aid]: practice, test or mock (how much a sentence gap is helped, see [clozeAid])
 Widget qPrompt(BuildContext context, Item it, {String aid = 'practice'}) {
@@ -1013,10 +1074,10 @@ Widget qPrompt(BuildContext context, Item it, {String aid = 'practice'}) {
   final th = Th.of(context);
   final p = th.p;
   final t = app.t;
-  final big = math.min(72.0, math.max(48.0, MediaQuery.sizeOf(context).width * .13));
+  final big = math.min(88.0, math.max(56.0, MediaQuery.sizeOf(context).width * .19));
   Widget lead(String s) => Padding(
-    padding: const EdgeInsets.only(top: 6, bottom: 6),
-    child: Text(s, textAlign: TextAlign.center, style: F.s(13, c: p.soft)),
+    padding: const EdgeInsets.only(bottom: 10),
+    child: Text(s, textAlign: TextAlign.center, style: F.s(15, c: p.soft)),
   );
   Widget rest() {
     final m = app.m(d).split(';').skip(1).map((x) => x.trim()).where((x) => x.isNotEmpty).join('; ');
@@ -1032,7 +1093,7 @@ Widget qPrompt(BuildContext context, Item it, {String aid = 'practice'}) {
     case 't':
       c.addAll([
         lead(t.qTrans),
-        Center(child: ExampleText(d, size: 20)),
+        Center(child: ExampleText(d, size: 24)),
         if (d.l <= (aid == 'mock' ? 2 : 3)) Center(child: ZpText(d, plainWord: true)),
       ]);
     case 'ls' || 'lt':
@@ -1066,7 +1127,7 @@ Widget qPrompt(BuildContext context, Item it, {String aid = 'practice'}) {
       final help = clozeAid(d, aid);
       c.addAll([
         lead(t.qCloze),
-        Center(child: ExampleText(d, size: 20, gap: true)),
+        Center(child: ExampleText(d, size: 24, gap: true)),
         if (help.py) Center(child: ZpText(d, gap: true)),
         if (help.tr || (it.hint && !it.done))
           Padding(
@@ -1085,7 +1146,7 @@ Widget qPrompt(BuildContext context, Item it, {String aid = 'practice'}) {
           ),
       ]);
   }
-  return Padding(padding: const EdgeInsets.only(top: 8), child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: c));
+  return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: c);
 }
 
 /// the simulation's listening: the sentence plays by itself, and once more on a tap (twice in all, like the paper)

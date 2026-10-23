@@ -396,6 +396,7 @@ mixin L10Keys {
   String get qtWo => s('qtWo');
   String get quickL => s('quickL');
   String get quickMore => s('quickMore');
+  String get quickS => s('quickS');
   String get quiz => s('quiz');
   String get rLine0 => s('rLine0');
   List<dynamic> get realmD => v('realmD') as List<dynamic>? ?? const [];

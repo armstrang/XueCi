@@ -3,7 +3,10 @@
 library;
 
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
+import 'package:flutter/physics.dart';
 
 import '../app/app.dart';
 import 'glass.dart';
@@ -20,6 +23,7 @@ Future<T?> openSheet<T>(BuildContext context, Widget Function(BuildContext) body
     routeSettings: RouteSettings(name: name),
     // the route sits under the app's Th (MaterialApp.builder), so a theme change mid-sheet shows at once
     pageBuilder: (c, a1, a2) => _SheetFrame(
+      drag: dismissible,
       child: ListenableBuilder(listenable: app, builder: (c, _) => Builder(builder: body)),
     ),
     transitionBuilder: (c, a, _, child) {
@@ -33,11 +37,39 @@ Future<T?> openSheet<T>(BuildContext context, Widget Function(BuildContext) body
   );
 }
 
-class _SheetFrame extends StatelessWidget {
+/// the sheet: pulled down by its header it follows the finger, and goes when let go far or fast enough; otherwise it
+/// springs back (iOS)
+class _SheetFrame extends StatefulWidget {
   final Widget child;
-  const _SheetFrame({required this.child});
+  final bool drag;
+  const _SheetFrame({required this.child, this.drag = true});
+  @override
+  State<_SheetFrame> createState() => _SheetFrameState();
+}
+
+class _SheetFrameState extends State<_SheetFrame> with SingleTickerProviderStateMixin {
+  late final AnimationController _a = AnimationController.unbounded(vsync: this)..addListener(() => setState(() {}));
+  bool _closing = false;
+
+  @override
+  void dispose() {
+    _a.dispose();
+    super.dispose();
+  }
+
+  void _end(double v) {
+    if (_closing) return;
+    if (_a.value > 110 || v > 800) {
+      _closing = true;
+      Navigator.of(context).maybePop();
+      return;
+    }
+    _a.animateWith(SpringSimulation(const SpringDescription(mass: 1, stiffness: 420, damping: 30), _a.value, 0, -v));
+  }
+
   @override
   Widget build(BuildContext context) {
+    final child = widget.child;
     final mq = MediaQuery.of(context);
     final wide = mq.size.width >= 600;
     final r = wide ? BorderRadius.circular(32) : const BorderRadius.vertical(top: Radius.circular(32));
@@ -51,6 +83,14 @@ class _SheetFrame extends StatelessWidget {
         child: ClipRRect(borderRadius: r, child: child),
       ),
     );
+    if (widget.drag && !wide) {
+      box = GestureDetector(
+        onVerticalDragUpdate: (d) => _a.value = math.max(0, _a.value + d.delta.dy),
+        onVerticalDragEnd: (d) => _end(d.velocity.pixelsPerSecond.dy),
+        onVerticalDragCancel: () => _end(0),
+        child: Transform.translate(offset: Offset(0, _a.value), child: box),
+      );
+    }
     return Align(
       alignment: wide ? Alignment.center : Alignment.bottomCenter,
       child: Padding(

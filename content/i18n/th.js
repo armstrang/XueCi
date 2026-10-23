@@ -831,6 +831,7 @@ I18N.th = {
   mkLenFull: 'เต็ม',
   mkLenShort: 'สั้น',
   quickL: 'ฝึกสั้น ๆ ประมาณ 2 นาที',
+  quickS: 'แค่ 2 นาที',
   quickMore: 'ฝึกของวันนี้ต่อ',
 };
 

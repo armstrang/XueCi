@@ -156,7 +156,8 @@ class _ShellState extends State<Shell> {
     }
     final s = app.screen;
     final kb = MediaQuery.viewInsetsOf(context).bottom > 80;
-    final tabs = !const ['session', 'placement', 'bt'].contains(s) && !kb && !app.menuOpen && !app.inExam;
+    // hidden while answering: a session, the quiz, the tests, typing, an open menu, an exam
+    final tabs = !const ['session', 'quiz', 'placement', 'bt'].contains(s) && !kb && !app.menuOpen && !app.inExam;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (did, _) {
@@ -223,23 +224,23 @@ void back(BuildContext context) {
   app.go(app.screen == 'stats' ? app.prevScreen : 'home');
 }
 
-/// the tab bar (v1.16): five tabs, icons only except the open one, a glass lens under it that can be dragged
+/// the tab bar: five tabs, each an icon over its name (iOS), a glass lens under the open one that springs to a new tab
+/// and can be dragged
 class TabBar2 extends StatelessWidget {
   const TabBar2({super.key});
   static const tabs = ['home', 'list', 'card', 'quiz', 'soul'];
+  static const height = 64.0;
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
     final names = [t.tabHome, t.list, t.card, t.quiz, t.tabStats];
-    final icons = [I.home, I.list, I.cards, I.star, I.flame];
+    const icons = [I.home, I.list, I.cards, I.quiz, I.orb];
     final cur = tabs.indexOf(app.screen);
     final bottom = MediaQuery.paddingOf(context).bottom;
     final w = MediaQuery.sizeOf(context).width;
-    final barW = (w - 40).clamp(0, 430).toDouble();
-    final h = 54.0;
-    Color colOf(int i) => i == 4 ? p.elFire : th.acc;
+    final barW = (w - 28).clamp(0, 440).toDouble();
     return Padding(
       padding: EdgeInsets.only(bottom: bottom + 10),
       child: Center(
@@ -248,35 +249,25 @@ class TabBar2 extends StatelessWidget {
           label: t.modesL,
           child: SizedBox(
             width: barW,
-            height: h,
+            height: height,
             child: Glass(
               radius: 999,
               frost: true,
               shadow: const [
-                BoxShadow(
-                  color: Color.fromRGBO(0, 0, 0, .45),
-                  offset: Offset(0, 18),
-                  blurRadius: 40,
-                  spreadRadius: -18,
-                ),
-                BoxShadow(color: Color.fromRGBO(0, 0, 0, .2), offset: Offset(0, 2), blurRadius: 8, spreadRadius: -4),
+                BoxShadow(color: Color.fromRGBO(0, 0, 0, .40), offset: Offset(0, 18), blurRadius: 40, spreadRadius: -18),
+                BoxShadow(color: Color.fromRGBO(0, 0, 0, .16), offset: Offset(0, 2), blurRadius: 8, spreadRadius: -4),
               ],
               child: Compact(
-                max: 1.12,
+                max: 1.1,
                 child: LensRow(
                   count: 5,
                   selected: cur < 0 ? -1 : cur,
-                  height: h,
+                  height: height,
+                  padding: const EdgeInsets.all(5),
                   onSelect: (i) => app.go(tabs[i]),
-                  widths: (total, sel) {
-                    if (sel < 0) return List.filled(5, total / 5);
-                    final big = (total * .34).clamp(0, 140).toDouble().clamp(total / 5, total);
-                    final rest = (total - big) / 4;
-                    return [for (var k = 0; k < 5; k++) k == sel ? big : rest];
-                  },
-                  lens: (c, sel, drag) => sel < 0 ? const SizedBox() : TabLens(lc: colOf(sel)),
+                  lens: (c, sel, drag) => sel < 0 ? const SizedBox() : TabLens(lc: th.acc),
                   item: (c, i, on) {
-                    final col = on ? colOf(i) : p.fg.withValues(alpha: .88);
+                    final col = on ? th.acc : p.soft;
                     return Press(
                       onTap: () {
                         if (app.screen == tabs[i]) {
@@ -289,22 +280,23 @@ class TabBar2 extends StatelessWidget {
                       scale: .9,
                       label: names[i],
                       selected: on,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon2(icons[i], size: 22, color: col),
-                          if (on) ...[
-                            const SizedBox(width: 6),
-                            Flexible(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon2(icons[i], size: 23, color: col, width: on ? 2.1 : 1.9),
+                            const SizedBox(height: 3),
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
                               child: Text(
                                 names[i],
                                 maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: F.s(13, w: FontWeight.w800, c: p.fg),
+                                style: F.s(10.5, w: on ? FontWeight.w800 : FontWeight.w600, c: col, ls: -.1),
                               ),
                             ),
                           ],
-                        ],
+                        ),
                       ),
                     );
                   },
@@ -324,7 +316,7 @@ class ToastHost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.paddingOf(context).bottom;
-    final tabs = !const ['session', 'placement', 'bt'].contains(app.screen);
+    final tabs = !const ['session', 'quiz', 'placement', 'bt'].contains(app.screen);
     return ValueListenableBuilder(
       valueListenable: app.toastV,
       builder: (c, v, _) => IgnorePointer(
@@ -342,7 +334,7 @@ class ToastHost extends StatelessWidget {
               ? const SizedBox(key: ValueKey(0))
               : Padding(
                   key: ValueKey(v.id),
-                  padding: EdgeInsets.fromLTRB(24, 0, 24, bottom + (tabs ? 76 : 20)),
+                  padding: EdgeInsets.fromLTRB(24, 0, 24, bottom + (tabs ? 86 : 20)),
                   child: GestureDetector(
                     onTap: () => app.toastV.value = null,
                     child: Semantics(

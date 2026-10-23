@@ -851,6 +851,7 @@ I18N.en = {
   mkLenFull: 'Full',
   mkLenShort: 'Short',
   quickL: 'Quick practice, about 2 minutes',
+  quickS: 'Just 2 minutes',
   quickMore: 'Go on with today’s practice',
 };
 

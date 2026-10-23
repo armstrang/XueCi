@@ -850,6 +850,7 @@ I18N.id = {
   mkLenFull: 'Lengkap',
   mkLenShort: 'Pendek',
   quickL: 'Latihan singkat, sekitar 2 menit',
+  quickS: '2 menit saja',
   quickMore: 'Lanjut latihan hari ini',
 };
 

@@ -23,69 +23,117 @@ class Capsule extends StatelessWidget {
   final bool pickers;
   final List<Widget> trailing;
   final VoidCallback? onBack;
-  const Capsule({super.key, required this.title, this.pickers = false, this.trailing = const [], this.onBack});
+
+  /// pills before the level and unit pickers (the quiz type)
+  final List<Widget> lead;
+  const Capsule({super.key, required this.title, this.pickers = false, this.trailing = const [], this.onBack, this.lead = const []});
+
+  /// where the picker menus drop from (under the pill row)
+  static double menuTop(BuildContext c) => MediaQuery.paddingOf(c).top + 10 + 48 + 12 + 44 + 8;
+
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
     final u = app.unit;
+    final pills = [
+      ...lead,
+      if (pickers) ...[
+        HeadPill(
+          label: '${t.pickLv}: HSK ${app.level}',
+          onTap: () => openLevelMenu(context),
+          child: Text('HSK ${app.level}', style: F.s(15, w: FontWeight.w800, c: th.acc)),
+        ),
+        HeadPill(
+          label: '${t.pickU}: ${u != 0 ? '${t.unit} $u' : t.allU}',
+          onTap: () => openUnitMenu(context),
+          child: Text(
+            u != 0 ? '${t.unit} ${u.toString().padLeft(2, '0')}' : t.allShort,
+            style: F.s(15, w: FontWeight.w700, c: p.fg),
+          ),
+        ),
+      ],
+    ];
+    // iOS: a back chevron and a large title; the pickers as glass pills under it
     return Compact(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          SizedBox(
+            height: 48,
+            child: Row(
+              children: [
+                Press(
+                  onTap: onBack ?? () => backFrom(context),
+                  scale: .9,
+                  label: t.back,
+                  child: SizedBox(width: 40, height: 48, child: Align(alignment: Alignment.centerLeft, child: Icon2(I.back, size: 26, color: p.fg, width: 2.5))),
+                ),
+                Expanded(
+                  child: Semantics(
+                    header: true,
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text(title, maxLines: 1, style: F.s(31, w: FontWeight.w800, c: p.fg, ls: -.9, h: 1.1)),
+                    ),
+                  ),
+                ),
+                if (trailing.isNotEmpty)
+                  Glass(
+                    radius: 999,
+                    frost: true,
+                    padding: const EdgeInsets.symmetric(horizontal: 2),
+                    child: Row(mainAxisSize: MainAxisSize.min, children: trailing),
+                  ),
+              ],
+            ),
+          ),
+          if (pills.isNotEmpty)
+            Padding(
+              padding: const EdgeInsets.only(top: 12),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.none,
+                child: Row(
+                  children: [
+                    for (var i = 0; i < pills.length; i++) ...[if (i > 0) const SizedBox(width: 8), pills[i]],
+                  ],
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+}
+
+/// a glass pill with a chevron that opens a menu (level, unit, quiz type)
+class HeadPill extends StatelessWidget {
+  final Widget child;
+  final VoidCallback onTap;
+  final String label;
+  final Widget? icon;
+  const HeadPill({super.key, required this.child, required this.onTap, required this.label, this.icon});
+  @override
+  Widget build(BuildContext context) {
+    final p = Th.pal(context);
+    return Press(
+      onTap: onTap,
+      scale: .95,
+      label: label,
       child: Glass(
         radius: 999,
-        frost: true,
-        padding: const EdgeInsets.all(4),
-        shadow: const [BoxShadow(color: Color.fromRGBO(20, 25, 40, .45), offset: Offset(0, 10), blurRadius: 26, spreadRadius: -16)],
+        height: 44,
+        padding: EdgeInsets.fromLTRB(icon != null ? 6 : 16, 0, 12, 0),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            CapBtn(
-              label: t.back,
-              onTap: onBack ?? () => backFrom(context),
-              child: Icon2(I.back, size: 22, color: p.fg),
-            ),
-            const SizedBox(width: 6),
-            Expanded(
-              child: Semantics(
-                header: true,
-                child: Text(
-                  title,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: F.s(18, w: FontWeight.w800, c: p.fg, ls: -.3),
-                ),
-              ),
-            ),
-            if (pickers) ...[
-              CapBtn(
-                label: '${t.pickLv}: HSK ${app.level}',
-                onTap: () => openLevelMenu(context),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('HSK ${app.level}', style: F.s(15, w: FontWeight.w800, c: th.acc)),
-                    const SizedBox(width: 4),
-                    Icon2(I.chev, size: 14, color: p.mute),
-                  ],
-                ),
-              ),
-              Container(width: 1, height: 18, color: p.fgA(.14)),
-              CapBtn(
-                label: '${t.pickU}: ${u != 0 ? '${t.unit} $u' : t.allU}',
-                onTap: () => openUnitMenu(context),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      u != 0 ? '${t.unit} ${u.toString().padLeft(2, '0')}' : t.allShort,
-                      style: F.s(15, w: FontWeight.w700, c: p.fg),
-                    ),
-                    const SizedBox(width: 4),
-                    Icon2(I.chev, size: 14, color: p.mute),
-                  ],
-                ),
-              ),
-            ],
-            ...trailing,
+            if (icon != null) ...[icon!, const SizedBox(width: 8)],
+            child,
+            const SizedBox(width: 5),
+            Icon2(I.chev, size: 14, color: p.mute),
           ],
         ),
       ),
@@ -110,8 +158,8 @@ class CapBtn extends StatelessWidget {
     scale: .95,
     label: label,
     child: Container(
-      height: 40,
-      constraints: const BoxConstraints(minWidth: 40),
+      height: 44,
+      constraints: const BoxConstraints(minWidth: 44),
       padding: const EdgeInsets.symmetric(horizontal: 9),
       alignment: Alignment.center,
       child: child,
@@ -122,7 +170,7 @@ class CapBtn extends StatelessWidget {
 /// a glass menu that drops from the top right, under the capsule
 Future<T?> openMenu<T>(BuildContext context, Widget Function(BuildContext) body, {double width = 440}) {
   final th = Th.of(context);
-  final top = MediaQuery.paddingOf(context).top + 64;
+  final top = Capsule.menuTop(context);
   return showGeneralDialog<T>(
     context: context,
     barrierDismissible: true,
@@ -137,7 +185,7 @@ Future<T?> openMenu<T>(BuildContext context, Widget Function(BuildContext) body,
       full: th.full,
       fs: th.fs,
       child: Align(
-        alignment: Alignment.topRight,
+        alignment: Alignment.topLeft,
         child: Padding(
           padding: EdgeInsets.fromLTRB(16, top, 16, 16),
           child: ConstrainedBox(
@@ -150,7 +198,7 @@ Future<T?> openMenu<T>(BuildContext context, Widget Function(BuildContext) body,
     transitionBuilder: (c, a, _, child) => FadeTransition(
       opacity: a,
       child: ScaleTransition(
-        alignment: Alignment.topRight,
+        alignment: Alignment.topLeft,
         scale: Tween(begin: .88, end: 1.0).animate(CurvedAnimation(parent: a, curve: const Cubic(.2, .9, .3, 1.15))),
         child: child,
       ),
@@ -383,7 +431,7 @@ class _ListScreenState extends State<ListScreen> {
     final label = q.isNotEmpty
         ? t.results(app.fmt(total), app.q)
         : '${u != 0 ? 'No. ${(u - 1) * 50 + 1}–${(u * 50).clamp(0, app.by(L).length)} · ' : ''}${t.words(app.fmt(total))}';
-    final bottom = MediaQuery.paddingOf(context).bottom + 84;
+    final bottom = MediaQuery.paddingOf(context).bottom + 90;
     return CustomScrollView(
       controller: _scroll,
       slivers: [

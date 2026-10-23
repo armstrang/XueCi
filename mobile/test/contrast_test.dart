@@ -101,7 +101,14 @@ Future<List<Finding>> check(WidgetTester t, GlobalKey key, String where) async {
       final col = textColor(r.text, null);
       if (txt.isNotEmpty && col != null && col.a > .05 && !hidden(r)) {
         final tl = r.localToGlobal(Offset.zero, ancestor: boundary);
-        final rect = (tl & r.size).intersect(Offset.zero & Size(w.toDouble(), h.toDouble()));
+        var rect = (tl & r.size).intersect(Offset.zero & Size(w.toDouble(), h.toDouble()));
+        // only what is really shown: a text scrolled out of a sheet or list is clipped away
+        for (RenderObject? o = r.parent; o != null && o != boundary; o = o.parent) {
+          if (o is RenderViewportBase || o is RenderClipRRect || o is RenderClipRect) {
+            final b = o as RenderBox;
+            rect = rect.intersect(b.localToGlobal(Offset.zero, ancestor: boundary) & b.size);
+          }
+        }
         if (rect.width >= 4 && rect.height >= 4) {
           final ls = <double>[];
           for (var y = rect.top.ceil(); y < rect.bottom.floor(); y++) {

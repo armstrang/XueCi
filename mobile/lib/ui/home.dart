@@ -9,6 +9,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 
 import '../app/app.dart';
+import '../engine/learn.dart' show Stage;
 import '../i18n/l10.dart';
 import 'glass.dart';
 import 'icons.dart';
@@ -24,7 +25,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final mq = MediaQuery.of(context);
-    final bottom = mq.padding.bottom + 10 + 54 + 12; // above the tab bar
+    final bottom = mq.padding.bottom + 10 + 64 + 14; // above the tab bar
     final size = mq.size;
     if (size.width >= 900 && size.height >= 540 && size.width > size.height) return const _HomeWide();
     return SafeArea(
@@ -33,32 +34,20 @@ class HomeScreen extends StatelessWidget {
         padding: EdgeInsets.fromLTRB(16, 10, 16, bottom),
         child: LayoutBuilder(
           builder: (c, bc) {
-            final maxFluid = 214 + 330 * th.fsd;
-            final short = size.height <= 760;
-            const keys = false; // the counts live behind the small ? next to the bar
+            // tight: a small phone or large text; the same order, smaller pieces
+            final tight = bc.maxHeight < 640 * math.max(1.0, th.fsd * .92);
+            final gap = tight ? 10.0 : 16.0;
             return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                HomeHeader(short: short),
-                SizedBox(height: short ? 9 : 12),
-                Expanded(
-                  child: LayoutBuilder(
-                    builder: (c, bc2) {
-                      final mast = _Mastery(keys: keys, short: short);
-                      return Column(
-                        children: [
-                          const Spacer(),
-                          SizedBox(
-                            height: math.min(maxFluid, math.max(260, bc2.maxHeight - _mastH(th, keys, short) - 12)),
-                            child: const Fluid(),
-                          ),
-                          SizedBox(height: short ? 9 : 12),
-                          mast,
-                          const Spacer(),
-                        ],
-                      );
-                    },
-                  ),
-                ),
+                HomeHeader(short: tight),
+                SizedBox(height: gap),
+                RealmRow(tight: tight),
+                SizedBox(height: gap),
+                PlanCard(tight: tight),
+                const Spacer(),
+                SizedBox(height: tight ? 8 : 12),
+                _Mastery(keys: false, short: tight),
               ],
             );
           },
@@ -66,13 +55,9 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
-
-  /// the mastery panel's height (header, picker, bar, counts), for the room the realm panel gets
-  static double _mastH(Th th, bool keys, bool short) =>
-      (short ? 18 : 22) + 36 * th.fsd + (th.fs >= 1.15 ? 56 : 66) * th.fsd + 34 * th.fsd + (keys ? 44 * th.fsd : 0);
 }
 
-/// tablets in landscape: the realm on the left, word mastery (with its counts) on the right
+/// tablets in landscape: the realm and today on the left, word mastery on the right
 class _HomeWide extends StatelessWidget {
   const _HomeWide();
   @override
@@ -81,7 +66,7 @@ class _HomeWide extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(24, 10, 24, mq.padding.bottom + 80),
+        padding: EdgeInsets.fromLTRB(24, 10, 24, mq.padding.bottom + 88),
         child: Column(
           children: [
             const HomeHeader(short: false),
@@ -90,7 +75,13 @@ class _HomeWide extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Expanded(child: Fluid()),
+                  const Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [RealmRow(tight: false), SizedBox(height: 16), PlanCard(tight: false)],
+                    ),
+                  ),
                   const SizedBox(width: 20),
                   Expanded(child: Center(child: _Mastery(keys: false, short: false))),
                 ],
@@ -301,180 +292,132 @@ class _TaiJiPainter extends CustomPainter {
   bool shouldRepaint(_TaiJiPainter o) => o.lit != lit || o.dark != dark || o.dim != dim;
 }
 
-// ---------------------------------------------------------------- the realm orb and its panel
-class Fluid extends StatelessWidget {
-  const Fluid({super.key});
+// ---------------------------------------------------------------- the realm: a small orb beside its line
+/// the realm row: the orb (a tap opens the path), the realm's name, its stage bars; the ? sits at the top right
+class RealmRow extends StatelessWidget {
+  final bool tight;
+  const RealmRow({super.key, required this.tight});
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
-    final r = app.lm.realm();
-    final lc = p.realm(r, band: app.band);
-    final geom = _Geom();
-    return LayoutBuilder(
-      builder: (c, bc) {
-        final h = bc.maxHeight;
-        final big = th.fs >= 1.15;
-        final lines = (h > 400 && !big) ? 3 : (h > 340 ? 2 : (h > 300 ? 1 : 0));
-        return CustomMultiChildLayout(
-          delegate: _FluidLayout(geom, th.fsd, big),
+    final t = app.t;
+    final lm = app.lm;
+    final r = lm.realm();
+    final st = app.realmStage(r);
+    final open = lm.btOpen() && lm.canTest();
+    final unst = !app.memo('stability', lm.stability).ok;
+    final pct = app.realmPct(r);
+    final g = r > 0 ? (lm.grades()[r] ?? 0) : 0;
+    final ob = tight ? 84.0 : 104.0;
+    Widget? note;
+    if (r == 0) {
+      note = Text(t.rLine0, maxLines: 2, overflow: TextOverflow.ellipsis, style: F.s(13.5, c: p.soft, h: 1.35));
+    } else if (unst) {
+      note = Text(t.unstT, maxLines: 2, overflow: TextOverflow.ellipsis, style: F.s(13.5, w: FontWeight.w800, c: p.sRed, h: 1.35));
+    } else if (open) {
+      note = Text(t.stOpen, maxLines: 2, overflow: TextOverflow.ellipsis, style: F.s(13.5, w: FontWeight.w800, c: p.gold, h: 1.35));
+    }
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Row(
           children: [
-            LayoutId(
-              id: 's',
-              child: CustomPaint(painter: _FluidPainter(geom, p, lc, th.acc, th.low)),
+            SizedBox.square(dimension: ob, child: const _Orb()),
+            SizedBox(width: tight ? 14 : 18),
+            Expanded(
+              child: Press(
+                onTap: () => app.openRealm?.call(context),
+                scale: .98,
+                label: '${L10.text(t.realmM[r])}${r > 0 ? ', ${app.realmHSK(r)}' : ''}, ${t.chipProg(pct)}',
+                child: Padding(
+                  padding: EdgeInsets.zero,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (r > 0)
+                        Padding(padding: const EdgeInsets.only(right: 34), child: Row(
+                          children: [
+                            Flexible(child: Text('${t.realmL} · ${app.realmHSK(r)}', maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(13, w: FontWeight.w600, c: p.soft))),
+                            if (g > 0) ...[const SizedBox(width: 6), GradeBadge(g)],
+                          ],
+                        )),
+                      Padding(padding: EdgeInsets.only(right: r > 0 ? 0 : 34), child: Text(
+                        L10.text(t.realmM[r]),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                        style: F.s(tight ? 19 : 22, w: FontWeight.w800, c: p.fg, h: 1.2, ls: -.4),
+                      )),
+                      if (note != null) ...[const SizedBox(height: 4), note],
+                      if (r > 0 && note == null) ...[SizedBox(height: tight ? 7 : 9), _Stages(stage: st, labels: !tight || th.fs < 1.15)],
+                    ],
+                  ),
+                ),
+              ),
             ),
-            LayoutId(
-              id: 'o',
-              child: _Orb(geom: geom),
-            ),
-            LayoutId(
-              id: 'q',
-              child: _RingQ(small: h <= 300),
-            ),
-            LayoutId(
-              id: 't',
-              child: _RealmText(lines: lines, big: big),
-            ),
-            LayoutId(id: 'p', child: const PlanCard()),
           ],
-        );
-      },
+        ),
+        const Positioned(top: 0, right: 0, child: _RingQ(small: false)),
+      ],
     );
   }
 }
 
-class _Geom {
-  double cx = 0, cy = 0, ob = 120, w = 0, h = 0;
-}
-
-class _FluidLayout extends MultiChildLayoutDelegate {
-  final _Geom g;
-  final double fsd;
-  final bool big;
-  _FluidLayout(this.g, this.fsd, this.big);
+/// the four stages of a realm as short bars, the current one named
+class _Stages extends StatelessWidget {
+  final Stage? stage;
+  final bool labels;
+  const _Stages({required this.stage, required this.labels});
   @override
-  void performLayout(Size size) {
-    final w = size.width, h = size.height;
-    final ps = layoutChild('p', BoxConstraints(maxWidth: w - 24, minWidth: w - 24));
-    final ts = layoutChild('t', BoxConstraints(maxWidth: w - 40, minWidth: w - 40));
-    var ob = big
-        ? math.min(w * .48, h - 300 * fsd).clamp(72, 200).toDouble()
-        : math.min(w * .52, h - 250 * fsd).clamp(76, 214).toDouble();
-    var free = h - 12 - ps.height - ob - ts.height;
-    if (free < 0) {
-      ob = math.max(56, ob + free);
-      free = h - 12 - ps.height - ob - ts.height;
-    }
-    // the realm text sits close above the plan; spare room goes above the orb, where the aurora shows
-    final gap = math.min(math.max(0.0, free / 2), 22.0);
-    final top = math.max(0.0, free - gap);
-    layoutChild('o', BoxConstraints.tight(Size.square(ob)));
-    positionChild('o', Offset((w - ob) / 2, top));
-    final qs = layoutChild('q', const BoxConstraints());
-    positionChild('q', Offset(w - qs.width - 4, 2));
-    positionChild('t', Offset(20, top + ob));
-    positionChild('p', Offset(12, h - 12 - ps.height));
-    g
-      ..cx = w / 2
-      ..cy = top + ob / 2
-      ..ob = ob
-      ..w = w
-      ..h = h;
-    layoutChild('s', BoxConstraints.tight(size));
-    positionChild('s', Offset.zero);
-    assert(qs.width >= 0);
-  }
-
-  @override
-  bool shouldRelayout(_FluidLayout o) => !identical(o.g, g) || o.fsd != fsd || o.big != big;
-}
-
-/// the fluid glass shape: a circle around the orb flowing into the rounded panel below it, with soft fillets where
-/// they meet (fluidShape() in home.js)
-Path fluidPath(double w, double h, double cx, double cy, double ob) {
-  final R = ob / 2 + 9;
-  final y = math.min(h - 60, cy + R * .6);
-  final r = math.min(34.0, (h - y) / 2);
-  const k = 26.0;
-  final hh = math.sqrt(math.max(1, R * R - (y - cy) * (y - cy)));
-  final y1 = y - k * .5;
-  final x1 = math.sqrt(math.max(1, R * R - (y1 - cy) * (y1 - cy)));
-  return Path()
-    ..moveTo(0, y + r)
-    ..arcToPoint(Offset(r, y), radius: Radius.circular(r))
-    ..lineTo(cx - hh - k, y)
-    ..quadraticBezierTo(cx - hh, y, cx - x1, y1)
-    ..arcToPoint(Offset(cx + x1, y1), radius: Radius.circular(R), largeArc: true)
-    ..quadraticBezierTo(cx + hh, y, cx + hh + k, y)
-    ..lineTo(w - r, y)
-    ..arcToPoint(Offset(w, y + r), radius: Radius.circular(r))
-    ..lineTo(w, h - r)
-    ..arcToPoint(Offset(w - r, h), radius: Radius.circular(r))
-    ..lineTo(r, h)
-    ..arcToPoint(Offset(0, h - r), radius: Radius.circular(r))
-    ..close();
-}
-
-class _FluidPainter extends CustomPainter {
-  final _Geom g;
-  final Pal p;
-  final Color lc, acc;
-  final bool low;
-  _FluidPainter(this.g, this.p, this.lc, this.acc, this.low);
-  @override
-  void paint(Canvas c, Size s) {
-    final path = fluidPath(s.width, s.height, g.cx, g.cy, g.ob);
-    if (!low) {
-      // a soft coloured glow under the panel (.fglow)
-      final gr = Rect.fromLTWH(s.width * .12, s.height - 104, s.width * .76, 110);
-      c.drawRRect(
-        RRect.fromRectXY(gr, gr.width / 2, gr.height / 2),
-        Paint()
-          ..shader = ui.Gradient.linear(
-            gr.centerLeft,
-            gr.centerRight,
-            [
-              p.gold.withValues(alpha: .7 * .32),
-              acc.withValues(alpha: .32),
-              Pal.mix(lc, .6, const Color(0xffe89ab0)).withValues(alpha: .32),
-            ],
-            [0, .5, 1],
-          )
-          ..maskFilter = blur(BlurStyle.normal, 30),
-      );
-      // the shadow only outside the glass, never under it; drawn as a blurred circle (the orb) and a blurred rounded
-      // rectangle (the panel): both are cheap analytic blurs, a blurred path would need an offscreen pass every frame
-      if (!noBlur) {
-        final R = g.ob / 2 + 9;
-        final y = math.min(s.height - 60, g.cy + R * .6);
-        c.save();
-        c.clipPath(Path.combine(PathOperation.difference, Path()..addRect((Offset.zero & s).inflate(200)), path));
-        for (final b in p.drop) {
-          final pt = Paint()
-            ..color = b.color
-            ..maskFilter = MaskFilter.blur(BlurStyle.normal, b.blurSigma);
-          c.drawRRect(
-            RRect.fromRectAndRadius(
-              Rect.fromLTRB(0, y, s.width, s.height).inflate(b.spreadRadius).shift(b.offset),
-              const Radius.circular(34),
+  Widget build(BuildContext context) {
+    final p = Th.pal(context);
+    final t = app.t;
+    final lc = p.realm(app.lm.realm(), band: app.band);
+    final sh = stage?.share ?? 0;
+    const seg = [(0.0, .25), (.25, .5), (.5, .8), (.8, .8001)];
+    return Row(
+      children: [
+        for (var i = 0; i < 4; i++) ...[
+          if (i > 0) const SizedBox(width: 5),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(3),
+                  child: Container(
+                    height: 5,
+                    color: p.fgA(.10),
+                    alignment: Alignment.centerLeft,
+                    child: FractionallySizedBox(
+                      widthFactor: ((sh - seg[i].$1) / (seg[i].$2 - seg[i].$1)).clamp(0, 1).toDouble(),
+                      child: DecoratedBox(
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(3), gradient: LinearGradient(colors: [p.gold, lc])),
+                      ),
+                    ),
+                  ),
+                ),
+                if (labels) ...[
+                  const SizedBox(height: 4),
+                  Text(
+                    L10.text(t.stageS[i]),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: F.s(11, w: stage?.i == i ? FontWeight.w800 : FontWeight.w600, c: stage?.i == i ? p.fg : p.soft),
+                  ),
+                ],
+              ],
             ),
-            pt,
-          );
-          c.drawCircle(Offset(g.cx, g.cy) + b.offset, R + b.spreadRadius, pt);
-        }
-        c.restore();
-      }
-    }
-    paintGlass(c, path, Offset.zero & s, p, GK.panel, low: low);
+          ),
+        ],
+      ],
+    );
   }
-
-  @override
-  bool shouldRepaint(_FluidPainter o) => true;
 }
 
 class _Orb extends StatefulWidget {
-  final _Geom geom;
-  const _Orb({required this.geom});
+  const _Orb();
   @override
   State<_Orb> createState() => _OrbState();
 }
@@ -565,7 +508,7 @@ class _OrbState extends State<_Orb> with SingleTickerProviderStateMixin {
                       if (ob > 110) Text(app.rpy[r], style: F.s(11.5, c: p.soft)),
                       Text(
                         r > 0 ? '$pct%' : t.chipTest,
-                        style: r > 0 ? F.s(ob * .125, c: p.fg, feat: F.tab) : F.s(12, w: FontWeight.w800, c: th.acc),
+                        style: r > 0 ? F.s(ob * .125, c: p.fg, feat: F.tab) : F.s(12, w: FontWeight.w800, c: p.dark ? th.acc : Color.lerp(th.acc, Colors.black, .3)!),
                         textScaler: r > 0 ? TextScaler.noScaling : null,
                       ),
                     ],
@@ -660,176 +603,45 @@ class _RingQ extends StatelessWidget {
   }
 }
 
-class _RealmText extends StatelessWidget {
-  final int lines;
-  final bool big;
-  const _RealmText({required this.lines, required this.big});
-  @override
-  Widget build(BuildContext context) {
-    final p = Th.pal(context);
-    final lm = app.lm;
-    final t = app.t;
-    final r = lm.realm();
-    final lc = p.realm(r, band: app.band);
-    final st = app.realmStage(r);
-    final open = lm.btOpen() && lm.canTest();
-    final unst = !app.memo('stability', lm.stability).ok;
-    final pct = app.realmPct(r);
-    final g = r > 0 ? (lm.grades()[r] ?? 0) : 0;
-    final narrow = MediaQuery.sizeOf(context).width < 380;
-    final nameSize = big ? 15.0 : (narrow ? 16.5 : 19.0);
-    Widget line;
-    if (r == 0) {
-      line = Text(
-        t.rLine0,
-        textAlign: TextAlign.center,
-        style: F.s(13.5, c: p.soft, h: 1.4),
-      );
-    } else if (unst) {
-      line = Text(
-        t.unstT,
-        textAlign: TextAlign.center,
-        style: F.s(13.5, w: FontWeight.w800, c: p.sRed, h: 1.4),
-      );
-    } else if (open) {
-      line = Text(
-        t.stOpen,
-        textAlign: TextAlign.center,
-        style: F.s(13.5, w: FontWeight.w800, c: p.gold, h: 1.4),
-      );
-    } else {
-      line = Text(
-        '${st != null ? '${L10.text(t.stageS[st.i])} · ' : ''}${t.toNext(pct)}',
-        textAlign: TextAlign.center,
-        style: F.s(13.5, c: p.soft, h: 1.4),
-      );
-    }
-    final sh = st?.share ?? 0;
-    const seg = [(0.0, .25), (.25, .5), (.5, .8), (.8, .8001)];
-    return Padding(
-      padding: EdgeInsets.only(top: lines >= 3 ? 14 : 4, bottom: lines >= 3 ? 14 : 8),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text.rich(
-            TextSpan(
-              children: [
-                TextSpan(text: L10.text(t.realmM[r])),
-                if (r > 0)
-                  TextSpan(
-                    text: ' · ${app.realmHSK(r)}',
-                    style: TextStyle(fontWeight: FontWeight.w500, color: p.soft),
-                  ),
-                if (g > 0) ...[
-                  const TextSpan(text: ' '),
-                  WidgetSpan(alignment: PlaceholderAlignment.middle, child: GradeBadge(g)),
-                ],
-              ],
-            ),
-            textAlign: TextAlign.center,
-            style: F.s(nameSize, w: FontWeight.w800, c: p.fg, h: 1.25, ls: -.2),
-          ),
-          if (lines >= 3 && !big) ...[const SizedBox(height: 3), line],
-          if (r > 0 && lines >= 1 && !(big && MediaQuery.sizeOf(context).height <= 700)) ...[
-            SizedBox(height: lines >= 3 ? 10 : 5),
-            ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 420),
-              child: Row(
-                children: [
-                  for (var i = 0; i < 4; i++) ...[
-                    if (i > 0) const SizedBox(width: 6),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(3),
-                            child: Container(
-                              height: 5,
-                              color: p.fgA(.10),
-                              alignment: Alignment.centerLeft,
-                              child: FractionallySizedBox(
-                                widthFactor: ((sh - seg[i].$1) / (seg[i].$2 - seg[i].$1)).clamp(0, 1).toDouble(),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3),
-                                    gradient: LinearGradient(colors: [p.gold, lc]),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          if (lines >= 2 && !big) ...[
-                            const SizedBox(height: 4),
-                            Text(
-                              L10.text(t.stageS[i]),
-                              textAlign: TextAlign.center,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: F.s(
-                                11,
-                                w: st?.i == i ? FontWeight.w800 : FontWeight.w400,
-                                c: st?.i == i ? p.fg : p.mute,
-                              ),
-                            ),
-                          ],
-                        ],
-                      ),
-                    ),
-                  ],
-                ],
-              ),
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-}
-
 // ---------------------------------------------------------------- today's plan
 class PlanCard extends StatelessWidget {
-  const PlanCard({super.key});
+  final bool tight;
+  const PlanCard({super.key, this.tight = false});
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
     final lm = app.lm;
-    final big = th.fs >= 1.15;
-    final short = MediaQuery.sizeOf(context).height <= 760;
-    // the plan is the brighter glass inside the panel
-    Widget card({required EdgeInsets padding, required Widget child}) =>
-        Glass(inner: true, solid: true, radius: 26, padding: padding, child: child);
+    Widget card(Widget child) => Glass(
+      solid: true,
+      radius: 30,
+      padding: tight ? const EdgeInsets.fromLTRB(16, 12, 16, 14) : const EdgeInsets.fromLTRB(20, 16, 20, 18),
+      child: child,
+    );
     final chip = app.goalChip();
-    final pad = big
-        ? const EdgeInsets.fromLTRB(12, 9, 12, 11)
-        : (short ? const EdgeInsets.fromLTRB(12, 10, 12, 12) : const EdgeInsets.fromLTRB(14, 12, 14, 14));
+    final goal = Press(
+      onTap: () => app.openGoal?.call(context, false),
+      scale: 1.04,
+      label: chip,
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(minHeight: 40),
+        child: Center(
+          child: Text('$chip ›', textAlign: TextAlign.center, style: F.s(13.5, w: FontWeight.w800, c: th.acc)),
+        ),
+      ),
+    );
     if (app.isNewbie()) {
       return card(
-        padding: pad,
-        child: Column(
+        Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Semantics(
-                    header: true,
-                    child: Text(
-                      t.nbT,
-                      style: F.s(17 * 1.0, w: FontWeight.w800, c: p.fg, ls: -.3),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Flexible(child: _GoalChip(chip)),
-              ],
-            ),
-            const SizedBox(height: 8),
+            Semantics(header: true, child: Text(t.nbT, style: F.s(tight ? 19 : 22, w: FontWeight.w800, c: p.fg, ls: -.4))),
+            const SizedBox(height: 10),
             _NbOpt(pri: true, title: t.nbZero, sub: t.nbZeroS, onTap: () => app.startSession(false)),
-            const SizedBox(height: 6),
+            const SizedBox(height: 8),
             _NbOpt(pri: false, title: t.nbTest, sub: t.nbTestS, onTap: () => app.go('placement')),
+            goal,
           ],
         ),
       );
@@ -838,177 +650,135 @@ class PlanCard extends StatelessWidget {
     final c = app.memo('challenge', lm.challenge);
     var todo = P.newToday + P.revToday > 0;
     final min = math.max(1, ((P.revToday * P.sp.rev + P.newToday * P.sp.neu) / 60).round());
-    late Widget line;
-    String stK, stT;
     final sts = t.stS;
-    switch (P.status) {
-      case 'free':
-        (stK, stT) = ('none', t.stFree(P.newPerDay));
-      case 'ok':
-        (stK, stT) = ('green', t.stOk(P.finish != null ? app.dateS(P.finish!) : '–'));
-      case 'behind':
-        (stK, stT) = (
-          'red',
-          P.needMin != null ? t.stBehind(P.needMin) : t.stBehindDate(P.fixDate != null ? app.dateS(P.fixDate!) : '–'),
-        );
-      case 'review':
-        (stK, stT) = ('green', t.stReview);
-      case 'examweek':
-        (stK, stT) = ('yellow', t.stExamWeek);
-      default:
-        (stK, stT) = ('red', t.stPast);
-    }
-    final lineStyle = F.s(15, w: FontWeight.w700, c: p.fg, h: 1.35, feat: F.tab);
+    final stK = switch (P.status) {
+      'free' => 'none',
+      'ok' || 'review' => 'green',
+      'examweek' => 'yellow',
+      _ => 'red',
+    };
+    var stT = '${sts[const ['free', 'ok', 'behind', 'review', 'examweek'].contains(P.status) ? P.status : 'past'] ?? ''}';
+    final big = tight ? 22.0 : 30.0;
+    final hStyle = F.s(big, w: FontWeight.w800, c: p.fg, h: 1.12, ls: -.9, feat: F.tab);
+    late Widget head;
     if (P.rest) {
       todo = false;
-      line = Text.rich(
-        TextSpan(
-          children: [
-            TextSpan(
-              text: '闭关 ',
-              style: F.s(15, w: FontWeight.w900, family: F.hz, c: p.elWater),
-            ),
-            TextSpan(text: t.planRestT),
-          ],
-        ),
-        style: lineStyle,
+      stT = '${sts['rest'] ?? t.planRest}';
+      head = Text.rich(
+        TextSpan(children: [
+          TextSpan(text: '闭关 ', style: TextStyle(fontFamily: F.hz, fontWeight: FontWeight.w900, color: p.elWater)),
+          TextSpan(text: t.planRestT),
+        ]),
+        style: hStyle.copyWith(fontSize: big * .75),
       );
-      (stK, stT) = ('none', '${sts['rest'] ?? t.planRest}');
+    } else if (todo && tight) {
+      head = Text.rich(
+        TextSpan(children: [
+          TextSpan(text: [if (P.revToday > 0) plainText(t.planRev(app.fmt(P.revToday))), if (P.newToday > 0) plainText(t.planNew(app.fmt(P.newToday)))].join(' + ')),
+          TextSpan(text: '  ${t.planMin(min)}', style: F.s(14, w: FontWeight.w600, c: p.soft, ls: 0)),
+        ]),
+        style: hStyle.copyWith(fontSize: 20, letterSpacing: -.4),
+      );
     } else if (todo) {
-      final parts = [
-        if (P.revToday > 0) t.planRev(app.fmt(P.revToday)),
-        if (P.newToday > 0) t.planNew(app.fmt(P.newToday)),
-      ];
-      line = Text.rich(
-        TextSpan(
-          children: [
-            TextSpan(text: parts.map(plainText).join(' · ')),
-            TextSpan(
-              text: '${parts.isEmpty ? '' : ' · '}${t.planMin(min)}',
-              style: TextStyle(color: p.soft, fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-        style: lineStyle,
+      head = Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (P.revToday > 0) Text(plainText(t.planRev(app.fmt(P.revToday))), style: hStyle),
+          if (P.newToday > 0)
+            Text('${P.revToday > 0 ? '+ ' : ''}${plainText(t.planNew(app.fmt(P.newToday)))}', style: hStyle.copyWith(color: P.revToday > 0 ? p.soft : p.fg)),
+          const SizedBox(height: 3),
+          Text(t.planMin(min), style: F.s(15, c: p.soft)),
+        ],
       );
     } else {
-      line = Text('${t.planDone} ✓', style: lineStyle);
+      head = Text('${t.planDone} ✓', style: hStyle.copyWith(fontSize: big * .8));
     }
     app.syncWidget(todo ? '${P.revToday}·${P.newToday}' : t.planDone);
     app.syncReminder();
     final cc = math.min(c['cnt'] as int, c['n'] as int);
     final cDone = c['done'] == true;
-    final cl =
-        '${t.chalT}: ${cDone ? t.chalDone : '${t.chalTxt(app.skName(c['k'] as String), c['n'], c['a'])} · $cc/${c['n']}'}';
-    final btnLabel = todo ? (P.ansT > 0 ? t.planContS : t.planGoS) : t.planExtraS;
+    final cl = '${t.chalT}: ${cDone ? t.chalDone : '${t.chalTxt(app.skName(c['k'] as String), c['n'], c['a'])} · $cc/${c['n']}'}';
     final btn = MainBtn(
-      btnLabel,
-      icon: I.play,
+      tight ? (todo ? (P.ansT > 0 ? t.planContS : t.planGoS) : t.planExtraS) : (todo ? (P.ansT > 0 ? t.planCont : t.planGo) : t.planExtra),
       semantics: todo ? (P.ansT > 0 ? t.planCont : t.planGo) : t.planExtra,
+      icon: I.play,
+      wide: true,
+      big: true,
+      radius: 28,
       onTap: () => app.startSession(!todo),
     );
-    // the status in a few words (the full sentence lives in the goal sheet)
-    if (!P.rest) stT = '${sts[P.status == 'free' || P.status == 'ok' || P.status == 'behind' || P.status == 'review' || P.status == 'examweek' ? P.status : 'past'] ?? stT}';
-    final showSt = !short || !big;
+    Widget sub({required String label, required VoidCallback onTap, required Widget child}) => Expanded(
+      child: Press(
+        onTap: onTap,
+        scale: .97,
+        label: label,
+        child: Glass(inner: true, radius: 22, height: 44, child: Center(child: child)),
+      ),
+    );
+    final quick = todo && min >= 4;
     return card(
-      padding: pad,
-      child: Column(
+      Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Wrap(
-            spacing: 8,
-            runSpacing: 6,
-            crossAxisAlignment: WrapCrossAlignment.center,
+          Row(
             children: [
-              Semantics(
-                header: true,
-                child: Text(
-                  t.planT,
-                  style: F.s(17, w: FontWeight.w800, c: p.fg, ls: -.3),
+              Semantics(header: true, child: Text(t.planT, style: F.s(15, w: FontWeight.w700, c: p.soft))),
+              const Spacer(),
+              if (stT.isNotEmpty) ...[
+                Dot(p.band(stK), size: 8),
+                const SizedBox(width: 6),
+                Flexible(child: Text(plainText(stT), maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(13, w: FontWeight.w700, c: p.soft))),
+              ],
+            ],
+          ),
+          SizedBox(height: tight ? 4 : 8),
+          head,
+          SizedBox(height: tight ? 10 : 16),
+          if (tight)
+            Row(
+              children: [
+                Expanded(child: btn),
+                const SizedBox(width: 8),
+                SizedBox(width: quick ? 112 : 64, child: Row(children: [
+                  if (quick) ...[
+                    sub(label: t.quickL, onTap: () => app.startSession(false, quick: true), child: Text('2′', style: F.s(15, w: FontWeight.w800, c: p.fg, feat: F.tab))),
+                    const SizedBox(width: 6),
+                  ],
+                  sub(label: cl, onTap: () => app.go('soul'), child: Text('试', style: F.s(16, w: FontWeight.w900, family: F.hz, c: cDone ? p.good : (p.dark ? p.fg : th.acc)))),
+                ])),
+              ],
+            )
+          else ...[
+          btn,
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              if (quick) ...[
+                sub(
+                  label: t.quickL,
+                  onTap: () => app.startSession(false, quick: true),
+                  child: Text(t.quickS, maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(14, w: FontWeight.w700, c: p.fg)),
                 ),
-              ),
-              GChip(
+                const SizedBox(width: 10),
+              ],
+              sub(
                 label: cl,
                 onTap: () => app.go('soul'),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text(
-                      '试',
-                      style: F.s(14, w: FontWeight.w900, family: F.hz, c: p.dark ? p.fg : th.acc),
-                    ),
-                    const SizedBox(width: 5),
-                    Text(
-                      cDone ? '✓' : '$cc/${c['n']}',
-                      style: F.s(12.5, w: FontWeight.w800, c: cDone ? p.good : p.fg, feat: F.tab),
-                    ),
+                    Text('试', style: F.s(15, w: FontWeight.w900, family: F.hz, c: p.dark ? p.fg : th.acc)),
+                    const SizedBox(width: 6),
+                    Text(cDone ? '✓' : '$cc/${c['n']}', style: F.s(14, w: FontWeight.w800, c: cDone ? p.good : p.fg, feat: F.tab)),
                   ],
                 ),
               ),
-              _GoalChip(chip),
             ],
           ),
-          SizedBox(height: short ? 4 : 6),
-          if (big)
-            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [line, const SizedBox(height: 8), btn])
-          else
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      line,
-                      if (showSt) ...[
-                        const SizedBox(height: 3),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Dot(p.band(stK)),
-                            const SizedBox(width: 7),
-                            Expanded(
-                              child: Text(
-                                plainText(stT),
-                                style: F.s(12.5, c: p.soft, h: 1.4),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 12),
-                // a short way in on a slow day: about two minutes of today's practice
-                if (todo && min >= 4) ...[
-                  GChip(
-                    label: t.quickL,
-                    onTap: () => app.startSession(false, quick: true),
-                    child: Text('2′', style: F.s(14, w: FontWeight.w800, c: p.dark ? p.fg : th.acc, feat: F.tab)),
-                  ),
-                  const SizedBox(width: 8),
-                ],
-                btn,
-              ],
-            ),
+          const SizedBox(height: 2),
+          ],
+          goal,
         ],
-      ),
-    );
-  }
-}
-
-class _GoalChip extends StatelessWidget {
-  final String text;
-  const _GoalChip(this.text);
-  @override
-  Widget build(BuildContext context) {
-    final th = Th.of(context);
-    return GChip(
-      onTap: () => app.openGoal?.call(context, false),
-      label: text,
-      child: Text(
-        '$text ›',
-        style: F.s(12.5, w: FontWeight.w800, c: th.acc),
       ),
     );
   }
@@ -1023,7 +793,7 @@ class _NbOpt extends StatelessWidget {
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
-    final fg = pri ? p.onAcc : p.fg;
+    final fg = pri ? (p.dark ? p.fg : p.onAcc) : p.fg;
     final child = Row(
       children: [
         if (pri) ...[Icon2(I.play, size: 18, color: fg), const SizedBox(width: 12)],
@@ -1047,34 +817,25 @@ class _NbOpt extends StatelessWidget {
       scale: .98,
       label: '$title. $sub',
       child: pri
-          ? Container(
-              constraints: const BoxConstraints(minHeight: 58),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: th.acc,
-                gradient: RadialGradient(
-                  center: const Alignment(-.4, -1.5),
-                  radius: 1.3,
-                  colors: [Color.lerp(th.acc, Colors.white, .3)!, th.acc],
-                  stops: const [0, .52],
-                ),
-                boxShadow: sh([
-                  BoxShadow(
-                    color: th.acc.withValues(alpha: .6),
-                    offset: const Offset(0, 10),
-                    blurRadius: 22,
-                    spreadRadius: -10,
-                  ),
-                ]),
+          ? CustomPaint(
+              painter: OuterShadow(
+                th.low ? const [] : [BoxShadow(color: th.acc.withValues(alpha: .38), offset: const Offset(0, 10), blurRadius: 24, spreadRadius: -10)],
+                22,
               ),
-              child: child,
+              child: Glass(
+                inner: true,
+                radius: 22,
+                shadow: const [],
+                color: Color.lerp(th.acc, Colors.black, p.dark ? .35 : .2)!.withValues(alpha: p.dark ? .5 : .78),
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                child: ConstrainedBox(constraints: const BoxConstraints(minHeight: 40), child: child),
+              ),
             )
           : Glass(
               solid: true,
-              radius: 20,
+              radius: 22,
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-              child: ConstrainedBox(constraints: const BoxConstraints(minHeight: 38), child: child),
+              child: ConstrainedBox(constraints: const BoxConstraints(minHeight: 40), child: child),
             ),
     );
   }

@@ -233,6 +233,18 @@ class I {
       'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z',
     ],
   );
+  /// the quiz tab: a question in a rounded square
+  static const quiz = Ic(
+    stroke: ['M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14'],
+    rects: [(3.5, 3.5, 17, 17, 4.5)],
+    dots: [(12, 17.2, 1.15)],
+  );
+
+  /// the Soul Sea tab: an orb with its core and four rays
+  static const orb = Ic(
+    stroke: ['M12 2.8v2.6M12 18.6v2.6M2.8 12h2.6M18.6 12h2.6'],
+    circles: [(12, 12, 7.6), (12, 12, 3)],
+  );
   static const flame = Ic(
     stroke: [
       'M12 21c-3.9 0-6.5-2.6-6.5-6.2 0-3.3 2.2-5.4 3.6-7.6.3 1.7 1.2 2.9 2.3 3.4C11.2 7.5 12.6 4.6 15 3c-.3 3 .9 4.8 2.1 6.6 1 1.5 1.4 3 1.4 4.6C18.5 18.4 15.9 21 12 21z',

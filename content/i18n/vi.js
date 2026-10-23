@@ -831,6 +831,7 @@ I18N.vi = {
   mkLenFull: 'Đầy đủ',
   mkLenShort: 'Ngắn',
   quickL: 'Luyện nhanh, khoảng 2 phút',
+  quickS: 'Chỉ 2 phút',
   quickMore: 'Học tiếp bài hôm nay',
 };
 

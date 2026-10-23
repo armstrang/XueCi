@@ -95,6 +95,9 @@ class MainBtn extends StatelessWidget {
   final EdgeInsets padding;
   final double fontSize;
   final String? semantics;
+
+  /// the screen's main action (Next, Start): 56 tall, larger text
+  final bool big;
   const MainBtn(
     this.label, {
     super.key,
@@ -107,11 +110,14 @@ class MainBtn extends StatelessWidget {
     this.padding = const EdgeInsets.fromLTRB(15, 12, 18, 12),
     this.fontSize = 15,
     this.semantics,
+    this.big = false,
   });
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final c = color ?? th.acc;
+    final padding = big ? const EdgeInsets.symmetric(horizontal: 20, vertical: 16) : this.padding;
+    final fontSize = big ? 17.0 : this.fontSize;
     final on = onTap != null;
     final fg = th.p.dark ? th.p.fg : th.p.onAcc; // on dark, the tinted glass stays deep: light text
     return Opacity(

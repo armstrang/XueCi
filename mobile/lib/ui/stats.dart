@@ -143,7 +143,7 @@ class StatsScreenState extends State<StatsScreen> {
         Positioned(
           left: 16,
           right: 16,
-          bottom: pad.bottom + 78,
+          bottom: pad.bottom + 90,
           child: d == null || d.l != lv ? _Hint(t.dotHint) : _Detail(d),
         ),
       ],
