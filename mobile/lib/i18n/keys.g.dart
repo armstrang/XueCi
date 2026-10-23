@@ -135,6 +135,7 @@ mixin L10Keys {
   String get dMean => s('dMean');
   String get dMock => s('dMock');
   String get dPy => s('dPy');
+  String get dSpeak => s('dSpeak');
   String get dTone => s('dTone');
   String get dTrans => s('dTrans');
   String get dataFail => s('dataFail');
@@ -386,6 +387,7 @@ mixin L10Keys {
   String get qOrder => s('qOrder');
   String get qPy => s('qPy');
   String get qPyHz => s('qPyHz');
+  String get qSpeak => s('qSpeak');
   String get qTone => s('qTone');
   String get qTrans => s('qTrans');
   String get qTypeL => s('qTypeL');
@@ -462,6 +464,20 @@ mixin L10Keys {
   String get soulGo => s('soulGo');
   String get soulMore => s('soulMore');
   String get soulT => s('soulT');
+  String get spkAgain => s('spkAgain');
+  String get spkAll => s('spkAll');
+  String get spkHear => s('spkHear');
+  String spkHeard(Object? a0) => f('spkHeard', [a0]);
+  List<dynamic> get spkLv => v('spkLv') as List<dynamic>? ?? const [];
+  List<dynamic> get spkLvD => v('spkLvD') as List<dynamic>? ?? const [];
+  String get spkLvT => s('spkLvT');
+  String get spkMic => s('spkMic');
+  String get spkNone => s('spkNone');
+  String get spkNothing => s('spkNothing');
+  String get spkPrompt => s('spkPrompt');
+  String get spkSay => s('spkSay');
+  String spkSome(Object? a0, Object? a1) => f('spkSome', [a0, a1]);
+  String get spkTap => s('spkTap');
   String get stAll => s('stAll');
   String stBehind(Object? a0) => f('stBehind', [a0]);
   String stBehindDate(Object? a0) => f('stBehindDate', [a0]);
@@ -520,6 +536,7 @@ mixin L10Keys {
   String get tMean => s('tMean');
   String get tMock => s('tMock');
   String get tPy => s('tPy');
+  String get tSpeak => s('tSpeak');
   String get tTone => s('tTone');
   String get tTrans => s('tTrans');
   String get tabHome => s('tabHome');
@@ -543,6 +560,9 @@ mixin L10Keys {
   String get tourNext => s('tourNext');
   String get tourRow => s('tourRow');
   String get tourSkip => s('tourSkip');
+  List<dynamic> get ttsGuide => v('ttsGuide') as List<dynamic>? ?? const [];
+  String get ttsGuideBtn => s('ttsGuideBtn');
+  String get ttsGuideT => s('ttsGuideT');
   String get ttsMissing => s('ttsMissing');
   String get ttsNone => s('ttsNone');
   String get uS => s('uS');

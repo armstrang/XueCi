@@ -76,15 +76,20 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   `BackdropGroup` + `BackdropFilter.grouped` (σ 16); shadows of rounded rectangles are analytic (`drawRRect` with a mask
   blur), never a blurred path; `paintGlass(rr:)` takes the RRect fast paths. Engine views go through `app.memo(key, f)`
   (kept while `Store.ver` and the minute are unchanged). Clocks redraw themselves, not the app. No `dynamic` in hot loops.
-- Home must fit one screen (360×680 up) and keeps its order: header pills (wordmark, cultivation days, Settings) → the
-  realm orb flowing into one panel (realm line, stage bars, today's plan) → word mastery with the HSK lens → tab bar.
+- Home must fit one screen (360×680 up) and keeps its order (Apple redesign, Josh, Oct 2026): header (wordmark, one
+  frosted capsule: cultivation days, 护法 coin, Settings) → `RealmRow` (small orb beside the realm name and stage bars,
+  ? top right) → `PlanCard` (Today: big numbers, one wide Start, 2 min + 试 below, goal link; `tight` on small
+  phones/large text puts them in one row) → word mastery with the HSK lens → tab bar.
   Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
   uses `Compact`, half-way).
-- Tab bar: Home/List/Cards/Quiz/Stats (Soul Sea, flame icon), icons only except the open tab, a glass lens that can be
-  dragged; hidden in session/placement/tribulation, while typing and in exams.
+- Tab bar: Home/List/Cards/Quiz/Soul Sea (orb icon), 64 tall, an icon with its name under it on every tab, a glass
+  lens that can be dragged; hidden in session/quiz/placement/tribulation, while typing and in exams.
 - HSK lens (Josh: clear, "murim"): clear glass tinted by the level, the realm's colour glowing inside, a faint ring of
   the five elements, a thin gold line on top; the chosen number takes the level colour.
-- Focus header = one translucent capsule (back · title · HSK · unit), no glass on glass.
+- Focus header (`Capsule` in focus.dart, iOS large title): back chevron + 31 pt title (+ trailing buttons in one
+  frosted capsule), then a row of glass `HeadPill`s (quiz type, HSK, unit); menus drop from under the pills
+  (`Capsule.menuTop`). Quiz: the prompt alone in its card, answers below (rows; a 2×2 `tile` grid for hanzi/tones),
+  feedback card + a big Next. Big actions are 56 tall (`MainBtn(big: true)`). Sheets can be dragged down.
 
 ## How the app works
 
@@ -154,7 +159,12 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - **Visual effects** setting: full (the default, Josh)/auto/low; auto steps down once if frames are slow (toast). Low = no blur, no glow.
 - **First start**: a 3-step tour ending in the goal sheet; a new learner sees two ways in (start from zero / placement).
 - **Easter egg**: seven taps on the wordmark → a seal stamps 天外有天 (封 before the gate, 开 after).
-- Pronunciation uses the phone's TTS (zh-CN, rate 0.9); polyphonic characters are guessed by the engine.
+- Pronunciation uses the phone's TTS (zh-CN, rate 0.9); polyphonic characters are guessed by the engine. A missing
+  voice opens a short install guide (`openTtsGuide`).
+- **Speaking** (`app/speech.dart`): the phone's recognizer through `RecognizerIntent` (its own window, no mic
+  permission; `Native.listen`). Each target hanzi is aligned with what was heard: same hanzi or same syllable+tone
+  (normal), any tone (easy), first guess only (hard); `spk` in `hsk16_ui`. A mic next to List sentences
+  (`openSpeak`) and quiz type `u` (logged as `s`; the first try is the answer, later tries only show).
 
 ## CI
 

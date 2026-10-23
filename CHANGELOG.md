@@ -18,6 +18,21 @@ same progress, every screen drawn natively, with a new look that is easier to re
 - To be extra safe, make a backup code in the previous version first (Settings › Backup › Back up) and keep it
   somewhere. Its codes restore in this version, and this version's codes work the same way.
 
+### Speaking practice
+- A microphone next to each example sentence in the List, and a new quiz type, Speak: say the word or sentence and
+  every hanzi turns green (right) or red (missed), with what the phone heard. Try again as often as you like.
+- It uses the phone's own speech recognizer in its own window, so the app needs no microphone permission and never
+  sees a recording. Strictness in Settings: Easy (tones may slip), Normal, Hard (only the phone's first guess).
+- No Mandarin voice for the speaker yet? A short guide shows how to install one.
+
+### Cleaner, calmer screens
+- Large titles with the level, unit and quiz type as glass pills under them; a tab bar with a name under every icon.
+- Home: a small realm orb beside the realm's name and stages, then one big Today card with a single Start button,
+  then word mastery.
+- Quiz: the question alone in its card, the answers below where the thumb is (rows, or a 2×2 grid for hanzi and
+  tones), a tick or cross on the answer and a light buzz; the tab bar steps aside while you answer.
+- Cards: a bigger card and hanzi, bigger buttons. Sheets can be pulled down to close.
+
 ### New look
 - Glass all through: panels of soft milky glass that let a slow aurora of colour (your level's colour with warm
   and cool light) show through, a gentle glow along their edges and a bright rim where the light falls on them.

@@ -1181,7 +1181,7 @@ class LM {
   }
 
   /// the answer as the log keeps it: listening kinds count as listening, writing kinds as form
-  static String logQ(String q) => const {'ls': 'l', 'lt': 'l', 'lj': 'l', 'wh': 'f', 'wo': 'c'}[q] ?? q;
+  static String logQ(String q) => const {'ls': 'l', 'lt': 'l', 'lj': 'l', 'wh': 'f', 'wo': 'c', 'u': 's'}[q] ?? q;
 
   Set<String>? _syl;
 

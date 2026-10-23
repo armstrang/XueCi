@@ -22,6 +22,7 @@ import '../engine/learn.dart';
 import '../i18n/l10.dart';
 import 'mastery.dart';
 import 'native.dart';
+import 'speech.dart';
 import 'runner.dart';
 
 late App app;
@@ -31,7 +32,7 @@ const focusScreens = ['list', 'card', 'quiz', 'session', 'placement', 'bt'];
 const themes = ['auto', 'light', 'dark', 'black'];
 const fxModes = ['auto', 'low', 'full'];
 // 'auto' (guided) was dropped (Josh, Oct 2026): a saved 'auto' falls back to Recognise
-const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't', 'mock']; // a saved 'exam' (the quick exam, removed) falls back to 'm'
+const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't', 'u', 'mock']; // a saved 'exam' (the quick exam, removed) falls back to 'm'
 
 class App extends ChangeNotifier {
   final Store store;
@@ -229,6 +230,7 @@ class App extends ChangeNotifier {
   String prevScreen = 'home';
   String qType = 'm';
   bool mockShort = false; // the HSK simulation: the short paper
+  String spk = 'n'; // speaking practice: e easy, n normal, h hard
   String theme = 'auto';
   String fxPref = 'full'; // Josh: glassy by default; auto and low stay in Settings
   bool fxDown = false; // the frame watcher stepped down once (xc_fxd)
@@ -240,6 +242,7 @@ class App extends ChangeNotifier {
     'unitBy': {for (final e in unitBy.entries) '${e.key}': e.value},
     'qt': qType,
     if (mockShort) 'mks': 1,
+    if (spk != 'n') 'spk': spk,
   });
   void saveNote() => store.set('xc_note', note);
 
@@ -257,6 +260,7 @@ class App extends ChangeNotifier {
       }
       if (qTypes.contains(ui['qt'])) qType = ui['qt'] as String;
       mockShort = ui['mks'] == 1;
+      if (spkLevels.contains(ui['spk'])) spk = ui['spk'] as String;
     }
     final th = store.get('hsk16_theme', null);
     theme = themes.contains(th) ? th as String : 'auto';
@@ -271,6 +275,12 @@ class App extends ChangeNotifier {
     lm.ttsReady = () => ttsOK;
     loadRem();
     canRemind = Native.I.isAndroid;
+    Native.I.canListen().then((v) {
+      if (v != canListen) {
+        canListen = v;
+        notifyListeners();
+      }
+    });
     // speech: the engine starts with the activity; its state arrives now or a moment later (ttsReady)
     Native.I.ttsChanged = notifyListeners;
     if (Native.I.isAndroid) await Native.I.ttsStatus();
@@ -413,6 +423,25 @@ class App extends ChangeNotifier {
   bool canSpeak() => Native.I.isAndroid || Native.off && _ttsTest;
   bool _ttsTest = false;
   set ttsTest(bool v) => _ttsTest = v;
+
+  // ---------------------------------------------------------------- speaking practice
+  /// the phone has a speech recognizer (asked once at start)
+  bool canListen = false;
+  CharSounds? _sounds;
+  CharSounds get sounds => _sounds ??= CharSounds(vocab.data);
+
+  /// listens once and marks [target]; null when closed, or when the phone can't listen (then a toast says so)
+  Future<SpeakResult?> hear(String target) async {
+    final h = await Native.I.listen(t.spkPrompt);
+    if (h == null) return null;
+    if (h.length == 1 && h.first == '!') {
+      canListen = false;
+      toast(t.spkNone, 5000);
+      notifyListeners();
+      return null;
+    }
+    return scoreSpeech(target, h, spk, sounds);
+  }
 
   // ---------------------------------------------------------------- navigation
   final List<VoidCallback> beforeShow = [];

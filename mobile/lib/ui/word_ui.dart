@@ -4,14 +4,18 @@ library;
 
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../app/app.dart';
 import '../app/mastery.dart';
 import '../app/native.dart';
+import '../app/speech.dart';
 import '../data/words.dart';
 import '../i18n/l10.dart';
 import 'glass.dart';
 import 'icons.dart';
+import 'sheet.dart';
+import 'shell.dart' show navKey;
 import 'theme.dart';
 import 'widgets.dart';
 
@@ -19,8 +23,13 @@ import 'widgets.dart';
 Future<void> speak(String text) async {
   final st = await Native.I.ttsStatus();
   if (st == 'missing' || st == 'unsupported') {
-    app.toast(app.t.ttsMissing);
-    Future.delayed(const Duration(milliseconds: 1200), Native.I.openTtsSettings);
+    final c = navKey.currentContext;
+    if (c != null && c.mounted && st == 'missing') {
+      openTtsGuide(c);
+    } else {
+      app.toast(app.t.ttsMissing);
+      Future.delayed(const Duration(milliseconds: 1200), Native.I.openTtsSettings);
+    }
     return;
   }
   if (st == 'none') {
@@ -215,6 +224,7 @@ class WordBody extends StatelessWidget {
             children: [
               Flexible(child: ExampleText(d)),
               Spk(d.z, size: 26),
+              Mic(d, size: 26),
             ],
           ),
           ZpText(d),
@@ -322,4 +332,235 @@ class LvChip extends StatelessWidget {
       child: Text('HSK $l', style: F.s(10.5, w: FontWeight.w800, c: p.onAcc)),
     );
   }
+}
+
+/// a round microphone button: opens the speaking sheet for the word's sentence (or the word)
+class Mic extends StatelessWidget {
+  final Word d;
+  final double size;
+  final bool sentence;
+  const Mic(this.d, {super.key, this.size = 32, this.sentence = true});
+  @override
+  Widget build(BuildContext context) {
+    if (!app.canListen) return const SizedBox.shrink();
+    final th = Th.of(context);
+    return Press(
+      onTap: () => openSpeak(context, d, sentence: sentence),
+      scale: .9,
+      label: app.t.spkMic,
+      child: SizedBox(
+        width: size < 32 ? 34 : size,
+        height: size < 32 ? 34 : size,
+        child: Center(
+          child: Container(
+            width: size,
+            height: size,
+            decoration: BoxDecoration(shape: BoxShape.circle, color: th.acc.withValues(alpha: .13)),
+            child: Center(child: Icon2(I.mic, size: size * .5, color: th.acc)),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// hanzi coloured by what was said: green right, red (underlined) wrong; plain before any try
+class SpokenText extends StatelessWidget {
+  final String text;
+  final List<bool>? ok;
+  final double size;
+  const SpokenText(this.text, this.ok, {super.key, this.size = 26});
+  @override
+  Widget build(BuildContext context) {
+    final p = Th.pal(context);
+    final ch = text.runes.map(String.fromCharCode).toList();
+    final base = F.s(size, w: FontWeight.w800, family: F.hz, c: p.fg, h: 1.3);
+    return Text.rich(
+      TextSpan(
+        children: [
+          for (var i = 0; i < ch.length; i++)
+            TextSpan(
+              text: ch[i],
+              style: ok == null || !isHan(ch[i])
+                  ? null
+                  : TextStyle(
+                      color: ok![i] ? p.good : p.bad,
+                      decoration: ok![i] ? null : TextDecoration.underline,
+                      decorationColor: p.bad,
+                      decorationThickness: 2.4,
+                    ),
+            ),
+        ],
+      ),
+      style: base,
+      textAlign: TextAlign.center,
+      locale: const Locale('zh', 'CN'),
+      semanticsLabel: text,
+    );
+  }
+}
+
+/// the big round microphone: tinted liquid glass, pulses while the phone listens
+class BigMic extends StatelessWidget {
+  final VoidCallback? onTap;
+  final bool busy;
+  const BigMic({super.key, this.onTap, this.busy = false});
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final c = th.acc;
+    return Press(
+      onTap: onTap,
+      scale: .92,
+      label: app.t.spkMic,
+      child: TweenAnimationBuilder<double>(
+        tween: Tween(end: busy ? 1 : 0),
+        duration: const Duration(milliseconds: 240),
+        builder: (ctx, v, child) => Transform.scale(scale: 1 + .06 * v, child: child),
+        child: CustomPaint(
+          painter: OuterShadow(
+            th.low ? const [] : [BoxShadow(color: c.withValues(alpha: .45), offset: const Offset(0, 12), blurRadius: 28, spreadRadius: -10)],
+            48,
+          ),
+          child: Glass(
+            inner: true,
+            radius: 48,
+            width: 96,
+            height: 96,
+            shadow: const [],
+            color: Color.lerp(c, Colors.black, th.p.dark ? .35 : .2)!.withValues(alpha: th.p.dark ? .55 : .8),
+            child: Center(child: Icon2(I.mic, size: 42, color: th.p.dark ? th.p.fg : th.p.onAcc, width: 2.2)),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// the speaking sheet (List): say the sentence (or the word), see each hanzi marked, try again as often as you like
+void openSpeak(BuildContext context, Word d, {bool sentence = true}) {
+  openSheet(context, name: 'speak', (c) => _Speak(d: d, sentence: sentence && d.z.isNotEmpty));
+}
+
+class _Speak extends StatefulWidget {
+  final Word d;
+  final bool sentence;
+  const _Speak({required this.d, required this.sentence});
+  @override
+  State<_Speak> createState() => _SpeakState();
+}
+
+class _SpeakState extends State<_Speak> {
+  SpeakResult? res;
+  bool busy = false, nothing = false;
+
+  String get target => widget.sentence ? widget.d.z : widget.d.h;
+
+  Future<void> _go() async {
+    if (busy) return;
+    setState(() {
+      busy = true;
+      nothing = false;
+    });
+    final r = await app.hear(target);
+    if (!mounted) return;
+    setState(() {
+      busy = false;
+      if (r != null && r.heard.isEmpty) {
+        nothing = true;
+      } else if (r != null) {
+        res = r;
+        HapticFeedback.lightImpact();
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final p = Th.pal(context);
+    final t = app.t;
+    final d = widget.d;
+    final r = res;
+    final n = target.runes.map(String.fromCharCode).where(isHan).length;
+    return SheetBody(
+      title: widget.sentence ? t.spkSay : t.qSpeak,
+      children: [
+        const SizedBox(height: 6),
+        Center(child: SpokenText(target, r?.ok, size: widget.sentence ? 26 : 56)),
+        const SizedBox(height: 6),
+        if (widget.sentence) Center(child: ZpText(d, plainWord: true)) else Center(child: Py(d, size: 17)),
+        const SizedBox(height: 4),
+        Text(widget.sentence ? app.tr(d) : app.m1(d), textAlign: TextAlign.center, style: F.s(14, c: p.soft, h: 1.4)),
+        const SizedBox(height: 18),
+        if (r != null || nothing)
+          Semantics(
+            liveRegion: true,
+            child: Column(
+              children: [
+                Text(
+                  nothing ? t.spkNothing : (r!.all ? t.spkAll : t.spkSome(r.share(target) * n ~/ 1, n)),
+                  textAlign: TextAlign.center,
+                  style: F.s(16, w: FontWeight.w800, c: nothing ? p.soft : (r!.all ? p.good : p.bad)),
+                ),
+                if (!nothing && r!.heard.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(top: 4),
+                    child: Text(t.spkHeard(r.heard), textAlign: TextAlign.center, style: F.s(14, c: p.soft)),
+                  ),
+              ],
+            ),
+          ),
+        const SizedBox(height: 18),
+        Center(child: BigMic(onTap: busy ? null : _go, busy: busy)),
+        const SizedBox(height: 10),
+        Text('${t.spkTap} · ${L10.text(t.spkLv[spkLevels.indexOf(app.spk)])}', textAlign: TextAlign.center, style: F.s(13, c: p.soft)),
+        if (app.canSpeak())
+          Center(
+            child: TextButton.icon(
+              onPressed: () => speak(target),
+              icon: Icon2(I.speaker, size: 18, color: Th.of(context).acc),
+              label: Text(t.spkHear, style: F.s(14, w: FontWeight.w700, c: Th.of(context).acc)),
+            ),
+          ),
+      ],
+    );
+  }
+}
+
+/// how to install a Mandarin voice (the speaker needs one): steps and a button to the TTS settings
+void openTtsGuide(BuildContext context) {
+  openSheet(context, name: 'ttsguide', (c) {
+    final th = Th.of(c);
+    final p = th.p;
+    final t = app.t;
+    final steps = t.ttsGuide;
+    return SheetBody(
+      title: t.ttsGuideT,
+      children: [
+        for (var i = 0; i < steps.length; i++)
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 6),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 26,
+                  height: 26,
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(shape: BoxShape.circle, color: th.acc.withValues(alpha: .15)),
+                  child: Text('${i + 1}', style: F.s(13, w: FontWeight.w800, c: p.fg)),
+                ),
+                const SizedBox(width: 12),
+                Expanded(child: Text(L10.text(steps[i]), style: F.s(15, c: p.fg, h: 1.4))),
+              ],
+            ),
+          ),
+        const SizedBox(height: 14),
+        MainBtn(t.ttsGuideBtn, wide: true, big: true, radius: 28, onTap: () {
+          Navigator.pop(c);
+          Native.I.openTtsSettings();
+        }),
+      ],
+    );
+  });
 }

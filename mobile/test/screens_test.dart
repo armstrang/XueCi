@@ -7,6 +7,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:xueci/app/app.dart';
 import 'package:xueci/app/native.dart';
+import 'package:xueci/app/speech.dart';
+import 'package:xueci/ui/word_ui.dart';
 import 'package:xueci/data/store.dart';
 import 'package:xueci/engine/fsrs.dart' as fsrs;
 import 'package:xueci/engine/js.dart';
@@ -133,6 +135,25 @@ void runs() {
       await shot(t, 'quiz-$q', before: () => app.go('quiz'));
     });
   }
+  testWidgets('quiz speak', (t) async {
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"', 'hsk16_ui': '{"level":2,"qt":"u"}'}, lang: 'id'));
+    await shot(t, 'quiz-u', before: () {
+      app.canListen = true;
+      app.go('quiz');
+    });
+  });
+  testWidgets('quiz speak, tried', (t) async {
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_ui': '{"level":2,"qt":"u"}'}, lang: 'id'));
+    await shot(t, 'quiz-u-done', before: () {
+      app.canListen = true;
+      app.go('quiz');
+    }, after: () {
+      final it = app.runner.run!.cur!;
+      app.runner.qPrepare(it);
+      final n = it.d.h.runes.length;
+      app.runner.qSpoken(it, SpeakResult([for (var i = 0; i < n; i++) i != n - 1], '${it.d.h.substring(0, n - 1)}了'));
+    });
+  });
   testWidgets('quiz feedback', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"', 'hsk16_ui': '{"level":1,"qt":"m"}'}));
     await shot(t, 'quiz-feedback', before: () => app.go('quiz'), after: () {
@@ -185,6 +206,11 @@ void runs() {
     ('backup', (c) => openBackup(c)),
     ('info', (c) => app.openInfo!(c, 'realm')),
     ('tour', (c) => openTour(c, false)),
+    ('speak', (c) {
+      app.canListen = true;
+      openSpeak(c, app.by(2)[1]);
+    }),
+    ('ttsguide', (c) => openTtsGuide(c)),
   ]) {
     testWidgets('sheet $name', (t) async {
       await t.runAsync(() => bootApp({...sample(), 'xc_onb': '1'}));

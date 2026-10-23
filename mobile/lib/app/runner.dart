@@ -11,6 +11,7 @@ import '../engine/learn.dart';
 import '../engine/model.dart';
 import '../i18n/l10.dart';
 import 'app.dart';
+import 'speech.dart';
 import 'native.dart';
 
 const roundQ = 12, roundC = 20;
@@ -388,6 +389,12 @@ class Runner {
   // ---------------------------------------------------------------- questions
   void qPrepare(Item it) {
     if (it.words != null || it.tones != null || it.typed) return;
+    if (it.q == 'u') {
+      // speaking: nothing to build, the phone listens (qSpoken)
+      it.typed = true;
+      it.t0 = nowMs();
+      return;
+    }
     it.apply(lm.question(it.d, it.q!));
     it.t0 = nowMs();
   }
@@ -399,6 +406,17 @@ class Runner {
     it.timedOut = r.toneless == true; // shown as "the tones were missing"
     it.alt = r.alt;
     qAnswer(it, r.ok ? -2 : -3);
+  }
+
+  /// speaking: the first try is the answer (every hanzi right = right); later tries only show again
+  void qSpoken(Item it, SpeakResult r) {
+    it.alt = r;
+    it.typedText = r.heard;
+    if (!it.done) {
+      qAnswer(it, r.all ? -2 : -3);
+    } else {
+      a.changed();
+    }
   }
 
   void qAnswer(Item it, int i) {

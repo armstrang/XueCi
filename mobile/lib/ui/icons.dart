@@ -233,6 +233,13 @@ class I {
       'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z',
     ],
   );
+  /// speaking: a microphone
+  static const mic = Ic(
+    stroke: ['M5.5 11a6.5 6.5 0 0 0 13 0', 'M12 17.5V21'],
+    rects: [(9, 3, 6, 11, 3)],
+    width: 2,
+  );
+
   /// the quiz tab: a question in a rounded square
   static const quiz = Ic(
     stroke: ['M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14'],

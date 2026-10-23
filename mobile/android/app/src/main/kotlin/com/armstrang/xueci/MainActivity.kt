@@ -13,6 +13,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.provider.Settings
+import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
 import android.webkit.JavascriptInterface
 import android.webkit.WebResourceRequest
@@ -51,6 +52,7 @@ class MainActivity : FlutterActivity() {
     private var legacyView: WebView? = null
     private val main = Handler(Looper.getMainLooper())
     private var donate: Donate? = null
+    private var listenResult: MethodChannel.Result? = null
 
     /** Google Play Billing, connected the first time the donation sheet asks */
     private fun don(): Donate = donate ?: Donate(this).also { donate = it }
@@ -110,9 +112,53 @@ class MainActivity : FlutterActivity() {
                     don().products((0 until a.length()).map { a.getString(it) }) { main.post { result.success(it) } }
                 }
                 "donBuy" -> don().buy(call.arguments as String) { main.post { result.success(it) } }
+                "canListen" -> result.success(canListen())
+                "listen" -> listen(call.arguments as? String ?: "", result)
                 else -> result.notImplemented()
             }
         }
+    }
+
+    // ---------------------------------------------------------------- speaking practice
+    private fun recognizeIntent(prompt: String) = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
+        putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
+        putExtra(RecognizerIntent.EXTRA_LANGUAGE, "zh-CN")
+        putExtra(RecognizerIntent.EXTRA_LANGUAGE_PREFERENCE, "zh-CN")
+        putExtra("android.speech.extra.EXTRA_ADDITIONAL_LANGUAGES", arrayOf("zh-CN"))
+        putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5)
+        if (prompt.isNotEmpty()) putExtra(RecognizerIntent.EXTRA_PROMPT, prompt)
+    }
+
+    private fun canListen(): Boolean =
+        recognizeIntent("").resolveActivity(packageManager) != null
+
+    /** the phone's recognizer in its own window; answers the heard texts as a JSON list, "[]" when nothing was heard,
+     *  "!" when the phone has no recognizer, null when it was closed */
+    private fun listen(prompt: String, result: MethodChannel.Result) {
+        listenResult?.success(null)
+        listenResult = result
+        try {
+            @Suppress("DEPRECATION")
+            startActivityForResult(recognizeIntent(prompt), REQ_LISTEN)
+        } catch (e: ActivityNotFoundException) {
+            listenResult = null
+            result.success("!")
+        }
+    }
+
+    @Deprecated("startActivityForResult is enough here")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        @Suppress("DEPRECATION")
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode != REQ_LISTEN) return
+        val r = listenResult ?: return
+        listenResult = null
+        if (resultCode != RESULT_OK) {
+            r.success(null)
+            return
+        }
+        val heard = data?.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS) ?: arrayListOf()
+        r.success(JSONArray(heard).toString())
     }
 
     // ---------------------------------------------------------------- v1.x progress
@@ -307,6 +353,7 @@ class MainActivity : FlutterActivity() {
     }
 
     companion object {
+        private const val REQ_LISTEN = 7301
         private const val NOTIF_REQUEST = 7
     }
 }

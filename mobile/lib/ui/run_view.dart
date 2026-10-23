@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import '../app/app.dart';
+import '../app/speech.dart';
 import '../app/runner.dart';
 import '../data/words.dart';
 import '../engine/learn.dart';
@@ -39,6 +40,7 @@ Map<String, (String, String, String)> qtNames() {
     'c': (t.tCloze, t.dCloze, '汉＿'),
     'p': (t.tPy, t.dPy, 'pīn'),
     't': (t.tTrans, t.dTrans, '句→a'),
+    if (app.canListen) 'u': (t.tSpeak, t.dSpeak, '说'),
     'mock': (t.tMock, t.dMock, '模'),
   };
 }
@@ -50,6 +52,7 @@ String tName(String q) => switch (q) {
   'l' => app.t.tListen,
   'c' => app.t.tCloze,
   'p' => app.t.tPy,
+  'u' => app.t.tSpeak,
   'ls' => app.t.qtLs,
   'lt' => app.t.qtLt,
   'lj' => app.t.qtLj,
@@ -839,6 +842,7 @@ class _QViewState extends State<_QView> {
     final ok = it.ok == true;
     // the prompt sits alone in its glass card; the answers come below it, near the thumb (typing and putting
     // pieces in order stay inside the card)
+    if (q == 'u') return _speakQ(context, it);
     final card = <Widget>[];
     final below = <Widget>[];
     final aid = r.mock != null ? 'mock' : 'practice';
@@ -962,6 +966,101 @@ class _QViewState extends State<_QView> {
         ),
         if (below.isNotEmpty) ...[const SizedBox(height: 16), ...below],
         if (ans) _feedback(context, it, ok),
+      ],
+    );
+  }
+
+  bool _busy = false, _nothing = false;
+
+  Future<void> _listen(Item it) async {
+    if (_busy) return;
+    setState(() {
+      _busy = true;
+      _nothing = false;
+    });
+    final r = await app.hear(it.d.h);
+    if (!mounted) return;
+    setState(() => _busy = false);
+    if (r == null) return;
+    if (r.heard.isEmpty) {
+      setState(() => _nothing = true);
+      return;
+    }
+    r.all ? HapticFeedback.lightImpact() : HapticFeedback.mediumImpact();
+    app.runner.qSpoken(it, r);
+  }
+
+  /// speaking: the word big, the microphone in the thumb zone, each hanzi marked after a try
+  Widget _speakQ(BuildContext context, Item it) {
+    final th = Th.of(context);
+    final p = th.p;
+    final t = app.t;
+    final d = it.d;
+    final res = it.alt is SpeakResult ? it.alt as SpeakResult : null;
+    final big = math.min(96.0, math.max(60.0, MediaQuery.sizeOf(context).width * .22));
+    final ch = d.h.runes.map(String.fromCharCode).toList();
+    // the pinyin, each syllable red when its hanzi was missed
+    Widget py() {
+      if (res == null || ch.length != d.s.length) return Py(d, size: 18);
+      return Text.rich(
+        TextSpan(children: [
+          for (var i = 0; i < d.s.length; i++) TextSpan(text: d.s[i], style: TextStyle(color: res.ok[i] ? p.good : p.bad)),
+        ]),
+        style: F.s(18, w: FontWeight.w700, c: p.fg),
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Glass(
+          solid: true,
+          radius: 32,
+          padding: const EdgeInsets.fromLTRB(20, 22, 20, 24),
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(minHeight: 240),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(t.qSpeak, textAlign: TextAlign.center, style: F.s(15, c: p.soft)),
+                const SizedBox(height: 8),
+                SpokenText(d.h, res?.ok, size: big),
+                const SizedBox(height: 6),
+                py(),
+                const SizedBox(height: 2),
+                Text(app.m1(d), textAlign: TextAlign.center, style: F.s(15, c: p.soft)),
+                if (res != null || _nothing) ...[
+                  const SizedBox(height: 14),
+                  Semantics(
+                    liveRegion: true,
+                    child: Text(
+                      _nothing ? t.spkNothing : (res!.all ? t.spkAll : t.spkHeard(res.heard)),
+                      textAlign: TextAlign.center,
+                      style: F.s(15, w: FontWeight.w800, c: _nothing ? p.soft : (res!.all ? p.good : p.bad)),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+        if (app.canSpeak())
+          Center(
+            child: TextButton.icon(
+              onPressed: () => speak(d.h),
+              icon: Icon2(I.speaker, size: 18, color: th.acc),
+              label: Text(t.spkHear, style: F.s(15, w: FontWeight.w700, c: th.acc)),
+            ),
+          ),
+        const SizedBox(height: 6),
+        Center(child: BigMic(onTap: _busy ? null : () => _listen(it), busy: _busy)),
+        const SizedBox(height: 10),
+        Text('${t.spkTap} · ${L10.text(t.spkLv[spkLevels.indexOf(app.spk)])}', textAlign: TextAlign.center, style: F.s(13.5, c: p.soft)),
+        if (it.done) ...[
+          const SizedBox(height: 16),
+          KeyedSubtree(key: _nextKey, child: MainBtn(t.next, wide: true, radius: 28, big: true, onTap: app.runner.next)),
+        ],
       ],
     );
   }

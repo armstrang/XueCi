@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart' show DateFormat;
 
 import '../app/app.dart';
+import '../app/speech.dart';
 import '../app/native.dart';
 import '../i18n/l10.dart';
 import 'glass.dart';
@@ -159,7 +160,10 @@ class Seg extends StatelessWidget {
                   label: l,
                   child: GestureDetector(
                     behavior: HitTestBehavior.opaque,
-                    onTap: () => onPick(v),
+                    onTap: () {
+                      if (v != value) HapticFeedback.selectionClick();
+                      onPick(v);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Stack(
@@ -180,13 +184,15 @@ class Seg extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   if (ic != null) ...[ic, const SizedBox(width: 5)],
+                                  // one line, never broken inside a word: a long label gets a little smaller
                                   Flexible(
-                                    child: Text(
-                                      l,
-                                      maxLines: 2,
-                                      textAlign: TextAlign.center,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: F.s(13, w: FontWeight.w700, c: v == value ? p.fg : p.soft, h: 1.2),
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        l,
+                                        maxLines: 1,
+                                        style: F.s(13, w: FontWeight.w700, c: v == value ? p.fg : p.soft, h: 1.2),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -324,6 +330,31 @@ class _SettingsState extends State<_Settings> {
             sub: app.goalChip(),
             onTap: () => from(() => app.openGoal?.call(ctx, false)),
           ),
+          if (app.canListen)
+            Glass(
+              solid: true,
+              radius: 18,
+              padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(t.spkLvT, style: F.s(15, w: FontWeight.w700, c: p.fg)),
+                  const SizedBox(height: 8),
+                  Seg(
+                    label: t.spkLvT,
+                    value: app.spk,
+                    options: [for (var i = 0; i < spkLevels.length; i++) (spkLevels[i], L10.text(t.spkLv[i]), null)],
+                    onPick: (v) {
+                      app.spk = v;
+                      app.saveUI();
+                      app.changed();
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  Text(L10.text(t.spkLvD[spkLevels.indexOf(app.spk)]), style: F.s(12.5, c: p.soft, h: 1.4)),
+                ],
+              ),
+            ),
         ]),
         SGroup(t.setData, [
           SRow(

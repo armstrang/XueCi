@@ -66,6 +66,22 @@ class Native {
   Future<void> stopSpeaking() => _call('stopSpeaking');
   Future<void> openTtsSettings() => _call('openTtsSettings');
 
+  // ---- speaking practice (the phone's recognizer, in its own window: no microphone permission) ----
+  Future<bool> canListen() async => (await _call<bool>('canListen')) ?? false;
+
+  /// what the phone heard (its guesses, best first); [] when nothing was heard, null when closed or not possible,
+  /// ['!'] when the phone has no recognizer
+  Future<List<String>?> listen(String prompt) async {
+    final s = await _call<String>('listen', prompt);
+    if (s == null) return null;
+    if (s == '!') return const ['!'];
+    try {
+      return [for (final x in json.decode(s) as List) '$x'];
+    } catch (_) {
+      return null;
+    }
+  }
+
   // ---- daily reminder ----
   Future<void> setReminder(Map<String, Object?> r) => _call('setReminder', json.encode(r));
   Future<void> markStudied() => _call('markStudied');
