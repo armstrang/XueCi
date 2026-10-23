@@ -35,7 +35,10 @@ LAUTAN JIWA
 Semua kata yang sudah kamu pelajari tampil sebagai satu bola cahaya. Kata yang masih kamu ingat bersinar terang. Di sekelilingnya ada lima elemen yang menunjukkan sisi belajarmu yang kuat dan yang perlu dilatih.
 
 KARTU YANG MENGUJI
-Bilang "Saya tahu"? Buktikan dulu. Yakin tapi keliru membuat kata itu cepat kembali.
+Geser ke kanan untuk "Saya tahu", ke kiri untuk "Belum tahu". Bilang tahu? Buktikan dulu. Yakin tapi keliru membuat kata itu cepat kembali.
+
+UCAPKAN DAN LIHAT
+Ucapkan kata atau contoh kalimat, dan tiap hanzi jadi hijau atau merah. Kamu langsung tahu bunyi mana yang meleset. Memakai pengenal suara bawaan HP: tanpa izin mikrofon, tanpa rekaman disimpan. Pilih tingkat ketelitiannya: Mudah, Normal, atau Sulit.
 
 KUIS DAN SIMULASI HSK
 Kenali arti, ingat hanzi, nada, dengar, isi kalimat, ketik pinyin, dan terjemahan. Soal isi kalimat memberi bantuan sesuai level, jadi pemula tidak langsung menyerah. Simulasi HSK mengikuti susunan ujian HSK 3.0, dengan waktu per bagian dan pembahasan setiap soal di akhir.
@@ -79,7 +82,10 @@ THE SEA OF CONSCIOUSNESS
 Every word you've learned becomes one orb of light. The words you still remember shine brightest. Around it, five elements show which side of your learning is strong and which needs work.
 
 CARDS THAT CHECK YOU
-Say "I know it"? Prove it first. Being sure but wrong brings the word back sooner.
+Swipe right for "I know it", left for "Don't know". Say you know it? Prove it first. Being sure but wrong brings the word back sooner.
+
+SPEAK AND SEE
+Say a word or an example sentence out loud and every hanzi turns green or red, so you see exactly which sound slipped. It uses your phone's own speech recognizer: no microphone permission, no recording kept. Choose how strict it is: Easy, Normal or Hard.
 
 QUIZ AND HSK MOCK EXAM
 Recognise meanings, recall hanzi, tones, listening, sentence gaps, typed pinyin and translation. Sentence questions give help by level, so beginners don't give up. The mock exam follows the HSK 3.0 paper, with a clock for each section and every question explained at the end.
