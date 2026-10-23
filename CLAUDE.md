@@ -85,7 +85,7 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   `MasteryFull` (HSK lens, bar, counts). Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
   uses `Compact`, half-way).
 - Tab bar: Home/List/Cards/Quiz/Soul Sea (orb icon), 64 tall, an icon with its name under it on every tab, a glass
-  lens that can be dragged; hidden in session/quiz/placement/tribulation, while typing and in exams.
+  lens that can be dragged; hidden in session/placement/tribulation, while typing and in exams (shown in Quiz, Josh).
 - HSK lens (Josh: clear, "murim"): clear glass tinted by the level, the realm's colour glowing inside, a faint ring of
   the five elements, a thin gold line on top; the chosen number takes the level colour.
 - Focus header (`Capsule` in focus.dart, iOS large title): back chevron + 31 pt title (+ trailing buttons in one
