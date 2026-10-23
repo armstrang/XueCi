@@ -12,3 +12,5 @@ mobile/test/failures/
 
 # 4K feature pictures (art/make_features.py): made on demand, not kept in the repo
 store/features-*.png
+# device screenshots (test/store_device_test.dart + art/make_device_bars.py): made on demand, large
+store/device/

@@ -35,6 +35,7 @@ same progress, every screen drawn natively, with a new look that is easier to re
   tilts with your finger and springs back if you let go early. Sheets can be pulled down to close.
 - Scroll a screen and its title moves into a small frosted bar at the top.
 - Word mastery on Home is one calm line; tap it for the HSK lens and the counts.
+- Tablets: Home sits in a centred column (upright) or two columns (landscape), with the HSK lens and the counts open.
 
 ### New look
 - Glass all through: panels of soft milky glass that let a slow aurora of colour (your level's colour with warm

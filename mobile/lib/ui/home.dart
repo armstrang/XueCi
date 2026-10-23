@@ -28,6 +28,7 @@ class HomeScreen extends StatelessWidget {
     final bottom = mq.padding.bottom + 10 + 64 + 14; // above the tab bar
     final size = mq.size;
     if (size.width >= 900 && size.height >= 540 && size.width > size.height) return const _HomeWide();
+    if (size.shortestSide >= 600) return const _HomeTall();
     return SafeArea(
       bottom: false,
       child: Padding(
@@ -60,7 +61,7 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-/// tablets in landscape: the realm and today on the left, word mastery on the right
+/// tablets in landscape: the realm and today on the left, word mastery with the HSK lens and counts on the right
 class _HomeWide extends StatelessWidget {
   const _HomeWide();
   @override
@@ -69,7 +70,7 @@ class _HomeWide extends StatelessWidget {
     return SafeArea(
       bottom: false,
       child: Padding(
-        padding: EdgeInsets.fromLTRB(24, 10, 24, mq.padding.bottom + 88),
+        padding: EdgeInsets.fromLTRB(28, 10, 28, mq.padding.bottom + 92),
         child: Column(
           children: [
             const HomeHeader(short: false),
@@ -78,16 +79,65 @@ class _HomeWide extends StatelessWidget {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  const Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [RealmRow(tight: false), SizedBox(height: 16), PlanCard(tight: false)],
+                  Expanded(
+                    child: Center(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 560),
+                        child: const Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [RealmRow(tight: false), SizedBox(height: 20), PlanCard(tight: false)],
+                        ),
+                      ),
                     ),
                   ),
-                  const SizedBox(width: 20),
-                  Expanded(child: Center(child: _Mastery(keys: false, short: false))),
+                  const SizedBox(width: 28),
+                  Expanded(
+                    child: Center(
+                      child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 560), child: const MasteryFull()),
+                    ),
+                  ),
                 ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// tablets upright: the phone's order in a centred column, word mastery opened out (HSK lens and counts)
+class _HomeTall extends StatelessWidget {
+  const _HomeTall();
+  @override
+  Widget build(BuildContext context) {
+    final mq = MediaQuery.of(context);
+    return SafeArea(
+      bottom: false,
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(28, 10, 28, mq.padding.bottom + 92),
+        child: Column(
+          children: [
+            const HomeHeader(short: false),
+            Expanded(
+              child: Center(
+                child: SingleChildScrollView(
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(maxWidth: 600),
+                    child: const Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        RealmRow(tight: false),
+                        SizedBox(height: 22),
+                        PlanCard(tight: false),
+                        SizedBox(height: 22),
+                        MasteryFull(),
+                      ],
+                    ),
+                  ),
+                ),
               ),
             ),
           ],
@@ -953,6 +1003,79 @@ class _Mastery extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// word mastery opened out (tablets): the HSK lens, the share and its bar, the counts per colour
+class MasteryFull extends StatelessWidget {
+  const MasteryFull({super.key});
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final p = th.p;
+    final t = app.t;
+    final L = app.level;
+    final S = app.summary(app.by(L));
+    final pc = app.pctTxt(S.p);
+    return Glass(
+      radius: 30,
+      padding: const EdgeInsets.fromLTRB(20, 14, 20, 16),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            children: [
+              Expanded(child: Semantics(header: true, child: Text(t.masT, style: F.s(17, w: FontWeight.w800, c: p.fg)))),
+              Press(
+                onTap: () => app.go('stats'),
+                scale: 1.05,
+                label: '${t.stTitle} · HSK $L · $pc',
+                child: ConstrainedBox(
+                  constraints: const BoxConstraints(minHeight: 40, minWidth: 44),
+                  child: Center(widthFactor: 1, child: Text('${t.statsShort} ›', style: F.s(15, w: FontWeight.w800, c: th.acc))),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 6),
+          LevelLens(level: L, onPick: app.setLevel),
+          const SizedBox(height: 14),
+          Row(
+            children: [
+              Text(pc, style: F.s(32, w: FontWeight.w700, c: p.fg, feat: F.tab, ls: -1, h: 1)),
+              const SizedBox(width: 14),
+              Expanded(
+                child: StackBar([
+                  for (final b in const ['green', 'yellow', 'red']) (S.band(b) / math.max(1, S.n), p.band(b)),
+                ]),
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              for (final b in const ['green', 'yellow', 'red', 'none'])
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(app.fmt(S.band(b)), style: F.s(17, w: FontWeight.w800, c: p.fg, feat: F.tab)),
+                      Row(
+                        children: [
+                          Dot(p.band(b), size: 8),
+                          const SizedBox(width: 5),
+                          Expanded(child: Text(L10.text(t.band[b]), maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(12.5, c: p.soft))),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ],
       ),
     );
   }

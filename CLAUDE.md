@@ -25,6 +25,7 @@ WebView version was removed from this repo (archived in `armstrang/Merdeka-Manda
 | `mobile/test/` | `engine_trace_test` (replays `fixtures/engine/*.json` call by call; a deliberate engine change = update the fixture with care), `i18n_test`, `store_test`, `backup_test`, `secret_test`, `contrast_test`, `screens_test` (screenshots → `test/goldens/`, not committed: look at them), `perf_probe_test` (`PERF=1`) |
 | `art/` | icon artwork; `python3 art/make_icons.py` writes every icon into `mobile/android` |
 | `store/listing.md`, `docs/privacy/` | Play listing text; privacy policy (GitHub Pages) |
+| `store/device/` (not committed) | device screenshots: Galaxy S26 1080×2160, Galaxy Tab 1600×2560, OPPO Pad Mini 1680×2520 (+ landscape), ID/EN: `STORE=1 flutter test --no-pub --update-goldens test/store_device_test.dart`, then `python3 art/make_device_bars.py` (status bar) |
 
 In Claude's cloud sessions: `. /opt/flutter-env.sh`, then in `mobile/`: `FLUTTER_ROOT=/opt/flutter dart pub get --offline`,
 `flutter analyze --no-pub`, `flutter test --no-pub [--update-goldens]`. No Android SDK here: Kotlin is compiled by CI only.
@@ -80,7 +81,8 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   frosted capsule: cultivation days, 护法 coin, Settings) → `RealmRow` (small orb beside the realm name and stage bars,
   ? top right) → `PlanCard` (Today: big numbers, one wide Start, 2 min + 试 below, goal link; `tight` on small
   phones/large text puts them in one row) → word mastery (one line: % + bar + "HSK n · words ⌄"; a tap opens the sheet with the HSK lens and counts) → tab bar.
-  Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
+  Tablets: `_HomeTall` (upright, a centred 600 dp column) and `_HomeWide` (landscape, two columns), both with
+  `MasteryFull` (HSK lens, bar, counts). Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
   uses `Compact`, half-way).
 - Tab bar: Home/List/Cards/Quiz/Soul Sea (orb icon), 64 tall, an icon with its name under it on every tab, a glass
   lens that can be dragged; hidden in session/quiz/placement/tribulation, while typing and in exams.
