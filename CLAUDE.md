@@ -151,7 +151,7 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   invited. After a passed breakthrough (not placement, not the make-up, not the gate) a quiet invitation once per realm
   (`DonateAsk`); donors get a 护法 seal in the Soul Sea. Off Google Play (GitHub APK) the sheet says donations need Play.
   Never an outside donation link in the app (Play payments policy).
-- **Visual effects** setting: auto/low/full; auto steps down once if frames are slow (toast). Low = no blur, no glow.
+- **Visual effects** setting: full (the default, Josh)/auto/low; auto steps down once if frames are slow (toast). Low = no blur, no glow.
 - **First start**: a 3-step tour ending in the goal sheet; a new learner sees two ways in (start from zero / placement).
 - **Easter egg**: seven taps on the wordmark → a seal stamps 天外有天 (封 before the gate, 开 after).
 - Pronunciation uses the phone's TTS (zh-CN, rate 0.9); polyphonic characters are guessed by the engine.

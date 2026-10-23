@@ -230,7 +230,7 @@ class App extends ChangeNotifier {
   String qType = 'm';
   bool mockShort = false; // the HSK simulation: the short paper
   String theme = 'auto';
-  String fxPref = 'auto';
+  String fxPref = 'full'; // Josh: glassy by default; auto and low stay in Settings
   bool fxDown = false; // the frame watcher stepped down once (xc_fxd)
   Map<String, dynamic> note = {};
 
@@ -261,7 +261,7 @@ class App extends ChangeNotifier {
     final th = store.get('hsk16_theme', null);
     theme = themes.contains(th) ? th as String : 'auto';
     final fx = store.get('xc_fx', 'auto');
-    fxPref = fxModes.contains(fx) ? fx as String : 'auto';
+    fxPref = fxModes.contains(fx) ? fx as String : 'full';
     fxDown = jsTruthy(store.get('xc_fxd', 0));
     final n = store.get('xc_note', {});
     note = n is Map ? Map<String, dynamic>.from(n) : {};
