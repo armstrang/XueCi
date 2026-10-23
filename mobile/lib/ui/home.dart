@@ -642,27 +642,18 @@ class _RingQ extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = Th.pal(context);
-    final s = small ? 24.0 : 28.0;
+    final s = small ? 26.0 : 30.0;
     return Press(
       onTap: () => app.openInfo?.call(context, 'realm'),
       scale: 1.08,
       label: app.t.realmQ,
-      child: Container(
+      child: Glass(
+        frost: true,
+        radius: s / 2,
         width: s,
         height: s,
-        decoration: BoxDecoration(
-          shape: BoxShape.circle,
-          color: p.bg.withValues(alpha: .3),
-          border: Border.all(color: p.dark ? Colors.white.withValues(alpha: .7) : Colors.white, width: 1.6),
-          boxShadow: sh([BoxShadow(color: Colors.black.withValues(alpha: p.dark ? .25 : .08), blurRadius: 8, offset: const Offset(0, 2))]),
-        ),
         child: Center(
-          child: Compact(
-            child: Text(
-              '?',
-              style: F.s(12.5, w: FontWeight.w800, c: p.soft),
-            ),
-          ),
+          child: Text('?', textScaler: TextScaler.noScaling, style: F.s(13, w: FontWeight.w800, c: p.soft, h: 1)),
         ),
       ),
     );

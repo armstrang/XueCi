@@ -83,7 +83,11 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
   final fill = switch (k) {
     GK.panel => [p.glassA, p.glassB],
     GK.inner => [p.innerA, p.innerB],
-    GK.frost => [low ? p.surface : p.frostC, low ? p.surface : p.frostC],
+    // without blur (low effects) the floating layers still let the aurora through a little
+    GK.frost => [
+      low ? p.surface.withValues(alpha: p.dark ? .9 : .7) : p.frostC,
+      low ? p.surface.withValues(alpha: p.dark ? .9 : .6) : p.frostC,
+    ],
     GK.lens => [Colors.white.withValues(alpha: p.dark ? .05 : .34), Colors.white.withValues(alpha: p.dark ? .02 : .16)],
   };
   // without effects the glass needs body to read on the background
@@ -101,7 +105,7 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
   // the light from the top left
   // small pieces (chips, pills) stay clear: less light inside them, so their text keeps its contrast
   final small = k == GK.inner && p.dark ? ((h - 24) / 64).clamp(.1, 1.0) : 1.0;
-  final sheen = k == GK.lens ? (p.dark ? .22 : .6) : (k == GK.inner ? p.sheen * .6 * small : p.sheen);
+  final sheen = k == GK.lens ? (p.dark ? .22 : .6) : (k == GK.inner ? p.sheen * .6 * small : (k == GK.frost ? p.sheen * .3 : p.sheen));
   if (sheen > 0) {
     final ctr = Offset(b.left + w * .15, b.top - h * .35);
     final rx = math.max(w, h) * 1.2;
@@ -137,6 +141,7 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
     final a = switch (k) {
       GK.lens => p.dark ? .22 : 1.0,
       GK.inner => p.glowIn * (p.dark ? .5 * small : .75),
+      GK.frost => p.glowIn * .45,
       _ => p.glowIn,
     };
     const n = 4;
@@ -150,6 +155,31 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
     for (var i = 1; i <= n; i++) {
       draw(gp..strokeWidth = 2 * reach * i / n);
     }
+    // volume (Liquid Glass): the lower edge bends the light away and darkens a little, so a clear piece still reads
+    // as a thick drop of glass on a pale background instead of a flat white tablet
+    if (!p.dark && k != GK.panel) {
+      final e = math.max(2.0, math.min(reach, 6.0));
+      draw(
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2 * e
+          ..shader = ui.Gradient.linear(Offset(b.left, b.center.dy), b.bottomLeft, [
+            const Color(0x00283040),
+            const Color(0x1a283040),
+          ]),
+      );
+    }
+  }
+  if (!p.dark && !low) {
+    draw(
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2.4
+        ..shader = ui.Gradient.linear(Offset(b.left, b.bottom - math.min(h * .5, 40.0)), b.bottomLeft, [
+          const Color(0x00283048),
+          const Color(0x14283048),
+        ]),
+    );
   }
   c.restore();
   if (rim) {

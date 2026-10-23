@@ -113,7 +113,7 @@ class MainBtn extends StatelessWidget {
     final th = Th.of(context);
     final c = color ?? th.acc;
     final on = onTap != null;
-    final fg = th.p.onAcc;
+    final fg = th.p.dark ? th.p.fg : th.p.onAcc; // on dark, the tinted glass stays deep: light text
     return Opacity(
       opacity: on ? 1 : .45,
       child: Press(
@@ -132,7 +132,7 @@ class MainBtn extends StatelessWidget {
           width: wide ? double.infinity : null,
           padding: padding,
           shadow: const [],
-          color: Color.lerp(c, Colors.black, th.p.dark ? 0 : .2)!.withValues(alpha: th.p.dark ? .80 : .78),
+          color: Color.lerp(c, Colors.black, th.p.dark ? .35 : .2)!.withValues(alpha: th.p.dark ? .5 : .78),
           child: Row(
             mainAxisSize: wide ? MainAxisSize.max : MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,

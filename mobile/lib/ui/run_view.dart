@@ -650,7 +650,8 @@ class _BigBtn extends StatelessWidget {
     child: Builder(
       builder: (c) {
         final th = Th.of(c);
-        final text = Text(label, textAlign: TextAlign.center, style: F.s(15, w: FontWeight.w800, c: fg));
+        final tinted = color != th.p.cardC;
+        final text = Text(label, textAlign: TextAlign.center, style: F.s(15, w: FontWeight.w800, c: tinted && th.p.dark ? th.p.fg : fg));
         const pad = EdgeInsets.symmetric(vertical: 14, horizontal: 10);
         // the quiet choice is glass, the coloured one a lit drop of colour (MainBtn)
         if (color == th.p.cardC) {
@@ -667,7 +668,7 @@ class _BigBtn extends StatelessWidget {
             radius: 22,
             padding: pad,
             shadow: const [],
-            color: Color.lerp(color, Colors.black, th.p.dark ? 0 : .2)!.withValues(alpha: th.p.dark ? .80 : .78),
+            color: Color.lerp(color, Colors.black, th.p.dark ? .35 : .2)!.withValues(alpha: th.p.dark ? .5 : .78),
             child: Center(heightFactor: 1, child: text),
           ),
         );

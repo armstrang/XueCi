@@ -195,7 +195,7 @@ class Pal {
     glassB: _w(.14),
     innerA: _w(.38),
     innerB: _w(.18),
-    frostC: _w(.18),
+    frostC: _w(.10),
     glowIn: .6,
     rimHi: 1,
     rimLo: .45,
