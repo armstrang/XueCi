@@ -79,6 +79,8 @@ class _SheetFrameState extends State<_SheetFrame> with SingleTickerProviderState
         frost: true,
         borderRadius: r,
         radius: 32,
+        // a sheet carries reading: more body than the bars, so the page behind never reads through
+        color: Th.pal(context).dark ? Th.pal(context).bg.withValues(alpha: .5) : Colors.white.withValues(alpha: .42),
         shadow: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .35), offset: Offset(0, -20), blurRadius: 60, spreadRadius: -24)],
         child: ClipRRect(borderRadius: r, child: child),
       ),

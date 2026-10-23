@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:xueci/app/app.dart';
 import 'package:xueci/app/native.dart';
+import 'package:xueci/app/speech.dart';
 import 'package:xueci/ui/glass.dart';
 import 'package:xueci/ui/shell.dart';
 
@@ -64,6 +65,18 @@ void main() {
     testWidgets('$lang card back', skip: !on, (t) async {
       await t.runAsync(() => bootApp(s(), lang: lang));
       await _shot(t, '$lang/6-card-back', before: () => app.go('card'), after: () => app.runner.cardDont(app.runner.run!.cur!));
+    });
+    testWidgets('$lang speak', skip: !on, (t) async {
+      await t.runAsync(() => bootApp(s({'hsk16_ui': '{"level":2,"qt":"u"}'}), lang: lang));
+      await _shot(t, '$lang/13-speak', before: () {
+        app.canListen = true;
+        app.go('quiz');
+      }, after: () {
+        final it = app.runner.run!.cur!;
+        app.runner.qPrepare(it);
+        final n = it.d.h.runes.length;
+        app.runner.qSpoken(it, SpeakResult([for (var i = 0; i < n; i++) true], it.d.h));
+      });
     });
     testWidgets('$lang tones', skip: !on, (t) async {
       await t.runAsync(() => bootApp(s({'hsk16_ui': '{"level":1,"qt":"s"}'}), lang: lang));

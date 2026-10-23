@@ -35,7 +35,10 @@ class HomeScreen extends StatelessWidget {
         child: LayoutBuilder(
           builder: (c, bc) {
             // tight: a small phone or large text; the same order, smaller pieces
-            final tight = bc.maxHeight < 640 * math.max(1.0, th.fsd * .92);
+            final f = math.max(1.0, th.fsd * .92);
+            final tight = bc.maxHeight < 560 * f;
+            // compact: today's numbers in one line, the rest as roomy as ever
+            final compact = !tight && bc.maxHeight < 640 * f;
             final gap = tight ? 10.0 : 16.0;
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -44,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                 SizedBox(height: gap),
                 RealmRow(tight: tight),
                 SizedBox(height: gap),
-                PlanCard(tight: tight),
+                PlanCard(tight: tight, compact: compact),
                 const Spacer(),
                 SizedBox(height: tight ? 8 : 12),
                 _Mastery(keys: false, short: tight),
@@ -605,8 +608,8 @@ class _RingQ extends StatelessWidget {
 
 // ---------------------------------------------------------------- today's plan
 class PlanCard extends StatelessWidget {
-  final bool tight;
-  const PlanCard({super.key, this.tight = false});
+  final bool tight, compact;
+  const PlanCard({super.key, this.tight = false, this.compact = false});
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
@@ -671,14 +674,24 @@ class PlanCard extends StatelessWidget {
         ]),
         style: hStyle.copyWith(fontSize: big * .75),
       );
-    } else if (todo && tight) {
-      head = Text.rich(
-        TextSpan(children: [
-          TextSpan(text: [if (P.revToday > 0) plainText(t.planRev(app.fmt(P.revToday))), if (P.newToday > 0) plainText(t.planNew(app.fmt(P.newToday)))].join(' + ')),
-          TextSpan(text: '  ${t.planMin(min)}', style: F.s(14, w: FontWeight.w600, c: p.soft, ls: 0)),
-        ]),
-        style: hStyle.copyWith(fontSize: 20, letterSpacing: -.4),
-      );
+    } else if (todo && (tight || compact)) {
+      final nums = [if (P.revToday > 0) plainText(t.planRev(app.fmt(P.revToday))), if (P.newToday > 0) plainText(t.planNew(app.fmt(P.newToday)))].join(' + ');
+      head = tight
+          ? Text.rich(
+              TextSpan(children: [
+                TextSpan(text: nums),
+                TextSpan(text: '  ${t.planMin(min)}', style: F.s(14, w: FontWeight.w600, c: p.soft)),
+              ]),
+              style: hStyle.copyWith(fontSize: 20, letterSpacing: -.4),
+            )
+          : Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(nums, style: hStyle.copyWith(fontSize: 25, letterSpacing: -.6)),
+                const SizedBox(height: 2),
+                Text(t.planMin(min), style: F.s(15, c: p.soft)),
+              ],
+            );
     } else if (todo) {
       head = Column(
         crossAxisAlignment: CrossAxisAlignment.start,
