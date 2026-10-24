@@ -83,6 +83,12 @@ class Py extends StatelessWidget {
   }
 }
 
+/// the fill of a coloured button: tinted liquid glass; on dark themes a deep, saturated drop of the colour (the
+/// mockup), on light a rich one
+Color tintFill(Th th, Color c) => th.p.dark
+    ? Color.lerp(c, Colors.black, .5)!.withValues(alpha: .9)
+    : Color.lerp(c, Colors.black, .2)!.withValues(alpha: .78);
+
 /// the main button (planbtn / next): solid in the level's colour
 class MainBtn extends StatelessWidget {
   final String label;
@@ -138,7 +144,7 @@ class MainBtn extends StatelessWidget {
           width: wide ? double.infinity : null,
           padding: padding,
           shadow: const [],
-          color: Color.lerp(c, Colors.black, th.p.dark ? .35 : .2)!.withValues(alpha: th.p.dark ? .5 : .78),
+          color: tintFill(Th.of(context), c),
           child: Row(
             mainAxisSize: wide ? MainAxisSize.max : MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,

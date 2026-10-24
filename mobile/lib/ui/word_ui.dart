@@ -428,7 +428,7 @@ class BigMic extends StatelessWidget {
             width: 96,
             height: 96,
             shadow: const [],
-            color: Color.lerp(c, Colors.black, th.p.dark ? .35 : .2)!.withValues(alpha: th.p.dark ? .55 : .8),
+            color: tintFill(Th.of(context), c),
             child: Center(child: Icon2(I.mic, size: 42, color: th.p.dark ? th.p.fg : th.p.onAcc, width: 2.2)),
           ),
         ),

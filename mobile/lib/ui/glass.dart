@@ -498,6 +498,14 @@ class _BgPainter extends CustomPainter {
       c.restore();
     }
 
+    if (p.dark) {
+      // dark and true black (the mockup Josh chose): the level's tone high on the left, violet on the right, a
+      // low warm light at the bottom, over near-black
+      blob(Offset(0, s.height * .02), vmax * .55, tone, p.auroraTone, sy: .9);
+      blob(Offset(s.width, s.height * .55), vmax * .55, p.auroraCool, p.auroraCool.a, sy: 1.1);
+      if (!low) blob(Offset(s.width * .3, s.height), vmax * .5, p.auroraWarm, p.auroraWarm.a, sy: .85);
+      return;
+    }
     blob(Offset(s.width * .18, s.height * .06), vmax * .62, tn, p.auroraTone, sy: .8);
     blob(
       Offset(s.width * 1.02, s.height * .66),

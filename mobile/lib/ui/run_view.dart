@@ -401,7 +401,7 @@ Widget _qTypePill(BuildContext context) {
     label: '${t.qTypeL}: ${cur.$1}',
     icon: Padding(
       padding: const EdgeInsets.only(left: 8),
-      child: Text(cur.$3.split('→').first, style: F.s(15, w: FontWeight.w900, family: F.zh, c: Th.of(context).acc)),
+      child: Text(cur.$3.split('→').first, style: F.s(15, w: FontWeight.w900, family: F.zh, c: p.dark ? Color.lerp(Th.of(context).acc, Colors.white, .3)! : Th.of(context).acc)),
     ),
     child: Text(cur.$1, style: F.s(15, w: FontWeight.w800, c: p.fg)),
   );
@@ -809,7 +809,7 @@ class _BigBtn extends StatelessWidget {
             radius: 28,
             padding: pad,
             shadow: const [],
-            color: Color.lerp(color, Colors.black, th.p.dark ? .35 : .2)!.withValues(alpha: th.p.dark ? .5 : .78),
+            color: tintFill(Th.of(context), color),
             child: Center(heightFactor: 1, child: text),
           ),
         );

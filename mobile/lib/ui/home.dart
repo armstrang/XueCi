@@ -44,14 +44,18 @@ class HomeScreen extends StatelessWidget {
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // the mockup's rhythm: even breathing room between the pieces, the most of it under word mastery
                 HomeHeader(short: tight),
                 SizedBox(height: gap),
+                const Spacer(),
                 RealmRow(tight: tight),
                 SizedBox(height: gap),
-                PlanCard(tight: tight, compact: compact),
                 const Spacer(),
+                PlanCard(tight: tight, compact: compact),
                 SizedBox(height: tight ? 8 : 12),
+                const Spacer(),
                 _Mastery(keys: false, short: tight),
+                const Spacer(flex: 2),
               ],
             );
           },
@@ -716,7 +720,7 @@ class PlanCard extends StatelessWidget {
     late Widget head;
     if (P.rest) {
       todo = false;
-      stT = '${sts['rest'] ?? t.planRest}';
+      stT = ''; // the head says it already
       head = Text.rich(
         TextSpan(children: [
           TextSpan(text: '闭关 ', style: TextStyle(fontFamily: F.hz, fontWeight: FontWeight.w900, color: p.elWater)),
@@ -889,7 +893,7 @@ class _NbOpt extends StatelessWidget {
                 inner: true,
                 radius: 22,
                 shadow: const [],
-                color: Color.lerp(th.acc, Colors.black, p.dark ? .35 : .2)!.withValues(alpha: p.dark ? .5 : .78),
+                color: tintFill(Th.of(context), th.acc),
                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 child: ConstrainedBox(constraints: const BoxConstraints(minHeight: 40), child: child),
               ),
