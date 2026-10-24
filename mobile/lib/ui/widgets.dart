@@ -91,7 +91,7 @@ Color tintFill(Th th, Color c) {
   if (!th.p.dark) return Color.lerp(c, Colors.black, .2)!.withValues(alpha: .78);
   // dark: the colour itself, deep and saturated (the mockup's rgba(22,120,124,.62) for the HSK 2 teal)
   final h = HSLColor.fromColor(c);
-  return h.withLightness(.29).withSaturation(math.min(1.0, h.saturation * 1.15)).toColor().withValues(alpha: .88);
+  return h.withLightness(.29).withSaturation(math.min(.5, h.saturation * 1.15)).toColor().withValues(alpha: .88);
 }
 
 

@@ -80,6 +80,10 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
   if (w <= 0 || h <= 0) return;
   void draw(Paint pt) => rr != null ? c.drawRRect(rr, pt) : c.drawPath(path, pt);
   void clip() => rr != null ? c.clipRRect(rr) : c.clipPath(path);
+  if (p.dark && !low) {
+    _darkGlass(c, b, p, k, tint, rim, draw, clip);
+    return;
+  }
   final fill = switch (k) {
     GK.panel => [p.glassA, p.glassB],
     GK.inner => [p.innerA, p.innerB],
@@ -213,6 +217,55 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
       );
     }
   }
+}
+
+/// Dark and true black (the mockup Josh chose, iOS dark glass): a thin veil of white over the blurred page (brighter
+/// at the top), one even hairline all round, a bright line along the top edge and a dark one along the bottom; no
+/// milky glow, so the glass stays clear and the text crisp.
+void _darkGlass(Canvas c, Rect b, Pal p, GK k, Color? tint, bool rim, void Function(Paint) draw, void Function() clip) {
+  final (a0, a1) = switch (k) {
+    GK.panel => (.075, .035),
+    GK.inner => (.06, .025),
+    GK.frost => (.085, .045),
+    GK.lens => (.12, .07),
+  };
+  if (k == GK.frost) draw(Paint()..color = p.frostC);
+  draw(
+    Paint()
+      ..shader = ui.Gradient.linear(b.topCenter, b.bottomCenter, [
+        Colors.white.withValues(alpha: a0),
+        Colors.white.withValues(alpha: a1),
+      ]),
+  );
+  if (tint != null) draw(Paint()..color = tint);
+  if (!rim) return;
+  // the hairline all round
+  draw(
+    Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1
+      ..color = Colors.white.withValues(alpha: k == GK.lens ? .2 : (k == GK.inner ? .12 : .15)),
+  );
+  c.save();
+  clip();
+  // light on the top edge, shade on the bottom edge (inset 0 1px)
+  final top = Paint()
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 2.2
+    ..shader = ui.Gradient.linear(b.topCenter, Offset(b.center.dx, b.top + math.min(14.0, b.height * .3)), [
+      Colors.white.withValues(alpha: k == GK.inner ? .18 : .26),
+      Colors.white.withValues(alpha: 0),
+    ]);
+  draw(top);
+  final bot = Paint()
+    ..style = PaintingStyle.stroke
+    ..strokeWidth = 2.2
+    ..shader = ui.Gradient.linear(Offset(b.center.dx, b.bottom - math.min(12.0, b.height * .3)), b.bottomCenter, [
+      Colors.black.withValues(alpha: 0),
+      Colors.black.withValues(alpha: .3),
+    ]);
+  draw(bot);
+  c.restore();
 }
 
 /// A glass panel: fill, glow, rim, shadow. Inside another panel (or a sheet) it becomes the brighter inner glass.

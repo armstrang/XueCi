@@ -591,16 +591,18 @@ class _OrbRing extends CustomPainter {
   void paint(Canvas c, Size s) {
     final k = s.width / 120;
     final ctr = s.center(Offset.zero);
-    final rad = 56 * k;
-    // the orb's own gloss
+    final rad = 53 * k;
+    // the mockup: a disc of glass inside the ring, the realm's colour breathing in it
+    final disc = Rect.fromCircle(center: ctr, radius: 46 * k);
+    final dp = Path()..addOval(disc);
+    paintGlass(c, dp, disc, p, GK.inner, tint: lc.withValues(alpha: p.dark ? .10 : .08));
     c.drawCircle(
       ctr,
-      s.width / 2,
+      46 * k,
       Paint()
-        ..shader = ui.Gradient.radial(Offset(s.width * .34, s.height * .16), s.width * 1.1 * .52, [
-          Colors.white.withValues(alpha: p.dark ? .13 : .55),
-          Colors.white.withValues(alpha: 0),
-        ]),
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1
+        ..color = Colors.white.withValues(alpha: p.dark ? .16 : .7),
     );
     c.drawCircle(
       ctr,

@@ -298,23 +298,35 @@ class _TabLensPainter extends CustomPainter {
   _TabLensPainter(this.p, this.lc, this.low);
   @override
   void paint(Canvas c, Size s) {
-    // the mockup: a soft rounded square of light behind the open tab, a faint highlight along its top; no rim, no glow
+    // the mockup: a soft pill of light under the open tab (white veil, a hairline, light on its top edge)
     final r = (Offset.zero & s).deflate(1);
-    final rr = RRect.fromRectAndRadius(r, const Radius.circular(22));
-    c.drawRRect(rr, Paint()..color = p.dark ? Colors.white.withValues(alpha: .10) : Colors.white.withValues(alpha: .62));
-    if (!low) {
-      c.save();
-      c.clipRRect(rr);
-      c.drawRect(
-        Rect.fromLTWH(r.left, r.top, r.width, r.height * .5),
-        Paint()
-          ..shader = ui.Gradient.linear(r.topCenter, r.center, [
-            Colors.white.withValues(alpha: p.dark ? .06 : .3),
-            Colors.white.withValues(alpha: 0),
-          ]),
-      );
-      c.restore();
+    final rr = RRect.fromRectAndRadius(r, Radius.circular(math.min(24, r.height / 2)));
+    if (!low && !p.dark) {
+      OuterShadow([const BoxShadow(color: Color.fromRGBO(40, 40, 80, .14), offset: Offset(0, 4), blurRadius: 12, spreadRadius: -4)], rr.tlRadiusX)
+          .paint(c, s);
     }
+    c.drawRRect(rr, Paint()..color = Colors.white.withValues(alpha: p.dark ? .10 : .58));
+    c.drawRRect(rr, Paint()..color = lc.withValues(alpha: p.dark ? .06 : .05));
+    c.drawRRect(
+      rr,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1
+        ..color = Colors.white.withValues(alpha: p.dark ? .14 : .8),
+    );
+    c.save();
+    c.clipRRect(rr);
+    c.drawRRect(
+      rr,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2
+        ..shader = ui.Gradient.linear(r.topCenter, Offset(r.center.dx, r.top + 10), [
+          Colors.white.withValues(alpha: p.dark ? .22 : .9),
+          Colors.white.withValues(alpha: 0),
+        ]),
+    );
+    c.restore();
   }
 
   @override

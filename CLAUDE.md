@@ -66,7 +66,9 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   `paintGlass()` in `glass.dart` is the one material — milky fill (`Pal.glassA/B`, `innerA/B`), light from the top left
   (`sheen`), a white glow inside the edge (top-weighted on dark), a rim bright along the top with a glint at the
   bottom-right. Kinds: `GK.panel`, `GK.inner` (inside a panel/sheet: `GlassDepth`), `GK.frost` (floating, real blur),
-  `GK.lens` (chosen tab/level/segment: `TabLens`, `HskLens`, `LensPill`). `GlassFlat` = grouped rows in one glass
+  `GK.lens` (chosen tab/level/segment: `TabLens`, `HskLens`, `LensPill`). Dark and true black use `_darkGlass`
+  (the mockup Josh chose, Oct 2026): a thin white veil, one even hairline, light on the top edge, shade on the
+  bottom, no milky glow; frost lets the blurred page through; no drifting glow on dark; the tab lens is a soft pill. `GlassFlat` = grouped rows in one glass
   (`SGroup`). Background `_BgPainter` = aurora (level tone + `auroraWarm` + `auroraCool`). Shadows only outside shapes
   (`OuterShadow`). `contrast_test` (WCAG 4.5:1, large text 3:1, light/dark/black) must stay at 0 findings: tune `Pal`
   against it (`CDUMP=1` writes the measured images to `test/cdump/`).
