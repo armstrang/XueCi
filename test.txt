@@ -1,0 +1,262 @@
+Resolving dependencies...
+Downloading packages...
+  material_color_utilities 0.13.0 (0.13.1 available)
+  test_api 0.7.12 (0.7.15 available)
+Got dependencies!
+2 packages have newer versions incompatible with dependency constraints.
+Try `flutter pub outdated` for more information.
+00:00 +0: loading /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart
+00:00 +0: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: (setUpAll)
+00:00 +0 ~1: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: (setUpAll)
+00:00 +0 ~1: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7 home
+00:00 +0 ~2: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7 soul
+00:00 +0 ~3: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7 card
+00:00 +0 ~4: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7 quiz
+00:00 +0 ~5: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7 mock
+00:00 +0 ~6: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10 home
+00:00 +0 ~7: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10 soul
+00:00 +0 ~8: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10 card
+00:00 +0 ~9: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10 quiz
+00:00 +0 ~10: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10 mock
+00:00 +0 ~11: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7-en home
+00:00 +0 ~12: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7-en soul
+00:00 +0 ~13: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7-en card
+00:00 +0 ~14: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7-en quiz
+00:00 +0 ~15: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab7-en mock
+00:00 +0 ~16: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10-en home
+00:00 +0 ~17: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10-en soul
+00:00 +0 ~18: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10-en card
+00:00 +0 ~19: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10-en quiz
+00:00 +0 ~20: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: tab10-en mock
+00:00 +0 ~21: /home/runner/work/XueCi/XueCi/mobile/test/store_tablet_test.dart: (tearDownAll)
+00:00 +0 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: traces exist
+00:00 +1 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace band.json
+00:02 +2 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: home: new learner, light
+00:03 +3 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace fresh.json
+00:03 +4 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: home: progress, light
+00:03 +5 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace guesser.json
+00:04 +6 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea, light
+00:05 +7 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea, light
+00:05 +8 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace optimize.json
+00:06 +9 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace optimize.json
+00:06 +10 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace optimize.json
+00:07 +11 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: list
+00:08 +12 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace placement3.json
+00:08 +13 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: card front
+00:08 +14 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: card front
+00:08 +15 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: card front
+00:08 +16 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace trib-pass.json
+00:09 +17 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: card back
+00:09 +18 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: card back
+00:09 +19 ~21: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace unstable.json
+00:10 +20 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz m
+00:10 +21 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz s
+00:11 +22 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast light home
+00:12 +23 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz c
+00:12 +24 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast light home-new
+00:12 +25 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz p
+00:12 +26 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz p
+00:13 +27 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz p
+00:13 +28 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast light card
+00:13 +29 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz t
+00:13 +30 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz t
+00:14 +31 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast light soul
+00:14 +32 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz f
+00:14 +33 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz f
+00:14 +34 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast light realm
+00:15 +35 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz speak
+00:15 +36 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz speak
+00:15 +37 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz speak
+00:15 +38 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast light streak
+00:16 +39 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz speak, tried
+00:16 +40 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz speak, tried
+00:16 +41 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz speak, tried
+00:16 +42 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz speak, tried
+00:16 +43 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast dark home
+00:16 +44 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz feedback
+00:16 +45 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz feedback
+00:17 +46 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz feedback
+00:17 +47 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: quiz feedback
+00:17 +48 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast dark card
+00:17 +49 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: session summary
+00:17 +50 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: session summary
+00:18 +51 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast dark soul
+00:18 +52 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: stats
+00:18 +53 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: stats
+00:18 +54 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: stats
+00:19 +55 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: stats
+00:19 +56 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast dark info
+00:19 +57 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:19 +58 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:19 +59 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:19 +60 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:20 +61 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:20 +62 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:20 +63 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:20 +64 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:20 +65 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:21 +66 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:21 +67 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: soul sea
+00:21 +68 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast black soul
+00:21 +69 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: realm sheet
+00:21 +70 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: realm sheet
+00:22 +71 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast black realm
+00:22 +72 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: share card
+00:22 +73 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: share card
+00:22 +74 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast black info
+00:22 +75 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet settings
+00:22 +76 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet settings
+00:23 +77 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet settings
+00:23 +78 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet settings
+00:23 +79 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet settings
+00:23 +79 ~21: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: (tearDownAll)
+CONTRAST 0 findings
+
+00:23 +79 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet settings
+00:23 +80 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet donate
+00:24 +81 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet donate
+00:24 +82 ~21: /home/runner/work/XueCi/XueCi/mobile/test/secret_test.dart: screens before the gate no leak: home
+00:25 +83 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet streak
+00:25 +84 ~21: /home/runner/work/XueCi/XueCi/mobile/test/secret_test.dart: screens before the gate no leak: soul
+00:26 +85 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet goal
+00:26 +86 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet goal
+00:27 +87 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet goal
+00:27 +88 ~21: /home/runner/work/XueCi/XueCi/mobile/test/secret_test.dart: screens before the gate no leak: realm sheet
+00:27 +89 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet backup
+00:27 +90 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet backup
+00:28 +91 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet backup
+00:28 +92 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet info
+00:28 +93 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet info
+00:28 +94 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet info
+00:28 +95 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet info
+00:29 +96 ~21: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~22: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~23: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~24: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~25: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~26: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~27: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~28: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~29: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~30: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~31: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~32: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~33: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~34: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~35: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~36: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~37: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~38: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~39: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~40: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~41: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~42: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~43: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~44: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~45: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~46: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~47: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~48: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~49: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~50: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~51: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~52: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~53: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~54: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~55: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~56: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~57: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~58: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~59: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~60: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~61: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~62: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~63: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~64: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~65: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~66: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~67: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~68: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~69: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~70: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~71: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~72: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~73: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~74: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~75: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~76: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~77: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~78: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~79: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~80: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~81: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~82: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~83: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~84: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~85: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~86: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~87: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~88: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~89: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~90: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~91: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~92: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~93: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~94: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~95: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~96: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~97: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~98: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~99: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~100: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:29 +96 ~101: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet tour
+00:30 +97 ~101: /home/runner/work/XueCi/XueCi/mobile/test/store_shots_test.dart: (setUpAll)
+00:30 +97 ~101: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~102: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~103: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~104: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~105: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~106: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~107: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~108: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~109: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~110: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~111: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~112: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~113: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~114: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~115: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~116: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~117: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~118: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~119: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~120: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~121: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~122: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~123: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~124: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~125: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~126: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +97 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +98 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:30 +99 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet speak
+00:31 +100 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet ttsguide
+00:31 +101 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet ttsguide
+00:31 +102 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet ttsguide
+00:31 +103 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet ttsguide
+00:31 +104 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet ttsguide
+00:31 +105 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet ttsguide
+00:31 +106 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: sheet ttsguide
+00:32 +107 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: placement intro
+00:32 +108 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: placement intro
+00:32 +109 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: placement intro
+00:32 +110 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: placement intro
+00:32 +111 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: placement intro
+00:32 +112 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: placement question
+00:33 +113 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: tribulation intro
+00:34 +114 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: tribulation strike
+00:35 +115 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: tribulation failed
+00:37 +116 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: mock intro
+00:38 +117 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: home: large text, Vietnamese
+00:38 +118 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: (tearDownAll)
+00:38 +118 ~127: All tests passed!

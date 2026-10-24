@@ -1,0 +1,6 @@
+i18n id: 573 keys, sealed: realmM realmD gloss gateWelcome gate0 gate4 gateOn gateEnter
+i18n en: 573 keys, sealed: realmM realmD gloss gateWelcome gate0 gate4 gateOn gateEnter
+i18n th: 573 keys, sealed: realmM realmD gloss gateWelcome gate0 gate4 gateOn gateEnter
+i18n vi: 573 keys, sealed: realmM realmD gloss gateWelcome gate0 gate4 gateOn gateEnter
+i18n probes: 3948
+assets: 5334 words + 5562 sealed; core.json 740 KB, en.json 333 KB, id.json 343 KB, s-en.bin 134 KB, s-id.bin 120 KB, s-th.bin 143 KB, s-vi.bin 129 KB, s0.bin 302 KB, th.json 689 KB, vi.json 396 KB
