@@ -157,7 +157,7 @@ I18N.id = {
   planT: 'Hari ini',
   planRev: n => `${n} ulangan`,
   planNew: n => `${n} kata baru`,
-  planMin: n => `±${n} menit`,
+  planMin: n => `Sekitar ${n} menit`,
   planGo: 'Mulai latihan',
   planCont: 'Lanjutkan sesi',
   planDone: 'Latihan hari ini beres',

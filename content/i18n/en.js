@@ -157,7 +157,7 @@ I18N.en = {
   planT: 'Today',
   planRev: n => `${n} reviews`,
   planNew: n => `${n} new words`,
-  planMin: n => `~${n} min`,
+  planMin: n => `About ${n} min`,
   planGo: 'Start practice',
   planCont: 'Continue session',
   planDone: 'Today’s plan is done',
