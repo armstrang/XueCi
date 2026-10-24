@@ -451,7 +451,8 @@ class App extends ChangeNotifier {
       return null;
     }
     if (h != null && h.length == 1 && h.first == '!') h = await Native.I.listen(t.spkPrompt);
-    if (h == null) return null;
+    // stopped or failed without words: say so ("nothing was heard") instead of going quiet
+    if (h == null) return scoreSpeech(target, const [], spk, sounds);
     if (h.length == 1 && h.first == '!') {
       canListen = false;
       toast(t.spkNone, 5000);

@@ -1121,6 +1121,7 @@ class _QViewState extends State<_QView> {
   bool _busy = false, _nothing = false;
   final _level = ValueNotifier<double>(0);
   String _partial = '';
+  String _err = ''; // the recognizer's last error code, shown after "nothing heard"
 
   Future<void> _listen(Item it) async {
     if (_busy) {
@@ -1132,11 +1133,13 @@ class _QViewState extends State<_QView> {
       _busy = true;
       _nothing = false;
       _partial = '';
+      _err = '';
     });
     _level.value = 0;
     final r = await app.hear(it.d.h, onEvent: (ev) {
       if (!mounted) return;
       if (ev['t'] == 'rms') _level.value = (((ev['v'] as num).toDouble() + 2) / 12).clamp(0.0, 1.0); // only the button redraws
+      if (ev['t'] == 'err') _err = '${ev['v']}';
       if (ev['t'] == 'partial') setState(() => _partial = '${ev['v']}');
     });
     if (!mounted) return;
@@ -1201,7 +1204,7 @@ class _QViewState extends State<_QView> {
                   Semantics(
                     liveRegion: true,
                     child: Text(
-                      _nothing ? t.spkNothing : (res!.all ? t.spkAll : t.spkHeard(res.heard)),
+                      _nothing ? '${t.spkNothing}${_err.isEmpty ? '' : ' ($_err)'}' : (res!.all ? t.spkAll : t.spkHeard(res.heard)),
                       textAlign: TextAlign.center,
                       style: F.s(15, w: FontWeight.w800, c: _nothing ? p.soft : (res!.all ? p.good : p.bad)),
                     ),

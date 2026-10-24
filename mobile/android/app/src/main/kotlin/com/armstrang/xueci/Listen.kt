@@ -1,7 +1,8 @@
 package com.armstrang.xueci
 
+import android.content.ComponentName
 import android.content.Intent
-import android.os.Build
+import android.speech.RecognitionService
 import android.os.Bundle
 import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
@@ -18,9 +19,23 @@ import org.json.JSONObject
  */
 class Listen(private val act: MainActivity, private val event: (String) -> Unit) {
     private var rec: SpeechRecognizer? = null
+    private val main = android.os.Handler(android.os.Looper.getMainLooper())
     private var done: ((String?) -> Unit)? = null
 
     fun available(): Boolean = SpeechRecognizer.isRecognitionAvailable(act)
+
+    /** the recognizers to try in turn: Google's (it knows Mandarin), then the phone's default (Samsung's may not) */
+    private fun services(): List<ComponentName?> {
+        val list = mutableListOf<ComponentName?>()
+        val found = act.packageManager.queryIntentServices(Intent(RecognitionService.SERVICE_INTERFACE), 0)
+        found.firstOrNull { it.serviceInfo.packageName == "com.google.android.googlequicksearchbox" }
+            ?.let { list.add(ComponentName(it.serviceInfo.packageName, it.serviceInfo.name)) }
+        list.add(null)
+        return list
+    }
+
+    private var tries: List<ComponentName?> = emptyList()
+    private var heardAny = false
 
     fun start(done: (String?) -> Unit) {
         finish(null)
@@ -29,22 +44,50 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
             return
         }
         this.done = done
-        val r = SpeechRecognizer.createSpeechRecognizer(act)
+        tries = services()
+        heardAny = false
+        next()
+    }
+
+    /** a recognizer failed before hearing anything: the next one; none left = "!" (Flutter opens the phone's window) */
+    private fun next() {
+        if (done == null) return // stopped meanwhile
+        val cn = tries.firstOrNull()
+        if (tries.isEmpty()) {
+            finish("!")
+            return
+        }
+        tries = tries.drop(1)
+        rec?.let {
+            try {
+                it.destroy()
+            } catch (_: Exception) {
+            }
+        }
+        val r = try {
+            if (cn != null) SpeechRecognizer.createSpeechRecognizer(act, cn) else SpeechRecognizer.createSpeechRecognizer(act)
+        } catch (_: Exception) {
+            next()
+            return
+        }
         rec = r
         r.setRecognitionListener(object : RecognitionListener {
             override fun onReadyForSpeech(params: Bundle?) = send("ready")
             override fun onBeginningOfSpeech() = send("begin")
-            override fun onRmsChanged(rmsdB: Float) = send("rms", rmsdB.toDouble())
+            override fun onRmsChanged(rmsdB: Float) {
+                if (rmsdB > 2) heardAny = true
+                send("rms", rmsdB.toDouble())
+            }
             override fun onBufferReceived(buffer: ByteArray?) {}
             override fun onEndOfSpeech() = send("end")
             override fun onError(error: Int) {
-                finish(
-                    when (error) {
-                        SpeechRecognizer.ERROR_NO_MATCH, SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> "[]"
-                        SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> "denied"
-                        else -> null
-                    },
-                )
+                send("err", error)
+                when (error) {
+                    SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> finish("denied")
+                    SpeechRecognizer.ERROR_NO_MATCH, SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> finish("[]")
+                    // language not there, busy, client or network trouble: the next recognizer, then the window
+                    else -> if (heardAny) finish("[]") else main.post { next() }
+                }
             }
 
             override fun onResults(results: Bundle?) {
@@ -66,13 +109,11 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
             putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
             putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, act.packageName)
-            // on the phone when it has the Mandarin model (no internet needed); otherwise its usual service
-            putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, Build.VERSION.SDK_INT >= 33)
         }
         try {
             r.startListening(i)
         } catch (_: Exception) {
-            finish(null)
+            main.post { next() }
         }
     }
 

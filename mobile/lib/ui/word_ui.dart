@@ -542,6 +542,7 @@ class _SpeakState extends State<_Speak> {
   bool busy = false, nothing = false;
   final level = ValueNotifier<double>(0);
   String partial = '';
+  String err = '';
 
   String get target => widget.sentence ? widget.d.z : widget.d.h;
 
@@ -562,11 +563,13 @@ class _SpeakState extends State<_Speak> {
       busy = true;
       nothing = false;
       partial = '';
+      err = '';
     });
     level.value = 0;
     final r = await app.hear(target, onEvent: (ev) {
       if (!mounted) return;
       if (ev['t'] == 'rms') level.value = (((ev['v'] as num).toDouble() + 2) / 12).clamp(0.0, 1.0); // only the button redraws
+      if (ev['t'] == 'err') err = '${ev['v']}';
       if (ev['t'] == 'partial') setState(() => partial = '${ev['v']}');
     });
     if (!mounted) return;
@@ -604,7 +607,7 @@ class _SpeakState extends State<_Speak> {
             child: Column(
               children: [
                 Text(
-                  nothing ? t.spkNothing : (r!.all ? t.spkAll : t.spkSome(r.share(target) * n ~/ 1, n)),
+                  nothing ? '${t.spkNothing}${err.isEmpty ? '' : ' ($err)'}' : (r!.all ? t.spkAll : t.spkSome(r.share(target) * n ~/ 1, n)),
                   textAlign: TextAlign.center,
                   style: F.s(16, w: FontWeight.w800, c: nothing ? p.soft : (r!.all ? p.good : p.bad)),
                 ),
