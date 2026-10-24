@@ -233,6 +233,32 @@ class I {
       'M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.6 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z',
     ],
   );
+  // ---- the quiz types (Josh: icons only, black and white)
+  /// a rounded square for a glyph inside (Recognise: 汉)
+  static const qBox = Ic(rects: [(3, 3, 18, 18, 5)], width: 1.8);
+
+  /// write the hanzi: a pencil
+  static const qWrite = Ic(stroke: ['M4.5 19.5l1-4.2L15.8 5a2 2 0 0 1 2.9 0l.3.3a2 2 0 0 1 0 2.9L8.7 18.5z', 'M13.8 7l3.2 3.2', 'M4.5 19.5h15'], width: 1.8);
+
+  /// tones: the four marks rising and falling
+  static const qTones = Ic(stroke: ['M2 10h3.6', 'M7.4 13.5l3-5', 'M12.2 8.5l1.8 4 1.8-4', 'M18 8.5l3 5'], dots: [(3.8, 17, 1.1), (8.9, 17, 1.1), (14, 17, 1.1), (19.5, 17, 1.1)], width: 2);
+
+  /// a sentence with a gap
+  static const qGap = Ic(stroke: ['M3 6.5h18', 'M3 12h4', 'M17 12h4', 'M3 17.5h11'], rects: [(8.5, 9, 7, 6, 1.6)], width: 1.9);
+
+  /// type the pinyin: a keyboard
+  static const qKeys = Ic(rects: [(2.5, 6, 19, 12.5, 3)], dots: [(7, 10, 1), (10.3, 10, 1), (13.7, 10, 1), (17, 10, 1)], stroke: ['M8 14.6h8'], width: 1.8);
+
+  /// translate (Bing Translator's two boxes, black and white): A in one, 文 drawn in the other
+  static const qTrans = Ic(
+    stroke: ['M5 11l2.75-6.5 2.75 6.5', 'M6 9h3.5', 'M16.2 12.4v1.2', 'M13.3 14h5.8', 'M14.4 14.4c.8 2.4 2.4 3.9 4.4 4.5', 'M18.1 14.4c-.8 2.4-2.4 3.9-4.4 4.5'],
+    rects: [(2, 2, 11.5, 11.5, 3), (10.5, 10.5, 11.5, 11.5, 3)],
+    width: 1.6,
+  );
+
+  /// the HSK mock exam: a paper with a tick
+  static const qExam = Ic(stroke: ['M8.5 8h7', 'M8.5 11.6h7', 'M8.6 16.2l1.7 1.7 3.4-3.4'], rects: [(4.5, 2.5, 15, 19, 3)], width: 1.8);
+
   /// speaking: a microphone
   static const mic = Ic(
     stroke: ['M5.5 11a6.5 6.5 0 0 0 13 0', 'M12 17.5V21'],

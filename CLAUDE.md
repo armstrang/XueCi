@@ -171,7 +171,10 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   events `listenEv`: rms/partial; RECORD_AUDIO asked once, Josh Oct 2026: no Google pop-up); `RecognizerIntent`
   (`Native.listen`, its own window) only when the phone can't listen inside apps. Each target hanzi is aligned with what was heard: same hanzi or same syllable+tone
   (normal), any tone (easy), first guess only (hard); `spk` in `hsk16_ui`. A mic next to List sentences
-  (`openSpeak`) and quiz type `u` (logged as `s`; the first try is the answer, later tries only show).
+  (`openSpeak`) and quiz type `u` (logged as `s`; the first try is the answer, later tries only show). Josh: one tap
+  starts, a second stops, 15 s at most (`Listen.kt` restarts the recognizer at each pause and joins the pieces);
+  `SpeakArea` (word_ui.dart) is shared: target, `ScoreRing` 0–100 (≤50 not yet, ≤75 getting there, ≤99 good, 100
+  perfect), "you said", tap a hanzi to hear it. Quiz types show as line icons (`qtIcon`).
 
 ## CI
 

@@ -468,6 +468,7 @@ mixin L10Keys {
   String get spkAgain => s('spkAgain');
   String get spkAll => s('spkAll');
   String get spkAsk => s('spkAsk');
+  List<dynamic> get spkBand => v('spkBand') as List<dynamic>? ?? const [];
   String get spkDenied => s('spkDenied');
   String get spkHear => s('spkHear');
   String spkHeard(Object? a0) => f('spkHeard', [a0]);
@@ -479,9 +480,12 @@ mixin L10Keys {
   String get spkNone => s('spkNone');
   String get spkNothing => s('spkNothing');
   String get spkPrompt => s('spkPrompt');
+  String get spkRight => s('spkRight');
   String get spkSay => s('spkSay');
   String spkSome(Object? a0, Object? a1) => f('spkSome', [a0, a1]);
+  String get spkStop => s('spkStop');
   String get spkTap => s('spkTap');
+  String get spkYou => s('spkYou');
   String get stAll => s('stAll');
   String stBehind(Object? a0) => f('stBehind', [a0]);
   String stBehindDate(Object? a0) => f('stBehindDate', [a0]);

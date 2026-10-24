@@ -10,9 +10,7 @@ import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 
 import '../app/app.dart';
-import '../app/native.dart';
 import '../data/pinyin.dart';
-import '../app/speech.dart';
 import '../app/runner.dart';
 import '../data/words.dart';
 import '../engine/learn.dart';
@@ -32,6 +30,31 @@ const partHz = {
 };
 
 String _mmss(num s) => '${s ~/ 60}:${(s.round() % 60).toString().padLeft(2, '0')}';
+
+/// the icon of a quiz type (pill and menu): line icons, black or white
+Widget qtIcon(String q, Color c, {double size = 22}) {
+  final ic = switch (q) {
+    'f' => I.qWrite,
+    's' => I.qTones,
+    'l' => I.speaker,
+    'c' => I.qGap,
+    'p' => I.qKeys,
+    't' => I.qTrans,
+    'u' => I.mic,
+    'mock' => I.qExam,
+    _ => I.qBox,
+  };
+  final icon = Icon2(ic, size: size, color: c);
+  if (q != 'm') return icon;
+  return SizedBox(
+    width: size,
+    height: size,
+    child: Stack(
+      alignment: Alignment.center,
+      children: [icon, Text('汉', style: F.s(size * .5, w: FontWeight.w800, family: F.zh, c: c, h: 1))],
+    ),
+  );
+}
 
 Map<String, (String, String, String)> qtNames() {
   final t = app.t;
@@ -164,7 +187,7 @@ class _RunScreenState extends State<RunScreen> {
         16,
         MediaQuery.paddingOf(context).top + 10,
         16,
-        MediaQuery.paddingOf(context).bottom + (tabs ? 90 : 24),
+        MediaQuery.paddingOf(context).bottom + (tabs ? 98 : 24),
       ),
       child: Center(
         child: ConstrainedBox(
@@ -365,7 +388,7 @@ void _openQType(BuildContext context) {
                   ),
                   child: Row(
                     children: [
-                      _Qti(e.value.$3, on: e.key == app.qType),
+                      SizedBox(width: 36, child: Center(child: qtIcon(e.key, e.key == app.qType ? Th.of(c).acc : p.fg, size: 24))),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(
@@ -397,35 +420,21 @@ Widget _qTypePill(BuildContext context) {
   final t = app.t;
   final qt = qtNames();
   final cur = qt[app.qType] ?? qt['m']!;
-  return HeadPill(
+  // icon only (Josh): the name is in the menu and read out for the screen reader
+  return Press(
     onTap: () => _openQType(context),
+    scale: .92,
     label: '${t.qTypeL}: ${cur.$1}',
-    icon: Padding(
-      padding: const EdgeInsets.only(left: 8),
-      child: Text(cur.$3.split('→').first, style: F.s(15, w: FontWeight.w900, family: F.zh, c: p.dark ? Color.lerp(Th.of(context).acc, Colors.white, .5)! : Th.of(context).acc)),
-    ),
-    child: Text(cur.$1, style: F.s(15, w: FontWeight.w800, c: p.fg)),
-  );
-}
-
-class _Qti extends StatelessWidget {
-  final String s;
-  final bool on;
-  const _Qti(this.s, {required this.on});
-  @override
-  Widget build(BuildContext context) {
-    final th = Th.of(context);
-    return Container(
-      width: 48,
-      height: 28,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: on ? th.acc : th.acc.withValues(alpha: .15),
-        borderRadius: BorderRadius.circular(999),
+    child: Glass(
+      radius: 22,
+      width: 58,
+      height: 44,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [qtIcon(app.qType, p.fg), const SizedBox(width: 2), Icon2(I.chev, size: 12, color: p.mute)],
       ),
-      child: Text(s, style: F.s(11.5, w: FontWeight.w800, family: F.zh, c: on ? th.p.onAcc : th.p.fg)),
-    );
-  }
+    ),
+  );
 }
 
 class _Clock extends StatefulWidget {
@@ -965,8 +974,6 @@ class _QViewState extends State<_QView> {
   void dispose() {
     _in.dispose();
     _focus.dispose();
-    _level.dispose();
-    if (_busy) Native.I.listenStop();
     super.dispose();
   }
 
@@ -1091,14 +1098,9 @@ class _QViewState extends State<_QView> {
         }
       }
     }
-    if (ans) {
-      WidgetsBinding.instance.addPostFrameCallback((_) {
-        final c = _nextKey.currentContext;
-        if (mounted && c != null && !_shown) {
-          _shown = true;
-          Scrollable.ensureVisible(c, duration: const Duration(milliseconds: 320), curve: Curves.easeOutCubic, alignmentPolicy: ScrollPositionAlignmentPolicy.keepVisibleAtEnd);
-        }
-      });
+    if (ans && !_shown) {
+      _shown = true;
+      _toEnd();
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -1118,70 +1120,47 @@ class _QViewState extends State<_QView> {
     );
   }
 
-  bool _busy = false, _nothing = false;
-  final _level = ValueNotifier<double>(0);
-  String _partial = '';
-  String _err = ''; // the recognizer's last error code, shown after "nothing heard"
-
-  Future<void> _listen(Item it) async {
-    if (_busy) {
-      Native.I.listenStop();
-      return;
-    }
-    HapticFeedback.lightImpact();
-    setState(() {
-      _busy = true;
-      _nothing = false;
-      _partial = '';
-      _err = '';
-    });
-    _level.value = 0;
-    final r = await app.hear(it.d.h, onEvent: (ev) {
+  /// after an answer: scroll to the end, so Next sits above the tab bar (the page's bottom padding keeps it clear;
+  /// ensureVisible would only bring it to the screen's edge, under the bar)
+  void _toEnd() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!mounted) return;
-      if (ev['t'] == 'rms') _level.value = (((ev['v'] as num).toDouble() + 2) / 12).clamp(0.0, 1.0); // only the button redraws
-      if (ev['t'] == 'err') _err = '${ev['v']}';
-      if (ev['t'] == 'partial') setState(() => _partial = '${ev['v']}');
+      final pos = Scrollable.maybeOf(context)?.position;
+      if (pos == null || pos.maxScrollExtent <= pos.pixels) return;
+      pos.animateTo(pos.maxScrollExtent, duration: const Duration(milliseconds: 320), curve: Curves.easeOutCubic);
     });
-    if (!mounted) return;
-    setState(() => _busy = false);
-    if (r == null) return;
-    if (r.heard.isEmpty) {
-      setState(() => _nothing = true);
-      return;
-    }
-    r.all ? HapticFeedback.lightImpact() : HapticFeedback.mediumImpact();
-    app.runner.qSpoken(it, r);
   }
 
-  /// speaking: the word big, the microphone in the thumb zone, each hanzi marked after a try
+  /// speaking: the word big in its card, the result under it, the microphone in the thumb zone; the first try is
+  /// the answer, later tries only show
   Widget _speakQ(BuildContext context, Item it) {
-    final th = Th.of(context);
-    final p = th.p;
+    final p = Th.pal(context);
     final t = app.t;
     final d = it.d;
-    final res = it.alt is SpeakResult ? it.alt as SpeakResult : null;
     final big = math.min(96.0, math.max(60.0, MediaQuery.sizeOf(context).width * .22));
     final ch = d.h.runes.map(String.fromCharCode).toList();
-    // the pinyin, each syllable red when its hanzi was missed
-    Widget py() {
-      if (res == null || ch.length != d.s.length) return Py(d, size: 18);
-      return Text.rich(
-        TextSpan(children: [
-          for (var i = 0; i < d.s.length; i++) TextSpan(text: d.s[i], style: TextStyle(color: res.ok[i] ? p.good : p.bad)),
-        ]),
-        style: F.s(18, w: FontWeight.w700, c: p.fg),
-      );
-    }
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Glass(
+    return SpeakArea(
+      target: d.h,
+      onResult: (r) {
+        app.runner.qSpoken(it, r);
+        _toEnd();
+      },
+      top: (c, res, busy, heard) {
+        // the pinyin, each syllable red when its hanzi was missed
+        final py = res == null || ch.length != d.s.length
+            ? Py(d, size: 18)
+            : Text.rich(
+                TextSpan(children: [
+                  for (var i = 0; i < d.s.length; i++) TextSpan(text: d.s[i], style: TextStyle(color: res.ok[i] ? p.good : p.bad)),
+                ]),
+                style: F.s(18, w: FontWeight.w700, c: p.fg),
+              );
+        return Glass(
           solid: true,
           radius: 32,
           padding: const EdgeInsets.fromLTRB(20, 22, 20, 24),
           child: ConstrainedBox(
-            constraints: const BoxConstraints(minHeight: 240),
+            constraints: const BoxConstraints(minHeight: 220),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -1189,51 +1168,23 @@ class _QViewState extends State<_QView> {
                 const SizedBox(height: 8),
                 SpokenText(d.h, res?.ok, size: big),
                 const SizedBox(height: 6),
-                py(),
+                py,
                 const SizedBox(height: 2),
                 Text(app.m1(d), textAlign: TextAlign.center, style: F.s(15, c: p.soft)),
-                if (_busy) ...[
+                if (busy) ...[
                   const SizedBox(height: 14),
                   Text(
-                    _partial.isEmpty ? t.spkListening : _partial,
+                    heard.isEmpty ? t.spkListening : heard,
                     textAlign: TextAlign.center,
-                    style: F.s(_partial.isEmpty ? 15 : 20, w: FontWeight.w700, c: p.soft, family: _partial.isEmpty ? F.ui : F.zh),
-                  ),
-                ] else if (res != null || _nothing) ...[
-                  const SizedBox(height: 14),
-                  Semantics(
-                    liveRegion: true,
-                    child: Text(
-                      _nothing ? '${t.spkNothing}${_err.isEmpty ? '' : ' ($_err)'}' : (res!.all ? t.spkAll : t.spkHeard(res.heard)),
-                      textAlign: TextAlign.center,
-                      style: F.s(15, w: FontWeight.w800, c: _nothing ? p.soft : (res!.all ? p.good : p.bad)),
-                    ),
+                    style: F.s(heard.isEmpty ? 15 : 20, w: FontWeight.w700, c: p.soft, family: heard.isEmpty ? F.ui : F.zh),
                   ),
                 ],
               ],
             ),
           ),
-        ),
-        const SizedBox(height: 12),
-        if (app.canSpeak())
-          Center(
-            child: TextButton.icon(
-              onPressed: () => speak(d.h),
-              icon: Icon2(I.speaker, size: 18, color: th.acc),
-              label: Text(t.spkHear, style: F.s(15, w: FontWeight.w700, c: th.acc)),
-            ),
-          ),
-        Center(child: ValueListenableBuilder<double>(valueListenable: _level, builder: (c, v, _) => BigMic(onTap: () => _listen(it), busy: _busy, level: v))),
-        Text(
-          app.micOK ? '${t.spkTap} · ${L10.text(t.spkLv[spkLevels.indexOf(app.spk)])}' : t.spkAsk,
-          textAlign: TextAlign.center,
-          style: F.s(13.5, c: p.soft),
-        ),
-        if (it.done) ...[
-          const SizedBox(height: 16),
-          KeyedSubtree(key: _nextKey, child: MainBtn(t.next, wide: true, radius: 28, big: true, onTap: app.runner.next)),
-        ],
-      ],
+        );
+      },
+      after: it.done ? KeyedSubtree(key: _nextKey, child: MainBtn(t.next, wide: true, radius: 28, big: true, onTap: app.runner.next)) : null,
     );
   }
 

@@ -21,14 +21,16 @@ same progress, every screen drawn natively, with a new look that is easier to re
 ### Speaking practice
 - A microphone next to each example sentence in the List, and a new quiz type, Speak: say the word or sentence and
   every hanzi turns green (right) or red (missed), with what the phone heard. Try again as often as you like.
-- The app listens itself, with no pop-up window: tap the mic, speak, and it stops when you do. The mic breathes with
+- Tap the mic to start and tap again to stop (15 seconds at most; a ring counts down). You get a score from 0 to
+  100 (Not yet, Getting there, Good, Perfect!), what you said, and each hanzi in green or red; tap a red one to
+  hear it. The app listens itself, with no pop-up window. The mic breathes with
   your voice and shows what it hears as you speak. It asks once for the microphone; nothing is recorded or kept,
   only the recognized text is used. Strictness in Settings: Easy (tones may slip), Normal, Hard (only the phone's
   first guess).
 - No Mandarin voice for the speaker yet? A short guide shows how to install one.
 
 ### Cleaner, calmer screens
-- Large titles with the level, unit and quiz type as glass pills under them; a tab bar with a name under every icon.
+- Large titles with the level, unit and quiz type (as an icon) in glass pills under them; a tab bar with a name under every icon.
 - Home: a small realm orb beside the realm's name and stages, then one big Today card with a single Start button,
   then word mastery.
 - Quiz: the question alone in its card, the answers below where the thumb is (rows, or a 2×2 grid for hanzi and
