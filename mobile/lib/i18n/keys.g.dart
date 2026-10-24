@@ -467,8 +467,11 @@ mixin L10Keys {
   String get soulT => s('soulT');
   String get spkAgain => s('spkAgain');
   String get spkAll => s('spkAll');
+  String get spkAsk => s('spkAsk');
+  String get spkDenied => s('spkDenied');
   String get spkHear => s('spkHear');
   String spkHeard(Object? a0) => f('spkHeard', [a0]);
+  String get spkListening => s('spkListening');
   List<dynamic> get spkLv => v('spkLv') as List<dynamic>? ?? const [];
   List<dynamic> get spkLvD => v('spkLvD') as List<dynamic>? ?? const [];
   String get spkLvT => s('spkLvT');

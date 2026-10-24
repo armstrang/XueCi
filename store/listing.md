@@ -38,7 +38,7 @@ KARTU YANG MENGUJI
 Geser ke kanan untuk "Saya tahu", ke kiri untuk "Belum tahu". Bilang tahu? Buktikan dulu. Yakin tapi keliru membuat kata itu cepat kembali.
 
 UCAPKAN DAN LIHAT
-Ucapkan kata atau contoh kalimat, dan tiap hanzi jadi hijau atau merah. Kamu langsung tahu bunyi mana yang meleset. Memakai pengenal suara bawaan HP: tanpa izin mikrofon, tanpa rekaman disimpan. Pilih tingkat ketelitiannya: Mudah, Normal, atau Sulit.
+Ucapkan kata atau contoh kalimat, dan tiap hanzi jadi hijau atau merah. Kamu langsung tahu bunyi mana yang meleset. Aplikasi mendengar langsung lewat pengenal suara bawaan HP; tidak ada rekaman yang disimpan. Pilih tingkat ketelitiannya: Mudah, Normal, atau Sulit.
 
 KUIS DAN SIMULASI HSK
 Kenali arti, ingat hanzi, nada, dengar, isi kalimat, ketik pinyin, dan terjemahan. Soal isi kalimat memberi bantuan sesuai level, jadi pemula tidak langsung menyerah. Simulasi HSK mengikuti susunan ujian HSK 3.0, dengan waktu per bagian dan pembahasan setiap soal di akhir.
@@ -85,7 +85,7 @@ CARDS THAT CHECK YOU
 Swipe right for "I know it", left for "Don't know". Say you know it? Prove it first. Being sure but wrong brings the word back sooner.
 
 SPEAK AND SEE
-Say a word or an example sentence out loud and every hanzi turns green or red, so you see exactly which sound slipped. It uses your phone's own speech recognizer: no microphone permission, no recording kept. Choose how strict it is: Easy, Normal or Hard.
+Say a word or an example sentence out loud and every hanzi turns green or red, so you see exactly which sound slipped. It listens right in the app with your phone's own speech recognizer; nothing is recorded or kept. Choose how strict it is: Easy, Normal or Hard.
 
 QUIZ AND HSK MOCK EXAM
 Recognise meanings, recall hanzi, tones, listening, sentence gaps, typed pinyin and translation. Sentence questions give help by level, so beginners don't give up. The mock exam follows the HSK 3.0 paper, with a clock for each section and every question explained at the end.
@@ -114,7 +114,7 @@ First release of XueCi Mandarin: 5,334 HSK 1–6 words, cultivation realms and t
 - **Akses aplikasi:** semua fitur bisa dipakai tanpa login.
 - **Iklan:** tidak ada.
 - **Pembelian dalam aplikasi:** ya, hanya donasi sukarela 护法 (tiga produk sekali bayar yang bisa dibeli berulang: `dukung_teh` Rp15.000, `dukung_makan` Rp39.000, `dukung_traktir` Rp99.000). Tidak membuka fitur apa pun. Halaman toko akan menampilkan "Pembelian dalam aplikasi".
-- **Izin aplikasi:** notifikasi (pengingat harian, Android 13+ meminta izin), mulai saat HP dinyalakan (memasang ulang jadwal pengingat), getar.
+- **Izin aplikasi:** notifikasi (pengingat harian, Android 13+ meminta izin), mulai saat HP dinyalakan (memasang ulang jadwal pengingat), getar, mikrofon (latihan bicara, diminta saat pertama dipakai).
 - **Data safety:** tidak mengumpulkan data, tidak membagikan data. Riwayat jawaban dan rekomendasi belajar diproses di perangkat saja; menurut definisi Play, data yang tidak keluar dari perangkat tidak termasuk "dikumpulkan".
 - **Rating konten (IARC):** kuesioner dijawab "tidak" untuk kekerasan, konten seksual, bahasa kasar, obat-obatan, judi, interaksi pengguna, dan pembelian. Hasilnya biasanya rating untuk semua umur.
 - **Target usia:** 13 tahun ke atas (memilih di bawah 13 tahun membuat aturan Families berlaku).

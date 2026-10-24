@@ -16,6 +16,11 @@ class Native {
   Native._() {
     _ch.setMethodCallHandler((c) async {
       if (c.method == 'notifResult') _notif?.complete(c.arguments == true);
+      if (c.method == 'listenEv' && c.arguments is String) {
+        try {
+          listenEv?.call(json.decode(c.arguments as String) as Map);
+        } catch (_) {}
+      }
       if (c.method == 'ttsReady') {
         if (c.arguments is String) _tts = c.arguments as String;
         ttsChanged?.call();
@@ -27,6 +32,9 @@ class Native {
   /// in tests: replaces the platform
   static bool off = false;
   VoidCallback? ttsChanged;
+
+  /// while the app listens: {t: ready|begin|rms|partial|end, v}
+  void Function(Map ev)? listenEv;
   Completer<bool>? _notif;
 
   Future<T?> _call<T>(String m, [Object? a]) async {
@@ -81,6 +89,23 @@ class Native {
       return null;
     }
   }
+
+  /// listening inside the app (no window): the heard texts; [] nothing heard; ['!'] no recognizer; ['denied'] no
+  /// microphone permission; null stopped or failed. Asks for the microphone the first time.
+  Future<List<String>?> listenIn() async {
+    final s = await _call<String>('listenStart');
+    if (s == null) return null;
+    if (s == '!' || s == 'denied') return [s];
+    try {
+      return [for (final x in json.decode(s) as List) '$x'];
+    } catch (_) {
+      return null;
+    }
+  }
+
+  Future<void> listenStop() => _call('listenStop');
+  Future<bool> micGranted() async => (await _call<bool>('micGranted')) ?? false;
+  Future<void> openAppSettings() => _call('openAppSettings');
 
   // ---- daily reminder ----
   Future<void> setReminder(Map<String, Object?> r) => _call('setReminder', json.encode(r));

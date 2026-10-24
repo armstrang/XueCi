@@ -53,6 +53,8 @@ class MainActivity : FlutterActivity() {
     private val main = Handler(Looper.getMainLooper())
     private var donate: Donate? = null
     private var listenResult: MethodChannel.Result? = null
+    private var micResult: MethodChannel.Result? = null
+    private val listener: Listen by lazy { Listen(this) { ev -> main.post { channel.invokeMethod("listenEv", ev) } } }
 
     /** Google Play Billing, connected the first time the donation sheet asks */
     private fun don(): Donate = donate ?: Donate(this).also { donate = it }
@@ -112,7 +114,25 @@ class MainActivity : FlutterActivity() {
                     don().products((0 until a.length()).map { a.getString(it) }) { main.post { result.success(it) } }
                 }
                 "donBuy" -> don().buy(call.arguments as String) { main.post { result.success(it) } }
-                "canListen" -> result.success(canListen())
+                "canListen" -> result.success(canListen() || listener.available())
+                "micGranted" -> result.success(micGranted())
+                "listenStart" -> {
+                    if (micGranted()) {
+                        listener.start { main.post { result.success(it) } }
+                    } else {
+                        micResult?.success("denied")
+                        micResult = result
+                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), REQ_MIC)
+                    }
+                }
+                "listenStop" -> { listener.stop(); result.success(null) }
+                "openAppSettings" -> {
+                    try {
+                        startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")))
+                    } catch (_: ActivityNotFoundException) {
+                    }
+                    result.success(null)
+                }
                 "listen" -> listen(call.arguments as? String ?: "", result)
                 else -> result.notImplemented()
             }
@@ -128,6 +148,9 @@ class MainActivity : FlutterActivity() {
         putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5)
         if (prompt.isNotEmpty()) putExtra(RecognizerIntent.EXTRA_PROMPT, prompt)
     }
+
+    private fun micGranted(): Boolean =
+        ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
 
     private fun canListen(): Boolean =
         recognizeIntent("").resolveActivity(packageManager) != null
@@ -276,6 +299,11 @@ class MainActivity : FlutterActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == NOTIF_REQUEST) notifResult(notificationsAllowed())
+        if (requestCode == REQ_MIC) {
+            val r = micResult ?: return
+            micResult = null
+            if (micGranted()) listener.start { main.post { r.success(it) } } else r.success("denied")
+        }
     }
 
     private fun openNotificationSettings() {
@@ -338,6 +366,7 @@ class MainActivity : FlutterActivity() {
 
     override fun onPause() {
         tts?.stop()
+        listener.end() // never listen in the background
         super.onPause()
     }
 
@@ -354,6 +383,7 @@ class MainActivity : FlutterActivity() {
 
     companion object {
         private const val REQ_LISTEN = 7301
+        private const val REQ_MIC = 7302
         private const val NOTIF_REQUEST = 7
     }
 }

@@ -26,6 +26,24 @@ class XueCiApp extends StatefulWidget {
 }
 
 class _XueCiAppState extends State<XueCiApp> with WidgetsBindingObserver {
+  // ColorScheme.fromSeed works out whole tonal palettes: made once per theme and level colour, not on every change
+  ThemeData? _th;
+  (Pal, Color)? _thKey;
+  ThemeData _theme(Pal p, Color acc) {
+    if (_th != null && _thKey == (p, acc)) return _th!;
+    _thKey = (p, acc);
+    return _th = ThemeData(
+      brightness: p.brightness,
+      fontFamily: F.ui,
+      fontFamilyFallback: F.fallback,
+      colorScheme: ColorScheme.fromSeed(seedColor: acc, brightness: p.brightness, primary: acc),
+      scaffoldBackgroundColor: p.bg,
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: Colors.transparent,
+      textSelectionTheme: TextSelectionThemeData(cursorColor: acc, selectionHandleColor: acc),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -79,16 +97,7 @@ class _XueCiAppState extends State<XueCiApp> with WidgetsBindingObserver {
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          theme: ThemeData(
-            brightness: p.brightness,
-            fontFamily: F.ui,
-            fontFamilyFallback: F.fallback,
-            colorScheme: ColorScheme.fromSeed(seedColor: acc, brightness: p.brightness, primary: acc),
-            scaffoldBackgroundColor: p.bg,
-            splashFactory: NoSplash.splashFactory,
-            highlightColor: Colors.transparent,
-            textSelectionTheme: TextSelectionThemeData(cursorColor: acc, selectionHandleColor: acc),
-          ),
+          theme: _theme(p, acc),
           builder: (c, child) {
             final mq = MediaQuery.of(c);
             final fs = mq.textScaler.scale(1).clamp(.85, 1.6);

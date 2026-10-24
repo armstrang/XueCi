@@ -850,6 +850,9 @@ I18N.vi = {
   spkHear: 'Nghe mẫu',
   spkSay: 'Đọc câu này',
   spkMic: 'Nói',
+  spkDenied: 'XueCi cần micro để nghe bạn nói. Hãy cho phép trong cài đặt điện thoại.',
+  spkAsk: 'Chạm micro. Điện thoại chỉ hỏi quyền một lần.',
+  spkListening: 'Đang nghe… nói đi',
   spkLvT: 'Độ khắt khe khi nói',
   spkLv: ['Dễ', 'Thường', 'Khó'],
   spkLvD: [

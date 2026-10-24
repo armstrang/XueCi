@@ -21,8 +21,10 @@ same progress, every screen drawn natively, with a new look that is easier to re
 ### Speaking practice
 - A microphone next to each example sentence in the List, and a new quiz type, Speak: say the word or sentence and
   every hanzi turns green (right) or red (missed), with what the phone heard. Try again as often as you like.
-- It uses the phone's own speech recognizer in its own window, so the app needs no microphone permission and never
-  sees a recording. Strictness in Settings: Easy (tones may slip), Normal, Hard (only the phone's first guess).
+- The app listens itself, with no pop-up window: tap the mic, speak, and it stops when you do. The mic breathes with
+  your voice and shows what it hears as you speak. It asks once for the microphone; nothing is recorded or kept,
+  only the recognized text is used. Strictness in Settings: Easy (tones may slip), Normal, Hard (only the phone's
+  first guess).
 - No Mandarin voice for the speaker yet? A short guide shows how to install one.
 
 ### Cleaner, calmer screens

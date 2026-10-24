@@ -275,6 +275,7 @@ class App extends ChangeNotifier {
     lm.ttsReady = () => ttsOK;
     loadRem();
     canRemind = Native.I.isAndroid;
+    Native.I.micGranted().then((v) => micOK = v);
     Native.I.canListen().then((v) {
       if (v != canListen) {
         canListen = v;
@@ -430,15 +431,36 @@ class App extends ChangeNotifier {
   CharSounds? _sounds;
   CharSounds get sounds => _sounds ??= CharSounds(vocab.data);
 
-  /// listens once and marks [target]; null when closed, or when the phone can't listen (then a toast says so)
-  Future<SpeakResult?> hear(String target) async {
-    final h = await Native.I.listen(t.spkPrompt);
+  /// the microphone was allowed (asked once at start, then on each try)
+  bool micOK = false;
+  bool _micDenied = false;
+
+  /// listens once inside the app and marks [target]; [onEvent] gets the loudness and what was heard so far.
+  /// Falls back to the phone's recognizer window when the phone can't listen inside apps. null when stopped.
+  Future<SpeakResult?> hear(String target, {void Function(Map ev)? onEvent}) async {
+    Native.I.listenEv = onEvent;
+    var h = await Native.I.listenIn();
+    Native.I.listenEv = null;
+    if (h != null && h.length == 1 && h.first == 'denied') {
+      micOK = false;
+      // asked and refused: the second time, the phone's settings are the only way back
+      toast(t.spkDenied, 5000);
+      if (_micDenied) Future.delayed(const Duration(milliseconds: 1400), Native.I.openAppSettings);
+      _micDenied = true;
+      notifyListeners();
+      return null;
+    }
+    if (h != null && h.length == 1 && h.first == '!') h = await Native.I.listen(t.spkPrompt);
     if (h == null) return null;
     if (h.length == 1 && h.first == '!') {
       canListen = false;
       toast(t.spkNone, 5000);
       notifyListeners();
       return null;
+    }
+    if (!micOK) {
+      micOK = true;
+      notifyListeners();
     }
     return scoreSpeech(target, h, spk, sounds);
   }

@@ -10,6 +10,7 @@ import 'package:flutter/physics.dart';
 import 'package:flutter/services.dart';
 
 import '../app/app.dart';
+import '../app/native.dart';
 import '../data/pinyin.dart';
 import '../app/speech.dart';
 import '../app/runner.dart';
@@ -964,6 +965,8 @@ class _QViewState extends State<_QView> {
   void dispose() {
     _in.dispose();
     _focus.dispose();
+    _level.dispose();
+    if (_busy) Native.I.listenStop();
     super.dispose();
   }
 
@@ -1116,14 +1119,26 @@ class _QViewState extends State<_QView> {
   }
 
   bool _busy = false, _nothing = false;
+  final _level = ValueNotifier<double>(0);
+  String _partial = '';
 
   Future<void> _listen(Item it) async {
-    if (_busy) return;
+    if (_busy) {
+      Native.I.listenStop();
+      return;
+    }
+    HapticFeedback.lightImpact();
     setState(() {
       _busy = true;
       _nothing = false;
+      _partial = '';
     });
-    final r = await app.hear(it.d.h);
+    _level.value = 0;
+    final r = await app.hear(it.d.h, onEvent: (ev) {
+      if (!mounted) return;
+      if (ev['t'] == 'rms') _level.value = (((ev['v'] as num).toDouble() + 2) / 12).clamp(0.0, 1.0); // only the button redraws
+      if (ev['t'] == 'partial') setState(() => _partial = '${ev['v']}');
+    });
     if (!mounted) return;
     setState(() => _busy = false);
     if (r == null) return;
@@ -1174,7 +1189,14 @@ class _QViewState extends State<_QView> {
                 py(),
                 const SizedBox(height: 2),
                 Text(app.m1(d), textAlign: TextAlign.center, style: F.s(15, c: p.soft)),
-                if (res != null || _nothing) ...[
+                if (_busy) ...[
+                  const SizedBox(height: 14),
+                  Text(
+                    _partial.isEmpty ? t.spkListening : _partial,
+                    textAlign: TextAlign.center,
+                    style: F.s(_partial.isEmpty ? 15 : 20, w: FontWeight.w700, c: p.soft, family: _partial.isEmpty ? F.ui : F.zh),
+                  ),
+                ] else if (res != null || _nothing) ...[
                   const SizedBox(height: 14),
                   Semantics(
                     liveRegion: true,
@@ -1198,10 +1220,12 @@ class _QViewState extends State<_QView> {
               label: Text(t.spkHear, style: F.s(15, w: FontWeight.w700, c: th.acc)),
             ),
           ),
-        const SizedBox(height: 6),
-        Center(child: BigMic(onTap: _busy ? null : () => _listen(it), busy: _busy)),
-        const SizedBox(height: 10),
-        Text('${t.spkTap} · ${L10.text(t.spkLv[spkLevels.indexOf(app.spk)])}', textAlign: TextAlign.center, style: F.s(13.5, c: p.soft)),
+        Center(child: ValueListenableBuilder<double>(valueListenable: _level, builder: (c, v, _) => BigMic(onTap: () => _listen(it), busy: _busy, level: v))),
+        Text(
+          app.micOK ? '${t.spkTap} · ${L10.text(t.spkLv[spkLevels.indexOf(app.spk)])}' : t.spkAsk,
+          textAlign: TextAlign.center,
+          style: F.s(13.5, c: p.soft),
+        ),
         if (it.done) ...[
           const SizedBox(height: 16),
           KeyedSubtree(key: _nextKey, child: MainBtn(t.next, wide: true, radius: 28, big: true, onTap: app.runner.next)),

@@ -870,6 +870,9 @@ I18N.en = {
   spkHear: 'Hear it',
   spkSay: 'Say this sentence',
   spkMic: 'Speak',
+  spkDenied: 'XueCi needs the microphone to hear you. Allow it in your phone’s settings.',
+  spkAsk: 'Tap the mic. Your phone asks for permission once.',
+  spkListening: 'Listening… speak now',
   spkLvT: 'Speaking strictness',
   spkLv: ['Easy', 'Normal', 'Hard'],
   spkLvD: [

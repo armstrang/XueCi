@@ -400,41 +400,128 @@ class SpokenText extends StatelessWidget {
   }
 }
 
-/// the big round microphone: tinted liquid glass, pulses while the phone listens
-class BigMic extends StatelessWidget {
+/// the big round microphone: tinted liquid glass. While the app listens it breathes with your voice ([level] 0–1)
+/// and rings of light go out from it; tapping it again stops. Only this button redraws.
+class BigMic extends StatefulWidget {
   final VoidCallback? onTap;
   final bool busy;
-  const BigMic({super.key, this.onTap, this.busy = false});
+  final double level;
+  const BigMic({super.key, this.onTap, this.busy = false, this.level = 0});
+  @override
+  State<BigMic> createState() => _BigMicState();
+}
+
+class _BigMicState extends State<BigMic> with SingleTickerProviderStateMixin {
+  late final AnimationController _ring = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
+
+  @override
+  void didUpdateWidget(BigMic o) {
+    super.didUpdateWidget(o);
+    _sync();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _sync();
+  }
+
+  void _sync() {
+    final reduce = WidgetsBinding.instance.platformDispatcher.accessibilityFeatures.disableAnimations;
+    if (widget.busy && !reduce) {
+      if (!_ring.isAnimating) _ring.repeat();
+    } else if (_ring.isAnimating) {
+      _ring.stop();
+      _ring.value = 0;
+    }
+  }
+
+  @override
+  void dispose() {
+    _ring.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final c = th.acc;
-    return Press(
-      onTap: onTap,
-      scale: .92,
-      label: app.t.spkMic,
-      child: TweenAnimationBuilder<double>(
-        tween: Tween(end: busy ? 1 : 0),
-        duration: const Duration(milliseconds: 240),
-        builder: (ctx, v, child) => Transform.scale(scale: 1 + .06 * v, child: child),
-        child: CustomPaint(
-          painter: OuterShadow(
-            th.low ? const [] : [BoxShadow(color: c.withValues(alpha: .45), offset: const Offset(0, 12), blurRadius: 28, spreadRadius: -10)],
-            48,
-          ),
-          child: Glass(
-            inner: true,
-            radius: 48,
-            width: 96,
-            height: 96,
-            shadow: const [],
-            color: tintFill(Th.of(context), c),
-            child: Center(child: Icon2(I.mic, size: 42, color: th.p.dark ? th.p.fg : th.p.onAcc, width: 2.2)),
+    final busy = widget.busy;
+    final btn = CustomPaint(
+      painter: OuterShadow(
+        th.low ? const [] : [BoxShadow(color: c.withValues(alpha: busy ? .6 : .45), offset: const Offset(0, 12), blurRadius: busy ? 34 : 28, spreadRadius: -10)],
+        48,
+      ),
+      child: Glass(
+        inner: true,
+        radius: 48,
+        width: 96,
+        height: 96,
+        shadow: const [],
+        color: tintFill(th, c),
+        child: Center(child: Icon2(I.mic, size: 42, color: th.p.dark ? th.p.fg : th.p.onAcc, width: 2.2)),
+      ),
+    );
+    return Semantics(
+      button: true,
+      label: busy ? app.t.spkListening : app.t.spkMic,
+      child: Press(
+        onTap: widget.onTap,
+        scale: .92,
+        child: SizedBox(
+          width: 150,
+          height: 150,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              if (busy)
+                Positioned.fill(
+                  child: RepaintBoundary(
+                    child: AnimatedBuilder(
+                      animation: _ring,
+                      builder: (ctx, _) => CustomPaint(painter: _Rings(_ring.value, c)),
+                    ),
+                  ),
+                ),
+              // the button breathes with the voice: a quick spring towards the loudness
+              TweenAnimationBuilder<double>(
+                tween: Tween(end: busy ? 1.04 + .12 * widget.level.clamp(0, 1) : 1),
+                duration: const Duration(milliseconds: 110),
+                curve: Curves.easeOut,
+                builder: (ctx, v, child) => Transform.scale(scale: v, child: child),
+                child: btn,
+              ),
+            ],
           ),
         ),
       ),
     );
   }
+}
+
+/// two rings of light going out from the microphone and fading
+class _Rings extends CustomPainter {
+  final double t;
+  final Color c;
+  _Rings(this.t, this.c);
+  @override
+  void paint(Canvas canvas, Size s) {
+    final ctr = s.center(Offset.zero);
+    for (final k in [t, (t + .5) % 1]) {
+      final r = 48 + 26 * Curves.easeOut.transform(k);
+      canvas.drawCircle(
+        ctr,
+        r,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2.5 * (1 - k) + .5
+          ..color = c.withValues(alpha: .55 * (1 - k)),
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_Rings o) => o.t != t || o.c != c;
 }
 
 /// the speaking sheet (List): say the sentence (or the word), see each hanzi marked, try again as often as you like
@@ -453,16 +540,35 @@ class _Speak extends StatefulWidget {
 class _SpeakState extends State<_Speak> {
   SpeakResult? res;
   bool busy = false, nothing = false;
+  final level = ValueNotifier<double>(0);
+  String partial = '';
 
   String get target => widget.sentence ? widget.d.z : widget.d.h;
 
+  @override
+  void dispose() {
+    level.dispose();
+    if (busy) Native.I.listenStop();
+    super.dispose();
+  }
+
   Future<void> _go() async {
-    if (busy) return;
+    if (busy) {
+      Native.I.listenStop();
+      return;
+    }
+    HapticFeedback.lightImpact();
     setState(() {
       busy = true;
       nothing = false;
+      partial = '';
     });
-    final r = await app.hear(target);
+    level.value = 0;
+    final r = await app.hear(target, onEvent: (ev) {
+      if (!mounted) return;
+      if (ev['t'] == 'rms') level.value = (((ev['v'] as num).toDouble() + 2) / 12).clamp(0.0, 1.0); // only the button redraws
+      if (ev['t'] == 'partial') setState(() => partial = '${ev['v']}');
+    });
     if (!mounted) return;
     setState(() {
       busy = false;
@@ -511,9 +617,10 @@ class _SpeakState extends State<_Speak> {
             ),
           ),
         const SizedBox(height: 18),
-        Center(child: BigMic(onTap: busy ? null : _go, busy: busy)),
-        const SizedBox(height: 10),
-        Text('${t.spkTap} · ${L10.text(t.spkLv[spkLevels.indexOf(app.spk)])}', textAlign: TextAlign.center, style: F.s(13, c: p.soft)),
+        if (busy)
+          Text(partial.isEmpty ? t.spkListening : partial, textAlign: TextAlign.center, style: F.s(partial.isEmpty ? 15 : 20, w: FontWeight.w700, c: p.soft, family: partial.isEmpty ? F.ui : F.zh)),
+        Center(child: ValueListenableBuilder<double>(valueListenable: level, builder: (c, v, _) => BigMic(onTap: _go, busy: busy, level: v))),
+        Text(app.micOK ? '${t.spkTap} · ${L10.text(t.spkLv[spkLevels.indexOf(app.spk)])}' : t.spkAsk, textAlign: TextAlign.center, style: F.s(13, c: p.soft)),
         if (app.canSpeak())
           Center(
             child: TextButton.icon(

@@ -869,6 +869,9 @@ I18N.id = {
   spkHear: 'Dengar contoh',
   spkSay: 'Ucapkan kalimat ini',
   spkMic: 'Bicara',
+  spkDenied: 'XueCi perlu izin mikrofon untuk mendengar ucapanmu. Izinkan di pengaturan HP.',
+  spkAsk: 'Ketuk mikrofon. HP akan minta izin sekali saja.',
+  spkListening: 'Mendengarkan… bicara sekarang',
   spkLvT: 'Ketelitian bicara',
   spkLv: ['Mudah', 'Normal', 'Sulit'],
   spkLvD: [

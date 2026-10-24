@@ -167,8 +167,9 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - **Easter egg**: seven taps on the wordmark → a seal stamps 天外有天 (封 before the gate, 开 after).
 - Pronunciation uses the phone's TTS (zh-CN, rate 0.9); polyphonic characters are guessed by the engine. A missing
   voice opens a short install guide (`openTtsGuide`).
-- **Speaking** (`app/speech.dart`): the phone's recognizer through `RecognizerIntent` (its own window, no mic
-  permission; `Native.listen`). Each target hanzi is aligned with what was heard: same hanzi or same syllable+tone
+- **Speaking** (`app/speech.dart`): the app listens itself through `SpeechRecognizer` (`Listen.kt`, `Native.listenIn`,
+  events `listenEv`: rms/partial; RECORD_AUDIO asked once, Josh Oct 2026: no Google pop-up); `RecognizerIntent`
+  (`Native.listen`, its own window) only when the phone can't listen inside apps. Each target hanzi is aligned with what was heard: same hanzi or same syllable+tone
   (normal), any tone (easy), first guess only (hard); `spk` in `hsk16_ui`. A mic next to List sentences
   (`openSpeak`) and quiz type `u` (logged as `s`; the first try is the answer, later tries only show).
 

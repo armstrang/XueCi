@@ -4,6 +4,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Light haptic feedback on taps and quiz answers -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- speaking practice: the app listens itself (no Google window); asked once, nothing is recorded or kept -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <!-- Daily study reminder: post the notification (Android 13+ asks first), and set the alarm again after a restart -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -78,6 +80,9 @@
              microphone permission -->
         <intent>
             <action android:name="android.speech.action.RECOGNIZE_SPEECH" />
+        </intent>
+        <intent>
+            <action android:name="android.speech.RecognitionService" />
         </intent>
         <intent>
             <action android:name="android.intent.action.PROCESS_TEXT"/>
