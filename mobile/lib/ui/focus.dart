@@ -46,7 +46,7 @@ class Capsule extends StatelessWidget {
         HeadPill(
           label: '${t.pickLv}: HSK ${app.level}',
           onTap: () => openLevelMenu(context),
-          child: Text('HSK ${app.level}', style: F.s(15, w: FontWeight.w800, c: p.dark ? Color.lerp(th.acc, Colors.white, .3)! : th.acc)),
+          child: Text('HSK ${app.level}', style: F.s(15, w: FontWeight.w800, c: p.dark ? Color.lerp(th.acc, Colors.white, .45)! : th.acc)),
         ),
         HeadPill(
           label: '${t.pickU}: ${u != 0 ? '${t.unit} $u' : t.allU}',

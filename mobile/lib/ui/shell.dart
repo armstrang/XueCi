@@ -172,7 +172,8 @@ class _ShellState extends State<Shell> {
             child: Stack(
               children: [
                 Positioned.fill(child: GlowBackground(tone: th.acc)),
-                if (th.full && !const ['session', 'placement', 'bt'].contains(s))
+                // the drifting glow only on the light theme: dark and true black keep the mockup's still, deep background
+                if (th.full && !th.p.dark && !const ['session', 'placement', 'bt'].contains(s))
                   const Positioned.fill(child: DriftGlow()),
                 Positioned.fill(
                   // only the new screen comes in (the old one leaves at once, so no two screens are drawn together):

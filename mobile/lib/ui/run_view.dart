@@ -401,7 +401,7 @@ Widget _qTypePill(BuildContext context) {
     label: '${t.qTypeL}: ${cur.$1}',
     icon: Padding(
       padding: const EdgeInsets.only(left: 8),
-      child: Text(cur.$3.split('→').first, style: F.s(15, w: FontWeight.w900, family: F.zh, c: p.dark ? Color.lerp(Th.of(context).acc, Colors.white, .3)! : Th.of(context).acc)),
+      child: Text(cur.$3.split('→').first, style: F.s(15, w: FontWeight.w900, family: F.zh, c: p.dark ? Color.lerp(Th.of(context).acc, Colors.white, .5)! : Th.of(context).acc)),
     ),
     child: Text(cur.$1, style: F.s(15, w: FontWeight.w800, c: p.fg)),
   );

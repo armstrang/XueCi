@@ -269,9 +269,9 @@ class Pal {
     rimHi: .5,
     rimLo: 0,
     sheen: .06,
-    auroraTone: .36,
-    auroraWarm: const Color.fromRGBO(200, 90, 60, .26),
-    auroraCool: const Color.fromRGBO(110, 80, 220, .28),
+    auroraTone: .42,
+    auroraWarm: const Color.fromRGBO(200, 90, 60, .30),
+    auroraCool: const Color.fromRGBO(110, 80, 220, .42),
     dropIn: const [
       BoxShadow(color: Color.fromRGBO(0, 0, 0, .35), offset: Offset(0, 6), blurRadius: 16, spreadRadius: -8),
     ],
@@ -336,9 +336,9 @@ class Pal {
     rimHi: .45,
     rimLo: 0,
     sheen: .09,
-    auroraTone: .3,
-    auroraWarm: const Color.fromRGBO(200, 90, 60, .2),
-    auroraCool: const Color.fromRGBO(110, 80, 220, .28),
+    auroraTone: .4,
+    auroraWarm: const Color.fromRGBO(200, 90, 60, .26),
+    auroraCool: const Color.fromRGBO(110, 80, 220, .38),
     dropIn: const [],
   );
 }

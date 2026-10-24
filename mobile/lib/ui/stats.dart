@@ -408,7 +408,7 @@ class _InsightsState extends State<_Insights> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(a, style: F.s(20, w: FontWeight.w800, c: p.fg, feat: F.tab)),
-            Text(b, style: F.s(11.5, w: FontWeight.w500, c: p.dark ? p.fg.withValues(alpha: .86) : p.soft, h: 1.3)),
+            Text(b, style: F.s(11.5, w: FontWeight.w500, c: p.dark ? p.fg : p.soft, h: 1.3)),
           ],
         ),
       ),

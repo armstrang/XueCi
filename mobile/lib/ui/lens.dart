@@ -298,13 +298,23 @@ class _TabLensPainter extends CustomPainter {
   _TabLensPainter(this.p, this.lc, this.low);
   @override
   void paint(Canvas c, Size s) {
+    // the mockup: a soft rounded square of light behind the open tab, a faint highlight along its top; no rim, no glow
     final r = (Offset.zero & s).deflate(1);
-    final path = Path()..addRRect(RRect.fromRectAndRadius(r, Radius.circular(r.height / 2)));
+    final rr = RRect.fromRectAndRadius(r, const Radius.circular(22));
+    c.drawRRect(rr, Paint()..color = p.dark ? Colors.white.withValues(alpha: .10) : Colors.white.withValues(alpha: .62));
     if (!low) {
-      OuterShadow([BoxShadow(color: lc.withValues(alpha: p.dark ? .35 : .4), offset: const Offset(0, 6), blurRadius: 16, spreadRadius: -8)], s.height / 2)
-          .paint(c, s);
+      c.save();
+      c.clipRRect(rr);
+      c.drawRect(
+        Rect.fromLTWH(r.left, r.top, r.width, r.height * .5),
+        Paint()
+          ..shader = ui.Gradient.linear(r.topCenter, r.center, [
+            Colors.white.withValues(alpha: p.dark ? .06 : .3),
+            Colors.white.withValues(alpha: 0),
+          ]),
+      );
+      c.restore();
     }
-    paintGlass(c, path, r, p, GK.lens, tint: lc.withValues(alpha: p.dark ? .16 : .10), low: low, rr: RRect.fromRectAndRadius(r, Radius.circular(r.height / 2)));
   }
 
   @override

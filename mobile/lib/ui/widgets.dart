@@ -1,6 +1,8 @@
 /// Small shared pieces: buttons, chips, hanzi in tone colours, text with <b>, the grade badge.
 library;
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../app/app.dart';
@@ -85,9 +87,13 @@ class Py extends StatelessWidget {
 
 /// the fill of a coloured button: tinted liquid glass; on dark themes a deep, saturated drop of the colour (the
 /// mockup), on light a rich one
-Color tintFill(Th th, Color c) => th.p.dark
-    ? Color.lerp(c, Colors.black, .5)!.withValues(alpha: .9)
-    : Color.lerp(c, Colors.black, .2)!.withValues(alpha: .78);
+Color tintFill(Th th, Color c) {
+  if (!th.p.dark) return Color.lerp(c, Colors.black, .2)!.withValues(alpha: .78);
+  // dark: the colour itself, deep and saturated (the mockup's rgba(22,120,124,.62) for the HSK 2 teal)
+  final h = HSLColor.fromColor(c);
+  return h.withLightness(.29).withSaturation(math.min(1.0, h.saturation * 1.15)).toColor().withValues(alpha: .88);
+}
+
 
 /// the main button (planbtn / next): solid in the level's colour
 class MainBtn extends StatelessWidget {

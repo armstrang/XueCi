@@ -501,9 +501,11 @@ class _BgPainter extends CustomPainter {
     if (p.dark) {
       // dark and true black (the mockup Josh chose): the level's tone high on the left, violet on the right, a
       // low warm light at the bottom, over near-black
-      blob(Offset(0, s.height * .02), vmax * .55, tone, p.auroraTone, sy: .9);
-      blob(Offset(s.width, s.height * .55), vmax * .55, p.auroraCool, p.auroraCool.a, sy: 1.1);
-      if (!low) blob(Offset(s.width * .3, s.height), vmax * .5, p.auroraWarm, p.auroraWarm.a, sy: .85);
+      // sized after the mockup's CSS (radial gradients fading out by ~70 % of 400 px on a 412×892 phone): small
+      // pools of light in the corners, most of the screen stays near-black
+      blob(Offset(0, s.height * .08), vmax * .40, tone, p.auroraTone, sy: .9);
+      blob(Offset(s.width, s.height * .55), vmax * .40, p.auroraCool, p.auroraCool.a, sy: 1.1);
+      if (!low) blob(Offset(s.width * .3, s.height), vmax * .38, p.auroraWarm, p.auroraWarm.a, sy: .85);
       return;
     }
     blob(Offset(s.width * .18, s.height * .06), vmax * .62, tn, p.auroraTone, sy: .8);
