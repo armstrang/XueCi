@@ -29,6 +29,10 @@ same progress, every screen drawn natively, with a new look that is easier to re
   first guess).
 - No Mandarin voice for the speaker yet? A short guide shows how to install one.
 
+### A new icon
+- Simpler: just 词, drawn as one clean line on seal red. With the phone in dark mode it turns night and gold (if
+  your launcher follows the theme), and Android 13's themed icons show 词 alone in your wallpaper's colours.
+
 ### A new opening
 - The app opens on its own background (no icon): a drop of gold ink, XueCi writing itself in letter by letter over
   a gold line, and Home rising in as the wordmark moves into its corner, in under two seconds. Tap to skip it. It

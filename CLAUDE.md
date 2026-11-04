@@ -23,7 +23,7 @@ WebView version was removed from this repo (archived in `armstrang/Merdeka-Manda
 | `mobile/tool/` | `make_assets.py` (needs `npm install --prefix mobile/tool acorn@8.15.0`): `assets/data` (core + per-language words, sealed `s0.bin`/`s-<lang>.bin`) and `assets/i18n`; refuses public text with a secret word. `make_fonts.py` (font subsets; re-run after new characters; sources in `fonts-src/`, not committed). `cloud_sdk.sh` (Flutter SDK for Claude's cloud sessions) |
 | `mobile/android/` | Kotlin: `MainActivity.kt` (method channel `xueci/native`), `Reminder.kt` (+ `ReminderReceiver`), `XueciWidget.kt`; `assets/legacy.html` (progress move) |
 | `mobile/test/` | `engine_trace_test` (replays `fixtures/engine/*.json` call by call; a deliberate engine change = update the fixture with care), `i18n_test`, `store_test`, `backup_test`, `secret_test`, `contrast_test`, `screens_test` (screenshots → `test/goldens/`, not committed: look at them), `perf_probe_test` (`PERF=1`) |
-| `art/` | icon artwork; `python3 art/make_icons.py` writes every icon into `mobile/android` |
+| `art/` | the icon (Josh, Nov 2026: only 词, a round-ended line, red seal; night + gold in `mipmap-night-*`): `art/icon.html` (drawn by hand, no font), `python3 art/make_icons.py` (Playwright) writes every icon into `mobile/android`, the Play icon and the badge |
 | `store/listing.md`, `docs/privacy/` | Play listing text; privacy policy (GitHub Pages) |
 | `store/device/` (not committed) | device screenshots: Galaxy S26 1080×2160, Galaxy Tab 1600×2560, OPPO Pad Mini 1680×2520 (+ landscape), ID/EN: `STORE=1 flutter test --no-pub --update-goldens test/store_device_test.dart`, then `python3 art/make_device_bars.py` (status bar) |
 

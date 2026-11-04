@@ -1,0 +1,45 @@
+<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}svg{display:block}</style></head>
+<body><div id="r"></div><script>
+// The app icon (Josh, Nov 2026: very simple, only 词): 词 drawn as one round-ended line, a little raised (a soft
+// shadow below, a thin light along the top), on a soft vertical gradient. Red seal by default, night and gold when
+// the phone is dark. Drawn by hand, no font. art/make_icons.py renders it with ?v=&m=&px=.
+// The design's square is 0…1024; the adaptive layer (m=layer, m=mono) is 108 dp of which 72 dp show: -256…1280.
+const G = `
+<path d="M262 236 L318 300"/>
+<path d="M196 430 L300 430 L300 714 L374 650"/>
+<path d="M446 262 L792 262 L792 742 Q792 808 726 790 L690 780"/>
+<path d="M500 384 L690 384"/>
+<rect x="506" y="482" width="182" height="160" rx="14"/>`;
+const V = {
+  red: ['#c33a32', '#7d1a1d', '#fff4ea', '#f4d3c2'],
+  gold: ['#1b1d27', '#0b0c11', '#f6dea6', '#d9a94e'],
+};
+const q = new URLSearchParams(location.search);
+const [bgA, bgB, stA, stB] = V[q.get('v') || 'red'];
+const m = q.get('m') || 'square', px = +(q.get('px') || 1024);
+const layer = m === 'layer' || m === 'mono';
+const vb = layer ? '-256 -256 1536 1536' : '0 0 1024 1024';
+const glyph = `<g transform="translate(512 518) scale(.8) translate(-494 -522)" fill="none" stroke-linecap="round" stroke-linejoin="round">`;
+let body;
+if (m === 'mono') {
+  // Android 13 themed icon: the shape alone, the launcher colours it
+  body = `${glyph}<g stroke="#fff" stroke-width="66">${G}</g></g>`;
+} else {
+  const r = m === 'round' ? 512 : m === 'rounded' ? 230 : 0;
+  const clip = r ? `<clipPath id="c"><rect width="1024" height="1024" rx="${r}"/></clipPath>` : '';
+  const bg = layer ? `<rect x="-256" y="-256" width="1536" height="1536" fill="url(#bg)"/><rect x="-256" y="-256" width="1536" height="1536" fill="url(#sh)"/>`
+                   : `<rect width="1024" height="1024" fill="url(#bg)"/><rect width="1024" height="1024" fill="url(#sh)"/>`;
+  body = `<defs>
+    <linearGradient id="bg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="1024"><stop offset="0" stop-color="${bgA}"/><stop offset="1" stop-color="${bgB}"/></linearGradient>
+    <linearGradient id="st" gradientUnits="userSpaceOnUse" x1="0" y1="200" x2="0" y2="840"><stop offset="0" stop-color="${stA}"/><stop offset="1" stop-color="${stB}"/></linearGradient>
+    <radialGradient id="sh" gradientUnits="userSpaceOnUse" cx="307" cy="102" r="922"><stop offset="0" stop-color="#fff" stop-opacity=".16"/><stop offset=".6" stop-color="#fff" stop-opacity="0"/></radialGradient>
+    <filter id="f" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#000" flood-opacity=".28"/></filter>
+    ${clip}</defs>
+  <g ${r ? 'clip-path="url(#c)"' : ''}>${bg}
+    ${glyph}<g filter="url(#f)" stroke="url(#st)" stroke-width="66">${G}</g>
+      <g stroke="#fff" stroke-opacity=".2" stroke-width="10" transform="translate(-3 -9)">${G}</g></g>
+    ${r ? `<rect x="3" y="3" width="1018" height="1018" rx="${r - 3}" fill="none" stroke="#fff" stroke-opacity=".14" stroke-width="6"/>` : ''}
+  </g>`;
+}
+document.getElementById('r').innerHTML = `<svg width="${px}" height="${px}" viewBox="${vb}" xmlns="http://www.w3.org/2000/svg">${body}</svg>`;
+</script></body></html>
