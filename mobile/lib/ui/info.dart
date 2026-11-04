@@ -366,7 +366,7 @@ class _HRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(main, style: F.s(13, w: FontWeight.w800, c: p.fg, h: 1.4)),
-                if (sub.isNotEmpty) Text(sub, style: F.s(12, c: p.soft, h: 1.4)),
+                if (sub.isNotEmpty) Text(sub, style: F.s(13.5, c: p.soft, h: 1.45)),
               ],
             ),
           ),

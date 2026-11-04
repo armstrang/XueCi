@@ -61,8 +61,14 @@ class MainActivity : FlutterActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         startedAt = SystemClock.uptimeMillis()
-        // the splash stays until Home is on screen (Native.ready from the first frame), 2.5 s at most
-        installSplashScreen().setKeepOnScreenCondition { !ready && SystemClock.uptimeMillis() - startedAt < 2500 }
+        // the system splash is only the app's background (no icon: the opening is drawn by the app), kept until the
+        // first frame is on screen (Native.ready), 2.5 s at most, then it fades into the app's own opening
+        installSplashScreen().apply {
+            setKeepOnScreenCondition { !ready && SystemClock.uptimeMillis() - startedAt < 2500 }
+            setOnExitAnimationListener { v ->
+                v.view.animate().alpha(0f).setDuration(150).withEndAction { v.remove() }.start()
+            }
+        }
         super.onCreate(savedInstanceState)
         startTts()
     }

@@ -144,7 +144,7 @@ class ZpText extends StatelessWidget {
     final th = Th.of(context);
     final p = th.p;
     final m = RegExp(r'\{([^}]*)\}').firstMatch(zp);
-    final st = F.s(12.5, c: p.soft, h: 1.45);
+    final st = F.s(13.5, c: p.soft, h: 1.45);
     if (m != null && fill != null) return Text(zp.substring(0, m.start) + fill! + zp.substring(m.end), style: st);
     if (m == null || plainWord) return Text(zp.replaceAll(RegExp('[{}]'), ''), style: st);
     return Text.rich(

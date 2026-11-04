@@ -389,14 +389,14 @@ class StageBox extends StatelessWidget {
           if (st.test > 0)
             Padding(
               padding: const EdgeInsets.only(top: 3),
-              child: Text(t.stTest(app.fmt(st.test)), style: F.s(12.5, c: p.soft, h: 1.4)),
+              child: Text(t.stTest(app.fmt(st.test)), style: F.s(13.5, c: p.soft, h: 1.45)),
             ),
           const SizedBox(height: 4),
-          Rich(note, style: F.s(12.5, c: p.soft, h: 1.4)),
+          Rich(note, style: F.s(13.5, c: p.soft, h: 1.45)),
           if (eta != null)
             Padding(
               padding: const EdgeInsets.only(top: 4),
-              child: Rich(eta, style: F.s(12.5, c: p.soft, h: 1.45), boldColor: p.fg),
+              child: Rich(eta, style: F.s(13.5, c: p.soft, h: 1.45), boldColor: p.fg),
             ),
         ],
       ),
@@ -516,7 +516,7 @@ class TestBtns extends StatelessWidget {
     } else if (pt == 'retake') {
       out.add(GhostBtn(t.ptRetake(app.dateS(app.tDate(lm.ptRetakeUntil()))), wide: true, onTap: () => act(() => app.go('placement'))));
     } else if (r > 0 && note) {
-      out.add(Padding(padding: const EdgeInsets.only(top: 8), child: Rich(t.ptClosed, style: F.s(12, c: p.soft, h: 1.45))));
+      out.add(Padding(padding: const EdgeInsets.only(top: 8), child: Rich(t.ptClosed, style: F.s(13.5, c: p.soft, h: 1.45))));
     }
     if (!can && (lm.btOpen() || pt == 'wait')) {
       out.add(
@@ -527,7 +527,7 @@ class TestBtns extends StatelessWidget {
             children: [
               Padding(padding: const EdgeInsets.only(top: 2, right: 6), child: Icon2(I.lock, size: 14, color: p.soft)),
               Expanded(
-                child: Text(t.testNext(app.dateS(app.tDate(lm.nextTestAt()))), style: F.s(12, c: p.soft, h: 1.45)),
+                child: Text(t.testNext(app.dateS(app.tDate(lm.nextTestAt()))), style: F.s(13.5, c: p.soft, h: 1.45)),
               ),
             ],
           ),
@@ -650,7 +650,7 @@ class AdviceList extends StatelessWidget {
     final th = Th.of(context);
     final p = th.p;
     final a = app.memo('advice', app.lm.advice);
-    if (a.items.isEmpty) return Rich(app.t.advNone, style: F.s(12, c: p.soft, h: 1.45));
+    if (a.items.isEmpty) return Rich(app.t.advNone, style: F.s(13.5, c: p.soft, h: 1.45));
     final items = a.items.take(max).toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -681,7 +681,7 @@ class AdviceList extends StatelessWidget {
                         children: [
                           Rich(tt, style: F.s(13.5, w: FontWeight.w800, c: p.fg, h: 1.35)),
                           const SizedBox(height: 2),
-                          Rich(why, style: F.s(12, c: p.soft, h: 1.4)),
+                          Rich(why, style: F.s(13.5, c: p.soft, h: 1.45)),
                         ],
                       ),
                     ),
@@ -753,7 +753,7 @@ void openRealmSheet(BuildContext context) {
             app.go('soul');
           },
         ),
-        Padding(padding: const EdgeInsets.only(top: 8), child: Rich(t.lvNote, style: F.s(12, c: p.soft, h: 1.45))),
+        Padding(padding: const EdgeInsets.only(top: 8), child: Rich(t.lvNote, style: F.s(13.5, c: p.soft, h: 1.45))),
       ],
     );
   });

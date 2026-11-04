@@ -89,8 +89,8 @@ void paintGlass(Canvas c, Path path, Rect b, Pal p, GK k, {Color? tint, bool low
     GK.inner => [p.innerA, p.innerB],
     // without blur (low effects) the floating layers still let the aurora through a little
     GK.frost => [
-      low ? p.surface.withValues(alpha: p.dark ? .9 : .7) : p.frostC,
-      low ? p.surface.withValues(alpha: p.dark ? .9 : .6) : p.frostC,
+      low ? p.surface.withValues(alpha: p.dark ? .92 : .9) : p.frostC,
+      low ? p.surface.withValues(alpha: p.dark ? .92 : .86) : p.frostC,
     ],
     GK.lens => [Colors.white.withValues(alpha: p.dark ? .05 : .34), Colors.white.withValues(alpha: p.dark ? .02 : .16)],
   };

@@ -111,9 +111,18 @@ Widget _h3(BuildContext context, String s) => Padding(
     child: Text(s, textAlign: TextAlign.center, style: F.s(19, w: FontWeight.w800, c: Th.pal(context).fg, h: 1.3)),
   ),
 );
-Widget _note(BuildContext context, String s, {TextAlign align = TextAlign.center}) => Padding(
+/// a note: a short line sits centred, a paragraph reads from the left (centred lines are hard to follow)
+Widget _note(BuildContext context, String s, {TextAlign? align}) => Padding(
   padding: const EdgeInsets.symmetric(vertical: 6),
-  child: Rich(s, align: align, style: F.s(13, c: Th.pal(context).soft, h: 1.45), boldColor: Th.pal(context).fg),
+  child: SizedBox(
+    width: double.infinity,
+    child: Rich(
+      s,
+      align: align ?? (plainText(s).length > 72 ? TextAlign.start : TextAlign.center),
+      style: F.s(14.5, c: Th.pal(context).soft, h: 1.45),
+      boldColor: Th.pal(context).fg,
+    ),
+  ),
 );
 
 Widget _head(BuildContext context, int i, int n) {
@@ -225,7 +234,7 @@ class _QCardState extends State<_QCard> {
             MainBtn(t.pyCheck, onTap: busy ? null : _submit, radius: 14, padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14)),
           ],
         ),
-        Padding(padding: const EdgeInsets.fromLTRB(2, 6, 2, 0), child: Rich(t.pyHelp, style: F.s(12, c: p.soft, h: 1.4))),
+        Padding(padding: const EdgeInsets.fromLTRB(2, 6, 2, 0), child: Rich(t.pyHelp, style: F.s(13.5, c: p.soft, h: 1.45))),
       ]);
     } else {
       final n = it.words?.length ?? it.tones!.length;
@@ -762,9 +771,9 @@ class _TribScreenState extends State<TribScreen> {
                 Rich(t.btRule(cut), style: F.s(13, c: p.fg, h: 1.45)),
                 const SizedBox(height: 6),
                 Rich(t.btQuality, style: F.s(13, c: p.fg, h: 1.45)),
-                if (!app.ttsOK) ...[const SizedBox(height: 6), Rich(t.strikeNoTts, style: F.s(12.5, c: p.soft, h: 1.45))],
+                if (!app.ttsOK) ...[const SizedBox(height: 6), Rich(t.strikeNoTts, style: F.s(13.5, c: p.soft, h: 1.45))],
                 const SizedBox(height: 6),
-                Rich(t.btIntro2, style: F.s(12.5, c: p.soft, h: 1.45)),
+                Rich(t.btIntro2, style: F.s(13.5, c: p.soft, h: 1.45)),
               ],
             ),
           ),
@@ -877,26 +886,48 @@ class _TribScreenState extends State<TribScreen> {
     final to = x.makeup ? 7 : x.r;
     final rows = Column(
       children: [
+        // each strike: its name and score on one line, the bar under them at full width (no squeezed label)
         for (final s in x.strikes)
           Padding(
-            padding: const EdgeInsets.only(bottom: 6),
-            child: SkRow(
-              label: Expanded(
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(text: s.hz, style: F.s(14, w: FontWeight.w900, family: F.hz)),
-                      TextSpan(text: ' ${L10.text(t.strike[s.k])}'),
-                    ],
-                  ),
-                  style: F.s(12.5, c: !s.skipped && !s.pass ? p.bad : p.fg),
+            padding: const EdgeInsets.only(bottom: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(text: s.hz, style: F.s(15, w: FontWeight.w900, family: F.hz)),
+                            TextSpan(text: ' ${L10.text(t.strike[s.k])}'),
+                          ],
+                        ),
+                        style: F.s(14, w: FontWeight.w600, c: !s.skipped && !s.pass ? p.bad : p.fg),
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Text(
+                      s.skipped ? t.strikeSkip : '${s.right}/${s.n}',
+                      style: F.s(14, w: FontWeight.w800, c: !s.skipped && !s.pass ? p.bad : p.fg, feat: F.tab),
+                    ),
+                  ],
                 ),
-              ),
-              frac: s.skipped || s.n == 0 ? 0 : s.right / s.n,
-              color: s.skipped ? p.mute : (s.pass ? p.good : p.bad),
-              value: s.skipped ? t.strikeSkip : '${s.right}/${s.n}',
-              valueW: 64,
-              valueColor: !s.skipped && !s.pass ? p.bad : null,
+                const SizedBox(height: 6),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(99),
+                  child: Container(
+                    height: 6,
+                    color: p.sunk,
+                    alignment: Alignment.centerLeft,
+                    child: FractionallySizedBox(
+                      widthFactor: (s.skipped || s.n == 0 ? 0 : s.right / s.n).clamp(0, 1).toDouble(),
+                      heightFactor: 1,
+                      child: ColoredBox(color: s.skipped ? p.mute : (s.pass ? p.good : p.bad)),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
       ],
@@ -1076,14 +1107,38 @@ class _Gate extends StatefulWidget {
   State<_Gate> createState() => _GateState();
 }
 
-class _GateState extends State<_Gate> {
-  int step = 0;
-  void next() {
-    if (step >= 4) {
-      Navigator.of(context).pop();
-      return;
+/// The ceremony (the mockup Josh picked, Nov 2026), about 11 s, a tap goes straight to the end: the last strike of
+/// the tribulation flashes, the 飞升 orb glows inside the five elements and rises, the gate comes out of the dark and
+/// opens on a beam of light, 天外有天 gathers and the seal stamps 开, then the path goes on past 飞升 (each realm a
+/// circle), what is new, and the way in. Drawn on a 412 × 892 stage scaled to the screen.
+class _GateState extends State<_Gate> with SingleTickerProviderStateMixin {
+  static const _len = 10.9;
+  late final AnimationController _a = AnimationController(vsync: this, duration: const Duration(milliseconds: 10900));
+  bool _started = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (_started) return;
+    _started = true;
+    if (MediaQuery.of(context).disableAnimations) {
+      _a.value = 1;
+    } else {
+      _a.forward();
+      Future.delayed(const Duration(milliseconds: 950), () {
+        if (mounted && _a.value < .1) HapticFeedback.heavyImpact(); // the strike
+      });
     }
-    setState(() => step++);
+  }
+
+  @override
+  void dispose() {
+    _a.dispose();
+    super.dispose();
+  }
+
+  void _tap() {
+    if (_a.value * _len < 10.2) _a.animateTo(10.25 / _len, duration: const Duration(milliseconds: 240), curve: Curves.easeOut);
   }
 
   @override
@@ -1091,132 +1146,440 @@ class _GateState extends State<_Gate> {
     final t = app.t;
     final g = (app.sealedX['gate'] as Map?) ?? const {};
     final door = (g['door'] as List?)?.cast<String>() ?? const ['', ''];
-    const rr = [8, 9, 10];
     final n = [7, 8, 9].map((l) => app.by(l).length).fold(0, (a, b) => a + b);
-    final txt = step == 0 ? L10.text(t.v('gate0')) : (step <= 3 ? L10.text(t.realmD[rr[step - 1]]) : t.gate4(app.fmt(n)));
-    const ink = Color(0xFFF4ECD8), gold = Color(0xFFE6C36A);
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (did, _) {
         if (!did) Navigator.of(context).pop();
       },
       child: GestureDetector(
-        onTap: next,
+        behavior: HitTestBehavior.opaque,
+        onTap: _tap,
         child: Semantics(
           scopesRoute: true,
           namesRoute: true,
+          explicitChildNodes: true,
           label: '${g['hz'] ?? ''} ${g['py'] ?? ''}',
-          child: Container(
-            decoration: const BoxDecoration(
-              gradient: RadialGradient(center: Alignment(0, -.24), radius: 1, colors: [Color(0xFF2A2412), Color(0xFF06070B)], stops: [0, .7]),
-            ),
-            alignment: Alignment.center,
-            padding: const EdgeInsets.all(20),
-            child: Material(
-              type: MaterialType.transparency,
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 420),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+          child: Material(
+            type: MaterialType.transparency,
+            child: AnimatedBuilder(
+              animation: _a,
+              builder: (c, _) {
+                final tt = _a.value * _len;
+                return Stack(
                   children: [
-                    ExcludeSemantics(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          for (var k = 0; k < 2; k++)
-                            AnimatedContainer(
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeOut,
-                              margin: const EdgeInsets.symmetric(horizontal: 2),
-                              transform: Matrix4.translationValues(step >= 4 ? (k == 0 ? -14 : 14) : 0, 0, 0),
-                              child: AnimatedOpacity(
-                                duration: const Duration(milliseconds: 300),
-                                opacity: step >= 4 ? .55 : 1,
-                                child: Container(
-                                  width: 64,
-                                  height: 92,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: gold.withValues(alpha: .07),
-                                    border: Border.all(color: gold.withValues(alpha: .65), width: 1.5),
-                                    borderRadius: const BorderRadius.vertical(top: Radius.circular(14), bottom: Radius.circular(4)),
-                                  ),
-                                  child: Text(door.length > k ? door[k] : '', style: F.s(30, w: FontWeight.w900, family: F.hz, c: gold)),
-                                ),
-                              ),
-                            ),
-                        ],
+                    Positioned.fill(child: CustomPaint(painter: _GateBg(tt))),
+                    Positioned.fill(
+                      child: SafeArea(
+                        child: FittedBox(
+                          child: SizedBox(width: 412, height: 892, child: _stage(c, tt, door, n, t.gateSky, t.gateNew(app.fmt(n)), t.gateKeep, t.gateEnter)),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          TextSpan(text: '${g['hz'] ?? ''}', style: F.s(22, w: FontWeight.w900, family: F.hz, c: gold)),
-                          TextSpan(text: '  ${g['py'] ?? ''}', style: F.s(13, c: ink.withValues(alpha: .6))),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        for (var i = 0; i < 3; i++)
-                          Flexible(
-                            child: AnimatedOpacity(
-                              duration: const Duration(milliseconds: 280),
-                              opacity: step > i ? 1 : 0,
-                              child: AnimatedScale(
-                                duration: const Duration(milliseconds: 280),
-                                scale: step > i ? 1 : .85,
-                                child: Builder(
-                                  builder: (c) {
-                                    final lc = rcol(c, rr[i]);
-                                    return Container(
-                                      constraints: const BoxConstraints(maxWidth: 120),
-                                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                                      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
-                                      decoration: BoxDecoration(
-                                        color: lc.withValues(alpha: .14),
-                                        border: Border.all(color: lc.withValues(alpha: .7), width: 1.5),
-                                        borderRadius: BorderRadius.circular(16),
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Text(app.rn[rr[i]], style: F.s(22, w: FontWeight.w900, family: F.hz, c: const Color(0xFFFFF6DC))),
-                                          Text(app.rpy[rr[i]], style: F.s(11.5, c: ink.withValues(alpha: .7))),
-                                          Text(
-                                            L10.text(t.realmM[rr[i]]),
-                                            textAlign: TextAlign.center,
-                                            style: F.s(12, w: FontWeight.w700, c: ink),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                      ],
-                    ),
-                    const SizedBox(height: 12),
-                    Semantics(
-                      liveRegion: true,
-                      child: ConstrainedBox(
-                        constraints: const BoxConstraints(minHeight: 66),
-                        child: Rich(txt, align: TextAlign.center, style: F.s(14.5, c: ink, h: 1.55)),
-                      ),
-                    ),
-                    const SizedBox(height: 14),
-                    MainBtn(step >= 4 ? t.gateEnter : t.gateOn, wide: true, color: gold, onTap: next),
+                    // the flash of the strike over everything
+                    if (tt > 1.0 && tt < 1.5)
+                      Positioned.fill(child: IgnorePointer(child: ColoredBox(color: Colors.white.withValues(alpha: .85 * (1 - (tt - 1.0) / .4).clamp(0, 1))))),
                   ],
-                ),
-              ),
+                );
+              },
             ),
           ),
         ),
       ),
     );
   }
+
+  static double _seg(double t, double a, double b) => ((t - a) / (b - a)).clamp(0.0, 1.0);
+  static double _eo(double x) => 1 - math.pow(1 - x, 3).toDouble();
+  static double _sp(double x) => 1 - math.exp(-6 * x) * math.cos(9 * x);
+
+  Widget _stage(BuildContext c, double t, List<String> door, int n, String sky, String isNew, String keep, String enter) {
+    const gold = Color(0xFFECC277), ink = Color(0xFFF2F4F7);
+    Widget at(double l, double tp, double w, double h, Widget child) => Positioned(left: l, top: tp, width: w, height: h, child: child);
+    final o = _sp(_seg(t, 1.4, 2.4));
+    final rise = _eo(_seg(t, 2.6, 3.6));
+    final glow = _seg(t, 1.2, 2.6);
+    final op = _eo(_seg(t, 4.2, 5.6));
+    final up = -90 * _eo(_seg(t, 7.6, 8.3));
+    final title = _seg(t, 5.4, 6.2), spread = 1 - _eo(_seg(t, 5.4, 6.6));
+    final st = _seg(t, 6.4, 6.75);
+    final nodes = [app.rn[7], app.rn[8], app.rn[9], app.rn[10]];
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        // the last strike of the tribulation
+        if (t > .95 && t < 1.4)
+          Positioned.fill(child: Opacity(opacity: 1 - _seg(t, 1.2, 1.4), child: CustomPaint(painter: _Bolt()))),
+        // the beam behind the opening doors
+        at(
+          6,
+          120,
+          400,
+          520,
+          Opacity(
+            opacity: _seg(t, 4.2, 4.6) * (1 - .55 * _seg(t, 6.2, 7.2)),
+            child: Transform.scale(
+              scaleX: (20 + 380 * op) / 400,
+              child: const DecoratedBox(
+                decoration: BoxDecoration(
+                  gradient: RadialGradient(
+                    colors: [Color(0xF2FFECBE), Color(0x59ECC277), Color(0x00ECC277)],
+                    stops: [0, .4, .72],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        // the gate: a plaque and two doors that swing open
+        at(
+          66,
+          180,
+          280,
+          420,
+          Opacity(
+            opacity: _seg(t, 3.2, 3.9) * (1 - _seg(t, 6.4, 7.0)),
+            child: Transform.translate(
+              offset: Offset(0, 20 * (1 - _eo(_seg(t, 3.2, 4)))),
+              child: Transform.scale(
+                scale: .96 + .04 * _eo(_seg(t, 3.2, 4)),
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    for (var k = 0; k < 2; k++)
+                      Positioned(
+                        left: k == 0 ? 0 : 140,
+                        top: 0,
+                        width: 140,
+                        height: 420,
+                        child: Transform(
+                          alignment: k == 0 ? Alignment.centerLeft : Alignment.centerRight,
+                          transform: Matrix4.identity()
+                            ..setEntry(3, 2, 1 / 900)
+                            ..rotateY((k == 0 ? -1 : 1) * 78 * op * math.pi / 180),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: k == 0 ? Alignment.topLeft : Alignment.topRight,
+                                end: k == 0 ? Alignment.bottomRight : Alignment.bottomLeft,
+                                colors: const [Color(0xFF2A2033), Color(0xFF120E18)],
+                              ),
+                              border: Border.all(color: gold, width: 1.5),
+                              borderRadius: k == 0
+                                  ? const BorderRadius.horizontal(left: Radius.circular(10))
+                                  : const BorderRadius.horizontal(right: Radius.circular(10)),
+                            ),
+                            alignment: k == 0 ? const Alignment(.8, 0) : const Alignment(-.8, 0),
+                            child: Container(
+                              width: 12,
+                              height: 12,
+                              decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: gold, width: 2)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    Positioned(
+                      left: -20,
+                      right: -20,
+                      top: -34,
+                      height: 26,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFF3A2A12), Color(0xFF1C140A)]),
+                          border: Border.all(color: gold),
+                          borderRadius: BorderRadius.circular(6),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(door.join('  '), textScaler: TextScaler.noScaling, style: F.s(17, family: F.hz, w: FontWeight.w900, c: gold, ls: 6, h: 1)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        // 飞升: the five elements close round the orb, it glows and rises, then fades into the light
+        at(
+          106,
+          290,
+          200,
+          200,
+          Opacity(
+            opacity: _seg(t, 1.6, 2.2) * (1 - _seg(t, 4.0, 4.6)),
+            child: Transform.translate(
+              offset: Offset(0, 60 - 60 * rise),
+              child: Transform.rotate(
+                angle: (-90 + 120 * _eo(_seg(t, 1.6, 3.6))) * math.pi / 180,
+                child: Transform.scale(scale: .7 + .3 * _eo(_seg(t, 1.6, 2.6)), child: CustomPaint(painter: _Elements())),
+              ),
+            ),
+          ),
+        ),
+        at(
+          146,
+          330,
+          120,
+          120,
+          Opacity(
+            opacity: 1 - _seg(t, 4.3, 5.0),
+            child: Transform.translate(
+              offset: Offset(0, 60 - 60 * rise),
+              child: Transform.scale(
+                scale: .85 + .15 * o + .15 * _seg(t, 4.2, 5.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(color: gold, width: 3),
+                    color: const Color(0x14ECC277),
+                    boxShadow: [BoxShadow(color: gold.withValues(alpha: .3 + .4 * glow), blurRadius: 20 + 60 * glow)],
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(app.rn[7], textScaler: TextScaler.noScaling, style: F.s(34, family: F.hz, w: FontWeight.w900, c: gold, h: 1)),
+                ),
+              ),
+            ),
+          ),
+        ),
+        // 天外有天 gathers, the seal stamps 开, a line under it; then they move up for the path
+        at(
+          0,
+          300 + up,
+          412,
+          80,
+          Opacity(
+            opacity: title,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                for (var i = 0; i < 4; i++)
+                  Transform.translate(
+                    offset: Offset((i - 1.5) * 18 * spread, 0),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 6),
+                      child: Text(
+                        '天外有天'[i],
+                        textScaler: TextScaler.noScaling,
+                        style: F.s(60, family: F.hz, w: FontWeight.w900, c: Colors.white, h: 1.2).copyWith(shadows: [Shadow(color: gold.withValues(alpha: .8), blurRadius: 30)]),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        ),
+        if (st > 0)
+          at(
+            338,
+            270 + up,
+            52,
+            52,
+            Transform.rotate(
+              angle: -8 * math.pi / 180,
+              child: Transform.scale(
+                scale: st < 1 ? 2.4 - 1.4 * _eo(st) : 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: const Color(0x1FD8402E),
+                    border: Border.all(color: const Color(0xFFD8402E), width: 3),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text('开', textScaler: TextScaler.noScaling, style: F.s(30, family: F.hz, w: FontWeight.w900, c: const Color(0xFFD8402E), h: 1)),
+                ),
+              ),
+            ),
+          ),
+        at(
+          12,
+          392 + up,
+          388,
+          60,
+          Opacity(
+            opacity: _seg(t, 6.8, 7.4),
+            child: Semantics(
+              liveRegion: true,
+              child: Text(sky, textAlign: TextAlign.center, textScaler: TextScaler.noScaling, style: F.s(16, c: ink.withValues(alpha: .82), h: 1.5)),
+            ),
+          ),
+        ),
+        // the path goes on past 飞升: one circle per realm, a gold link between them
+        for (var i = 0; i < 3; i++)
+          at(
+            20 + i * 96 + 72,
+            530,
+            36,
+            2,
+            Transform.scale(
+              scaleX: _eo(_seg(t, 8.2 + i * .45, 8.6 + i * .45)),
+              alignment: Alignment.centerLeft,
+              child: const ColoredBox(color: gold),
+            ),
+          ),
+        for (var i = 0; i < 4; i++)
+          at(
+            20 + i * 96.0,
+            500,
+            84,
+            96,
+            Opacity(
+              opacity: _seg(t, 7.9 + i * .45, 8.2 + i * .45),
+              child: Transform.translate(
+                offset: Offset(0, (1 - _sp(_seg(t, 7.9 + i * .45, 8.5 + i * .45))) * 16),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 60,
+                      height: 60,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: gold, width: 2),
+                        color: i == 0 ? gold : const Color(0x14ECC277),
+                        boxShadow: [BoxShadow(color: gold.withValues(alpha: i == 0 ? .6 : .25), blurRadius: 22)],
+                      ),
+                      alignment: Alignment.center,
+                      child: Text(
+                        nodes[i],
+                        textScaler: TextScaler.noScaling,
+                        style: F.s(19, family: F.hz, w: FontWeight.w900, c: i == 0 ? const Color(0xFF0B0C11) : gold, h: 1),
+                      ),
+                    ),
+                    const SizedBox(height: 6),
+                    Text('HSK ${6 + i}', textScaler: TextScaler.noScaling, style: F.s(12.5, w: FontWeight.w600, c: ink.withValues(alpha: .7))),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        // what is new, and the way in
+        at(
+          24,
+          622,
+          364,
+          86,
+          Opacity(
+            opacity: _seg(t, 9.6, 10.1),
+            child: Transform.translate(
+              offset: Offset(0, 12 * (1 - _eo(_seg(t, 9.6, 10.2)))),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(22),
+                  gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0x13FFFFFF), Color(0x09FFFFFF)]),
+                  border: Border.all(color: const Color(0x26FFFFFF)),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(isNew, textAlign: TextAlign.center, textScaler: TextScaler.noScaling, style: F.s(15, w: FontWeight.w800, c: ink)),
+                    const SizedBox(height: 4),
+                    Text(keep, textAlign: TextAlign.center, textScaler: TextScaler.noScaling, style: F.s(13.5, c: ink.withValues(alpha: .66))),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        at(
+          24,
+          730,
+          364,
+          58,
+          Opacity(
+            opacity: _seg(t, 10.2, 10.7),
+            child: Transform.scale(
+              scale: .94 + .06 * _sp(_seg(t, 10.2, 10.9)),
+              child: Press(
+                onTap: () => Navigator.of(context).pop(),
+                scale: .97,
+                label: enter,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(29),
+                    gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter, colors: [Color(0xFFF3D595), Color(0xFFD9A94E)]),
+                    boxShadow: [BoxShadow(color: gold.withValues(alpha: .7), offset: const Offset(0, 14), blurRadius: 34, spreadRadius: -10)],
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(enter, textScaler: TextScaler.noScaling, style: F.s(18, w: FontWeight.w800, c: const Color(0xFF1B1406))),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+/// the night behind the ceremony: deep blue and violet, warmed by the gate's light as it opens
+class _GateBg extends CustomPainter {
+  final double t;
+  _GateBg(this.t);
+  @override
+  void paint(Canvas c, Size s) {
+    final warm = ((t - 3.6) / 2.4).clamp(0.0, 1.0);
+    c.drawRect(Offset.zero & s, Paint()..color = const Color(0xFF07080C));
+    void glow(Offset at, double r, Color col) {
+      final rect = Rect.fromCircle(center: at, radius: r);
+      c.drawRect(rect, Paint()..shader = RadialGradient(colors: [col, col.withValues(alpha: 0)], stops: const [0, .7]).createShader(rect));
+    }
+
+    glow(Offset(0, 0), s.width * 1.0, const Color(0xFF283C8C).withValues(alpha: .35));
+    glow(Offset(s.width, s.height * .6), s.width * 1.0, const Color(0xFF6E50DC).withValues(alpha: .25 + .1 * warm));
+    if (warm > 0) glow(Offset(s.width / 2, s.height * .34), s.width * 1.0, const Color(0xFFECC277).withValues(alpha: .35 * warm));
+  }
+
+  @override
+  bool shouldRepaint(_GateBg o) => o.t != t;
+}
+
+/// the lightning of the last strike
+class _Bolt extends CustomPainter {
+  @override
+  void paint(Canvas c, Size s) {
+    final p = Path()
+      ..moveTo(240, 0)
+      ..lineTo(205, 210)
+      ..lineTo(238, 214)
+      ..lineTo(188, 420);
+    c.drawPath(p, Paint()
+      ..color = const Color(0x59D9D0FF)
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 14
+      ..strokeJoin = StrokeJoin.round);
+    c.drawPath(p, Paint()
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 5
+      ..strokeJoin = StrokeJoin.round
+      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 6));
+  }
+
+  @override
+  bool shouldRepaint(_Bolt o) => false;
+}
+
+/// the five elements round the orb: five arcs of the ring, wood fire earth metal water
+class _Elements extends CustomPainter {
+  @override
+  void paint(Canvas c, Size s) {
+    const cols = [Color(0xFF4CAF6E), Color(0xFFE0583A), Color(0xFFC9A24A), Color(0xFFC9CCD4), Color(0xFF5A9CF0)];
+    final r = Rect.fromCircle(center: s.center(Offset.zero), radius: 92);
+    for (var i = 0; i < 5; i++) {
+      c.drawArc(
+        r,
+        i * 2 * math.pi / 5,
+        2 * math.pi / 5 * .87,
+        false,
+        Paint()
+          ..color = cols[i]
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 4
+          ..strokeCap = StrokeCap.round,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_Elements o) => false;
 }

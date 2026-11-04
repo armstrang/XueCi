@@ -15,6 +15,7 @@ import 'home.dart';
 import 'icons.dart';
 import 'lens.dart';
 import 'screens.dart';
+import 'splash.dart';
 import 'theme.dart';
 
 final navKey = GlobalKey<NavigatorState>();
@@ -138,6 +139,8 @@ class Shell extends StatefulWidget {
 
 class _ShellState extends State<Shell> {
   bool _readySent = false;
+  // the opening plays once, on a start that opens on Home
+  late bool _splash = splashOn && app.screen == 'home';
 
   void _on() => setState(() {});
 
@@ -145,6 +148,8 @@ class _ShellState extends State<Shell> {
   void initState() {
     super.initState();
     app.addListener(_on);
+    // before Home is built, so its pieces start hidden
+    splashT.value = _splash ? 0 : splashDone;
   }
 
   @override
@@ -160,7 +165,8 @@ class _ShellState extends State<Shell> {
       _readySent = true;
       WidgetsBinding.instance.addPostFrameCallback((_) {
         Native.I.ready();
-        startTasks(context);
+        // the tour, the goal sheet or a welcome wait until the opening is over
+        if (!_splash) startTasks(context);
       });
     }
     final s = app.screen;
@@ -188,7 +194,7 @@ class _ShellState extends State<Shell> {
                   // only the new screen comes in (the old one leaves at once, so no two screens are drawn together):
                   // a short fade and rise, transform and opacity only
                   child: AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 200),
+                    duration: MediaQuery.of(context).disableAnimations ? Duration.zero : const Duration(milliseconds: 220),
                     reverseDuration: Duration.zero,
                     layoutBuilder: (cur, prev) => cur ?? const SizedBox.shrink(),
                     switchInCurve: Curves.easeOutCubic,
@@ -205,8 +211,20 @@ class _ShellState extends State<Shell> {
                     ),
                   ),
                 ),
-                if (tabs) const Positioned(left: 0, right: 0, bottom: 0, child: RepaintBoundary(child: TabBar2())),
+                if (tabs) const Positioned(left: 0, right: 0, bottom: 0, child: Rise(4, child: RepaintBoundary(child: TabBar2()))),
                 const Positioned(left: 0, right: 0, bottom: 0, child: RepaintBoundary(child: ToastHost())),
+                if (_splash)
+                  Positioned.fill(
+                    child: RepaintBoundary(
+                      child: Splash(
+                        onDone: () {
+                          if (!mounted) return;
+                          setState(() => _splash = false);
+                          startTasks(context);
+                        },
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),

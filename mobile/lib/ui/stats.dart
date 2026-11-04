@@ -102,39 +102,53 @@ class StatsScreenState extends State<StatsScreen> {
             const SizedBox(height: 10),
             SizedBox(height: 12, child: MiniBar(s, width: double.infinity)),
             const SizedBox(height: 10),
-            Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                for (final (b, r) in const [('red', '0–6'), ('yellow', '7–13'), ('green', '14–20'), ('none', '')])
-                  Glass(
+            // the four bands as an even 2 × 2 grid
+            Builder(
+              builder: (c) {
+                Widget band(String b, String r) => Expanded(
+                  child: Glass(
                     solid: true,
                     radius: 16,
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 9),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Row(
-                          mainAxisSize: MainAxisSize.min,
                           children: [
                             Dot(p.band(b)),
                             const SizedBox(width: 6),
-                            Text(app.fmt(s.band(b)), style: F.s(15, w: FontWeight.w800, c: p.fg, feat: F.tab)),
+                            Text(app.fmt(s.band(b)), style: F.s(16, w: FontWeight.w800, c: p.fg, feat: F.tab)),
                           ],
                         ),
+                        const SizedBox(height: 2),
                         Text(
                           '${L10.text(t.band[b])}${r.isNotEmpty ? ' · ${t.lvlWord} $r' : ''}',
-                          style: F.s(11.5, c: p.soft),
+                          maxLines: 2,
+                          style: F.s(12.5, c: p.soft, h: 1.25),
                         ),
                       ],
                     ),
                   ),
-              ],
+                );
+                return Column(
+                  children: [
+                    IntrinsicHeight(
+                      child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [band('red', '0–6'), const SizedBox(width: 8), band('yellow', '7–13')]),
+                    ),
+                    const SizedBox(height: 8),
+                    IntrinsicHeight(
+                      child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [band('green', '14–20'), const SizedBox(width: 8), band('none', '')]),
+                    ),
+                  ],
+                );
+              },
             ),
             const SizedBox(height: 12),
             _Scale(big: th.fs >= 1.15),
             const SizedBox(height: 14),
+            // how to read the dots, above them (not floating over them)
+            Padding(padding: const EdgeInsets.only(bottom: 10), child: Text(t.dotHint, style: F.s(13.5, c: p.soft))),
             for (var u = 1; u <= (app.vocab.units[lv] ?? 1); u++) _unit(context, arr.where((x) => x.u == u).toList(), u),
             const SizedBox(height: 10),
             _foot(context),
@@ -144,7 +158,7 @@ class StatsScreenState extends State<StatsScreen> {
           left: 16,
           right: 16,
           bottom: pad.bottom + 90,
-          child: d == null || d.l != lv ? _Hint(t.dotHint) : _Detail(d),
+          child: d == null || d.l != lv ? const SizedBox.shrink() : _Detail(d),
         ),
         FloatTitle(controller: _scroll, title: t.stTitle),
       ],
@@ -229,7 +243,7 @@ class StatsScreenState extends State<StatsScreen> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text(t.rsNote, style: F.s(12.5, c: p.soft, h: 1.45)),
+        Text(t.rsNote, style: F.s(13.5, c: p.soft, h: 1.45)),
         const SizedBox(height: 10),
         Wrap(
           spacing: 8,
@@ -251,18 +265,6 @@ class StatsScreenState extends State<StatsScreen> {
       ],
     );
   }
-}
-
-class _Hint extends StatelessWidget {
-  final String text;
-  const _Hint(this.text);
-  @override
-  Widget build(BuildContext context) => Glass(
-    frost: true,
-    radius: 18,
-    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-    child: Text(text, style: F.s(13, c: Th.pal(context).mute)),
-  );
 }
 
 class _Detail extends StatelessWidget {
@@ -506,7 +508,7 @@ class _InsightsState extends State<_Insights> {
         children: [
           Text(t.mcT, style: F.s(14.5, w: FontWeight.w800, c: p.fg)),
           const SizedBox(height: 4),
-          Text('${t.mcWait(app.fmt(n))} $state', style: F.s(12.5, c: p.soft, h: 1.45)),
+          Text('${t.mcWait(app.fmt(n))} $state', style: F.s(13.5, c: p.soft, h: 1.45)),
         ],
       );
     }
@@ -560,7 +562,7 @@ class _InsightsState extends State<_Insights> {
             ),
           ),
         const SizedBox(height: 6),
-        Text('${t.mcHow} $state', style: F.s(12.5, c: p.soft, h: 1.45)),
+        Text('${t.mcHow} $state', style: F.s(13.5, c: p.soft, h: 1.45)),
       ],
     );
   }
@@ -692,7 +694,7 @@ class _ResearchState extends State<_Research> {
       open: StatsScreenState.rsOpen,
       onToggle: (v) => setState(() => StatsScreenState.rsOpen = v),
       children: [
-        Text(t.rsWhat, style: F.s(12.5, c: p.soft, h: 1.45)),
+        Text(t.rsWhat, style: F.s(13.5, c: p.soft, h: 1.45)),
         const SizedBox(height: 10),
         Wrap(
           spacing: 10,
@@ -761,7 +763,7 @@ class _ResearchState extends State<_Research> {
           ],
         ),
         const SizedBox(height: 8),
-        Text(t.rsPriv, style: F.s(12, c: p.soft, h: 1.45)),
+        Text(t.rsPriv, style: F.s(13.5, c: p.soft, h: 1.45)),
       ],
     );
   }

@@ -131,7 +131,7 @@ class _BackupState extends State<_Backup> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(b, style: F.s(15, w: FontWeight.w800, c: p.fg)),
-                  Text(sub, style: F.s(12.5, c: p.soft, h: 1.35)),
+                  Text(sub, style: F.s(13, c: p.soft, h: 1.35)),
                 ],
               ),
             ),

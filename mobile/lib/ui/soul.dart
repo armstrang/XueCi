@@ -674,7 +674,7 @@ class _SoulScreenState extends State<SoulScreen> {
       _Card(
         children: [
           Shd('指点', 'zhǐdiǎn', t.advM, top: 0),
-          Padding(padding: const EdgeInsets.only(bottom: 10), child: Rich(t.advIntro, style: F.s(12, c: p.soft, h: 1.45))),
+          Padding(padding: const EdgeInsets.only(bottom: 10), child: Rich(t.advIntro, style: F.s(13.5, c: p.soft, h: 1.45))),
           const AdviceList(max: 6),
         ],
       ),
@@ -913,7 +913,7 @@ class _SoulScreenState extends State<SoulScreen> {
                         ),
                       ),
                     ),
-                    Text(L10.text(t.attrD[a]), style: F.s(12, c: p.soft, h: 1.4)),
+                    Text(L10.text(t.attrD[a]), style: F.s(13.5, c: p.soft, h: 1.45)),
                     if (x.isNotEmpty) Text(x, style: F.s(12, w: FontWeight.w700, c: p.fg, h: 1.4)),
                     if (weak)
                       Padding(
@@ -965,7 +965,7 @@ class _SoulScreenState extends State<SoulScreen> {
         ),
         Padding(
           padding: const EdgeInsets.only(top: 8),
-          child: Rich('${done ? t.chalDone : t.chalWhy}${total != 0 ? ' · ${t.chalTot(total)}' : ''}', style: F.s(12, c: p.soft, h: 1.45)),
+          child: Rich('${done ? t.chalDone : t.chalWhy}${total != 0 ? ' · ${t.chalTot(total)}' : ''}', style: F.s(13.5, c: p.soft, h: 1.45)),
         ),
         if (!done) ...[
           const SizedBox(height: 10),
@@ -1004,14 +1004,14 @@ class _SoulScreenState extends State<SoulScreen> {
             ],
           ),
         ),
-        Rich(t.strNote, style: F.s(12, c: p.soft, h: 1.45)),
+        Rich(t.strNote, style: F.s(13.5, c: p.soft, h: 1.45)),
         const SizedBox(height: 8),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
             Text(
               rest.isNotEmpty ? t.medDays(App.wk.where(rest.contains).map((w) => app.wkName(w, long: true)).join(', ')) : t.medNone,
-              style: F.s(12, c: p.soft, h: 1.45),
+              style: F.s(13.5, c: p.soft, h: 1.45),
             ),
             const SizedBox(width: 6),
             Semantics(
@@ -1039,7 +1039,7 @@ class _SoulScreenState extends State<SoulScreen> {
     final g = app.memo('restGain', app.lm.restGain);
     String f(double x) => x < 10 ? app.fmt1(x) : app.fmt(x.round());
     if (g == null) {
-      return _Card(children: [Shd('休息之道', 'xiūxi zhī dào', t.restM, top: 0), Rich(t.restEmpty, style: F.s(12, c: p.soft, h: 1.45))]);
+      return _Card(children: [Shd('休息之道', 'xiūxi zhī dào', t.restM, top: 0), Rich(t.restEmpty, style: F.s(13.5, c: p.soft, h: 1.45))]);
     }
     final mx = [g.now, g.day, g.two].reduce(math.max);
     final m = mx == 0 ? 1.0 : mx;
@@ -1059,7 +1059,7 @@ class _SoulScreenState extends State<SoulScreen> {
               valueW: 52,
             ),
           ),
-        Rich(t.restNote, style: F.s(12, c: p.soft, h: 1.45)),
+        Rich(t.restNote, style: F.s(13.5, c: p.soft, h: 1.45)),
       ],
     );
   }
@@ -1081,7 +1081,7 @@ class _SoulScreenState extends State<SoulScreen> {
       children: [
         Shd('境界历程', 'jìngjiè lìchéng', t.histM, top: 0),
         if (hist.isEmpty)
-          Rich(t.histEmpty, style: F.s(12, c: p.soft, h: 1.45))
+          Rich(t.histEmpty, style: F.s(13.5, c: p.soft, h: 1.45))
         else
           for (final e in hist)
             Builder(

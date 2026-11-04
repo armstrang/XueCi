@@ -311,7 +311,7 @@ class _GoalState extends State<_Goal> {
               child: Wrap(
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
-                  Rich(t.remNote, style: F.s(12, c: p.soft, h: 1.45)),
+                  Rich(t.remNote, style: F.s(13.5, c: p.soft, h: 1.45)),
                   if (app.rem['on'] == true && rem['on'] == true && !notifOK)
                     GestureDetector(
                       onTap: Native.I.openNotifSettings,
@@ -347,7 +347,7 @@ class _GoalState extends State<_Goal> {
                 ),
               ),
           ]),
-          Padding(padding: const EdgeInsets.only(top: 8), child: Rich(t.medNote, style: F.s(12, c: p.soft, h: 1.45))),
+          Padding(padding: const EdgeInsets.only(top: 8), child: Rich(t.medNote, style: F.s(13.5, c: p.soft, h: 1.45))),
         ]),
         const SizedBox(height: 14),
         Row(

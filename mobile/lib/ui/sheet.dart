@@ -80,7 +80,10 @@ class _SheetFrameState extends State<_SheetFrame> with SingleTickerProviderState
         borderRadius: r,
         radius: 32,
         // a sheet carries reading: more body than the bars, so the page behind never reads through
-        color: Th.pal(context).dark ? Th.pal(context).bg.withValues(alpha: .72) : Colors.white.withValues(alpha: .42),
+        // without blur (low effects) it is nearly solid, or Home's words would show through the sheet's text
+        color: Th.pal(context).dark
+            ? Th.pal(context).bg.withValues(alpha: Th.of(context).low ? .95 : .72)
+            : Colors.white.withValues(alpha: Th.of(context).low ? .9 : .42),
         shadow: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .35), offset: Offset(0, -20), blurRadius: 60, spreadRadius: -24)],
         child: ClipRRect(borderRadius: r, child: child),
       ),

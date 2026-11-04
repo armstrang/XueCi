@@ -94,6 +94,18 @@ Color tintFill(Th th, Color c) {
   return h.withLightness(.29).withSaturation(math.min(.5, h.saturation * 1.15)).toColor().withValues(alpha: .88);
 }
 
+/// whether [text] fits in one line of [maxW] at the phone's text size (to show a shorter form, never a cut-off word)
+bool textFits(BuildContext context, String text, TextStyle style, double maxW) {
+  final tp = TextPainter(
+    text: TextSpan(text: text, style: style),
+    maxLines: 1,
+    textDirection: TextDirection.ltr,
+    textScaler: MediaQuery.textScalerOf(context),
+  )..layout();
+  final w = tp.width;
+  tp.dispose();
+  return w <= maxW;
+}
 
 /// the main button (planbtn / next): solid in the level's colour
 class MainBtn extends StatelessWidget {

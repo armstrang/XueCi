@@ -951,5 +951,8 @@ Object.assign(I18N.en, {
     `仙门 is open: <b>HSK 7–9</b>, ${n} new words and three realms above 飞升. The trials are harder: every breakthrough now tests translation too.`,
   gateOn: 'Continue ›',
   gateEnter: 'Enter the immortal world',
+  gateSky: 'The gate is open. Above the sky, there is still sky.',
+  gateNew: n => `Three new realms · ${n} HSK 7–9 words`,
+  gateKeep: 'Your HSK 1–6 progress stays as it is.',
 });
 /*</seal>*/

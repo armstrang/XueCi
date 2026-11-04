@@ -19,7 +19,7 @@ WebView version was removed from this repo (archived in `armstrang/Merdeka-Manda
 | `mobile/lib/data/` | `store.dart` (progress store, one file per key in `files/store`, schema + migrations), `words.dart`, `pinyin.dart`, `seal.dart` |
 | `mobile/lib/i18n/` | `l10.dart` + generated `keys.g.dart`; text functions are expression trees (`tool/make_i18n.js`, acorn) evaluated by `Tpl`; only `<b>` markup (`Rich`) |
 | `mobile/lib/app/` | `app.dart` (`App`: boot, language, theme, fx, realm helpers, reminder/rest sync, backup timing, widget, `memo`), `runner.dart` (Cards/Quiz/session/mock runs), `backup.dart` (XUECI1/XUECI0 codes), `native.dart` (method channel), `mastery.dart` |
-| `mobile/lib/ui/` | `shell.dart` (MaterialApp, background, tab bar, toasts, back), `home.dart`, `focus.dart` (capsule header, list, menus), `run_view.dart` (cards, questions, summary, mock), `stats.dart`, `soul.dart`, `realm.dart`, `tests.dart` (placement, tribulation, gate ceremony), `settings.dart`, `goal.dart`, `backup_sheet.dart`, `info.dart`, `share.dart`, `fx.dart`, look: `glass.dart`/`theme.dart`/`lens.dart`/`widgets.dart`/`icons.dart`/`sheet.dart`/`word_ui.dart`, `screens.dart` (screen hosts, `wireSheets()`) |
+| `mobile/lib/ui/` | `shell.dart` (MaterialApp, background, tab bar, toasts, back), `home.dart`, `focus.dart` (capsule header, list, menus), `run_view.dart` (cards, questions, summary, mock), `stats.dart`, `soul.dart`, `realm.dart`, `tests.dart` (placement, tribulation, gate ceremony), `splash.dart` (the opening, `Rise`, `MarkSlot`, `CountUp`), `settings.dart`, `goal.dart`, `backup_sheet.dart`, `info.dart`, `share.dart`, `fx.dart`, look: `glass.dart`/`theme.dart`/`lens.dart`/`widgets.dart`/`icons.dart`/`sheet.dart`/`word_ui.dart`, `screens.dart` (screen hosts, `wireSheets()`) |
 | `mobile/tool/` | `make_assets.py` (needs `npm install --prefix mobile/tool acorn@8.15.0`): `assets/data` (core + per-language words, sealed `s0.bin`/`s-<lang>.bin`) and `assets/i18n`; refuses public text with a secret word. `make_fonts.py` (font subsets; re-run after new characters; sources in `fonts-src/`, not committed). `cloud_sdk.sh` (Flutter SDK for Claude's cloud sessions) |
 | `mobile/android/` | Kotlin: `MainActivity.kt` (method channel `xueci/native`), `Reminder.kt` (+ `ReminderReceiver`), `XueciWidget.kt`; `assets/legacy.html` (progress move) |
 | `mobile/test/` | `engine_trace_test` (replays `fixtures/engine/*.json` call by call; a deliberate engine change = update the fixture with care), `i18n_test`, `store_test`, `backup_test`, `secret_test`, `contrast_test`, `screens_test` (screenshots → `test/goldens/`, not committed: look at them), `perf_probe_test` (`PERF=1`) |
@@ -79,6 +79,11 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   `BackdropGroup` + `BackdropFilter.grouped` (σ 16); shadows of rounded rectangles are analytic (`drawRRect` with a mask
   blur), never a blurred path; `paintGlass(rr:)` takes the RRect fast paths. Engine views go through `app.memo(key, f)`
   (kept while `Store.ver` and the minute are unchanged). Clocks redraw themselves, not the app. No `dynamic` in hot loops.
+- **Opening** (`splash.dart`, Josh Nov 2026: no app icon, it may change): the system splash is only the background
+  (`splash_none`, `mm_bg`; it fades out in 150 ms), then on a cold start that opens on Home: a gold ink ring, XueCi
+  letter by letter, gold line, MANDARIN, 天外有天 small bottom-right, the lockup flies into Home's wordmark
+  (`markKey`/`markSubKey`) and Home's pieces `Rise` (≈1.76 s, `splashT`); a tap skips to the flight; remove
+  animations = a fade. Start tasks (tour, goal sheet) wait for it. Tests set `splashOn = false`.
 - Home must fit one screen (360×680 up) and keeps its order (Apple redesign, Josh, Oct 2026): header (wordmark, one
   frosted capsule: cultivation days, 护法 coin, Settings) → `RealmRow` (small orb beside the realm name and stage bars,
   ? top right) → `PlanCard` (Today: big numbers, one wide Start, 2 min + 试 below, goal link; `tight` on small
@@ -131,7 +136,9 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   下品; placement realms are 认定. Stability: a realm rests on the level below; fading (spaced answers <70 % or recall
   <0.6) makes it 境界不稳 until a 试炼稳固 (15 words, 80 %). Guidance (`advice()`), forecast, breakthrough chance.
 - **The gate** (sealed): a breakthrough to 飞升 opens 仙门 (`xc_lvl.gate`), loads the sealed band (HSK 7–9, realms 8–10),
-  shows the ceremony once (`gs`); a 飞升 from placement gets a make-up tribulation on HSK 6 first. A restored backup
+  shows the ceremony once (`gs`: ≈11 s on a 412×892 stage, the strike, the 飞升 orb in the five elements, the doors
+  open, 天外有天 + 开 seal, the path 飞升→8→9→10, `gateNew`/`gateKeep`, a tap goes to the end; its screenshots only
+  with `GATE=1` into `test/gate/`, never committed or made in CI); a 飞升 from placement gets a make-up tribulation on HSK 6 first. A restored backup
   keeps the gate only with a real breakthrough and ≥50 % of HSK 6 words stable.
 - **Soul Sea** (Stats tab): the orb (≤900 words, lines between words sharing a character, brightness = recall, colour =
   level; spins, slows to a stop), the five-element ring (土 root = realm progress, 木 cult = memory days, 水 sense =

@@ -207,7 +207,10 @@ mixin L10Keys {
   String gate4(Object? a0) => f('gate4', [a0]);
   String get gateEnter => s('gateEnter');
   String get gateGo => s('gateGo');
+  String get gateKeep => s('gateKeep');
+  String gateNew(Object? a0) => f('gateNew', [a0]);
   String get gateOn => s('gateOn');
+  String get gateSky => s('gateSky');
   String get gateWelcome => s('gateWelcome');
   Map<String, dynamic> get gloss => (v('gloss') as Map?)?.cast<String, dynamic>() ?? const {};
   List<dynamic> get gradeM => v('gradeM') as List<dynamic>? ?? const [];

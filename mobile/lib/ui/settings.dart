@@ -119,7 +119,7 @@ class SRow extends StatelessWidget {
                       title,
                       style: F.s(15, w: FontWeight.w700, c: p.fg, h: 1.3),
                     ),
-                    if (subW != null) subW! else if (sub != null) Text(sub!, style: F.s(12.5, c: p.soft, h: 1.35)),
+                    if (subW != null) subW! else if (sub != null) Text(sub!, style: F.s(13, c: p.soft, h: 1.35)),
                   ],
                 ),
               ),
@@ -180,11 +180,14 @@ class Seg extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                             alignment: Alignment.center,
                             child: ExcludeSemantics(
-                              child: Row(
+                              // with an icon: the icon over its name, so every label keeps the same full size
+                              child: Flex(
+                                direction: ic != null ? Axis.vertical : Axis.horizontal,
                                 mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: ic != null ? MainAxisSize.min : MainAxisSize.max,
                                 children: [
-                                  if (ic != null) ...[ic, const SizedBox(width: 5)],
-                                  // one line, never broken inside a word: a long label gets a little smaller
+                                  if (ic != null) ...[ic, const SizedBox(height: 3)],
+                                  // one line, never broken inside a word: a label too long even so gets a little smaller
                                   Flexible(
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
@@ -301,7 +304,7 @@ class _SettingsState extends State<_Settings> {
                   },
                 ),
                 const SizedBox(height: 8),
-                Text(t.fxNote(app.fxPref, app.fxDetect()), style: F.s(12.5, c: p.soft, h: 1.4)),
+                Text(t.fxNote(app.fxPref, app.fxDetect()), style: F.s(13.5, c: p.soft, h: 1.45)),
               ],
             ),
           ),
@@ -351,7 +354,7 @@ class _SettingsState extends State<_Settings> {
                     },
                   ),
                   const SizedBox(height: 8),
-                  Text(L10.text(t.spkLvD[spkLevels.indexOf(app.spk)]), style: F.s(12.5, c: p.soft, h: 1.4)),
+                  Text(L10.text(t.spkLvD[spkLevels.indexOf(app.spk)]), style: F.s(13.5, c: p.soft, h: 1.45)),
                 ],
               ),
             ),

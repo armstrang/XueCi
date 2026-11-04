@@ -205,7 +205,7 @@ class _RunScreenState extends State<RunScreen> {
               if (!(m != null && it == null)) _RunHead(r, barOnly: trail),
               // the next card or question comes in alone (the old one leaves at once): one glass card drawn, not two
               AnimatedSwitcher(
-                duration: const Duration(milliseconds: 200),
+                duration: MediaQuery.of(context).disableAnimations ? Duration.zero : const Duration(milliseconds: 220),
                 reverseDuration: Duration.zero,
                 layoutBuilder: (cur, prev) => cur ?? const SizedBox.shrink(),
                 switchInCurve: Curves.easeOutCubic,
@@ -525,9 +525,9 @@ class _CardView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          WordHead(d, hz: 44),
-          const SizedBox(height: 6),
-          WordBody(d, mean: 18),
+          WordHead(d, hz: 56),
+          const SizedBox(height: 8),
+          WordBody(d, mean: 20),
         ],
       ),
     );
@@ -650,7 +650,17 @@ class _Face extends StatelessWidget {
     solid: true,
     radius: 32,
     padding: const EdgeInsets.all(22),
-    child: scroll ? SingleChildScrollView(child: child) : child,
+    // the back: centred in the card when it is short, scrolling when it is long (no empty half below the words)
+    child: scroll
+        ? LayoutBuilder(
+            builder: (c, bc) => SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: bc.maxHeight),
+                child: Align(alignment: Alignment.centerLeft, child: child),
+              ),
+            ),
+          )
+        : child,
   );
 }
 
@@ -837,7 +847,8 @@ class OptBtn extends StatefulWidget {
   final bool? state; // true right, false the wrong pick, null neutral
   final bool selected;
   final bool tile; // a square-ish tile of the 2×2 grid (hanzi, tones)
-  const OptBtn({super.key, required this.n, required this.label, this.onTap, this.state, this.selected = false, this.tile = false});
+  final bool picked; // the learner's own pick (a light tap of the phone when it was right)
+  const OptBtn({super.key, required this.n, required this.label, this.onTap, this.state, this.selected = false, this.tile = false, this.picked = false});
   @override
   State<OptBtn> createState() => _OptBtnState();
 }
@@ -848,11 +859,25 @@ class _OptBtnState extends State<OptBtn> with SingleTickerProviderStateMixin {
   late final AnimationController _a = AnimationController(vsync: this, duration: const Duration(milliseconds: 300));
 
   @override
+  void initState() {
+    super.initState();
+    if (widget.state != null) _a.value = 1; // already judged: the mark stands
+  }
+
+  @override
   void didUpdateWidget(OptBtn o) {
     super.didUpdateWidget(o);
     if (o.state == null && widget.state != null) {
-      if (widget.state == false) HapticFeedback.mediumImpact();
-      if (!MediaQuery.of(context).disableAnimations) _a.forward(from: 0);
+      if (widget.state == false) {
+        HapticFeedback.mediumImpact();
+      } else if (widget.picked) {
+        HapticFeedback.lightImpact();
+      }
+      if (MediaQuery.of(context).disableAnimations) {
+        _a.value = 1;
+      } else {
+        _a.forward(from: 0);
+      }
     }
   }
 
@@ -878,7 +903,11 @@ class _OptBtnState extends State<OptBtn> with SingleTickerProviderStateMixin {
     final r = widget.tile ? 24.0 : 22.0;
     final mark = state == null
         ? null
-        : Icon2(state ? I.check : I.close, size: 18, color: state ? p.good : p.bad, width: 2.6);
+        // the tick or cross springs in as the answer is judged
+        : ScaleTransition(
+            scale: CurvedAnimation(parent: _a, curve: const Interval(0, .75, curve: Curves.easeOutBack)),
+            child: Icon2(state ? I.check : I.close, size: 18, color: state ? p.good : p.bad, width: 2.6),
+          );
     final Widget content = widget.tile
         ? SizedBox(
             height: 84,
@@ -1058,7 +1087,7 @@ class _QViewState extends State<_QView> {
         );
         card.add(Padding(
           padding: const EdgeInsets.fromLTRB(2, 8, 2, 0),
-          child: Rich(t.pyHelp, style: F.s(12.5, c: p.soft, h: 1.4), align: TextAlign.center),
+          child: Rich(t.pyHelp, style: F.s(13.5, c: p.soft, h: 1.4)),
         ));
         below.add(
           Press(
@@ -1084,6 +1113,7 @@ class _QViewState extends State<_QView> {
         label: tile ? qTileLabel(context, it, i, py: aid == 'mock' && it.d.l <= 2) : qOptLabel(context, it, i, py: aid == 'mock' && it.d.l <= 2),
         state: !ans ? null : (i == it.ans ? true : (i == it.pick ? false : null)),
         selected: r.exam && it.done && i == it.pick,
+        picked: ans && i == it.pick,
         onTap: it.done ? null : () => R.qAnswer(it, i),
       );
       if (tile) {
@@ -1110,7 +1140,8 @@ class _QViewState extends State<_QView> {
           radius: 32,
           padding: const EdgeInsets.fromLTRB(20, 22, 20, 24),
           child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: q == 'p' || q == 'wo' ? 0 : 196),
+            // room for a big hanzi; a line of text gets a lower card (no empty half)
+            constraints: BoxConstraints(minHeight: q == 'p' || q == 'wo' ? 0 : (const ['m', 's', 'l'].contains(q) ? 196 : 150)),
             child: Column(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.stretch, children: card),
           ),
         ),
@@ -1666,9 +1697,17 @@ class _Note extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = Th.pal(context);
+    // a short line sits centred, a paragraph reads from the left
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
-      child: Rich(text, style: F.s(13, c: accent ? p.fg : p.soft, h: 1.45), align: TextAlign.center),
+      child: SizedBox(
+        width: double.infinity,
+        child: Rich(
+          text,
+          style: F.s(14.5, c: accent ? p.fg : p.soft, h: 1.45),
+          align: plainText(text).length > 72 ? TextAlign.start : TextAlign.center,
+        ),
+      ),
     );
   }
 }
@@ -1820,7 +1859,7 @@ class _MockIntro extends StatelessWidget {
             child: Column(
               children: [
                 Text(short ? t.mkLenShort : t.mkLenFull, style: F.s(14, w: FontWeight.w800, c: on ? th.acc : p.fg)),
-                Text(t.mkRows(z.n, z.min), textAlign: TextAlign.center, style: F.s(11.5, c: p.soft)),
+                Text(t.mkRows(z.n, z.min), textAlign: TextAlign.center, style: F.s(12.5, c: p.soft)),
               ],
             ),
           ),
@@ -1855,7 +1894,7 @@ class _MockIntro extends StatelessWidget {
                       Text('${partHz[pp.k]!.$1} ${L10.text(t.partN[pp.k])}', style: F.s(14, w: FontWeight.w700, c: p.fg)),
                       Text(
                         t.mkRows(pp.n, (pp.sec / 60).round()),
-                        style: F.s(12.5, c: p.soft),
+                        style: F.s(13.5, c: p.soft),
                       ),
                     ],
                   ),
@@ -1912,7 +1951,7 @@ class _Rules extends StatelessWidget {
           for (var i = 0; i < lines.length; i++)
             Padding(
               padding: EdgeInsets.only(top: i == 0 ? 0 : 6),
-              child: Text(lines[i], style: F.s(i == 0 ? 13 : 12.5, c: i == 0 ? p.fg : p.soft, h: 1.45)),
+              child: Text(lines[i], style: F.s(i == 0 ? 14.5 : 13.5, w: i == 0 ? FontWeight.w700 : FontWeight.w400, c: i == 0 ? p.fg : p.soft, h: 1.45)),
             ),
         ],
       ),

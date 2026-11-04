@@ -12,7 +12,6 @@ convolution: the colours near the edge flow on smoothly), giving a full-bleed sq
   mobile/android/app/src/main/res/mipmap-*/ic_launcher_monochrome.png   Android 13 themed icon: the light shapes of the design
   mobile/android/app/src/main/res/mipmap-*/ic_launcher.png              legacy icon: the rounded square
   mobile/android/app/src/main/res/mipmap-*/ic_launcher_round.png        legacy round icon: the circle
-  mobile/android/app/src/main/res/drawable-nodpi/ic_splash.webp          splash screen icon (Android 12 shows it inside a circle)
   art/play-icon-512.png                                  Google Play icon (512 x 512, full square, Play rounds it)
   art/icon-badge.png                                     the circle, cut out (store feature graphics)
   docs/privacy/icon.png                                  small icon for the privacy policy page
@@ -124,10 +123,7 @@ def main():
         old = os.path.join(d, 'ic_launcher_foreground.png')
         if os.path.exists(old):
             os.remove(old)
-    nd = os.path.join(RES, 'drawable-nodpi')
-    os.makedirs(nd, exist_ok=True)
-    # splash: 288dp box, Android 12 masks it to the middle circle of 192dp (2/3); the round design fills that circle
-    fit(round_, 864, 0.66).save(os.path.join(nd, 'ic_splash.webp'), quality=92, method=6)
+    # the splash shows no icon (the app draws its own opening), so nothing for drawable-nodpi
     # Play: a full square (Play rounds the corners itself); the design fills it edge to edge
     play = full_bleed(square, round(S / 0.94)).resize((512, 512), Image.LANCZOS)
     play.save(os.path.join(ROOT, 'art', 'play-icon-512.png'), optimize=True)

@@ -212,7 +212,7 @@ void openShareSheet(BuildContext context) {
             if (!ok) app.toast(t.shareFail);
           },
         ),
-        Padding(padding: const EdgeInsets.only(top: 10), child: Text(t.shareNote, style: F.s(12, c: p.soft, h: 1.45))),
+        Padding(padding: const EdgeInsets.only(top: 10), child: Text(t.shareNote, style: F.s(13.5, c: p.soft, h: 1.45))),
       ],
     );
   });

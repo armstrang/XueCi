@@ -950,5 +950,8 @@ Object.assign(I18N.id, {
     `仙门 terbuka: <b>HSK 7–9</b>, ${n} kata baru, dan tiga ranah di atas 飞升. Ujiannya lebih berat: setiap terobosan sekarang juga menguji terjemahan.`,
   gateOn: 'Lanjut ›',
   gateEnter: 'Masuki dunia abadi',
+  gateSky: 'Gerbang terbuka. Di atas langit, masih ada langit.',
+  gateNew: n => `Tiga ranah baru · ${n} kata HSK 7–9`,
+  gateKeep: 'Progresmu di HSK 1–6 tetap utuh.',
 });
 /*</seal>*/

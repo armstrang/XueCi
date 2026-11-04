@@ -17,6 +17,8 @@ import 'package:xueci/ui/backup_sheet.dart';
 import 'package:xueci/ui/settings.dart';
 import 'package:xueci/ui/share.dart';
 import 'package:xueci/ui/shell.dart';
+import 'package:xueci/ui/splash.dart';
+import 'package:xueci/ui/tests.dart' show gateShow;
 
 Future<void> loadFonts() async {
   final fams = {
@@ -38,6 +40,7 @@ int clockMin = jsRound((DateTime.utc(2026, 10, 19, 9).millisecondsSinceEpoch - f
 
 Future<void> bootApp(Map<String, String> saved, {String lang = 'en'}) async {
   Native.off = true;
+  splashOn = false;
   app = await App.boot(
     backend: MemoryBackend(Map.of(saved)),
     random: LcgRandom(3),
@@ -105,7 +108,29 @@ void main() {
     await shot(t, 'home-small-black', size: const Size(360, 680));
   });
 
+  // the opening: the drop of ink and the letters, everything in, the lockup on its way, Home
+  for (final th in ['dark', 'light']) {
+    testWidgets('splash, $th', (t) async {
+      await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"$th"'}, lang: 'id'));
+      t.view.physicalSize = const Size(412, 892) * 2.625;
+      t.view.devicePixelRatio = 2.625;
+      t.platformDispatcher.textScaleFactorTestValue = 1;
+      splashOn = true;
+      await t.pumpWidget(const XueCiApp());
+      var at = 0;
+      for (final ms in th == 'dark' ? [300, 1000, 1380, 2000] : [1000, 1380]) {
+        await t.pump(Duration(milliseconds: ms - at));
+        at = ms;
+        await expectLater(find.byType(XueCiApp), matchesGoldenFile('goldens/splash-$th-$ms.png'));
+      }
+      splashOn = false;
+      await t.pumpWidget(const SizedBox());
+      await t.pump(const Duration(seconds: 8));
+    });
+  }
+
   runs();
+  gateShots();
 
   testWidgets('home: large text, Vietnamese', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"'}, lang: 'vi'));
@@ -309,4 +334,25 @@ Map<String, String> sample({bool strong = false}) {
     'hsk16_theme': '"dark"',
     'hsk16_ui': jsJson({'level': 2}),
   };
+}
+
+// the gate ceremony (GATE=1 only: its pictures name what lies past the gate, and CI's screenshots are public)
+void gateShots() {
+  testWidgets('gate ceremony', skip: Platform.environment['GATE'] != '1', (t) async {
+    await t.runAsync(() => bootApp(sample(strong: true), lang: 'id'));
+    await t.runAsync(() => app.openBand());
+    t.view.physicalSize = const Size(412, 892) * 2.625;
+    t.view.devicePixelRatio = 2.625;
+    await t.pumpWidget(const XueCiApp());
+    await t.pump(const Duration(milliseconds: 600));
+    gateShow(navKey.currentContext!);
+    var at = 0;
+    for (final ms in [1100, 2400, 4800, 6900, 8900, 12400]) {
+      await t.pump(Duration(milliseconds: ms - at));
+      at = ms;
+      await expectLater(find.byType(XueCiApp), matchesGoldenFile('gate/gate-$ms.png'));
+    }
+    await t.pumpWidget(const SizedBox());
+    await t.pump(const Duration(seconds: 8));
+  });
 }

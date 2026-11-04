@@ -51,4 +51,6 @@ app.*.map.json
 /tool/node_modules/
 /tool/package-lock.json
 /test/goldens/
+# the gate ceremony's pictures (GATE=1): never committed, they show what lies past the gate
+/test/gate/
 test/cdump/

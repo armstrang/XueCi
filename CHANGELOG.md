@@ -29,6 +29,12 @@ same progress, every screen drawn natively, with a new look that is easier to re
   first guess).
 - No Mandarin voice for the speaker yet? A short guide shows how to install one.
 
+### A new opening
+- The app opens on its own background (no icon): a drop of gold ink, XueCi writing itself in letter by letter over
+  a gold line, and Home rising in as the wordmark moves into its corner, in under two seconds. Tap to skip it. It
+  plays only when the app starts fresh, follows your theme (light or dark), and is a short fade when the phone is
+  set to remove animations.
+
 ### Cleaner, calmer screens
 - Large titles with the level, unit and quiz type (as an icon) in glass pills under them; a tab bar with a name under every icon.
 - Home: a small realm orb beside the realm's name and stages, then one big Today card with a single Start button,
@@ -38,6 +44,11 @@ same progress, every screen drawn natively, with a new look that is easier to re
 - Cards: a bigger card and hanzi, bigger buttons. Swipe the card right for "I know it", left for "Don't know"; it
   tilts with your finger and springs back if you let go early. Sheets can be pulled down to close.
 - Scroll a screen and its title moves into a small frosted bar at the top.
+- Easier reading: bigger notes and explanations, long paragraphs aligned left, the breakthrough's strikes as clear
+  rows with their score, the stats' bands in an even grid, and labels that never get cut off with large text (a
+  shorter form appears instead). With visual effects on Low, sheets and bars are solid so nothing shows through.
+- A tick or cross now springs onto the answer, with a light buzz when you were right; the Home percentage counts up
+  as the app opens.
 - Word mastery on Home is one calm line; tap it for the HSK lens and the counts.
 - Tablets: Home sits in a centred column (upright) or two columns (landscape), with the HSK lens and the counts open.
 

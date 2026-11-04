@@ -931,5 +931,8 @@ Object.assign(I18N.vi, {
     `仙门 đã mở: <b>HSK 7–9</b>, ${n} từ mới và ba cảnh giới trên 飞升. Thử thách khó hơn: mỗi lần đột phá giờ còn kiểm tra cả dịch.`,
   gateOn: 'Tiếp ›',
   gateEnter: 'Bước vào tiên giới',
+  gateSky: 'Cổng đã mở. Trên trời còn có trời.',
+  gateNew: n => `Ba cảnh giới mới · ${n} từ HSK 7–9`,
+  gateKeep: 'Tiến độ HSK 1–6 của bạn vẫn giữ nguyên.',
 });
 /*</seal>*/

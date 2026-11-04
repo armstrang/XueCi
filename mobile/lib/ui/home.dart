@@ -15,6 +15,7 @@ import 'glass.dart';
 import 'icons.dart';
 import 'lens.dart';
 import 'sheet.dart';
+import 'splash.dart';
 import 'theme.dart';
 import 'widgets.dart';
 
@@ -48,13 +49,13 @@ class HomeScreen extends StatelessWidget {
                 HomeHeader(short: tight),
                 SizedBox(height: gap),
                 const Spacer(),
-                RealmRow(tight: tight),
+                Rise(1, child: RealmRow(tight: tight)),
                 SizedBox(height: gap),
                 const Spacer(),
-                PlanCard(tight: tight, compact: compact),
+                Rise(2, child: PlanCard(tight: tight, compact: compact)),
                 SizedBox(height: tight ? 8 : 12),
                 const Spacer(),
-                _Mastery(keys: false, short: tight),
+                Rise(3, child: _Mastery(keys: false, short: tight)),
                 const Spacer(flex: 2),
               ],
             );
@@ -90,7 +91,11 @@ class _HomeWide extends StatelessWidget {
                         child: const Column(
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [RealmRow(tight: false), SizedBox(height: 20), PlanCard(tight: false)],
+                          children: [
+                            Rise(1, child: RealmRow(tight: false)),
+                            SizedBox(height: 20),
+                            Rise(2, child: PlanCard(tight: false)),
+                          ],
                         ),
                       ),
                     ),
@@ -98,7 +103,10 @@ class _HomeWide extends StatelessWidget {
                   const SizedBox(width: 28),
                   Expanded(
                     child: Center(
-                      child: ConstrainedBox(constraints: const BoxConstraints(maxWidth: 560), child: const MasteryFull()),
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(maxWidth: 560),
+                        child: const Rise(3, child: MasteryFull()),
+                      ),
                     ),
                   ),
                 ],
@@ -133,11 +141,11 @@ class _HomeTall extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        RealmRow(tight: false),
+                        Rise(1, child: RealmRow(tight: false)),
                         SizedBox(height: 22),
-                        PlanCard(tight: false),
+                        Rise(2, child: PlanCard(tight: false)),
                         SizedBox(height: 22),
-                        MasteryFull(),
+                        Rise(3, child: MasteryFull()),
                       ],
                     ),
                   ),
@@ -177,13 +185,15 @@ class HomeHeader extends StatelessWidget {
             onTap: app.onWordmark,
             scale: 1.04,
             label: 'XueCi Mandarin',
-            child: Padding(
+            child: MarkSlot(
+              child: Padding(
               padding: const EdgeInsets.only(left: 4),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text.rich(
+                    key: markKey,
                     TextSpan(
                       children: [
                         const TextSpan(text: 'Xue'),
@@ -194,15 +204,16 @@ class HomeHeader extends StatelessWidget {
                   ),
                   if (th.fs < 1.15) ...[
                     const SizedBox(height: 3),
-                    Text('MANDARIN', style: F.s(8, w: FontWeight.w800, c: p.soft, ls: 2.9, h: 1)),
+                    Text('MANDARIN', key: markSubKey, style: F.s(8, w: FontWeight.w800, c: p.soft, ls: 2.9, h: 1)),
                   ],
                 ],
               ),
             ),
+            ),
           ),
           const Spacer(),
           // cultivation days · 护法 · Settings in one glass capsule
-          Glass(
+          Rise(0, child: Glass(
             frost: true,
             radius: h / 2,
             height: h,
@@ -253,7 +264,7 @@ class HomeHeader extends StatelessWidget {
                 ),
               ],
             ),
-          ),
+          )),
         ],
       ),
     );
@@ -792,12 +803,29 @@ class PlanCard extends StatelessWidget {
           Row(
             children: [
               Semantics(header: true, child: Text(t.planT, style: F.s(15, w: FontWeight.w700, c: p.soft))),
-              const Spacer(),
-              if (stT.isNotEmpty) ...[
-                Dot(p.band(stK), size: 8),
-                const SizedBox(width: 6),
-                Flexible(child: Text(plainText(stT), maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(13, w: FontWeight.w700, c: p.soft))),
-              ],
+              const SizedBox(width: 12),
+              // the status in words when it fits, otherwise its dot alone (never cut off)
+              Expanded(
+                child: stT.isEmpty
+                    ? const SizedBox()
+                    : LayoutBuilder(
+                        builder: (c, bc) {
+                          final st = F.s(13, w: FontWeight.w700, c: p.soft);
+                          final words = plainText(stT);
+                          final fits = textFits(c, words, st, bc.maxWidth - 14);
+                          return Semantics(
+                            label: words,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Dot(p.band(stK), size: 8),
+                                if (fits) ...[const SizedBox(width: 6), ExcludeSemantics(child: Text(words, maxLines: 1, style: st))],
+                              ],
+                            ),
+                          );
+                        },
+                      ),
+              ),
             ],
           ),
           SizedBox(height: tight ? 4 : 8),
@@ -965,27 +993,36 @@ class _Mastery extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Semantics(header: true, child: Text(t.masT, maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(17, w: FontWeight.w800, c: p.fg))),
-                ),
-                Press(
-                  onTap: () => app.go('stats'),
-                  scale: 1.05,
-                  label: '${t.stTitle} · HSK $L · $pc',
-                  child: ConstrainedBox(
-                    constraints: const BoxConstraints(minHeight: 36, minWidth: 44),
-                    child: Center(widthFactor: 1, child: Text('${t.statsShort} ›', style: F.s(15, w: FontWeight.w800, c: th.acc))),
-                  ),
-                ),
-              ],
+            // the title and the link to the stats; when both don't fit (large text), the link is a chevron alone
+            LayoutBuilder(
+              builder: (c, bc) {
+                final ts = F.s(17, w: FontWeight.w800, c: p.fg), ls = F.s(15, w: FontWeight.w800, c: th.acc);
+                final room = bc.maxWidth - 12;
+                final both = textFits(c, '${t.masT}  ${t.statsShort} ›', ts.copyWith(fontSize: 17), room);
+                return Row(
+                  children: [
+                    Expanded(child: Semantics(header: true, child: Text(t.masT, maxLines: 1, overflow: TextOverflow.ellipsis, style: ts))),
+                    Press(
+                      onTap: () => app.go('stats'),
+                      scale: 1.05,
+                      label: '${t.stTitle} · HSK $L · $pc',
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(minHeight: 36, minWidth: 44),
+                        child: Center(
+                          widthFactor: 1,
+                          child: both ? Text('${t.statsShort} ›', style: ls) : RotatedBox(quarterTurns: 3, child: Icon2(I.chev, size: 18, color: th.acc, width: 2.4)),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
             const SizedBox(height: 4),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(pc, style: F.s(short ? 26 : 32, w: FontWeight.w700, c: p.fg, feat: F.tab, ls: -1, h: 1)),
+                CountUp(S.p, text: app.pctTxt, style: F.s(short ? 26 : 32, w: FontWeight.w700, c: p.fg, feat: F.tab, ls: -1, h: 1)),
                 const SizedBox(width: 14),
                 Expanded(
                   child: Column(
@@ -1051,7 +1088,7 @@ class MasteryFull extends StatelessWidget {
           const SizedBox(height: 14),
           Row(
             children: [
-              Text(pc, style: F.s(32, w: FontWeight.w700, c: p.fg, feat: F.tab, ls: -1, h: 1)),
+              CountUp(S.p, text: app.pctTxt, style: F.s(32, w: FontWeight.w700, c: p.fg, feat: F.tab, ls: -1, h: 1)),
               const SizedBox(width: 14),
               Expanded(
                 child: StackBar([
