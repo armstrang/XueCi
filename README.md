@@ -1,6 +1,6 @@
 # XueCi Mandarin
 
-Aplikasi belajar kosakata HSK 1–6 (silabus HSK 3.0, terbit November 2025) bergaya *Liquid Glass*: daftar kata, kartu hafalan dengan cek kilat, kuis, simulasi ujian HSK, dan progres pemahaman per kata (20 tingkat, dari merah ke hijau). Aplikasi menyusun rencana harian dari tujuan belajarmu (target level dan tanggal, ujian HSK, atau tanpa target) dengan model memori [FSRS](https://github.com/open-spaced-repetition) yang disesuaikan dengan pola ingatanmu. Level ditentukan lewat tes dan ditampilkan sebagai ranah kultivasi (凡人 → 炼气 → … → 飞升): tes penempatan adalah pintu masuk, setelah itu ranah hanya naik lewat terobosan *雷劫* (beberapa sambaran: arti, ketik pinyin, dengar, kalimat, kecepatan) yang menentukan mutu fondasi (道基), dan ranah bisa goyah kalau kata di bawahnya mulai pudar. Ada juga halaman *Lautan Jiwa* (bola jaringan kata dan lima elemen), ujian harian, serta jeda istirahat dan hari meditasi, karena istirahat juga bagian dari belajar. Semua perhitungan dilakukan di HP. Tersedia dalam bahasa Indonesia, English, ไทย, dan Tiếng Việt, dengan tema terang, gelap, dan true black. Berjalan sepenuhnya offline.
+Aplikasi belajar kosakata HSK 1–6 (silabus HSK 3.0, terbit November 2025) bergaya *Liquid Glass*: daftar kata, kartu hafalan dengan cek kilat, kuis, simulasi ujian HSK, dan progres pemahaman per kata (20 tingkat, dari merah ke hijau). Aplikasi menyusun rencana harian dari tujuan belajarmu (target level dan tanggal, ujian HSK, atau tanpa target) dengan model memori [FSRS](https://github.com/open-spaced-repetition) yang disesuaikan dengan pola ingatanmu. Level ditentukan lewat tes dan ditampilkan sebagai ranah kultivasi (凡人 → 炼气 → … → 飞升): tes penempatan adalah pintu masuk, setelah itu ranah hanya naik lewat terobosan *雷劫* (beberapa sambaran: arti, ketik pinyin, dengar, kalimat, kecepatan) yang menentukan mutu fondasi (道基), dan ranah bisa goyah kalau kata di bawahnya mulai pudar. Ada juga halaman *Lautan Jiwa* (bola jaringan kata dan lima elemen), ujian harian, serta jeda istirahat dan hari meditasi, karena istirahat juga bagian dari belajar. Semua perhitungan dilakukan di HP. Tersedia dalam bahasa Indonesia, English, ไทย, dan Tiếng Việt, dengan tema terang, gelap, dan true black. Berjalan offline.
 
 Apa yang berubah di setiap versi ada di [CHANGELOG.md](CHANGELOG.md).
 
@@ -8,10 +8,10 @@ by Armstrang
 
 ## Pasang di Android
 
-Aplikasi ini masih dalam pengujian (**1.0-alpha**), belum rilis resmi.
+Pasang dari **Google Play**, atau langsung dari GitHub:
 
 1. Buka halaman **[Releases](../../releases)** dari HP.
-2. Pada rilis alpha terbaru, unduh `XueCiMandarin-alpha.apk`.
+2. Pada rilis terbaru (Latest), unduh `XueCiMandarin.apk`. Build uji ada sebagai pre-release `v1.0-alpha-N` (`XueCiMandarin-alpha.apk`).
 3. Buka file itu. Jika diminta, izinkan "Instal aplikasi tidak dikenal" untuk browser atau file manager yang dipakai.
 
 Versi baru dipasang dengan cara yang sama, langsung di atas versi sebelumnya. Progres belajar tidak hilang.
@@ -28,7 +28,7 @@ Aplikasinya dibuat dengan **Flutter** (Dart).
 - `content/i18n/` — teks antarmuka 4 bahasa.
 - `content/tools/` — `sentence_pinyin.py` (pinyin contoh kalimat) dan `word_freq.py` (frekuensi kata dan jenis kata dari kamus jieba).
 - `store/` — bahan halaman Google Play (`listing.md`).
-- `art/` — gambar ikon (`python3 art/make_icons.py` membuat semua ukuran ikon dari `art/icon-source-square.png` dan `art/icon-source-round.png`); `docs/play-store.md` — rencana rilis di Google Play.
+- `art/` — ikon 词 (`art/icon.html`, digambar tanpa font; `python3 art/make_icons.py` membuat semua ukuran ikon); `docs/play-store.md` — rencana rilis di Google Play.
 
 GitHub Actions membuat data aplikasi, menjalankan analisis dan semua uji di setiap push. Build uji yang lulus terbit sebagai pre-release `v1.0-alpha-N`; rilis resmi (v1.0, v1.1, …) dibuat dari `main` dengan catatan rilis dari bagian versinya di `CHANGELOG.md`.
 APK ditandatangani dengan kunci di `keystore/` supaya setiap versi bisa memperbarui versi sebelumnya.

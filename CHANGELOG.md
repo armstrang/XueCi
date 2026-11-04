@@ -6,7 +6,7 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
-## v1.0 — in testing (1.0-alpha), not released yet
+## v1.0
 
 **XueCi starts again at 1.0 as a native app (Flutter) instead of a web page inside the app: the same app and the
 same progress, every screen drawn natively, with a new look that is easier to read.**
@@ -104,4 +104,5 @@ same progress, every screen drawn natively, with a new look that is easier to re
 - The list footer says that progress is saved on this device.
 
 ### Under the hood
-- The app is now fully native. It still works fully offline and sends nothing anywhere.
+- The app is now fully native. It still works offline and has no server of its own: speaking practice uses your
+  phone's speech recognizer, and only donations talk to Google Play.

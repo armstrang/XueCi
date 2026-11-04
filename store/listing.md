@@ -55,7 +55,7 @@ Tanpa iklan, tanpa akun, bisa dipakai offline. Kalau mau, kamu bisa berdonasi se
 Daftar kata dan pinyin berdasarkan data terbuka hsk30. XueCi Mandarin adalah aplikasi independen dan tidak berafiliasi dengan penyelenggara ujian HSK.
 
 **Catatan rilis pertama** (maks. 500):
-Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, ranah kultivasi dan Lautan Jiwa, tes penempatan, rencana harian sesuai tujuan, jeda istirahat, pengingat harian, kartu dengan cek kilat, kuis (arti, hanzi, nada, dengar, kalimat, ketik pinyin, terjemahan), simulasi HSK, wawasan belajar, warna nada, 4 bahasa, dan tema terang/gelap/hitam pekat. Semua berjalan offline di HP.
+Rilis pertama XueCi Mandarin: 5.334 kata HSK 1–6, ranah kultivasi dan Lautan Jiwa, tes penempatan, rencana harian sesuai tujuan, jeda istirahat, pengingat harian, kartu dengan cek kilat, kuis (arti, hanzi, nada, dengar, kalimat, ketik pinyin, terjemahan), latihan bicara, simulasi HSK, wawasan belajar, warna nada, 4 bahasa, dan tema terang/gelap/hitam pekat. Semua berjalan offline di HP.
 
 ---
 
@@ -102,7 +102,7 @@ No ads, no account, works offline. You can donate as a 护法 if you like, but n
 Word list and pinyin based on the open hsk30 data. XueCi Mandarin is an independent app and is not affiliated with the organisers of the HSK exam.
 
 **First release notes** (max 500):
-First release of XueCi Mandarin: 5,334 HSK 1–6 words, cultivation realms and the Sea of Consciousness, a placement test, a daily plan built from your goal, rest breaks, daily reminders, flashcards with a quick check, a quiz (meaning, hanzi, tones, listening, sentences, typed pinyin, translation), an HSK mock exam, learning insights, tone colours, 4 languages, and light/dark/true black themes. Everything runs offline on your phone.
+First release of XueCi Mandarin: 5,334 HSK 1–6 words, cultivation realms and the Sea of Consciousness, a placement test, a daily plan built from your goal, rest breaks, daily reminders, flashcards with a quick check, a quiz (meaning, hanzi, tones, listening, sentences, typed pinyin, translation), speaking practice, an HSK mock exam, learning insights, tone colours, 4 languages, and light/dark/true black themes. Everything runs offline on your phone.
 
 ---
 

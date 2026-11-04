@@ -1137,8 +1137,12 @@ class _GateState extends State<_Gate> with SingleTickerProviderStateMixin {
     super.dispose();
   }
 
+  /// a tap: a quick glide to the last moment, then the way in comes up as usual
   void _tap() {
-    if (_a.value * _len < 10.2) _a.animateTo(10.25 / _len, duration: const Duration(milliseconds: 240), curve: Curves.easeOut);
+    if (_a.value * _len >= 10.2) return;
+    _a.animateTo(10.2 / _len, duration: const Duration(milliseconds: 240), curve: Curves.easeOut).then((_) {
+      if (mounted) _a.forward();
+    });
   }
 
   @override
