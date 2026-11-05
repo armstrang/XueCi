@@ -82,6 +82,7 @@ I18N.vi = {
   infoLead: 'Màu của chữ Hán và pinyin chính là thanh điệu. Cứ đọc theo màu:',
   aboutT: 'Giới thiệu',
   privacy: 'Chính sách quyền riêng tư',
+  terms: 'Điều khoản dịch vụ',
   licT: 'Giấy phép',
   stS: {
     free: 'Không mục tiêu',

@@ -11,7 +11,7 @@ import '../i18n/l10.dart';
 import 'glass.dart';
 import 'icons.dart';
 import 'realm.dart' show rcol;
-import 'settings.dart' show privacyUrl;
+import 'settings.dart' show privacyUrl, termsUrl;
 import 'sheet.dart';
 import 'soul.dart' show el5, atz, elp, elColor;
 import 'theme.dart';
@@ -217,6 +217,23 @@ class _InfoState extends State<_Info> {
               child: Row(
                 children: [
                   Expanded(child: Text(t.privacy, style: F.s(14, w: FontWeight.w700, c: p.fg))),
+                  Text('↗', style: F.s(14, c: p.soft)),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+          Press(
+            onTap: () => Native.I.openUrl(termsUrl),
+            scale: .98,
+            label: t.terms,
+            child: Glass(
+              solid: true,
+              radius: 16,
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+              child: Row(
+                children: [
+                  Expanded(child: Text(t.terms, style: F.s(14, w: FontWeight.w700, c: p.fg))),
                   Text('↗', style: F.s(14, c: p.soft)),
                 ],
               ),

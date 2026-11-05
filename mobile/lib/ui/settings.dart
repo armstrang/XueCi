@@ -24,6 +24,7 @@ import 'theme.dart';
 import 'widgets.dart';
 
 const privacyUrl = 'https://armstrang.github.io/XueCi/privacy/';
+const termsUrl = 'https://armstrang.github.io/XueCi/terms/';
 
 // ---------------------------------------------------------------- shared pieces
 /// a group of rows with a small caps heading
@@ -402,6 +403,12 @@ class _SettingsState extends State<_Settings> {
             title: t.privacy,
             chev: '↗',
             onTap: () => Native.I.openUrl(privacyUrl),
+          ),
+          SRow(
+            icon: Icon2(I.qExam, size: 22, color: th.acc),
+            title: t.terms,
+            chev: '↗',
+            onTap: () => Native.I.openUrl(termsUrl),
           ),
         ]),
       ],

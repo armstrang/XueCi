@@ -553,6 +553,7 @@ mixin L10Keys {
   String get tabHome => s('tabHome');
   String get tabSoul => s('tabSoul');
   String get tabStats => s('tabStats');
+  String get terms => s('terms');
   String get testLocked => s('testLocked');
   String testNext(Object? a0) => f('testNext', [a0]);
   String get testWhy => s('testWhy');

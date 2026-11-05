@@ -7,6 +7,15 @@ name: Build APK
 # current code, but a push to it never publishes anything by itself.
 on:
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version name to build (empty = 1.N from the run number)'
+        required: false
+        default: ''
+      replace:
+        description: 'Replace the release of that version (its tag moves to this commit, its files are replaced)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -41,7 +50,8 @@ jobs:
         run: |
           n=$(( GITHUB_RUN_NUMBER - 19 ))
           if [ "$n" -lt 0 ]; then n=0; fi
-          echo "VER=1.$n" >> "$GITHUB_ENV"
+          v="${{ inputs.version }}"
+          echo "VER=${v:-1.$n}" >> "$GITHUB_ENV"
           echo "CODE=$(( 2000 + GITHUB_RUN_NUMBER ))" >> "$GITHUB_ENV"
 
       - name: Assets (word data, interface text, the sealed part)
@@ -103,6 +113,7 @@ jobs:
 
       # Never mix a new build into an old release that happens to share its name.
       - name: Check the version name is free
+        if: ${{ !inputs.replace }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -122,6 +133,13 @@ jobs:
           printf '\n---\n\nDownload **XueCiMandarin.apk** below and open it on an Android phone to install (the .aab file is the Google Play bundle).\nUpdates install over the previous version; your study progress is kept.\n' >> notes.md
           cat notes.md
 
+      # Replacing a release (Josh, before it reached Google Play): the tag moves to this commit, the files are replaced.
+      - name: Move the tag
+        if: ${{ inputs.replace }}
+        run: |
+          git tag -f "v$VER"
+          git push -f origin "v$VER"
+
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
@@ -132,3 +150,4 @@ jobs:
             XueCiMandarin.apk
             XueCiMandarin.aab
           make_latest: true
+          overwrite_files: true

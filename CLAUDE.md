@@ -54,7 +54,9 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   version used 100 + run). Signing: `keystore/xueci.jks` (alias `merdeka`, same certificate as the earlier version so
   updates install over it; public, so test builds only). The Play bundle uses the upload key from the secrets
   `XC_UPLOAD_*` when `XC_PLAY=1`; Josh creates that key himself.
-- Privacy policy (`docs/privacy/index.html`, ID + EN): update it whenever data behaviour or permissions change. Contact
+- Privacy policy (`docs/privacy/index.html`, ID + EN): update it whenever data behaviour or permissions change. Terms of
+  service: `docs/terms/index.html` (ID + EN; Josh declared **trader** status on Play, Nov 2026, so each app links its
+  terms; Play shows his contact details, the app and the sites still only GitHub Issues). Contact
   is GitHub Issues only — never publish an email. About never says who wrote the meanings/examples (README does).
   "by Armstrang" only in About. About → Licences shows `mobile/assets/legal/licenses.txt` (hsk30 MIT + the fonts' OFL):
   keep it when fonts or data sources change.
@@ -191,7 +193,8 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   published as pre-release **`v1.0-alpha-N`** (N = highest + 1, versionName 1.0.0-alpha.N, `XueCiMandarin-alpha.apk`,
   never latest; the first was plain `v1.0-alpha`). `[skip ci]` in a commit message = no build, no alpha.
 - `.github/workflows/build-apk.yml`: the official release, **run by hand only** when Josh says so (APK + Play bundle,
-  release `v1.N`, notes from `CHANGELOG.md`; refuses an existing tag).
+  release `v1.N`, notes from `CHANGELOG.md`; refuses an existing tag; inputs `version` + `replace` rebuild a release in
+  place, moving its tag, only when Josh asks: v1.0 was rebuilt this way before it reached Play).
 - `.github/workflows/play-test.yml` (by hand): a Play bundle for internal/closed testing, upload key only (fails
   without it), `1.0.0-beta.N`, versionCode 1500 + run, artifact only (nothing published on GitHub).
 - `.github/workflows/flutter-sdk.yml` (by hand): the `dev-flutter-sdk` pre-release for Claude's cloud sessions; delete

@@ -84,6 +84,7 @@ I18N.id = {
   infoLead: 'Warna hanzi dan pinyin menandai nadanya. Ucapkan sesuai warnanya:',
   aboutT: 'Tentang',
   privacy: 'Kebijakan privasi',
+  terms: 'Ketentuan layanan',
   licT: 'Lisensi',
   stS: {
     free: 'Tanpa target',

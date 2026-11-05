@@ -84,6 +84,7 @@ I18N.en = {
   infoLead: 'The colour of a hanzi and its pinyin is its tone. Say it the way the colour says:',
   aboutT: 'About',
   privacy: 'Privacy policy',
+  terms: 'Terms of service',
   licT: 'Licences',
   stS: {
     free: 'No target',
