@@ -50,6 +50,9 @@ mixin L10Keys {
   String get back => s('back');
   String backMsg(Object? a0, Object? a1) => f('backMsg', [a0, a1]);
   Map<String, dynamic> get band => (v('band') as Map?)?.cast<String, dynamic>() ?? const {};
+  Map<String, dynamic> get bgmM => (v('bgmM') as Map?)?.cast<String, dynamic>() ?? const {};
+  String get bgmNote => s('bgmNote');
+  String get bgmT => s('bgmT');
   String get bkApply => s('bkApply');
   String get bkBad => s('bkBad');
   String get bkBtn => s('bkBtn');

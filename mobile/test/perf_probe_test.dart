@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:xueci/app/app.dart';
 import 'package:xueci/ui/glass.dart';
+import 'package:xueci/ui/qi.dart';
 import 'package:xueci/ui/shell.dart';
 
 import 'screens_test.dart' show bootApp, loadFonts, sample;
@@ -14,6 +15,7 @@ import 'screens_test.dart' show bootApp, loadFonts, sample;
 void main() {
   setUpAll(() async {
     noBlur = true;
+    qiOn = false;
     await loadFonts();
   });
   testWidgets('first frame per screen', skip: Platform.environment['PERF'] == null, (t) async {

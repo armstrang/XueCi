@@ -309,6 +309,29 @@ class _SettingsState extends State<_Settings> {
               ],
             ),
           ),
+          if (Native.I.isAndroid || Native.off)
+            Glass(
+              solid: true,
+              radius: 18,
+              padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(t.bgmT, style: F.s(15, w: FontWeight.w700, c: p.fg)),
+                  const SizedBox(height: 8),
+                  Seg(
+                    label: t.bgmT,
+                    value: '${app.bgm}',
+                    options: [for (var i = 0; i < 4; i++) ('$i', L10.text(t.bgmM['$i']), null)],
+                    onPick: (v) {
+                      if (v != '${app.bgm}') app.setBgm(int.parse(v));
+                    },
+                  ),
+                  const SizedBox(height: 8),
+                  Text(t.bgmNote, style: F.s(13.5, c: p.soft, h: 1.45)),
+                ],
+              ),
+            ),
         ]),
         SGroup(t.langHead, [
           SRow(

@@ -171,6 +171,20 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   invited. After a passed breakthrough (not placement, not the make-up, not the gate) a quiet invitation once per realm
   (`DonateAsk`); donors get a 护法 seal in the Soul Sea. Off Google Play (GitHub APK) the sheet says donations need Play.
   Never an outside donation link in the app (Play payments policy).
+- **Background music** (Josh, Nov 2026: one cultivator ambience per realm, on and soft by default): `art/make_bgm.py`
+  synthesises `res/raw/bgm_0…7.ogg` (48 s loops that close on themselves, no samples; re-run to change them). `Bgm.kt`
+  plays them (cross-fade, quieter while a word is spoken, silent while the app listens, in the background and when
+  another app already plays music; never takes the audio focus). `App.syncBgm` picks the piece: the realm's, piece 6
+  (渡劫) during a tribulation, none in an HSK simulation; the realms past 7 play piece 7 at another pitch (no file of
+  their own, nothing to find). Setting `bgm` 0–3 in `hsk16_ui` (Settings → look).
+- **The living layer** (`ui/qi.dart`, Josh, Nov 2026: "like a cultivation game, many things move"; this replaces the
+  older "no busy effects" rule, the 200–300 ms rule still holds for screen and question changes): one clock `qiT`
+  (one ticker in `QiField`, 30 fps, asleep 90 s after the last touch) drives qi in the air behind every screen
+  (motes, mist; storm clouds and driven sparks in a tribulation), `QiAura` around Home's orb, `qiBurst` (qi from a
+  right answer, ink from a wrong one), `qiSweep` (ink across a screen change), `QiShimmer` on Home's Start,
+  `QiSmoke`, `QiSpin`. Canvas only, in repaint boundaries. Still with light effects or "remove animations";
+  `qiOn = false` in the measuring tests. `QI=1 flutter test --update-goldens test/qi_film_test.dart` films it into
+  `test/qi/` (not committed).
 - **Visual effects** setting: full (the default, Josh)/auto/low; auto steps down once if frames are slow (toast). Low = no blur, no glow.
 - **First start**: a 3-step tour ending in the goal sheet; a new learner sees two ways in (start from zero / placement).
 - **Easter egg**: seven taps on the wordmark → a seal stamps 天外有天 (封 before the gate, 开 after).

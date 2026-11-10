@@ -79,6 +79,7 @@ jobs:
           name: screenshots
           path: mobile/test/goldens/
           if-no-files-found: ignore
+          retention-days: 1 # Actions storage is 0.5 GB for the whole account
 
       - name: Build signed APK
         working-directory: mobile
@@ -110,6 +111,7 @@ jobs:
         with:
           name: XueCiMandarin-apk
           path: XueCiMandarin.apk
+          retention-days: 1 # the release keeps the APK
 
       # Never mix a new build into an old release that happens to share its name.
       - name: Check the version name is free

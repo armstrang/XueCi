@@ -14,6 +14,7 @@ import 'glass.dart';
 import 'home.dart';
 import 'icons.dart';
 import 'lens.dart';
+import 'qi.dart';
 import 'screens.dart';
 import 'splash.dart';
 import 'theme.dart';
@@ -50,10 +51,13 @@ class _XueCiAppState extends State<XueCiApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     wireSheets();
+    app.addListener(app.syncBgm);
+    app.syncBgm();
   }
 
   @override
   void dispose() {
+    app.removeListener(app.syncBgm);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -139,6 +143,7 @@ class Shell extends StatefulWidget {
 
 class _ShellState extends State<Shell> {
   bool _readySent = false;
+  String? _shown;
   // the opening plays once, on a start that opens on Home
   late bool _splash = splashOn && app.screen == 'home';
 
@@ -170,6 +175,11 @@ class _ShellState extends State<Shell> {
       });
     }
     final s = app.screen;
+    if (s != _shown) {
+      // ink washes across as the new screen comes in (not on the first one, not between questions)
+      if (_shown != null && !_splash) qiSweep(th.p.dark ? Colors.white : const Color(0xff1b1d27));
+      _shown = s;
+    }
     final kb = MediaQuery.viewInsetsOf(context).bottom > 80;
     // hidden while answering: a session, the quiz, the tests, typing, an open menu, an exam
     final tabs = !const ['session', 'placement', 'bt'].contains(s) && !kb && !app.menuOpen && !app.inExam;
@@ -190,6 +200,8 @@ class _ShellState extends State<Shell> {
                 // the drifting glow only on the light theme: dark and true black keep the mockup's still, deep background
                 if (th.full && !th.p.dark && !const ['session', 'placement', 'bt'].contains(s))
                   const Positioned.fill(child: DriftGlow()),
+                // qi in the air (storm clouds during a tribulation); not in an HSK simulation
+                if (!app.inExam) Positioned.fill(child: QiField(storm: s == 'bt')),
                 Positioned.fill(
                   // only the new screen comes in (the old one leaves at once, so no two screens are drawn together):
                   // a short fade and rise, transform and opacity only
@@ -213,6 +225,7 @@ class _ShellState extends State<Shell> {
                 ),
                 if (tabs) const Positioned(left: 0, right: 0, bottom: 0, child: Rise(4, child: RepaintBoundary(child: TabBar2()))),
                 const Positioned(left: 0, right: 0, bottom: 0, child: RepaintBoundary(child: ToastHost())),
+                const Positioned.fill(child: QiOver()),
                 if (_splash)
                   Positioned.fill(
                     child: RepaintBoundary(

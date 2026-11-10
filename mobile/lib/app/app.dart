@@ -233,6 +233,7 @@ class App extends ChangeNotifier {
   String spk = 'n'; // speaking practice: e easy, n normal, h hard
   String theme = 'auto';
   String fxPref = 'full'; // Josh: glassy by default; auto and low stay in Settings
+  int bgm = 1; // background music: 0 off, 1 soft (the default, Josh), 2 medium, 3 loud
   bool fxDown = false; // the frame watcher stepped down once (xc_fxd)
   Map<String, dynamic> note = {};
 
@@ -243,6 +244,7 @@ class App extends ChangeNotifier {
     'qt': qType,
     if (mockShort) 'mks': 1,
     if (spk != 'n') 'spk': spk,
+    if (bgm != 1) 'bgm': bgm,
   });
   void saveNote() => store.set('xc_note', note);
 
@@ -261,6 +263,8 @@ class App extends ChangeNotifier {
       if (qTypes.contains(ui['qt'])) qType = ui['qt'] as String;
       mockShort = ui['mks'] == 1;
       if (spkLevels.contains(ui['spk'])) spk = ui['spk'] as String;
+      final b = ui['bgm'];
+      if (b is num && b >= 0 && b <= 3) bgm = b.toInt();
     }
     final th = store.get('hsk16_theme', null);
     theme = themes.contains(th) ? th as String : 'auto';
@@ -409,6 +413,26 @@ class App extends ChangeNotifier {
     return 'full';
   }
 
+  void setBgm(int v) {
+    bgm = v;
+    saveUI();
+    notifyListeners();
+  }
+
+  /// The music of the moment (Bgm.kt): the realm's own piece, the tribulation's thunder during a breakthrough,
+  /// silence in an HSK simulation (it has listening questions). The pieces are bgm_0…7; the realms after 7 play the
+  /// last one at another pitch. Sent to the phone only when something changed.
+  (int, int, int)? _bgmSent;
+  void syncBgm() {
+    final r = lm.realm();
+    final track = bgm == 0 || inExam ? -1 : (screen == 'bt' ? 6 : math.min(r, 7));
+    final step = screen == 'bt' || r <= 7 ? 0 : r - 7;
+    final k = (track, bgm, step);
+    if (k == _bgmSent) return;
+    _bgmSent = k;
+    Native.I.bgm(track, const [0.0, .22, .42, .7][bgm], const [1.0, 1.06, 1.122, 1.189][math.min(step, 3)]);
+  }
+
   void setFx(String m) {
     fxPref = m;
     store.set('xc_fx', m);
@@ -439,6 +463,7 @@ class App extends ChangeNotifier {
   /// Falls back to the phone's recognizer window when the phone can't listen inside apps. null when stopped.
   Future<SpeakResult?> hear(String target, {void Function(Map ev)? onEvent}) async {
     Native.I.listenEv = onEvent;
+    Native.I.bgmHush(true); // the microphone must not hear the music
     var h = await Native.I.listenIn();
     Native.I.listenEv = null;
     if (h != null && h.length == 1 && h.first == 'denied') {
@@ -447,10 +472,12 @@ class App extends ChangeNotifier {
       toast(t.spkDenied, 5000);
       if (_micDenied) Future.delayed(const Duration(milliseconds: 1400), Native.I.openAppSettings);
       _micDenied = true;
+      Native.I.bgmHush(false);
       notifyListeners();
       return null;
     }
     if (h != null && h.length == 1 && h.first == '!') h = await Native.I.listen(t.spkPrompt);
+    Native.I.bgmHush(false);
     // stopped or failed without words: say so ("nothing was heard") instead of going quiet
     if (h == null) return scoreSpeech(target, const [], spk, sounds);
     if (h.length == 1 && h.first == '!') {

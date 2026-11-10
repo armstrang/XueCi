@@ -54,3 +54,4 @@ app.*.map.json
 # the gate ceremony's pictures (GATE=1): never committed, they show what lies past the gate
 /test/gate/
 test/cdump/
+/test/qi/

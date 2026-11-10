@@ -686,6 +686,14 @@ I18N.en = {
   setData: 'Data',
   setHelp: 'Help & about',
   setGoalT: 'Goal, meditation days & reminder',
+  bgmT: 'Background music',
+  bgmM: {
+    0: 'Off',
+    1: 'Soft',
+    2: 'Medium',
+    3: 'Loud',
+  },
+  bgmNote: 'Each realm has its own music. It gets quieter while a word is spoken and stays silent in the HSK mock exam.',
   fxT: 'Visual effects',
   fxM: {
     auto: 'Automatic',

@@ -15,6 +15,7 @@ import android.os.SystemClock
 import android.provider.Settings
 import android.speech.RecognizerIntent
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import android.webkit.JavascriptInterface
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
@@ -52,6 +53,7 @@ class MainActivity : FlutterActivity() {
     private var legacyView: WebView? = null
     private val main = Handler(Looper.getMainLooper())
     private var donate: Donate? = null
+    private val bgm: Bgm by lazy { Bgm(applicationContext) }
     private var listenResult: MethodChannel.Result? = null
     private var micResult: MethodChannel.Result? = null
     private val listener: Listen by lazy { Listen(this) { ev -> main.post { channel.invokeMethod("listenEv", ev) } } }
@@ -91,7 +93,16 @@ class MainActivity : FlutterActivity() {
                     }
                     result.success(null)
                 }
-                "stopSpeaking" -> { tts?.stop(); result.success(null) }
+                "stopSpeaking" -> { tts?.stop(); bgm.duck(false); result.success(null) }
+                "bgm" -> {
+                    bgm.set(
+                        call.argument<Int>("track") ?: -1,
+                        (call.argument<Double>("vol") ?: 0.0).toFloat(),
+                        (call.argument<Double>("pitch") ?: 1.0).toFloat()
+                    )
+                    result.success(null)
+                }
+                "bgmHush" -> { bgm.hush(call.arguments == true); result.success(null) }
                 "openTtsSettings" -> { openTtsSettings(); result.success(null) }
                 "setReminder" -> {
                     val o = JSONObject(call.arguments as String)
@@ -255,6 +266,16 @@ class MainActivity : FlutterActivity() {
                 TextToSpeech.LANG_NOT_SUPPORTED -> "unsupported"
                 else -> "ready"
             }
+            // the music steps back while a word is spoken
+            t.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+                override fun onStart(utteranceId: String?) {}
+                override fun onDone(utteranceId: String?) { main.post { if (utteranceId == "xc$utterance") bgm.duck(false) } }
+                @Deprecated("Deprecated in Java")
+                override fun onError(utteranceId: String?) { main.post { bgm.duck(false) } }
+                override fun onStop(utteranceId: String?, interrupted: Boolean) {
+                    main.post { if (utteranceId == "xc$utterance") bgm.duck(false) }
+                }
+            })
             if (ttsState == "ready") {
                 pendingText?.let { speakNow(it, pendingRate) }
                 pendingText = null
@@ -263,9 +284,14 @@ class MainActivity : FlutterActivity() {
         }
     }
 
+    private val unduck = Runnable { bgm.duck(false) }
+
     private fun speakNow(text: String, rate: Float) {
         val t = tts ?: return
         t.setSpeechRate(rate)
+        bgm.duck(true)
+        main.removeCallbacks(unduck)
+        main.postDelayed(unduck, 20000) // whatever the engine reports, the music comes back
         t.speak(text, TextToSpeech.QUEUE_FLUSH, null, "xc" + (++utterance))
     }
 
@@ -368,9 +394,12 @@ class MainActivity : FlutterActivity() {
     override fun onResume() {
         super.onResume()
         Reminder.schedule(this) // keeps the daily reminder alarm in place (no-op when reminders are off)
+        bgm.resume()
     }
 
     override fun onPause() {
+        bgm.duck(false)
+        bgm.pause()
         tts?.stop()
         listener.end() // never listen in the background
         super.onPause()
@@ -384,6 +413,7 @@ class MainActivity : FlutterActivity() {
         legacyView = null
         donate?.end()
         donate = null
+        bgm.end()
         super.onDestroy()
     }
 

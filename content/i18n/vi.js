@@ -671,6 +671,14 @@ I18N.vi = {
   setData: 'Dữ liệu',
   setHelp: 'Trợ giúp & giới thiệu',
   setGoalT: 'Mục tiêu, ngày tĩnh tâm & nhắc nhở',
+  bgmT: 'Nhạc nền',
+  bgmM: {
+    0: 'Tắt',
+    1: 'Nhỏ',
+    2: 'Vừa',
+    3: 'To',
+  },
+  bgmNote: 'Mỗi cảnh giới có nhạc riêng. Nhạc nhỏ lại khi đọc từ và tắt trong bài thi thử HSK.',
   fxT: 'Hiệu ứng hiển thị',
   fxM: {
     auto: 'Tự động',

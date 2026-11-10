@@ -74,6 +74,12 @@ class Native {
   Future<void> stopSpeaking() => _call('stopSpeaking');
   Future<void> openTtsSettings() => _call('openTtsSettings');
 
+  // ---- background music (Bgm.kt): piece 0…7 or -1 for none, volume 0…1, pitch (1 = as recorded) ----
+  Future<void> bgm(int track, double vol, double pitch) => _call('bgm', {'track': track, 'vol': vol, 'pitch': pitch});
+
+  /// silent while the app listens to the learner
+  Future<void> bgmHush(bool on) => _call('bgmHush', on);
+
   // ---- speaking practice (the phone's recognizer, in its own window: no microphone permission) ----
   Future<bool> canListen() async => (await _call<bool>('canListen')) ?? false;
 

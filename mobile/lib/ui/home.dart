@@ -14,6 +14,7 @@ import '../i18n/l10.dart';
 import 'glass.dart';
 import 'icons.dart';
 import 'lens.dart';
+import 'qi.dart';
 import 'sheet.dart';
 import 'splash.dart';
 import 'theme.dart';
@@ -227,7 +228,7 @@ class HomeHeader extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      TaiJi(lit: s.today, size: 16),
+                      QiSpin(on: s.today, child: TaiJi(lit: s.today, size: 16)),
                       const SizedBox(height: 1.5),
                       Text(
                         app.fmt(s.days),
@@ -279,6 +280,12 @@ class Incense extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final p = Th.pal(context);
+    final body = _body(p);
+    // smoke curls up from the lit stick
+    return lit ? Stack(clipBehavior: Clip.none, children: [body, Positioned(left: 0, top: 0, child: QiSmoke(size: size))]) : body;
+  }
+
+  Widget _body(Pal p) {
     return Container(
       width: size,
       height: size,
@@ -391,7 +398,10 @@ class RealmRow extends StatelessWidget {
       children: [
         Row(
           children: [
-            SizedBox.square(dimension: ob, child: const _Orb()),
+            SizedBox.square(
+              dimension: ob,
+              child: QiAura(color: p.realm(r, band: app.band), strong: open && !unst, dim: r == 0, child: const _Orb()),
+            ),
             SizedBox(width: tight ? 14 : 18),
             Expanded(
               child: Press(
@@ -787,6 +797,7 @@ class PlanCard extends StatelessWidget {
       radius: 28,
       onTap: () => app.startSession(!todo),
     );
+    final go = QiShimmer(radius: 28, child: btn);
     Widget sub({required String label, required VoidCallback onTap, required Widget child}) => Expanded(
       child: Press(
         onTap: onTap,
@@ -834,7 +845,7 @@ class PlanCard extends StatelessWidget {
           if (tight)
             Row(
               children: [
-                Expanded(child: btn),
+                Expanded(child: go),
                 const SizedBox(width: 8),
                 SizedBox(width: quick ? 112 : 64, child: Row(children: [
                   if (quick) ...[
@@ -846,7 +857,7 @@ class PlanCard extends StatelessWidget {
               ],
             )
           else ...[
-          btn,
+          go,
           const SizedBox(height: 10),
           Row(
             children: [

@@ -687,6 +687,14 @@ I18N.id = {
   setData: 'Data',
   setHelp: 'Bantuan & tentang',
   setGoalT: 'Tujuan, hari meditasi & pengingat',
+  bgmT: 'Musik latar',
+  bgmM: {
+    0: 'Mati',
+    1: 'Pelan',
+    2: 'Sedang',
+    3: 'Keras',
+  },
+  bgmNote: 'Tiap ranah punya musiknya sendiri. Musik mengecil saat kata diucapkan dan diam saat simulasi HSK.',
   fxT: 'Efek tampilan',
   fxM: {
     auto: 'Otomatis',

@@ -19,6 +19,7 @@ import '../i18n/l10.dart';
 import 'focus.dart';
 import 'glass.dart';
 import 'icons.dart';
+import 'qi.dart';
 import 'theme.dart';
 import 'widgets.dart';
 import 'word_ui.dart';
@@ -870,8 +871,10 @@ class _OptBtnState extends State<OptBtn> with SingleTickerProviderStateMixin {
     if (o.state == null && widget.state != null) {
       if (widget.state == false) {
         HapticFeedback.mediumImpact();
+        qiBurst(context, ok: false); // a blot of ink
       } else if (widget.picked) {
         HapticFeedback.lightImpact();
+        qiBurst(context, ok: true); // qi flies off the right answer
       }
       if (MediaQuery.of(context).disableAnimations) {
         _a.value = 1;

@@ -62,6 +62,7 @@ Future<void> shot(
   t.view.physicalSize = size * 2.625;
   t.view.devicePixelRatio = 2.625;
   t.platformDispatcher.textScaleFactorTestValue = fs;
+  app.deviceCores = 8; // the look of a phone, not of this build machine (two cores = light effects)
   before?.call();
   await t.pumpWidget(const XueCiApp());
   await t.pump(const Duration(milliseconds: 600));
