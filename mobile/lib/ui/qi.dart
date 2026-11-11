@@ -33,7 +33,7 @@ class _Burst {
   final Color c;
   final int seed;
   _Burst(this.kind, this.at, this.t0, this.c, this.seed);
-  double get life => kind == 0 ? .95 : (kind == 1 ? .6 : .42);
+  double get life => kind == 0 ? 1.1 : (kind == 1 ? .9 : .42);
 }
 
 final _bursts = <_Burst>[];
@@ -46,7 +46,7 @@ void qiBurst(BuildContext context, {required bool ok}) {
   if (box is! RenderBox || !box.hasSize) return;
   final p = Th.pal(context);
   final at = box.localToGlobal(box.size.center(Offset.zero));
-  _bursts.add(_Burst(ok ? 0 : 1, at, qiT.value, ok ? (p.dark ? p.gold : const Color(0xffc8922a)) : (p.dark ? const Color(0xff000000) : const Color(0xff1b1d27)), _seed++));
+  _bursts.add(_Burst(ok ? 0 : 1, at, qiT.value, ok ? (p.dark ? p.gold : const Color(0xffc8922a)) : p.soft, _seed++));
 }
 
 /// ink washes across as a new screen comes in
@@ -158,10 +158,10 @@ class _AirPainter extends CustomPainter {
     final mistC = storm
         ? (p.dark ? const Color(0xff000000) : const Color(0xff39415a))
         : (p.dark ? Colors.white : Color.lerp(rc, Colors.white, .55)!);
-    final mistA = storm ? (p.dark ? .5 : .2) : (p.dark ? .045 : .30);
+    final mistA = storm ? (p.dark ? .25 : .12) : (p.dark ? .04 : .22);
     final n = storm ? 6 : 4;
     for (var i = 0; i < n; i++) {
-      final sp = (storm ? .020 : .008) * (.6 + _h(i, 1)) * (i.isEven ? 1 : -1);
+      final sp = .005 * (.6 + _h(i, 1)) * (i.isEven ? 1 : -1);
       var x = (_h(i, 2) + t * sp) % 1.6;
       if (x < 0) x += 1.6;
       final ctr = Offset((x - .3) * w, storm ? h * (.02 + .16 * _h(i, 3)) : h * (.12 + .8 * _h(i, 3)));
@@ -181,49 +181,28 @@ class _AirPainter extends CustomPainter {
       );
       c.restore();
     }
-    if (storm) {
-      // sheet lightning far inside the clouds, now and then
-      final k = (t * .23) % 1;
-      if (k < .035 || (k > .07 && k < .09)) {
-        final cx = w * _h((t * .23).floor(), 9);
-        c.drawCircle(
-          Offset(cx, h * .08),
-          w * .7,
-          Paint()
-            ..blendMode = p.dark ? BlendMode.plus : BlendMode.srcOver
-            ..shader = ui.Gradient.radial(Offset(cx, h * .08), w * .7, [
-              const Color(0xffcfe0ff).withValues(alpha: p.dark ? .16 : .35),
-              const Color(0x00cfe0ff),
-            ]),
-        );
-      }
-    }
     // motes of qi: they rise (in a storm they are driven slantwise), sway and glimmer
     final gold = p.dark ? p.gold : const Color(0xffb07a1e);
     final own = p.dark ? Color.lerp(rc, Colors.white, .35)! : Color.lerp(rc, Colors.black, .12)!;
     final spark = storm ? (p.dark ? const Color(0xffbcd4ff) : const Color(0xff4a63a8)) : gold;
-    final count = storm ? 34 : 30;
+    final count = 14; // Josh, Nov 2026: calm, not busy
     final core = Paint()..blendMode = p.dark ? BlendMode.plus : BlendMode.srcOver;
     final halo = Paint()..blendMode = p.dark ? BlendMode.plus : BlendMode.srcOver;
     for (var i = 0; i < count; i++) {
-      final sp = (storm ? .11 : .022) * (.5 + _h(i, 5));
+      final sp = .011 * (.5 + _h(i, 5));
       final u = (_h(i, 6) + t * sp) % 1; // 0 at the bottom, 1 at the top
       final sway = math.sin(t * (.25 + .3 * _h(i, 7)) + i) * .025;
-      final x = ((_h(i, 8) + sway + (storm ? u * .35 : 0)) % 1) * w;
+      final x = ((_h(i, 8) + sway) % 1) * w;
       final y = (1.04 - 1.08 * u) * h;
-      final tw = .55 + .45 * math.sin(t * (1.1 + 1.4 * _h(i, 10)) + i * 2.3);
+      final tw = .6 + .4 * math.sin(t * (.35 + .4 * _h(i, 10)) + i * 2.3);
       final edge = math.min(1.0, math.min(u, 1 - u) * 8);
-      final a = (p.dark ? .75 : .5) * tw * edge * (i % 3 == 0 ? 1 : .6);
+      final a = (p.dark ? .5 : .32) * tw * edge * (i % 3 == 0 ? 1 : .6);
       final r = (1.0 + 1.5 * _h(i, 11)) * (i % 7 == 0 ? 1.5 : 1);
       final col = i % 4 == 1 ? own : spark;
       halo.color = col.withValues(alpha: a * .16);
       c.drawCircle(Offset(x, y), r * 3.6, halo);
       core.color = col.withValues(alpha: a);
-      if (storm) {
-        c.drawLine(Offset(x, y), Offset(x - 5, y + 9), core..strokeWidth = r * .8..strokeCap = StrokeCap.round);
-      } else {
-        c.drawCircle(Offset(x, y), r, core);
-      }
+      c.drawCircle(Offset(x, y), r, core);
     }
   }
 
@@ -249,50 +228,42 @@ class _OverPainter extends CustomPainter {
       final u = ((t - b.t0) / b.life).clamp(0.0, 1.0);
       switch (b.kind) {
         case 0:
-          // qi: a ring opens, sparks fly out, then drift up and fade as if drawn in
+          // a soft bloom of gold light that opens and fades (Josh, Nov 2026: calm, no sparks)
           final e = _eo(u);
+          final a0 = math.sin(u * math.pi);
           c.drawCircle(
             b.at,
-            10 + 54 * e,
+            24 + 46 * e,
             Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 2.2 * (1 - u)
-              ..color = b.c.withValues(alpha: .7 * (1 - u)),
+              ..shader = ui.Gradient.radial(b.at, 24 + 46 * e, [
+                b.c.withValues(alpha: .26 * a0),
+                b.c.withValues(alpha: .1 * a0),
+                b.c.withValues(alpha: 0),
+              ], const [0, .55, 1]),
           );
-          c.drawCircle(b.at, 34 * e, Paint()..blendMode = BlendMode.plus..color = b.c.withValues(alpha: .22 * (1 - u)));
-          for (var i = 0; i < 16; i++) {
-            final ang = i / 16 * math.pi * 2 + _h(b.seed + i, 1) * .6;
-            final far = (34 + 62 * _h(b.seed + i, 2)) * e;
-            final rise = 90 * u * u * (.5 + _h(b.seed + i, 3));
-            final at = b.at + Offset(math.cos(ang) * far, math.sin(ang) * far * .8 - rise);
-            final a = (1 - u) * (1 - u);
-            final r = 1.4 + 1.8 * _h(b.seed + i, 4);
-            c.drawCircle(at, r * 3.4, Paint()..blendMode = BlendMode.plus..color = b.c.withValues(alpha: .30 * a));
-            c.drawCircle(at, r * 1.25, Paint()..color = Color.lerp(b.c, Colors.white, .55)!.withValues(alpha: a));
-          }
         case 1:
-          // ink: a blot spreads and soaks away
+          // a thin ripple, like a drop on still water
           final e = _eo(u);
-          for (var i = 0; i < 3; i++) {
+          for (var i = 0; i < 2; i++) {
+            final k = (e - i * .22).clamp(0.0, 1.0);
+            if (k <= 0) continue;
+            c.save();
+            c.translate(b.at.dx, b.at.dy);
+            c.scale(1, .55);
             c.drawCircle(
-              b.at + Offset((_h(b.seed, i) - .5) * 16, (_h(b.seed, i + 5) - .5) * 10),
-              (16 + 30 * _h(b.seed, i + 9)) * (.35 + .65 * e),
-              Paint()..color = b.c.withValues(alpha: .34 * (1 - u)),
+              Offset.zero,
+              12 + 52 * k,
+              Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 1.3
+                ..color = b.c.withValues(alpha: .32 * (1 - k)),
             );
-          }
-          for (var i = 0; i < 7; i++) {
-            final ang = _h(b.seed + i, 12) * math.pi * 2;
-            final far = (30 + 34 * _h(b.seed + i, 13)) * e;
-            c.drawCircle(
-              b.at + Offset(math.cos(ang) * far, math.sin(ang) * far * .7 + 14 * u * u),
-              1.5 + 2.2 * _h(b.seed + i, 14),
-              Paint()..color = b.c.withValues(alpha: .7 * (1 - u)),
-            );
+            c.restore();
           }
         default:
           // a wash of ink: a soft slanted band crosses the screen once
           final x = (-.5 + 2.0 * _eo(u)) * s.width;
-          final a = math.sin(u * math.pi) * .16;
+          final a = math.sin(u * math.pi) * .1;
           c.save();
           c.translate(x, 0);
           c.transform(Matrix4.skewX(-.32).storage);
@@ -340,7 +311,7 @@ class _AuraPainter extends CustomPainter {
     final t = qiT.value;
     final o = s.center(Offset.zero);
     final R = s.width / 2;
-    final breath = .5 + .5 * math.sin(t * math.pi * 2 / (strong ? 3.0 : 4.6));
+    final breath = .5 + .5 * math.sin(t * math.pi * 2 / 6.0); // a calm breath
     final gold = p.dark ? p.gold : const Color(0xffb07a1e);
     final col = strong ? gold : lc;
     final k = dim ? .45 : 1.0;
@@ -366,7 +337,7 @@ class _AuraPainter extends CustomPainter {
       ..strokeWidth = 1.3;
     for (var i = 0; i < 2; i++) {
       final rr = R * (1.13 + .11 * i);
-      final a0 = t * (i == 0 ? .35 : -.24) + i * 1.3;
+      final a0 = t * (i == 0 ? .12 : -.08) + i * 1.3;
       arc.color = (i == 0 ? gold : col).withValues(alpha: (p.dark ? .55 : .5) * (.6 + .4 * breath));
       for (var j = 0; j < 3; j++) {
         c.drawArc(Rect.fromCircle(center: o, radius: rr), a0 + j * math.pi * 2 / 3, .5 - .12 * i, false, arc);
@@ -374,13 +345,13 @@ class _AuraPainter extends CustomPainter {
     }
     // qi drawn in along three spiral arms
     final dot = Paint()..blendMode = plus;
-    final sp = strong ? .26 : .17;
+    final sp = .08;
     for (var arm = 0; arm < 3; arm++) {
-      for (var j = 0; j < 6; j++) {
-        final u = (t * sp + j / 6 + arm * .11) % 1;
+      for (var j = 0; j < 3; j++) {
+        final u = (t * sp + j / 3 + arm * .11) % 1;
         final rad = R * (1.46 - .50 * u);
         final ang = arm * math.pi * 2 / 3 + u * 2.6 + t * .12;
-        final a = math.sin(u * math.pi) * (p.dark ? .9 : .7);
+        final a = math.sin(u * math.pi) * (p.dark ? .55 : .45);
         final r = 1.1 + 1.5 * (1 - u);
         for (var tail = 0; tail < 3; tail++) {
           final at = o + Offset(math.cos(ang - tail * .07), math.sin(ang - tail * .07)) * (rad + tail * 1.6);

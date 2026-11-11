@@ -201,7 +201,7 @@ class _ShellState extends State<Shell> {
                 if (th.full && !th.p.dark && !const ['session', 'placement', 'bt'].contains(s))
                   const Positioned.fill(child: DriftGlow()),
                 // qi in the air (storm clouds during a tribulation); not in an HSK simulation
-                if (!app.inExam) Positioned.fill(child: QiField(storm: s == 'bt')),
+                if (!app.inExam) const Positioned.fill(child: QiField()),
                 Positioned.fill(
                   // only the new screen comes in (the old one leaves at once, so no two screens are drawn together):
                   // a short fade and rise, transform and opacity only

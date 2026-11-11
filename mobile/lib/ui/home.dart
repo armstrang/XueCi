@@ -797,7 +797,7 @@ class PlanCard extends StatelessWidget {
       radius: 28,
       onTap: () => app.startSession(!todo),
     );
-    final go = QiShimmer(radius: 28, child: btn);
+    final go = btn; // no shimmer (Josh, Nov 2026: calm)
     Widget sub({required String label, required VoidCallback onTap, required Widget child}) => Expanded(
       child: Press(
         onTap: onTap,

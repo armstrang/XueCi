@@ -411,3 +411,13 @@ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
 DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM
 OTHER DEALINGS IN THE FONT SOFTWARE.
+
+
+--------------------------------------------------------------------------------
+Background music
+
+The music was rendered for this app from samples of two public-domain (CC0 1.0)
+libraries by Versilian Studios: the Versilian Community Sample Library (VCSL,
+https://github.com/sgossner/VCSL) and VSCO 2 Community Edition
+(https://github.com/sgossner/VSCO-2-CE). CC0 asks for no credit; it is given
+here with thanks.

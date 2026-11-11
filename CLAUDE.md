@@ -171,18 +171,19 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   invited. After a passed breakthrough (not placement, not the make-up, not the gate) a quiet invitation once per realm
   (`DonateAsk`); donors get a 护法 seal in the Soul Sea. Off Google Play (GitHub APK) the sheet says donations need Play.
   Never an outside donation link in the app (Play payments policy).
-- **Background music** (Josh, Nov 2026: one cultivator ambience per realm, on and soft by default): `art/make_bgm.py`
-  synthesises `res/raw/bgm_0…7.ogg` (48 s loops that close on themselves, no samples; re-run to change them). `Bgm.kt`
-  plays them (cross-fade, quieter while a word is spoken, silent while the app listens, in the background and when
-  another app already plays music; never takes the audio focus). `App.syncBgm` picks the piece: the realm's, piece 6
-  (渡劫) during a tribulation, none in an HSK simulation; the realms past 7 play piece 7 at another pitch (no file of
-  their own, nothing to find). Setting `bgm` 0–3 in `hsk16_ui` (Settings → look).
-- **The living layer** (`ui/qi.dart`, Josh, Nov 2026: "like a cultivation game, many things move"; this replaces the
-  older "no busy effects" rule, the 200–300 ms rule still holds for screen and question changes): one clock `qiT`
-  (one ticker in `QiField`, 30 fps, asleep 90 s after the last touch) drives qi in the air behind every screen
-  (motes, mist; storm clouds and driven sparks in a tribulation), `QiAura` around Home's orb, `qiBurst` (qi from a
-  right answer, ink from a wrong one), `qiSweep` (ink across a screen change), `QiShimmer` on Home's Start,
-  `QiSmoke`, `QiSpin`. Canvas only, in repaint boundaries. Still with light effects or "remove animations";
+- **Background music** (Josh, Nov 2026: very calm, "the psychology of a calm cultivator, not burning ambition"; made
+  like Verbarium's): `art/make_bgm.py` renders `res/raw/bgm_0…7.ogg` (64 s loops at 60 bpm that close on themselves)
+  from CC0 samples (VCSL: Dan Tranh, gong, hand bells, tubular bells, wine glasses, bowed psaltery; VSCO 2 CE: flute,
+  violas, cellos, contrabass, harp), sparse-cloned to `~/sgossner/` (see its header). One theme; each realm takes it
+  further, 飞升 brings it home. No drums, no crescendo, no thunder. `Bgm.kt` plays them (cross-fade, quieter while a
+  word is spoken, silent while the app listens, in the background and when another app already plays music; never
+  takes the audio focus). `App.syncBgm`: the realm's piece, 渡劫 during a tribulation, none in an HSK simulation; realms
+  past 7 play piece 7 at another pitch. Setting `bgm` 0–3 in `hsk16_ui`. Credit in `assets/legal/licenses.txt`.
+- **The living layer** (`ui/qi.dart`, Josh, Nov 2026: alive but calm, "not over the top", **no lightning anywhere**):
+  one clock `qiT` (one ticker in `QiField`, 30 fps, asleep 90 s after the last touch) drives 14 slow motes and thin
+  mist behind every screen, `QiAura` around Home's orb (one breath per 6 s), `qiBurst` (a soft gold glow for right, a
+  thin ripple for wrong), `qiSweep` (a light ink wash on a screen change), `QiSmoke`, `QiSpin`. The tribulation's
+  strike shows its sign softly (no bolt, no flash). Canvas only, in repaint boundaries. Still with light effects or "remove animations";
   `qiOn = false` in the measuring tests. `QI=1 flutter test --update-goldens test/qi_film_test.dart` films it into
   `test/qi/` (not committed).
 - **Visual effects** setting: full (the default, Josh)/auto/low; auto steps down once if frames are slow (toast). Low = no blur, no glow.

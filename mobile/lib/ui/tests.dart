@@ -504,15 +504,15 @@ class _BoltLayerState extends State<BoltLayer> with SingleTickerProviderStateMix
             final x = c.value;
             if (!c.isAnimating && x >= 1) return const SizedBox.shrink();
             double op;
+            // Josh, Nov 2026: calm, no lightning: the strike's sign rises softly and fades like breath
             if (reduce) {
               op = x < .35 ? x / .35 * .7 : .7 * (1 - (x - .35) / .65);
             } else if (v.gold) {
               op = x < .25 ? x / .25 : 1 - (x - .25) / .75;
             } else {
-              // flash, dip, flash, fade
-              op = x < .08 ? x / .08 : (x < .2 ? 1 - (x - .08) / .12 * .65 : (x < .3 ? .35 + (x - .2) / .1 * .65 : 1 - (x - .3) / .7));
+              op = math.sin(math.pi * x) * .85;
             }
-            final sc = v.gold || reduce ? 1.0 : 1 + .35 * math.pow(1 - math.min(1, x / .6), 3);
+            final sc = v.gold || reduce ? 1.0 : .94 + .06 * x;
             return Opacity(
               opacity: op.clamp(0, 1).toDouble(),
               child: Stack(
@@ -527,22 +527,20 @@ class _BoltLayerState extends State<BoltLayer> with SingleTickerProviderStateMix
                               colors: [th.p.gold.withValues(alpha: .55), th.p.gold.withValues(alpha: 0)],
                             )
                           : RadialGradient(
-                              center: Alignment(bx * 2 - 1, -1),
-                              radius: .85,
-                              colors: const [Color.fromRGBO(205, 225, 255, .7), Color.fromRGBO(150, 185, 255, .16), Color.fromRGBO(150, 185, 255, 0)],
-                              stops: const [0, .48, .72],
+                              center: const Alignment(0, -.1),
+                              radius: .6,
+                              colors: [th.p.gold.withValues(alpha: .16), th.p.gold.withValues(alpha: 0)],
                             ),
                     ),
                   ),
-                  if (!v.gold && !reduce) CustomPaint(painter: _BoltPainter(main, side, th.low)),
                   if (!v.gold && v.hz != null)
                     Center(
                       child: Transform.scale(
                         scale: sc.toDouble(),
                         child: Text(
                           v.hz!,
-                          style: F.s(128, w: FontWeight.w900, family: F.hz, c: Colors.white, h: 1).copyWith(
-                            shadows: const [Shadow(color: Color(0xFF8FB6FF), blurRadius: 26), Shadow(color: Color(0xFF4F7FFF), blurRadius: 60)],
+                          style: F.s(112, w: FontWeight.w700, family: F.hz, c: th.p.dark ? th.p.gold : const Color(0xff8a5a12), h: 1).copyWith(
+                            shadows: [Shadow(color: th.p.gold.withValues(alpha: .45), blurRadius: 30)],
                           ),
                         ),
                       ),
@@ -555,54 +553,6 @@ class _BoltLayerState extends State<BoltLayer> with SingleTickerProviderStateMix
       ),
     );
   }
-}
-
-class _BoltPainter extends CustomPainter {
-  final List<Offset> main, side;
-  final bool low;
-  _BoltPainter(this.main, this.side, this.low);
-  @override
-  void paint(Canvas canvas, Size s) {
-    Path path(List<Offset> p) {
-      final r = Path()..moveTo(p[0].dx / 100 * s.width, p[0].dy / 100 * s.height);
-      for (final q in p.skip(1)) {
-        r.lineTo(q.dx / 100 * s.width, q.dy / 100 * s.height);
-      }
-      return r;
-    }
-
-    void stroke(Path p, double w, double op) {
-      if (!low) {
-        for (final (c, b) in const [(Color(0xFF5F8FFF), 18.0), (Color(0xFF8FB4FF), 7.0), (Color(0xFF2E5BD8), 2.0)]) {
-          canvas.drawPath(
-            p,
-            Paint()
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = w
-              ..strokeCap = StrokeCap.round
-              ..strokeJoin = StrokeJoin.round
-              ..color = c.withValues(alpha: op)
-              ..maskFilter = MaskFilter.blur(BlurStyle.normal, b / 2),
-          );
-        }
-      }
-      canvas.drawPath(
-        p,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = w
-          ..strokeCap = StrokeCap.round
-          ..strokeJoin = StrokeJoin.round
-          ..color = const Color(0xFFF6F9FF).withValues(alpha: op),
-      );
-    }
-
-    stroke(path(main), 4.2, 1);
-    stroke(path(side), 2, .85);
-  }
-
-  @override
-  bool shouldRepaint(_BoltPainter o) => o.main != main;
 }
 
 class TribScreen extends StatefulWidget {
@@ -1211,9 +1161,6 @@ class _GateState extends State<_Gate> with SingleTickerProviderStateMixin {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        // the last strike of the tribulation
-        if (t > .95 && t < 1.4)
-          Positioned.fill(child: Opacity(opacity: 1 - _seg(t, 1.2, 1.4), child: CustomPaint(painter: _Bolt()))),
         // the beam behind the opening doors
         at(
           6,
@@ -1535,32 +1482,6 @@ class _GateBg extends CustomPainter {
 
   @override
   bool shouldRepaint(_GateBg o) => o.t != t;
-}
-
-/// the lightning of the last strike
-class _Bolt extends CustomPainter {
-  @override
-  void paint(Canvas c, Size s) {
-    final p = Path()
-      ..moveTo(240, 0)
-      ..lineTo(205, 210)
-      ..lineTo(238, 214)
-      ..lineTo(188, 420);
-    c.drawPath(p, Paint()
-      ..color = const Color(0x59D9D0FF)
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 14
-      ..strokeJoin = StrokeJoin.round);
-    c.drawPath(p, Paint()
-      ..color = Colors.white
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 5
-      ..strokeJoin = StrokeJoin.round
-      ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 6));
-  }
-
-  @override
-  bool shouldRepaint(_Bolt o) => false;
 }
 
 /// the five elements round the orb: five arcs of the ring, wood fire earth metal water

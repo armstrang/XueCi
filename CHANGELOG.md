@@ -6,6 +6,26 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.1
+
+**Calm music for each realm, and a quiet living background.**
+
+### Music
+- Each realm has its own quiet piece, played on recorded instruments: a zither, a bamboo-like flute, bells, a soft
+  gong and low strings. One short theme belongs to you; at each realm it goes a little further, and only at the top
+  does it come home. Very slow, no drums, no build-ups: music to sit with, not to rush.
+- On and soft by default. Settings › Background music: Off, Soft, Medium or Loud.
+- The music steps back while a word is spoken, is silent while the app listens to you and during the HSK mock exam,
+  and stays out of the way when another app is already playing music.
+
+### A living background
+- Slow motes of light and a thin mist drift behind every screen; your realm's orb breathes, one calm breath every six
+  seconds.
+- A right answer opens a soft golden glow; a wrong one leaves a thin ripple, like a drop on still water. Screens change
+  with a light wash of ink.
+- The tribulation no longer flashes lightning: each strike's sign rises softly and fades.
+- With light visual effects, or with animations turned off on your phone, everything stands still.
+
 ## v1.0
 
 **XueCi starts again at 1.0 as a native app (Flutter) instead of a web page inside the app: the same app and the
