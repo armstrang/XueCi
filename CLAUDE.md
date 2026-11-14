@@ -171,14 +171,17 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   invited. After a passed breakthrough (not placement, not the make-up, not the gate) a quiet invitation once per realm
   (`DonateAsk`); donors get a 护法 seal in the Soul Sea. Off Google Play (GitHub APK) the sheet says donations need Play.
   Never an outside donation link in the app (Play payments policy).
-- **Background music** (Josh, Nov 2026: very calm, "the psychology of a calm cultivator, not burning ambition"; made
-  like Verbarium's): `art/make_bgm.py` renders `res/raw/bgm_0…7.ogg` (64 s loops at 60 bpm that close on themselves)
-  from CC0 samples (VCSL: Dan Tranh, gong, hand bells, tubular bells, wine glasses, bowed psaltery; VSCO 2 CE: flute,
-  violas, cellos, contrabass, harp), sparse-cloned to `~/sgossner/` (see its header). One theme; each realm takes it
-  further, 飞升 brings it home. No drums, no crescendo, no thunder. `Bgm.kt` plays them (cross-fade, quieter while a
-  word is spoken, silent while the app listens, in the background and when another app already plays music; never
-  takes the audio focus). `App.syncBgm`: the realm's piece, 渡劫 during a tribulation, none in an HSK simulation; realms
-  past 7 play piece 7 at another pitch. Setting `bgm` 0–3 in `hsk16_ui`. Credit in `assets/legal/licenses.txt`.
+- **Background music** (Josh, Nov 2026: very calm, "the psychology of a calm cultivator"; the first sampled version
+  (bright zither, concert flute, glass, bells, string sections, long hall, 64 s loops) was "not friendly to the ear,
+  dizzying" and was replaced in v1.2): `art/make_bgm.py` renders `res/raw/bgm_0…7.ogg` after guqin and xiao music:
+  one low filtered zither (VCSL Dan Tranh played an octave down, CC0) and one low breathy flute (VSCO 2 CE flute,
+  CC0), never more than two voices, free rhythm with long silences, one pentatonic mode over a faint still drone
+  (nothing detuned), nothing above ~4 kHz, a short room, 160 s loops, levelled by the loud moments. **Keep it that
+  way: no bells, glass, gongs, string pads, steady beat or long reverb.** Samples sparse-cloned to `~/sgossner/`
+  (see its header). `Bgm.kt` plays them (cross-fade, quieter while a word is spoken, silent while the app listens, in
+  the background and when another app already plays music; never takes the audio focus). `App.syncBgm`: the realm's
+  piece, 渡劫 during a tribulation, none in an HSK simulation; realms past 7 play piece 7 at another pitch. Setting
+  `bgm` 0–3 in `hsk16_ui` (volumes .14/.3/.55). Credit in `assets/legal/licenses.txt`.
 - **The living layer** (`ui/qi.dart`, Josh, Nov 2026: alive but calm, "not over the top", **no lightning anywhere**):
   one clock `qiT` (one ticker in `QiField`, 30 fps, asleep 90 s after the last touch) drives 14 slow motes and thin
   mist behind every screen, `QiAura` around Home's orb (one breath per 6 s), `qiBurst` (a soft gold glow for right, a

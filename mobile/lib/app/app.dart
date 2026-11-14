@@ -430,7 +430,7 @@ class App extends ChangeNotifier {
     final k = (track, bgm, step);
     if (k == _bgmSent) return;
     _bgmSent = k;
-    Native.I.bgm(track, const [0.0, .22, .42, .7][bgm], const [1.0, 1.06, 1.122, 1.189][math.min(step, 3)]);
+    Native.I.bgm(track, const [0.0, .14, .3, .55][bgm], const [1.0, 1.06, 1.122, 1.189][math.min(step, 3)]);
   }
 
   void setFx(String m) {

@@ -6,6 +6,16 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.2
+
+**The music, made again: gentler on the ear.**
+
+- The first music could be tiring to listen to. Every piece is new, after the calm music of the guqin and the xiao:
+  one low, warm plucked zither and one low, breathy flute, never more than two voices, no beat, long silences
+  between the phrases, nothing sharp or high, no bells, no glass, no big echo.
+- Each piece is now 2 minutes 40 seconds long, so it no longer feels like a loop.
+- Quieter: Soft, Medium and Loud are all lower than before. Off is still in Settings › Background music.
+
 ## v1.1
 
 **Calm music for each realm, and a quiet living background.**
