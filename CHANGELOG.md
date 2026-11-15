@@ -6,6 +6,15 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.3
+
+**Nature instead of music.**
+
+- Music was still tiring to listen to while studying. Now each realm has a place instead: soft wind in the grass, a
+  bamboo grove, a small stream, fine rain on a temple roof, a far waterfall, thin mountain wind, steady rain, and a
+  clear morning in the mountains. No tune to follow, nothing sharp, very quiet.
+- Still in Settings › Background sound: Off, Soft, Medium or Loud.
+
 ## v1.2
 
 **The music, made again: gentler on the ear.**
