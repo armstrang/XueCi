@@ -428,7 +428,7 @@ class BlackHolePainter extends CustomPainter {
   final bool on, still;
   BlackHolePainter(this.c, this.gold, this.on, this.still) : super(repaint: still ? null : qiT);
 
-  static const _violet = Color(0xffb07cff), _blue = Color(0xff4cc9f0), _pink = Color(0xffff6fb0), _teal = Color(0xff2ee6a6);
+  static const _violet = Color(0xff9a6bff), _blue = Color(0xff3d7bff), _pink = Color(0xffff4fa3), _cyan = Color(0xff2fd9ff), _amber = Color(0xffff9a3c);
 
   @override
   void paint(Canvas canvas, Size s) {
@@ -439,30 +439,49 @@ class BlackHolePainter extends CustomPainter {
 
     canvas.save();
     canvas.clipPath(Path()..addOval(Rect.fromCircle(center: o, radius: R)));
-    // the window: deep space
+    // the window: deep space, with two slow clouds of nebula (violet-magenta and blue) turning with the arms
     canvas.drawCircle(
       o,
       R,
-      Paint()..shader = const RadialGradient(colors: [Color(0xff1a0f33), Color(0xff08050f)]).createShader(Rect.fromCircle(center: o, radius: R)),
+      Paint()..shader = const RadialGradient(colors: [Color(0xff2b1058), Color(0xff0b0620)]).createShader(Rect.fromCircle(center: o, radius: R)),
     );
-    // a faint glow of the realm's colour around the hole
+    for (var k = 0; k < 2; k++) {
+      final a = -turn * .5 + k * math.pi + .6;
+      final q = o + Offset(math.cos(a), math.sin(a)) * (R * .45);
+      final col = k == 0 ? _pink : _blue;
+      canvas.drawCircle(
+        q,
+        R * .8,
+        Paint()..shader = RadialGradient(colors: [col.withValues(alpha: on ? .38 : .28), col.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: q, radius: R * .8)),
+      );
+    }
+    // the realm's colour, faint, right round the hole
     canvas.drawCircle(
       o,
-      R * .95,
-      Paint()..shader = RadialGradient(colors: [c.withValues(alpha: on ? .42 : .3), c.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: o, radius: R * .95)),
+      R * .7,
+      Paint()..shader = RadialGradient(colors: [c.withValues(alpha: on ? .3 : .2), c.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: o, radius: R * .7)),
     );
+    // a few stars, drawn in towards the hole
+    final star = Paint()..color = Colors.white;
+    for (var i = 0; i < 16; i++) {
+      final f = (i * .618034) % 1;
+      final a = i * 2.399963 - turn * .7;
+      final r = R * (.5 + .46 * f);
+      star.color = Colors.white.withValues(alpha: .35 + .5 * ((i * 7) % 5) / 4);
+      canvas.drawCircle(o + Offset(math.cos(a), math.sin(a)) * r, R * (.012 + .016 * ((i * 3) % 4) / 3), star);
+    }
 
     final core = R * .36;
-    final cols = [_pink, _violet, _blue, _teal];
+    final cols = [_pink, _violet, _blue, _cyan];
     // one arm: a logarithmic spiral from the rim down to the core, a ribbon that is wide outside and thin inside.
     // A pattern turning the same way as the spiral winds in, so the arms seem to flow into the hole.
-    Path arm(int k, double wMul) {
+    Path arm(int k, double wMul, {bool half = false}) {
       const n = 26;
       final left = <Offset>[], right = <Offset>[];
       for (var i = 0; i <= n; i++) {
         final f = i / n; // 0 at the rim, 1 at the core
         final r = R * 1.02 - (R * 1.02 - core * 1.04) * f;
-        final th = -turn + k * math.pi / 2 + 2.4 * math.log(R * 1.02 / r);
+        final th = -turn + (k + (half ? .5 : 0)) * math.pi / 2 + 2.4 * math.log(R * 1.02 / r);
         final hw = R * wMul * (.1 + .9 * (1 - f) * (1 - f) * .6 + .25 * (1 - f));
         final d = Offset(math.cos(th), math.sin(th));
         final nrm = Offset(-d.dy, d.dx);
@@ -486,6 +505,9 @@ class BlackHolePainter extends CustomPainter {
         colors: [k.withValues(alpha: a), k.withValues(alpha: a * .85), k.withValues(alpha: 0)],
         stops: const [.34, .6, 1],
       ).createShader(Rect.fromCircle(center: o, radius: R * 1.02));
+    for (var k = 0; k < 4; k++) {
+      canvas.drawPath(arm(k, .62, half: true), armPaint(k.isEven ? _amber : _pink, on ? .26 : .2)); // warm cloud between the arms
+    }
     for (var k = 0; k < 4; k++) {
       canvas.drawPath(arm(k, .5), armPaint(cols[k], on ? .5 : .4)); // the wide soft cloud
     }
