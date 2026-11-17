@@ -6,6 +6,28 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.6
+
+**A grammar book, a much stricter placement test, and a red seal.**
+
+- New Grammar page (语法) on the HSK tab, beside List, Cards and Quiz: the grammar points of HSK 1–6 after the
+  official HSK 3.0 syllabus, grouped by kind. Each point has its formula, a short explanation in your language and
+  examples you can listen to, mostly the app's own sentences with the grammar word marked.
+- Practise any point: fill the gap with the right grammar word, or put the sentence's pieces in order. Answers are
+  checked at once, and each point remembers how well you hold it (strong, growing, due again). "Mixed practice" takes
+  the points of a level that need it most. Your grammar progress is part of the backup code.
+- The placement test is now a real exam: 60 timed questions, no level labels, and "Don't know" or running out of time
+  counts as wrong. From HSK 4 it asks you to type pinyin, pick the meaning of what you hear and build sentences; HSK 5–6
+  want the pinyin and the meaning both right. Passing a level needs clearly more right answers than before, so a
+  learner between HSK 4 and 5 no longer lands at the top.
+- The tribulation has a new strike, 语: five sentences to put in order.
+- Tests prefer sentences that show the level's grammar. The HSK simulation's advice names the grammar points behind
+  the sentences you missed, and the realm guidance points to grammar that isn't strong yet.
+- Sentence building cuts sentences better: names, numbers with their measure words and place words stay whole, and
+  commas come with their piece.
+- The Soul Sea button is now a red seal with your realm's name written top to bottom. It stamps again when you reach
+  a new realm and has a thin gold line while the Soul Sea is open.
+
 ## v1.5
 
 **A calmer speaking practice, one place for exams, and a black hole.**

@@ -83,6 +83,19 @@ void ptJump(bool Function(Item it)? want, {bool Function(Item it)? right}) {
   app.changed();
 }
 
+/// screenshots: the tribulation at the first question of a strike (the ones before answered right)
+@visibleForTesting
+void btJump(String strike) {
+  final st = _bt;
+  if (st == null) return;
+  while (st.i < st.items.length && st.items[st.i].strike != strike) {
+    st.items[st.i].r = 'ok';
+    st.right++;
+    st.i++;
+  }
+  app.changed();
+}
+
 // ---------------------------------------------------------------- shared pieces
 class _Page extends StatelessWidget {
   final String title;
@@ -784,7 +797,7 @@ class _TribScreenState extends State<TribScreen> {
     final x = r == 'ng' && i >= 0 && it.q != 's' && it.q != 't' && it.words != null ? it.words![i].id : null;
     it.r = r;
     if (r == 'ok') st!.right++;
-    lm.answer(it.d, Ans(it.q!, r == 'ok', ms: ms, x: x, exam: true));
+    lm.answer(it.d, Ans(LM.logQ(it.q!), r == 'ok', ms: ms, x: x, exam: true));
     app.runner.studied();
     setState(() => pick = i);
     Timer(const Duration(milliseconds: 160), () {
@@ -1015,6 +1028,7 @@ class _TribScreenState extends State<TribScreen> {
         pick: pick,
         onPick: _pick,
         onTyped: (v) => _pick(app.lm.pyCheck(it.d, v).ok ? -2 : -4),
+        onOrder: (o) => _pick(o.join() == (app.lm.ptPieces(it.d) ?? const []).join() ? -2 : -4),
       ),
     ];
   }

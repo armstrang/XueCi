@@ -1419,10 +1419,13 @@ class LM {
     final paper = mockPaper[L]!;
     final own = shuf(data.where((d) => d.l == l).toList());
     final low = shuf(data.where((d) => d.l < l).toList());
+    // sentence questions take the level's sentences that show its grammar points first
+    final ownG = grammarFirst(own, L);
     final used = <String>{};
-    Word? take(bool Function(Word) ok) {
-      final first = R() < 0.7 || low.isEmpty ? own : low;
-      for (final src in [first, identical(first, own) ? low : own]) {
+    Word? take(bool Function(Word) ok, [bool g = false]) {
+      final mine = g ? ownG : own;
+      final first = R() < 0.7 || low.isEmpty ? mine : low;
+      for (final src in [first, identical(first, mine) ? low : mine]) {
         for (final x in src) {
           if (!used.contains(x.id) && ok(x)) {
             used.add(x.id);
@@ -1459,7 +1462,7 @@ class LM {
       final mine = <Item>[];
       split(n, mockMix(part, L)).forEach((q, k) {
         for (var i = 0; i < k; i++) {
-          var d = take(fit[q]!);
+          var d = take(fit[q]!, q == 'wo' || q == 'c' || q == 'lj');
           var qq = q;
           if (d == null && q != 'l' && q != 'm') {
             qq = part == 'listen' ? 'l' : (part == 'read' ? 'm' : 'wh');
@@ -1997,6 +2000,7 @@ class LM {
     Strike('yi', '忆', 'yì', 'p', 5),
     Strike('ting', '听', 'tīng', 'l', 5, tts: true),
     Strike('du', '读', 'dú', 'c', 5),
+    Strike('yu', '语', 'yǔ', 'wo', 5),
     Strike('su', '速', 'sù', 'm', 8, timed: true),
     Strike('fan', '译', 'yì', 't', 5, band: true),
   ];
@@ -2048,6 +2052,26 @@ class LM {
         continue;
       }
       var n = 0;
+      if (s.q == 'wo') {
+        // 语: the realm's own sentences in order, those that show the level's grammar first
+        final src = grammarFirst(by(l).where((x) => !used.contains(x.id) && ptPieces(x) != null).toList(), l);
+        final top = shuf(src.take(math.max(8, src.length ~/ 3)).toList());
+        final said = <String>{};
+        for (final d in top) {
+          if (n >= s.n) break;
+          if (!said.add(d.z)) continue;
+          used.add(d.id);
+          final pc = ptPieces(d)!;
+          var sh = shuf(pc);
+          for (var k = 0; k < 6 && sh.join() == pc.join(); k++) {
+            sh = shuf(pc);
+          }
+          items.add(Item.q(d, 'wo', l: l, strike: s.k)..apply(QMat(parts: sh)));
+          n++;
+        }
+        sts.add(StrikeRes(s.k, s.hz, s.py, n));
+        continue;
+      }
       for (var i = 0; i < s.n; i++) {
         final d = take((x) => s.q == 'c' || s.q == 't' ? clozeOK(x) : true);
         if (d == null) break;

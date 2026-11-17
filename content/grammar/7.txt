@@ -1,0 +1,1132 @@
+# HSK 7–9 grammar points (HSK 3.0 grammar syllabus, advanced band). Sealed: the app opens them with the gate.
+# Format: see 1.txt.
+
+= V | 能愿动词：需 | 需 + 动词
+k: 需
+m: 需[^要]
+id: 需 = perlu (tulisan, lebih singkat dari 需要).
+en: 需 is need (written, shorter than 需要).
+th: 需 คือต้อง (ภาษาเขียน สั้นกว่า 需要)
+vi: 需 là cần (văn viết, gọn hơn 需要).
+
+= P | 疑问代词：何 | 何时/何处/何人/为何
+k: 何时|何处|何人|为何|何
+id: 何 = apa (klasik): 何时 kapan, 何处 di mana, 为何 mengapa.
+en: 何 is what (classical): 何时 when, 何处 where, 为何 why.
+th: 何 คืออะไร (ภาษาโบราณ) 何时 เมื่อไร 何处 ที่ไหน 为何 ทำไม
+vi: 何 là gì (cổ văn): 何时 khi nào, 何处 ở đâu, 为何 vì sao.
+
+= P | 指示代词：该/另/兹 | 该/另 + 名词
+k: 该|另
+m: (该|另)(公司|项目|产品|地区|方面|一|种|个)
+id: 该 = tersebut (resmi), 另 = yang lain.
+en: 该 is the said (formal), 另 is another.
+th: 该 คือดังกล่าว (ทางการ) 另 คืออีก
+vi: 该 là nói trên (trang trọng), 另 là khác.
+
+= N | 名量词：栋/粒/枚/则/盏/人次 | 数词 + 量词 + 名词
+k: 栋|粒|枚|则|盏|人次
+m: [一二两三四五六七八九十几这每](栋|粒|枚|则|盏)|人次
+id: 栋 gedung, 粒 butir, 枚 keping (medali, koin), 则 berita/kisah, 盏 lampu, 人次 orang-kali.
+en: 栋 buildings, 粒 grains, 枚 medals and coins, 则 news items, 盏 lamps, 人次 person-times.
+th: 栋 หลัง (ตึก) 粒 เม็ด 枚 เหรียญ 则 ข่าว/เรื่อง 盏 ดวง (โคม) 人次 คน-ครั้ง
+vi: 栋 tòa, 粒 hạt, 枚 tấm (huy chương), 则 mẩu (tin), 盏 ngọn (đèn), 人次 lượt người.
+
+= A | 程度副词：极为 | 极为 + 形容词
+k: 极为
+id: 极为 = amat sangat (tulisan).
+en: 极为 is extremely (written).
+th: 极为 คืออย่างยิ่ง (ภาษาเขียน)
+vi: 极为 là hết sức (văn viết).
+
+= A | 程度副词：尽 | 尽 + 方位/形容词
+k: 尽
+m: 尽(早|快|量|可能|头)
+id: 尽 = sejauh/sebisa mungkin: 尽早, 尽可能.
+en: 尽 is to the utmost: 尽早, 尽可能.
+th: 尽 คือให้ที่สุด 尽早 尽可能
+vi: 尽 là hết mức: 尽早, 尽可能.
+
+= A | 程度副词：蛮 | 蛮 + 形容词
+k: 蛮
+id: 蛮 = cukup, lumayan (lisan, selatan).
+en: 蛮 is quite (spoken, southern).
+th: 蛮 คือค่อนข้าง (ภาษาพูด ภาคใต้)
+vi: 蛮 là khá (khẩu ngữ, phương Nam).
+ex: 这个地方蛮漂亮的。 | Zhège dìfang mán piàoliang de. | Tempat ini lumayan cantik. | This place is quite pretty. | ที่นี่สวยดีนะ | Chỗ này khá đẹp.
+
+= A | 程度副词：颇 | 颇 + 形容词 ／ 颇有 + 名词
+k: 颇
+id: 颇 = cukup, agak (tulisan): 颇有影响.
+en: 颇 is rather (written): 颇有影响.
+th: 颇 คือค่อนข้าง (ภาษาเขียน) 颇有影响
+vi: 颇 là khá (văn viết): 颇有影响.
+
+= A | 程度副词：稍稍 | 稍稍 + 动词/形容词
+k: 稍稍
+id: 稍稍 = sedikit sekali.
+en: 稍稍 is just slightly.
+th: 稍稍 คือเล็กน้อย
+vi: 稍稍 là hơi hơi.
+ex: 请稍稍等一下。 | Qǐng shāoshāo děng yíxià. | Mohon tunggu sebentar. | Please wait just a moment. | กรุณารอสักครู่ | Xin chờ một chút.
+
+= A | 程度副词：尤为 | 尤为 + 形容词
+k: 尤为
+id: 尤为 = terutama sekali.
+en: 尤为 is especially.
+th: 尤为 คือเป็นพิเศษอย่างยิ่ง
+vi: 尤为 là đặc biệt.
+
+= A | 程度副词：越发 | 越发 + 形容词
+k: 越发
+id: 越发 = makin lama makin.
+en: 越发 is all the more.
+th: 越发 คือยิ่งขึ้นเรื่อย ๆ
+vi: 越发 là càng thêm.
+
+= A | 范围副词：凡 | 凡（是）+ 名词 + 都/皆
+k: 凡
+m: 凡[^\s]{1,8}(都|皆|均)
+id: 凡 = semua yang (tulisan).
+en: 凡 is all that, every (written).
+th: 凡 คือทุกสิ่งที่ (ภาษาเขียน)
+vi: 凡 là hễ (văn viết).
+
+= A | 范围副词：皆 | 主语 + 皆 + 动词
+k: 皆
+id: 皆 = semua (klasik).
+en: 皆 is all (classical).
+th: 皆 คือล้วน (ภาษาโบราณ)
+vi: 皆 là đều (cổ văn).
+
+= A | 范围副词：统统 | 统统 + 动词
+k: 统统
+id: 统统 = semuanya tanpa kecuali.
+en: 统统 is all of them, every last one.
+th: 统统 คือทั้งหมดไม่มีเว้น
+vi: 统统 là tất tần tật.
+
+= A | 范围副词：唯独 | 都 + 动词，唯独 + 例外
+k: 唯独
+id: 唯独 = hanya…saja (yang berbeda).
+en: 唯独 is only… alone.
+th: 唯独 คือยกเว้นแต่…เท่านั้น
+vi: 唯独 là chỉ riêng.
+
+= A | 时间副词：即 | 主语 + 即 + 动词
+k: 即
+m: 即[^将使便]
+id: 即 = segera, langsung (tulisan).
+en: 即 is immediately (written).
+th: 即 คือทันที (ภาษาเขียน)
+vi: 即 là liền (văn viết).
+
+= A | 时间副词：历来 | 历来 + 动词
+k: 历来
+id: 历来 = sejak dulu selalu.
+en: 历来 is always (throughout history).
+th: 历来 คือตลอดมา
+vi: 历来 là xưa nay.
+
+= A | 时间副词：尚 | 尚 + 未/无/需
+k: 尚
+id: 尚 = masih, belum (tulisan): 尚未完成.
+en: 尚 is still, yet (written): 尚未完成.
+th: 尚 คือยัง (ภาษาเขียน) 尚未完成
+vi: 尚 là vẫn còn, chưa (văn viết): 尚未完成.
+
+= A | 时间副词：向来 | 向来 + 动词/形容词
+k: 向来
+id: 向来 = selama ini selalu.
+en: 向来 is always (as a habit).
+th: 向来 คือเสมอมา
+vi: 向来 là xưa nay vẫn.
+
+= A | 频率副词：频频 | 频频 + 动词
+k: 频频
+id: 频频 = berulang kali.
+en: 频频 is repeatedly.
+th: 频频 คือบ่อยครั้ง
+vi: 频频 là liên tục.
+
+= A | 频率副词：再度 | 再度 + 动词
+k: 再度
+id: 再度 = sekali lagi (resmi).
+en: 再度 is once again (formal).
+th: 再度 คืออีกครั้ง (ทางการ)
+vi: 再度 là một lần nữa (trang trọng).
+
+= A | 关联副词：亦 | 主语 + 亦 + 动词
+k: 亦
+id: 亦 = juga (klasik).
+en: 亦 is also (classical).
+th: 亦 คือก็ (ภาษาโบราณ)
+vi: 亦 là cũng (cổ văn).
+
+= A | 否定副词：未 | 未 + 动词
+k: 未
+m: 未[^来必免]
+id: 未 = belum (tulisan).
+en: 未 is not yet (written).
+th: 未 คือยังไม่ (ภาษาเขียน)
+vi: 未 là chưa (văn viết).
+
+= A | 否定副词：勿 | 勿 + 动词
+k: 勿
+id: 勿 = jangan (tulisan, papan larangan).
+en: 勿 is do not (written, on signs).
+th: 勿 คือห้าม (ภาษาเขียน ป้าย)
+vi: 勿 là chớ (văn viết, biển cấm).
+
+= A | 方式副词：不由得 | 不由得 + 动词
+k: 不由得
+id: 不由得 = tanpa sadar, tak bisa menahan.
+en: 不由得 is can't help but.
+th: 不由得 คืออดไม่ได้ที่จะ
+vi: 不由得 là bất giác.
+
+= A | 方式副词：顺便 | 顺便 + 动词
+k: 顺便
+id: 顺便 = sekalian.
+en: 顺便 is while you're at it.
+th: 顺便 คือถือโอกาส
+vi: 顺便 là tiện thể.
+ex: 你去超市的时候，顺便帮我买瓶水。 | Nǐ qù chāoshì de shíhou, shùnbiàn bāng wǒ mǎi píng shuǐ. | Waktu ke supermarket, sekalian belikan aku sebotol air. | When you go to the supermarket, grab me a bottle of water while you’re there. | ตอนไปซูเปอร์ ถือโอกาสซื้อน้ำให้ฉันขวดหนึ่ง | Khi đi siêu thị, tiện thể mua giúp tôi chai nước.
+
+= A | 方式副词：一连 | 一连 + 时段/次数 + 动词
+k: 一连
+id: 一连 = berturut-turut.
+en: 一连 is in a row.
+th: 一连 คือติดต่อกัน
+vi: 一连 là liền một mạch.
+
+= A | 情态副词：按说 | 按说……，可是……
+k: 按说
+id: 按说 = seharusnya sih (tapi kenyataannya…).
+en: 按说 is by rights (but in fact…).
+th: 按说 คือว่ากันตามหลัก (แต่ความจริง…)
+vi: 按说 là lẽ ra (nhưng thực tế…).
+
+= A | 情态副词：必定 | 必定 + 动词
+k: 必定
+id: 必定 = pasti.
+en: 必定 is certainly.
+th: 必定 คือแน่นอน
+vi: 必定 là ắt hẳn.
+
+= A | 情态副词：不妨 | 不妨 + 动词
+k: 不妨
+id: 不妨 = tidak ada salahnya.
+en: 不妨 is might as well.
+th: 不妨 คือลองดูก็ไม่เสียหาย
+vi: 不妨 là cứ thử cũng không sao.
+
+= A | 语气副词：何必 | 何必 + 动词 + 呢
+k: 何必
+id: 何必 = buat apa.
+en: 何必 is why bother.
+th: 何必 คือจะ…ไปทำไม
+vi: 何必 là cần gì phải.
+
+= A | 语气副词：莫非 | 莫非 + ……？
+k: 莫非
+id: 莫非 = jangan-jangan.
+en: 莫非 is could it be that.
+th: 莫非 คือหรือว่า
+vi: 莫非 là chẳng lẽ.
+
+= A | 语气副词：白白 | 白白 + 动词
+k: 白白
+id: 白白 = sia-sia.
+en: 白白 is in vain.
+th: 白白 คือเสียเปล่า
+vi: 白白 là uổng công.
+
+= A | 语气副词：反倒 | 主语 + 反倒 + 动词
+k: 反倒
+id: 反倒 = malah sebaliknya.
+en: 反倒 is on the contrary.
+th: 反倒 คือกลับกลายเป็น
+vi: 反倒 là ngược lại.
+
+= A | 语气副词：分明 | 分明 + 动词
+k: 分明
+id: 分明 = jelas-jelas.
+en: 分明 is clearly.
+th: 分明 คือชัด ๆ
+vi: 分明 là rõ ràng.
+
+= A | 语气副词：怪不得 | 怪不得……，原来……
+k: 怪不得
+id: 怪不得 = pantas saja.
+en: 怪不得 is no wonder.
+th: 怪不得 คือมิน่าล่ะ
+vi: 怪不得 là thảo nào.
+
+= A | 语气副词：好在 | 好在 + 有利条件
+k: 好在
+id: 好在 = untungnya.
+en: 好在 is luckily.
+th: 好在 คือโชคดีที่
+vi: 好在 là may mà.
+
+= V | 乃 | A + 乃 + B
+k: 乃
+id: 乃 = adalah (klasik).
+en: 乃 is is (classical).
+th: 乃 คือเป็น (ภาษาโบราณ)
+vi: 乃 là là (cổ văn).
+
+= A | 语气副词：难怪 | 难怪……
+k: 难怪
+id: 难怪 = pantas saja, tidak heran.
+en: 难怪 is no wonder.
+th: 难怪 คือไม่แปลกที่
+vi: 难怪 là bảo sao.
+
+= A | 语气副词：偏偏 | 偏偏 + 动词
+k: 偏偏
+id: 偏偏 = justru (berlawanan harapan).
+en: 偏偏 is just has to (against expectations).
+th: 偏偏 คือดันจะ
+vi: 偏偏 là lại cứ.
+
+= A | 语气副词：索性 | 索性 + 就 + 动词
+k: 索性
+id: 索性 = sekalian saja.
+en: 索性 is might as well just.
+th: 索性 คือก็…ไปเลย
+vi: 索性 là dứt khoát.
+
+= A | 语气副词：万万 | 万万 + 不能/没想到
+k: 万万
+id: 万万 = sama sekali (dengan negasi).
+en: 万万 is absolutely (with a negative).
+th: 万万 คือเด็ดขาด (กับคำปฏิเสธ)
+vi: 万万 là tuyệt đối (với phủ định).
+
+= A | 语气副词：未免 | 未免 + 太 + 形容词
+k: 未免
+id: 未免 = agak terlalu.
+en: 未免 is rather too.
+th: 未免 คือออกจะ…เกินไป
+vi: 未免 là có phần quá.
+
+= A | 语气副词：无非 | 无非 + 是
+k: 无非
+id: 无非 = tidak lain hanyalah.
+en: 无非 is nothing more than.
+th: 无非 คือก็แค่
+vi: 无非 là chẳng qua là.
+
+= A | 语气副词：幸好 | 幸好……，不然……
+k: 幸好
+id: 幸好 = untung saja.
+en: 幸好 is fortunately.
+th: 幸好 คือโชคดีที่
+vi: 幸好 là may mà.
+
+= A | 语气副词：幸亏 | 幸亏……，否则……
+k: 幸亏
+id: 幸亏 = untunglah (kalau tidak, bisa celaka).
+en: 幸亏 is thanks to luck (or else…).
+th: 幸亏 คือโชคดีที่ (ไม่งั้น…)
+vi: 幸亏 là may nhờ (không thì…).
+
+= A | 语气副词：终究 | 终究 + 是/会
+k: 终究
+id: 终究 = pada akhirnya.
+en: 终究 is in the end.
+th: 终究 คือในที่สุดก็
+vi: 终究 là rốt cuộc.
+
+= R | 介词：顺着 | 顺着 + 路径 + 动词
+k: 顺着
+id: 顺着 = menyusuri, mengikuti.
+en: 顺着 is along, following.
+th: 顺着 คือตามไป เลียบ
+vi: 顺着 là men theo.
+
+= R | 介词：当着 | 当着 + 人 + 的面
+k: 当着
+id: 当着…的面 = di hadapan….
+en: 当着…的面 is in front of….
+th: 当着…的面 คือต่อหน้า…
+vi: 当着…的面 là trước mặt….
+ex: 他当着大家的面道了歉。 | Tā dāng zhe dàjiā de miàn dào le qiàn. | Dia minta maaf di hadapan semua orang. | He apologized in front of everyone. | เขาขอโทษต่อหน้าทุกคน | Anh ấy xin lỗi trước mặt mọi người.
+
+= R | 介词：就 | 就 + 话题 + 动词
+k: 就
+m: 就.{1,8}(问题|情况|事|进行|发表|讨论|交换)
+id: 就 + topik = mengenai (resmi): 就这个问题进行讨论.
+en: 就 + topic is concerning (formal): 就这个问题进行讨论.
+th: 就 + หัวข้อ คือเกี่ยวกับ (ทางการ) 就这个问题进行讨论
+vi: 就 + chủ đề là về (trang trọng): 就这个问题进行讨论.
+
+= R | 介词：趁 | 趁 + 机会 + 动词
+k: 趁
+id: 趁 = selagi, memanfaatkan kesempatan.
+en: 趁 is while, taking advantage of.
+th: 趁 คือฉวยโอกาสขณะที่
+vi: 趁 là nhân lúc.
+
+= R | 介词：基于 | 基于 + 依据，……
+k: 基于
+id: 基于 = berdasarkan.
+en: 基于 is based on.
+th: 基于 คือบนพื้นฐานของ
+vi: 基于 là dựa trên.
+
+= R | 介词：依 | 依 + 标准 + 动词
+k: 依
+m: 依[^靠然旧据照赖]
+id: 依 = menurut (tulisan).
+en: 依 is according to (written).
+th: 依 คือตาม (ภาษาเขียน)
+vi: 依 là theo (văn viết).
+
+= C | 连接词：及 | A、B 及 C
+k: 及
+m: 及[^时格]
+id: 及 = serta, dan (tulisan).
+en: 及 is and (written).
+th: 及 คือและ (ภาษาเขียน)
+vi: 及 là và (văn viết).
+
+= C | 继而/要不是 | 继而 + 动作 ／ 要不是……
+k: 继而|要不是
+id: 继而 = kemudian, 要不是 = kalau bukan karena.
+en: 继而 is then, 要不是 is if it weren't for.
+th: 继而 คือต่อมา 要不是 คือถ้าไม่ใช่เพราะ
+vi: 继而 là tiếp đó, 要不是 là nếu không vì.
+
+= U | 结构助词：之 | 修饰语 + 之 + 名词
+k: 之
+id: 之 = 的 versi klasik: 三分之一, 父母之爱.
+en: 之 is the classical 的: 三分之一, 父母之爱.
+th: 之 คือ 的 แบบโบราณ 三分之一 父母之爱
+vi: 之 là 的 cổ văn: 三分之一, 父母之爱.
+
+= U | 而已 | 陈述 + 而已
+k: 而已
+id: 而已 = hanya itu saja.
+en: 而已 is that's all.
+th: 而已 คือเท่านั้นเอง
+vi: 而已 là mà thôi.
+
+= U | 矣 | 陈述 + 矣
+k: 矣
+id: 矣 = sudah (partikel klasik).
+en: 矣 is a classical final particle (has become).
+th: 矣 คือคำท้ายแบบโบราณ (แล้ว)
+vi: 矣 là trợ từ cổ cuối câu (rồi).
+ex: 时间久矣。 | Shíjiān jiǔ yǐ. | Waktunya sudah lama. | It has been a long time. | เวลาผ่านมานานแล้ว | Thời gian đã lâu rồi.
+
+= N | 数词 + 量词 + 抽象事物 | 一份责任 / 一种感觉
+k:
+m: 一(份|种|股|片|丝)(责任|感觉|力量|心意|希望|温暖)
+id: Kata ukur untuk hal abstrak: 一份责任, 一丝希望.
+en: Measure words for abstract things: 一份责任, 一丝希望.
+th: ลักษณนามสำหรับสิ่งนามธรรม 一份责任 一丝希望
+vi: Lượng từ cho sự vật trừu tượng: 一份责任, 一丝希望.
+ex: 这是我的一份心意。 | Zhè shì wǒ de yí fèn xīnyì. | Ini sekadar tanda perhatianku. | This is a small token of my feelings. | นี่คือน้ำใจเล็ก ๆ ของฉัน | Đây là chút lòng thành của tôi.
+
+= E | 爱A不A | 爱 + 动词 + 不 + 动词
+k:
+m: 爱(.)不\1
+id: 爱A不A = mau A atau tidak, terserah.
+en: 爱A不A is A or don't, suit yourself.
+th: 爱A不A คือจะA หรือไม่A ก็ตามใจ
+vi: 爱A不A là thích A thì A, không thì thôi.
+ex: 你爱去不去。 | Nǐ ài qù bú qù. | Mau pergi atau tidak, terserah kamu. | Go or don’t, suit yourself. | จะไปไม่ไปก็ตามใจ | Bạn muốn đi thì đi, không thì thôi.
+
+= E | 半A半B | 半 + A + 半 + B
+k:
+m: 半.半.
+id: 半A半B = setengah A setengah B: 半信半疑.
+en: 半A半B is half A, half B: 半信半疑.
+th: 半A半B คือครึ่งA ครึ่งB 半信半疑
+vi: 半A半B là nửa A nửa B: 半信半疑.
+
+= E | 东A西B | 东 + A + 西 + B
+k:
+m: 东.西.
+id: 东A西B = A di sana-sini: 东张西望.
+en: 东A西B is A here and there: 东张西望.
+th: 东A西B คือ…ไปทั่ว 东张西望
+vi: 东A西B là… lung tung: 东张西望.
+
+= E | 非A非B | 非 + A + 非 + B
+k:
+m: 非.非.
+id: 非A非B = bukan A bukan B.
+en: 非A非B is neither A nor B.
+th: 非A非B คือไม่ใช่A ไม่ใช่B
+vi: 非A非B là chẳng phải A chẳng phải B.
+ex: 我们非亲非故，他却一直帮我。 | Wǒmen fēi qīn fēi gù, tā què yìzhí bāng wǒ. | Kami bukan saudara, bukan juga teman lama, tapi dia selalu menolongku. | We are neither family nor old friends, yet he has always helped me. | เราไม่ใช่ญาติ ไม่ใช่เพื่อนเก่า แต่เขากลับช่วยฉันมาตลอด | Chúng tôi chẳng họ hàng, chẳng quen biết, vậy mà anh ấy luôn giúp tôi.
+
+= E | 忽A忽B | 忽 + A + 忽 + B
+k:
+m: 忽.忽.
+id: 忽A忽B = tiba-tiba A, tiba-tiba B.
+en: 忽A忽B is now A, suddenly B.
+th: 忽A忽B คือประเดี๋ยวA ประเดี๋ยวB
+vi: 忽A忽B là chợt A chợt B.
+ex: 灯光忽明忽暗。 | Dēngguāng hū míng hū àn. | Lampunya sebentar terang sebentar redup. | The light flickered on and off. | แสงไฟติด ๆ ดับ ๆ | Ánh đèn lúc sáng lúc tối.
+
+= E | 连A带B | 连 + A + 带 + B
+k:
+m: 连.{1,2}带
+id: 连A带B = sekaligus A dan B.
+en: 连A带B is A and B together.
+th: 连A带B คือทั้งA ทั้งB พร้อมกัน
+vi: 连A带B là vừa A vừa B.
+ex: 他连吃带拿，一点儿也不客气。 | Tā lián chī dài ná, yìdiǎnr yě bú kèqi. | Dia makan sekaligus bawa pulang, sama sekali tidak sungkan. | He ate and took some home too, without the least shyness. | เขาทั้งกินทั้งหอบกลับ ไม่เกรงใจเลย | Anh ta vừa ăn vừa mang về, chẳng khách sáo chút nào.
+
+= E | 时A时B | 时 + A + 时 + B
+k:
+m: 时.时.
+id: 时A时B = kadang A kadang B.
+en: 时A时B is sometimes A, sometimes B.
+th: 时A时B คือบางทีA บางทีB
+vi: 时A时B là lúc A lúc B.
+ex: 他的病情时好时坏。 | Tā de bìngqíng shí hǎo shí huài. | Kondisinya kadang membaik kadang memburuk. | His condition is better one day, worse the next. | อาการของเขาดีบ้างแย่บ้าง | Bệnh của anh ấy lúc tốt lúc xấu.
+
+= E | 自A自B | 自 + A + 自 + B
+k:
+m: 自.自.
+id: 自A自B = sendirian: 自言自语.
+en: 自A自B is all by oneself: 自言自语.
+th: 自A自B คือด้วยตัวเอง 自言自语
+vi: 自A自B là tự mình: 自言自语.
+
+= E | 巴不得 | 巴不得 + 动词
+k: 巴不得
+id: 巴不得 = ingin sekali.
+en: 巴不得 is can't wait to.
+th: 巴不得 คืออยากมาก
+vi: 巴不得 là chỉ mong.
+
+= E | 别提了 | 别提了 / 别提多 + 形容词 + 了
+k: 别提了|别提多
+id: 别提了 = jangan ditanya (sangat).
+en: 别提了 is don't even ask.
+th: 别提了 คืออย่าให้พูดเลย
+vi: 别提了 là đừng nhắc nữa.
+ex: 别提了，今天真倒霉！ | Biétí le, jīntiān zhēn dǎoméi! | Jangan ditanya, hari ini sial sekali! | Don’t even ask, what a bad day! | อย่าให้พูดเลย วันนี้ซวยจริง ๆ | Đừng nhắc nữa, hôm nay xui thật!
+
+= E | 除此之外 | 除此之外，……
+k: 除此之外
+id: 除此之外 = selain itu.
+en: 除此之外 is apart from this.
+th: 除此之外 คือนอกจากนี้
+vi: 除此之外 là ngoài ra.
+ex: 他会说英语，除此之外，还会说汉语。 | Tā huì shuō Yīngyǔ, chú cǐ zhī wài, hái huì shuō Hànyǔ. | Dia bisa bahasa Inggris, selain itu juga bisa Mandarin. | He speaks English, and apart from that, Chinese too. | เขาพูดภาษาอังกฤษได้ นอกจากนี้ยังพูดภาษาจีนได้ | Anh ấy biết tiếng Anh, ngoài ra còn biết tiếng Trung.
+
+= E | 归根到底 | 归根到底，……
+k: 归根到底
+id: 归根到底 = pada dasarnya.
+en: 归根到底 is in the final analysis.
+th: 归根到底 คือที่สุดแล้ว
+vi: 归根到底 là xét cho cùng.
+
+= E | 可不是 | 可不是（嘛）
+k: 可不是
+id: 可不是 = benar sekali.
+en: 可不是 is you can say that again.
+th: 可不是 คือนั่นสิ
+vi: 可不是 là đúng vậy.
+
+= E | 没说的 | ……没说的
+k: 没说的
+id: 没说的 = tidak ada celanya, tidak usah diragukan.
+en: 没说的 is nothing to be said against it.
+th: 没说的 คือไม่มีที่ติ
+vi: 没说的 là khỏi phải nói.
+ex: 他这个人，人品没说的。 | Tā zhège rén, rénpǐn méi shuō de. | Orangnya, wataknya tidak diragukan lagi. | As for him, his character is beyond reproach. | คนนี้ นิสัยไม่มีที่ติ | Con người anh ấy, nhân phẩm khỏi phải nói.
+
+= E | 无论如何 | 无论如何 + 都/也
+k: 无论如何
+id: 无论如何 = bagaimanapun juga.
+en: 无论如何 is no matter what.
+th: 无论如何 คือไม่ว่าอย่างไร
+vi: 无论如何 là dù thế nào đi nữa.
+
+= E | 由此可见/由此看来 | 证据，由此可见……
+k: 由此可见|由此看来
+id: 由此可见 = dari sini terlihat.
+en: 由此可见 is from this we can see.
+th: 由此可见 คือจากนี้จะเห็นได้ว่า
+vi: 由此可见 là từ đó có thể thấy.
+
+= E | 与此同时 | ……，与此同时……
+k: 与此同时
+id: 与此同时 = pada saat yang sama.
+en: 与此同时 is at the same time.
+th: 与此同时 คือในขณะเดียวกัน
+vi: 与此同时 là đồng thời.
+ex: 经济发展了，与此同时，环境问题也出现了。 | Jīngjì fāzhǎn le, yǔ cǐ tóngshí, huánjìng wèntí yě chūxiàn le. | Ekonomi berkembang, pada saat yang sama muncul masalah lingkungan. | The economy grew, and at the same time environmental problems appeared. | เศรษฐกิจพัฒนา ในขณะเดียวกันปัญหาสิ่งแวดล้อมก็เกิดขึ้น | Kinh tế phát triển, đồng thời vấn đề môi trường cũng xuất hiện.
+
+= E | 这样一来 | ……，这样一来……
+k: 这样一来
+id: 这样一来 = dengan begitu.
+en: 这样一来 is as a result.
+th: 这样一来 คือเมื่อเป็นเช่นนี้
+vi: 这样一来 là như vậy thì.
+ex: 他搬到了公司附近，这样一来，上班方便多了。 | Tā bān dào le gōngsī fùjìn, zhèyàng yì lái, shàngbān fāngbiàn duō le. | Dia pindah dekat kantor, dengan begitu berangkat kerja jauh lebih mudah. | He moved near the office, so getting to work is much easier now. | เขาย้ายมาใกล้บริษัท เมื่อเป็นเช่นนี้การไปทำงานก็สะดวกขึ้นมาก | Anh ấy chuyển đến gần công ty, như vậy đi làm tiện hơn nhiều.
+
+= E | 综上所述 | 综上所述，……
+k: 综上所述
+id: 综上所述 = dari semua yang telah disebut.
+en: 综上所述 is to sum up.
+th: 综上所述 คือจากที่กล่าวมาทั้งหมด
+vi: 综上所述 là tổng hợp những điều trên.
+ex: 综上所述，这个计划是可行的。 | Zōng shàng suǒ shù, zhège jìhuà shì kěxíng de. | Dari semua yang telah disebut, rencana ini bisa dijalankan. | To sum up, this plan is feasible. | จากที่กล่าวมาทั้งหมด แผนนี้ทำได้จริง | Tổng hợp những điều trên, kế hoạch này khả thi.
+
+= E | 总的来说/总而言之 | 总的来说，……
+k: 总的来说|总而言之
+id: 总的来说 = secara keseluruhan.
+en: 总的来说 is all in all.
+th: 总的来说 คือโดยรวมแล้ว
+vi: 总的来说 là nói chung.
+
+= E | 不知……好 | 不知 + 怎么/如何 + 动词 + 才好
+k: 才好
+m: 不知.{1,6}(才)?好
+id: 不知…才好 = tidak tahu harus bagaimana.
+en: 不知…才好 is don't know what to do.
+th: 不知…才好 คือไม่รู้จะ…ดี
+vi: 不知…才好 là không biết nên… thế nào.
+ex: 我不知说什么才好。 | Wǒ bù zhī shuō shénme cái hǎo. | Aku tidak tahu harus bilang apa. | I don’t know what to say. | ฉันไม่รู้จะพูดอะไรดี | Tôi không biết nói gì mới phải.
+
+= E | 所谓……就是…… | 所谓 + 概念，就是……
+k: 所谓
+id: 所谓…就是… = yang disebut… adalah….
+en: 所谓…就是… is what is called… is….
+th: 所谓…就是… คือสิ่งที่เรียกว่า…ก็คือ…
+vi: 所谓…就是… là cái gọi là… chính là….
+
+= E | 无非/不过/只不过……罢了/而已 | 只不过 + 陈述 + 罢了
+k: 只不过|罢了|而已
+id: 只不过…罢了 = hanya…saja.
+en: 只不过…罢了 is merely…, that's all.
+th: 只不过…罢了 คือก็แค่…เท่านั้น
+vi: 只不过…罢了 là chẳng qua… mà thôi.
+
+= E | 以……为…… | 以 + A + 为 + B
+k:
+m: 以.{1,6}为
+id: 以A为B = menganggap A sebagai B.
+en: 以A为B is take A as B.
+th: 以A为B คือถือA เป็นB
+vi: 以A为B là lấy A làm B.
+
+= F | 以免/免得 | 行动，以免 + 不良结果
+k: 以免|免得
+id: 以免/免得 = supaya tidak.
+en: 以免/免得 is so as not to.
+th: 以免/免得 คือเพื่อไม่ให้
+vi: 以免/免得 là để khỏi.
+
+= S | 宾语的语义类型3：方式/工具/材料/目的 | 动词 + 宾语
+k:
+id: Objek bisa cara (写楷书), alat (吃大碗), bahan (浇水), atau tujuan (考研究生).
+en: The object can be a way (写楷书), a tool (吃大碗), a material (浇水) or an aim (考研究生).
+th: กรรมอาจเป็นวิธี (写楷书) เครื่องมือ (吃大碗) วัสดุ (浇水) หรือเป้าหมาย (考研究生)
+vi: Tân ngữ có thể là cách thức (写楷书), công cụ (吃大碗), vật liệu (浇水) hay mục đích (考研究生).
+
+= K | 程度补语：得不行/得要命 | 形容词 + 得 + 不行/要命/要死
+k: 得不行|得要命|得要死
+id: Sangat sekali (lisan): 累得要命.
+en: Terribly (spoken): 累得要命.
+th: มากจนแทบแย่ (ภาษาพูด) 累得要命
+vi: Cực kỳ (khẩu ngữ): 累得要命.
+
+= K | 状态补语3：动词 + 个 + 补语 | 动词 + 个 + 不停/没完
+k: 个不停|个没完|个痛快|个够
+id: 个 + pelengkap = sepuasnya/tanpa henti: 说个不停.
+en: 个 + complement is nonstop or to your heart's content: 说个不停.
+th: 个 + ส่วนเติมเต็ม คือไม่หยุด หรืออย่างเต็มที่ 说个不停
+vi: 个 + bổ ngữ là không ngừng, thỏa thích: 说个不停.
+
+= S | 把字句5：表致使 | 把 + 施事 + 动词 + 了
+k: 把
+m: 把(他|她|我|孩子|人)[^\s]{0,2}(急|累|吓|饿|气|病)(坏|死|哭)?了
+id: 把 yang menyebabkan keadaan: 偏偏把老王病了 (malah membuat Lao Wang sakit).
+en: 把 that causes a state: 偏偏把老王病了.
+th: 把 ที่ทำให้เกิดสภาพ 偏偏把老王病了
+vi: 把 gây ra trạng thái: 偏偏把老王病了.
+ex: 这场大雨把我们都淋湿了。 | Zhè cháng dà yǔ bǎ wǒmen dōu línshī le. | Hujan lebat ini membuat kami semua basah kuyup. | This downpour got us all soaked. | ฝนตกหนักครั้งนี้ทำให้พวกเราเปียกโชกหมด | Trận mưa to này làm chúng tôi ướt hết.
+
+= S | 被……所……／为……所…… | 被/为 + 施事 + 所 + 动词
+k: 所
+m: (被|为).{1,6}所
+id: 被/为…所… = pasif sastra: 为人所知.
+en: 被/为…所… is the literary passive: 为人所知.
+th: 被/为…所… คือประโยคถูกกระทำแบบวรรณกรรม 为人所知
+vi: 被/为…所… là bị động văn chương: 为人所知.
+
+= S | 比较句6 | 比起A（来），B…… ／ A + 形容词 + 于 + B
+k: 比起|于
+m: 比起|(大|高|多|少|低|强)于
+id: 比起A = dibandingkan A; A大于B = A lebih besar dari B (tulisan).
+en: 比起A is compared with A; A大于B is A is greater than B (written).
+th: 比起A คือเมื่อเทียบกับA A大于B คือA มากกว่าB (ภาษาเขียน)
+vi: 比起A là so với A; A大于B là A lớn hơn B (văn viết).
+
+= F | 一面……，一面…… | 一面 A，一面 B
+k: 一面
+m: 一面.{1,8}一面
+id: 一面…一面… = sambil…sambil….
+en: 一面…一面… is while… at the same time….
+th: 一面…一面… คือพลาง…พลาง…
+vi: 一面…一面… là vừa… vừa….
+ex: 他一面听音乐，一面做作业。 | Tā yímiàn tīng yīnyuè, yímiàn zuò zuòyè. | Dia mengerjakan PR sambil mendengarkan musik. | He does homework while listening to music. | เขาฟังเพลงไปพลางทำการบ้านไปพลาง | Anh ấy vừa nghe nhạc vừa làm bài tập.
+
+= F | ……，此后…… | 事件，此后……
+k: 此后
+id: 此后 = sejak itu.
+en: 此后 is from then on.
+th: 此后 คือนับแต่นั้น
+vi: 此后 là từ đó về sau.
+
+= F | 起初……，后来…… | 起初 A，后来 B
+k: 起初
+id: 起初…后来… = mula-mula…kemudian….
+en: 起初…后来… is at first… later….
+th: 起初…后来… คือตอนแรก…ต่อมา…
+vi: 起初…后来… là lúc đầu… về sau….
+
+= F | 别说……，连……也/都…… | 别说 A，连 B 也……
+k: 别说
+id: 别说A，连B也… = jangankan A, B pun….
+en: 别说A，连B也… is let alone A, even B….
+th: 别说A，连B也… คืออย่าว่าแต่A แม้แต่B ก็…
+vi: 别说A，连B也… là đừng nói A, ngay cả B cũng….
+
+= F | ……，何况…… | A，何况 B
+k: 何况
+id: 何况 = apalagi.
+en: 何况 is let alone.
+th: 何况 คือนับประสาอะไรกับ
+vi: 何况 là huống hồ.
+
+= F | ……，进而…… | A，进而 B
+k: 进而
+id: 进而 = selanjutnya.
+en: 进而 is and then further.
+th: 进而 คือแล้วจึงต่อไป
+vi: 进而 là tiến tới.
+
+= F | ……，没想到…… | 预期，没想到 + 意外
+k: 没想到
+id: 没想到 = tak disangka.
+en: 没想到 is who'd have thought.
+th: 没想到 คือไม่คิดเลยว่า
+vi: 没想到 là không ngờ.
+
+= F | 连……，更不用说…… | 连 A 都……，更不用说 B
+k: 更不用说
+id: 连A都…，更不用说B = A saja…, apalagi B.
+en: 连A都…，更不用说B is even A…, not to mention B.
+th: 连A都…，更不用说B คือแม้A ยัง… ไม่ต้องพูดถึงB
+vi: 连A都…，更不用说B là ngay A còn…, chẳng nói gì B.
+ex: 他连自己都照顾不好，更不用说照顾别人了。 | Tā lián zìjǐ dōu zhàogù bu hǎo, gèng búyòng shuō zhàogù biérén le. | Mengurus diri sendiri saja dia tidak bisa, apalagi mengurus orang lain. | He can’t even look after himself, let alone others. | แม้แต่ตัวเองเขายังดูแลไม่ได้ ไม่ต้องพูดถึงคนอื่น | Ngay cả bản thân anh ấy còn không lo nổi, chẳng nói gì lo cho người khác.
+
+= F | ……，乃至…… | A，B，乃至 C
+k: 乃至
+id: 乃至 = bahkan sampai.
+en: 乃至 is and even.
+th: 乃至 คือจนกระทั่ง
+vi: 乃至 là thậm chí đến.
+
+= F | ……，甚至于…… | A，甚至于 B
+k: 甚至于
+id: 甚至于 = bahkan sampai (lebih kuat dari 甚至).
+en: 甚至于 is even to the point of.
+th: 甚至于 คือถึงขั้น (หนักกว่า 甚至)
+vi: 甚至于 là thậm chí đến mức.
+ex: 他忙得很，甚至于连饭都忘了吃。 | Tā máng de hěn, shènzhìyú lián fàn dōu wàng le chī. | Dia sibuk sekali, bahkan sampai lupa makan. | He’s so busy he even forgets to eat. | เขายุ่งมาก ถึงขั้นลืมกินข้าว | Anh ấy bận lắm, thậm chí quên cả ăn.
+
+= F | 甚至于（句首） | 语境。甚至于 + 极端补充
+k: 甚至于
+id: 甚至于 di awal kalimat menambah hal yang paling ekstrem.
+en: 甚至于 opening a sentence adds the most extreme point.
+th: 甚至于 ต้นประโยคเพิ่มสิ่งที่สุดขั้วที่สุด
+vi: 甚至于 đầu câu thêm điều cực đoan nhất.
+ex: 他每天都练习。甚至于生病的时候，也不休息。 | Tā měitiān dōu liànxí. Shènzhìyú shēngbìng de shíhou, yě bù xiūxi. | Dia berlatih setiap hari. Bahkan saat sakit pun tidak istirahat. | He practises every day. Even when he’s ill he doesn’t rest. | เขาฝึกทุกวัน ถึงขั้นตอนป่วยก็ไม่พัก | Anh ấy luyện tập mỗi ngày. Thậm chí lúc ốm cũng không nghỉ.
+
+= F | 或是……或是…… / 或A或B | 或是 A，或是 B
+k: 或是
+id: 或是A或是B = entah A entah B.
+en: 或是A或是B is either A or B.
+th: 或是A或是B คือไม่A ก็B
+vi: 或是A或是B là hoặc A hoặc B.
+
+= F | 宁可/宁愿……，也…… | 宁可 A，也 B
+k: 宁可|宁愿
+id: 宁可A也B = lebih baik A daripada B.
+en: 宁可A也B is would rather A than B.
+th: 宁可A也B คือยอมA ดีกว่าB
+vi: 宁可A也B là thà A còn hơn B.
+
+= F | 与其……，不如…… | 与其 A，不如 B
+k: 与其|不如
+m: 与其.{1,10}不如
+id: 与其A不如B = daripada A lebih baik B.
+en: 与其A不如B is rather than A, better B.
+th: 与其A不如B คือแทนที่จะA สู้B ดีกว่า
+vi: 与其A不如B là thà B còn hơn A.
+
+= F | 与其……，宁可/宁愿…… | 与其 A，宁可 B
+k: 与其
+m: 与其.{1,10}(宁可|宁愿)
+id: 与其A宁可B = daripada A, aku pilih B.
+en: 与其A宁可B is rather than A, I'd sooner B.
+th: 与其A宁可B คือแทนที่จะA ยอมB
+vi: 与其A宁可B là thà B chứ không A.
+ex: 与其在家生闷气，宁可出去走走。 | Yǔqí zài jiā shēng mèn qì, nìngkě chūqu zǒuzou. | Daripada kesal di rumah, aku pilih keluar jalan-jalan. | Rather than sulk at home, I’d sooner go out for a walk. | แทนที่จะนั่งหงุดหงิดอยู่บ้าน ยอมออกไปเดินเล่นดีกว่า | Thà ra ngoài đi dạo còn hơn ở nhà bực bội.
+
+= F | 再……也/就…… | 再 + 形容词 + 也 + 结果
+k: 再
+m: 再.{1,4}(也|就)
+id: 再…也… = se-…apa pun tetap….
+en: 再…也… is however…, still….
+th: 再…也… คือ…แค่ไหนก็…
+vi: 再…也… là dù… đến đâu cũng….
+
+= F | 倒/反倒 | A，主语 + 倒/反倒 + B
+k: 倒|反倒
+m: (倒|反倒)(是|不|很|挺|没)
+id: 倒/反倒 = malah (hasil berlawanan).
+en: 倒/反倒 is on the contrary.
+th: 倒/反倒 คือกลับ
+vi: 倒/反倒 là lại, ngược lại.
+
+= F | 倘若/假若 | 倘若 + 条件，（就）……
+k: 倘若|假若
+id: 倘若/假若 = seandainya (tulisan).
+en: 倘若/假若 is if, supposing (written).
+th: 倘若/假若 คือหากว่า (ภาษาเขียน)
+vi: 倘若/假若 là giả như (văn viết).
+
+= F | 倘若/假设……就/那么…… | 假设 + 条件，那么……
+k: 假设|倘使|若
+m: (假设|倘使|若).{1,10}(就|那么|则)
+id: Jika…maka… (tulisan, logis).
+en: If… then… (written, logical).
+th: ถ้า…ก็… (ภาษาเขียน เชิงตรรกะ)
+vi: Nếu… thì… (văn viết, lô-gích).
+
+= F | 要不是……要不然/不然…… | 要不是 A，不然 B
+k: 要不是
+id: 要不是A，B = kalau bukan karena A, B (berandai).
+en: 要不是A，B is if it weren't for A, B.
+th: 要不是A，B คือถ้าไม่ใช่เพราะA ก็B
+vi: 要不是A，B là nếu không phải vì A thì B.
+
+= F | 别管/别看……但是…… | 别看 A，但是 B
+k: 别看|别管
+id: 别看A，但B = jangan lihat A-nya, sebenarnya B.
+en: 别看A，但B is don't judge by A, actually B.
+th: 别看A，但B คืออย่าดูแค่A ที่จริงB
+vi: 别看A，但B là đừng thấy A mà tưởng, thực ra B.
+
+= F | 任……也…… | 任 + 疑问词 + 也/都
+k: 任
+m: 任(凭|何|谁)?.{1,6}(也|都)
+id: 任…也… = bagaimanapun…tetap….
+en: 任…也… is no matter….
+th: 任…也… คือไม่ว่า…ก็…
+vi: 任…也… là mặc cho… cũng….
+
+= F | 因……故…… | 因 A，故 B
+k: 故
+m: 因.{1,10}故
+id: 因…故… = karena…maka (klasik).
+en: 因…故… is because… therefore (classical).
+th: 因…故… คือเพราะ…จึง (ภาษาโบราณ)
+vi: 因…故… là vì… cho nên (cổ văn).
+ex: 因天气原因，故航班取消。 | Yīn tiānqì yuányīn, gù hángbān qǔxiāo. | Karena cuaca, maka penerbangan dibatalkan. | Because of the weather, the flight was cancelled. | เนื่องจากสภาพอากาศ เที่ยวบินจึงถูกยกเลิก | Do thời tiết nên chuyến bay bị hủy.
+
+= F | 鉴于……，…… | 鉴于 + 情况，……
+k: 鉴于
+id: 鉴于 = mengingat.
+en: 鉴于 is in view of.
+th: 鉴于 คือเมื่อพิจารณาว่า
+vi: 鉴于 là xét thấy.
+
+= F | （由于）……以致…… | 原因，以致 + 负面结果
+k: 以致
+id: 以致 = sampai mengakibatkan (hal buruk).
+en: 以致 is so that (a bad result).
+th: 以致 คือจนทำให้ (ผลเสีย)
+vi: 以致 là đến nỗi (kết quả xấu).
+
+= F | ……以至于…… | 原因 + 以至于 + 结果
+k: 以至于|以至
+id: 以至于 = sampai-sampai.
+en: 以至于 is to the point that.
+th: 以至于 คือจนถึงขั้น
+vi: 以至于 là đến mức.
+
+= F | 之所以……是因为…… | 之所以 A，是因为 B
+k: 之所以
+id: 之所以A是因为B = alasan A adalah karena B.
+en: 之所以A是因为B is the reason A is because B.
+th: 之所以A是因为B คือที่A ก็เพราะB
+vi: 之所以A是因为B là sở dĩ A là vì B.
+
+= F | 固然……但是…… | 固然 A，但是 B
+k: 固然
+id: 固然…但… = memang…, tetapi….
+en: 固然…但… is admittedly…, but….
+th: 固然…但… คือแม้จะ…จริง แต่…
+vi: 固然…但… là tuy… thật, nhưng….
+
+= F | 虽然……但是/不过……（高级） | 虽 A，却 B
+k: 虽然|却
+m: 虽(然)?.{1,10}却
+id: 虽…却… = meski…namun justru….
+en: 虽…却… is although…, yet….
+th: 虽…却… คือแม้…แต่กลับ…
+vi: 虽…却… là tuy… nhưng lại….
+ex: 他虽年轻，却很有经验。 | Tā suī niánqīng, què hěn yǒu jīngyàn. | Meski muda, dia justru sangat berpengalaman. | Though young, he is very experienced. | แม้เขาจะยังหนุ่ม แต่กลับมีประสบการณ์มาก | Anh ấy tuy trẻ nhưng lại rất có kinh nghiệm.
+
+= F | 即便……也…… | 即便 A，也 B
+k: 即便
+id: 即便…也… = sekalipun…tetap… (tulisan).
+en: 即便…也… is even if… (written).
+th: 即便…也… คือแม้หาก…ก็… (ภาษาเขียน)
+vi: 即便…也… là cho dù… cũng… (văn viết).
+
+= F | 尽管……，总是/毕竟/不过…… | 尽管 A，毕竟 B
+k: 尽管|毕竟
+m: 尽管.{1,10}(毕竟|总是|不过)
+id: Walaupun A, bagaimanapun B.
+en: Even though A, after all B.
+th: แม้A แต่ยังไงB
+vi: Mặc dù A, dù sao B.
+ex: 尽管他做错了，毕竟还是个孩子。 | Jǐnguǎn tā zuòcuò le, bìjìng háishi ge háizi. | Walaupun dia salah, bagaimanapun dia masih anak-anak. | Even though he did wrong, he’s still a child after all. | แม้เขาจะทำผิด แต่ยังไงก็ยังเป็นเด็ก | Mặc dù nó làm sai, nhưng dù sao vẫn là một đứa trẻ.
+
+= F | 纵然/纵使…… | 纵然 A，也 B
+k: 纵然|纵使
+id: 纵然 = sekalipun (sastra).
+en: 纵然 is even if (literary).
+th: 纵然 คือต่อให้ (วรรณกรรม)
+vi: 纵然 là dẫu cho (văn chương).
+
+= F | ……，以…… | 行动，以 + 目的
+k: 以
+m: ，以(纪念|激励|表示|保证|免|便|供|示)
+id: 以 di klausa kedua = untuk (tujuan, resmi).
+en: 以 in the second clause is in order to (formal).
+th: 以 ในประโยคหลังคือเพื่อ (ทางการ)
+vi: 以 ở vế sau là để (trang trọng).
+
+= F | ……以免/免得…… | 预防，以免 + 后果
+k: 以免|免得
+id: 以免 = agar tidak (terjadi hal buruk).
+en: 以免 is lest.
+th: 以免 คือเพื่อมิให้
+vi: 以免 là kẻo.
+
+= F | ……也就是说…… | A，也就是说 B
+k: 也就是说
+id: 也就是说 = dengan kata lain.
+en: 也就是说 is in other words.
+th: 也就是说 คือกล่าวอีกนัยหนึ่ง
+vi: 也就是说 là nói cách khác.
+ex: 会议推迟了一周，也就是说，下周三开。 | Huìyì tuīchí le yì zhōu, yě jiù shì shuō, xià zhōusān kāi. | Rapat diundur seminggu, dengan kata lain diadakan Rabu depan. | The meeting was put off a week, in other words, it’s next Wednesday. | การประชุมเลื่อนไปหนึ่งสัปดาห์ กล่าวคือจะประชุมวันพุธหน้า | Cuộc họp hoãn một tuần, nói cách khác là thứ Tư tuần sau.
+
+= E | (要)V就V个…… | 要 + 动词 + 就 + 动词 + 个 + 补语
+k:
+m: (.)就\1个
+id: Kalau X, X-lah sepenuhnya: 要玩就玩个痛快.
+en: If you X, X all the way: 要玩就玩个痛快.
+th: ถ้าจะX ก็X ให้เต็มที่ 要玩就玩个痛快
+vi: Đã X thì X cho đã: 要玩就玩个痛快.
+ex: 要玩就玩个痛快！ | Yào wán jiù wán ge tòngkuai! | Kalau main, main sepuasnya! | If we play, let’s play to our heart’s content! | ถ้าจะเล่นก็เล่นให้สะใจ | Đã chơi thì chơi cho đã!
+
+= E | V就V，别在意 | 动词 + 就 + 动词，别在意
+k:
+m: (.)就\1(吧)?，别
+id: Ya sudah X, jangan dipikirkan.
+en: X if you must, don't dwell on it.
+th: X ก็X ไป อย่าใส่ใจ
+vi: X thì X, đừng bận tâm.
+ex: 输就输，别在意。 | Shū jiù shū, bié zàiyì. | Kalah ya kalah, jangan dipikirkan. | If you lose, you lose, don’t dwell on it. | แพ้ก็แพ้ไป อย่าใส่ใจ | Thua thì thua, đừng để bụng.
+
+= F | 三重或三重以上的复句 | [分句1 + 关联词] + [分句2 + 关联词] + [分句3]
+k:
+id: Kalimat majemuk tiga tingkat atau lebih, tiap bagian dengan kata sambungnya sendiri.
+en: Compound sentences of three layers or more, each with its own link.
+th: ประโยคซ้อนสามชั้นขึ้นไป แต่ละส่วนมีคำเชื่อมของตัวเอง
+vi: Câu phức ba tầng trở lên, mỗi phần có từ nối riêng.
+
+= E | 何/何尝……（反问） | 何尝 + 不/没 + 动词
+k: 何尝
+id: 何尝 = mana pernah (tanya balik).
+en: 何尝 is when did I ever (rhetorical).
+th: 何尝 คือเคยที่ไหนกัน (ถามย้อน)
+vi: 何尝 là đâu có (hỏi ngược).
+ex: 我何尝不想去呢？ | Wǒ hécháng bù xiǎng qù ne? | Mana mungkin aku tidak ingin pergi? | When did I ever not want to go? | ฉันจะไม่อยากไปได้อย่างไร | Tôi nào có không muốn đi?
+
+= E | 不过……就是了 | 不过 + 淡化 + 就是了
+k: 就是了
+m: 不过.{1,10}就是了
+id: Cuma…saja, bukan apa-apa.
+en: Just…, that's all, nothing special.
+th: ก็แค่…เท่านั้นเอง
+vi: Chẳng qua… mà thôi.
+ex: 我不过随便说说就是了。 | Wǒ búguò suíbiàn shuōshuo jiù shì le. | Aku cuma asal bicara saja. | I was just talking, that’s all. | ฉันก็แค่พูดไปเรื่อยเท่านั้นเอง | Tôi chẳng qua nói bừa thôi.
+
+= E | X也不是，不X也不是 | X也不是，不X也不是
+k: 也不是
+m: (.{1,2})也不是，不\1也不是
+id: Serba salah: X salah, tidak X juga salah.
+en: Damned if you X, damned if you don't.
+th: จะX ก็ไม่ใช่ ไม่X ก็ไม่ใช่
+vi: X cũng không phải, không X cũng không phải.
+ex: 说也不是，不说也不是。 | Shuō yě bú shì, bù shuō yě bú shì. | Bicara salah, diam pun salah. | Speaking is wrong, keeping quiet is wrong too. | จะพูดก็ไม่ใช่ ไม่พูดก็ไม่ใช่ | Nói cũng không được, không nói cũng không xong.
+
+= E | X也好/也罢，Y也好/也罢 | X也好，Y也好，……
+k: 也好|也罢
+m: (也好|也罢).{1,6}(也好|也罢)
+id: X atau Y, sama saja.
+en: Whether X or Y, it's all the same.
+th: X ก็ดี Y ก็ดี ก็เหมือนกัน
+vi: X cũng được, Y cũng được.
+ex: 你同意也好，不同意也好，我都要去。 | Nǐ tóngyì yěhǎo, bù tóngyì yěhǎo, wǒ dōu yào qù. | Kamu setuju atau tidak, aku tetap akan pergi. | Whether you agree or not, I’m going. | เธอจะเห็นด้วยหรือไม่ ฉันก็จะไป | Bạn đồng ý cũng được, không đồng ý cũng được, tôi vẫn đi.
+
+= E | X了又Y，Y了又X | X了又Y，Y了又X
+k:
+m: (.)了又(.)，\2了又\1
+id: Bolak-balik X dan Y berulang kali.
+en: X then Y, Y then X, over and over.
+th: X แล้วY Y แล้วX วนไปมา
+vi: X rồi Y, Y rồi X, cứ thế mãi.
+ex: 他把信写了又改，改了又写。 | Tā bǎ xìn xiě le yòu gǎi, gǎi le yòu xiě. | Suratnya dia tulis lalu diubah, diubah lalu ditulis lagi. | He wrote and rewrote the letter over and over. | เขาเขียนจดหมายแล้วแก้ แก้แล้วเขียนใหม่ | Anh ấy viết thư rồi sửa, sửa rồi lại viết.
+
+= E | X也X不……，Y也Y不…… | X也X不好，Y也Y不好
+k:
+m: (.)也\1不
+id: Mau X tidak bisa, mau Y juga tidak bisa.
+en: Can't X properly, can't Y properly either.
+th: จะX ก็X ไม่ได้ จะY ก็Y ไม่ได้
+vi: X cũng không X nổi, Y cũng không Y nổi.
+ex: 他吃也吃不好，睡也睡不好。 | Tā chī yě chī bu hǎo, shuì yě shuì bu hǎo. | Makan tidak enak, tidur pun tidak nyenyak. | He can neither eat nor sleep well. | เขากินก็กินไม่ลง นอนก็นอนไม่หลับ | Anh ấy ăn không ngon, ngủ không yên.
+
+= E | 别提有多X了 | 别提有多 + 形容词 + 了
+k: 别提有多
+id: Tidak terkatakan betapa X-nya.
+en: You can't imagine how X.
+th: ไม่ต้องพูดเลยว่าX แค่ไหน
+vi: Khỏi nói X đến mức nào.
+ex: 听到这个消息，她别提有多高兴了。 | Tīngdào zhège xiāoxi, tā biétí yǒu duō gāoxìng le. | Mendengar kabar ini, tak terkatakan betapa senangnya dia. | When she heard the news, you can’t imagine how happy she was. | พอได้ยินข่าวนี้ เธอดีใจจนบอกไม่ถูก | Nghe tin này, cô ấy vui khỏi nói.
+
+= E | 不知X的 | 不知 + 形容词 + 的
+k:
+m: 不知[^\s]{1,3}的
+id: Tidak tahu diri, tidak sadar: 不知好歹的.
+en: Clueless about it: 不知好歹的.
+th: ไม่รู้จักX 不知好歹的
+vi: Không biết X: 不知好歹的.
+ex: 你这个不知好歹的人！ | Nǐ zhège bù zhī hǎodǎi de rén! | Dasar kamu tidak tahu terima kasih! | You ungrateful person! | เธอนี่ไม่รู้จักดีชั่ว | Cái đồ không biết điều!
+
+= E | 话是这么说，不过…… | 话是这么说，不过 + 对立
+k: 话是这么说
+id: Memang begitu katanya, tapi….
+en: That's true, but….
+th: ว่ากันอย่างนั้นก็จริง แต่…
+vi: Nói thì nói vậy, nhưng….
+ex: 话是这么说，不过做起来很难。 | Huà shì zhème shuō, búguò zuò qilai hěn nán. | Memang begitu, tapi melakukannya sulit. | That’s easy to say, but hard to do. | พูดน่ะง่าย แต่ทำจริงยาก | Nói thì vậy, nhưng làm thì khó.
+
+= E | 看/瞧你那样儿 | 看 + 你 + 那 + 样儿
+k: 那样儿|那样子
+m: (看|瞧)(你|他|她)那(.{0,2})样
+id: Lihat tingkahmu itu!
+en: Look at the state of you!
+th: ดูท่าทางเธอสิ
+vi: Nhìn bộ dạng của bạn kìa!
+ex: 瞧你那得意的样儿！ | Qiáo nǐ nà déyì de yàngr! | Lihat gayamu yang sombong itu! | Look how pleased with yourself you are! | ดูท่าทางได้ใจของเธอสิ | Nhìn cái vẻ đắc ý của bạn kìa!
+
+= E | 看在X的面子上 | 看在 + X + 的面子上
+k: 面子上
+m: 看在.{1,8}面子上
+id: Demi menghormati X.
+en: For X's sake.
+th: เห็นแก่หน้าX
+vi: Nể mặt X.
+ex: 看在老朋友的面子上，这次就算了。 | Kàn zài lǎo péngyou de miànzi shang, zhè cì jiù suàn le. | Demi teman lama, kali ini kumaafkan. | For old friendship’s sake, I’ll let it go this time. | เห็นแก่หน้าเพื่อนเก่า ครั้งนี้ก็ช่างเถอะ | Nể mặt bạn cũ, lần này bỏ qua.
+
+= E | 哪有X这么Y的 | 哪有 + X + 这么 + Y + 的
+k: 哪有
+m: 哪有.{1,6}这么.{1,3}的
+id: Mana ada X yang Y begini!
+en: Who ever heard of X being so Y!
+th: ที่ไหนมีX ที่Y ขนาดนี้
+vi: Làm gì có X nào Y như thế!
+ex: 哪有你这么说话的？ | Nǎ yǒu nǐ zhème shuōhuà de? | Mana ada orang bicara seperti kamu? | Who talks like that? | ที่ไหนมีคนพูดแบบเธอ | Làm gì có ai nói chuyện như bạn?
+
+= E | 什么X的Y的 | 什么 + X + 的 + Y + 的
+k:
+m: 什么.{1,2}的.{1,2}的
+id: X-X begitu, tidak penting.
+en: X this, Y that, whatever.
+th: X อะไร Y อะไร ไม่สำคัญ
+vi: X với Y gì đó, không quan trọng.
+ex: 什么名牌的不名牌的，我不在乎。 | Shénme míngpái de bù míngpái de, wǒ bú zàihu. | Bermerek atau tidak, aku tidak peduli. | Brand name or not, I don’t care. | แบรนด์ไม่แบรนด์อะไร ฉันไม่สน | Hàng hiệu hay không hiệu gì, tôi không quan tâm.
+
+= E | 说到/想到哪儿去了 | 你 + 说到/想到 + 哪儿去了
+k: 哪儿去了
+m: (说|想)到哪儿去了
+id: Kamu salah paham, bukan begitu maksudnya!
+en: You've got it all wrong!
+th: เธอเข้าใจผิดไปไกลแล้ว
+vi: Bạn nghĩ đi đâu thế!
+ex: 你想到哪儿去了，我不是那个意思。 | Nǐ xiǎng dào nǎr qù le, wǒ bú shì nàge yìsi. | Kamu salah paham, bukan itu maksudku. | You’ve got it wrong, that’s not what I meant. | เธอคิดไปไหน ฉันไม่ได้หมายความอย่างนั้น | Bạn nghĩ đi đâu vậy, tôi không có ý đó.
+
+= E | 无所谓X不X | 无所谓 + X + 不 + X
+k: 无所谓
+id: X atau tidak, tidak masalah.
+en: X or not, doesn't matter.
+th: X หรือไม่X ก็ไม่เป็นไร
+vi: X hay không X cũng chẳng sao.
+
+= E | 要X有X，要Y有Y | 要 + X + 有 + X，要 + Y + 有 + Y
+k:
+m: 要(.{1,2})有\1，要(.{1,2})有\2
+id: Mau X ada X, mau Y ada Y (serba lengkap).
+en: Has X, has Y, has it all.
+th: จะเอาX ก็มีX จะเอาY ก็มีY
+vi: Muốn X có X, muốn Y có Y.
+ex: 他要钱有钱，要能力有能力。 | Tā yào qián yǒu qián, yào nénglì yǒu nénglì. | Dia punya uang, punya kemampuan juga. | He has money and ability. | เขาจะเอาเงินก็มีเงิน จะเอาความสามารถก็มี | Anh ấy muốn tiền có tiền, muốn tài có tài.
+
+= S | 带关联词语的句群 | 句子A。关联词 + 句子B。
+k:
+id: Kelompok kalimat yang dihubungkan kata sambung di awal kalimat berikutnya.
+en: Groups of sentences linked by a connective at the start of the next one.
+th: กลุ่มประโยคที่เชื่อมด้วยคำเชื่อมต้นประโยคถัดไป
+vi: Nhóm câu nối bằng từ nối ở đầu câu sau.
+
+= S | 不带关联词语的句群 | 句子A。句子B。句子C。
+k:
+id: Kelompok kalimat yang terhubung lewat makna saja, tanpa kata sambung.
+en: Groups of sentences linked by meaning alone, no connectives.
+th: กลุ่มประโยคที่เชื่อมด้วยความหมายอย่างเดียว ไม่มีคำเชื่อม
+vi: Nhóm câu liên kết bằng ý nghĩa, không có từ nối.
+
+= S | 联合关系句群 | 并列/承接/递进/选择
+k:
+id: Kalimat-kalimat setara: sejajar, berurutan, meningkat, atau pilihan.
+en: Equal sentences: parallel, sequential, building up or alternatives.
+th: ประโยคเท่าเทียม คู่ขนาน ต่อเนื่อง เพิ่มระดับ หรือให้เลือก
+vi: Các câu ngang hàng: song song, nối tiếp, tăng tiến, lựa chọn.
+
+= S | 偏正关系句群 | 辅助句 + 主要句
+k:
+id: Kalimat utama dan pendukung: sebab-akibat, syarat, pertentangan, tujuan.
+en: A main sentence with supporting ones: cause, condition, contrast, purpose.
+th: ประโยคหลักกับประโยครอง เหตุผล เงื่อนไข ขัดแย้ง จุดประสงค์
+vi: Câu chính với câu phụ: nhân quả, điều kiện, tương phản, mục đích.

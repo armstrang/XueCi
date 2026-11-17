@@ -2190,6 +2190,9 @@ class _MockResult extends StatelessWidget {
       app.changed();
     } else if (k == 'plan') {
       app.go('home');
+    } else if (k == 'gram') {
+      app.gramLevel = m.m.L;
+      app.go('grammar');
     }
   }
 }

@@ -2,7 +2,6 @@
 library;
 
 import 'dart:async';
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -281,7 +280,7 @@ class TabBar2 extends StatelessWidget {
 
   /// the tab a screen belongs to (List, Cards and Quiz live under HSK)
   static int tabOf(String s) => switch (s) {
-    'home' || 'list' || 'card' || 'quiz' => 0,
+    'home' || 'list' || 'card' || 'quiz' || 'grammar' => 0,
     'hskk' => 1,
     'exam' => 2,
     _ => -1,
@@ -376,17 +375,72 @@ class TabBar2 extends StatelessWidget {
   }
 }
 
-/// the round Soul Sea button beside the tab bar: a small black hole whose disk runs through the realm's colour, gold,
-/// violet and blue, turning slowly on the shared clock (qi.dart); brighter and ringed when the Soul Sea is open
-class SoulOrbButton extends StatelessWidget {
+/// the Soul Sea button beside the tab bar: the realm's red seal (see _SoulStampState)
+class SoulOrbButton extends StatefulWidget {
   final double size;
   const SoulOrbButton({super.key, this.size = 64});
   @override
+  State<SoulOrbButton> createState() => _SoulStampState();
+}
+
+/// v1.6 (Josh): the Soul Sea's button is a red seal (印) with the realm's name written top to bottom, a little
+/// askew like a stamp pressed by hand; a new realm stamps it again (≈250 ms; a fade with "remove animations"), a
+/// thin gold line round it while the Soul Sea is open. The realms past the gate only exist once it is open.
+class _SoulStampState extends State<SoulOrbButton> with SingleTickerProviderStateMixin {
+  late final AnimationController _a = AnimationController(vsync: this, duration: const Duration(milliseconds: 250), value: 1);
+  static int? _shown; // the realm the seal last showed (kept across rebuilds of the tab bar)
+
+  @override
+  void dispose() {
+    _a.dispose();
+    super.dispose();
+  }
+
+  static const red = Color(0xFFD9432F), redDeep = Color(0xFFB3261E), ink = Color(0xFFFFF4EA);
+
+  @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
+    final t = app.t;
     final on = app.screen == 'soul';
-    // light effects, "remove animations" or no clock: the same picture, standing still
-    final still = th.low || !qiOn || (MediaQuery.maybeDisableAnimationsOf(context) ?? false);
+    final r = app.lm.realm();
+    final name = r >= 0 && r < app.rn.length ? app.rn[r] : app.rn.first;
+    if (_shown != null && _shown != r) {
+      _a.forward(from: 0);
+    }
+    _shown = r;
+    final calm = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    final size = widget.size;
+    final w = size * .86;
+    final chars = name.characters.toList();
+    final fs = w * (chars.length > 2 ? .26 : .34);
+    final seal = Transform.rotate(
+      angle: -.045,
+      child: Container(
+        width: w,
+        height: w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(w * .2),
+          gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [red, redDeep]),
+          border: on ? Border.all(color: th.p.gold, width: 2) : null,
+          boxShadow: th.low ? const [] : [BoxShadow(color: redDeep.withValues(alpha: th.p.dark ? .55 : .35), blurRadius: 18, offset: const Offset(0, 6), spreadRadius: -4)],
+        ),
+        alignment: Alignment.center,
+        padding: EdgeInsets.all(w * .07),
+        // the seal keeps its size with large text (the name is the picture, the label carries it for TalkBack)
+        child: FittedBox(
+          child: MediaQuery.withNoTextScaling(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                for (final c in chars)
+                  Text(c, locale: const Locale('zh', 'CN'), style: F.s(fs, w: FontWeight.w900, family: F.hz, c: ink, h: 1.02)),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
     return Press(
       onTap: () {
         if (on) {
@@ -397,192 +451,28 @@ class SoulOrbButton extends StatelessWidget {
         }
       },
       scale: .92,
-      label: app.t.tabSoul,
+      label: '${t.tabSoul} · $name',
       selected: on,
       child: RepaintBoundary(
         child: SizedBox(
           width: size,
           height: size,
-          child: Glass(
-            radius: 999,
-            frost: true,
-            shadow: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .38), offset: Offset(0, 16), blurRadius: 34, spreadRadius: -16)],
-            child: Center(
-              child: CustomPaint(
-                size: Size.square(size * .84),
-                painter: BlackHolePainter(th.rc, th.p.gold, on, still),
-              ),
+          child: Center(
+            child: AnimatedBuilder(
+              animation: _a,
+              child: seal,
+              builder: (c, child) {
+                final v = Curves.easeOutBack.transform(_a.value.clamp(0, 1).toDouble());
+                if (calm) return Opacity(opacity: _a.value, child: child);
+                // pressed down from above: big and faint, then down onto the bar
+                return Opacity(opacity: (_a.value * 2).clamp(0, 1).toDouble(), child: Transform.scale(scale: 1.45 - .45 * v, child: child));
+              },
             ),
           ),
         ),
       ),
     );
   }
-}
-
-/// A black hole seen from the front, in a round window of deep space: a black core with a bright, glowing ring, and
-/// thick soft clouds (pink, lavender, violet, mint) winding in towards it with thin streaks of light between them,
-/// like a storm being pulled into the hole. Everything turns together (once in about 8 seconds) and the clouds drift
-/// slowly inwards; the ring glows and breathes. No lightning.
-class BlackHolePainter extends CustomPainter {
-  final Color c, gold;
-  final bool on, still;
-  BlackHolePainter(this.c, this.gold, this.on, this.still) : super(repaint: still ? null : qiT);
-
-  static const _pink = Color(0xffff5fa8), _lav = Color(0xffc49bff), _violet = Color(0xff7a46e6), _mint = Color(0xff4fe3b4);
-  static const _blue = Color(0xff4f86ff), _amber = Color(0xffff9a3c), _cream = Color(0xffffe9d0);
-
-  @override
-  void paint(Canvas canvas, Size s) {
-    final R = s.width / 2;
-    final o = Offset(R, R);
-    final t = still ? .9 : qiT.value;
-    final turn = t * 2 * math.pi / 8;
-    final core = R * .34;
-    final lit = on ? 1.0 : .82;
-
-    canvas.save();
-    canvas.clipPath(Path()..addOval(Rect.fromCircle(center: o, radius: R)));
-    // the window: deep space, the realm's colour faint round the hole
-    canvas.drawCircle(
-      o,
-      R,
-      Paint()..shader = const RadialGradient(colors: [Color(0x66351670), Color(0x520c0626)]).createShader(Rect.fromCircle(center: o, radius: R)),
-    );
-    canvas.drawCircle(
-      o,
-      R * .75,
-      Paint()..shader = RadialGradient(colors: [c.withValues(alpha: on ? .22 : .14), c.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: o, radius: R * .75)),
-    );
-    // stars
-    final star = Paint();
-    for (var i = 0; i < 14; i++) {
-      final f = (i * .618034) % 1;
-      final a = i * 2.399963 - turn * .6;
-      star.color = Colors.white.withValues(alpha: (.3 + .5 * ((i * 7) % 5) / 4) * (.55 + .45 * math.sin(t * 3.1 + i * 1.7)));
-      canvas.drawCircle(o + Offset(math.cos(a), math.sin(a)) * (R * (.5 + .46 * f)), R * (.012 + .014 * ((i * 3) % 4) / 3), star);
-    }
-
-    // where a spiral arm is: [k] the arm, [r] the radius; clouds and streaks wind in the same way
-    double ang(int k, double r, [double off = 0]) => -turn + k * math.pi / 2 + 2.3 * math.log(R * 1.05 / r) + off;
-    Offset at(int k, double r, [double off = 0]) {
-      final a = ang(k, r, off);
-      return o + Offset(math.cos(a), math.sin(a)) * r;
-    }
-
-    // thick clouds: soft round puffs along each arm, big outside and smaller inside, drifting slowly inwards
-    const arms = [
-      [_pink, _lav],
-      [_lav, _violet],
-      [_mint, _blue],
-      [_violet, _pink],
-    ];
-    final puff = Paint()..isAntiAlias = true;
-    const per = 14;
-    for (var k = 0; k < 4; k++) {
-      for (var i = 0; i < per; i++) {
-        final f0 = (i / per + t * .035 + k * .013) % 1; // 0 rim → 1 core
-        final r = R * 1.02 - (R * 1.02 - core * 1.18) * f0;
-        final wob = math.sin(i * 2.1 + k * 1.3 + t * .9);
-        final at1 = at(k, r, wob * .13);
-        final rad = R * (.12 + .34 * (1 - f0)) * (1 + .22 * wob);
-        final col = Color.lerp(arms[k][i.isEven ? 0 : 1], _cream, math.pow(f0, 2.2).toDouble() * .55)!;
-        final a = (math.sin(math.pi * f0) * .95 + .05) * (.62 + .12 * wob) * lit;
-        puff.shader = RadialGradient(colors: [col.withValues(alpha: a), col.withValues(alpha: a * .55), col.withValues(alpha: 0)], stops: const [0, .55, 1])
-            .createShader(Rect.fromCircle(center: at1, radius: rad));
-        canvas.drawCircle(at1, rad, puff);
-      }
-    }
-
-    // thin streaks of light winding in between the clouds
-    Path streak(int k, double off) {
-      final path = Path();
-      for (var i = 0; i <= 22; i++) {
-        final r = R * 1.02 - (R * 1.02 - core * 1.1) * (i / 22);
-        final q = at(k, r, off);
-        i == 0 ? path.moveTo(q.dx, q.dy) : path.lineTo(q.dx, q.dy);
-      }
-      return path;
-    }
-
-    for (var k = 0; k < 4; k++) {
-      for (final off in [-.2, .22]) {
-        canvas.drawPath(
-          streak(k, off),
-          Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = R * .016
-            ..strokeCap = StrokeCap.round
-            ..shader = RadialGradient(colors: [Colors.white.withValues(alpha: .85 * lit), Color.lerp(arms[k][0], Colors.white, .5)!.withValues(alpha: .22 * lit), Colors.white.withValues(alpha: 0)], stops: const [.3, .62, 1])
-                .createShader(Rect.fromCircle(center: o, radius: R)),
-        );
-      }
-    }
-
-    // the ring of light round the hole: a wide soft glow, a hot band and a thin white edge; brightest on one side,
-    // which travels round
-    final ringR = core * 1.07;
-    final hot = turn * 1.3;
-    Shader ringSweep(double a) => SweepGradient(
-      transform: GradientRotation(-hot),
-      colors: [Colors.white.withValues(alpha: a), _amber.withValues(alpha: a * .95), _pink.withValues(alpha: a * .75), _violet.withValues(alpha: a * .5), _amber.withValues(alpha: a * .85), Colors.white.withValues(alpha: a)],
-      stops: const [0, .14, .4, .66, .88, 1],
-    ).createShader(Rect.fromCircle(center: o, radius: ringR));
-    final pulse = 1 + .14 * math.sin(t * 2.4);
-    canvas.drawCircle(
-      o,
-      ringR,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = R * .26 * pulse
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, R * .08)
-        ..shader = ringSweep(.8 * lit),
-    );
-    canvas.drawCircle(
-      o,
-      ringR,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = R * .1 * pulse
-        ..maskFilter = MaskFilter.blur(BlurStyle.normal, R * .025)
-        ..shader = ringSweep(1),
-    );
-    // the core, with a thin white edge
-    canvas.drawCircle(o, core, Paint()..color = const Color(0xf2060210));
-    canvas.drawCircle(
-      o,
-      core * 1.01,
-      Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = R * .03
-        ..shader = ringSweep(1),
-    );
-    canvas.restore();
-
-    // the Soul Sea is open: a ring in the realm's colour
-    if (on) {
-      canvas.drawCircle(
-        o,
-        R - 1,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2
-          ..color = c,
-      );
-    } else {
-      canvas.drawCircle(
-        o,
-        R - .5,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 1
-          ..color = Colors.white.withValues(alpha: .2),
-      );
-    }
-  }
-
-  @override
-  bool shouldRepaint(BlackHolePainter o) => o.c != c || o.gold != gold || o.on != on || o.still != still;
 }
 
 /// toasts: a frosted capsule above the tab bar

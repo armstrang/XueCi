@@ -197,7 +197,14 @@ class StudyRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final t = app.t;
-    final items = [('list', t.list, I.list), ('card', t.card, I.cards), ('quiz', t.quiz, I.quiz)];
+    // v1.6: the grammar book is the fourth (its sign is 语 itself)
+    final items = <(String, String, Ic?)>[('list', t.list, I.list), ('card', t.card, I.cards), ('quiz', t.quiz, I.quiz), ('grammar', t.gram, null)];
+    Widget icon(Ic? ic, double size) => ic != null
+        ? Icon2(ic, size: size, color: th.acc, width: 1.9)
+        : MediaQuery.withNoTextScaling(
+            // an icon: the same size as the others with large text
+            child: Text('语', locale: const Locale('zh', 'CN'), style: F.s(size * .95, w: FontWeight.w800, c: th.acc, family: F.zh, h: 1.05)),
+          );
     final pc = mastery ? app.pctTxt(app.summary(app.by(app.level)).p) : '';
     return Semantics(
       container: true,
@@ -235,35 +242,19 @@ class StudyRow extends StatelessWidget {
                   radius: 20,
                   height: tight ? 46 : 58,
                   padding: const EdgeInsets.symmetric(horizontal: 6),
-                  // four tiles: the icon over its name (long names in Thai or Vietnamese still fit)
+                  // the icon over its name (long names in Thai or Vietnamese still fit)
                   child: Center(
-                    child: mastery
-                        ? Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon2(items[i].$3, size: tight ? 16 : 19, color: th.acc, width: 1.9),
-                              const SizedBox(height: 2),
-                              FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(items[i].$2, maxLines: 1, style: F.s(11.5, w: FontWeight.w800, c: th.p.fg, h: 1.1)),
-                              ),
-                            ],
-                          )
-                        : Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Icon2(items[i].$3, size: 21, color: th.acc, width: 1.9),
-                              const SizedBox(width: 7),
-                              Flexible(
-                                child: Text(
-                                  items[i].$2,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: F.s(14.5, w: FontWeight.w800, c: th.p.fg),
-                                ),
-                              ),
-                            ],
-                          ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        icon(items[i].$3, tight || mastery ? 16 : 20),
+                        SizedBox(height: tight ? 2 : 3),
+                        FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(items[i].$2, maxLines: 1, style: F.s(tight || mastery ? 11.5 : 12.5, w: FontWeight.w800, c: th.p.fg, h: 1.1)),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

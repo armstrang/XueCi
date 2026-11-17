@@ -95,6 +95,14 @@ def main():
         'gl': [['仙门', 'xiānmén', 'xm', 1]],
         'i18n': sealed_text,
     }
+    # the grammar book: HSK 1–6 public, the advanced band sealed with the words past the gate
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import make_grammar
+    gram_pub, gram_band, gram_problems = make_grammar.build(words)
+    for p in gram_problems:
+        print('grammar:', p)
+    write(os.path.join(OUT_DATA, 'grammar.json'), pack({'pts': gram_pub}))
+    extra['gram'] = gram_band
     core_b = {'cols': CORE, 'rows': [[d.get(k) for k in CORE] for d in band]}
     write(os.path.join(OUT_DATA, 's0.bin'), seal({'core': core_b, 'x': extra}, 's0.bin', material))
     for lang, (m, t) in LANG_COLS.items():

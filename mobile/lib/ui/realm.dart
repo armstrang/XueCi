@@ -3,6 +3,8 @@
 /// The realm changes only through a test: the placement test, or a breakthrough (突破) once the stage is 圆满.
 library;
 
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 import '../app/app.dart';
@@ -613,6 +615,7 @@ bool stabRun() {
     'conf' => (t.advConf((x['a'] as dynamic).h, (x['b'] as dynamic).h, x['n']), t.advConfWhy, t.advGo),
     'unstable' => (t.advUnst(x['P']), t.advUnstWhy, t.stabGo),
     'makeup' => (t.advMk, t.advMkWhy, t.advStart),
+    'gram' => (t.gramAdv(n(), x['L'] as int >= 7 ? 'HSK ${x['L']}+' : h), '${x['zh']} · ${x['f']}', t.gramGo),
     _ => (t.advDao(x['p']), t.advDaoWhy, ''),
   };
 }
@@ -625,6 +628,10 @@ void advGo(Json x, int L) {
       stabRun();
     case 'makeup':
       app.go('bt');
+    case 'gram':
+      app.gramLevel = x['L'] as int;
+      app.gramPoint = x['id'] as String?;
+      app.go('grammar');
     case 'f' || 's':
       final q = x['k'] as String;
       app.runner.pending = Pending('quiz', [for (final d in (x['words'] as List)) Item.q(d, q)]);
@@ -641,6 +648,20 @@ void advGo(Json x, int L) {
   }
 }
 
+/// the grammar book's part of the guidance: how many of the level's points are not strong yet, the first of them
+Json? gramAdvice(int L) {
+  final b = app.gram;
+  if (b == null) return null;
+  final lv = b.levels.contains(L) ? L : (L > 6 && b.levels.contains(7) ? 7 : -1);
+  if (lv < 0) return null;
+  final weak = b.level(lv).where((x) => x.practisable && (!app.gprog.held(x.id) || app.gprog.due(x.id))).toList();
+  if (weak.length < 3) return null;
+  // the ones already started and fading first, then the first not practised
+  final due = weak.where((x) => app.gprog.due(x.id)).toList();
+  final first = due.isNotEmpty ? due.first : weak.first;
+  return {'k': 'gram', 'n': weak.length, 'L': lv, 'id': first.id, 'zh': first.zh, 'f': first.formula};
+}
+
 class AdviceList extends StatelessWidget {
   final int max;
   final VoidCallback? before;
@@ -650,8 +671,12 @@ class AdviceList extends StatelessWidget {
     final th = Th.of(context);
     final p = th.p;
     final a = app.memo('advice', app.lm.advice);
-    if (a.items.isEmpty) return Rich(app.t.advNone, style: F.s(13.5, c: p.soft, h: 1.45));
-    final items = a.items.take(max).toList();
+    final all = [...a.items];
+    // v1.6: the level's grammar points not yet strong (third, after the two most pressing)
+    final g = gramAdvice(a.L);
+    if (g != null) all.insert(math.min(2, all.length), g);
+    if (all.isEmpty) return Rich(app.t.advNone, style: F.s(13.5, c: p.soft, h: 1.45));
+    final items = all.take(max).toList();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [

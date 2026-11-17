@@ -11,6 +11,7 @@ import '../engine/learn.dart';
 import '../engine/model.dart';
 import '../i18n/l10.dart';
 import 'app.dart';
+import 'grammar.dart';
 import 'speech.dart';
 import 'native.dart';
 
@@ -599,6 +600,22 @@ class Runner {
     if (hard({'t', 'lt'})) out.add((t: f('trans'), bk: null, bl: null));
     if (hard({'wo'})) out.add((t: f('order'), bk: null, bl: null));
     if (hard({'wh'})) out.add((t: f('hz'), bk: null, bl: null));
+    // v1.6: the grammar points behind the missed sentences (the level's own)
+    final g = a.gram;
+    if (g != null) {
+      final cnt = <GPoint, int>{};
+      for (final it in wrong) {
+        if (!const {'wo', 'c', 'lj', 't', 'ls'}.contains(it.q)) continue;
+        for (final p in g.pointsIn(it.d.z, L)) {
+          cnt[p] = (cnt[p] ?? 0) + 1;
+        }
+      }
+      if (cnt.isNotEmpty) {
+        final top = cnt.keys.toList()..sort((x, y) => cnt[y]! - cnt[x]!);
+        a.gramLevel = L;
+        out.add((t: t.gramWeak(top.take(3).map((p) => p.zh).join('、')), bk: 'gram', bl: t.gramGo));
+      }
+    }
     final older = wrong.where((it) => it.d.l < L).length;
     if (older >= 2) out.add((t: f('older', [older, L]), bk: null, bl: null));
     if (run!.timeUp) {

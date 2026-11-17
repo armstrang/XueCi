@@ -21,7 +21,8 @@ import 'package:xueci/ui/settings.dart';
 import 'package:xueci/ui/share.dart';
 import 'package:xueci/ui/shell.dart';
 import 'package:xueci/ui/splash.dart';
-import 'package:xueci/ui/tests.dart' show gateShow, ptJump;
+import 'package:xueci/ui/tests.dart' show btJump, gateShow, ptJump;
+import 'package:xueci/ui/run_view.dart' show OptBtn;
 
 Future<void> loadFonts() async {
   final fams = {
@@ -331,6 +332,74 @@ void runs() {
       },
     );
   });
+  testWidgets('tribulation grammar strike', (t) async {
+    await t.runAsync(() => bootApp(sample(strong: true), lang: 'id'));
+    await shot(
+      t,
+      'bt-yu',
+      before: () => app.go('bt'),
+      act: () async {
+        await t.tap(find.text(app.t.btBegin));
+        await t.pump(const Duration(milliseconds: 100));
+        btJump('yu');
+        await t.pump(const Duration(milliseconds: 100));
+      },
+    );
+  });
+  for (final dark in [false, true]) {
+    final th = dark ? 'dark' : 'light';
+    testWidgets('grammar list, $th', (t) async {
+      await t.runAsync(() => bootApp({...sample(), if (!dark) 'hsk16_theme': '"light"'}, lang: 'id'));
+      app.gprog.answer('2-001', true);
+      app.gprog.answer('2-002', false);
+      await shot(t, 'grammar-list-$th', size: const Size(412, 1600), before: () {
+        app.gramLevel = 2;
+        app.go('grammar');
+      });
+    });
+  }
+  testWidgets('grammar point', (t) async {
+    await t.runAsync(() => bootApp(sample(), lang: 'id'));
+    await shot(t, 'grammar-point', size: const Size(412, 1100), before: () {
+      app.gramLevel = 3;
+      app.gramPoint = app.gram!.level(3).firstWhere((p) => p.zh.contains('把')).id;
+      app.go('grammar');
+    });
+  });
+  for (final kind in ['gap', 'order']) {
+    testWidgets('grammar practice $kind', (t) async {
+      await t.runAsync(() => bootApp(sample(), lang: 'id'));
+      final p = app.gram!.level(2).firstWhere((p) => p.practisable && app.gpr.run(p).any((x) => x.kind == kind));
+      await shot(
+        t,
+        'grammar-$kind',
+        before: () {
+          app.gramLevel = 2;
+          app.gramPoint = p.id;
+          app.go('grammar');
+        },
+        act: () async {
+          await t.tap(find.text(app.t.gramPractice));
+          await t.pump(const Duration(milliseconds: 300));
+          // up to the first question of this kind
+          for (var i = 0; i < 8 && find.text(kind == 'gap' ? app.t.gramGap : app.t.gramOrder).evaluate().isEmpty; i++) {
+            if (find.text(app.t.gramGap).evaluate().isNotEmpty) {
+              await t.tap(find.byType(OptBtn).first);
+            } else {
+              await t.tap(find.byType(OptBtn).first, warnIfMissed: false);
+            }
+            await t.pump(const Duration(milliseconds: 300));
+            await t.tap(find.text(app.t.ptNext));
+            await t.pump(const Duration(milliseconds: 300));
+          }
+          if (kind == 'gap') {
+            await t.tap(find.byType(OptBtn).at(1));
+            await t.pump(const Duration(milliseconds: 400));
+          }
+        },
+      );
+    });
+  }
   testWidgets('tribulation failed', (t) async {
     await t.runAsync(() => bootApp(sample(strong: true)));
     await shot(

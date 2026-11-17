@@ -12,6 +12,7 @@ import 'donate.dart';
 import 'focus.dart';
 import 'fx.dart';
 import 'goal.dart';
+import 'grammar.dart';
 import 'info.dart';
 import 'settings.dart';
 import 'shell.dart' show navKey;
@@ -44,6 +45,7 @@ class FocusScreenHost extends StatelessWidget {
     'card' || 'quiz' || 'session' => RunScreen(mode: mode),
     'placement' => const PlacementScreen(),
     'bt' => const TribScreen(),
+    'grammar' => const GrammarScreen(),
     _ => const SizedBox(),
   };
 }

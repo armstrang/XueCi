@@ -1,0 +1,407 @@
+# HSK 1 grammar points, after the official HSK 3.0 grammar syllabus (GF0025-2021), level 1.
+# Block: "= cat | 中文名 | formula", then "k:" words that show the point (they find example sentences and are the
+# gap in practice; empty = reading only), optional "m:" a regex a sentence must match, the explanation per language,
+# optional "ex:" own example "汉字 | pinyin | id | en | th | vi".
+# cat: W word forms · V verbs · P pronouns · N numbers & measure words · A adverbs · R prepositions · C connectors
+#      U particles · S sentence patterns · F compound sentences · K complements · E expressions & emphasis
+
+= N | 方位名词 | 名词 + 上/下/里/外/前/后/旁边
+k: 上边|下边|里边|外边|前边|后边|旁边|上面|下面|里面|外面|前面|后面|里
+id: Kata letak ditaruh di belakang benda: 桌子上 = di atas meja, 房间里 = di dalam kamar.
+en: Place words come after the thing: 桌子上 is on the table, 房间里 is in the room.
+th: คำบอกตำแหน่งวางหลังสิ่งของ 桌子上 คือบนโต๊ะ 房间里 คือในห้อง
+vi: Từ chỉ vị trí đứng sau sự vật: 桌子上 là trên bàn, 房间里 là trong phòng.
+
+= V | 能愿动词：会/能 | 会/能 + 动词
+k: 会|能
+id: 会 untuk bisa karena sudah belajar (会说汉语), 能 untuk bisa karena keadaan memungkinkan (今天能来).
+en: 会 is can because you learned it (会说汉语); 能 is can because things allow it (今天能来).
+th: 会 คือทำได้เพราะเรียนมาแล้ว (会说汉语) 能 คือทำได้เพราะสถานการณ์เอื้อ (今天能来)
+vi: 会 là biết làm vì đã học (会说汉语); 能 là làm được vì hoàn cảnh cho phép (今天能来).
+
+= V | 能愿动词：想/要 | 想/要 + 动词
+k: 想|要
+id: 想 = ingin, masih rencana lunak. 要 = mau, lebih tegas dan sudah diputuskan.
+en: 想 is would like, a soft wish. 要 is want or will, firmer and already decided.
+th: 想 คืออยากทำ ยังเป็นความต้องการเบา ๆ 要 คือจะทำ หนักแน่นและตัดสินใจแล้ว
+vi: 想 là muốn, mong nhẹ nhàng. 要 là muốn hoặc sẽ, chắc chắn hơn, đã quyết.
+
+= P | 疑问代词 | 谁/什么/哪/哪儿/几/多少/怎么
+k: 谁|什么|哪儿|哪里|哪|几|多少|怎么
+id: Kata tanya berdiri di tempat jawabannya: 你是谁？ jawabannya juga di posisi 谁.
+en: A question word stands where the answer goes: in 你是谁？ the answer takes the place of 谁.
+th: คำถามอยู่ตรงตำแหน่งของคำตอบ 你是谁？ คำตอบก็อยู่ตรงที่ 谁
+vi: Từ để hỏi đứng đúng chỗ của câu trả lời: 你是谁？ câu trả lời thay vào vị trí 谁.
+
+= P | 人称代词 | 我/你/他/她/我们/你们/他们
+k: 我们|你们|他们|她们|我|你|他|她
+id: Kata ganti orang. Tambah 们 untuk jamak: 我 → 我们.
+en: Personal pronouns. Add 们 for the plural: 我 → 我们.
+th: สรรพนามบุคคล เติม 们 เป็นพหูพจน์ 我 → 我们
+vi: Đại từ nhân xưng. Thêm 们 để thành số nhiều: 我 → 我们.
+
+= P | 指示代词 | 这/那/这儿/那儿/这里/那里
+k: 这儿|那儿|这里|那里|这个|那个|这|那
+id: 这 = ini (dekat), 那 = itu (jauh). 这儿/这里 = di sini, 那儿/那里 = di sana.
+en: 这 is this (near), 那 is that (far). 这儿/这里 is here, 那儿/那里 is there.
+th: 这 คือนี่ (ใกล้) 那 คือนั่น (ไกล) 这儿/这里 คือที่นี่ 那儿/那里 คือที่นั่น
+vi: 这 là này (gần), 那 là kia (xa). 这儿/这里 là ở đây, 那儿/那里 là ở đó.
+
+= N | 数词 | 一 到 十，百
+k: 一|二|三|四|五|六|七|八|九|十|百
+id: Angka disusun seperti hitungan: 十二 = 10 + 2, 二十 = 2 × 10.
+en: Numbers are built like sums: 十二 is 10 + 2, 二十 is 2 × 10.
+th: ตัวเลขประกอบแบบบวกคูณ 十二 คือ 10 + 2 二十 คือ 2 × 10
+vi: Số ghép như phép tính: 十二 là 10 + 2, 二十 là 2 × 10.
+
+= N | 名量词 | 数词 + 个/本/口… + 名词
+k: 个|本|口|块|件|岁|点|些
+m: [一二两三四五六七八九十几这那每][个本口块件岁点些]
+id: Antara angka dan benda harus ada kata ukur: 三个人, 一本书. 个 paling umum.
+en: A measure word sits between number and noun: 三个人, 一本书. 个 is the most general.
+th: ระหว่างตัวเลขกับคำนามต้องมีลักษณนาม 三个人 一本书 个 ใช้ได้กว้างที่สุด
+vi: Giữa số và danh từ phải có lượng từ: 三个人, 一本书. 个 dùng chung nhất.
+
+= A | 程度副词 | 很/太/非常/真 + 形容词
+k: 非常|很|太|真|最
+id: Kata ini menguatkan sifat: 很好, 非常好. 太…了 = terlalu atau sangat.
+en: These make an adjective stronger: 很好, 非常好. 太…了 is too or so.
+th: คำเหล่านี้ขยายคุณศัพท์ให้เข้มขึ้น 很好 非常好 太…了 คือเกินไปหรือมาก
+vi: Các từ này làm tính từ mạnh hơn: 很好, 非常好. 太…了 là quá hoặc rất.
+
+= A | 范围副词：都/一起 | 主语 + 都/一起 + 动词
+k: 都|一起
+id: 都 = semua (melihat ke subjek di depannya). 一起 = bersama-sama.
+en: 都 is all (it looks back at the subject before it). 一起 is together.
+th: 都 คือทั้งหมด (ชี้กลับไปที่ประธานข้างหน้า) 一起 คือด้วยกัน
+vi: 都 là đều (chỉ về chủ ngữ phía trước). 一起 là cùng nhau.
+
+= A | 时间副词 | 现在/马上/正在 + 动词
+k: 马上|正在|现在|先|再
+id: Kata keterangan waktu berdiri sebelum kata kerja: 我马上来.
+en: Time adverbs go before the verb: 我马上来.
+th: คำบอกเวลาวางหน้ากริยา 我马上来
+vi: Trạng từ thời gian đứng trước động từ: 我马上来.
+
+= A | 频率、重复副词 | 常常/再/也 + 动词
+k: 常常|经常|再|又
+id: 常常 = sering. 再 = lagi (nanti). 又 = lagi (sudah terjadi).
+en: 常常 is often. 再 is again (still to come). 又 is again (already happened).
+th: 常常 คือบ่อย 再 คืออีก (ยังไม่เกิด) 又 คืออีก (เกิดแล้ว)
+vi: 常常 là thường. 再 là lại (sắp làm). 又 là lại (đã xảy ra).
+
+= A | 关联副词：还/也 | 也/还 + 动词
+k: 也|还
+id: 也 = juga, selalu sebelum kata kerja (我也去, bukan 也我去). 还 = masih atau juga ditambah.
+en: 也 is also and always comes before the verb (我也去, never 也我去). 还 is still, or also in addition.
+th: 也 คือด้วย อยู่หน้ากริยาเสมอ (我也去) 还 คือยัง หรือยังมีอีก
+vi: 也 là cũng, luôn đứng trước động từ (我也去). 还 là vẫn, hoặc còn thêm.
+
+= A | 否定副词：不/没/别 | 不/没/别 + 动词
+k: 不|没有|没|别
+id: 不 untuk sekarang/kebiasaan/kemauan, 没 untuk yang belum atau tidak terjadi, 别 = jangan.
+en: 不 is for now, habits and will; 没 is for what didn't happen; 别 is don't.
+th: 不 ใช้กับตอนนี้ นิสัย หรือความตั้งใจ 没 ใช้กับสิ่งที่ไม่ได้เกิด 别 คืออย่า
+vi: 不 dùng cho hiện tại, thói quen, ý muốn; 没 cho việc chưa xảy ra; 别 là đừng.
+
+= V | 离合词 | 见面 → 见了面 / 见过两次面
+k: 见面|睡觉|上课|下课|跑步|游泳|唱歌|跳舞|帮忙|吃饭
+id: Kata kerja yang bisa dipisah: bagian lain masuk di tengah, 见了一次面, bukan 见面了一次.
+en: Verbs that split: other words go in the middle, 见了一次面, not 见面了一次.
+th: กริยาที่แยกได้ คำอื่นแทรกตรงกลาง 见了一次面 ไม่ใช่ 见面了一次
+vi: Động từ ly hợp: từ khác chen vào giữa, 见了一次面, không nói 见面了一次.
+
+= R | 介词：在 | 在 + 地方 + 动词
+k: 在
+m: 在.{1,6}[^\s]
+id: 在 + tempat sebelum kata kerja: 我在学校学习 = aku belajar di sekolah.
+en: 在 + place comes before the verb: 我在学校学习 is I study at school.
+th: 在 + สถานที่ วางหน้ากริยา 我在学校学习 คือฉันเรียนที่โรงเรียน
+vi: 在 + nơi chốn đứng trước động từ: 我在学校学习 là tôi học ở trường.
+
+= R | 介词：和/对 | 和/对 + 人 + 动词
+k: 和|对|跟
+id: 和/跟 = dengan, bersama seseorang. 对 = kepada, terhadap: 他对我很好.
+en: 和/跟 is with someone. 对 is to or towards: 他对我很好.
+th: 和/跟 คือกับใครบางคน 对 คือต่อ 他对我很好
+vi: 和/跟 là với ai đó. 对 là đối với: 他对我很好.
+
+= S | 名词谓语句 | 主语 + 名词(时间/年龄/价钱)
+k:
+m: ^(今天|明天|昨天|现在|我|他|她)[^是有]{0,3}(星期|月|号|点|岁|块)
+id: Untuk tanggal, umur, harga dan waktu tidak perlu 是: 今天星期一, 我二十岁.
+en: Dates, ages, prices and times need no 是: 今天星期一, 我二十岁.
+th: วันที่ อายุ ราคา และเวลา ไม่ต้องใช้ 是 今天星期一 我二十岁
+vi: Ngày, tuổi, giá và giờ không cần 是: 今天星期一, 我二十岁.
+ex: 今天星期三。 | Jīntiān xīngqīsān. | Hari ini hari Rabu. | Today is Wednesday. | วันนี้วันพุธ | Hôm nay là thứ Tư.
+
+= C | 连接词：和/跟/还是 | A + 和 + B ／ A + 还是 + B？
+k: 和|跟|还是
+id: 和 menyambung kata benda (我和你). 还是 = atau, dalam pertanyaan.
+en: 和 joins nouns (我和你). 还是 is or, in questions.
+th: 和 เชื่อมคำนาม (我和你) 还是 คือหรือ ใช้ในคำถาม
+vi: 和 nối danh từ (我和你). 还是 là hay, dùng trong câu hỏi.
+
+= U | 结构助词：的 | 定语 + 的 + 名词
+k: 的
+id: 的 menempelkan keterangan pada benda: 我的书, 好看的衣服.
+en: 的 ties a description to a noun: 我的书, 好看的衣服.
+th: 的 เชื่อมคำขยายกับคำนาม 我的书 好看的衣服
+vi: 的 gắn phần bổ nghĩa vào danh từ: 我的书, 好看的衣服.
+
+= U | 动态助词：了 | 动词 + 了
+k: 了
+m: [^\s]了[^吗吧]
+id: 了 setelah kata kerja = tindakannya sudah selesai: 我买了一本书.
+en: 了 after a verb means the action is done: 我买了一本书.
+th: 了 หลังกริยาบอกว่าทำเสร็จแล้ว 我买了一本书
+vi: 了 sau động từ cho biết hành động đã xong: 我买了一本书.
+
+= U | 语气助词：吧/了/吗/呢 | 句子 + 吗/吧/呢/了
+k: 吗|吧|呢|了
+m: [吗吧呢了][？。！?!]?$
+id: Partikel di akhir kalimat: 吗 bertanya, 吧 mengajak atau menebak, 呢 bagaimana dengan…, 了 ada perubahan.
+en: End particles: 吗 asks, 吧 suggests or guesses, 呢 is what about…, 了 shows a change.
+th: คำท้ายประโยค 吗 ถาม 吧 ชวนหรือคาดเดา 呢 แล้ว…ล่ะ 了 บอกการเปลี่ยนแปลง
+vi: Trợ từ cuối câu: 吗 hỏi, 吧 rủ hoặc đoán, 呢 còn… thì sao, 了 báo sự thay đổi.
+
+= N | 数量短语 | 数词 + 量词
+k:
+m: [一二两三四五六七八九十几][个本口块件岁点次]
+id: Angka + kata ukur menjadi satu frasa yang bisa berdiri sendiri: 两个, 三本.
+en: Number + measure word is one phrase that can stand alone: 两个, 三本.
+th: ตัวเลข + ลักษณนาม เป็นวลีที่ยืนเดี่ยวได้ 两个 三本
+vi: Số + lượng từ thành một cụm đứng riêng được: 两个, 三本.
+
+= S | 主语 | 谁/什么 + 做什么
+k:
+id: Subjek ada di depan: siapa atau apa yang melakukan sesuatu. Kalimat Mandarin biasanya Subjek–Predikat–Objek.
+en: The subject comes first: who or what does something. Chinese sentences are usually Subject–Verb–Object.
+th: ประธานอยู่หน้าสุด คือใครหรืออะไรที่ทำ ประโยคจีนมักเป็น ประธาน–กริยา–กรรม
+vi: Chủ ngữ đứng đầu: ai hoặc cái gì làm việc đó. Câu tiếng Trung thường là Chủ–Vị–Tân.
+
+= S | 谓语 | 主语 + 谓语
+k:
+id: Predikat bercerita tentang subjek. Bisa kata kerja (他去), kata sifat (天很冷) atau kata benda (今天周一).
+en: The predicate tells about the subject. It can be a verb (他去), an adjective (天很冷) or a noun (今天周一).
+th: ภาคแสดงบอกเรื่องของประธาน อาจเป็นกริยา (他去) คุณศัพท์ (天很冷) หรือคำนาม (今天周一)
+vi: Vị ngữ nói về chủ ngữ. Có thể là động từ (他去), tính từ (天很冷) hay danh từ (今天周一).
+
+= S | 宾语 | 动词 + 宾语
+k:
+id: Objek ada di belakang kata kerja: 我喝茶, 他看书.
+en: The object comes after the verb: 我喝茶, 他看书.
+th: กรรมอยู่หลังกริยา 我喝茶 他看书
+vi: Tân ngữ đứng sau động từ: 我喝茶, 他看书.
+
+= S | 定语 | 定语 + (的) + 名词
+k:
+m: 的[^\s]
+id: Keterangan benda selalu di depan bendanya, tidak seperti bahasa Indonesia: 红色的车 = mobil merah.
+en: A noun's description always comes before the noun: 红色的车 is a red car.
+th: คำขยายคำนามอยู่หน้าคำนามเสมอ ต่างจากภาษาไทย 红色的车 คือรถสีแดง
+vi: Phần bổ nghĩa luôn đứng trước danh từ, ngược với tiếng Việt: 红色的车 là xe màu đỏ.
+
+= S | 状语 | 主语 + 状语(时间/地方/方式) + 动词
+k:
+id: Kapan, di mana, bagaimana: semuanya masuk sebelum kata kerja: 我明天在家学习.
+en: When, where and how all go before the verb: 我明天在家学习.
+th: เมื่อไร ที่ไหน อย่างไร ล้วนวางหน้ากริยา 我明天在家学习
+vi: Khi nào, ở đâu, thế nào đều đặt trước động từ: 我明天在家学习.
+
+= S | 动词谓语句 | 主语 + 动词 (+ 宾语)
+k:
+id: Kalimat paling umum: subjek + kata kerja + objek: 我吃米饭.
+en: The most common sentence: subject + verb + object: 我吃米饭.
+th: ประโยคพื้นฐานที่สุด ประธาน + กริยา + กรรม 我吃米饭
+vi: Câu phổ biến nhất: chủ ngữ + động từ + tân ngữ: 我吃米饭.
+
+= S | 形容词谓语句 | 主语 + 很 + 形容词
+k: 很
+m: 很[^\s]
+id: Kata sifat langsung jadi predikat, tanpa 是, biasanya dengan 很: 她很高, bukan 她是高.
+en: An adjective is the predicate by itself, without 是, usually with 很: 她很高, not 她是高.
+th: คุณศัพท์เป็นภาคแสดงได้เลยโดยไม่ใช้ 是 มักมี 很 她很高 ไม่ใช่ 她是高
+vi: Tính từ tự làm vị ngữ, không cần 是, thường có 很: 她很高, không nói 她是高.
+
+= S | 非主谓句 | 句子没有主语
+k:
+id: Kalimat tanpa subjek dipakai untuk cuaca, salam dan seruan: 下雨了！ 请进！
+en: Sentences without a subject are used for weather, greetings and calls: 下雨了！ 请进！
+th: ประโยคไม่มีประธานใช้กับอากาศ คำทักทาย และคำเรียก 下雨了！ 请进！
+vi: Câu không chủ ngữ dùng cho thời tiết, chào hỏi, lời gọi: 下雨了！ 请进！
+ex: 下雨了！ | Xià yǔ le! | Hujan! | It’s raining! | ฝนตกแล้ว | Mưa rồi!
+
+= S | 陈述句 | 主语 + 谓语。
+k:
+id: Kalimat berita menyatakan sesuatu dan diakhiri titik: 我是学生。
+en: A statement says something and ends with a full stop: 我是学生。
+th: ประโยคบอกเล่า บอกข้อเท็จจริง จบด้วยจุด 我是学生。
+vi: Câu trần thuật nói một điều và kết thúc bằng dấu chấm: 我是学生。
+
+= S | 疑问句类型 | 吗 / 疑问代词 / 正反 / 还是
+k: 吗|还是|什么|谁
+id: Empat cara bertanya: dengan 吗, dengan kata tanya, dengan 去不去, atau dengan 还是 (pilihan).
+en: Four ways to ask: with 吗, with a question word, with 去不去, or with 还是 (a choice).
+th: ถามได้สี่แบบ ใช้ 吗 ใช้คำถาม ใช้แบบ 去不去 หรือใช้ 还是 (ให้เลือก)
+vi: Bốn cách hỏi: dùng 吗, dùng từ để hỏi, dùng 去不去, hoặc dùng 还是 (lựa chọn).
+
+= S | 祈使句 | 请/别 + 动词
+k: 请|别|不要
+id: Kalimat perintah atau permintaan: 请坐！ 别说话！
+en: Commands and requests: 请坐！ 别说话！
+th: ประโยคคำสั่งหรือขอร้อง 请坐！ 别说话！
+vi: Câu mệnh lệnh hoặc yêu cầu: 请坐！ 别说话！
+
+= S | 感叹句 | 太 + 形容词 + 了！
+k: 太
+m: 太.{1,3}了
+id: Kalimat seru: 太好了！ = bagus sekali!
+en: Exclamations: 太好了！ is great!
+th: ประโยคอุทาน 太好了！ คือดีมาก
+vi: Câu cảm thán: 太好了！ là tuyệt quá!
+
+= S | "是"字句 | A + 是 + B
+k: 是
+id: 是 menyamakan dua kata benda: 我是老师. Tidak dipakai di depan kata sifat.
+en: 是 links two nouns: 我是老师. It isn't used before an adjective.
+th: 是 เชื่อมคำนามสองคำ 我是老师 ไม่ใช้หน้าคุณศัพท์
+vi: 是 nối hai danh từ: 我是老师. Không dùng trước tính từ.
+
+= S | "有"字句 | 主语 + 有 + 名词
+k: 有|没有
+id: 有 = punya atau ada. Negasinya selalu 没有, bukan 不有.
+en: 有 is to have or there is. Its negative is always 没有, never 不有.
+th: 有 คือมี ปฏิเสธใช้ 没有 เสมอ ไม่ใช่ 不有
+vi: 有 là có. Phủ định luôn là 没有, không bao giờ 不有.
+
+= S | 存现句 | 地方 + 有 + 人/东西
+k: 有
+m: (里|上|下|旁边|前边|后边)有
+id: Tempat dulu, baru 有: 桌子上有一本书 = di atas meja ada sebuah buku.
+en: The place comes first, then 有: 桌子上有一本书 is there is a book on the table.
+th: สถานที่มาก่อน แล้วจึง 有 桌子上有一本书 คือบนโต๊ะมีหนังสือหนึ่งเล่ม
+vi: Nơi chốn đứng trước, rồi đến 有: 桌子上有一本书 là trên bàn có một quyển sách.
+
+= F | 并列复句 | 分句1，分句2
+k:
+m: ，
+id: Dua kalimat sejajar digabung dengan koma, sering tanpa kata sambung: 他是老师，我是学生。
+en: Two equal clauses joined by a comma, often with no linking word: 他是老师，我是学生。
+th: สองประโยคเท่ากันเชื่อมด้วยจุลภาค มักไม่มีคำเชื่อม 他是老师，我是学生。
+vi: Hai vế ngang nhau nối bằng dấu phẩy, thường không có từ nối: 他是老师，我是学生。
+ex: 他是老师，我是学生。 | Tā shì lǎoshī, wǒ shì xuésheng. | Dia guru, aku murid. | He’s a teacher and I’m a student. | เขาเป็นครู ฉันเป็นนักเรียน | Anh ấy là giáo viên, tôi là học sinh.
+
+= U | 变化态：了 | 句子 + 了 (变化)
+k: 了
+m: 了[。！？]?$
+id: 了 di akhir kalimat = keadaannya berubah: 天冷了 = sekarang sudah dingin.
+en: 了 at the end means things have changed: 天冷了 is it’s got cold.
+th: 了 ท้ายประโยคบอกว่าสถานการณ์เปลี่ยนแล้ว 天冷了 คือหนาวแล้ว
+vi: 了 cuối câu cho biết tình hình đã đổi: 天冷了 là trời lạnh rồi.
+
+= U | 完成态：了 | 动词 + 了 + 数量 + 宾语
+k: 了
+m: 了[一二两三四五六七八九十几个本]
+id: Kata kerja + 了 + jumlah + benda: 我喝了两杯茶 = aku sudah minum dua gelas teh.
+en: Verb + 了 + amount + thing: 我喝了两杯茶 is I drank two cups of tea.
+th: กริยา + 了 + จำนวน + สิ่งของ 我喝了两杯茶 คือฉันดื่มชาไปสองแก้ว
+vi: Động từ + 了 + số lượng + vật: 我喝了两杯茶 là tôi đã uống hai cốc trà.
+
+= A | 进行态 | 正在/在 + 动词 (+ 呢)
+k: 正在|在
+m: (正在|在)[^\s]{1,4}呢?
+id: 正在 atau 在 sebelum kata kerja = sedang: 他在看书呢.
+en: 正在 or 在 before the verb means in the middle of: 他在看书呢.
+th: 正在 หรือ 在 หน้ากริยา คือกำลัง 他在看书呢
+vi: 正在 hoặc 在 trước động từ là đang: 他在看书呢.
+
+= E | 钱数表示法 | 数 + 块/元 (+ 毛/角)
+k: 块|元|毛|角|钱
+id: Uang: 块 (lisan) atau 元 (tulisan), lalu 毛/角: 三块五 = 3,5 yuan.
+en: Money: 块 (spoken) or 元 (written), then 毛/角: 三块五 is 3.5 yuan.
+th: เงิน 块 (พูด) หรือ 元 (เขียน) แล้วตามด้วย 毛/角 三块五 คือ 3.5 หยวน
+vi: Tiền: 块 (nói) hoặc 元 (viết), rồi 毛/角: 三块五 là 3,5 tệ.
+
+= E | 时间表示法 | 年 → 月 → 日 → 点 → 分
+k: 年|月|号|日|点|分|星期
+id: Waktu ditulis dari yang besar ke yang kecil: 2026年11月18号 下午三点.
+en: Time goes from big to small: 2026年11月18号 下午三点.
+th: เวลาเขียนจากหน่วยใหญ่ไปเล็ก 2026年11月18号 下午三点
+vi: Thời gian viết từ lớn đến nhỏ: 2026年11月18号 下午三点.
+
+= S | 用"吗"提问 | 陈述句 + 吗？
+k: 吗
+id: Tambahkan 吗 di akhir kalimat berita untuk pertanyaan ya/tidak: 你是学生吗？
+en: Add 吗 to a statement for a yes/no question: 你是学生吗？
+th: เติม 吗 ท้ายประโยคบอกเล่าเป็นคำถามใช่หรือไม่ 你是学生吗？
+vi: Thêm 吗 vào cuối câu trần thuật để hỏi có/không: 你是学生吗？
+
+= S | 用疑问代词提问 | 疑问代词在答案的位置
+k: 什么|谁|哪儿|几|多少|怎么
+m: (什么|谁|哪儿|哪里|几|多少|怎么)
+id: Kata tanya tidak pindah ke depan: 你去哪儿？ (bukan 哪儿你去？). Tidak pakai 吗.
+en: The question word stays in place: 你去哪儿？ (not 哪儿你去？). No 吗 with it.
+th: คำถามไม่ย้ายไปหน้าประโยค 你去哪儿？ และไม่ใช้ 吗
+vi: Từ để hỏi không chuyển lên đầu câu: 你去哪儿？ Không dùng thêm 吗.
+
+= S | 连动句 | 主语 + 动词1 + 动词2
+k: 去|来
+m: (去|来)[^\s]{1,4}(吃|买|看|学|玩|找)
+id: Dua kata kerja berurutan, cara atau tujuan dulu: 我去商店买东西.
+en: Two verbs in a row, the way or the going first: 我去商店买东西.
+th: กริยาสองตัวเรียงกัน วิธีหรือการไปมาก่อน 我去商店买东西
+vi: Hai động từ liền nhau, cách thức hoặc việc đi đứng trước: 我去商店买东西.
+
+= S | 正反疑问 | 动词 + 不 + 动词？
+k:
+m: (.)不\1
+id: Bertanya dengan pilihan ya-tidak: 你去不去？ = kamu pergi atau tidak?
+en: Ask with yes-not-yes: 你去不去？ is are you going or not?
+th: ถามแบบใช่-ไม่ใช่ 你去不去？ คือจะไปหรือไม่ไป
+vi: Hỏi dạng có-không: 你去不去？ là bạn có đi không?
+ex: 你明天来不来？ | Nǐ míngtiān lái bu lái? | Besok kamu datang atau tidak? | Are you coming tomorrow or not? | พรุ่งนี้เธอจะมาหรือไม่มา | Mai bạn có đến không?
+
+= S | 双宾语句 | 动词 + 人 + 东西
+k: 给|送|教|问|告诉
+m: (给|送|教|问|告诉)(我|你|他|她|我们)
+id: Dua objek: orang dulu, baru benda: 他给我一本书.
+en: Two objects: the person first, then the thing: 他给我一本书.
+th: กรรมสองตัว คนมาก่อน แล้วจึงสิ่งของ 他给我一本书
+vi: Hai tân ngữ: người trước, vật sau: 他给我一本书.
+
+= K | 数量补语 | 动词 + 次/一下
+k: 一下|次
+id: Berapa kali di belakang kata kerja: 看一下 = lihat sebentar, 去过两次 = sudah pergi dua kali.
+en: How many times comes after the verb: 看一下 is take a look, 去过两次 is been twice.
+th: จำนวนครั้งวางหลังกริยา 看一下 คือดูหน่อย 去过两次 คือไปมาแล้วสองครั้ง
+vi: Số lần đặt sau động từ: 看一下 là xem một chút, 去过两次 là đã đi hai lần.
+
+= N | 时量词 | 分钟/小时/天/年
+k: 分钟|小时|天|年|星期
+id: Lama waktu memakai kata ukur waktu: 三天, 两个小时, 十分钟.
+en: Durations use time words: 三天, 两个小时, 十分钟.
+th: ระยะเวลาใช้คำบอกเวลา 三天 两个小时 十分钟
+vi: Khoảng thời gian dùng từ chỉ thời gian: 三天, 两个小时, 十分钟.
+
+= W | 词缀 | 老/第 + …，… + 子/们
+k: 们|子
+m: [^\s](们|子)
+id: Awalan dan akhiran pembentuk kata: 们 untuk orang jamak, 子 pembentuk kata benda (桌子).
+en: Prefixes and suffixes that build words: 们 for plural people, 子 makes nouns (桌子).
+th: คำเติมหน้าเติมหลัง 们 บอกพหูพจน์ของคน 子 สร้างคำนาม (桌子)
+vi: Tiền tố, hậu tố tạo từ: 们 chỉ số nhiều của người, 子 tạo danh từ (桌子).
+
+= N | 序数表达法 | 第 + 数词
+k: 第
+id: 第 di depan angka membuatnya urutan: 第一 = pertama, 第二天 = hari kedua.
+en: 第 before a number makes it an order: 第一 is first, 第二天 is the second day.
+th: 第 หน้าตัวเลขบอกลำดับ 第一 คือที่หนึ่ง 第二天 คือวันที่สอง
+vi: 第 trước số tạo số thứ tự: 第一 là thứ nhất, 第二天 là ngày thứ hai.
+
+= E | 叹词 | 喂/哎/啊
+k: 喂|哎|啊
+id: Kata seru berdiri sendiri: 喂 untuk menyapa di telepon.
+en: Interjections stand alone: 喂 answers the phone.
+th: คำอุทานอยู่ลำพัง 喂 ใช้รับโทรศัพท์
+vi: Thán từ đứng riêng: 喂 dùng khi nghe điện thoại.

@@ -15,6 +15,7 @@ WebView version was removed from this repo (archived in `armstrang/Merdeka-Manda
 | `content/vocab.json` | the words (one per line), canonical: edit here |
 | `content/speak/` | the HSKK bank, edited by hand: `1-dasar.txt`, `2-menengah.txt`, `3-lanjutan.txt` (sections `#R` repeat, `#S` retell, `#T` read aloud, `#Q` question \| keywords, `#R-latihan` extra repeats from word sentences) and `questions.tsv` (question → id/en/th/vi). Each level uses its own band's words (Dasar HSK 3, Menengah 4, Lanjutan 5–6) and nothing past `TOP`; every hanzi must be in the font subset (`hskk_test`) |
 | `content/i18n/` | interface text: `base.js` (`I18N`, helper `r`), `id.js`, `en.js`, `th.js`, `vi.js` — **each key defined once per language**; strings, or arrow functions for text with numbers. Text past the gate sits between `/*<seal>*/ … /*</seal>*/` at the end of each file |
+| `content/grammar/` | the grammar book, edited by hand: `1.txt`…`6.txt` (HSK 3.0 syllabus) and `7.txt` (the advanced band, **sealed**). Block `= cat \| 中文名 \| formula`, `k:` words that show the point (they find example sentences and are the practice gap; empty = read only), optional `m:` regex, `id:/en:/th:/vi:` one short human line each, optional `ex:` own examples `汉字 \| pinyin \| id \| en \| th \| vi`. Categories W V P N A R C U S F K E. `mobile/tool/make_grammar.py` (run by make_assets) → `assets/data/grammar.json` (ids `l-nnn`, `ex` ≤3 and `pool` ≤40 word ids from levels ≤ l+1); level 7 goes into `s0.bin` (`x.gram`). Every hanzi must be in the font subset |
 | `content/tools/` | `sentence_pinyin.py` (field `zp`), `word_freq.py` (fields `f`, `g`) |
 | `mobile/lib/engine/` | `learn.dart` = `LM` (FSRS, plan, questions, realms, tests, optimizer…), `fsrs.dart`, `model.dart` (Mem, LogE, Item…), `js.dart` (exact helpers: `jsRound`, `jsSort`, LCG random, `jsJson`) |
 | `mobile/lib/data/` | `store.dart` (progress store, one file per key in `files/store`, schema + migrations), `words.dart`, `pinyin.dart`, `seal.dart` |
@@ -37,7 +38,7 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - **Progress keys never change** (users' data): `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme`, `hsk16_known`, `xc_mem`,
   `xc_log`, `xc_logA`, `xc_goal`, `xc_w`, `xc_fit`, `xc_onb`, `xc_lvl` (+ `th`, `pt`, `gate`, `gs`, `stab`, `hist`),
   `xc_rem`, `xc_tests`, `xc_rest`, `xc_game`, `xc_amb`, `xc_note`, `xc_schema`, `xc_days`, `xc_bk`, `xc_res`, `xc_fx`,
-  `xc_fxd`, `xc_mock`, `xc_legacy`, `xc_dn`, `xc_spk` (v1.4: HSKK — `n` where each list's walk stands, `c` counts, `m` mocks); Android SharedPreferences `reminder`, `widget`. Schema `xc_schema` = 3; a data format
+  `xc_fxd`, `xc_mock`, `xc_legacy`, `xc_dn`, `xc_spk` (v1.4: HSKK — `n` where each list's walk stands, `c` counts, `m` mocks), `xc_gram` (v1.6: grammar point id → [d, s, t, n, right], FSRS with the learner's parameters; in backup codes as `gram`); Android SharedPreferences `reminder`, `widget`. Schema `xc_schema` = 3; a data format
   change = a new migration + schema + a test in `store_test`; migrations never delete keys.
 - **Moving progress from the earlier version** (first start): `App.boot` asks `Native.legacy()` when the store has no
   `xc_schema`; `MainActivity` opens a hidden WebView on the old origin `https://appassets.androidplatform.net`
@@ -95,9 +96,9 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   `MasteryFull` (HSK lens, bar, counts). Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
   uses `Compact`, half-way).
 - Tab bar (v1.4, Josh: like Gala): a capsule of three tabs **HSK · HSKK · Ujian** (`TabBar2`, `tabOf()`: home, list,
-  card, quiz count as HSK) plus a separate round **Soul Sea orb button** (`SoulOrbButton`, no aura; v1.5: a small colourful black hole seen from the front (black core, glowing ring with a travelling hot spot, thick soft clouds in pink/lavender/violet/mint winding in, thin light streaks, no lightning; Josh: "a hole that pulls in, not Saturn", cosmic, moving, more transparent, like his reference painting), `BlackHolePainter`, turning on the `qiT` clock, still with light effects or "remove animations"), 64 tall, icon with
+  card, quiz count as HSK) plus a separate **Soul Sea button** (`SoulOrbButton`, v1.6 Josh: a red seal with the realm's hanzi top to bottom, slightly askew, stamps again on a new realm (250 ms, fade with remove animations), gold line while open, label "<Soul Sea> · <realm>"; the black hole of v1.5 is gone, don't bring it back), 64 tall, icon with
   its name, a glass lens that can be dragged; hidden in session/placement/tribulation/`hkrun`, while typing and in
-  exams. List/Cards/Quiz sit on Home as `StudyRow` under the plan (on tight phones word mastery becomes its 4th tile).
+  exams. List/Cards/Quiz/Grammar (语法, v1.6) sit on Home as `StudyRow` under the plan, icon over name (on tight phones word mastery becomes a 5th tile in front).
   A one-time toast `navMoved` (`note['nav14']`) tells old learners.
 - HSK lens (Josh: clear, "murim"): clear glass tinted by the level, the realm's colour glowing inside, a faint ring of
   the five elements, a thin gold line on top; the chosen number takes the level colour.
@@ -133,12 +134,20 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   full credit, *Show translation* = no skill credit; *My choice fits too* (3/day) undoes and marks the pair. After
   misses (<70 % of the last 8), a well-known word comes next (`_ease`, ≤4 per run, not in tests). **2′** on Home =
   six of today's reviews (`quickOf`).
+- **Grammar book (v1.6, Josh)**: `app/grammar.dart` (`GBook` loaded at boot, band added by `openBand`; `GProg` =
+  `xc_gram`, held = n ≥ 3 and S ≥ 10 d; `GPractice`: `gap` (the point's word blanked, 3 grammar words of the level as
+  distractors) and `order` (`lm.pieces`), `run(p)` uses each sentence both ways when few, `review(l)` = mixed;
+  `gramFirst` = sentences showing the level's points first, hooked as `lm.grammarFirst` (placement `wo`, mock
+  `wo`/`c`/`lj`, tribulation 语)), `ui/grammar.dart` (`GrammarScreen`, route `grammar`, HSK tab; level menu, points by
+  category, point page, practice with feedback at once, end). Home `StudyRow` has a 4th tile 语法 (icon = 语). Mock
+  advice names the points behind missed sentences (`bk:'gram'`); realm guidance adds `gramAdvice` (third). Advanced
+  points show as one level 7 only after the gate (label built at runtime, never written in sources).
 - **Realms** (Josh's cultivator idea): 凡人 (0, untested), 炼气 筑基 金丹 元婴 化神 渡劫 (1–6 = HSK 1–6), 飞升 (7). Only
   tests change the realm. Stages 初期/中期/后期/圆满 = progress <25/25–50/50–80/≥80 %, progress = (solid words + ½ × the
   placement estimate for the rest) ÷ the level's words. One test a week (placement or breakthrough); leaving after 10
-  answers counts. Placement: 50 adaptive questions with "Don't know", sets the realm once (at most 渡劫; one retake
+  answers counts. Placement (v1.6, Josh: an exam, difficulty 9): 60 timed blind questions, "Don't know"/time out = wrong; HSK 1–3 choice (+ order at 3), HSK 4 typed pinyin, listen → meaning (6 options), cloze, order; HSK 5–6 typed pinyin + meaning (`pm`, both right); strict pass (`ptNeed`, ≥.85/.92 + ratio); `placement_sim_test` keeps an HSK 4–5 learner out of 渡劫. Sets the realm once (at most 渡劫; one retake
   within 14 days). Breakthrough = 雷劫 tribulation: strikes 识 m ×5, 忆 p ×5, 听 l ×5 (skipped without TTS), 读 c ×5,
-  速 m ×8 timed; pass = every strike ≥70 % and total ≥ 75 % (80 % from HSK 5). Grade 道基: 完美 no mistake, 上品, 中品,
+  语 wo ×5 (v1.6, sentences of the level's grammar first), 速 m ×8 timed; pass = every strike ≥70 % and total ≥ 75 % (80 % from HSK 5). Grade 道基: 完美 no mistake, 上品, 中品,
   下品; placement realms are 认定. Stability: a realm rests on the level below; fading (spaced answers <70 % or recall
   <0.6) makes it 境界不稳 until a 试炼稳固 (15 words, 80 %). Guidance (`advice()`), forecast, breakthrough chance.
 - **The gate** (sealed): a breakthrough to 飞升 opens 仙门 (`xc_lvl.gate`), loads the sealed band (HSK 7–9, realms 8–10),

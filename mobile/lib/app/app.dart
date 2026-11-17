@@ -21,6 +21,7 @@ import '../engine/fsrs.dart' as fsrs;
 import '../engine/js.dart';
 import '../engine/learn.dart';
 import '../i18n/l10.dart';
+import 'grammar.dart';
 import 'hskk.dart';
 import 'mastery.dart';
 import 'native.dart';
@@ -113,6 +114,7 @@ class App extends ChangeNotifier {
     if (gate) await a._openBand();
     store.migrate({...vocab.data.map((d) => d.id), ...a._bandIdsCache});
     a.lm = LM(store, vocab, random: random, clock: clock, tzOffset: tzOffset);
+    await a._initGram();
     await a._init();
     return a;
   }
@@ -188,6 +190,7 @@ class App extends ChangeNotifier {
     if (vocab.band) return;
     await _openBand();
     lm.bandAdded();
+    gram?.addBand(sealedX['gram'] as List?, vocab);
     notifyListeners();
   }
 
@@ -514,6 +517,32 @@ class App extends ChangeNotifier {
     }
     return h;
   }
+
+  // ---------------------------------------------------------------- the grammar book (grammar.dart, v1.6)
+  GBook? gram;
+  late GProg gprog;
+  late GPractice gpr;
+  Future<void> _initGram() async {
+    gprog = GProg(store, lm);
+    try {
+      gram = await GBook.load(bundle, vocab);
+      if (vocab.band) gram!.addBand(sealedX['gram'] as List?, vocab);
+    } catch (_) {
+      gram = null;
+    }
+    final g = gram;
+    if (g != null) {
+      gpr = GPractice(lm, g);
+      lm.grammarFirst = (pool, l) => gramFirst(g, pool, l);
+    }
+  }
+
+  /// the levels the grammar book shows (the advanced band as one level 7, after the gate)
+  List<int> get gramLevels => gram?.levels ?? const [];
+
+  /// the point the grammar screen opens on (null: the level's list), and the level shown
+  String? gramPoint;
+  int? gramLevel;
 
   // ---------------------------------------------------------------- HSKK (hskk.dart)
   SpkLog spkLog = SpkLog(null);

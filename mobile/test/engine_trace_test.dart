@@ -278,9 +278,14 @@ class Replay {
           ],
         };
       case 'btAnswers':
+        // the answers recorded before v1.6 belong to the strikes of then; 语 (v1.6) is answered right
         final r = a['r'] as List;
-        for (var i = 0; i < r.length; i++) {
-          trib!.items[i].r = r[i];
+        final old = trib!.items.where((it) => it.strike != 'yu').toList();
+        for (var i = 0; i < r.length && i < old.length; i++) {
+          old[i].r = r[i];
+        }
+        for (final it in trib!.items.where((it) => it.strike == 'yu')) {
+          it.r = 'ok';
         }
         return null;
       case 'btFinish':
