@@ -58,7 +58,7 @@ void main() {
       ];
     }
 
-    for (final s in ['home', 'soul', 'stats', 'list']) {
+    for (final s in ['home', 'soul', 'stats', 'list', 'hskk', 'exam']) {
       testWidgets('no leak: $s', (t) async {
         await t.runAsync(() => bootApp(at7()));
         expect(app.lm.realm(), 7);

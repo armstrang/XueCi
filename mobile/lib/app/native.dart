@@ -21,6 +21,7 @@ class Native {
           listenEv?.call(json.decode(c.arguments as String) as Map);
         } catch (_) {}
       }
+      if (c.method == 'ttsDone') ttsDone?.call();
       if (c.method == 'ttsReady') {
         if (c.arguments is String) _tts = c.arguments as String;
         ttsChanged?.call();
@@ -32,6 +33,9 @@ class Native {
   /// in tests: replaces the platform
   static bool off = false;
   VoidCallback? ttsChanged;
+
+  /// the last text spoken has been read out to the end (HSKK waits for it before listening)
+  VoidCallback? ttsDone;
 
   /// while the app listens: {t: ready|begin|rms|partial|end, v}
   void Function(Map ev)? listenEv;

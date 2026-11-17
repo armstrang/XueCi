@@ -13,6 +13,7 @@ WebView version was removed from this repo (archived in `armstrang/Merdeka-Manda
 | Path | What |
 |---|---|
 | `content/vocab.json` | the words (one per line), canonical: edit here |
+| `content/speak/` | the HSKK bank, edited by hand: `1-dasar.txt`, `2-menengah.txt`, `3-lanjutan.txt` (sections `#R` repeat, `#S` retell, `#T` read aloud, `#Q` question \| keywords, `#R-latihan` extra repeats from word sentences) and `questions.tsv` (question → id/en/th/vi). Each level uses its own band's words (Dasar HSK 3, Menengah 4, Lanjutan 5–6) and nothing past `TOP`; every hanzi must be in the font subset (`hskk_test`) |
 | `content/i18n/` | interface text: `base.js` (`I18N`, helper `r`), `id.js`, `en.js`, `th.js`, `vi.js` — **each key defined once per language**; strings, or arrow functions for text with numbers. Text past the gate sits between `/*<seal>*/ … /*</seal>*/` at the end of each file |
 | `content/tools/` | `sentence_pinyin.py` (field `zp`), `word_freq.py` (fields `f`, `g`) |
 | `mobile/lib/engine/` | `learn.dart` = `LM` (FSRS, plan, questions, realms, tests, optimizer…), `fsrs.dart`, `model.dart` (Mem, LogE, Item…), `js.dart` (exact helpers: `jsRound`, `jsSort`, LCG random, `jsJson`) |
@@ -20,7 +21,7 @@ WebView version was removed from this repo (archived in `armstrang/Merdeka-Manda
 | `mobile/lib/i18n/` | `l10.dart` + generated `keys.g.dart`; text functions are expression trees (`tool/make_i18n.js`, acorn) evaluated by `Tpl`; only `<b>` markup (`Rich`) |
 | `mobile/lib/app/` | `app.dart` (`App`: boot, language, theme, fx, realm helpers, reminder/rest sync, backup timing, widget, `memo`), `runner.dart` (Cards/Quiz/session/mock runs), `backup.dart` (XUECI1/XUECI0 codes), `native.dart` (method channel), `mastery.dart` |
 | `mobile/lib/ui/` | `shell.dart` (MaterialApp, background, tab bar, toasts, back), `home.dart`, `focus.dart` (capsule header, list, menus), `run_view.dart` (cards, questions, summary, mock), `stats.dart`, `soul.dart`, `realm.dart`, `tests.dart` (placement, tribulation, gate ceremony), `splash.dart` (the opening, `Rise`, `MarkSlot`, `CountUp`), `settings.dart`, `goal.dart`, `backup_sheet.dart`, `info.dart`, `share.dart`, `fx.dart`, look: `glass.dart`/`theme.dart`/`lens.dart`/`widgets.dart`/`icons.dart`/`sheet.dart`/`word_ui.dart`, `screens.dart` (screen hosts, `wireSheets()`) |
-| `mobile/tool/` | `make_assets.py` (needs `npm install --prefix mobile/tool acorn@8.15.0`): `assets/data` (core + per-language words, sealed `s0.bin`/`s-<lang>.bin`) and `assets/i18n`; refuses public text with a secret word. `make_fonts.py` (font subsets; re-run after new characters; sources in `fonts-src/`, not committed). `cloud_sdk.sh` (Flutter SDK for Claude's cloud sessions) |
+| `mobile/tool/` | `make_assets.py` (needs `npm install --prefix mobile/tool acorn@8.15.0`): `assets/data` (core + per-language words, sealed `s0.bin`/`s-<lang>.bin`) and `assets/i18n`, plus `assets/data/speak.json` from `make_speak.py` (pinyin read from the word list: a fewest-words split, names, 一/不, erhua, apostrophes; keywords per band; it lists problems); refuses public text with a secret word. `make_fonts.py` (font subsets; re-run after new characters; sources in `fonts-src/`, not committed). `cloud_sdk.sh` (Flutter SDK for Claude's cloud sessions) |
 | `mobile/android/` | Kotlin: `MainActivity.kt` (method channel `xueci/native`), `Reminder.kt` (+ `ReminderReceiver`), `XueciWidget.kt`; `assets/legacy.html` (progress move) |
 | `mobile/test/` | `engine_trace_test` (replays `fixtures/engine/*.json` call by call; a deliberate engine change = update the fixture with care), `i18n_test`, `store_test`, `backup_test`, `secret_test`, `contrast_test`, `screens_test` (screenshots → `test/goldens/`, not committed: look at them), `perf_probe_test` (`PERF=1`) |
 | `art/` | the icon (Josh, Nov 2026: only 词, a round-ended line, red seal; night + gold in `mipmap-night-*`): `art/icon.html` (drawn by hand, no font), `python3 art/make_icons.py` (Playwright) writes every icon into `mobile/android`, the Play icon and the badge |
@@ -36,7 +37,7 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - **Progress keys never change** (users' data): `mm_stats`, `mm_lang`, `hsk16_ui`, `hsk16_theme`, `hsk16_known`, `xc_mem`,
   `xc_log`, `xc_logA`, `xc_goal`, `xc_w`, `xc_fit`, `xc_onb`, `xc_lvl` (+ `th`, `pt`, `gate`, `gs`, `stab`, `hist`),
   `xc_rem`, `xc_tests`, `xc_rest`, `xc_game`, `xc_amb`, `xc_note`, `xc_schema`, `xc_days`, `xc_bk`, `xc_res`, `xc_fx`,
-  `xc_fxd`, `xc_mock`, `xc_legacy`, `xc_dn`; Android SharedPreferences `reminder`, `widget`. Schema `xc_schema` = 3; a data format
+  `xc_fxd`, `xc_mock`, `xc_legacy`, `xc_dn`, `xc_spk` (v1.4: HSKK — `n` where each list's walk stands, `c` counts, `m` mocks); Android SharedPreferences `reminder`, `widget`. Schema `xc_schema` = 3; a data format
   change = a new migration + schema + a test in `store_test`; migrations never delete keys.
 - **Moving progress from the earlier version** (first start): `App.boot` asks `Native.legacy()` when the store has no
   `xc_schema`; `MainActivity` opens a hidden WebView on the old origin `https://appassets.androidplatform.net`
@@ -93,8 +94,11 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   Tablets: `_HomeTall` (upright, a centred 600 dp column) and `_HomeWide` (landscape, two columns), both with
   `MasteryFull` (HSK lens, bar, counts). Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
   uses `Compact`, half-way).
-- Tab bar: Home/List/Cards/Quiz/Soul Sea (orb icon), 64 tall, an icon with its name under it on every tab, a glass
-  lens that can be dragged; hidden in session/placement/tribulation, while typing and in exams (shown in Quiz, Josh).
+- Tab bar (v1.4, Josh: like Gala): a capsule of three tabs **HSK · HSKK · Ujian** (`TabBar2`, `tabOf()`: home, list,
+  card, quiz count as HSK) plus a separate round **Soul Sea orb button** (`SoulOrbButton`, no aura), 64 tall, icon with
+  its name, a glass lens that can be dragged; hidden in session/placement/tribulation/`hkrun`, while typing and in
+  exams. List/Cards/Quiz sit on Home as `StudyRow` under the plan (on tight phones word mastery becomes its 4th tile).
+  A one-time toast `navMoved` (`note['nav14']`) tells old learners.
 - HSK lens (Josh: clear, "murim"): clear glass tinted by the level, the realm's colour glowing inside, a faint ring of
   the five elements, a thin gold line on top; the chosen number takes the level colour.
 - Focus header (`Capsule` in focus.dart, iOS large title): back chevron + 31 pt title (+ trailing buttons in one
@@ -199,7 +203,18 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   (`openSpeak`) and quiz type `u` (logged as `s`; the first try is the answer, later tries only show). Josh: one tap
   starts, a second stops, 15 s at most (`Listen.kt` restarts the recognizer at each pause and joins the pieces);
   `SpeakArea` (word_ui.dart) is shared: target, `ScoreRing` 0–100 (≤50 not yet, ≤75 getting there, ≤99 good, 100
-  perfect), "you said", tap a hanzi to hear it. Quiz types show as line icons (`qtIcon`).
+  perfect), "you said", tap a hanzi to hear it. Quiz types show as line icons (`qtIcon`). v1.4: quiz type `u` is gone
+  (HSKK replaces it); `listenIn(limitMs)` sets the limit per question (3 s–5 min) and tries `EXTRA_PREFER_OFFLINE`
+  first, online again on an offline error before anything was heard.
+- **HSKK (v1.4)**: `app/hskk.dart` (paper per level `hkPaper`: Dasar 8 repeat + 1 read + 2 questions, Menengah/
+  Lanjutan 2 retell + 1 read + 2 questions; the picture part of HSKK 3.0 is replaced by reading aloud, said honestly;
+  `hkOpen`: Dasar from HSK 1, Menengah HSK 4, Lanjutan HSK 5; `SpkBank`, `scoreTalk` = keywords (homophones count),
+  length, characters per minute, band words; `SpkLog` walks every list in a fixed shuffle, practice from the start,
+  mocks from the end), `app/tone.dart` (tone check: `Rec.kt` records ≤30 s in memory, YIN pitch, syllable spans,
+  shape → tone, third-tone sandhi; run in `Isolate.run`; recording dropped at once), `ui/hskk.dart` (`HskkScreen`:
+  level lens, practice path, mock card; `HkRunScreen`: intro → listen → prep → speak → result/tone, live highlight while
+  reading aloud), `ui/exam.dart` (Tests tab: HSK simulation, HSKK mock, realm tests). Scores are a guide, not an
+  examiner's mark, and the screens say so.
 
 ## CI
 

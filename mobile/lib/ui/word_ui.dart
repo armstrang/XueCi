@@ -416,14 +416,17 @@ class BigMic extends StatefulWidget {
   final VoidCallback? onTap;
   final bool busy;
   final double level;
-  const BigMic({super.key, this.onTap, this.busy = false, this.level = 0});
+
+  /// how long one listening may last (the ring runs down with it)
+  final int seconds;
+  const BigMic({super.key, this.onTap, this.busy = false, this.level = 0, this.seconds = 15});
   @override
   State<BigMic> createState() => _BigMicState();
 }
 
 class _BigMicState extends State<BigMic> with TickerProviderStateMixin {
   late final AnimationController _ring = AnimationController(vsync: this, duration: const Duration(milliseconds: 1400));
-  late final AnimationController _count = AnimationController(vsync: this, duration: const Duration(seconds: 15));
+  late final AnimationController _count = AnimationController(vsync: this, duration: Duration(seconds: widget.seconds));
   late final Listenable _both = Listenable.merge([_ring, _count]);
   bool _was = false;
 
@@ -445,6 +448,7 @@ class _BigMicState extends State<BigMic> with TickerProviderStateMixin {
     final reduce = WidgetsBinding.instance.platformDispatcher.accessibilityFeatures.disableAnimations;
     if (widget.busy) {
       if (!reduce) _ring.repeat();
+      _count.duration = Duration(seconds: widget.seconds);
       _count.forward(from: 0);
     } else {
       _ring.stop();

@@ -6,6 +6,25 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.4
+
+**Speaking practice for the HSKK, and a new tab bar.**
+
+- The tab bar now has three tabs, HSK, HSKK and Tests, plus a round Soul Sea button beside them. List, Cards and Quiz
+  are on the HSK tab, under today's plan.
+- New HSKK tab with three levels: Basic (opens at HSK 1–3), Intermediate (at HSK 4) and Advanced (from HSK 5).
+  You practise along the parts of the real test: listen and repeat, or listen and retell; read a text aloud; answer
+  a question in your own words. While you read, every word lights up as you say it. Hundreds of sentences, texts and
+  questions written for each level's own vocabulary, so the questions don't repeat.
+- Tone check: after you repeat a sentence, the app can show the pitch of each syllable next to the right tone. It
+  works on the phone, and the recording is dropped right away.
+- HSKK mock test for each level, timed like the real one, with a score per part, everything you said and advice on
+  what to practise next. The picture part of the real test is replaced by reading aloud.
+- New Tests tab: the HSK simulation, the HSKK mock test and the realm tests in one place.
+- Listening now asks the phone to work offline first and lasts as long as each question needs, not 15 seconds.
+- The speaking quiz type is gone (HSKK replaces it). The microphone next to sentences in the List stays.
+- Scores come from your phone's speech recognizer: a guide, not an examiner's mark.
+
 ## v1.3
 
 **Nature instead of music.**

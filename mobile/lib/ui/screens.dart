@@ -66,6 +66,12 @@ void wireSheets() {
   app.beforeShow.add(watchFrames);
   app.startHooks.add((context) {
     app.syncRest();
+    // v1.4: List, Cards and Quiz left the tab bar for the HSK tab (said once, to learners who knew the old bar)
+    if (app.note['nav14'] == null) {
+      app.note['nav14'] = 1;
+      app.saveNote();
+      if (!app.isNewbie()) Timer(const Duration(milliseconds: 1200), () => app.toast(app.t.navMoved, 7000));
+    }
     // back after two or more days off: how much is still remembered (once a day)
     final s = app.lm.sinceLast();
     final day = app.lm.today();

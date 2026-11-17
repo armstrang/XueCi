@@ -11,6 +11,7 @@ import '../data/words.dart' show langs;
 import '../engine/model.dart';
 import '../i18n/l10.dart' show jsTruthy;
 import 'app.dart';
+import 'hskk.dart';
 import 'mastery.dart';
 
 String _b64(List<int> u) => base64Url.encode(u).replaceAll('=', '');
@@ -41,6 +42,7 @@ String makeCode(App a) {
     'rest': lm.rest,
     'tests': lm.tests,
     'mock': lm.mocks,
+    if (a.spkLog.j.isNotEmpty) 'spk': a.spkLog.j,
     'days': days.length > 730 ? days.sublist(days.length - 730) : days,
     'ui': {
       'level': a.level,
@@ -57,7 +59,7 @@ String makeCode(App a) {
 class Restore {
   final Map<String, List<num>> stats;
   final int at;
-  final Object? ui, lang, theme, w, lvl, rest, tests, mock, days;
+  final Object? ui, lang, theme, w, lvl, rest, tests, mock, days, spk;
   final Map<String, Mem>? mem;
   final bool hasGoal;
   final Object? goal;
@@ -76,6 +78,7 @@ class Restore {
     this.tests,
     this.mock,
     this.days,
+    this.spk,
   });
   bool get gate => lvl is Map && jsTruthy((lvl as Map)['gate']);
 }
@@ -130,6 +133,7 @@ Future<Restore?> readCode(App a, String text) async {
       tests: o['tests'],
       mock: o['mock'],
       days: o['days'],
+      spk: o['spk'],
     );
   } catch (_) {
     return null;
@@ -156,6 +160,8 @@ Future<bool> applyCode(App a, Restore b) async {
   }
   lm.restoreLevel(b.lvl);
   lm.restoreExtra({'tests': b.tests, 'rest': b.rest, 'days': b.days, 'mock': b.mock});
+  final spk = SpkLog.clean(b.spk);
+  if (spk != null) a.setSpkLog(spk);
   a.syncRest();
   final ui = b.ui;
   if (ui is Map && ui['level'] is num && a.vocab.levels.contains((ui['level'] as num).toInt())) {

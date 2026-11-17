@@ -20,6 +20,7 @@ import '../engine/fsrs.dart' as fsrs;
 import '../engine/js.dart';
 import '../engine/learn.dart';
 import '../i18n/l10.dart';
+import 'hskk.dart';
 import 'mastery.dart';
 import 'native.dart';
 import 'speech.dart';
@@ -27,12 +28,14 @@ import 'runner.dart';
 
 late App app;
 
-/// screens: home, list, card, quiz, session, placement, bt, stats, soul
+/// screens: home, list, card, quiz, session, placement, bt, stats, soul, hskk (speaking), exam (every test), hkrun
+/// (an HSKK practice or mock test: no tab bar)
 const focusScreens = ['list', 'card', 'quiz', 'session', 'placement', 'bt'];
 const themes = ['auto', 'light', 'dark', 'black'];
 const fxModes = ['auto', 'low', 'full'];
 // 'auto' (guided) was dropped (Josh, Oct 2026): a saved 'auto' falls back to Recognise
-const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't', 'u', 'mock']; // a saved 'exam' (the quick exam, removed) falls back to 'm'
+// a saved 'exam' (the quick exam, removed) and 'u' (speaking, moved to the HSKK tab in v1.4) fall back to 'm'
+const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't', 'mock'];
 
 class App extends ChangeNotifier {
   final Store store;
@@ -231,6 +234,7 @@ class App extends ChangeNotifier {
   String qType = 'm';
   bool mockShort = false; // the HSK simulation: the short paper
   String spk = 'n'; // speaking practice: e easy, n normal, h hard
+  int hkLv = 1; // HSKK: the level last chosen (1 Dasar, 2 Menengah, 3 Lanjutan)
   String theme = 'auto';
   String fxPref = 'full'; // Josh: glassy by default; auto and low stay in Settings
   int bgm = 1; // background music: 0 off, 1 soft (the default, Josh), 2 medium, 3 loud
@@ -245,6 +249,7 @@ class App extends ChangeNotifier {
     if (mockShort) 'mks': 1,
     if (spk != 'n') 'spk': spk,
     if (bgm != 1) 'bgm': bgm,
+    if (hkLv != 1) 'hk': hkLv,
   });
   void saveNote() => store.set('xc_note', note);
 
@@ -263,6 +268,8 @@ class App extends ChangeNotifier {
       if (qTypes.contains(ui['qt'])) qType = ui['qt'] as String;
       mockShort = ui['mks'] == 1;
       if (spkLevels.contains(ui['spk'])) spk = ui['spk'] as String;
+      final hk = ui['hk'];
+      if (hk is num && hkLevels.contains(hk.toInt())) hkLv = hk.toInt();
       final b = ui['bgm'];
       if (b is num && b >= 0 && b <= 3) bgm = b.toInt();
     }
@@ -271,6 +278,7 @@ class App extends ChangeNotifier {
     final fx = store.get('xc_fx', 'auto');
     fxPref = fxModes.contains(fx) ? fx as String : 'full';
     fxDown = jsTruthy(store.get('xc_fxd', 0));
+    spkLog = SpkLog(store.get('xc_spk', null));
     final n = store.get('xc_note', {});
     note = n is Map ? Map<String, dynamic>.from(n) : {};
     for (final l in langs) {
@@ -499,6 +507,29 @@ class App extends ChangeNotifier {
       notifyListeners();
     }
     return h;
+  }
+
+  // ---------------------------------------------------------------- HSKK (hskk.dart)
+  SpkLog spkLog = SpkLog(null);
+  void saveSpk() => store.set('xc_spk', spkLog.j);
+  void setSpkLog(Map<String, dynamic> j) {
+    spkLog = SpkLog(j);
+    saveSpk();
+  }
+
+  SpkBank? spkBank;
+  Future<SpkBank> loadSpk() async => spkBank ??= await SpkBank.load(bundle, vocab);
+
+  /// the HSKK levels open to this learner: Dasar at HSK 1–3, then one more with each HSK level
+  int get hkOpenTo => hkOpen(lm.baseLevel());
+
+  /// what an HSKK run should do when its screen opens: practice of one part, or a mock test
+  ({int lv, String k, bool mock})? hkRun;
+  String hkFrom = 'hskk'; // where an HSKK run goes back to
+  void startHk(int lv, {String k = '', bool mock = false}) {
+    hkRun = (lv: lv, k: k, mock: mock);
+    if (screen != 'hkrun') hkFrom = screen == 'exam' ? 'exam' : 'hskk';
+    go('hkrun');
   }
 
   // ---------------------------------------------------------------- navigation

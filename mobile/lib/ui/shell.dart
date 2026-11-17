@@ -9,8 +9,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../app/app.dart';
 import '../app/native.dart';
+import 'exam.dart';
 import 'fx.dart';
 import 'glass.dart';
+import 'hskk.dart';
 import 'home.dart';
 import 'icons.dart';
 import 'lens.dart';
@@ -182,7 +184,7 @@ class _ShellState extends State<Shell> {
     }
     final kb = MediaQuery.viewInsetsOf(context).bottom > 80;
     // hidden while answering: a session, the quiz, the tests, typing, an open menu, an exam
-    final tabs = !const ['session', 'placement', 'bt'].contains(s) && !kb && !app.menuOpen && !app.inExam;
+    final tabs = !const ['session', 'placement', 'bt', 'hkrun'].contains(s) && !kb && !app.menuOpen && !app.inExam;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (did, _) {
@@ -251,6 +253,9 @@ Widget screenFor(String s) => switch (s) {
   'home' => const HomeScreen(),
   'stats' => const StatsScreenHost(),
   'soul' => const SoulScreenHost(),
+  'hskk' => const HskkScreen(),
+  'exam' => const ExamScreen(),
+  'hkrun' => const HkRunScreen(),
   _ => FocusScreenHost(mode: s),
 };
 
@@ -265,83 +270,144 @@ void back(BuildContext context) {
   app.go(app.screen == 'stats' ? app.prevScreen : 'home');
 }
 
-/// the tab bar: five tabs, each an icon over its name (iOS), a glass lens under the open one that springs to a new tab
-/// and can be dragged
+/// the tab bar (v1.4, like Gala's): a frosted capsule with HSK (Home with List, Cards and Quiz), HSKK (speaking) and
+/// Tests, each an icon over its name with a glass lens under the open one; beside it, apart, a round orb for the Soul
+/// Sea in the realm's colour, breathing slowly
 class TabBar2 extends StatelessWidget {
   const TabBar2({super.key});
-  static const tabs = ['home', 'list', 'card', 'quiz', 'soul'];
+  static const tabs = ['home', 'hskk', 'exam'];
   static const height = 64.0;
+
+  /// the tab a screen belongs to (List, Cards and Quiz live under HSK)
+  static int tabOf(String s) => switch (s) {
+    'home' || 'list' || 'card' || 'quiz' => 0,
+    'hskk' => 1,
+    'exam' => 2,
+    _ => -1,
+  };
+
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final names = [t.tabHome, t.list, t.card, t.quiz, t.tabSoul];
-    const icons = [I.home, I.list, I.cards, I.quiz, I.orb];
-    final cur = tabs.indexOf(app.screen);
+    final names = [t.tabHsk, t.tabHskk, t.tabExam];
+    const icons = [I.cards, I.mic, I.qExam];
+    final cur = tabOf(app.screen);
     final bottom = MediaQuery.paddingOf(context).bottom;
     final w = MediaQuery.sizeOf(context).width;
-    final barW = (w - 28).clamp(0, 440).toDouble();
+    final barW = (w - 28).clamp(0, 460).toDouble();
+    const shadow = [
+      BoxShadow(color: Color.fromRGBO(0, 0, 0, .40), offset: Offset(0, 18), blurRadius: 40, spreadRadius: -18),
+      BoxShadow(color: Color.fromRGBO(0, 0, 0, .16), offset: Offset(0, 2), blurRadius: 8, spreadRadius: -4),
+    ];
     return Padding(
       padding: EdgeInsets.only(bottom: bottom + 10),
       child: Center(
-        child: Semantics(
-          container: true,
-          label: t.modesL,
-          child: SizedBox(
-            width: barW,
-            height: height,
-            child: Glass(
-              radius: 999,
-              frost: true,
-              shadow: const [
-                BoxShadow(color: Color.fromRGBO(0, 0, 0, .40), offset: Offset(0, 18), blurRadius: 40, spreadRadius: -18),
-                BoxShadow(color: Color.fromRGBO(0, 0, 0, .16), offset: Offset(0, 2), blurRadius: 8, spreadRadius: -4),
-              ],
-              child: Compact(
-                max: 1.1,
-                child: LensRow(
-                  count: 5,
-                  selected: cur < 0 ? -1 : cur,
-                  height: height,
-                  padding: const EdgeInsets.all(5),
-                  onSelect: (i) => app.go(tabs[i]),
-                  lens: (c, sel, drag) => sel < 0 ? const SizedBox() : TabLens(lc: th.acc),
-                  item: (c, i, on) {
-                    final col = on ? th.acc : p.soft;
-                    return Press(
-                      onTap: () {
-                        if (app.screen == tabs[i]) {
-                          app.scrollTop++;
-                          app.changed();
-                        } else {
-                          app.go(tabs[i]);
-                        }
-                      },
-                      scale: .9,
-                      label: names[i],
-                      selected: on,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon2(icons[i], size: 23, color: col, width: on ? 2.1 : 1.9),
-                            const SizedBox(height: 3),
-                            FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                names[i],
-                                maxLines: 1,
-                                style: F.s(10.5, w: on ? FontWeight.w800 : FontWeight.w600, c: col, ls: -.1),
+        child: SizedBox(
+          width: barW,
+          height: height,
+          child: Row(
+            children: [
+              Expanded(
+                child: Semantics(
+                  container: true,
+                  label: t.modesL,
+                  child: Glass(
+                    radius: 999,
+                    frost: true,
+                    shadow: shadow,
+                    child: Compact(
+                      max: 1.1,
+                      child: LensRow(
+                        count: tabs.length,
+                        selected: cur,
+                        height: height,
+                        padding: const EdgeInsets.all(5),
+                        onSelect: (i) => app.go(tabs[i]),
+                        lens: (c, sel, drag) => sel < 0 ? const SizedBox() : TabLens(lc: th.acc),
+                        item: (c, i, on) {
+                          final col = on ? th.acc : p.soft;
+                          return Press(
+                            onTap: () {
+                              if (app.screen == tabs[i]) {
+                                app.scrollTop++;
+                                app.changed();
+                              } else {
+                                app.go(tabs[i]);
+                              }
+                            },
+                            scale: .9,
+                            label: names[i],
+                            selected: on,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 2),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon2(icons[i], size: 23, color: col, width: on ? 2.1 : 1.9),
+                                  const SizedBox(height: 3),
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Text(
+                                      names[i],
+                                      maxLines: 1,
+                                      style: F.s(10.5, w: on ? FontWeight.w800 : FontWeight.w600, c: col, ls: -.1),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
-                    );
-                  },
+                    ),
+                  ),
                 ),
+              ),
+              const SizedBox(width: 10),
+              const SoulOrbButton(size: height),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+/// the round Soul Sea button beside the tab bar: a small orb in the realm's colour, breathing (qi.dart), ringed when
+/// the Soul Sea is open
+class SoulOrbButton extends StatelessWidget {
+  final double size;
+  const SoulOrbButton({super.key, this.size = 64});
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final on = app.screen == 'soul';
+    return Press(
+      onTap: () {
+        if (on) {
+          app.scrollTop++;
+          app.changed();
+        } else {
+          app.go('soul');
+        }
+      },
+      scale: .92,
+      label: app.t.tabSoul,
+      selected: on,
+      child: RepaintBoundary(
+        child: SizedBox(
+          width: size,
+          height: size,
+          child: Glass(
+            radius: 999,
+            frost: true,
+            shadow: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .38), offset: Offset(0, 16), blurRadius: 34, spreadRadius: -16)],
+            child: Center(
+              child: CustomPaint(
+                size: Size.square(size * .56),
+                painter: _MiniOrb(th.rc, th.p.dark, on),
               ),
             ),
           ),
@@ -351,13 +417,55 @@ class TabBar2 extends StatelessWidget {
   }
 }
 
+class _MiniOrb extends CustomPainter {
+  final Color c;
+  final bool dark, on;
+  _MiniOrb(this.c, this.dark, this.on);
+  @override
+  void paint(Canvas canvas, Size s) {
+    final r = s.width / 2;
+    final o = Offset(r, r);
+    canvas.drawCircle(
+      o,
+      r,
+      Paint()
+        ..shader = RadialGradient(
+          center: const Alignment(-.35, -.4),
+          colors: [Color.lerp(c, Colors.white, .55)!, c, Color.lerp(c, Colors.black, dark ? .45 : .25)!],
+          stops: const [0, .55, 1],
+        ).createShader(Rect.fromCircle(center: o, radius: r)),
+    );
+    canvas.drawCircle(
+      o,
+      r - .6,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 1.2
+        ..color = Colors.white.withValues(alpha: .45),
+    );
+    if (on) {
+      canvas.drawCircle(
+        o,
+        r + 4,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2
+          ..color = c,
+      );
+    }
+  }
+
+  @override
+  bool shouldRepaint(_MiniOrb o) => o.c != c || o.dark != dark || o.on != on;
+}
+
 /// toasts: a frosted capsule above the tab bar
 class ToastHost extends StatelessWidget {
   const ToastHost({super.key});
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.paddingOf(context).bottom;
-    final tabs = !const ['session', 'placement', 'bt'].contains(app.screen);
+    final tabs = !const ['session', 'placement', 'bt', 'hkrun'].contains(app.screen);
     return ValueListenableBuilder(
       valueListenable: app.toastV,
       builder: (c, v, _) => IgnorePointer(

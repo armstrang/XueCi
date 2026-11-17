@@ -55,8 +55,13 @@ class HomeScreen extends StatelessWidget {
                 const Spacer(),
                 Rise(2, child: PlanCard(tight: tight, compact: compact)),
                 SizedBox(height: tight ? 8 : 12),
-                const Spacer(),
-                Rise(3, child: _Mastery(keys: false, short: tight)),
+                // short screens: word mastery folds into the study row as a fourth tile
+                Rise(3, child: StudyRow(tight: tight, mastery: tight || compact)),
+                if (!tight && !compact) ...[
+                  const SizedBox(height: 12),
+                  const Spacer(),
+                  Rise(4, child: _Mastery(keys: false, short: tight)),
+                ],
                 const Spacer(flex: 2),
               ],
             );
@@ -96,6 +101,8 @@ class _HomeWide extends StatelessWidget {
                             Rise(1, child: RealmRow(tight: false)),
                             SizedBox(height: 20),
                             Rise(2, child: PlanCard(tight: false)),
+                            SizedBox(height: 14),
+                            Rise(3, child: StudyRow(tight: false)),
                           ],
                         ),
                       ),
@@ -145,6 +152,8 @@ class _HomeTall extends StatelessWidget {
                         Rise(1, child: RealmRow(tight: false)),
                         SizedBox(height: 22),
                         Rise(2, child: PlanCard(tight: false)),
+                        SizedBox(height: 16),
+                        Rise(3, child: StudyRow(tight: false)),
                         SizedBox(height: 22),
                         Rise(3, child: MasteryFull()),
                       ],
@@ -155,6 +164,95 @@ class _HomeTall extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+/// study on your own (v1.4: they left the tab bar for the HSK tab): List, Cards, Quiz as three glass tiles
+class StudyRow extends StatelessWidget {
+  final bool tight;
+
+  /// word mastery as a fourth tile (its own panel doesn't fit)
+  final bool mastery;
+  const StudyRow({super.key, this.tight = false, this.mastery = false});
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final t = app.t;
+    final items = [('list', t.list, I.list), ('card', t.card, I.cards), ('quiz', t.quiz, I.quiz)];
+    final pc = mastery ? app.pctTxt(app.summary(app.by(app.level)).p) : '';
+    return Semantics(
+      container: true,
+      label: t.studyL,
+      child: Row(
+        children: [
+          if (mastery) ...[
+            Press(
+              onTap: () => _masterySheet(context),
+              label: '${t.masT} · HSK ${app.level} · $pc',
+              child: Glass(
+                radius: 20,
+                height: tight ? 46 : 58,
+                padding: const EdgeInsets.symmetric(horizontal: 12),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(pc, style: F.s(tight ? 15 : 17, w: FontWeight.w800, c: th.p.fg, feat: F.tab, h: 1.1)),
+                      Text('HSK ${app.level}', style: F.s(10.5, w: FontWeight.w700, c: th.p.soft, h: 1.1)),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(width: 10),
+          ],
+          for (var i = 0; i < items.length; i++) ...[
+            if (i > 0) const SizedBox(width: 10),
+            Expanded(
+              child: Press(
+                onTap: () => app.go(items[i].$1),
+                label: items[i].$2,
+                child: Glass(
+                  radius: 20,
+                  height: tight ? 46 : 58,
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  // four tiles: the icon over its name (long names in Thai or Vietnamese still fit)
+                  child: Center(
+                    child: mastery
+                        ? Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon2(items[i].$3, size: tight ? 16 : 19, color: th.acc, width: 1.9),
+                              const SizedBox(height: 2),
+                              FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(items[i].$2, maxLines: 1, style: F.s(11.5, w: FontWeight.w800, c: th.p.fg, h: 1.1)),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon2(items[i].$3, size: 21, color: th.acc, width: 1.9),
+                              const SizedBox(width: 7),
+                              Flexible(
+                                child: Text(
+                                  items[i].$2,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: F.s(14.5, w: FontWeight.w800, c: th.p.fg),
+                                ),
+                              ),
+                            ],
+                          ),
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ],
       ),
     );
   }

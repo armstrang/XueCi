@@ -79,6 +79,13 @@ void main() {
     }
   });
 
+  test('every hanzi of the bank is in the bundled fonts', () {
+    final cs = File('assets/fonts/charset.txt').readAsStringSync().runes.toSet();
+    final raw = File('assets/data/speak.json').readAsStringSync();
+    final miss = {for (final r in raw.runes) if (r >= 0x4e00 && r <= 0x9fff && !cs.contains(r)) String.fromCharCode(r)};
+    expect(miss, isEmpty, reason: 'run make_fonts.py, or use other characters');
+  });
+
   test('a talk: keywords (homophones too), length, the band words', () {
     final it = bank.of(2, 's').first;
     final all = scoreTalk(it.zh, it, 40, cs, v);

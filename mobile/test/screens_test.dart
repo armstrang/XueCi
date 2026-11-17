@@ -5,6 +5,8 @@ import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:xueci/app/hskk.dart';
+import 'package:xueci/ui/hskk.dart';
 import 'package:xueci/app/app.dart';
 import 'package:xueci/app/native.dart';
 import 'package:xueci/app/speech.dart';
@@ -48,6 +50,7 @@ Future<void> bootApp(Map<String, String> saved, {String lang = 'en'}) async {
     tzOffset: -420,
     sysLang: lang,
   );
+  app.note['nav14'] ??= 1; // the one-time "the tab bar changed" toast is not part of any screenshot
 }
 
 Future<void> shot(
@@ -204,6 +207,33 @@ void runs() {
         it.hashCode;
       }
     });
+  });
+  testWidgets('hskk tab, tests tab, a practice and a mock', (t) async {
+    await t.runAsync(() async {
+      await bootApp({...sample(), 'hsk16_theme': '"dark"'}, lang: 'id');
+      await app.loadSpk();
+    });
+    await shot(t, 'hskk', before: () => app.go('hskk'));
+    await shot(t, 'exam', before: () => app.go('exam'));
+    await shot(t, 'hskk-small', size: const Size(360, 680), before: () => app.go('hskk'));
+    await shot(t, 'hk-practice-q', before: () => app.startHk(1, k: 'q'));
+    await shot(t, 'hk-practice-t', before: () => app.startHk(2, k: 't'));
+    await shot(t, 'hk-mock-intro', before: () => app.startHk(2, mock: true));
+    final b = app.spkBank!;
+    final m = HkMock(2, [
+      for (final (k, n) in hkPaper(2))
+        for (final x in b.of(2, k).take(n))
+          HkTask(x)
+            ..score = k == 'q' ? 64 : (k == 's' ? 82 : 75)
+            ..heard = x.zh.substring(0, x.zh.length ~/ 2),
+    ], 0);
+    hkTestMock = m;
+    await shot(t, 'hk-mock-result', size: const Size(412, 1500), before: () => app.startHk(2, mock: true));
+    hkTestMock = null;
+  });
+  testWidgets('home light with the new tab bar', (t) async {
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"', 'xc_onb': '1'}, lang: 'en'));
+    await shot(t, 'home-tabs-light');
   });
   testWidgets('stats', (t) async {
     await t.runAsync(() => bootApp(sample()));

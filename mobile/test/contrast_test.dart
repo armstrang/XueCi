@@ -165,6 +165,8 @@ void main() {
       ('card', () => app.go('card')),
       ('stats', () => app.go('stats')),
       ('soul', () => app.go('soul')),
+      ('hskk', () => app.go('hskk')),
+      ('exam', () => app.go('exam')),
       ('settings', () {}),
       ('realm', () {}),
       ('goal', () {}),

@@ -67,7 +67,6 @@ Map<String, (String, String, String)> qtNames() {
     'c': (t.tCloze, t.dCloze, '汉＿'),
     'p': (t.tPy, t.dPy, 'pīn'),
     't': (t.tTrans, t.dTrans, '句→a'),
-    if (app.canListen) 'u': (t.tSpeak, t.dSpeak, '说'),
     'mock': (t.tMock, t.dMock, '模'),
   };
 }

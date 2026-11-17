@@ -277,7 +277,14 @@ class MainActivity : FlutterActivity() {
             // the music steps back while a word is spoken
             t.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                 override fun onStart(utteranceId: String?) {}
-                override fun onDone(utteranceId: String?) { main.post { if (utteranceId == "xc$utterance") bgm.duck(false) } }
+                override fun onDone(utteranceId: String?) {
+                    main.post {
+                        if (utteranceId == "xc$utterance") {
+                            bgm.duck(false)
+                            if (::channel.isInitialized) channel.invokeMethod("ttsDone", null) // an HSKK text has been read out
+                        }
+                    }
+                }
                 @Deprecated("Deprecated in Java")
                 override fun onError(utteranceId: String?) { main.post { bgm.duck(false) } }
                 override fun onStop(utteranceId: String?, interrupted: Boolean) {
