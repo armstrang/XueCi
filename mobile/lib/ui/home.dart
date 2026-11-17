@@ -43,6 +43,23 @@ class HomeScreen extends StatelessWidget {
             // compact: today's numbers in one line, the rest as roomy as ever
             final compact = !tight && bc.maxHeight < 640 * f;
             final gap = tight ? 10.0 : 16.0;
+            // a phone on its side: too short for everything at once, so Home scrolls (the tab bar floats over it)
+            if (bc.maxHeight < 430) {
+              return SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const HomeHeader(short: true),
+                    const SizedBox(height: 10),
+                    const RealmRow(tight: true),
+                    const SizedBox(height: 10),
+                    const PlanCard(tight: true, compact: false),
+                    const SizedBox(height: 8),
+                    const StudyRow(tight: true, mastery: true),
+                  ],
+                ),
+              );
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
