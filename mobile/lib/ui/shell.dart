@@ -435,7 +435,7 @@ class BlackHolePainter extends CustomPainter {
     final R = s.width / 2;
     final o = Offset(R, R);
     final t = still ? .9 : qiT.value;
-    final turn = t * 2 * math.pi / 10;
+    final turn = t * 2 * math.pi / 6;
 
     canvas.save();
     canvas.clipPath(Path()..addOval(Rect.fromCircle(center: o, radius: R)));
@@ -467,7 +467,7 @@ class BlackHolePainter extends CustomPainter {
       final f = (i * .618034) % 1;
       final a = i * 2.399963 - turn * .7;
       final r = R * (.5 + .46 * f);
-      star.color = Colors.white.withValues(alpha: .35 + .5 * ((i * 7) % 5) / 4);
+      star.color = Colors.white.withValues(alpha: (.3 + .5 * ((i * 7) % 5) / 4) * (.55 + .45 * math.sin(t * 3.1 + i * 1.7)));
       canvas.drawCircle(o + Offset(math.cos(a), math.sin(a)) * r, R * (.012 + .016 * ((i * 3) % 4) / 3), star);
     }
 
@@ -509,10 +509,25 @@ class BlackHolePainter extends CustomPainter {
       canvas.drawPath(arm(k, .62, half: true), armPaint(k.isEven ? _amber : _pink, on ? .18 : .13)); // warm cloud between the arms
     }
     for (var k = 0; k < 4; k++) {
-      canvas.drawPath(arm(k, .5), armPaint(cols[k], on ? .36 : .28)); // the wide soft cloud
+      canvas.drawPath(arm(k, .5), armPaint(cols[k], on ? .46 : .38)); // the wide soft cloud
     }
     for (var k = 0; k < 4; k++) {
-      canvas.drawPath(arm(k, .22), armPaint(Color.lerp(cols[k], Colors.white, .3)!, 1)); // the bright thread
+      canvas.drawPath(arm(k, .22), armPaint(Color.lerp(cols[k], Colors.white, .35)!, 1)); // the bright thread
+    }
+
+    // light pulled in along the arms: each speck starts at the rim, follows its arm and falls faster the nearer it gets
+    final speck = Paint()..isAntiAlias = true;
+    for (var j = 0; j < 28; j++) {
+      final k = j % 4;
+      final f = (t * .22 + j / 28 + (j * .37) % .09) % 1;
+      final g = math.pow(f, 1.7).toDouble(); // 0 at the rim, 1 at the core, quicker inside
+      final r = R * 1.0 - (R * 1.0 - core * 1.12) * g;
+      final th = -turn + k * math.pi / 2 + 2.4 * math.log(R * 1.02 / r) + ((j * 5) % 7 - 3) * .035;
+      final fade = math.sin(math.pi * math.min(1.0, f * 1.15)); // in at the rim, out at the core
+      final pt = o + Offset(math.cos(th), math.sin(th)) * r;
+      final col = Color.lerp(cols[k], Colors.white, .55)!;
+      speck.color = col.withValues(alpha: (.35 + .6 * g) * fade);
+      canvas.drawCircle(pt, R * (.022 + .02 * (1 - g)) * (1 + .4 * ((j * 3) % 3) / 2), speck);
     }
 
     // the glow right round the core: it fades out softly, warm at the core
@@ -532,7 +547,7 @@ class BlackHolePainter extends CustomPainter {
       core,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = R * .035
+        ..strokeWidth = R * (.035 + .012 * math.sin(t * 2.4))
         ..shader = SweepGradient(
           transform: GradientRotation(-turn * 1.6),
           colors: [Colors.white.withValues(alpha: .95), const Color(0xffff9a3c).withValues(alpha: .9), _pink.withValues(alpha: .6), Colors.white.withValues(alpha: .95)],
