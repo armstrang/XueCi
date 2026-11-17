@@ -23,10 +23,12 @@ void main() {
     'hskk': () => app.go('hskk'),
     'exam': () => app.go('exam'),
   };
-  for (final e in screens.entries) {
-    testWidgets('large text: ${e.key}', (t) async {
-      await t.runAsync(() => bootApp({...sample(), 'xc_onb': '1'}, lang: 'id'));
-      await shot(t, 'big-${e.key}', size: small, fs: 1.6, before: e.value);
-    });
+  for (final lang in ['id', 'en', 'th', 'vi']) {
+    for (final e in screens.entries) {
+      testWidgets('large text, $lang: ${e.key}', (t) async {
+        await t.runAsync(() => bootApp({...sample(), 'xc_onb': '1'}, lang: lang));
+        await shot(t, lang == 'id' ? 'big-${e.key}' : 'big-$lang-${e.key}', size: small, fs: 1.6, before: e.value);
+      });
+    }
   }
 }
