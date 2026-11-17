@@ -84,4 +84,32 @@ void main() {
     expect(await readCode(app, 'nothing here'), isNull);
     expect(await readCode(app, 'XUECI1:AAAA'), isNull);
   });
+  test('damaged codes never throw: cut, changed and wrongly typed', () async {
+    app = await boot({});
+    final good = makeCode(app);
+    final r = LcgRandom(11);
+    // cut at every few places, and single characters changed
+    for (var n = 0; n < good.length; n += 7) {
+      await readCode(app, good.substring(0, n));
+    }
+    for (var i = 0; i < 60; i++) {
+      final k = 7 + (r.next() * (good.length - 7)).floor();
+      final c = 'ABCxyz-_09'[(r.next() * 10).floor()];
+      await readCode(app, good.substring(0, k) + c + good.substring(k + 1));
+    }
+    // right shape, wrong types in every field
+    final fields = ['stats', 'mem', 'goal', 'w', 'lvl', 'rest', 'tests', 'mock', 'spk', 'days', 'ui', 'lang', 'theme', 'at', 'v'];
+    for (final f in fields) {
+      for (final bad in <Object?>[null, 'x', 7, -1, [], {}, [1, 'a', null], {'a': 'b'}, 1e99]) {
+        final o = <String, Object?>{'app': 'xueci', 'v': 2, 'at': 1, 'stats': {}, 'mem': {}, 'days': [], 'ui': {}, f: bad};
+        final code = 'XUECI0:${base64Url.encode(utf8.encode(json.encode(o))).replaceAll('=', '')}';
+        final b = await readCode(app, code); // a refusal or a checked restore, never an exception
+        if (b != null) {
+          await applyCode(app, b);
+          app.lm.baseLevel(); // the engine still works on what was applied
+          app.lm.plan();
+        }
+      }
+    }
+  });
 }
