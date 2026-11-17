@@ -1,3 +1,4 @@
+import 'dart:math' as math;
 // The screens drawn with the real fonts and data, at phone sizes, in each theme: screenshots for review
 // (test/goldens/*.png, written with --update-goldens) and a check that nothing overflows.
 import 'dart:io';
@@ -20,7 +21,7 @@ import 'package:xueci/ui/settings.dart';
 import 'package:xueci/ui/share.dart';
 import 'package:xueci/ui/shell.dart';
 import 'package:xueci/ui/splash.dart';
-import 'package:xueci/ui/tests.dart' show gateShow;
+import 'package:xueci/ui/tests.dart' show gateShow, ptJump;
 
 Future<void> loadFonts() async {
   final fams = {
@@ -293,6 +294,25 @@ void runs() {
         }
       },
     );
+  });
+  for (final (name, q) in [('pm', 'pm'), ('order', 'wo'), ('listen', 'lm'), ('typed', 'p')]) {
+    testWidgets('placement $name', (t) async {
+      await t.runAsync(() => bootApp({'xc_onb': '1'}));
+      Native.I.ttsTest = 'ready';
+      app.ttsTest = true;
+      await shot(t, 'placement-$name', before: () {
+        app.go('placement');
+        ptJump((it) => it.q == q, right: (it) => it.l! <= 4);
+      });
+    });
+  }
+  testWidgets('placement result', (t) async {
+    await t.runAsync(() => bootApp({'xc_onb': '1'}));
+    await shot(t, 'placement-result', size: const Size(412, 1300), before: () {
+      app.go('placement');
+      final rnd = math.Random(3);
+      ptJump(null, right: (it) => rnd.nextDouble() < const [0, .98, .97, .95, .9, .5, .2][it.l!]);
+    });
   });
   testWidgets('tribulation intro', (t) async {
     await t.runAsync(() => bootApp(sample(strong: true)));

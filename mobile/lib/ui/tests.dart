@@ -1,11 +1,12 @@
 /// The two tests that move the realm (placement.js, breakthrough.js) and the gate after 飞升 (gate.js).
-/// Placement test: 50 questions that adapt to the answers. Tribulation (雷劫): the breakthrough as a series of strikes,
+/// Placement test: 60 timed questions that adapt to the answers (an exam: "don't know" and time out are wrong). Tribulation (雷劫): the breakthrough as a series of strikes,
 /// one per skill, with no feedback until the end; each strike opens with a bolt of lightning, a pass ends in gold.
 /// One test a week; leaving a test after 10 answers still uses it (leaveTest).
 library;
 
 import 'dart:async';
 import 'dart:math' as math;
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,8 +23,7 @@ import 'glass.dart';
 import 'icons.dart';
 import 'realm.dart';
 import 'shell.dart' show navKey;
-import 'run_view.dart' show OptBtn, DottedBox, qPrompt, qOptLabel;
-import 'soul.dart' show PerBars;
+import 'run_view.dart' show OptBtn, DottedBox, OrderPad, qPrompt, qOptLabel;
 import 'theme.dart';
 import 'widgets.dart';
 import 'word_ui.dart';
@@ -60,6 +60,27 @@ void _own() {
   _ptRes = null;
   _bt = null;
   _btRes = null;
+}
+
+/// screenshots: answer placement questions (right while [right] says so) until one that [want] picks is up, or
+/// (want null) to the end and show the result
+@visibleForTesting
+void ptJump(bool Function(Item it)? want, {bool Function(Item it)? right}) {
+  final lm = app.lm;
+  _own();
+  _pt ??= lm.ptStart();
+  while (_pt!.items.length < LM.ptN) {
+    _ptIt ??= lm.ptNext(_pt!);
+    if (_ptIt == null) break;
+    if (want != null && want(_ptIt!)) break;
+    lm.ptAnswer(_pt!, _ptIt!, (right?.call(_ptIt!) ?? true) ? 'ok' : 'ng');
+    _ptIt = null;
+  }
+  if (want == null) {
+    _ptRes = lm.ptResult(_pt!);
+    lm.placementDone(_ptRes!);
+  }
+  app.changed();
 }
 
 // ---------------------------------------------------------------- shared pieces
@@ -152,13 +173,16 @@ Widget lockedCard(BuildContext context) {
   ]);
 }
 
-/// a question card: the prompt, the options (or the typing box), "Don't know"
+/// a question card: the prompt, the options (or the typing box, or the pieces of a sentence), "Don't know".
+/// pm (placement): type the pinyin first, then pick the meaning; the typed result waits in [Item.extra].
 class _QCard extends StatefulWidget {
   final Item it;
   final int? pick; // -1 don't know
   final void Function(int i) onPick;
   final void Function(String typed)? onTyped;
-  const _QCard({super.key, required this.it, required this.pick, required this.onPick, this.onTyped});
+  final void Function(List<String> order)? onOrder;
+  final String aid;
+  const _QCard({super.key, required this.it, required this.pick, required this.onPick, this.onTyped, this.onOrder, this.aid = 'test'});
   @override
   State<_QCard> createState() => _QCardState();
 }
@@ -170,12 +194,12 @@ class _QCardState extends State<_QCard> {
   void initState() {
     super.initState();
     final it = widget.it;
-    if (it.q == 'l' && app.ttsOK) {
+    if ((it.q == 'l' || it.q == 'lm') && app.ttsOK) {
       Timer(const Duration(milliseconds: 250), () {
         if (mounted && widget.pick == null) speak(it.d.h);
       });
     }
-    if (it.q == 'p') {
+    if (it.q == 'p' || it.q == 'pm') {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         if (mounted) _focus.requestFocus();
       });
@@ -189,8 +213,18 @@ class _QCardState extends State<_QCard> {
     super.dispose();
   }
 
+  bool get _typing => widget.it.q == 'p' || (widget.it.q == 'pm' && widget.it.extra == null);
+
   void _submit() {
     if (_in.text.trim().isEmpty || widget.pick != null) return;
+    final it = widget.it;
+    if (it.q == 'pm') {
+      it.typedText = _in.text;
+      it.extra = app.lm.pyCheck(it.d, _in.text).ok;
+      _focus.unfocus();
+      setState(() {});
+      return;
+    }
     widget.onTyped?.call(_in.text);
   }
 
@@ -201,8 +235,31 @@ class _QCardState extends State<_QCard> {
     final t = app.t;
     final it = widget.it;
     final busy = widget.pick != null;
-    final c = <Widget>[qPrompt(context, it, aid: 'test')];
-    if (it.q == 'p') {
+    final pt = widget.aid == 'pt';
+    final c = <Widget>[];
+    if (it.q == 'pm') {
+      // the two steps as chips
+      Widget chip(String s, bool on) => Container(
+        margin: const EdgeInsets.symmetric(horizontal: 3),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+        decoration: BoxDecoration(color: on ? p.gold : p.sunk, borderRadius: BorderRadius.circular(99)),
+        child: Text(s, style: F.s(11.5, w: FontWeight.w800, c: on ? const Color(0xff1a1408) : p.soft)),
+      );
+      c.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [chip(it.extra == null ? t.ptStep1 : '${t.ptStep1} ✓', it.extra == null), chip(t.ptStep2, it.extra != null)],
+          ),
+        ),
+      );
+    }
+    c.add(qPrompt(context, it, aid: widget.aid));
+    if (it.q == 'wo') {
+      c.addAll([const SizedBox(height: 10), OrderPad(it, key: ValueKey(it), onDone: busy ? null : widget.onOrder)]);
+      if (pt) c.add(Padding(padding: const EdgeInsets.only(top: 8), child: Text(t.ptOrderNote, textAlign: TextAlign.center, style: F.s(12, c: p.soft))));
+    } else if (_typing) {
       c.addAll([
         const SizedBox(height: 12),
         Row(
@@ -231,7 +288,12 @@ class _QCardState extends State<_QCard> {
               ),
             ),
             const SizedBox(width: 8),
-            MainBtn(t.pyCheck, onTap: busy ? null : _submit, radius: 14, padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14)),
+            MainBtn(
+              it.q == 'pm' ? t.ptNext : t.pyCheck,
+              onTap: busy ? null : _submit,
+              radius: 14,
+              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 14),
+            ),
           ],
         ),
         Padding(padding: const EdgeInsets.fromLTRB(2, 6, 2, 0), child: Rich(t.pyHelp, style: F.s(13.5, c: p.soft, h: 1.45))),
@@ -241,34 +303,72 @@ class _QCardState extends State<_QCard> {
       c.add(const SizedBox(height: 14));
       for (var i = 0; i < n; i++) {
         if (i > 0) c.add(const SizedBox(height: 8));
-        c.add(OptBtn(n: i + 1, label: qOptLabel(context, it, i), selected: widget.pick == i, onTap: busy ? null : () => widget.onPick(i)));
+        c.add(OptBtn(n: i + 1, label: qOptLabel(context, it.q == 'pm' || it.q == 'lm' ? (Item.q(it.d, 'm')..words = it.words) : it, i), selected: widget.pick == i, onTap: busy ? null : () => widget.onPick(i)));
       }
+      if (it.q == 'pm') c.add(Padding(padding: const EdgeInsets.only(top: 8), child: Text(t.ptBoth, textAlign: TextAlign.center, style: F.s(12, c: p.soft))));
     }
-    c.add(const SizedBox(height: 10));
-    c.add(
-      Press(
-        onTap: busy ? null : () => widget.onPick(-1),
-        scale: .97,
-        label: t.idk,
-        child: Container(
-          decoration: BoxDecoration(
-            color: widget.pick == -1 ? th.acc.withValues(alpha: .14) : null,
-            borderRadius: BorderRadius.circular(14),
-          ),
-          child: DottedBox(
-            child: Padding(
-              padding: const EdgeInsets.all(11),
-              child: Text(t.idk, textAlign: TextAlign.center, style: F.s(14, w: FontWeight.w700, c: p.soft)),
+    {
+      c.add(const SizedBox(height: 10));
+      c.add(
+        Press(
+          onTap: busy ? null : () => widget.onPick(-1),
+          scale: .97,
+          label: t.idk,
+          child: Container(
+            decoration: BoxDecoration(
+              color: widget.pick == -1 ? th.acc.withValues(alpha: .14) : null,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            child: DottedBox(
+              child: Padding(
+                padding: const EdgeInsets.all(11),
+                child: Text(t.idk, textAlign: TextAlign.center, style: F.s(14, w: FontWeight.w700, c: p.soft)),
+              ),
             ),
           ),
         ),
-      ),
-    );
+      );
+      if (pt) c.add(Padding(padding: const EdgeInsets.only(top: 6), child: Text(t.ptIdkNote, textAlign: TextAlign.center, style: F.s(12, c: p.soft))));
+    }
     return Glass(
       solid: true,
       radius: 30,
       padding: const EdgeInsets.fromLTRB(18, 20, 18, 20),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: c),
+    );
+  }
+}
+
+/// a question's clock: a ring that empties, the seconds left in it; red for the last 5 seconds
+class _Clock extends StatelessWidget {
+  final int sec;
+  const _Clock(this.sec, {super.key});
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final p = th.p;
+    final still = MediaQuery.maybeDisableAnimationsOf(context) ?? false;
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: 1, end: 0),
+      duration: Duration(seconds: sec),
+      builder: (c, v, _) {
+        final left = (v * sec).ceil();
+        final col = left <= 5 ? p.bad : p.gold;
+        return Semantics(
+          label: app.t.ptSecLeft(left),
+          child: SizedBox(
+            width: 44,
+            height: 44,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox.expand(child: CircularProgressIndicator(value: still ? null : v, strokeWidth: 4, color: col, backgroundColor: p.sunk)),
+                Text('$left', style: F.s(14, w: FontWeight.w800, c: p.fg, feat: F.tab)),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -283,23 +383,35 @@ class PlacementScreen extends StatefulWidget {
 class _PlacementScreenState extends State<PlacementScreen> {
   int? pick;
   int t0 = 0;
+  Timer? _tm;
+  Item? _timed;
+
+  @override
+  void dispose() {
+    _tm?.cancel();
+    super.dispose();
+  }
 
   void _begin() {
     final o = app.lm.ptOpen();
-    if (o == 'first' || o == 'retake') _pt = app.lm.ptStart();
+    if (o == 'first' || o == 'retake') {
+      app.lm.ptTts = app.ttsOK;
+      _pt = app.lm.ptStart();
+    }
     setState(() {});
   }
 
-  void _pick(int i) {
-    final it = _ptIt;
-    if (it == null || pick != null) return;
+  /// the answer to the current question: right or not; "don't know" (idk) and out of time (to) are wrong
+  void _answer(Item it, bool ok, {String? r, String? x}) {
+    if (_ptIt != it || pick != null) return;
+    _tm?.cancel();
     final lm = app.lm;
-    final r = i < 0 ? 'idk' : (i == it.ans ? 'ok' : 'ng');
-    final x = r == 'ng' && it.q != 's' && it.words != null ? it.words![i].id : null;
-    lm.answer(it.d, Ans(it.q!, r == 'ok', ms: nowMs() - t0, x: x, placement: true));
-    lm.ptAnswer(_pt!, it, r);
+    final res = r ?? (ok ? 'ok' : 'ng');
+    lm.answer(it.d, Ans(LM.logQ(it.q!), res == 'ok', ms: nowMs() - t0, x: x, placement: true));
+    lm.ptAnswer(_pt!, it, res);
+    it.done = true;
     app.runner.studied();
-    setState(() => pick = i);
+    setState(() => pick = res == 'idk' ? -1 : 0);
     Timer(const Duration(milliseconds: 160), () {
       if (!mounted || _ptIt != it) return;
       _ptIt = null;
@@ -312,7 +424,29 @@ class _PlacementScreenState extends State<PlacementScreen> {
     });
   }
 
+  void _pick(int i) {
+    final it = _ptIt;
+    if (it == null || pick != null) return;
+    if (i < 0) return _answer(it, false, r: 'idk');
+    final ok = i == it.ans && (it.q != 'pm' || it.extra == true);
+    final x = !ok && it.q != 's' && it.q != 'pm' && it.words != null ? it.words![i].id : null;
+    _answer(it, ok, x: x);
+  }
+
+  void _typed(String v) {
+    final it = _ptIt;
+    if (it == null) return;
+    _answer(it, app.lm.pyCheck(it.d, v).ok);
+  }
+
+  void _order(List<String> o) {
+    final it = _ptIt;
+    if (it == null) return;
+    _answer(it, o.join() == (app.lm.ptPieces(it.d) ?? const []).join());
+  }
+
   void _finish() {
+    _tm?.cancel();
     final lm = app.lm;
     final r = _ptRes = lm.ptResult(_pt!);
     lm.placementDone(r);
@@ -325,6 +459,49 @@ class _PlacementScreenState extends State<PlacementScreen> {
     }
     app.toast(app.t.ptDone(app.rn[lm.realm()]));
     if (mounted) setState(() {});
+  }
+
+  /// each level: right answers of the questions it got, and whether it was passed
+  Widget _levels(BuildContext context, PtResult r) {
+    final th = Th.of(context);
+    final p = th.p;
+    final t = app.t;
+    final rows = <Widget>[];
+    for (var l = 1; l <= r.lvN.length; l++) {
+      final n = r.lvN[l - 1], ok = r.lvOk[l - 1];
+      if (n == 0) continue;
+      final pass = l <= r.m;
+      rows.add(
+        Padding(
+          padding: const EdgeInsets.only(bottom: 7),
+          child: Row(
+            children: [
+              SizedBox(width: 56, child: Text('HSK $l', style: F.s(13.5, w: FontWeight.w800, c: p.fg))),
+              Expanded(child: StackBar([(ok / n, pass ? p.good : p.bad)], height: 7)),
+              SizedBox(width: 54, child: Text('$ok/$n', textAlign: TextAlign.right, style: F.s(13, c: p.soft, feat: F.tab))),
+              SizedBox(width: 22, child: Text(pass ? '✓' : '×', textAlign: TextAlign.right, style: F.s(13, w: FontWeight.w800, c: pass ? p.good : p.bad))),
+            ],
+          ),
+        ),
+      );
+    }
+    final next = r.m + 1;
+    String? why;
+    if (next <= r.lvN.length && r.lvN[next - 1] > 0) {
+      final n = r.lvN[next - 1], ok = r.lvOk[next - 1];
+      why = t.ptLvWhy(next, (ok * 100 / n).round(), next >= 5 ? 80 : 75);
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 8, bottom: 8),
+          child: Text(t.ptLvT.toUpperCase(), style: F.s(11.5, w: FontWeight.w800, c: p.soft, ls: .6)),
+        ),
+        ...rows,
+        if (why != null) _note(context, why, align: TextAlign.start),
+      ],
+    );
   }
 
   @override
@@ -341,17 +518,10 @@ class _PlacementScreenState extends State<PlacementScreen> {
           Text(t.ptResT, style: F.s(14, w: FontWeight.w800, c: p.soft)),
           const SizedBox(height: 6),
           RealmHead(rr, big: true),
-          _note(context, r.m > 0 ? t.ptResM(r.m) : t.ptRes0),
-          if (rr >= 1 && rr <= 6) StageBox(rr),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 8, bottom: 6),
-              child: Text(t.ptPer.toUpperCase(), style: F.s(11.5, w: FontWeight.w800, c: p.soft, ls: .6)),
-            ),
-          ),
-          PerBars(r.per),
           _note(context, t.ptResN(r.right, r.n, r.idk)),
+          _note(context, r.m > 0 ? t.ptResM(r.m) : t.ptRes0),
+          if (r.lvN.isNotEmpty) _levels(context, r),
+          if (rr >= 1 && rr <= 6) StageBox(rr),
           const SizedBox(height: 10),
           Row(
             children: [
@@ -375,7 +545,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
           ),
           const SizedBox(height: 10),
           _SoulBtn(),
-        ]),
+        ], cross: CrossAxisAlignment.stretch),
       ];
     } else if (_pt == null) {
       final o = lm.ptOpen();
@@ -398,6 +568,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
             _h3(context, t.ptIntroT),
             _note(context, t.ptIntro),
             _note(context, t.ptIntro2),
+            if (!app.ttsOK) _note(context, t.ptNoTts),
             _note(context, o == 'retake' ? t.ptRetakeNote(app.dateS(app.tDate(lm.ptRetakeUntil()))) : t.ptOnce),
             const SizedBox(height: 14),
             MainBtn(t.ptBegin, wide: true, onTap: _begin),
@@ -413,10 +584,30 @@ class _PlacementScreenState extends State<PlacementScreen> {
           return const SizedBox();
         }
       }
+      final it = _ptIt!;
+      if (!identical(_timed, it)) {
+        _timed = it;
+        _tm?.cancel();
+        _tm = Timer(Duration(seconds: it.limit ?? 20), () {
+          if (mounted && _ptIt == it && pick == null) _answer(it, false, r: 'to');
+        });
+      }
       final n = _pt!.items.length;
+      final th = Th.of(context);
       body = [
-        _head(context, n + 1, LM.ptN),
-        _QCard(key: ValueKey(_ptIt), it: _ptIt!, pick: pick, onPick: _pick),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10),
+          child: Row(
+            children: [
+              Text(t.qN(n + 1, LM.ptN), style: F.s(12.5, c: th.p.soft, feat: F.tab)),
+              const SizedBox(width: 12),
+              Expanded(child: StackBar([((n) / LM.ptN).clamp(0.0, 1.0)].map((x) => (x, th.acc)).toList(), height: 5)),
+              const SizedBox(width: 12),
+              _Clock(it.limit ?? 20, key: ValueKey(it)),
+            ],
+          ),
+        ),
+        _QCard(key: ValueKey(it), it: it, pick: pick, onPick: _pick, onTyped: _typed, onOrder: _order, aid: 'pt'),
       ];
     }
     return _Page(title: t.ptT, children: body);

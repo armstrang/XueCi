@@ -1034,7 +1034,7 @@ class _QViewState extends State<_QView> {
     card.add(qPrompt(context, it, aid: aid));
     if (q == 'wo') {
       card.add(const SizedBox(height: 14));
-      card.add(_Order(it));
+      card.add(OrderPad(it));
     } else if (q == 'p') {
       card.add(const SizedBox(height: 14));
       if (it.done) {
@@ -1341,6 +1341,11 @@ Widget qPrompt(BuildContext context, Item it, {String aid = 'practice'}) {
 
   Widget m1() => Text(app.m1(d), textAlign: TextAlign.center, style: F.s(22, w: FontWeight.w800, c: p.fg));
   final c = <Widget>[];
+  // placement: read the hanzi (type its pinyin; then, for pm, pick its meaning)
+  if (aid == 'pt' && (q == 'p' || q == 'pm')) {
+    c.addAll([lead(t.ptRead), Center(child: Hz(d, size: big, weight: FontWeight.w900, family: F.hz))]);
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: c);
+  }
   switch (q) {
     case 'p':
       c.addAll([lead(t.qPy), m1(), rest()]);
@@ -1378,6 +1383,8 @@ Widget qPrompt(BuildContext context, Item it, {String aid = 'practice'}) {
       ]);
     case 'l':
       c.addAll([lead(t.qListen), Center(child: aid == 'mock' ? _Play(it, d.h) : Spk(d.h, size: 76))]);
+    case 'lm':
+      c.addAll([lead(t.ptListenM), Center(child: Spk(d.h, size: 76))]);
     default:
       final help = clozeAid(d, aid);
       c.addAll([
@@ -1460,14 +1467,16 @@ class _PlayState extends State<_Play> {
 }
 
 /// sentence building: tap the pieces in order; a placed piece goes back on a tap
-class _Order extends StatefulWidget {
+/// sentence building: tap the pieces in order; [onDone] gets the order (the runner judges it when there is none)
+class OrderPad extends StatefulWidget {
   final Item it;
-  const _Order(this.it);
+  final void Function(List<String> order)? onDone;
+  const OrderPad(this.it, {super.key, this.onDone});
   @override
-  State<_Order> createState() => _OrderState();
+  State<OrderPad> createState() => _OrderState();
 }
 
-class _OrderState extends State<_Order> {
+class _OrderState extends State<OrderPad> {
   final List<int> _pick = [];
 
   @override
@@ -1534,7 +1543,7 @@ class _OrderState extends State<_Order> {
                 t.orderDone,
                 wide: true,
                 radius: 16,
-                onTap: done && !it.done ? () => app.runner.qOrder(it, [for (final k in _pick) parts[k]]) : null,
+                onTap: done && !it.done ? () => (widget.onDone ?? (o) => app.runner.qOrder(it, o))([for (final k in _pick) parts[k]]) : null,
               ),
             ),
           ],

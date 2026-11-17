@@ -163,13 +163,15 @@ class PtState {
   final List<Item> items = [];
   final Set<String> used = {};
   final Set<String> chars = {};
+  final Set<String> sent = {}; // sentences already shown
 }
 
 class PtResult {
   final int m, lv, right, idk, n;
   final double mean, sd;
   final List<int> per;
-  PtResult(this.m, this.lv, this.mean, this.sd, this.per, this.right, this.idk, this.n);
+  final List<int> lvN, lvOk; // questions and right answers per level
+  PtResult(this.m, this.lv, this.mean, this.sd, this.per, this.right, this.idk, this.n, {this.lvN = const [], this.lvOk = const []});
   Json toJson() => {'m': m, 'lv': lv, 'mean': mean, 'sd': sd, 'per': per, 'right': right, 'idk': idk, 'n': n};
 }
 
@@ -730,7 +732,7 @@ class LM {
   }
 
   /// four options: the word plus three others (never the same meaning, never the same sound in listening)
-  List<Word> wordOpts(Word d, String type, double? hard) {
+  List<Word> wordOpts(Word d, String type, double? hard, [int nOpts = 4]) {
     final used = <String>{type == 'm' ? m1(d).toLowerCase() : d.h};
     final fp = fullPy(d);
     final picks = <Word>[];
@@ -769,7 +771,7 @@ class LM {
     jsSort(sc, (a, b) => a.$1 - b.$1);
     final rndL = sc.map((p) => p.$2).toList();
     var si = 0, ri = 0;
-    while (picks.length < 3 && (si < sim.length || ri < rndL.length)) {
+    while (picks.length < nOpts - 1 && (si < sim.length || ri < rndL.length)) {
       Word? x;
       if (R() < h) {
         while (si < sim.length && x == null) {
@@ -881,11 +883,21 @@ class LM {
   }
 
   /// material for one question: ans is the index of the right option; a typed question has no options
-  QMat question(Word d, String q, [double? hard]) {
+  QMat question(Word d, String q, [double? hard, int n = 4]) {
     if (q == 's' || q == 'cs') return toneOpts(d);
     if (q == 'p') return const QMat(typed: true);
     if (q == 't') return transOpts(d, hard);
-    final opts = wordOpts(d, q == 'cm' ? 'm' : q, hard);
+    // typed pinyin, then the meaning (placement): both must be right
+    if (q == 'pm') {
+      final opts = wordOpts(d, 'm', hard, n);
+      return QMat(words: opts, ans: opts.indexOf(d), typed: true);
+    }
+    // hear the word, pick its meaning (placement)
+    if (q == 'lm') {
+      final opts = wordOpts(d, 'm', hard, n);
+      return QMat(words: opts, ans: opts.indexOf(d));
+    }
+    final opts = wordOpts(d, q == 'cm' ? 'm' : q, hard, n);
     return QMat(words: opts, ans: opts.indexOf(d));
   }
 
@@ -1181,7 +1193,7 @@ class LM {
   }
 
   /// the answer as the log keeps it: listening kinds count as listening, writing kinds as form
-  static String logQ(String q) => const {'ls': 'l', 'lt': 'l', 'lj': 'l', 'wh': 'f', 'wo': 'c', 'u': 's'}[q] ?? q;
+  static String logQ(String q) => const {'ls': 'l', 'lt': 'l', 'lj': 'l', 'wh': 'f', 'wo': 'c', 'u': 's', 'pm': 'p', 'lm': 'l'}[q] ?? q;
 
   Set<String>? _syl;
 
@@ -1207,15 +1219,24 @@ class LM {
   static const _after = {'的', '了', '着', '过', '吗', '呢', '吧', '啊', '们', '得', '地'};
   static const _before = {'这', '那', '一', '两', '几', '每', '很', '最', '不', '没', '也', '都', '还', '就', '太', '真', '更', '在', '把', '被', '给', '跟', '和', '对', '从'};
 
+  static const _num = '零一二三四五六七八九十百千万两几半第';
+  static const _place = {'边', '面', '里', '上', '下', '前', '后', '外', '内', '中'};
+  Set<String>? _one, _known;
+
   /// the example sentence cut into words by its pinyin, then into a few pieces for sentence building (null when
-  /// the sentence has a comma inside, doesn't line up with its pinyin, or gives fewer than three pieces)
-  List<String>? pieces(Word d, int max) {
+  /// the sentence doesn't line up with its pinyin, has a question or exclamation mark inside, has a comma inside and
+  /// [commas] is off, or gives fewer than three pieces). Numbers stay with their measure word, a name the pinyin
+  /// spells syllable by syllable stays whole, a comma stays with the piece before it, and little words lean on the
+  /// word they belong to.
+  List<String>? pieces(Word d, int max, {bool commas = false}) {
     final zp = d.zp;
     var z = d.z.trim();
     if (zp == null || zp.isEmpty || !clozeOK(d)) return null;
     final end = RegExp(r'[。！？!?.]+$').firstMatch(z);
     if (end != null) z = z.substring(0, end.start);
-    if (z.isEmpty || RegExp(r'[，、：；“”‘’（）,;:"\s0-9a-zA-Z]').hasMatch(z)) return null;
+    if (z.isEmpty || RegExp(r'[、：；“”‘’（）;:"\s0-9a-zA-Z。！？!?]').hasMatch(z)) return null;
+    final nComma = '，'.allMatches(z).length + ','.allMatches(z).length;
+    if (nComma > 0 && (!commas || nComma > 2)) return null;
     final cs = chars(z);
     final words = <String>[];
     var i = 0;
@@ -1229,24 +1250,109 @@ class LM {
         b.write(cs[i++]);
       }
       if (k != n) return null;
+      while (i < cs.length && (cs[i] == '，' || cs[i] == ',')) {
+        b.write('，');
+        i++;
+      }
       words.add(b.toString());
     }
     if (i != cs.length || words.length < 3) return null;
-    // little words lean on a neighbour, then the shortest neighbours join until there are few enough pieces
+    final one = _one ??= {for (final x in data) if (charLen(x.h) == 1) x.h, ..._after, ..._before, ..._num.split('')};
+    bool comma(String w) => w.endsWith('，');
+    String bare(String w) => w.replaceAll('，', '');
+    // a name spelt syllable by syllable (雅 加 达): from the first to the last character that is no word of its own,
+    // within a run of single characters, everything joins; a lone one takes a single neighbour that isn't a little word
+    bool single(String w) => charLen(bare(w)) == 1;
+    bool lone(String w) => single(w) && !one.contains(bare(w));
+    bool little(String w) => _after.contains(bare(w)) || _before.contains(bare(w));
+    final ws = <String>[];
+    var j = 0;
+    while (j < words.length) {
+      if (!lone(words[j])) {
+        ws.add(words[j++]);
+        continue;
+      }
+      var e = j;
+      for (var k = j + 1; k < words.length && single(words[k]) && !comma(words[k - 1]); k++) {
+        if (lone(words[k])) e = k;
+      }
+      var st = j;
+      if (e == j) {
+        if (j + 1 < words.length && single(words[j + 1]) && !little(words[j + 1]) && !comma(words[j])) {
+          e = j + 1;
+        } else if (ws.isNotEmpty && single(ws.last) && !little(ws.last) && !comma(ws.last)) {
+          st = j;
+          ws[ws.length - 1] += words.sublist(j, e + 1).join();
+          j = e + 1;
+          continue;
+        }
+      }
+      ws.add(words.sublist(st, e + 1).join());
+      j = e + 1;
+    }
+    if (ws.any(lone)) return null;
+    // single characters the pinyin split but the word list knows as one word (钱 包 → 钱包), and 上/下 + 个/周/月
+    final known = _known ??= {for (final x in data) x.h};
+    for (var q = 0; q < ws.length - 1; q++) {
+      if (comma(ws[q])) continue;
+      for (var e = math.min(ws.length - 1, q + 2); e > q; e--) {
+        final run = ws.sublist(q, e + 1);
+        if (run.sublist(0, run.length - 1).any(comma) || !run.every((w) => single(w))) continue;
+        final joined = run.map(bare).join();
+        final time = const {'上', '下', '这', '那'}.contains(bare(run[0])) &&
+            (run.length == 2 && const {'周', '月', '次', '午'}.contains(bare(run[1])) || run.length == 3 && bare(run[1]) == '个' && const {'月', '星期'}.contains(bare(run[2])));
+        if (known.contains(joined) || time) {
+          ws.replaceRange(q, e + 1, [run.join()]);
+          break;
+        }
+      }
+    }
+    // numbers: the digits together, then with the measure word after them
+    final nw = <String>[];
+    for (final w in ws) {
+      final isNum = bare(w).split('').every((c) => _num.contains(c));
+      if (nw.isNotEmpty && !comma(nw.last) && bare(nw.last).split('').every((c) => _num.contains(c))) {
+        nw[nw.length - 1] += w;
+      } else {
+        nw.add(w);
+      }
+      if (isNum && nw.length > 1 && comma(nw[nw.length - 2]) == false && const {'这', '那', '每', '第'}.contains(nw[nw.length - 2])) {
+        final last = nw.removeLast();
+        nw[nw.length - 1] += last;
+      }
+    }
+    // little words lean on a neighbour
     final out = <String>[];
     var glue = false;
-    for (final w in words) {
-      if (out.isNotEmpty && (glue || _after.contains(w))) {
+    for (var q = 0; q < nw.length; q++) {
+      final w = nw[q];
+      // a place word (边 上 里 …) after a noun belongs to it: 从东边, 在科学上
+      final place = _place.contains(bare(w)) && out.isNotEmpty && (q + 1 == nw.length || !single(nw[q + 1]));
+      if (out.isNotEmpty && !comma(out.last) && (glue || _after.contains(bare(w)) || place)) {
         out[out.length - 1] += w;
       } else {
         out.add(w);
       }
-      glue = _before.contains(w) && w != d.h;
+      final bw = bare(w);
+      glue = !comma(w) && _before.contains(bw) && bw != d.h;
     }
+    // too many pieces: a one-character piece joins the word it belongs to first, then the shortest pair, never
+    // across a comma while another choice is left
+    // a one-character piece goes to the right (a verb takes its object: 有 三十个人, 到 那里), unless it is a little
+    // word that leans left
+    int cost(int k) {
+      final a = out[k], b = out[k + 1];
+      var c = charLen(a) + charLen(b) + (comma(a) ? 100 : 0);
+      if (charLen(a) == 1 && !comma(a)) c -= 4;
+      if (charLen(b) == 1 && _after.contains(b)) c -= 4;
+      if (charLen(b) == 1 && !_after.contains(b) && k + 2 < out.length) c += 3;
+      return c;
+    }
+
     while (out.length > max) {
       var j = 0;
       for (var k = 1; k < out.length - 1; k++) {
-        if (out[k].length + out[k + 1].length < out[j].length + out[j + 1].length) j = k;
+        if (cost(k) < cost(j)) j = k;
       }
       out[j] += out.removeAt(j + 1);
     }
@@ -1298,7 +1404,7 @@ class LM {
         final s = shuf(o);
         return QMat(words: s, ans: s.indexOf(d));
       case 'wo':
-        final p = pieces(d, piecesMax(d.l))!;
+        final p = pieces(d, piecesMax(d.l), commas: d.l >= 4)!;
         var s = shuf(p);
         for (var k = 0; k < 4 && s.join() == p.join(); k++) {
           s = shuf(p);
@@ -1336,7 +1442,7 @@ class LM {
       'lt': clozeOK,
       'lj': (d) => clozeOK(d) && charLen(d.z) <= 24,
       'wh': (d) => clozeOK(d) && charLen(d.h) <= 2 && soundAlikes(d).isNotEmpty,
-      'wo': (d) => pieces(d, piecesMax(d.l)) != null,
+      'wo': (d) => pieces(d, piecesMax(d.l), commas: d.l >= 4) != null,
     };
     final parts = <({String k, int n, int sec})>[];
     final items = <Item>[];
@@ -1501,12 +1607,30 @@ class LM {
     }
   }
 
-  static const ptN = 50, ptK = 2.4, ptG = 0.25, ptSlip = 0.04, ptIdk = 0.6;
-  static const ptDQ = {'m': -0.3, 'f': 0.0, 's': 0.1, 'c': 0.2};
-  static const ptTypes = {1: 'mfs', 2: 'mfs', 3: 'mfsc', 4: 'mfsc', 5: 'fsc', 6: 'fsc'};
+  // ---------------------------------------------------------------- the placement test (v1.6, Josh: an exam)
+  // 60 questions, each with a clock; "don't know" and running out of time are simply wrong; no level is shown.
+  // Guessing is expected, so the chance of a lucky guess comes from the question itself (1 in the number of
+  // options; next to none for typing and for putting a sentence in order), and the levels from HSK 4 up ask for
+  // typing, listening and building sentences that a guess can't pass.
+  static const ptN = 60, ptK = 2.4, ptSlip = 0.04;
+  static const ptDQ = {'m': -0.3, 'f': 0.0, 's': 0.1, 'c': 0.2, 'lm': 0.1, 'p': 0.3, 'pm': 0.5, 'wo': 0.3};
+  /// question kinds per level and how often each comes (a weight); listening needs the phone's voice
+  static const ptMix = {
+    1: {'m': 1, 'f': 1, 's': 1},
+    2: {'m': 1, 'f': 1, 's': 1},
+    3: {'m': 1, 'f': 1, 's': 1, 'c': 1, 'wo': 1},
+    4: {'p': 2, 'lm': 1, 'c': 1, 'wo': 1},
+    5: {'pm': 2, 'lm': 1, 'c': 1, 'wo': 1},
+    6: {'pm': 2, 'lm': 1, 'c': 1, 'wo': 1},
+  };
+  /// seconds per question kind
+  static int ptSec(String q) => const {'p': 30, 'pm': 35, 'wo': 45, 'lm': 25}[q] ?? 20;
+  static int ptOpts(int l) => l >= 4 ? 6 : 4;
+  static int ptMinPieces(int l) => l >= 5 ? 5 : 4;
   static final List<double> grid = List.generate(71, (i) => i / 10);
   static const plv = [1, 2, 3, 4, 5, 6];
   Map<int, List<Word>>? _pb;
+  bool ptTts = true; // the screen says whether the phone can speak; without it listening becomes typing
 
   Map<int, List<Word>> placementBank() {
     if (_pb != null) return _pb!;
@@ -1524,28 +1648,59 @@ class LM {
     return _pb = pb;
   }
 
+  static const _ptTimeWords = ['今天', '明天', '昨天', '现在', '以前', '以后', '最近', '每天', '早上', '晚上', '刚才', '周末', '去年',
+    '明年', '今年', '上午', '下午', '后来', '将来', '当时', '平时', '中午', '这时', '那时', '马上', '已经', '突然', '终于', '其实', '当然',
+    '也许', '可能', '下周', '上周', '下个月', '上个月', '这次', '那天', '每周'];
+  static const _ptPreps = ['在', '跟', '给', '对', '从', '向', '往', '为', '和', '把', '被', '比', '离', '按照', '关于', '通过', '除了'];
+
+  /// a sentence fit for building in the placement test: enough pieces, and only one right order (no time word that
+  /// could also stand before or after the subject, no two phrases that could swap places)
+  List<String>? ptPieces(Word d) {
+    final l = d.l;
+    final p = pieces(d, piecesMax(l), commas: l >= 4);
+    if (p == null || p.length < ptMinPieces(l)) return null;
+    bool timeAt(int i) => i < p.length && _ptTimeWords.any((w) => p[i].startsWith(w));
+    if (timeAt(0) || timeAt(1)) return null;
+    if (p.where((x) => _ptPreps.any((w) => x.startsWith(w))).length >= 2) return null;
+    return p;
+  }
+
+  /// how likely a guess is right for this question
+  static double ptGuess(Item it) {
+    if (it.q == 'p' || it.q == 'pm') return 0.02;
+    if (it.q == 'wo') return 0.02;
+    // a clever guess: some wrong options can be ruled out (half of three, a third of five)
+    final n = it.words?.length ?? it.tones?.length ?? 4;
+    return math.min(0.5, 1.5 / math.max(2, n));
+  }
+
+  /// questions a level needs before it can be passed
+  static int ptNeed(int l) => l >= 5 ? 10 : (l == 4 ? 6 : 5);
+
+  /// a level still short of questions: below its need, or (near the estimate) in the grey zone, 55–90 % right,
+  /// and below the most it may get, so a lucky streak doesn't decide it
+  static bool ptShort(PtState st, int l, double mean) {
+    final its = st.items.where((x) => x.l == l).toList();
+    if (its.length < ptNeed(l)) return true;
+    if (l < mean.floor()) return false;
+    final r = its.where((x) => x.r == 'ok').length / its.length;
+    return r > 0.55 && r < 0.9 && its.length < (l >= 5 ? 16 : 12);
+  }
+
   static double pKnow(double th, double b) => 1 / (1 + math.exp(-ptK * (th - b)));
   /// how hard a placement question is; a sentence gap up to HSK 4 shows its translation, so it counts as easier
   double itemB(int l, String q, Word? d) =>
-      l - 0.5 + (q == 'c' && l <= 4 ? 0.0 : ptDQ[q]!) + (l >= 5 ? 0.15 : 0) + (d != null ? wdiff(d) * 0.8 : 0);
+      l - 0.5 + (q == 'c' && l <= 3 ? 0.0 : (ptDQ[q] ?? 0)) + (l >= 5 ? 0.15 : 0) + (d != null ? wdiff(d) * 0.8 : 0);
 
-  static double likelihood(String r, double pk, double idk) {
-    final nk = 1 - pk;
-    return r == 'ok'
-        ? pk * (1 - ptSlip) + nk * (1 - idk) * ptG
-        : r == 'idk'
-        ? pk * 0.01 + nk * idk
-        : pk * (ptSlip - 0.01) + nk * (1 - idk) * (1 - ptG);
-  }
+  /// right: knew it (and didn't slip) or guessed it; anything else (wrong, don't know, out of time) is wrong
+  static double likelihood(bool ok, double pk, double g) => ok ? pk * (1 - ptSlip) + (1 - pk) * g : pk * ptSlip + (1 - pk) * (1 - g);
 
   List<double> posterior(PtState st) {
-    int n(String r) => st.items.where((x) => x.r == r).length;
-    final a = n('idk') * (1 - ptG);
-    final idk = cl((a + ptIdk * 2) / (a + n('ng') + 2), 0.03, 0.95);
     var post = [for (final t in grid) -t / 3.5];
     for (final it in st.items) {
       final b = itemB(it.l!, it.q!, it.d);
-      post = [for (var i = 0; i < post.length; i++) post[i] + math.log(likelihood(it.r!, pKnow(grid[i], b), idk))];
+      final g = ptGuess(it), ok = it.r == 'ok';
+      post = [for (var i = 0; i < post.length; i++) post[i] + math.log(likelihood(ok, pKnow(grid[i], b), g))];
     }
     final mx = maxOf(post);
     post = [for (final p in post) math.exp(p - mx)];
@@ -1570,7 +1725,8 @@ class LM {
     return PtState();
   }
 
-  /// the next question: three warm-ups (HSK 1, 2, 3), then aimed at the estimate, with a little spread
+  /// the next question: three warm-ups (HSK 1, 2, 3), then aimed at the estimate, with a little spread; near the
+  /// top it alternates HSK 5 and 6 so both get enough questions to be judged
   Item? ptNext(PtState st) {
     final n = st.items.length;
     if (n >= ptN) return null;
@@ -1581,20 +1737,60 @@ class LM {
       final c5 = st.items.where((x) => x.l == 5).length, c6 = st.items.where((x) => x.l == 6).length;
       l = c5 == c6 ? (s.mean >= 5.5 ? 6 : 5) : (c5 < c6 ? 5 : 6);
     }
-    final types = chars(ptTypes[l]!);
-    int cnt(String q) => st.items.where((x) => x.q == q).length;
-    jsSort(types, (a, b) => cnt(a) - cnt(b) + (R() - 0.5) * 0.5);
-    final q = types[0];
-    final pool = _pb![l]!.where((d) => !st.used.contains(d.id) && !(q == 'c' && !clozeOK(d))).toList();
+    // every level up to just above the estimate gets enough questions to be judged on, the lowest first
+    if (n >= 3) {
+      final top = cli(s.mean.floor() + 1, 1, 6);
+      final short = [for (var k = 1; k <= top; k++) if (ptShort(st, k, s.mean)) k];
+      if (short.isNotEmpty && R() < 0.7) l = short.first;
+    }
+    final mix = Map.of(ptMix[l]!);
+    if (!ptTts && mix.containsKey('lm')) {
+      final w = mix.remove('lm')!;
+      final k = l >= 5 ? 'pm' : 'p';
+      mix[k] = (mix[k] ?? 0) + w;
+    }
+    int cnt(String q) => st.items.where((x) => x.l == l && x.q == q).length;
+    final types = mix.keys.toList();
+    jsSort(types, (a, b) => cnt(a) / mix[a]! - cnt(b) / mix[b]! + (R() - 0.5) * 0.3);
+    for (final q in types) {
+      final it = _ptItem(st, l, q);
+      if (it != null) return it;
+    }
+    return _ptItem(st, l, 'm');
+  }
+
+  Item? _ptItem(PtState st, int l, String q) {
+    var pool = _pb![l]!.where((d) => !st.used.contains(d.id)).toList();
+    if (q == 'wo') {
+      // sentences: from the whole level (a word list's own example sentences), one right order only
+      pool = by(l).where((d) => !st.used.contains(d.id) && !st.sent.contains(d.z) && ptPieces(d) != null).toList();
+      pool = grammarFirst(pool, l);
+    } else if (q == 'c') {
+      pool = pool.where(clozeOK).toList();
+    }
+    if (pool.isEmpty) return null;
     final fresh = pool.where((d) => !chars(d.h).any(st.chars.contains)).toList();
-    final src = fresh.isNotEmpty ? fresh : pool;
-    final d = src[(R() * src.length).floor()];
+    final src = q != 'wo' && fresh.isNotEmpty ? fresh : pool;
+    final d = src[(R() * math.min(src.length, q == 'wo' ? math.max(8, src.length ~/ 3) : src.length)).floor()];
     st.used.add(d.id);
+    st.sent.add(d.z);
     st.chars.addAll(chars(d.h));
-    final it = Item.q(d, q, l: l);
-    it.apply(question(d, q, l >= 4 ? 0.85 : 0.5));
+    final it = Item.q(d, q, l: l, limit: ptSec(q));
+    if (q == 'wo') {
+      final pc = ptPieces(d)!;
+      var sh = shuf(pc);
+      for (var k = 0; k < 6 && sh.join() == pc.join(); k++) {
+        sh = shuf(pc);
+      }
+      it.apply(QMat(parts: sh));
+    } else {
+      it.apply(question(d, q, l >= 4 ? 0.85 : 0.5, ptOpts(l)));
+    }
     return it;
   }
+
+  /// sentences that show a grammar point of their level come first (filled in by the grammar book)
+  List<Word> Function(List<Word> pool, int l) grammarFirst = (pool, l) => pool;
 
   void ptAnswer(PtState st, Item it, String r) {
     it.r = r;
@@ -1611,12 +1807,12 @@ class LM {
       return a;
     }
 
+    final lvN = [for (final l in plv) st.items.where((x) => x.l == l).length];
+    final lvOk = [for (final l in plv) st.items.where((x) => x.l == l && x.r == 'ok').length];
     bool pass(int l) {
-      if (ge(l) < (l >= 5 ? 0.9 : 0.8)) return false;
-      if (l < 5) return true;
-      final it = st.items.where((x) => x.l == l).toList();
-      final ok = it.where((x) => x.r == 'ok').length;
-      return it.length >= 5 && ok / it.length >= 0.7;
+      final n = lvN[l - 1], ok = lvOk[l - 1];
+      if (n < ptNeed(l)) return false;
+      return ge(l) >= (l >= 5 ? 0.92 : 0.85) && ok / n >= (l >= 5 ? 0.8 : 0.75);
     }
 
     var m = 0;
@@ -1641,7 +1837,7 @@ class LM {
         ),
     ];
     final right = st.items.where((x) => x.r == 'ok').length, idk = st.items.where((x) => x.r == 'idk').length;
-    return PtResult(m, math.min(6, m + 1), s.mean, s.sd, per, right, idk, st.items.length);
+    return PtResult(m, math.min(6, m + 1), s.mean, s.sd, per, right, idk, st.items.length, lvN: lvN, lvOk: lvOk);
   }
 
   // ---------------------------------------------------------------- weekly test, stages

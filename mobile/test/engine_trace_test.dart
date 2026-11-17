@@ -76,7 +76,11 @@ Object qmatJ(QMat m) => m.typed
         'o': m.words != null ? m.words!.map((w) => w.id).toList() : m.tones!.map((t) => t.join(' ')).toList(),
         'ans': m.ans,
       };
-Object qmatI(Item it) => it.typed
+Object qmatI(Item it) => it.parts != null
+    ? {'parts': it.parts}
+    : it.typed && it.words != null
+    ? {'typed': 1, 'o': it.words!.map((w) => w.id).toList(), 'ans': it.ans}
+    : it.typed
     ? {'typed': 1}
     : {
         'o': it.words != null ? it.words!.map((w) => w.id).toList() : it.tones!.map((t) => t.join(' ')).toList(),
