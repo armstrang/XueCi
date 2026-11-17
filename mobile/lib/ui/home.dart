@@ -960,7 +960,7 @@ class PlanCard extends StatelessWidget {
                     sub(label: t.quickL, onTap: () => app.startSession(false, quick: true), child: Text('2′', style: F.s(15, w: FontWeight.w800, c: p.fg, feat: F.tab))),
                     const SizedBox(width: 6),
                   ],
-                  sub(label: cl, onTap: () => app.go('soul'), child: Text('试', style: F.s(16, w: FontWeight.w900, family: F.hz, c: cDone ? p.good : (p.dark ? p.fg : th.acc)))),
+                  sub(label: cl, onTap: () => app.go('soul'), child: FittedBox(fit: BoxFit.scaleDown, child: Padding(padding: const EdgeInsets.symmetric(horizontal: 4), child: Text(cDone ? '✓' : '$cc/${c['n']}', style: F.s(14, w: FontWeight.w800, c: cDone ? p.good : th.acc, feat: F.tab))))),
                 ])),
               ],
             )
