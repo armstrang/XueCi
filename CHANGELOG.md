@@ -15,7 +15,7 @@ Test builds before a release are published as pre-releases v1.0-alpha-N.
 - The microphone's "ding" is muted while you speak and the media volume comes back right after.
 - Mock exams are in one place, the Tests tab (HSK simulation and HSKK simulation, with your latest results).
   They are no longer a Quiz type or a card on the HSKK tab. Names are the same everywhere.
-- The Soul Sea button is now a small black hole seen from the front: a round dark core with a warm ring, in cosmic colours (a violet and blue nebula, magenta, violet, blue and cyan arms curving in, a warm ring, a few stars), turning once in about six seconds, with specks of light falling in along the arms and a ring that pulses (still with light effects).
+- The Soul Sea button is now a small black hole seen from the front, in cosmic colours: thick soft clouds of pink, lavender, violet and mint winding in towards a black core, thin streaks of light between them and a glowing ring that breathes. It turns once in about eight seconds and the clouds drift slowly inwards (still with light effects).
 - The HSKK mock result shows what you said once, with missed hanzi marked; the triangle chart is gone.
 - Home: "Today's Trial" has its name instead of 试, the goal line looks like a button, and the four stage bars
   of your realm now show your progress (they were never drawn).

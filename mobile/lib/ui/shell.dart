@@ -420,139 +420,142 @@ class SoulOrbButton extends StatelessWidget {
   }
 }
 
-/// A black hole seen from the front, in a dark round window: a black round core with a thin warm ring of light, and
-/// four arms of colour curving into it like a vortex pulling everything in. The arms turn slowly towards the core
-/// (one turn in about 10 seconds); nothing else moves.
+/// A black hole seen from the front, in a round window of deep space: a black core with a bright, glowing ring, and
+/// thick soft clouds (pink, lavender, violet, mint) winding in towards it with thin streaks of light between them,
+/// like a storm being pulled into the hole. Everything turns together (once in about 8 seconds) and the clouds drift
+/// slowly inwards; the ring glows and breathes. No lightning.
 class BlackHolePainter extends CustomPainter {
   final Color c, gold;
   final bool on, still;
   BlackHolePainter(this.c, this.gold, this.on, this.still) : super(repaint: still ? null : qiT);
 
-  static const _violet = Color(0xff9a6bff), _blue = Color(0xff3d7bff), _pink = Color(0xffff4fa3), _cyan = Color(0xff2fd9ff), _amber = Color(0xffff9a3c);
+  static const _pink = Color(0xffff5fa8), _lav = Color(0xffc49bff), _violet = Color(0xff7a46e6), _mint = Color(0xff4fe3b4);
+  static const _blue = Color(0xff4f86ff), _amber = Color(0xffff9a3c), _cream = Color(0xffffe9d0);
 
   @override
   void paint(Canvas canvas, Size s) {
     final R = s.width / 2;
     final o = Offset(R, R);
     final t = still ? .9 : qiT.value;
-    final turn = t * 2 * math.pi / 6;
+    final turn = t * 2 * math.pi / 8;
+    final core = R * .34;
+    final lit = on ? 1.0 : .82;
 
     canvas.save();
     canvas.clipPath(Path()..addOval(Rect.fromCircle(center: o, radius: R)));
-    // the window: deep space, with two slow clouds of nebula (violet-magenta and blue) turning with the arms
+    // the window: deep space, the realm's colour faint round the hole
     canvas.drawCircle(
       o,
       R,
-      Paint()..shader = const RadialGradient(colors: [Color(0x573a1a78), Color(0x4a14083a)]).createShader(Rect.fromCircle(center: o, radius: R)),
+      Paint()..shader = const RadialGradient(colors: [Color(0x66351670), Color(0x520c0626)]).createShader(Rect.fromCircle(center: o, radius: R)),
     );
-    for (var k = 0; k < 2; k++) {
-      final a = -turn * .5 + k * math.pi + .6;
-      final q = o + Offset(math.cos(a), math.sin(a)) * (R * .45);
-      final col = k == 0 ? _pink : _blue;
-      canvas.drawCircle(
-        q,
-        R * .8,
-        Paint()..shader = RadialGradient(colors: [col.withValues(alpha: on ? .26 : .18), col.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: q, radius: R * .8)),
-      );
-    }
-    // the realm's colour, faint, right round the hole
     canvas.drawCircle(
       o,
-      R * .7,
-      Paint()..shader = RadialGradient(colors: [c.withValues(alpha: on ? .2 : .13), c.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: o, radius: R * .7)),
+      R * .75,
+      Paint()..shader = RadialGradient(colors: [c.withValues(alpha: on ? .22 : .14), c.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: o, radius: R * .75)),
     );
-    // a few stars, drawn in towards the hole
-    final star = Paint()..color = Colors.white;
-    for (var i = 0; i < 16; i++) {
+    // stars
+    final star = Paint();
+    for (var i = 0; i < 14; i++) {
       final f = (i * .618034) % 1;
-      final a = i * 2.399963 - turn * .7;
-      final r = R * (.5 + .46 * f);
+      final a = i * 2.399963 - turn * .6;
       star.color = Colors.white.withValues(alpha: (.3 + .5 * ((i * 7) % 5) / 4) * (.55 + .45 * math.sin(t * 3.1 + i * 1.7)));
-      canvas.drawCircle(o + Offset(math.cos(a), math.sin(a)) * r, R * (.012 + .016 * ((i * 3) % 4) / 3), star);
+      canvas.drawCircle(o + Offset(math.cos(a), math.sin(a)) * (R * (.5 + .46 * f)), R * (.012 + .014 * ((i * 3) % 4) / 3), star);
     }
 
-    final core = R * .36;
-    final cols = [_pink, _violet, _blue, _cyan];
-    // one arm: a logarithmic spiral from the rim down to the core, a ribbon that is wide outside and thin inside.
-    // A pattern turning the same way as the spiral winds in, so the arms seem to flow into the hole.
-    Path arm(int k, double wMul, {bool half = false}) {
-      const n = 26;
-      final left = <Offset>[], right = <Offset>[];
-      for (var i = 0; i <= n; i++) {
-        final f = i / n; // 0 at the rim, 1 at the core
-        final r = R * 1.02 - (R * 1.02 - core * 1.04) * f;
-        final th = -turn + (k + (half ? .5 : 0)) * math.pi / 2 + 2.4 * math.log(R * 1.02 / r);
-        final hw = R * wMul * (.1 + .9 * (1 - f) * (1 - f) * .6 + .25 * (1 - f));
-        final d = Offset(math.cos(th), math.sin(th));
-        final nrm = Offset(-d.dy, d.dx);
-        final pt = o + d * r;
-        left.add(pt + nrm * hw);
-        right.add(pt - nrm * hw);
-      }
-      final path = Path()..moveTo(left.first.dx, left.first.dy);
-      for (final q in left.skip(1)) {
-        path.lineTo(q.dx, q.dy);
-      }
-      for (final q in right.reversed) {
-        path.lineTo(q.dx, q.dy);
-      }
-      return path..close();
+    // where a spiral arm is: [k] the arm, [r] the radius; clouds and streaks wind in the same way
+    double ang(int k, double r, [double off = 0]) => -turn + k * math.pi / 2 + 2.3 * math.log(R * 1.05 / r) + off;
+    Offset at(int k, double r, [double off = 0]) {
+      final a = ang(k, r, off);
+      return o + Offset(math.cos(a), math.sin(a)) * r;
     }
 
-    Paint armPaint(Color k, double a) => Paint()
-      ..isAntiAlias = true
-      ..shader = RadialGradient(
-        colors: [k.withValues(alpha: a), k.withValues(alpha: a * .85), k.withValues(alpha: 0)],
-        stops: const [.34, .6, 1],
-      ).createShader(Rect.fromCircle(center: o, radius: R * 1.02));
+    // thick clouds: soft round puffs along each arm, big outside and smaller inside, drifting slowly inwards
+    const arms = [
+      [_pink, _lav],
+      [_lav, _violet],
+      [_mint, _blue],
+      [_violet, _pink],
+    ];
+    final puff = Paint()..isAntiAlias = true;
+    const per = 14;
     for (var k = 0; k < 4; k++) {
-      canvas.drawPath(arm(k, .62, half: true), armPaint(k.isEven ? _amber : _pink, on ? .18 : .13)); // warm cloud between the arms
-    }
-    for (var k = 0; k < 4; k++) {
-      canvas.drawPath(arm(k, .5), armPaint(cols[k], on ? .46 : .38)); // the wide soft cloud
-    }
-    for (var k = 0; k < 4; k++) {
-      canvas.drawPath(arm(k, .22), armPaint(Color.lerp(cols[k], Colors.white, .35)!, 1)); // the bright thread
-    }
-
-    // light pulled in along the arms: each speck starts at the rim, follows its arm and falls faster the nearer it gets
-    final speck = Paint()..isAntiAlias = true;
-    for (var j = 0; j < 28; j++) {
-      final k = j % 4;
-      final f = (t * .22 + j / 28 + (j * .37) % .09) % 1;
-      final g = math.pow(f, 1.7).toDouble(); // 0 at the rim, 1 at the core, quicker inside
-      final r = R * 1.0 - (R * 1.0 - core * 1.12) * g;
-      final th = -turn + k * math.pi / 2 + 2.4 * math.log(R * 1.02 / r) + ((j * 5) % 7 - 3) * .035;
-      final fade = math.sin(math.pi * math.min(1.0, f * 1.15)); // in at the rim, out at the core
-      final pt = o + Offset(math.cos(th), math.sin(th)) * r;
-      final col = Color.lerp(cols[k], Colors.white, .55)!;
-      speck.color = col.withValues(alpha: (.35 + .6 * g) * fade);
-      canvas.drawCircle(pt, R * (.022 + .02 * (1 - g)) * (1 + .4 * ((j * 3) % 3) / 2), speck);
+      for (var i = 0; i < per; i++) {
+        final f0 = (i / per + t * .035 + k * .013) % 1; // 0 rim → 1 core
+        final r = R * 1.02 - (R * 1.02 - core * 1.18) * f0;
+        final wob = math.sin(i * 2.1 + k * 1.3 + t * .9);
+        final at1 = at(k, r, wob * .13);
+        final rad = R * (.12 + .34 * (1 - f0)) * (1 + .22 * wob);
+        final col = Color.lerp(arms[k][i.isEven ? 0 : 1], _cream, math.pow(f0, 2.2).toDouble() * .55)!;
+        final a = (math.sin(math.pi * f0) * .95 + .05) * (.62 + .12 * wob) * lit;
+        puff.shader = RadialGradient(colors: [col.withValues(alpha: a), col.withValues(alpha: a * .55), col.withValues(alpha: 0)], stops: const [0, .55, 1])
+            .createShader(Rect.fromCircle(center: at1, radius: rad));
+        canvas.drawCircle(at1, rad, puff);
+      }
     }
 
-    // the glow right round the core: it fades out softly, warm at the core
+    // thin streaks of light winding in between the clouds
+    Path streak(int k, double off) {
+      final path = Path();
+      for (var i = 0; i <= 22; i++) {
+        final r = R * 1.02 - (R * 1.02 - core * 1.1) * (i / 22);
+        final q = at(k, r, off);
+        i == 0 ? path.moveTo(q.dx, q.dy) : path.lineTo(q.dx, q.dy);
+      }
+      return path;
+    }
+
+    for (var k = 0; k < 4; k++) {
+      for (final off in [-.2, .22]) {
+        canvas.drawPath(
+          streak(k, off),
+          Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = R * .016
+            ..strokeCap = StrokeCap.round
+            ..shader = RadialGradient(colors: [Colors.white.withValues(alpha: .85 * lit), Color.lerp(arms[k][0], Colors.white, .5)!.withValues(alpha: .22 * lit), Colors.white.withValues(alpha: 0)], stops: const [.3, .62, 1])
+                .createShader(Rect.fromCircle(center: o, radius: R)),
+        );
+      }
+    }
+
+    // the ring of light round the hole: a wide soft glow, a hot band and a thin white edge; brightest on one side,
+    // which travels round
+    final ringR = core * 1.07;
+    final hot = turn * 1.3;
+    Shader ringSweep(double a) => SweepGradient(
+      transform: GradientRotation(-hot),
+      colors: [Colors.white.withValues(alpha: a), _amber.withValues(alpha: a * .95), _pink.withValues(alpha: a * .75), _violet.withValues(alpha: a * .5), _amber.withValues(alpha: a * .85), Colors.white.withValues(alpha: a)],
+      stops: const [0, .14, .4, .66, .88, 1],
+    ).createShader(Rect.fromCircle(center: o, radius: ringR));
+    final pulse = 1 + .14 * math.sin(t * 2.4);
     canvas.drawCircle(
       o,
-      core * 1.75,
-      Paint()
-        ..shader = RadialGradient(
-          colors: [const Color(0xffff9a3c).withValues(alpha: .55), _pink.withValues(alpha: .22), _pink.withValues(alpha: 0)],
-          stops: const [.57, .78, 1],
-        ).createShader(Rect.fromCircle(center: o, radius: core * 1.75)),
-    );
-    // the core, with a thin warm rim
-    canvas.drawCircle(o, core, Paint()..color = const Color(0xe60a0414));
-    canvas.drawCircle(
-      o,
-      core,
+      ringR,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = R * (.035 + .012 * math.sin(t * 2.4))
-        ..shader = SweepGradient(
-          transform: GradientRotation(-turn * 1.6),
-          colors: [Colors.white.withValues(alpha: .95), const Color(0xffff9a3c).withValues(alpha: .9), _pink.withValues(alpha: .6), Colors.white.withValues(alpha: .95)],
-          stops: const [0, .3, .65, 1],
-        ).createShader(Rect.fromCircle(center: o, radius: core)),
+        ..strokeWidth = R * .26 * pulse
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, R * .08)
+        ..shader = ringSweep(.8 * lit),
+    );
+    canvas.drawCircle(
+      o,
+      ringR,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = R * .1 * pulse
+        ..maskFilter = MaskFilter.blur(BlurStyle.normal, R * .025)
+        ..shader = ringSweep(1),
+    );
+    // the core, with a thin white edge
+    canvas.drawCircle(o, core, Paint()..color = const Color(0xf2060210));
+    canvas.drawCircle(
+      o,
+      core * 1.01,
+      Paint()
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = R * .03
+        ..shader = ringSweep(1),
     );
     canvas.restore();
 
