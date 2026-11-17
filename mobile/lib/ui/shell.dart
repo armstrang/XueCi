@@ -443,7 +443,7 @@ class BlackHolePainter extends CustomPainter {
     canvas.drawCircle(
       o,
       R,
-      Paint()..shader = const RadialGradient(colors: [Color(0xff2b1058), Color(0xff0b0620)]).createShader(Rect.fromCircle(center: o, radius: R)),
+      Paint()..shader = const RadialGradient(colors: [Color(0x573a1a78), Color(0x4a14083a)]).createShader(Rect.fromCircle(center: o, radius: R)),
     );
     for (var k = 0; k < 2; k++) {
       final a = -turn * .5 + k * math.pi + .6;
@@ -452,14 +452,14 @@ class BlackHolePainter extends CustomPainter {
       canvas.drawCircle(
         q,
         R * .8,
-        Paint()..shader = RadialGradient(colors: [col.withValues(alpha: on ? .38 : .28), col.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: q, radius: R * .8)),
+        Paint()..shader = RadialGradient(colors: [col.withValues(alpha: on ? .26 : .18), col.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: q, radius: R * .8)),
       );
     }
     // the realm's colour, faint, right round the hole
     canvas.drawCircle(
       o,
       R * .7,
-      Paint()..shader = RadialGradient(colors: [c.withValues(alpha: on ? .3 : .2), c.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: o, radius: R * .7)),
+      Paint()..shader = RadialGradient(colors: [c.withValues(alpha: on ? .2 : .13), c.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: o, radius: R * .7)),
     );
     // a few stars, drawn in towards the hole
     final star = Paint()..color = Colors.white;
@@ -506,10 +506,10 @@ class BlackHolePainter extends CustomPainter {
         stops: const [.34, .6, 1],
       ).createShader(Rect.fromCircle(center: o, radius: R * 1.02));
     for (var k = 0; k < 4; k++) {
-      canvas.drawPath(arm(k, .62, half: true), armPaint(k.isEven ? _amber : _pink, on ? .26 : .2)); // warm cloud between the arms
+      canvas.drawPath(arm(k, .62, half: true), armPaint(k.isEven ? _amber : _pink, on ? .18 : .13)); // warm cloud between the arms
     }
     for (var k = 0; k < 4; k++) {
-      canvas.drawPath(arm(k, .5), armPaint(cols[k], on ? .5 : .4)); // the wide soft cloud
+      canvas.drawPath(arm(k, .5), armPaint(cols[k], on ? .36 : .28)); // the wide soft cloud
     }
     for (var k = 0; k < 4; k++) {
       canvas.drawPath(arm(k, .22), armPaint(Color.lerp(cols[k], Colors.white, .3)!, 1)); // the bright thread
@@ -526,7 +526,7 @@ class BlackHolePainter extends CustomPainter {
         ).createShader(Rect.fromCircle(center: o, radius: core * 1.75)),
     );
     // the core, with a thin warm rim
-    canvas.drawCircle(o, core, Paint()..color = const Color(0xff020104));
+    canvas.drawCircle(o, core, Paint()..color = const Color(0xe60a0414));
     canvas.drawCircle(
       o,
       core,
