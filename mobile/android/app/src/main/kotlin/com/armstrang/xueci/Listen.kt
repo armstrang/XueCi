@@ -15,12 +15,14 @@ import org.json.JSONObject
 
 /**
  * Speaking practice inside the app: the phone's speech recognizer (SpeechRecognizer), no window of its own.
- * One tap starts, a second tap stops (or 15 s pass): the recognizer stops by itself at every pause, so between the
+ * One tap starts, a second tap stops (or the limit passes: 15 s for a word or a sentence, up to a few minutes for an
+ * HSKK answer or a text read aloud): the recognizer stops by itself at every pause, so between the
  * taps it is started again quietly and the pieces are joined. While it listens, the loudness and what was heard so
  * far go to Flutter as events ("listenEv": ready, rms, partial, err); the end answers the pending call with the heard
  * texts as a JSON list (best guess first), "[]" when nothing was heard, "!" when no recognizer works here (Flutter
  * then opens the phone's window), "denied" without the microphone permission. Nothing is recorded or kept: the
- * recognizer hands over text only.
+ * recognizer hands over text only. It is asked to work offline first (the phone's own Mandarin pack); a recognizer
+ * that can't (no pack) is asked again without that wish.
  */
 class Listen(private val act: MainActivity, private val event: (String) -> Unit) {
     private var rec: SpeechRecognizer? = null
@@ -37,6 +39,8 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
     private var stopping = false
     private var startedAt = 0L
     private var heardAny = false
+    private var limitMs = LIMIT_MS
+    private var offline = true // ask for the phone's own language pack first
 
     fun available(): Boolean = SpeechRecognizer.isRecognitionAvailable(act)
 
@@ -49,7 +53,7 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
         return list
     }
 
-    fun start(done: (String?) -> Unit) {
+    fun start(limit: Long = LIMIT_MS, done: (String?) -> Unit) {
         finish(null)
         if (!available()) {
             done("!")
@@ -62,8 +66,10 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
         heardAny = false
         serviceFound = false
         startedAt = SystemClock.uptimeMillis()
+        limitMs = limit.coerceIn(3000L, MAX_MS)
+        offline = true
         tries = services()
-        main.postDelayed(limit, LIMIT_MS)
+        main.postDelayed(this.limit, limitMs)
         nextService()
     }
 
@@ -134,6 +140,11 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
                     SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> finish("denied")
                     SpeechRecognizer.ERROR_NO_MATCH, SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> restart()
                     else -> when {
+                        // no offline pack (or the recognizer won't work offline): the same one again, online allowed
+                        offline && !heardAny && pieces.isEmpty() && error in OFFLINE_ERRORS -> {
+                            offline = false
+                            main.postDelayed({ listen() }, 120)
+                        }
                         // this recognizer can't do it here (no Mandarin, busy, offline): the next one
                         !serviceFound && !heardAny && pieces.isEmpty() -> main.post { nextService() }
                         else -> restart()
@@ -168,6 +179,7 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
             putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5)
             putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
             putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, act.packageName)
+            if (offline) putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, true)
             // ask for longer pauses before it stops by itself (some recognizers ignore this; we restart anyway)
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_COMPLETE_SILENCE_LENGTH_MILLIS, 3000L)
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_POSSIBLY_COMPLETE_SILENCE_LENGTH_MILLIS, 3000L)
@@ -183,7 +195,7 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
     /** a piece ended: listen on until the tap or the limit, otherwise answer */
     private fun restart() {
         if (done == null) return
-        if (stopping || SystemClock.uptimeMillis() - startedAt >= LIMIT_MS - 300) {
+        if (stopping || SystemClock.uptimeMillis() - startedAt >= limitMs - 300) {
             finish(answer())
             return
         }
@@ -226,5 +238,11 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
 
     companion object {
         const val LIMIT_MS = 15000L
+        const val MAX_MS = 300000L // five minutes at most, whatever is asked
+        // what a recognizer answers when it can't work offline here (language pack missing or not offered)
+        private val OFFLINE_ERRORS = setOf(
+            SpeechRecognizer.ERROR_NETWORK, SpeechRecognizer.ERROR_SERVER, SpeechRecognizer.ERROR_CLIENT,
+            12 /* ERROR_LANGUAGE_NOT_SUPPORTED */, 13 /* ERROR_LANGUAGE_UNAVAILABLE */,
+        )
     }
 }

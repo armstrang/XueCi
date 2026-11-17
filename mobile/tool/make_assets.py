@@ -100,6 +100,13 @@ def main():
     for lang, (m, t) in LANG_COLS.items():
         name = f's-{lang}.bin'
         write(os.path.join(OUT_DATA, name), seal({'lang': lang, 'rows': [[d[m], d[t]] for d in band]}, name, material))
+    # the speaking bank (HSKK practice and mock tests): make_speak.py
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    import make_speak
+    bank, problems = make_speak.build(words)
+    for p in problems:
+        print('speak:', p)
+    write(os.path.join(OUT_DATA, 'speak.json'), pack(bank))
     for f in sorted(os.listdir(OUT_DATA)):
         if f.endswith('.json'):
             with open(os.path.join(OUT_DATA, f), encoding='utf8') as fh:

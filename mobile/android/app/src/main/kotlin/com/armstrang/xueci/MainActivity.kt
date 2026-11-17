@@ -56,6 +56,8 @@ class MainActivity : FlutterActivity() {
     private val bgm: Bgm by lazy { Bgm(applicationContext) }
     private var listenResult: MethodChannel.Result? = null
     private var micResult: MethodChannel.Result? = null
+    private var listenLimit = Listen.LIMIT_MS
+    private val rec: Rec by lazy { Rec() }
     private val listener: Listen by lazy { Listen(this) { ev -> main.post { channel.invokeMethod("listenEv", ev) } } }
 
     /** Google Play Billing, connected the first time the donation sheet asks */
@@ -134,8 +136,9 @@ class MainActivity : FlutterActivity() {
                 "canListen" -> result.success(canListen() || listener.available())
                 "micGranted" -> result.success(micGranted())
                 "listenStart" -> {
+                    listenLimit = (call.arguments as? Number)?.toLong() ?: Listen.LIMIT_MS
                     if (micGranted()) {
-                        listener.start { main.post { result.success(it) } }
+                        listener.start(listenLimit) { main.post { result.success(it) } }
                     } else {
                         micResult?.success("denied")
                         micResult = result
@@ -143,6 +146,11 @@ class MainActivity : FlutterActivity() {
                     }
                 }
                 "listenStop" -> { listener.stop(); result.success(null) }
+                // the tone check records the voice itself (16 kHz mono PCM, kept in memory only, handed to Flutter once)
+                "recStart" -> {
+                    if (!micGranted()) result.success(false) else result.success(rec.start((call.arguments as? Number)?.toLong() ?: 8000L))
+                }
+                "recStop" -> rec.stop { pcm -> main.post { result.success(pcm) } }
                 "openAppSettings" -> {
                     try {
                         startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")))
@@ -334,7 +342,7 @@ class MainActivity : FlutterActivity() {
         if (requestCode == REQ_MIC) {
             val r = micResult ?: return
             micResult = null
-            if (micGranted()) listener.start { main.post { r.success(it) } } else r.success("denied")
+            if (micGranted()) listener.start(listenLimit) { main.post { r.success(it) } } else r.success("denied")
         }
     }
 
@@ -402,6 +410,7 @@ class MainActivity : FlutterActivity() {
         bgm.pause()
         tts?.stop()
         listener.end() // never listen in the background
+        rec.cancel()
         super.onPause()
     }
 

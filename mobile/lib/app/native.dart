@@ -98,8 +98,8 @@ class Native {
 
   /// listening inside the app (no window): the heard texts; [] nothing heard; ['!'] no recognizer; ['denied'] no
   /// microphone permission; null stopped or failed. Asks for the microphone the first time.
-  Future<List<String>?> listenIn() async {
-    final s = await _call<String>('listenStart');
+  Future<List<String>?> listenIn({int limitMs = 15000}) async {
+    final s = await _call<String>('listenStart', limitMs);
     if (s == null) return null;
     if (s == '!' || s == 'denied') return [s];
     try {
@@ -110,6 +110,10 @@ class Native {
   }
 
   Future<void> listenStop() => _call('listenStop');
+
+  /// the tone check records the voice itself: 16 kHz mono 16-bit PCM, in memory only (Rec.kt); false = no microphone
+  Future<bool> recStart(int limitMs) async => (await _call<bool>('recStart', limitMs)) ?? false;
+  Future<Uint8List?> recStop() => _call<Uint8List>('recStop');
   Future<bool> micGranted() async => (await _call<bool>('micGranted')) ?? false;
   Future<void> openAppSettings() => _call('openAppSettings');
 

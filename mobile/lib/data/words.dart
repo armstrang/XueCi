@@ -82,6 +82,7 @@ class Vocab {
   }
 
   void add(List<Word> words) {
+    _lv = null;
     for (final d in words) {
       data.add(d);
       idx[d.id] = d;
@@ -93,6 +94,21 @@ class Vocab {
       units[l] = by[l]!.map((d) => d.u).fold(0, math.max);
     }
     buildKeys();
+  }
+
+  Map<String, int>? _lv;
+
+  /// the lowest level a word (hanzi) is listed at; null when it isn't a word of the list
+  int? levelOf(String h) {
+    final m = _lv ??= () {
+      final o = <String, int>{};
+      for (final d in data) {
+        final l = o[d.h];
+        if (l == null || d.l < l) o[d.h] = d.l;
+      }
+      return o;
+    }();
+    return m[h];
   }
 
   String mOf(Word d) => d.m[lang] ?? d.m['id'] ?? '';

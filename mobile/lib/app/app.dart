@@ -461,10 +461,18 @@ class App extends ChangeNotifier {
 
   /// listens once inside the app and marks [target]; [onEvent] gets the loudness and what was heard so far.
   /// Falls back to the phone's recognizer window when the phone can't listen inside apps. null when stopped.
-  Future<SpeakResult?> hear(String target, {void Function(Map ev)? onEvent}) async {
+  Future<SpeakResult?> hear(String target, {void Function(Map ev)? onEvent, int limitMs = 15000}) async {
+    final h = await listenRaw(onEvent: onEvent, limitMs: limitMs);
+    if (h == null) return null;
+    return scoreSpeech(target, h, spk, sounds);
+  }
+
+  /// listens once inside the app: the recognizer's guesses (best first), [] when nothing was heard, null when
+  /// listening isn't possible (no permission, no recognizer: the learner was told)
+  Future<List<String>?> listenRaw({void Function(Map ev)? onEvent, int limitMs = 15000}) async {
     Native.I.listenEv = onEvent;
     Native.I.bgmHush(true); // the microphone must not hear the music
-    var h = await Native.I.listenIn();
+    var h = await Native.I.listenIn(limitMs: limitMs);
     Native.I.listenEv = null;
     if (h != null && h.length == 1 && h.first == 'denied') {
       micOK = false;
@@ -479,7 +487,7 @@ class App extends ChangeNotifier {
     if (h != null && h.length == 1 && h.first == '!') h = await Native.I.listen(t.spkPrompt);
     Native.I.bgmHush(false);
     // stopped or failed without words: say so ("nothing was heard") instead of going quiet
-    if (h == null) return scoreSpeech(target, const [], spk, sounds);
+    if (h == null) return const [];
     if (h.length == 1 && h.first == '!') {
       canListen = false;
       toast(t.spkNone, 5000);
@@ -490,7 +498,7 @@ class App extends ChangeNotifier {
       micOK = true;
       notifyListeners();
     }
-    return scoreSpeech(target, h, spk, sounds);
+    return h;
   }
 
   // ---------------------------------------------------------------- navigation
