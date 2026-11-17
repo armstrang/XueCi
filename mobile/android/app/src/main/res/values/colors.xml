@@ -3,4 +3,15 @@
     <color name="mm_brand">#C62F2F</color>
     <!-- launcher icon background: matches the logo artwork -->
     <color name="ic_bg">#FDFDFD</color>
+    <!-- v1.4 word widget: "Kertas" (paper) by day, "Malam" (night) in dark mode -->
+    <color name="ww_card">#FFFAF8F4</color>
+    <color name="ww_line">#17281A14</color>
+    <color name="ww_fg">#FF1C1A17</color>
+    <color name="ww_soft">#FF6B665F</color>
+    <color name="ww_han">#FF16130F</color>
+    <color name="ww_btn">#0F1E1914</color>
+    <color name="ww_btn_on">#FF1C1A17</color>
+    <color name="ww_btn_on_fg">#FFFAF8F4</color>
+    <color name="ww_seal">#FFB23A24</color>
+    <color name="ww_seal_fg">#FFFBF3E8</color>
 </resources>

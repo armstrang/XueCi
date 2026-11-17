@@ -357,6 +357,14 @@ class _SettingsState extends State<_Settings> {
             sub: app.goalChip(),
             onTap: () => from(() => app.openGoal?.call(ctx, false)),
           ),
+          if (Native.I.isAndroid)
+            SRow(
+              icon: Icon2(I.speaker, size: 22, color: Native.I.ttsNow == 'ready' ? th.acc : p.sYellow),
+              title: t.ttsRow,
+              sub: Native.I.ttsNow == 'ready' ? t.ttsOk : t.ttsNo,
+              chev: '↗',
+              onTap: Native.I.openTtsSettings,
+            ),
           if (app.canListen)
             Glass(
               solid: true,

@@ -22,6 +22,7 @@ class Native {
         } catch (_) {}
       }
       if (c.method == 'ttsDone') ttsDone?.call();
+      if (c.method == 'openWord' && c.arguments is String) openWord?.call(c.arguments as String);
       if (c.method == 'ttsReady') {
         if (c.arguments is String) _tts = c.arguments as String;
         ttsChanged?.call();
@@ -73,6 +74,8 @@ class Native {
   String _tts = 'missing';
   String get ttsState => _tts;
   set ttsTest(String v) => _tts = v; // tests and store pictures: pretend a voice is installed
+  /// the last status known, without asking (Settings shows it)
+  String get ttsNow => _tts;
   Future<String> ttsStatus() async => _tts = await _call<String>('ttsStatus') ?? (off ? _tts : 'unsupported');
   Future<void> speak(String text, {double rate = 0.9}) => _call('speak', {'text': text, 'rate': rate});
   Future<void> stopSpeaking() => _call('stopSpeaking');
@@ -142,6 +145,15 @@ class Native {
       (await _call<bool>('shareImage', {'png': png, 'text': text})) ?? false;
   Future<void> openUrl(String url) => _call('openUrl', url);
   Future<void> setWidget(Map<String, Object?> data) => _call('setWidget', json.encode(data));
+
+  /// the word widget's words (XueciWordWidget.kt keeps them in a file on the phone)
+  Future<void> setWords(String data) => _call('setWords', data);
+
+  /// a word the word widget asked to open (`level:hanzi`), once
+  Future<String?> takeWord() => _call<String>('takeWord');
+
+  /// called while the app runs when the word widget opens a word
+  void Function(String id)? openWord;
 
   // ---- 护法: donations through Google Play Billing (Donate.kt) ----
   /// the products with their prices in the phone's currency, plus donations finished earlier but not counted yet;

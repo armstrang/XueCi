@@ -1,3 +1,14 @@
 <resources>
     <color name="mm_bg">#23262C</color>
+    <!-- v1.4 word widget: "Kertas" (paper) by day, "Malam" (night) in dark mode -->
+    <color name="ww_card">#F2181520</color>
+    <color name="ww_line">#1AFFFFFF</color>
+    <color name="ww_fg">#FFF2EEE8</color>
+    <color name="ww_soft">#FFA9A3B4</color>
+    <color name="ww_han">#FFF6EFE3</color>
+    <color name="ww_btn">#14FFFFFF</color>
+    <color name="ww_btn_on">#FFE8C27A</color>
+    <color name="ww_btn_on_fg">#FF1A1424</color>
+    <color name="ww_seal">#FFC2452F</color>
+    <color name="ww_seal_fg">#FFFBEEDD</color>
 </resources>

@@ -4,6 +4,7 @@ library;
 import 'package:flutter/material.dart';
 
 import '../app/app.dart';
+import '../app/native.dart';
 import '../i18n/l10.dart' show jsTruthy;
 import 'dart:async';
 
@@ -20,6 +21,7 @@ import 'share.dart';
 import 'soul.dart';
 import 'stats.dart';
 import 'tests.dart';
+import 'word_ui.dart' show maybeAskTts;
 
 class StatsScreenHost extends StatelessWidget {
   const StatsScreenHost({super.key});
@@ -66,6 +68,11 @@ void wireSheets() {
   app.beforeShow.add(watchFrames);
   app.startHooks.add((context) {
     app.syncRest();
+    // v1.4 the word widget: a tap on its hanzi opens that word in the List (at start, or while the app runs)
+    Native.I.openWord = app.openWidgetWord;
+    Native.I.takeWord().then((w) {
+      if (w != null && w.isNotEmpty) app.openWidgetWord(w);
+    });
     // v1.4: List, Cards and Quiz left the tab bar for the HSK tab (said once, to learners who knew the old bar)
     if (app.note['nav14'] == null) {
       app.note['nav14'] = 1;
@@ -88,8 +95,10 @@ void wireSheets() {
         if (c != null) gateShow(c);
       });
     }
-    // first start: the short tour, which ends in the goal sheet
-    if (app.lm.goal == null && !jsTruthy(app.store.get('xc_onb', 0))) {
+    // first start: the short tour, which ends in the goal sheet (and then the voice question)
+    final firstStart = app.lm.goal == null && !jsTruthy(app.store.get('xc_onb', 0));
+    if (!firstStart) Timer(const Duration(milliseconds: 1600), maybeAskTts);
+    if (firstStart) {
       Timer(const Duration(milliseconds: 500), () {
         final c = navKey.currentContext;
         if (c != null && app.screen == 'home' && ModalRoute.of(c)?.isCurrent != false) openTour(c, true);

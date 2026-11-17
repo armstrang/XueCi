@@ -26,8 +26,10 @@ Future<void> speak(String text) async {
   final st = await Native.I.ttsStatus();
   if (st == 'missing' || st == 'unsupported') {
     final c = navKey.currentContext;
-    if (c != null && c.mounted && st == 'missing') {
-      openTtsGuide(c);
+    if (c != null && c.mounted && st == 'missing' && !ttsAskedRun) {
+      askTts(c);
+    } else if (st == 'missing') {
+      app.toast(app.t.ttsMissing);
     } else {
       app.toast(app.t.ttsMissing);
       Future.delayed(const Duration(milliseconds: 1200), Native.I.openTtsSettings);
@@ -813,6 +815,57 @@ void openSpeak(BuildContext context, Word d, {bool sentence = true}) {
         ),
       ],
     );
+  });
+}
+
+/// asked once per app start (Josh: "Later" asks again the next time the app opens, never twice in a row)
+bool ttsAskedRun = false;
+
+/// v1.4: the phone has no Mandarin voice. Ask, then go straight to the phone's voice settings
+/// (at the first start, after the goal sheet; and at the first speaker tap of each app start)
+Future<void> askTts(BuildContext context) {
+  ttsAskedRun = true;
+  return openSheet(context, name: 'ttsask', (c) {
+    final th = Th.of(c);
+    final p = th.p;
+    final t = app.t;
+    return SheetBody(
+      title: t.ttsAskT,
+      children: [
+        Text(t.ttsAskD, style: F.s(15, c: p.fg, h: 1.45)),
+        const SizedBox(height: 18),
+        MainBtn(t.ttsAskGo, wide: true, big: true, radius: 28, onTap: () {
+          Navigator.pop(c);
+          Native.I.openTtsSettings();
+        }),
+        const SizedBox(height: 8),
+        Row(
+          children: [
+            Expanded(child: GhostBtn(t.ttsAskHow, wide: true, onTap: () {
+              Navigator.pop(c);
+              final cc = navKey.currentContext;
+              if (cc != null) openTtsGuide(cc);
+            })),
+            const SizedBox(width: 8),
+            Expanded(child: GhostBtn(t.tourLater, wide: true, onTap: () => Navigator.pop(c))),
+          ],
+        ),
+      ],
+    );
+  });
+}
+
+/// at start: ask once if the voice is missing (a first start asks after its goal sheet instead)
+void maybeAskTts({bool first = false}) {
+  if (!Native.I.isAndroid || ttsAskedRun) return;
+  if (!first && app.note['tts0'] != null) return;
+  Future<void>.delayed(const Duration(milliseconds: 700), () async {
+    if (await Native.I.ttsStatus() != 'missing') return;
+    final c = navKey.currentContext;
+    if (c == null || !c.mounted || ModalRoute.of(c)?.isCurrent == false || app.screen != 'home') return;
+    app.note['tts0'] = 1;
+    app.saveNote();
+    if (c.mounted) askTts(c);
   });
 }
 

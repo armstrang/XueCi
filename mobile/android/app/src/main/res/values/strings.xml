@@ -2,4 +2,7 @@
     <string name="app_name">XueCi Mandarin</string>
     <string name="widget_desc">Your realm, today\'s plan and cultivation days</string>
     <string name="widget_empty">Open the app to begin</string>
+    <string name="widget_words_name">HSK words</string>
+    <string name="widget_words_desc">One word at a time from your realm\'s HSK level: hanzi, pinyin and meaning</string>
+    <string name="widget_words_sample">hello</string>
 </resources>

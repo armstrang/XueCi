@@ -13,6 +13,7 @@ import 'glass.dart';
 import 'sheet.dart';
 import 'theme.dart';
 import 'widgets.dart';
+import 'word_ui.dart' show maybeAskTts;
 
 const minChips = [5, 10, 15, 20, 30, 45, 60];
 const newChips = [3, 5, 10, 15, 20, 30];
@@ -20,6 +21,7 @@ const newChips = [3, 5, 10, 15, 20, 30];
 void openGoal(BuildContext context, bool first, [String? focus, int? minLv]) {
   openSheet(context, name: 'goal', (c) => _Goal(first: first, focus: focus, minLv: minLv)).then((_) {
     app.store.set('xc_onb', 1);
+    if (first) maybeAskTts(first: true);
   });
 }
 

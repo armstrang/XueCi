@@ -267,6 +267,7 @@ void runs() {
       openSpeak(c, app.by(2)[1]);
     }),
     ('ttsguide', (c) => openTtsGuide(c)),
+    ('ttsask', (c) => askTts(c)),
   ]) {
     testWidgets('sheet $name', (t) async {
       await t.runAsync(() => bootApp({...sample(), 'xc_onb': '1'}));

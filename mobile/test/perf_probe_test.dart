@@ -26,7 +26,7 @@ void main() {
     await t.pump(const Duration(seconds: 1));
     final out = <String>[];
     for (var round = 0; round < 3; round++) {
-      for (final s in ['list', 'card', 'quiz', 'soul', 'stats', 'home']) {
+      for (final s in ['list', 'card', 'quiz', 'soul', 'stats', 'hskk', 'exam', 'home']) {
         final sw = Stopwatch()..start();
         app.go(s);
         final b = t.binding;

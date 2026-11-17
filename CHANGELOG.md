@@ -8,7 +8,7 @@ Test builds before a release are published as pre-releases v1.0-alpha-N.
 
 ## v1.4
 
-**Speaking practice for the HSKK, and a new tab bar.**
+**Speaking practice for the HSKK, a word widget, and a new tab bar.**
 
 - The tab bar now has three tabs, HSK, HSKK and Tests, plus a round Soul Sea button beside them. List, Cards and Quiz
   are on the HSK tab, under today's plan.
@@ -24,6 +24,12 @@ Test builds before a release are published as pre-releases v1.0-alpha-N.
 - Listening now asks the phone to work offline first and lasts as long as each question needs, not 15 seconds.
 - The speaking quiz type is gone (HSKK replaces it). The microphone next to sentences in the List stays.
 - Scores come from your phone's speech recognizer: a guide, not an examiner's mark.
+- New home-screen widget for memorising: one word at a time from your realm's HSK level, with the hanzi, pinyin in
+  tone colours and the meaning (the example sentence too when the widget is tall). Arrows move between words and
+  units, and your place is kept. Paper look by day, night look in dark mode. Tap the hanzi to open the word in the
+  List. Resize it to 2×3, 2×4, 3×2 or 4×2.
+- If your phone has no Mandarin voice, the app now asks once whether to open the voice settings (at the start, and
+  at the first speaker tap after each start). Settings has a Mandarin voice row too.
 
 ## v1.3
 

@@ -107,6 +107,26 @@ jobs:
           cp build/app/outputs/bundle/release/app-release.aab ../XueCiMandarin.aab
           rm -f "$RUNNER_TEMP/upload.jks"
 
+      # The Play bundle is not published on GitHub (Josh: it goes to him in chat). When .github/aab-public.pem is in the
+      # repo, the bundle is encrypted for it (AES-256 with a random key, the key sealed with RSA-OAEP) and pushed alone
+      # to the branch aab-out, where only the holder of the private key can open it. Without the key file: kept as a
+      # one-day run artifact only.
+      - name: Seal the Play bundle
+        run: |
+          if [ -f .github/aab-public.pem ]; then
+            mkdir -p "$RUNNER_TEMP/aab" && cd "$RUNNER_TEMP/aab"
+            openssl rand -hex 32 > key.bin
+            openssl enc -aes-256-cbc -pbkdf2 -salt -in "$GITHUB_WORKSPACE/XueCiMandarin.aab" -out XueCiMandarin.aab.enc -pass file:key.bin
+            openssl pkeyutl -encrypt -pubin -inkey "$GITHUB_WORKSPACE/.github/aab-public.pem" -pkeyopt rsa_padding_mode:oaep -pkeyopt rsa_oaep_md:sha256 -in key.bin -out key.enc
+            rm key.bin
+            sha256sum "$GITHUB_WORKSPACE/XueCiMandarin.aab" | cut -d' ' -f1 > XueCiMandarin.aab.sha256
+            echo "v$VER (versionCode $CODE)" > VERSION
+            git init -q -b aab-out && git add -A
+            git -c user.name=ci -c user.email=ci@users.noreply.github.com commit -qm "Play bundle v$VER (encrypted)"
+            git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" aab-out
+            echo "Sealed bundle pushed to aab-out"
+          fi
+
       - uses: actions/upload-artifact@v4
         with:
           name: XueCiMandarin-apk
@@ -132,7 +152,7 @@ jobs:
             echo "::warning title=No changelog entry::CHANGELOG.md has no section for v$VER"
             echo "See [CHANGELOG.md](https://github.com/${{ github.repository }}/blob/main/CHANGELOG.md)." > notes.md
           fi
-          printf '\n---\n\nDownload **XueCiMandarin.apk** below and open it on an Android phone to install (the .aab file is the Google Play bundle).\nUpdates install over the previous version; your study progress is kept.\n' >> notes.md
+          printf '\n---\n\nDownload **XueCiMandarin.apk** below and open it on an Android phone to install.\nUpdates install over the previous version; your study progress is kept.\n' >> notes.md
           cat notes.md
 
       # Replacing a release (Josh, before it reached Google Play): the tag moves to this commit, the files are replaced.
@@ -150,6 +170,5 @@ jobs:
           body_path: notes.md
           files: |
             XueCiMandarin.apk
-            XueCiMandarin.aab
           make_latest: true
           overwrite_files: true

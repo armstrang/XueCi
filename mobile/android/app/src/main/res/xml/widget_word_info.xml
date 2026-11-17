@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- v1.4 word widget (XueciWordWidget.kt): upright 2x3 by default; 2x4 shows the example sentence, 3x2 and 4x2 lie wide -->
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:description="@string/widget_words_desc"
+    android:initialLayout="@layout/widget_word_tall"
+    android:minWidth="110dp"
+    android:minHeight="180dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="100dp"
+    android:previewLayout="@layout/widget_word_preview"
+    android:resizeMode="horizontal|vertical"
+    android:targetCellWidth="2"
+    android:targetCellHeight="3"
+    android:updatePeriodMillis="0"
+    android:widgetCategory="home_screen" />

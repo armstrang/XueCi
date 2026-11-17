@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+import '../data/pinyin.dart' show tone;
 import '../data/seal.dart';
 import '../data/store.dart';
 import '../data/words.dart';
@@ -745,9 +746,58 @@ class App extends ChangeNotifier {
       'c': cardColour(r),
     };
     final j = json.encode(o);
-    if (j == _widgetLast) return;
-    _widgetLast = j;
-    Native.I.setWidget(o);
+    if (j != _widgetLast) {
+      _widgetLast = j;
+      Native.I.setWidget(o);
+    }
+    syncWords();
+  }
+
+  /// v1.4 the word widget (XueciWordWidget.kt): every word of the realm's HSK level, in list order, with the study
+  /// language's meaning and sentence translation. Sent only when the level, the language or the words change; the
+  /// widget keeps its own place (unit, word) on the phone.
+  String _wordsKey = '';
+  int get widgetLevel {
+    final r = lm.realm();
+    return r < 1 ? 1 : realmLv(r);
+  }
+
+  Map<String, Object?> wordsPayload() {
+    final r = lm.realm();
+    final l = widgetLevel;
+    final t = this.t;
+    return {
+      'l': l,
+      'r': rs[r.clamp(0, rs.length - 1)],
+      'u': t.unit,
+      'us': t.uS,
+      'lb': [t.wPrevU, t.wNextU, t.wPrevW, t.wNextW],
+      'w': [
+        for (final d in by(l)) [d.u, d.h, d.s.join(' '), [for (final x in d.s) tone(x)].join(), m(d), d.z, tr(d)],
+      ],
+    };
+  }
+
+  /// the word widget opened a word: its level and unit in the List, the word found by its hanzi
+  void openWidgetWord(String id) {
+    final d = vocab.idx[id];
+    if (d == null || !vocab.levels.contains(d.l)) return;
+    level = d.l;
+    unitBy[d.l] = d.u;
+    q = d.h;
+    shown = 60;
+    saveUI();
+    go('list');
+  }
+
+  void syncWords() {
+    if (!Native.I.isAndroid) return;
+    final l = widgetLevel;
+    final k = '$l|$lang|${by(l).length}|${lm.realm()}';
+    if (k == _wordsKey) return;
+    _wordsKey = k;
+    // a thousand words or more: built after the screen has settled, not inside the Home frame
+    Timer(const Duration(milliseconds: 1500), () => Native.I.setWords(json.encode(wordsPayload())));
   }
 
   void changed() => notifyListeners();

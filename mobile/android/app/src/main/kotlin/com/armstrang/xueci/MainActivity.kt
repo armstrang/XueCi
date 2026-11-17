@@ -56,6 +56,8 @@ class MainActivity : FlutterActivity() {
     private val bgm: Bgm by lazy { Bgm(applicationContext) }
     private var listenResult: MethodChannel.Result? = null
     private var micResult: MethodChannel.Result? = null
+    /** a word the word widget asked to open ("<level>:<hanzi>"), until the app takes it */
+    private var widgetWord: String? = null
     private var listenLimit = Listen.LIMIT_MS
     private val rec: Rec by lazy { Rec() }
     private val listener: Listen by lazy { Listen(this) { ev -> main.post { channel.invokeMethod("listenEv", ev) } } }
@@ -74,6 +76,7 @@ class MainActivity : FlutterActivity() {
             }
         }
         super.onCreate(savedInstanceState)
+        widgetWord = intent?.getStringExtra(XueciWordWidget.EXTRA_WORD)
         startTts()
     }
 
@@ -128,6 +131,12 @@ class MainActivity : FlutterActivity() {
                 "shareImage" -> result.success(shareImage(call.argument<ByteArray>("png"), call.argument<String>("text") ?: ""))
                 "openUrl" -> { openUrl(call.arguments as String); result.success(null) }
                 "setWidget" -> { XueciWidget.save(applicationContext, call.arguments as String); result.success(null) }
+                "setWords" -> {
+                    val data = call.arguments as String
+                    Thread { XueciWordWidget.save(applicationContext, data) }.start()
+                    result.success(null)
+                }
+                "takeWord" -> { result.success(widgetWord); widgetWord = null }
                 "donProducts" -> {
                     val a = JSONArray(call.arguments as String)
                     don().products((0 until a.length()).map { a.getString(it) }) { main.post { result.success(it) } }
@@ -406,6 +415,12 @@ class MainActivity : FlutterActivity() {
     }
 
     // ---------------------------------------------------------------- life cycle
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        val w = intent.getStringExtra(XueciWordWidget.EXTRA_WORD) ?: return
+        if (::channel.isInitialized) channel.invokeMethod("openWord", w) else widgetWord = w
+    }
+
     override fun onResume() {
         super.onResume()
         Reminder.schedule(this) // keeps the daily reminder alarm in place (no-op when reminders are off)

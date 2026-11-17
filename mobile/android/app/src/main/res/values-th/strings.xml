@@ -1,4 +1,7 @@
 <resources>
     <string name="widget_desc">ขั้นพลังของคุณ แผนวันนี้ และวันบำเพ็ญ</string>
     <string name="widget_empty">เปิดแอปเพื่อเริ่ม</string>
+    <string name="widget_words_name">คำศัพท์ HSK</string>
+    <string name="widget_words_desc">ทีละคำจากระดับ HSK ของขั้นพลังคุณ: ตัวจีน พินอิน และความหมาย</string>
+    <string name="widget_words_sample">สวัสดี</string>
 </resources>

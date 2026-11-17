@@ -168,6 +168,19 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
 - **Reminder** (Android): time and text from the goal sheet; quiet once practised that day or on a meditation day;
   re-armed after reboot/update/time change. **Widget**: realm, stage, today's practice, cultivation days, fed by
   `App.syncWidget` only when something changed.
+  **Word widget (v1.4, Josh: memorising only, no quiz)**: `XueciWordWidget.kt` + `layout/widget_word_tall.xml`
+  (2×3; from ~255 dp tall the example sentence) / `widget_word_wide.xml` (3×2, 4×2) / `widget_word_preview.xml`,
+  chosen by size (`RemoteViews(Map<SizeF, …>)` on Android 12+, the widget's options before). Words of the realm's
+  level (`App.widgetLevel`: 凡人 → HSK 1) come from `App.syncWords` (`wordsPayload`: `[u, h, syllables, tones, meaning,
+  z, translation]`, written to `files/widget_words.json` only when level/lang/realm change, 1.5 s after Home settles).
+  ‹ › = word in its unit (round), the small top arrows = unit; place per widget in SharedPreferences `wword`
+  (`i<id>`, `l<id>`: a new level starts again). Hanzi = a bitmap in `serif-sc-900.ttf` (from flutter_assets), white
+  ALPHA_8 tinted by `@color/ww_han`; look "Kertas" by day, "Malam" in dark mode (`values(-night)/colors.xml ww_*`);
+  tone colours per syllable view (`setColorInt` day/night). A tap on the hanzi → `MainActivity` extra `xueci_word`
+  → `Native.takeWord`/`openWord` → `App.openWidgetWord` (List at that level and unit, searching the hanzi).
+- **Mandarin voice (v1.4)**: `askTts` (word_ui.dart) asks to open the phone's voice settings when the voice is
+  missing: once at start (`note['tts0']`; a first start asks after its goal sheet) and at the first speaker tap of
+  each app start (`ttsAskedRun`), a toast after that; Settings › Study has a Mandarin voice row (`Native.ttsNow`).
 - **护法 donations** (Josh: no ads; honest, never guilt or urgency): the coin next to Settings on Home opens
   `donate.dart` (three tiers 一杯茶/一碗面/一桌宴 = Play one-time consumables `dukung_teh`/`dukung_makan`/`dukung_traktir`,
   prices from Play). Google Play Billing 8 in `Donate.kt` (method channel `donProducts`/`donBuy`; purchases are consumed at
@@ -224,7 +237,10 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   published as pre-release **`v1.0-alpha-N`** (N = highest + 1, versionName 1.0.0-alpha.N, `XueCiMandarin-alpha.apk`,
   never latest; the first was plain `v1.0-alpha`). `[skip ci]` in a commit message = no build, no alpha.
 - `.github/workflows/build-apk.yml`: the official release, **run by hand only** when Josh says so (APK + Play bundle,
-  release `v1.N`, notes from `CHANGELOG.md`; refuses an existing tag; inputs `version` + `replace` rebuild a release in
+  release `v1.N`, notes from `CHANGELOG.md`; since v1.4 the release carries the APK only: the Play bundle is
+  encrypted for `.github/aab-public.pem` (AES-256 + RSA-OAEP key) and force-pushed alone to branch `aab-out`; the
+  session that made the key pair decrypts it and sends it to Josh in chat (a new session: new key pair, commit the
+  new public key); refuses an existing tag; inputs `version` + `replace` rebuild a release in
   place, moving its tag, only when Josh asks: v1.0 was rebuilt this way before it reached Play).
 - `.github/workflows/play-test.yml` (by hand): a Play bundle for internal/closed testing, upload key only (fails
   without it), `1.0.0-beta.N`, versionCode 1500 + run, artifact only (nothing published on GitHub).
