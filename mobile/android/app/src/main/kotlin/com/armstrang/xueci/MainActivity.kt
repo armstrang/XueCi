@@ -59,7 +59,6 @@ class MainActivity : FlutterActivity() {
     /** a word the word widget asked to open ("<level>:<hanzi>"), until the app takes it */
     private var widgetWord: String? = null
     private var listenLimit = Listen.LIMIT_MS
-    private val rec: Rec by lazy { Rec() }
     private val listener: Listen by lazy { Listen(this) { ev -> main.post { channel.invokeMethod("listenEv", ev) } } }
 
     /** Google Play Billing, connected the first time the donation sheet asks */
@@ -77,6 +76,7 @@ class MainActivity : FlutterActivity() {
         }
         super.onCreate(savedInstanceState)
         widgetWord = intent?.getStringExtra(XueciWordWidget.EXTRA_WORD)
+        listener.recover()
         startTts()
     }
 
@@ -155,11 +155,6 @@ class MainActivity : FlutterActivity() {
                     }
                 }
                 "listenStop" -> { listener.stop(); result.success(null) }
-                // the tone check records the voice itself (16 kHz mono PCM, kept in memory only, handed to Flutter once)
-                "recStart" -> {
-                    if (!micGranted()) result.success(false) else result.success(rec.start((call.arguments as? Number)?.toLong() ?: 8000L))
-                }
-                "recStop" -> rec.stop { pcm -> main.post { result.success(pcm) } }
                 "openAppSettings" -> {
                     try {
                         startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")))
@@ -432,11 +427,11 @@ class MainActivity : FlutterActivity() {
         bgm.pause()
         tts?.stop()
         listener.end() // never listen in the background
-        rec.cancel()
         super.onPause()
     }
 
     override fun onDestroy() {
+        listener.release()
         tts?.stop()
         tts?.shutdown()
         tts = null

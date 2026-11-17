@@ -49,4 +49,20 @@ void main() {
     expect(r.ok, [false, false]);
     expect(r.heard, '');
   });
+
+  test('numbers written as digits are read as hanzi', () {
+    expect(hanDigits('请打开书看第10页'), '请打开书看第十页');
+    expect(hanDigits('我有2个朋友'), '我有二个朋友');
+    expect(hanDigits('21 105 1010 2000'), '二十一 一百零五 一千零一十 二千');
+    expect(hanDigits('2026年'), '二零二六年');
+    expect(hanDigits('没有数字'), '没有数字');
+    expect(hanDigits('电话13800'), '电话一三八零零');
+  });
+
+  test('a spoken 10 counts for 十, and 两 for 二', () {
+    final r = scoreSpeech('请打开书,看第十页。', ['请打开书看第10页'], 'n', cs);
+    expect(r.all, isTrue);
+    expect(r.heard, '请打开书看第十页');
+    expect(cs.same('二', '两', 'n'), isTrue);
+  });
 }

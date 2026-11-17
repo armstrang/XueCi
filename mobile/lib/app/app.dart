@@ -36,7 +36,9 @@ const themes = ['auto', 'light', 'dark', 'black'];
 const fxModes = ['auto', 'low', 'full'];
 // 'auto' (guided) was dropped (Josh, Oct 2026): a saved 'auto' falls back to Recognise
 // a saved 'exam' (the quick exam, removed) and 'u' (speaking, moved to the HSKK tab in v1.4) fall back to 'm'
-const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't', 'mock'];
+/// the practice question types of the Quiz. The HSK simulation is not one of them: it is started from the Tests tab
+/// ([App.mockMode]), so a saved 'mock' from an earlier version falls back to the default
+const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't'];
 
 class App extends ChangeNotifier {
   final Store store;
@@ -233,6 +235,9 @@ class App extends ChangeNotifier {
   String screen = 'home';
   String prevScreen = 'home';
   String qType = 'm';
+
+  /// the Quiz screen shows the HSK simulation (started from the Tests tab); not saved, and off again on any other screen
+  bool mockMode = false;
   bool mockShort = false; // the HSK simulation: the short paper
   String spk = 'n'; // speaking practice: e easy, n normal, h hard
   int hkLv = 1; // HSKK: the level last chosen (1 Dasar, 2 Menengah, 3 Lanjutan)
@@ -541,6 +546,7 @@ class App extends ChangeNotifier {
     for (final f in beforeShow) {
       f();
     }
+    if (s != 'quiz') mockMode = false;
     runner.reset();
     menuOpen = false;
     screen = s;

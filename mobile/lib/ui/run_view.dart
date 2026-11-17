@@ -67,7 +67,6 @@ Map<String, (String, String, String)> qtNames() {
     'c': (t.tCloze, t.dCloze, '汉＿'),
     'p': (t.tPy, t.dPy, 'pīn'),
     't': (t.tTrans, t.dTrans, '句→a'),
-    'mock': (t.tMock, t.dMock, '模'),
   };
 }
 
@@ -159,7 +158,7 @@ class _RunScreenState extends State<RunScreen> {
     }
     final title = switch (widget.mode) {
       'card' => t.card,
-      'quiz' => t.quiz,
+      'quiz' => app.mockMode ? t.tMock : t.quiz,
       _ => t.session,
     };
     final it = r.cur;
@@ -198,7 +197,7 @@ class _RunScreenState extends State<RunScreen> {
               Capsule(
                 title: title,
                 pickers: widget.mode != 'session',
-                lead: [if (widget.mode == 'quiz' && !(m != null && m.started && it != null)) _qTypePill(context)],
+                lead: [if (widget.mode == 'quiz' && !app.mockMode && !(m != null && m.started && it != null)) _qTypePill(context)],
                 pillTrail: trail ? _RunCount(r) : null,
               ),
               if (!trail) SizedBox(height: widget.mode == 'session' ? 12 : 4),
@@ -2177,8 +2176,7 @@ class _MockResult extends StatelessWidget {
       R.mockPractice(wrong.where((it) => it.part == k.substring(5)).toList());
     } else if (k == 'next') {
       app.setLevel(m.m.L + 1);
-      app.qType = 'mock';
-      app.saveUI();
+      app.mockMode = true;
       R.reset();
       app.changed();
     } else if (k == 'plan') {

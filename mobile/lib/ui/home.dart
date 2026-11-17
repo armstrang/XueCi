@@ -568,6 +568,7 @@ class _Stages extends StatelessWidget {
                     alignment: Alignment.centerLeft,
                     child: FractionallySizedBox(
                       widthFactor: ((sh - seg[i].$1) / (seg[i].$2 - seg[i].$1)).clamp(0, 1).toDouble(),
+                      heightFactor: 1, // without it the fill had no height and never showed
                       child: DecoratedBox(
                         decoration: BoxDecoration(borderRadius: BorderRadius.circular(3), gradient: LinearGradient(colors: [p.gold, lc])),
                       ),
@@ -805,7 +806,16 @@ class PlanCard extends StatelessWidget {
       child: ConstrainedBox(
         constraints: const BoxConstraints(minHeight: 40),
         child: Center(
-          child: Text('$chip ›', textAlign: TextAlign.center, style: F.s(13.5, w: FontWeight.w800, c: th.acc)),
+          // a pill, so it reads as something to press
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(999),
+              border: Border.all(color: th.acc.withValues(alpha: .4)),
+              color: th.acc.withValues(alpha: .08),
+            ),
+            child: Text('$chip ›', textAlign: TextAlign.center, maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(13, w: FontWeight.w800, c: th.acc)),
+          ),
         ),
       ),
     );
@@ -973,9 +983,9 @@ class PlanCard extends StatelessWidget {
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('试', style: F.s(15, w: FontWeight.w900, family: F.hz, c: p.dark ? p.fg : th.acc)),
-                    const SizedBox(width: 6),
-                    Text(cDone ? '✓' : '$cc/${c['n']}', style: F.s(14, w: FontWeight.w800, c: cDone ? p.good : p.fg, feat: F.tab)),
+                    Flexible(child: Text(t.chalS, maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(14, w: FontWeight.w700, c: p.fg))),
+                    const SizedBox(width: 8),
+                    Text(cDone ? '✓' : '$cc/${c['n']}', style: F.s(14, w: FontWeight.w800, c: cDone ? p.good : th.acc, feat: F.tab)),
                   ],
                 ),
               ),

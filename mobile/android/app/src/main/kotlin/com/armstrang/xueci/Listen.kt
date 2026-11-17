@@ -1,7 +1,9 @@
 package com.armstrang.xueci
 
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -23,6 +25,9 @@ import org.json.JSONObject
  * then opens the phone's window), "denied" without the microphone permission. Nothing is recorded or kept: the
  * recognizer hands over text only. It is asked to work offline first (the phone's own Mandarin pack); a recognizer
  * that can't (no pack) is asked again without that wish.
+ *
+ * The recognizer plays its own "ding" at every start and stop, and it is restarted at every pause, so a long answer
+ * rang many times. While listening the media volume is muted ([Quiet]) and given back a moment after the end.
  */
 class Listen(private val act: MainActivity, private val event: (String) -> Unit) {
     private var rec: SpeechRecognizer? = null
@@ -42,7 +47,18 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
     private var limitMs = LIMIT_MS
     private var offline = true // ask for the phone's own language pack first
 
+    private val quiet = Quiet(act.applicationContext)
+
     fun available(): Boolean = SpeechRecognizer.isRecognitionAvailable(act)
+
+    /** at app start: give back the volume if the app was killed while it was muted */
+    fun recover() = quiet.recover()
+
+    /** the app closes: the volume comes back at once */
+    fun release() {
+        finish(null)
+        quiet.off(0)
+    }
 
     private fun services(): List<ComponentName?> {
         val list = mutableListOf<ComponentName?>()
@@ -69,6 +85,7 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
         limitMs = limit.coerceIn(3000L, MAX_MS)
         offline = true
         tries = services()
+        quiet.on()
         main.postDelayed(this.limit, limitMs)
         nextService()
     }
@@ -233,6 +250,7 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
         val d = done
         done = null
         destroy()
+        quiet.off(700) // the recognizer's last "ding" is played a moment after it is stopped
         d?.invoke(answer)
     }
 
@@ -244,5 +262,53 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
             SpeechRecognizer.ERROR_NETWORK, SpeechRecognizer.ERROR_SERVER, SpeechRecognizer.ERROR_CLIENT,
             12 /* ERROR_LANGUAGE_NOT_SUPPORTED */, 13 /* ERROR_LANGUAGE_UNAVAILABLE */,
         )
+    }
+}
+
+/**
+ * Mutes the media volume (the stream the recognizer's "ding" is played on) while the app listens. MUTE keeps the
+ * volume setting, only the sound goes. If the phone's media was already muted nothing is touched. The ring and
+ * notification streams are left alone on purpose: on many phones they share the ringer, and muting them could
+ * leave the phone silent. [recover] gives the volume back after a crash, using what was written down.
+ */
+private class Quiet(ctx: Context) {
+    private val am = ctx.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+    private val prefs = ctx.getSharedPreferences("quiet", Context.MODE_PRIVATE)
+    private val main = Handler(Looper.getMainLooper())
+    private var muted = false
+    private val unmute = Runnable { give() }
+
+    fun on() {
+        main.removeCallbacks(unmute)
+        if (muted) return
+        try {
+            if (am.isStreamMute(AudioManager.STREAM_MUSIC)) return
+            // written down first: if the app dies now, the next start gives the volume back
+            prefs.edit().putBoolean("music", true).commit()
+            am.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_MUTE, 0)
+            muted = true
+        } catch (_: Exception) {
+            prefs.edit().remove("music").apply()
+        }
+    }
+
+    fun off(delayMs: Long) {
+        main.removeCallbacks(unmute)
+        if (!muted) return
+        if (delayMs <= 0) give() else main.postDelayed(unmute, delayMs)
+    }
+
+    fun recover() {
+        if (prefs.getBoolean("music", false)) give(force = true)
+    }
+
+    private fun give(force: Boolean = false) {
+        if (!muted && !force) return
+        muted = false
+        try {
+            am.adjustStreamVolume(AudioManager.STREAM_MUSIC, AudioManager.ADJUST_UNMUTE, 0)
+        } catch (_: Exception) {
+        }
+        prefs.edit().remove("music").apply()
     }
 }

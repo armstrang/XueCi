@@ -121,6 +121,7 @@ mixin L10Keys {
   String get chalDone => s('chalDone');
   String get chalGo => s('chalGo');
   String get chalM => s('chalM');
+  String get chalS => s('chalS');
   String get chalT => s('chalT');
   String chalTot(Object? a0) => f('chalTot', [a0]);
   String chalTxt(Object? a0, Object? a1, Object? a2) => f('chalTxt', [a0, a1, a2]);
@@ -169,6 +170,7 @@ mixin L10Keys {
   String get etaL => s('etaL');
   String etaNext(Object? a0) => f('etaNext', [a0]);
   String get etaNone => s('etaNone');
+  String get exHist => s('exHist');
   String get exHsk => s('exHsk');
   String get exHskD => s('exHskD');
   String get exHskk => s('exHskk');
@@ -296,16 +298,8 @@ mixin L10Keys {
   String get hkSs => s('hkSs');
   String get hkSt => s('hkSt');
   String get hkStart => s('hkStart');
-  String get hkStop => s('hkStop');
   String get hkSub => s('hkSub');
   String get hkTitle => s('hkTitle');
-  String get hkTone => s('hkTone');
-  String get hkToneGot => s('hkToneGot');
-  String get hkToneHow => s('hkToneHow');
-  String get hkToneNo => s('hkToneNo');
-  String get hkToneNote => s('hkToneNote');
-  String hkToneRes(Object? a0, Object? a1) => f('hkToneRes', [a0, a1]);
-  String get hkToneWant => s('hkToneWant');
   String get hkTrain => s('hkTrain');
   String hkWeak(Object? a0) => f('hkWeak', [a0]);
   String get idk => s('idk');

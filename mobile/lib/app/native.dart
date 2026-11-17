@@ -118,9 +118,6 @@ class Native {
 
   Future<void> listenStop() => _call('listenStop');
 
-  /// the tone check records the voice itself: 16 kHz mono 16-bit PCM, in memory only (Rec.kt); false = no microphone
-  Future<bool> recStart(int limitMs) async => (await _call<bool>('recStart', limitMs)) ?? false;
-  Future<Uint8List?> recStop() => _call<Uint8List>('recStop');
   Future<bool> micGranted() async => (await _call<bool>('micGranted')) ?? false;
   Future<void> openAppSettings() => _call('openAppSettings');
 

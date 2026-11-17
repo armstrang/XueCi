@@ -33,6 +33,37 @@ class SpeakResult {
   }
 }
 
+/// The recognizer often writes numbers as digits ("第10页", "2026年"), while the target has hanzi (第十页, 二〇二六年).
+/// Digit runs become hanzi, read the way they are said: 10 → 十, 21 → 二十一, 2026年 → 二零二六年 (a year, a number of
+/// five digits or more, or one with a leading zero is read digit by digit).
+String hanDigits(String s) {
+  if (!RegExp('[0-9]').hasMatch(s)) return s;
+  return s.replaceAllMapped(RegExp('[0-9]+'), (m) {
+    final d = m[0]!;
+    final next = m.end < m.input.length ? m.input[m.end] : '';
+    if (d.length > 4 || (d.length > 1 && d.startsWith('0')) || (d.length == 4 && next == '年')) {
+      return d.split('').map((c) => _han[int.parse(c)]).join();
+    }
+    return _cardinal(int.parse(d));
+  });
+}
+
+const _han = '零一二三四五六七八九';
+
+String _cardinal(int n) {
+  if (n < 10) return _han[n];
+  if (n < 20) return '十${n % 10 == 0 ? '' : _han[n % 10]}';
+  if (n < 100) return '${_han[n ~/ 10]}十${n % 10 == 0 ? '' : _han[n % 10]}';
+  String rest(int r, int unit) {
+    if (r == 0) return '';
+    if (r < unit ~/ 10) return '零${r < 10 ? _han[r] : (r < 20 ? '一${_cardinal(r)}' : _cardinal(r))}';
+    return _cardinal(r);
+  }
+
+  if (n < 1000) return '${_han[n ~/ 100]}百${rest(n % 100, 1000)}';
+  return '${_han[n ~/ 1000]}千${rest(n % 1000, 10000)}';
+}
+
 bool isHan(String c) {
   final r = c.runes.first;
   return (r >= 0x4e00 && r <= 0x9fff) || (r >= 0x3400 && r <= 0x4dbf);
@@ -58,6 +89,8 @@ class CharSounds {
 
   bool same(String a, String b, String level) {
     if (a == b) return true;
+    // 2 is said èr or liǎng depending on the word (二月, 两点), and the recognizer may write either
+    if ((a == '二' && b == '两') || (a == '两' && b == '二')) return true;
     final m = level == 'e' ? _bare : _toned;
     final x = m[a], y = m[b];
     if (x == null || y == null) return false;
@@ -71,7 +104,8 @@ SpeakResult scoreSpeech(String target, List<String> heard, String level, CharSou
   if (heard.isEmpty) return SpeakResult([for (final c in tc) !isHan(c)], '');
   final guesses = level == 'h' ? heard.take(1) : heard;
   SpeakResult? best;
-  for (final g in guesses) {
+  for (final raw in guesses) {
+    final g = hanDigits(raw);
     final hc = g.runes.map(String.fromCharCode).where(isHan).toList();
     final ok = _align(tc, hc, level, cs);
     final r = SpeakResult(ok, g);

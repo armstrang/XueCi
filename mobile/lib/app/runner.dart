@@ -114,7 +114,7 @@ class Runner {
     } else if (mode == 'session') {
       items = lm.session(a.sessionExtra);
       if (a.sessionQuick) items = quickOf(items);
-    } else if (a.qType == 'mock') {
+    } else if (a.mockMode) {
       exam = true;
       mock = MockRun(lm.mockExam(lv, short: a.mockShort));
       items = mock.m.items;
@@ -623,6 +623,7 @@ class Runner {
     if (items.isEmpty) return;
     pending = Pending('quiz', [for (final it in items) Item.q(it.d, practiceQ(it.q!))]);
     a.qType = 'm';
+    a.mockMode = false;
     a.saveUI();
     reset();
     a.changed();

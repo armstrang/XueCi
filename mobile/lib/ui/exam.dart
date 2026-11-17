@@ -27,6 +27,12 @@ class ExamScreen extends StatelessWidget {
     final hk = app.spkLog.mocks;
     final hkLast = hk.isEmpty ? null : '${hk.last[2]}/100';
     final r = lm.realm();
+    // the latest results of both mock tests together, newest first
+    final recent = <({num at, String name, String score})>[
+      for (final m in lm.mocks)
+        if (m.length > 3) (at: m[0] as num, name: '${t.exHsk} · HSK ${m[1]}', score: '${m[2]}/${m[3]}'),
+      for (final m in hk) (at: m[0] as num, name: '${t.exHskk} · ${_hkName((m[1] as num).toInt())}', score: '${m[2]}/100'),
+    ]..sort((a, b) => b.at.compareTo(a.at));
     return SafeArea(
       bottom: false,
       child: ListView(
@@ -44,11 +50,10 @@ class ExamScreen extends StatelessWidget {
               seal: '考',
               title: t.exHsk,
               sub: '${t.exHskD} · HSK ${app.level}',
-              last: hskLast,
+              foot: hskLast == null ? t.exNone : t.hkLast(hskLast),
               color: th.acc,
               onTap: () {
-                app.qType = 'mock';
-                app.saveUI();
+                app.mockMode = true;
                 app.go('quiz');
               },
             ),
@@ -59,7 +64,7 @@ class ExamScreen extends StatelessWidget {
               seal: '说',
               title: t.exHskk,
               sub: '${t.exHskkD} · ${_hkName(app.hkLv)} (${hkBand(app.hkLv)})',
-              last: hkLast,
+              foot: hkLast == null ? t.exNone : t.hkLast(hkLast),
               color: p.warm,
               onTap: () => app.startHk(app.hkLv.clamp(1, app.hkOpenTo), mock: true),
             ),
@@ -69,12 +74,45 @@ class ExamScreen extends StatelessWidget {
             child: _ExamCard(
               seal: '境',
               title: t.exRealm,
-              sub: '${t.exRealmD} · ${app.rn[r]}',
-              last: null,
+              sub: t.exRealmD,
+              foot: app.rn[r],
               color: th.rc,
               onTap: () => app.openRealm?.call(context),
             ),
           ),
+          if (recent.isNotEmpty) ...[
+            const SizedBox(height: 22),
+            Text(t.exHist.toUpperCase(), style: F.s(12.5, w: FontWeight.w800, c: p.mute, ls: 1.2)),
+            const SizedBox(height: 8),
+            Glass(
+              radius: 22,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+              child: Column(
+                children: [
+                  for (var i = 0; i < recent.length && i < 5; i++) ...[
+                    if (i > 0) Divider(height: 1, thickness: 1, color: p.line),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(recent[i].name, style: F.s(14.5, w: FontWeight.w700, c: p.fg)),
+                                Text(app.dateS(app.tDate(recent[i].at)), style: F.s(12.5, c: p.mute)),
+                              ],
+                            ),
+                          ),
+                          Text(recent[i].score, style: F.s(16, w: FontWeight.w800, c: p.fg, feat: F.tab)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+          ],
         ],
       ),
     );
@@ -88,19 +126,17 @@ String _hkName(int lv) => switch (lv) {
 };
 
 class _ExamCard extends StatelessWidget {
-  final String seal, title, sub;
-  final String? last;
+  final String seal, title, sub, foot;
   final Color color;
   final VoidCallback onTap;
-  const _ExamCard({required this.seal, required this.title, required this.sub, required this.last, required this.color, required this.onTap});
+  const _ExamCard({required this.seal, required this.title, required this.sub, required this.foot, required this.color, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     final p = Th.pal(context);
-    final t = app.t;
     return Press(
       onTap: onTap,
-      label: '$title. $sub',
+      label: '$title. $sub. $foot',
       child: Glass(
         radius: 26,
         padding: const EdgeInsets.fromLTRB(16, 16, 14, 16),
@@ -126,7 +162,7 @@ class _ExamCard extends StatelessWidget {
                   const SizedBox(height: 3),
                   Text(sub, style: F.s(13, c: p.soft, h: 1.35)),
                   const SizedBox(height: 5),
-                  Text(last == null ? t.exNone : t.hkLast(last!), style: F.s(12.5, w: FontWeight.w700, c: p.mute)),
+                  Text(foot, style: F.s(12.5, w: FontWeight.w600, c: p.mute)),
                 ],
               ),
             ),

@@ -2,6 +2,7 @@
 library;
 
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -375,8 +376,8 @@ class TabBar2 extends StatelessWidget {
   }
 }
 
-/// the round Soul Sea button beside the tab bar: a small orb in the realm's colour, breathing (qi.dart), ringed when
-/// the Soul Sea is open
+/// the round Soul Sea button beside the tab bar: a small black hole whose disk runs through the realm's colour, gold,
+/// violet and blue, turning slowly on the shared clock (qi.dart); brighter and ringed when the Soul Sea is open
 class SoulOrbButton extends StatelessWidget {
   final double size;
   const SoulOrbButton({super.key, this.size = 64});
@@ -384,6 +385,8 @@ class SoulOrbButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final on = app.screen == 'soul';
+    // light effects, "remove animations" or no clock: the same picture, standing still
+    final still = th.low || !qiOn || (MediaQuery.maybeDisableAnimationsOf(context) ?? false);
     return Press(
       onTap: () {
         if (on) {
@@ -406,8 +409,8 @@ class SoulOrbButton extends StatelessWidget {
             shadow: const [BoxShadow(color: Color.fromRGBO(0, 0, 0, .38), offset: Offset(0, 16), blurRadius: 34, spreadRadius: -16)],
             child: Center(
               child: CustomPaint(
-                size: Size.square(size * .56),
-                painter: _MiniOrb(th.rc, th.p.dark, on),
+                size: Size.square(size * .84),
+                painter: BlackHolePainter(th.rc, th.p.gold, on, still),
               ),
             ),
           ),
@@ -417,46 +420,128 @@ class SoulOrbButton extends StatelessWidget {
   }
 }
 
-class _MiniOrb extends CustomPainter {
-  final Color c;
-  final bool dark, on;
-  _MiniOrb(this.c, this.dark, this.on);
+/// A black hole in a dark round window: a black core with a thin bright rim, a tilted disk of light around it (the far
+/// half behind the core, the near half in front), and the light bent over the top and under the bottom of the core.
+/// The colours of the disk run round it and turn once in about 14 seconds; nothing else moves.
+class BlackHolePainter extends CustomPainter {
+  final Color c, gold;
+  final bool on, still;
+  BlackHolePainter(this.c, this.gold, this.on, this.still) : super(repaint: still ? null : qiT);
+
+  static const _violet = Color(0xffa070ff), _blue = Color(0xff4cc9f0), _pink = Color(0xffff6fb0);
+
   @override
   void paint(Canvas canvas, Size s) {
-    final r = s.width / 2;
-    final o = Offset(r, r);
+    final R = s.width / 2;
+    final o = Offset(R, R);
+    final t = still ? .9 : qiT.value;
+    final turn = t * 2 * math.pi / 14;
+
+    canvas.save();
+    canvas.clipPath(Path()..addOval(Rect.fromCircle(center: o, radius: R)));
+    // the window: deep space
     canvas.drawCircle(
       o,
-      r,
-      Paint()
-        ..shader = RadialGradient(
-          center: const Alignment(-.35, -.4),
-          colors: [Color.lerp(c, Colors.white, .55)!, c, Color.lerp(c, Colors.black, dark ? .45 : .25)!],
-          stops: const [0, .55, 1],
-        ).createShader(Rect.fromCircle(center: o, radius: r)),
+      R,
+      Paint()..shader = const RadialGradient(colors: [Color(0xff1a0f33), Color(0xff08050f)]).createShader(Rect.fromCircle(center: o, radius: R)),
     );
+    // a faint glow of the realm's colour around the hole
     canvas.drawCircle(
       o,
-      r - .6,
+      R * .95,
+      Paint()..shader = RadialGradient(colors: [c.withValues(alpha: on ? .42 : .3), c.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: o, radius: R * .95)),
+    );
+
+    canvas.translate(o.dx, o.dy);
+    canvas.rotate(-.42); // the disk is tilted
+    final rx = R * .84, ry = R * .2, core = R * .4;
+    final ring = Rect.fromCenter(center: Offset.zero, width: rx * 2, height: ry * 2);
+    // a paint's colour alpha does not touch its shader, so the dimmer layer gets a shader of its own
+    Shader sweepOf(double a) => SweepGradient(
+      transform: GradientRotation(turn),
+      colors: [for (final k in [Colors.white, gold, c, _violet, _blue, _pink, gold, Colors.white]) k.withValues(alpha: a)],
+      stops: const [0, .12, .3, .5, .66, .8, .93, 1],
+    ).createShader(ring);
+    final bright = sweepOf(1), soft = sweepOf(on ? .42 : .3);
+    Paint disk(double w, Shader sh) => Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = w
+      ..shader = sh
+      ..isAntiAlias = true;
+    final path = Path()..addOval(ring);
+    void drawDisk() {
+      canvas.drawPath(path, disk(R * .3, soft)); // soft body: the glow of the gas
+      canvas.drawPath(path, disk(R * .13, bright)); // the hot band
+    }
+
+    // the far half of the disk, behind the core
+    canvas.save();
+    canvas.clipRect(Rect.fromLTRB(-R, -R, R, 0));
+    drawDisk();
+    canvas.restore();
+
+    // the core, with a thin warm rim (the photon ring)
+    canvas.drawCircle(Offset.zero, core, Paint()..color = const Color(0xff020104));
+    canvas.drawCircle(
+      Offset.zero,
+      core,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 1.2
-        ..color = Colors.white.withValues(alpha: .45),
+        ..strokeWidth = R * .03
+        ..color = Color.lerp(gold, Colors.white, .55)!.withValues(alpha: .8),
     );
+
+    // light bent over the top and under the bottom of the core: arcs that fade out towards both ends
+    final lens = Rect.fromCircle(center: Offset.zero, radius: core * 1.13);
+    final warm = Color.lerp(gold, Colors.white, .5)!;
+    void arc(double from, double alpha, double width) {
+      canvas.drawArc(
+        lens,
+        from,
+        math.pi,
+        false,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = width
+          ..strokeCap = StrokeCap.round
+          ..shader = LinearGradient(colors: [warm.withValues(alpha: 0), warm.withValues(alpha: alpha), warm.withValues(alpha: 0)]).createShader(lens),
+      );
+    }
+
+    arc(-math.pi, .95, R * .08);
+    arc(0, .45, R * .06);
+
+    // the near half of the disk, in front of the core
+    canvas.save();
+    canvas.clipRect(Rect.fromLTRB(-R, 0, R, R));
+    drawDisk();
+    canvas.restore();
+    canvas.restore();
+
+    // the Soul Sea is open: a ring in the realm's colour
     if (on) {
       canvas.drawCircle(
         o,
-        r + 4,
+        R - 1,
         Paint()
           ..style = PaintingStyle.stroke
           ..strokeWidth = 2
           ..color = c,
       );
+    } else {
+      canvas.drawCircle(
+        o,
+        R - .5,
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1
+          ..color = Colors.white.withValues(alpha: .2),
+      );
     }
   }
 
   @override
-  bool shouldRepaint(_MiniOrb o) => o.c != c || o.dark != dark || o.on != on;
+  bool shouldRepaint(BlackHolePainter o) => o.c != c || o.gold != gold || o.on != on || o.still != still;
 }
 
 /// toasts: a frosted capsule above the tab bar

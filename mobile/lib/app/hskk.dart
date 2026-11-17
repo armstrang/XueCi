@@ -4,12 +4,13 @@
 /// Three levels, each following the HSK 3.0 speaking paper of its band: Dasar (HSK 3: repeat sentences, a text
 /// read aloud, two questions), Menengah (HSK 4) and Lanjutan (HSK 5–6) (retell two texts heard, a text read aloud,
 /// two questions). The paper's picture part is replaced by reading aloud (Josh). The phone's recognizer hears the
-/// learner; a repeat can also be checked for tones (tone.dart). Marks are a guide, never an examiner's.
+/// learner; Marks are a guide, never an examiner's.
 library;
 
 import 'dart:convert';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart' show visibleForTesting;
 import 'package:flutter/services.dart';
 
 import '../data/words.dart';
@@ -103,7 +104,9 @@ class SpkBank {
   }
 }
 
-/// the written tone of each hanzi of [zh], from its pinyin (1–4, 5 neutral); null when they don't line up
+/// the written tone of each hanzi of [zh], from its pinyin (1–4, 5 neutral); null when they don't line up. Only the
+/// bank test uses it: it checks that every sentence's pinyin lines up with its hanzi
+@visibleForTesting
 List<int>? hanTones(String zh, String py) {
   final words = py.split(RegExp(r"[\s,.?!:;\u0022…—()'-]+")).where((w) => w.isNotEmpty);
   final syls = [for (final w in words) ..._splitWord(w)];
@@ -194,7 +197,7 @@ class TalkScore {
 
 /// does [heard] contain [word], allowing a character that sounds the same (the recognizer often writes a homophone)
 bool saysWord(String heard, String word, CharSounds cs) {
-  final h = heard.runes.map(String.fromCharCode).where(isHan).toList();
+  final h = hanDigits(heard).runes.map(String.fromCharCode).where(isHan).toList();
   final w = word.runes.map(String.fromCharCode).toList();
   if (w.isEmpty) return false;
   for (var i = 0; i + w.length <= h.length; i++) {
@@ -233,7 +236,8 @@ int bandWords(String heard, int lv, Vocab v) {
 }
 
 /// marks a retell or an answer: keywords, length and the level's own words (rules written out in the help)
-TalkScore scoreTalk(String heard, SpkItem it, int secs, CharSounds cs, Vocab v) {
+TalkScore scoreTalk(String heard0, SpkItem it, int secs, CharSounds cs, Vocab v) {
+  final heard = hanDigits(heard0);
   final chars = heard.runes.map(String.fromCharCode).where(isHan).length;
   final hit = [for (final k in it.kw) if (saysWord(heard, k, cs)) k];
   final miss = [for (final k in it.kw) if (!hit.contains(k)) k];

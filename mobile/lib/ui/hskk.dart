@@ -1,15 +1,14 @@
 /// HSKK (v1.4): the speaking tab and its runs.
 ///
 /// The tab: the level as a glass lens (Dasar, Menengah, Lanjutan; a level opens with the learner's HSK level), the
-/// practice path (three or four stations joined by a line) and the mock test as one card. A run (screen 'hkrun', no
+/// practice path (three or four stations joined by a line); the mock test is on the Tests tab (exam.dart). A run (screen 'hkrun', no
 /// tab bar) is practice of one part or a whole mock test: listen (the phone's TTS) or get ready, then speak (the
 /// phone's recognizer, offline first), then the marks: per hanzi for a repeat or a text read aloud, keywords,
-/// length and the level's words for a retell or an answer. A repeat can be checked for tones (tone.dart). In a mock
+/// length and the level's words for a retell or an answer. In a mock
 /// test nothing is marked until the end, every item has its own clock, and the music is off.
 library;
 
 import 'dart:async';
-import 'dart:isolate';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ import '../app/app.dart';
 import '../app/hskk.dart';
 import '../app/native.dart';
 import '../app/speech.dart';
-import '../app/tone.dart';
 import 'glass.dart';
 import 'icons.dart';
 import 'lens.dart';
@@ -70,7 +68,6 @@ class HskkScreen extends StatelessWidget {
     final locked = lv > open;
     final bottom = MediaQuery.paddingOf(context).bottom + 10 + 64 + 18;
     final kinds = [...hkKinds(lv), if (lv > 1) 'x'];
-    final hist = [for (final m in app.spkLog.mocks) if (m[1] == lv) m];
     return SafeArea(
       bottom: false,
       child: ListView(
@@ -131,8 +128,6 @@ class HskkScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 18),
-          Rise(3, child: _MockCard(lv: lv, locked: locked, last: hist.isEmpty ? null : (hist.last[2] as num).toInt())),
-          const SizedBox(height: 12),
           Text(t.hkNote, style: F.s(12, c: p.mute, h: 1.4)),
         ],
       ),
@@ -294,59 +289,6 @@ class _Station extends StatelessWidget {
   }
 }
 
-class _MockCard extends StatelessWidget {
-  final int lv;
-  final bool locked;
-  final int? last;
-  const _MockCard({required this.lv, required this.locked, required this.last});
-  @override
-  Widget build(BuildContext context) {
-    final t = app.t;
-    final sub = '${t.hkMockS(hkMockN(lv), hkMockMin(lv))}${last == null ? '' : ' · ${t.hkLast('$last')}'}';
-    return Press(
-      onTap: locked ? () => app.toast(t.hkLocked(hkBand(lv))) : () => app.startHk(lv, mock: true),
-      label: '${t.hkMockTitle}, ${hkName(lv)}. $sub',
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(26),
-        child: Container(
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(26),
-            gradient: const LinearGradient(colors: [Color(0xffa23a2c), Color(0xff5b3f9e)], begin: Alignment.topLeft, end: Alignment.bottomRight),
-            border: Border.all(color: Colors.white.withValues(alpha: .18)),
-          ),
-          child: Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Positioned(
-                right: -6,
-                top: -26,
-                child: ExcludeSemantics(child: Opacity(opacity: .1, child: Text('考', style: F.s(96, family: F.hz, c: Colors.white, h: 1)))),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(t.hkMockT, style: F.s(12, w: FontWeight.w800, c: Colors.white.withValues(alpha: .78), ls: 1.2)),
-                  const SizedBox(height: 4),
-                  Text('HSKK ${hkName(lv)}', style: F.s(20, w: FontWeight.w800, c: Colors.white)),
-                  const SizedBox(height: 2),
-                  Text(sub, style: F.s(13, c: Colors.white.withValues(alpha: .86))),
-                  const SizedBox(height: 14),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
-                    decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(22)),
-                    child: Text(t.hkStart, style: F.s(15, w: FontWeight.w800, c: const Color(0xff1b1330))),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 // =================================================================== a run: practice or a mock test
 class HkRunScreen extends StatefulWidget {
   const HkRunScreen({super.key});
@@ -355,8 +297,8 @@ class HkRunScreen extends StatefulWidget {
 }
 
 /// what the screen shows: the mock's opening, a part's card, listening to the text, getting ready, speaking, the
-/// marks of one item, the tone check, the end of a practice round, the mock's result
-enum _Ph { load, intro, part, listen, prep, speak, result, tone, end, mockEnd }
+/// marks of one item, the end of a practice round, the mock's result
+enum _Ph { load, intro, part, listen, prep, speak, result, end, mockEnd }
 
 /// screenshots: a finished mock test to show
 @visibleForTesting
@@ -383,10 +325,6 @@ class _HkRunState extends State<HkRunScreen> {
   SpeakResult? live; // a text read aloud: what has been read so far
   bool noListen = false;
 
-  // the tone check
-  bool toneBusy = false;
-  ToneResult? tone;
-
   HkTask get task => tasks[i];
   SpkItem get it => task.it;
 
@@ -402,7 +340,6 @@ class _HkRunState extends State<HkRunScreen> {
     _tick?.cancel();
     Native.I.ttsDone = null;
     if (busy) Native.I.listenStop();
-    if (toneBusy) Native.I.recStop();
     Native.I.stopSpeaking();
     Native.I.listenEv = null;
     level.dispose();
@@ -459,7 +396,6 @@ class _HkRunState extends State<HkRunScreen> {
   // ------------------------------------------------------------ flow
   void _enter() {
     _tick?.cancel();
-    tone = null;
     live = null;
     partial = '';
     played = 0;
@@ -584,7 +520,7 @@ class _HkRunState extends State<HkRunScreen> {
   void _mark(List<String> heard, int secs) {
     final t = task;
     t.secs = secs;
-    t.heard = heard.isEmpty ? '' : heard.first;
+    t.heard = heard.isEmpty ? '' : hanDigits(heard.first);
     if (it.k == 's' || it.k == 'q') {
       final ts = scoreTalk(t.heard, it, secs, app.sounds, app.vocab);
       t.talk = ts;
@@ -654,36 +590,6 @@ class _HkRunState extends State<HkRunScreen> {
     app.changed();
     i = 0;
     setState(() => ph = _Ph.part);
-  }
-
-  Future<void> _toneTap() async {
-    if (toneBusy) {
-      HapticFeedback.selectionClick();
-      final pcm = await Native.I.recStop();
-      if (!mounted) return;
-      final tones = hanTones(it.zh, it.py);
-      setState(() => toneBusy = false);
-      if (pcm == null || tones == null) {
-        setState(() => tone = const ToneResult([], false));
-        return;
-      }
-      final res = await Isolate.run(() => checkTones(pcm, tones));
-      if (mounted) setState(() => tone = res);
-      return;
-    }
-    HapticFeedback.lightImpact();
-    Native.I.bgmHush(true);
-    final ok = await Native.I.recStart(15000);
-    Native.I.bgmHush(false);
-    if (!mounted) return;
-    if (!ok) {
-      app.toast(app.t.spkDenied, 4000);
-      return;
-    }
-    setState(() {
-      tone = null;
-      toneBusy = true;
-    });
   }
 
   bool _back() {
@@ -874,7 +780,7 @@ class _HkRunState extends State<HkRunScreen> {
     final p = th.p;
     final t = app.t;
     final k = it.k;
-    final result = ph == _Ph.result || ph == _Ph.tone;
+    final result = ph == _Ph.result;
     final kids = <Widget>[];
     final how = switch (k) {
       'r' || 'x' => t.hkRepeatHow,
@@ -953,10 +859,7 @@ class _HkRunState extends State<HkRunScreen> {
             if (!run.mock && !result)
               Align(
                 alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () => setState(() => showPy = !showPy),
-                  child: Text(t.hkPinyin, style: F.s(14, w: FontWeight.w700, c: showPy ? th.acc : p.soft)),
-                ),
+                child: _PyChip(on: showPy, onTap: () => setState(() => showPy = !showPy)),
               ),
           ],
         ),
@@ -990,7 +893,7 @@ class _HkRunState extends State<HkRunScreen> {
             if (it.lv > 1 && !showPy && !result)
               Align(
                 alignment: Alignment.centerLeft,
-                child: TextButton(onPressed: () => setState(() => showPy = true), child: Text(t.hkPinyin, style: F.s(14, w: FontWeight.w700, c: th.acc))),
+                child: _PyChip(on: false, onTap: () => setState(() => showPy = true)),
               ),
           ],
         ),
@@ -1052,7 +955,7 @@ class _HkRunState extends State<HkRunScreen> {
         ],
       );
     } else {
-      // the marks: try again, check the tones (a repeat), next
+      // the marks: try again, next
       bottom = Row(
         children: [
           Expanded(child: GhostBtn(t.hkRetry, wide: true, onTap: _retry)),
@@ -1105,71 +1008,11 @@ class _HkRunState extends State<HkRunScreen> {
         if (showTr && it.trIn(app.lang).isNotEmpty) Text(it.trIn(app.lang), style: F.s(14, c: p.soft, h: 1.45)),
       ]);
     }
-    if ((it.k == 'r' || it.k == 'x') && hanTones(it.zh, it.py) != null) {
-      out.addAll([const SizedBox(height: 16), _toneBox(context)]);
-    }
     if (it.k == 'r' || it.k == 'x') {
       final tr = it.trIn(app.lang);
       if (tr.isNotEmpty) out.addAll([const SizedBox(height: 10), Text(tr, style: F.s(13.5, c: p.mute, h: 1.4))]);
     }
     return out;
-  }
-
-  Widget _toneBox(BuildContext context) {
-    final th = Th.of(context);
-    final p = th.p;
-    final t = app.t;
-    final r = tone;
-    return Glass(
-      radius: 22,
-      padding: const EdgeInsets.all(14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            children: [
-              Expanded(child: Text(t.hkTone, style: F.s(15, w: FontWeight.w800, c: p.fg))),
-              GhostBtn(
-                toneBusy ? t.hkStop : t.hkTone,
-                fontSize: 13,
-                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 9),
-                lead: Icon2(I.mic, size: 15, color: toneBusy ? p.bad : p.fg),
-                onTap: _toneTap,
-              ),
-            ],
-          ),
-          const SizedBox(height: 6),
-          if (r == null) Text(toneBusy ? t.hkListening : t.hkToneHow, style: F.s(13, c: p.soft, h: 1.4)),
-          if (r != null && !r.heard) Text(t.hkToneNo, style: F.s(13, c: p.soft, h: 1.4)),
-          if (r != null && r.heard) ...[
-            Text(t.hkToneRes(r.right, r.syl.length), style: F.s(14, w: FontWeight.w800, c: r.share >= .8 ? p.good : p.fg)),
-            const SizedBox(height: 10),
-            Wrap(
-              spacing: 6,
-              runSpacing: 8,
-              children: [
-                for (var k = 0; k < r.syl.length; k++) _ToneCell(han: _hanAt(k), syl: r.syl[k]),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                _Legend(color: p.good, label: t.hkToneWant),
-                const SizedBox(width: 14),
-                _Legend(color: th.acc, label: t.hkToneGot),
-              ],
-            ),
-            const SizedBox(height: 6),
-            Text(t.hkToneNote, style: F.s(11.5, c: p.mute, h: 1.35)),
-          ],
-        ],
-      ),
-    );
-  }
-
-  String _hanAt(int k) {
-    final h = it.zh.runes.map(String.fromCharCode).where(isHan).toList();
-    return k < h.length ? h[k] : '';
   }
 
   Widget _practiceEnd(BuildContext context) {
@@ -1347,80 +1190,35 @@ class _Clock extends StatelessWidget {
   }
 }
 
-class _Legend extends StatelessWidget {
-  final Color color;
-  final String label;
-  const _Legend({required this.color, required this.label});
-  @override
-  Widget build(BuildContext context) => Row(
-    mainAxisSize: MainAxisSize.min,
-    children: [
-      Container(width: 14, height: 3, decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(2))),
-      const SizedBox(width: 5),
-      Text(label, style: F.s(12, w: FontWeight.w600, c: Th.pal(context).soft)),
-    ],
-  );
-}
-
-/// one syllable of the tone check: the hanzi, the textbook shape and the learner's
-class _ToneCell extends StatelessWidget {
-  final String han;
-  final ToneSyl syl;
-  const _ToneCell({required this.han, required this.syl});
+/// the Pinyin switch under a text: a small pill that shows whether the pinyin is on
+class _PyChip extends StatelessWidget {
+  final bool on;
+  final VoidCallback onTap;
+  const _PyChip({required this.on, required this.onTap});
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
-    return Semantics(
-      label: '$han ${syl.ok ? '✓' : '✗'}',
-      child: Container(
-        width: 46,
-        padding: const EdgeInsets.symmetric(vertical: 6),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: syl.ok ? p.good.withValues(alpha: .6) : p.bad.withValues(alpha: .7), width: 1.2),
-          color: (syl.ok ? p.good : p.bad).withValues(alpha: .08),
-        ),
-        child: Column(
-          children: [
-            CustomPaint(size: const Size(34, 26), painter: _ToneCurve(toneTemplate(syl.want), syl.curve, p.good, th.acc, p.line)),
-            const SizedBox(height: 3),
-            Text(han, style: F.s(17, family: F.hz, w: FontWeight.w600, c: p.t(syl.want))),
-          ],
+    final label = app.t.hkPinyin;
+    return Padding(
+      padding: const EdgeInsets.only(top: 10),
+      child: Press(
+        onTap: onTap,
+        scale: .95,
+        label: label,
+        selected: on,
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(999),
+            border: Border.all(color: on ? th.acc : p.line, width: 1.2),
+            color: on ? th.acc.withValues(alpha: .14) : null,
+          ),
+          child: Text(label, style: F.s(13.5, w: FontWeight.w700, c: on ? th.acc : p.soft)),
         ),
       ),
     );
   }
-}
-
-class _ToneCurve extends CustomPainter {
-  final List<double> want, got;
-  final Color cw, cg, grid;
-  _ToneCurve(this.want, this.got, this.cw, this.cg, this.grid);
-  @override
-  void paint(Canvas c, Size s) {
-    double y(double st) => s.height / 2 - st.clamp(-6.0, 6.0) / 6 * (s.height / 2 - 2);
-    void line(List<double> v, Color col, double w) {
-      if (v.length < 2) return;
-      final path = Path();
-      for (var k = 0; k < v.length; k++) {
-        final x = k / (v.length - 1) * s.width;
-        k == 0 ? path.moveTo(x, y(v[k])) : path.lineTo(x, y(v[k]));
-      }
-      c.drawPath(path, Paint()
-        ..style = PaintingStyle.stroke
-        ..strokeWidth = w
-        ..strokeCap = StrokeCap.round
-        ..color = col);
-    }
-
-    c.drawLine(Offset(0, s.height / 2), Offset(s.width, s.height / 2), Paint()..color = grid);
-    line(want, cw, 2.6);
-    line(got, cg, 2.2);
-  }
-
-  @override
-  bool shouldRepaint(_ToneCurve o) => o.got != got || o.want != want;
 }
 
 class _MockHead extends StatelessWidget {
@@ -1502,16 +1300,7 @@ class _HkResult extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 16),
-              if (parts.length >= 3)
-                Glass(
-                  radius: 24,
-                  padding: const EdgeInsets.symmetric(vertical: 10),
-                  child: Semantics(
-                    label: [for (final e in parts.entries) '${hkKindShort(e.key)} ${e.value}'].join(', '),
-                    child: CustomPaint(size: const Size(double.infinity, 200), painter: _Radar(parts, th.acc, p)),
-                  ),
-                ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 4),
               for (final e in parts.entries)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 8),
@@ -1557,14 +1346,23 @@ class _HkResult extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
                         Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Expanded(child: Text(x.it.zh, maxLines: 2, overflow: TextOverflow.ellipsis, style: F.s(14.5, family: F.zh, c: p.fg, h: 1.4))),
+                            Expanded(
+                              child: x.said != null
+                                  // a repeat or a text read aloud: the target with each missed hanzi marked (what was heard is the same text)
+                                  ? _MarkedText(it: x.it, ok: x.said!.ok, size: 15)
+                                  : Text(x.it.zh, maxLines: 2, overflow: TextOverflow.ellipsis, style: F.s(13, family: F.zh, c: p.mute, h: 1.4)),
+                            ),
                             const SizedBox(width: 10),
-                            Text('${x.score}', style: F.s(15, w: FontWeight.w800, c: x.score >= 60 ? p.good : p.gold)),
+                            Text('${x.score}', style: F.s(16, w: FontWeight.w800, c: x.score >= 60 ? p.good : p.gold)),
                           ],
                         ),
-                        const SizedBox(height: 3),
-                        Text(x.heard.isEmpty ? t.hkNothing : x.heard, maxLines: 3, overflow: TextOverflow.ellipsis, style: F.s(13, family: x.heard.isEmpty ? F.ui : F.zh, c: p.soft, h: 1.4)),
+                        // a retell or an answer: what was said, in front; the question or text above it is only the reminder
+                        if (x.said == null) ...[
+                          const SizedBox(height: 4),
+                          Text(x.heard.isEmpty ? t.hkNothing : x.heard, maxLines: 4, overflow: TextOverflow.ellipsis, style: F.s(14.5, family: x.heard.isEmpty ? F.ui : F.zh, c: x.heard.isEmpty ? p.mute : p.fg, h: 1.45)),
+                        ],
                       ],
                     ),
                   ),
@@ -1589,51 +1387,3 @@ class _HkResult extends StatelessWidget {
   }
 }
 
-/// the three parts as a triangle (each axis 0–100)
-class _Radar extends CustomPainter {
-  final Map<String, int> parts;
-  final Color acc;
-  final Pal p;
-  _Radar(this.parts, this.acc, this.p);
-  @override
-  void paint(Canvas c, Size s) {
-    final ks = parts.keys.toList();
-    final o = Offset(s.width / 2, s.height / 2 + 12);
-    final r = math.min(s.width, s.height) * .38;
-    Offset at(int k, double f) {
-      final a = -math.pi / 2 + k * 2 * math.pi / ks.length;
-      return o + Offset(math.cos(a), math.sin(a)) * r * f;
-    }
-
-    final grid = Paint()
-      ..style = PaintingStyle.stroke
-      ..color = p.line
-      ..strokeWidth = 1;
-    for (final f in [.5, 1.0]) {
-      final path = Path()..addPolygon([for (var k = 0; k < ks.length; k++) at(k, f)], true);
-      c.drawPath(path, grid);
-    }
-    for (var k = 0; k < ks.length; k++) {
-      c.drawLine(o, at(k, 1), grid);
-    }
-    final shape = Path()..addPolygon([for (var k = 0; k < ks.length; k++) at(k, (parts[ks[k]]! / 100).clamp(.03, 1.0))], true);
-    c.drawPath(shape, Paint()..color = acc.withValues(alpha: .25));
-    c.drawPath(shape, Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.4
-      ..strokeJoin = StrokeJoin.round
-      ..color = acc);
-    for (var k = 0; k < ks.length; k++) {
-      final tp = TextPainter(
-        text: TextSpan(text: '${_kindHan(ks[k])} ${parts[ks[k]]}', style: F.s(15, family: F.hz, w: FontWeight.w600, c: p.fg)),
-        textDirection: TextDirection.ltr,
-      )..layout();
-      final pos = at(k, 1.22);
-      tp.paint(c, pos - Offset(tp.width / 2, tp.height / 2));
-      tp.dispose();
-    }
-  }
-
-  @override
-  bool shouldRepaint(_Radar o) => o.parts != parts || o.acc != acc;
-}

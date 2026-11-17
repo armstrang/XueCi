@@ -95,7 +95,7 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   `MasteryFull` (HSK lens, bar, counts). Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
   uses `Compact`, half-way).
 - Tab bar (v1.4, Josh: like Gala): a capsule of three tabs **HSK · HSKK · Ujian** (`TabBar2`, `tabOf()`: home, list,
-  card, quiz count as HSK) plus a separate round **Soul Sea orb button** (`SoulOrbButton`, no aura), 64 tall, icon with
+  card, quiz count as HSK) plus a separate round **Soul Sea orb button** (`SoulOrbButton`, no aura; v1.5: a small colourful black hole, `BlackHolePainter`, turning on the `qiT` clock, still with light effects or "remove animations"), 64 tall, icon with
   its name, a glass lens that can be dragged; hidden in session/placement/tribulation/`hkrun`, while typing and in
   exams. List/Cards/Quiz sit on Home as `StudyRow` under the plan (on tight phones word mastery becomes its 4th tile).
   A one-time toast `navMoved` (`note['nav14']`) tells old learners.
@@ -223,11 +223,16 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   Lanjutan 2 retell + 1 read + 2 questions; the picture part of HSKK 3.0 is replaced by reading aloud, said honestly;
   `hkOpen`: Dasar from HSK 1, Menengah HSK 4, Lanjutan HSK 5; `SpkBank`, `scoreTalk` = keywords (homophones count),
   length, characters per minute, band words; `SpkLog` walks every list in a fixed shuffle, practice from the start,
-  mocks from the end), `app/tone.dart` (tone check: `Rec.kt` records ≤30 s in memory, YIN pitch, syllable spans,
-  shape → tone, third-tone sandhi; run in `Isolate.run`; recording dropped at once), `ui/hskk.dart` (`HskkScreen`:
-  level lens, practice path, mock card; `HkRunScreen`: intro → listen → prep → speak → result/tone, live highlight while
-  reading aloud), `ui/exam.dart` (Tests tab: HSK simulation, HSKK mock, realm tests). Scores are a guide, not an
-  examiner's mark, and the screens say so.
+  mocks from the end), `ui/hskk.dart` (`HskkScreen`: level lens, practice path; `HkRunScreen`: intro → listen → prep →
+  speak → result, live highlight while reading aloud), `ui/exam.dart` (Tests tab: **the only place for mock exams**: HSK
+  simulation, HSKK simulation, realm tests, last results). Scores are a guide, not an examiner's mark, and the screens
+  say so. The tone check (pitch analysis of a repeat, `tone.dart` + `Rec.kt`) was removed in v1.5 (Josh: not useful, did
+  not work on his phone); don't bring it back. `speech.dart` `hanDigits` turns digits the recognizer writes ("10") into
+  hanzi (十) before marking. The HSK simulation is not a Quiz type: the Tests tab sets `app.mockMode` (not saved, off
+  when leaving the Quiz screen).
+- **Recognizer "ding"** (v1.5): `Listen.kt` mutes only the media stream (`Quiet`) while it listens and gives it back
+  ~0.7 s after the end (a crash is repaired at the next start); ring/notification streams are left alone on purpose
+  (they share the ringer on many phones). Unverified on Josh's phone until he tests an alpha.
 
 ## CI
 

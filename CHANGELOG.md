@@ -6,6 +6,21 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.5
+
+**A calmer speaking practice, one place for exams, and a black hole.**
+
+- The tone check is gone. It didn't help enough, so it was removed along with its recording.
+- Numbers heard as digits (10) now count as the hanzi you said (十), so a right answer is no longer marked wrong.
+- The microphone's "ding" is muted while you speak and the media volume comes back right after.
+- Mock exams are in one place, the Tests tab (HSK simulation and HSKK simulation, with your latest results).
+  They are no longer a Quiz type or a card on the HSKK tab. Names are the same everywhere.
+- The Soul Sea button is now a small black hole, its disk of colour turning slowly (still with light effects).
+- The HSKK mock result shows what you said once, with missed hanzi marked; the triangle chart is gone.
+- Home: "Today's Trial" has its name instead of 试, the goal line looks like a button, and the four stage bars
+  of your realm now show your progress (they were never drawn).
+- The Pinyin switch under a text is a clear pill.
+
 ## v1.4
 
 **Speaking practice for the HSKK, a word widget, and a new tab bar.**
