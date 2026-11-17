@@ -95,7 +95,7 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   `MasteryFull` (HSK lens, bar, counts). Don't add rows to Home without taking space elsewhere. Text follows the phone's size (clamped 0.85–1.6; compact chrome
   uses `Compact`, half-way).
 - Tab bar (v1.4, Josh: like Gala): a capsule of three tabs **HSK · HSKK · Ujian** (`TabBar2`, `tabOf()`: home, list,
-  card, quiz count as HSK) plus a separate round **Soul Sea orb button** (`SoulOrbButton`, no aura; v1.5: a small colourful black hole, `BlackHolePainter`, turning on the `qiT` clock, still with light effects or "remove animations"), 64 tall, icon with
+  card, quiz count as HSK) plus a separate round **Soul Sea orb button** (`SoulOrbButton`, no aura; v1.5: a small colourful black hole seen from the front (round core, warm ring, four colour arms curving in like a vortex, Josh: "a hole that pulls in, not Saturn"), `BlackHolePainter`, turning on the `qiT` clock, still with light effects or "remove animations"), 64 tall, icon with
   its name, a glass lens that can be dragged; hidden in session/placement/tribulation/`hkrun`, while typing and in
   exams. List/Cards/Quiz sit on Home as `StudyRow` under the plan (on tight phones word mastery becomes its 4th tile).
   A one-time toast `navMoved` (`note['nav14']`) tells old learners.

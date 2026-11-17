@@ -420,22 +420,22 @@ class SoulOrbButton extends StatelessWidget {
   }
 }
 
-/// A black hole in a dark round window: a black core with a thin bright rim, a tilted disk of light around it (the far
-/// half behind the core, the near half in front), and the light bent over the top and under the bottom of the core.
-/// The colours of the disk run round it and turn once in about 14 seconds; nothing else moves.
+/// A black hole seen from the front, in a dark round window: a black round core with a thin warm ring of light, and
+/// four arms of colour curving into it like a vortex pulling everything in. The arms turn slowly towards the core
+/// (one turn in about 10 seconds); nothing else moves.
 class BlackHolePainter extends CustomPainter {
   final Color c, gold;
   final bool on, still;
   BlackHolePainter(this.c, this.gold, this.on, this.still) : super(repaint: still ? null : qiT);
 
-  static const _violet = Color(0xffa070ff), _blue = Color(0xff4cc9f0), _pink = Color(0xffff6fb0);
+  static const _violet = Color(0xffb07cff), _blue = Color(0xff4cc9f0), _pink = Color(0xffff6fb0), _teal = Color(0xff2ee6a6);
 
   @override
   void paint(Canvas canvas, Size s) {
     final R = s.width / 2;
     final o = Offset(R, R);
     final t = still ? .9 : qiT.value;
-    final turn = t * 2 * math.pi / 14;
+    final turn = t * 2 * math.pi / 10;
 
     canvas.save();
     canvas.clipPath(Path()..addOval(Rect.fromCircle(center: o, radius: R)));
@@ -452,70 +452,71 @@ class BlackHolePainter extends CustomPainter {
       Paint()..shader = RadialGradient(colors: [c.withValues(alpha: on ? .42 : .3), c.withValues(alpha: 0)]).createShader(Rect.fromCircle(center: o, radius: R * .95)),
     );
 
-    canvas.translate(o.dx, o.dy);
-    canvas.rotate(-.42); // the disk is tilted
-    final rx = R * .84, ry = R * .2, core = R * .4;
-    final ring = Rect.fromCenter(center: Offset.zero, width: rx * 2, height: ry * 2);
-    // a paint's colour alpha does not touch its shader, so the dimmer layer gets a shader of its own
-    Shader sweepOf(double a) => SweepGradient(
-      transform: GradientRotation(turn),
-      colors: [for (final k in [Colors.white, gold, c, _violet, _blue, _pink, gold, Colors.white]) k.withValues(alpha: a)],
-      stops: const [0, .12, .3, .5, .66, .8, .93, 1],
-    ).createShader(ring);
-    final bright = sweepOf(1), soft = sweepOf(on ? .42 : .3);
-    Paint disk(double w, Shader sh) => Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = w
-      ..shader = sh
-      ..isAntiAlias = true;
-    final path = Path()..addOval(ring);
-    void drawDisk() {
-      canvas.drawPath(path, disk(R * .3, soft)); // soft body: the glow of the gas
-      canvas.drawPath(path, disk(R * .13, bright)); // the hot band
+    final core = R * .36;
+    final cols = [_pink, _violet, _blue, _teal];
+    // one arm: a logarithmic spiral from the rim down to the core, a ribbon that is wide outside and thin inside.
+    // A pattern turning the same way as the spiral winds in, so the arms seem to flow into the hole.
+    Path arm(int k, double wMul) {
+      const n = 26;
+      final left = <Offset>[], right = <Offset>[];
+      for (var i = 0; i <= n; i++) {
+        final f = i / n; // 0 at the rim, 1 at the core
+        final r = R * 1.02 - (R * 1.02 - core * 1.04) * f;
+        final th = -turn + k * math.pi / 2 + 2.4 * math.log(R * 1.02 / r);
+        final hw = R * wMul * (.1 + .9 * (1 - f) * (1 - f) * .6 + .25 * (1 - f));
+        final d = Offset(math.cos(th), math.sin(th));
+        final nrm = Offset(-d.dy, d.dx);
+        final pt = o + d * r;
+        left.add(pt + nrm * hw);
+        right.add(pt - nrm * hw);
+      }
+      final path = Path()..moveTo(left.first.dx, left.first.dy);
+      for (final q in left.skip(1)) {
+        path.lineTo(q.dx, q.dy);
+      }
+      for (final q in right.reversed) {
+        path.lineTo(q.dx, q.dy);
+      }
+      return path..close();
     }
 
-    // the far half of the disk, behind the core
-    canvas.save();
-    canvas.clipRect(Rect.fromLTRB(-R, -R, R, 0));
-    drawDisk();
-    canvas.restore();
+    Paint armPaint(Color k, double a) => Paint()
+      ..isAntiAlias = true
+      ..shader = RadialGradient(
+        colors: [k.withValues(alpha: a), k.withValues(alpha: a * .85), k.withValues(alpha: 0)],
+        stops: const [.34, .6, 1],
+      ).createShader(Rect.fromCircle(center: o, radius: R * 1.02));
+    for (var k = 0; k < 4; k++) {
+      canvas.drawPath(arm(k, .5), armPaint(cols[k], on ? .5 : .4)); // the wide soft cloud
+    }
+    for (var k = 0; k < 4; k++) {
+      canvas.drawPath(arm(k, .22), armPaint(Color.lerp(cols[k], Colors.white, .3)!, 1)); // the bright thread
+    }
 
-    // the core, with a thin warm rim (the photon ring)
-    canvas.drawCircle(Offset.zero, core, Paint()..color = const Color(0xff020104));
+    // the glow right round the core: it fades out softly, warm at the core
     canvas.drawCircle(
-      Offset.zero,
+      o,
+      core * 1.75,
+      Paint()
+        ..shader = RadialGradient(
+          colors: [const Color(0xffff9a3c).withValues(alpha: .55), _pink.withValues(alpha: .22), _pink.withValues(alpha: 0)],
+          stops: const [.57, .78, 1],
+        ).createShader(Rect.fromCircle(center: o, radius: core * 1.75)),
+    );
+    // the core, with a thin warm rim
+    canvas.drawCircle(o, core, Paint()..color = const Color(0xff020104));
+    canvas.drawCircle(
+      o,
       core,
       Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = R * .03
-        ..color = Color.lerp(gold, Colors.white, .55)!.withValues(alpha: .8),
+        ..strokeWidth = R * .035
+        ..shader = SweepGradient(
+          transform: GradientRotation(-turn * 1.6),
+          colors: [Colors.white.withValues(alpha: .95), const Color(0xffff9a3c).withValues(alpha: .9), _pink.withValues(alpha: .6), Colors.white.withValues(alpha: .95)],
+          stops: const [0, .3, .65, 1],
+        ).createShader(Rect.fromCircle(center: o, radius: core)),
     );
-
-    // light bent over the top and under the bottom of the core: arcs that fade out towards both ends
-    final lens = Rect.fromCircle(center: Offset.zero, radius: core * 1.13);
-    final warm = Color.lerp(gold, Colors.white, .5)!;
-    void arc(double from, double alpha, double width) {
-      canvas.drawArc(
-        lens,
-        from,
-        math.pi,
-        false,
-        Paint()
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = width
-          ..strokeCap = StrokeCap.round
-          ..shader = LinearGradient(colors: [warm.withValues(alpha: 0), warm.withValues(alpha: alpha), warm.withValues(alpha: 0)]).createShader(lens),
-      );
-    }
-
-    arc(-math.pi, .95, R * .08);
-    arc(0, .45, R * .06);
-
-    // the near half of the disk, in front of the core
-    canvas.save();
-    canvas.clipRect(Rect.fromLTRB(-R, 0, R, R));
-    drawDisk();
-    canvas.restore();
     canvas.restore();
 
     // the Soul Sea is open: a ring in the realm's colour
