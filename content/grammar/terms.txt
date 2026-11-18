@@ -240,3 +240,94 @@ Y | | hal lain | something else | อีกสิ่ง | điều khác
 股 | gǔ | arus, bau (satuan) | (measure word: smell, current) | (ลักษณนามกลิ่น กระแส) | (lượng từ: mùi, luồng)
 若 | ruò | jika | if | ถ้า | nếu
 那倒也是 | nà dào yě shì | benar juga | that's true | นั่นก็จริง | cũng đúng
+一下子 | yíxiàzi | seketika | all at once | ทันที | trong chốc lát
+下雪 | xià xuě | turun salju | snow | หิมะตก | có tuyết rơi
+不堪设想 | bùkān shèxiǎng | tak terbayangkan | unthinkable | เลวร้ายเกินคาด | khó lường
+不能 | bù néng | tidak boleh | cannot | ไม่ได้ | không thể
+与此同时 | yǔcǐ tóngshí | pada saat yang sama | at the same time | ในเวลาเดียวกัน | đồng thời
+主 | zhǔ | utama | main | หลัก | chính
+乐 | lè | kegembiraan | joy | ความสุข | niềm vui
+也就是说 | yě jiù shì shuō | dengan kata lain | in other words | หมายความว่า | nói cách khác
+何尝 | hécháng | mana pernah | how could (not) | ไหนเลยจะ | nào có
+作 | zuò | membuat | make | ทำ | làm
+假若 | jiǎruò | seandainya | if | หาก | nếu như
+做事 | zuòshì | bekerja | do things | ทำงาน | làm việc
+做人 | zuòrén | menjadi manusia | be a person | เป็นคน | làm người
+凡 | fán | semua yang | every | ทุก | hễ
+利大于弊 | lì dà yú bì | untung lebih besar dari rugi | more good than harm | ได้มากกว่าเสีย | lợi nhiều hơn hại
+别提了 | biétí le | jangan ditanya | don't even ask | อย่าพูดถึงเลย | đừng nhắc nữa
+别提多 | biétí duō | tak terkatakan betapa | can't tell how | พูดไม่ถูกว่า | khỏi nói
+别提有多 | biétí yǒu duō | tak terkatakan betapa | can't tell how | พูดไม่ถูกว่า | khỏi nói
+受罚 | shòufá | dihukum | be punished | ถูกลงโทษ | bị phạt
+只不过 | zhǐbuguò | hanya saja | merely | แค่ | chẳng qua
+台上 | tái shang | di panggung | on stage | บนเวที | trên sân khấu
+台下 | tái xià | di bawah panggung | off stage | ใต้เวที | dưới khán đài
+吃得 | chīde | makannya | eats (a lot) | กินได้ | ăn được
+听懂 | tīngdǒng | paham (mendengar) | understand by listening | ฟังเข้าใจ | nghe hiểu
+吹开 | chuīkāi | tertiup terbuka | blow open | พัดเปิด | thổi tung
+周三 | zhōusān | hari Rabu | Wednesday | วันพุธ | thứ Tư
+哈欠 | hāqian | menguap | yawn | หาว | cái ngáp
+哪有 | nǎ yǒu | mana ada | where is there | ที่ไหนมี | làm gì có
+商 | shāng | dagang | trade | การค้า | thương
+喝酒 | hējiǔ | minum alkohol | drink alcohol | ดื่มเหล้า | uống rượu
+回家 | huíjiā | pulang | go home | กลับบ้าน | về nhà
+夜景 | yèjǐng | pemandangan malam | night view | วิวกลางคืน | cảnh đêm
+大势 | dàshì | keadaan umum | the general situation | สถานการณ์โดยรวม | đại cục
+大声 | dàshēng | keras | loudly | เสียงดัง | to tiếng
+大碗 | dà wǎn | mangkuk besar | big bowl | ชามใหญ่ | bát lớn
+大笑 | dàxiào | tertawa terbahak | laugh loudly | หัวเราะเสียงดัง | cười lớn
+好用 | hǎoyòng | enak dipakai | handy | ใช้ดี | dễ dùng
+守时 | shǒushí | tepat waktu | punctual | ตรงเวลา | đúng giờ
+小树 | xiǎoshù | pohon kecil | little tree | ต้นไม้เล็ก | cây nhỏ
+就是了 | jiù shì le | saja | that's all | เท่านั้น | thôi
+尽可能 | jǐnkěnéng | sebisa mungkin | as much as possible | ให้มากที่สุดเท่าที่จะทำได้ | hết mức có thể
+帮帮 | bāngbang | membantu sedikit | help a bit | ช่วยหน่อย | giúp một chút
+开口 | kāikǒu | membuka mulut | open one's mouth | เปิดปาก | mở lời
+当着 | dāngzhe | di hadapan | in front of | ต่อหน้า | trước mặt
+忽 | hū | tiba-tiba | suddenly | จู่ๆ | bỗng
+总的来说 | zǒng de lái shuō | secara keseluruhan | overall | โดยรวมแล้ว | nhìn chung
+想起 | xiǎngqǐ | teringat | recall | นึกขึ้นได้ | nhớ ra
+才好 | cái hǎo | baiknya | would be good | ดี | thì tốt
+抬起 | táiqǐ | mengangkat | raise | เงยขึ้น | ngẩng lên
+接送 | jiēsòng | antar-jemput | pick up and drop off | รับส่ง | đưa đón
+揭穿 | jiēchuān | membongkar | expose | เปิดโปง | vạch trần
+搬走 | bānzǒu | pindah | move away | ย้ายออกไป | chuyển đi
+教书 | jiāoshū | mengajar | teach | สอนหนังสือ | dạy học
+明 | míng | terang | bright | สว่าง | sáng
+昨晚 | zuówǎn | semalam | last night | เมื่อคืน | tối qua
+是不是 | shì bu shì | apakah | is it or not | ใช่หรือไม่ | có phải không
+有人 | yǒu rén | ada orang | someone | มีคน | có người
+来说 | lái shuō | bagi | as for | สำหรับ | đối với
+样儿 | yàngr | gaya, rupa | look, manner | ท่าทาง | dáng vẻ
+桌 | zhuō | meja | table | โต๊ะ | bàn
+楷书 | kǎishū | gaya tulisan kai | regular script | อักษรบรรจง | chữ khải
+没想到 | méi xiǎngdào | tak disangka | unexpectedly | ไม่คิดว่า | không ngờ
+河边 | hébiān | tepi sungai | riverside | ริมแม่น้ำ | bờ sông
+流下来 | liú xiàlai | mengalir turun | flow down | ไหลลงมา | chảy xuống
+淋湿 | línshī | basah kuyup | get soaked | เปียกฝน | ướt sũng
+溜走 | liūzǒu | menyelinap pergi | slip away | แอบหนีไป | lẻn đi
+瓶 | píng | botol | bottle | ขวด | chai
+用水 | yòng shuǐ | memakai air | use water | ใช้น้ำ | dùng nước
+疑 | yí | ragu | doubt | สงสัย | nghi
+的面 | de miàn | di depan (muka) | to the face | ต่อหน้า | trước mặt
+第一 | dì yī | pertama | first | แรก | đầu tiên
+纵使 | zòngshǐ | sekalipun | even if | ต่อให้ | dẫu cho
+综 | zōng | menyimpulkan | sum up | สรุป | tổng hợp
+综上所述 | zōng shàng suǒ shù | dari semua yang telah disebut | in summary | สรุปจากที่กล่าวมา | tổng hợp những điều trên
+考场 | kǎochǎng | ruang ujian | exam room | ห้องสอบ | phòng thi
+自由自在 | zìyóu zìzài | bebas dan nyaman | free and easy | อิสระสบาย | tự do tự tại
+蛮 | mán | lumayan | quite | ค่อนข้าง | khá
+要死 | yàosǐ | setengah mati | to death | แทบตาย | chết đi được
+见过 | jiàn guo | pernah bertemu | have met | เคยเจอ | từng gặp
+觉 | jiào | tidur | sleep | นอน | giấc ngủ
+话是这么说 | huà shì zhème shuō | memang begitu katanya | so they say | พูดก็พูดเถอะ | nói thì nói vậy
+还有 | hái yǒu | juga ada | there is also | ยังมี | còn có
+述 | shù | menyebut | state | กล่าว | thuật
+适 | shì | cocok | suitable | เหมาะ | thích hợp
+逛街 | guàngjiē | jalan-jalan belanja | go window-shopping | เดินเล่นซื้อของ | đi dạo phố
+问问 | wènwen | bertanya | ask | ถามดู | hỏi thử
+除此之外 | chú cǐ zhī wài | selain itu | besides this | นอกจากนี้ | ngoài ra
+顺着 | shùnzhe | menyusuri | along | ไปตาม | theo
+领导人 | lǐngdǎorén | pemimpin | leader | ผู้นำ | lãnh đạo
+骂人 | màrén | memarahi orang | scold people | ด่าคน | mắng người
+歉 | qiàn | maaf | apology | ขอโทษ | xin lỗi
