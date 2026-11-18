@@ -140,3 +140,19 @@ Y | | hal lain | something else | อีกสิ่ง | điều khác
 点儿 | diǎnr | sedikit | a bit | หน่อย | chút
 十几 | shíjǐ | belasan | a dozen or so | สิบกว่า | mười mấy
 十二 | shí'èr | dua belas | twelve | สิบสอง | mười hai
+班长 | bānzhǎng | ketua kelas | class monitor | หัวหน้าห้อง | lớp trưởng
+人们 | rénmen | orang-orang | people | ผู้คน | mọi người
+而是 | érshì | melainkan | but rather | แต่เป็น | mà là
+日语 | Rìyǔ | bahasa Jepang | Japanese | ภาษาญี่ปุ่น | tiếng Nhật
+晴天 | qíngtiān | hari cerah | sunny day | วันแดดออก | trời nắng
+袋 | dài | karung, kantong | bag | ถุง | bao, túi
+清新 | qīngxīn | segar | fresh | สดชื่น | trong lành
+入场 | rùchǎng | masuk | enter | เข้างาน | vào cửa
+分之 | fēn zhī | per (pecahan) | over (fraction) | ส่วน | phần
+百分之 | bǎi fēn zhī | persen | percent | เปอร์เซ็นต์ | phần trăm
+休 | xiū | istirahat, libur | rest | หยุด | nghỉ
+稳 | wěn | stabil | steady | มั่นคง | vững
+客 | kè | (traktir tamu) | (treat guests) | (เลี้ยงแขก) | (khách)
+会儿 | huìr | sebentar | a moment | สักพัก | lát
+小事 | xiǎoshì | hal kecil | small matter | เรื่องเล็ก | chuyện nhỏ
+也罢 | yěbà | (boleh saja) | (either way) | (ก็ได้) | (cũng được)
