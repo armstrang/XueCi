@@ -120,4 +120,30 @@ void main() {
     expect(adv.length, greaterThan(140));
     expect(adv.where((p) => p.practisable).length, greaterThan(100));
   });
+
+  test('every point has a name in four languages, three examples written word by word, and formula parts that exist', () async {
+    final a = await boot();
+    final open = await boot({
+      'xc_lvl': jsonEncode({'r': 7, 'gate': clockMin, 'gs': clockMin, 'hist': []}),
+    });
+    for (final app in [a, open]) {
+      for (final x in app.gram!.pts) {
+        for (final l in ['id', 'en', 'th', 'vi']) {
+          expect(x.title(l).trim(), isNotEmpty, reason: '${x.id} title $l');
+        }
+        expect(x.eg.length, greaterThanOrEqualTo(3), reason: '${x.id} has too few examples');
+        for (final e in x.eg) {
+          expect(e.z, isNotEmpty, reason: x.id);
+          for (final l in ['id', 'en', 'th', 'vi']) {
+            expect((e.tr[l] ?? '').trim(), isNotEmpty, reason: '${x.id} translation $l: ${e.z}');
+          }
+          for (final w in e.w.where((w) => !w.punct)) {
+            expect(w.py, isNotEmpty, reason: '${x.id} ${w.h} has no pinyin');
+            expect(w.g, isNotNull, reason: '${x.id} ${w.h} has no meaning');
+            expect(w.slot, lessThanOrEqualTo(x.parts.length), reason: '${x.id}: slot of ${w.h} is not in the formula');
+          }
+        }
+      }
+    }
+  });
 }

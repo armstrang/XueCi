@@ -400,8 +400,8 @@ class _GrammarState extends State<GrammarScreen> {
             ],
           ),
         ),
-        if (x.eg.isNotEmpty) SGroup(t.gramEx, [for (final e in x.eg) _example(th, x, e, lang)]),
-        const SizedBox(height: 18),
+        // the practice button sits above the examples so it is never below the fold
+        const SizedBox(height: 14),
         if (x.practisable)
           MainBtn(t.gramPractice, wide: true, big: true, icon: I.quiz, onTap: () => _start(app.gpr.run(x)))
         else
@@ -409,6 +409,7 @@ class _GrammarState extends State<GrammarScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Text(t.gramRead, textAlign: TextAlign.center, style: F.s(13.5, c: p.soft, h: 1.45)),
           ),
+        if (x.eg.isNotEmpty) ...[const SizedBox(height: 14), SGroup(t.gramEx, [for (final e in x.eg) _example(th, x, e, lang)])],
       ],
     );
   }

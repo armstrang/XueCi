@@ -6,6 +6,18 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.7
+
+**A friendlier Grammar page.**
+
+- Every grammar point now has a title in your own language, on the list and on the point page, so you know what you
+  are opening.
+- The formula shows what each part is (subject, verb, noun…) with its meaning and pinyin, in colours that match the
+  example sentences. This works for every level, HSK 1–6.
+- Every point has at least three examples. Each one is written word by word, with pinyin and meaning under each word
+  and the full translation below, in Indonesian, English, Thai and Vietnamese.
+- Short warnings where learners often slip, and the Practise button now sits above the examples.
+
 ## v1.6
 
 **A grammar book, a much stricter placement test, and a red seal.**
