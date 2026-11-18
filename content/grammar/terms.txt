@@ -179,3 +179,64 @@ Y | | hal lain | something else | อีกสิ่ง | điều khác
 天天 | tiāntiān | setiap hari | every day | ทุกวัน | mỗi ngày
 散散步 | sànsanbù | jalan-jalan santai | take a stroll | เดินเล่น | đi dạo
 谢 | xiè | terima kasih | thank | ขอบคุณ | cảm ơn
+那倒是 | nà dào shì | memang begitu | that's true | นั่นจริง | cũng đúng
+很快 | hěn kuài | segera | soon | ในไม่ช้า | rất nhanh
+吃完 | chīwán | selesai makan | finish eating | กินเสร็จ | ăn xong
+地上 | dì shang | di lantai | on the ground | บนพื้น | trên đất
+骑走 | qízǒu | dibawa pergi (naik) | ride away | ขี่ไป | cưỡi đi
+钱包 | qiánbāo | dompet | wallet | กระเป๋าเงิน | ví tiền
+小偷 | xiǎotōu | maling | thief | โจร | kẻ trộm
+偷走 | tōuzǒu | mencuri | steal away | ขโมยไป | trộm đi
+时而 | shí'ér | kadang | sometimes | บางครั้ง | lúc thì
+唱歌 | chànggē | menyanyi | sing | ร้องเพลง | hát
+海浪 | hǎilàng | ombak | waves | คลื่นทะเล | sóng biển
+汹涌 | xiōngyǒng | bergelora | surging | โหมกระหน่ำ | cuồn cuộn
+走进 | zǒujìn | masuk | walk into | เดินเข้า | đi vào
+懂事 | dǒngshì | pengertian | sensible | รู้ความ | hiểu chuyện
+要不然 | yàobùrán | kalau tidak | otherwise | ไม่อย่างนั้น | nếu không thì
+纪念品 | jìniànpǐn | suvenir | souvenir | ของที่ระลึก | quà lưu niệm
+吃饭 | chīfàn | makan | eat | กินข้าว | ăn cơm
+七点 | qī diǎn | jam tujuh | seven o'clock | เจ็ดโมง | bảy giờ
+相识 | xiāngshí | berkenalan | get acquainted | รู้จักกัน | quen biết
+爬山 | páshān | naik gunung | climb a mountain | ปีนเขา | leo núi
+非 | fēi | harus (非…不可) | must (非…不可) | ต้อง (非…不可) | phải (非…不可)
+不可 | bùkě | tidak boleh tidak | cannot not | ไม่ได้ | không thể không
+学好 | xuéhǎo | menguasai | learn well | เรียนให้ดี | học giỏi
+头上来 | tóu shang lái | sampai ke diri (kepala) | (all the way) onto me | มาถึงตัว | đến tận đầu
+我家 | wǒ jiā | rumahku | my home | บ้านฉัน | nhà tôi
+偏偏 | piānpiān | justru | of all times | ดันเป็น | lại cứ
+放着 | fàngzhe | membiarkan ada | leave lying there | ปล่อยไว้ | để đó
+家里 | jiā li | di rumah | at home | ที่บ้าน | ở nhà
+下次 | xià cì | lain kali | next time | คราวหน้า | lần sau
+大不了 | dàbuliǎo | serius, gawat | a big deal | เรื่องใหญ่ | to tát
+伺候 | cìhou | melayani | wait on | ปรนนิบัติ | chiều chuộng
+一九九零 | yī jiǔ jiǔ líng | tahun 1990 | 1990 | ปี 1990 | năm 1990
+一齐 | yìqí | serempak | together | พร้อมกัน | cùng lúc
+下起 | xiàqǐ | mulai turun | start to fall | เริ่มตก | bắt đầu rơi
+不让 | bú ràng | tidak membolehkan | not let | ไม่ให้ | không cho
+之外 | zhī wài | di luar, selain | besides | นอกจาก | ngoài
+偏 | piān | justru | stubbornly | ดื้อจะ | cứ
+停课 | tíngkè | libur sekolah | cancel class | หยุดเรียน | nghỉ học
+加拿大 | Jiānádà | Kanada | Canada | แคนาดา | Canada
+卡车 | kǎchē | truk | truck | รถบรรทุก | xe tải
+周日 | zhōurì | hari Minggu | Sunday | วันอาทิตย์ | chủ nhật
+回国 | huíguó | pulang ke negara | return to one's country | กลับประเทศ | về nước
+大雨 | dàyǔ | hujan deras | heavy rain | ฝนตกหนัก | mưa to
+好不容易 | hǎobù róngyì | susah payah akhirnya | with great difficulty | ยากเย็นกว่าจะ | khó khăn lắm mới
+忧 | yōu | cemas | worry | กังวล | lo
+虑 | lǜ | khawatir | concern | ห่วง | nghĩ ngợi
+思 | sī | berpikir | think | คิด | nghĩ
+总会 | zǒnghuì | pasti akan | will surely | ย่อมจะ | sớm muộn cũng
+息 | xī | kabar, napas | news, breath | ข่าว, ลมหายใจ | tin, hơi thở
+故 | gù | kerabat lama | old friend | เพื่อนเก่า | bạn cũ
+早点 | zǎodiǎn | lebih awal | a bit earlier | เร็วขึ้น | sớm hơn
+时时 | shíshí | selalu | always | ตลอดเวลา | luôn luôn
+沿着 | yánzhe | menyusuri | along | ไปตาม | dọc theo
+玩笑 | wánxiào | candaan | joke | เรื่องล้อเล่น | trò đùa
+看书 | kànshū | membaca buku | read | อ่านหนังสือ | đọc sách
+看到 | kàndào | melihat | see | เห็น | nhìn thấy
+知 | zhī | tahu | know | รู้ | biết
+罢了 | bàle | cuma, saja | that's all | เท่านั้น | thôi
+股 | gǔ | arus, bau (satuan) | (measure word: smell, current) | (ลักษณนามกลิ่น กระแส) | (lượng từ: mùi, luồng)
+若 | ruò | jika | if | ถ้า | nếu
+那倒也是 | nà dào yě shì | benar juga | that's true | นั่นก็จริง | cũng đúng
