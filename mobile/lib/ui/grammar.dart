@@ -98,7 +98,7 @@ class _GrammarState extends State<GrammarScreen> {
     final t = app.t;
     final b = app.gram;
     final bottom = MediaQuery.paddingOf(context).bottom + 96;
-    final title = run != null ? (review ? t.gram : run![0].p.zh) : (pt?.zh ?? t.gram);
+    final title = run != null ? (review ? t.gram : run![0].p.title(app.vocab.lang)) : (pt?.title(app.vocab.lang) ?? t.gram);
     Widget body;
     if (b == null) {
       body = Padding(padding: const EdgeInsets.all(24), child: Text(t.dataFail));
@@ -255,39 +255,74 @@ class _GrammarState extends State<GrammarScreen> {
   }
 
   Widget _row(BuildContext context, GPoint x) {
-    final p = Th.pal(context);
-    final t = app.t;
+    final th = Th.of(context);
+    final p = th.p;
+    final lang = app.vocab.lang;
     final st = _status(x);
+    final e = x.eg.isEmpty ? null : x.eg.first;
+    final keySlots = {for (var i = 0; i < x.parts.length; i++) if (x.parts[i].key) i + 1};
     return Press(
       onTap: () {
         setState(() => pt = x);
         _top();
       },
       scale: .985,
-      label: '${x.zh}, ${x.formula}, ${st.$1}',
+      label: '${x.title(lang)}, ${x.zh}${st.$1.isEmpty ? '' : ', ${st.$1}'}',
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+        padding: const EdgeInsets.fromLTRB(16, 12, 12, 12),
         child: Row(
           children: [
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(x.zh, locale: _zh, style: F.s(15.5, w: FontWeight.w700, c: p.fg, family: F.zh, h: 1.35)),
-                  const SizedBox(height: 2),
-                  Text(x.formula, locale: _zh, style: F.s(13, c: p.soft, family: F.zh, h: 1.35)),
+                  Text(x.title(lang), style: F.s(15.5, w: FontWeight.w800, c: p.fg, h: 1.3)),
+                  if (e != null) ...[
+                    const SizedBox(height: 3),
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          for (final w in e.w)
+                            TextSpan(
+                              text: w.h,
+                              style: TextStyle(fontFamily: F.zh, color: keySlots.contains(w.slot) ? _acc(th) : p.fg, fontWeight: FontWeight.w700),
+                            ),
+                          TextSpan(text: '  ${e.tr[lang] ?? e.tr['en'] ?? ''}', style: TextStyle(color: p.soft, fontWeight: FontWeight.w400)),
+                        ],
+                      ),
+                      locale: _zh,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: F.s(13.5, h: 1.4),
+                    ),
+                  ],
+                  const SizedBox(height: 3),
+                  Text('${x.zh}${x.npy.isEmpty ? '' : ' · ${x.npy}'}', locale: _zh, maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(11.5, c: p.mute, h: 1.3)),
                 ],
               ),
             ),
             const SizedBox(width: 10),
-            if (st.$2 != null) Dot(st.$2!, size: 9),
-            if (x.practisable && app.gprog.n(x.id) == 0) Text(t.gramNew, style: F.s(11.5, c: p.mute)),
-            const SizedBox(width: 8),
+            if (st.$2 != null) ...[Dot(st.$2!, size: 9), const SizedBox(width: 8)],
             Text('›', style: F.s(18, c: p.mute, h: 1)),
           ],
         ),
       ),
     );
+  }
+
+  Color _acc(Th th) => th.p.dark ? Color.lerp(th.acc, Colors.white, .4)! : th.acc;
+
+  /// the colour of a formula part: the grammar word takes the accent, the slots take their own colours in turn
+  Color _partColor(Th th, GPoint x, int slot) {
+    if (slot < 1 || slot > x.parts.length) return th.p.fgA(.18);
+    if (x.parts[slot - 1].key) return _acc(th);
+    var k = 0;
+    for (var i = 0; i < slot - 1; i++) {
+      if (!x.parts[i].key) k++;
+    }
+    const dark = [Color(0xFF8CC8FF), Color(0xFF7FE0B0), Color(0xFFFFB86B), Color(0xFFFF9EC7), Color(0xFF7FD9E0)];
+    const light = [Color(0xFF1D63B0), Color(0xFF16774A), Color(0xFFA2540A), Color(0xFFB02A63), Color(0xFF0B6E77)];
+    return (th.p.dark ? dark : light)[k % 5];
   }
 
   /// a point's state: words and a colour (null: not practised)
@@ -308,57 +343,64 @@ class _GrammarState extends State<GrammarScreen> {
     final t = app.t;
     final lang = app.vocab.lang;
     final st = _status(x);
-    final ex = <({String zh, String py, String tr})>[
-      for (final d in x.ex) (zh: d.z, py: (d.zp ?? '').replaceAll(RegExp(r'[{}]'), ''), tr: app.vocab.trOf(d)),
-      for (final e in x.own) (zh: e.zh, py: e.py, tr: e.tr[lang] ?? e.tr['en'] ?? ''),
-    ].take(4).toList();
+    final w = x.warn?[lang] ?? x.warn?['en'];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        const SizedBox(height: 6),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(4, 0, 4, 10),
+          child: Text(
+            [x.zh, if (x.npy.isNotEmpty) x.npy, gramLvName(x.l), L10t.cat(x.cat)].join(' · '),
+            locale: _zh,
+            style: F.s(12.5, c: p.soft, h: 1.4),
+          ),
+        ),
         Glass(
           radius: 22,
-          padding: const EdgeInsets.fromLTRB(18, 16, 18, 18),
+          padding: const EdgeInsets.fromLTRB(16, 14, 16, 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
                 children: [
-                  Text('${gramLvName(x.l)} · ${L10t.cat(x.cat)}', style: F.s(12, w: FontWeight.w800, c: p.soft, ls: .4)),
+                  Text(t.gramFormula.toUpperCase(), style: F.s(11.5, w: FontWeight.w800, c: p.soft, ls: .8)),
                   const Spacer(),
                   if (st.$2 != null) ...[Dot(st.$2!, size: 8), const SizedBox(width: 6), Text(st.$1, style: F.s(12, w: FontWeight.w700, c: p.soft))],
                 ],
               ),
               const SizedBox(height: 10),
-              Text(x.formula, locale: _zh, style: F.s(21, w: FontWeight.w800, c: th.acc, family: F.zh, h: 1.4)),
-              const SizedBox(height: 10),
-              Rich(x.text(lang), style: F.s(15, c: p.fg, h: 1.5)),
+              if (x.parts.isEmpty)
+                Text(x.formula, locale: _zh, style: F.s(19, w: FontWeight.w800, c: _acc(th), family: F.zh, h: 1.4))
+              else
+                _formula(th, x, lang),
+              const SizedBox(height: 12),
+              Rich(x.text(lang), style: F.s(14.5, c: p.fg, h: 1.5)),
+              if (w != null && w.isNotEmpty) ...[
+                const SizedBox(height: 10),
+                Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.fromLTRB(12, 9, 12, 9),
+                  decoration: BoxDecoration(
+                    color: p.sYellow.withValues(alpha: p.dark ? .1 : .12),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(color: p.sYellow.withValues(alpha: .4)),
+                  ),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('!', style: F.s(14, w: FontWeight.w900, c: p.dark ? p.sYellow : const Color(0xFF7A5200), h: 1.35)),
+                      const SizedBox(width: 9),
+                      Expanded(
+                        child: Text(w, locale: _zh, style: F.s(13.5, c: p.dark ? const Color(0xFFF3D58C) : const Color(0xFF6B4700), h: 1.4)),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ],
           ),
         ),
-        if (ex.isNotEmpty)
-          SGroup(t.gramEx, [
-            for (final e in ex)
-              Padding(
-                padding: const EdgeInsets.fromLTRB(14, 12, 8, 12),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _marked(e.zh, x, F.s(18, w: FontWeight.w600, c: p.fg, family: F.zh, h: 1.45), th.acc),
-                          if (e.py.isNotEmpty) Text(e.py, style: F.s(13, c: p.soft, h: 1.4)),
-                          if (e.tr.isNotEmpty) Padding(padding: const EdgeInsets.only(top: 3), child: Text(e.tr, style: F.s(13.5, c: p.fg.withValues(alpha: .8), h: 1.4))),
-                        ],
-                      ),
-                    ),
-                    Spk(e.zh, size: 34),
-                  ],
-                ),
-              ),
-          ]),
+        if (x.eg.isNotEmpty) SGroup(t.gramEx, [for (final e in x.eg) _example(th, x, e, lang)]),
         const SizedBox(height: 18),
         if (x.practisable)
           MainBtn(t.gramPractice, wide: true, big: true, icon: I.quiz, onTap: () => _start(app.gpr.run(x)))
@@ -368,6 +410,101 @@ class _GrammarState extends State<GrammarScreen> {
             child: Text(t.gramRead, textAlign: TextAlign.center, style: F.s(13.5, c: p.soft, h: 1.45)),
           ),
       ],
+    );
+  }
+
+  /// the formula: a box per part (hanzi, meaning, pinyin) in the part's colour, the signs between them
+  Widget _formula(Th th, GPoint x, String lang) {
+    final p = th.p;
+    final kids = <Widget>[];
+    for (var i = 0; i < x.parts.length; i++) {
+      final q = x.parts[i];
+      final c = _partColor(th, x, i + 1);
+      if (i > 0) {
+        final sep = i - 1 < x.seps.length ? x.seps[i - 1] : '+';
+        kids.add(Padding(padding: const EdgeInsets.only(top: 12), child: Text(sep, style: F.s(17, w: FontWeight.w600, c: p.mute))));
+      }
+      final g = q.g?[lang] ?? q.g?['en'];
+      kids.add(
+        Container(
+          constraints: const BoxConstraints(minWidth: 64, maxWidth: 220),
+          padding: const EdgeInsets.fromLTRB(10, 7, 10, 7),
+          decoration: BoxDecoration(
+            color: c.withValues(alpha: p.dark ? .14 : .1),
+            borderRadius: BorderRadius.circular(14),
+            border: Border.all(color: c.withValues(alpha: .45)),
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(q.t, locale: _zh, textAlign: TextAlign.center, style: F.s(19, w: FontWeight.w800, c: c, family: F.zh, h: 1.25)),
+              if (g != null && g.isNotEmpty)
+                Text(g, textAlign: TextAlign.center, style: F.s(12, w: FontWeight.w700, c: c, h: 1.3)),
+              if (q.py.isNotEmpty) Text(q.py, textAlign: TextAlign.center, style: F.s(10.5, c: p.soft, h: 1.3)),
+            ],
+          ),
+        ),
+      );
+    }
+    return Wrap(spacing: 6, runSpacing: 8, crossAxisAlignment: WrapCrossAlignment.start, children: kids);
+  }
+
+  /// an example word by word: hanzi over a line in its part's colour, then pinyin and meaning, then the sentence
+  Widget _example(Th th, GPoint x, GEx e, String lang) {
+    final p = th.p;
+    final tr = e.tr[lang] ?? e.tr['en'] ?? '';
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(14, 13, 8, 13),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Semantics(
+                  label: '${e.z} ${e.py}',
+                  excludeSemantics: true,
+                  child: Wrap(
+                    spacing: 10,
+                    runSpacing: 10,
+                    children: [
+                      for (final w in e.w)
+                        if (w.punct)
+                          Padding(padding: const EdgeInsets.only(top: 2), child: Text(w.h, locale: _zh, style: F.s(19, w: FontWeight.w700, c: p.soft, family: F.zh)))
+                        else
+                          _tok(th, x, w, lang),
+                    ],
+                  ),
+                ),
+                if (tr.isNotEmpty) Padding(padding: const EdgeInsets.only(top: 9), child: Text(tr, style: F.s(13.5, c: p.soft, h: 1.4))),
+              ],
+            ),
+          ),
+          Spk(e.z, size: 34),
+        ],
+      ),
+    );
+  }
+
+  Widget _tok(Th th, GPoint x, GTok w, String lang) {
+    final p = th.p;
+    final c = _partColor(th, x, w.slot);
+    final key = w.slot > 0 && w.slot <= x.parts.length && x.parts[w.slot - 1].key;
+    final g = w.g?[lang] ?? w.g?['en'] ?? '';
+    return ConstrainedBox(
+      constraints: const BoxConstraints(maxWidth: 150),
+      child: IntrinsicWidth(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(w.h, locale: _zh, style: F.s(20, w: FontWeight.w700, c: key ? _acc(th) : p.fg, family: F.zh, h: 1.3)),
+            Container(height: 3, margin: const EdgeInsets.only(top: 2, bottom: 3), decoration: BoxDecoration(color: c, borderRadius: BorderRadius.circular(2))),
+            if (w.py.isNotEmpty) Text(w.py, style: F.s(11.5, c: p.soft, h: 1.25)),
+            if (g.isNotEmpty) Text(g, style: F.s(11.5, c: p.fg.withValues(alpha: .85), h: 1.25)),
+          ],
+        ),
+      ),
     );
   }
 
@@ -406,7 +543,7 @@ class _GrammarState extends State<GrammarScreen> {
           children: [
             Expanded(
               child: Text(
-                review ? '${it.p.zh} · ${it.p.formula}' : it.p.formula,
+                review ? it.p.title(app.vocab.lang) : '${it.p.zh} · ${it.p.formula}',
                 locale: _zh,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
@@ -528,7 +665,7 @@ class _GrammarState extends State<GrammarScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
               child: Row(
                 children: [
-                  Expanded(child: Text(x.zh, locale: _zh, style: F.s(15, w: FontWeight.w700, c: p.fg, family: F.zh))),
+                  Expanded(child: Text(x.title(app.vocab.lang), style: F.s(15, w: FontWeight.w700, c: p.fg))),
                   if (_status(x).$2 != null) ...[Dot(_status(x).$2!, size: 8), const SizedBox(width: 6)],
                   Text(_status(x).$1, style: F.s(12.5, c: p.soft)),
                 ],

@@ -358,14 +358,16 @@ void runs() {
       });
     });
   }
-  testWidgets('grammar point', (t) async {
-    await t.runAsync(() => bootApp(sample(), lang: 'id'));
-    await shot(t, 'grammar-point', size: const Size(412, 1100), before: () {
-      app.gramLevel = 3;
-      app.gramPoint = app.gram!.level(3).firstWhere((p) => p.zh.contains('把')).id;
-      app.go('grammar');
+  for (final (name, id, lang) in [('grammar-point', '1-037', 'id'), ('grammar-point-en', '1-047', 'en'), ('grammar-point-th', '1-015', 'th')]) {
+    testWidgets('grammar point $id $lang', (t) async {
+      await t.runAsync(() => bootApp(sample(), lang: lang));
+      await shot(t, name, size: const Size(412, 1300), before: () {
+        app.gramLevel = 1;
+        app.gramPoint = id;
+        app.go('grammar');
+      });
     });
-  });
+  }
   for (final kind in ['gap', 'order']) {
     testWidgets('grammar practice $kind', (t) async {
       await t.runAsync(() => bootApp(sample(), lang: 'id'));

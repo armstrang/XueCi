@@ -1,0 +1,142 @@
+# Words that explain the grammar book: the parts of a formula (主语, 名词, A …) and the small words of the examples
+# whose meaning in a sentence is a job, not a thing (了, 的, 吗 …). "word | pinyin | id | en | th | vi".
+# A formula part or an example word found here takes this line; others take the first meaning in the word list,
+# or a meaning written next to the word in the example ("门外{luar pintu|outside the door|นอกประตู|ngoài cửa}").
+
+# ---- parts of a formula
+主语 | zhǔyǔ | subjek | subject | ประธาน | chủ ngữ
+谓语 | wèiyǔ | predikat | predicate | ภาคแสดง | vị ngữ
+宾语 | bīnyǔ | objek | object | กรรม | tân ngữ
+定语 | dìngyǔ | penjelas benda | noun modifier | ส่วนขยายนาม | định ngữ
+状语 | zhuàngyǔ | keterangan | adverbial | ส่วนขยายกริยา | trạng ngữ
+补语 | bǔyǔ | pelengkap | complement | ส่วนเติมเต็ม | bổ ngữ
+名词 | míngcí | kata benda | noun | คำนาม | danh từ
+动词 | dòngcí | kata kerja | verb | คำกริยา | động từ
+动词1 | dòngcí | kata kerja 1 | verb 1 | กริยา 1 | động từ 1
+动词2 | dòngcí | kata kerja 2 | verb 2 | กริยา 2 | động từ 2
+形容词 | xíngróngcí | kata sifat | adjective | คำคุณศัพท์ | tính từ
+副词 | fùcí | kata keterangan | adverb | คำวิเศษณ์ | phó từ
+代词 | dàicí | kata ganti | pronoun | คำสรรพนาม | đại từ
+数词 | shùcí | angka | number | ตัวเลข | số từ
+数 | shù | angka | number | ตัวเลข | số
+量词 | liàngcí | kata satuan | measure word | ลักษณนาม | lượng từ
+数量 | shùliàng | jumlah | amount | จำนวน | số lượng
+介词 | jiècí | kata depan | preposition | คำบุพบท | giới từ
+连词 | liáncí | kata sambung | connector | คำเชื่อม | liên từ
+助词 | zhùcí | partikel | particle | คำช่วย | trợ từ
+句子 | jùzi | kalimat | sentence | ประโยค | câu
+分句 | fēnjù | anak kalimat | clause | อนุประโยค | vế câu
+分句1 | fēnjù | kalimat 1 | clause 1 | ประโยคที่ 1 | vế 1
+分句2 | fēnjù | kalimat 2 | clause 2 | ประโยคที่ 2 | vế 2
+陈述句 | chénshùjù | kalimat berita | statement | ประโยคบอกเล่า | câu kể
+疑问代词 | yíwèn dàicí | kata tanya | question word | คำถาม | từ để hỏi
+时间 | shíjiān | waktu | time | เวลา | thời gian
+地方 | dìfang | tempat | place | สถานที่ | nơi chốn
+时间/地方 | shíjiān/dìfang | waktu / tempat | time / place | เวลา / สถานที่ | thời gian / nơi
+方式 | fāngshì | cara | manner | วิธี | cách thức
+方向 | fāngxiàng | arah | direction | ทิศทาง | hướng
+原因 | yuányīn | sebab | reason | สาเหตุ | nguyên nhân
+结果 | jiéguǒ | hasil | result | ผล | kết quả
+目的 | mùdì | tujuan | purpose | จุดประสงค์ | mục đích
+条件 | tiáojiàn | syarat | condition | เงื่อนไข | điều kiện
+人 | rén | orang | person | คน | người
+东西 | dōngxi | benda | thing | สิ่งของ | đồ vật
+事 | shì | hal | matter | เรื่อง | việc
+话题 | huàtí | topik | topic | หัวข้อ | chủ đề
+程度 | chéngdù | seberapa | degree | ระดับ | mức độ
+动作 | dòngzuò | tindakan | action | การกระทำ | hành động
+对象 | duìxiàng | sasaran | target | เป้าหมาย | đối tượng
+A | | hal A | A | สิ่ง A | điều A
+B | | hal B | B | สิ่ง B | điều B
+C | | hal C | C | สิ่ง C | điều C
+X | | sesuatu | something | สิ่งหนึ่ง | điều gì
+Y | | hal lain | something else | อีกสิ่ง | điều khác
+？ | | tanda tanya | question mark | เครื่องหมายคำถาม | dấu hỏi
+
+# ---- small words whose meaning is a job
+了 | le | (sudah / berubah) | (done / now) | (แล้ว) | (rồi)
+的 | de | (milik / yang) | ('s / that) | (ของ / ที่) | (của / mà)
+得 | de | (sampai / -nya) | (so that / -ly) | (จน / อย่าง) | (đến mức)
+地 | de | (dengan …) | (-ly) | (อย่าง) | (một cách)
+着 | zhe | (sedang / dalam keadaan) | (-ing / in a state) | (อยู่) | (đang)
+过 | guo | (pernah) | (have ever) | (เคย) | (từng)
+吗 | ma | (tanya ya/tidak) | (yes/no ?) | (ไหม) | (không?)
+呢 | ne | (bagaimana dengan …?) | (what about …?) | (ล่ะ) | (thì sao?)
+吧 | ba | (ayo / kan?) | (let's / right?) | (เถอะ / ใช่ไหม) | (nhé / chứ)
+啊 | a | (ya! / dong) | (oh! / so …) | (นะ / จัง) | (à / quá)
+们 | men | (jamak) | (plural) | (พหูพจน์) | (số nhiều)
+把 | bǎ | (objeknya) | (object →) | (นำกรรม) | (đem)
+被 | bèi | oleh | by | ถูก | bị
+个 | gè | (satuan umum) | (measure word) | (ลักษณนาม) | (cái)
+本 | běn | (satuan buku) | (for books) | เล่ม | quyển
+口 | kǒu | (satuan orang di rumah) | (for family members) | คน | (người)
+块 | kuài | yuan / potong | yuan / piece | หยวน / ก้อน | đồng / miếng
+件 | jiàn | (satuan baju, urusan) | (for clothes, matters) | ตัว / เรื่อง | chiếc / việc
+条 | tiáo | (satuan benda panjang) | (for long things) | (ลักษณนามของยาว) | (cái, con)
+张 | zhāng | (satuan benda datar) | (for flat things) | แผ่น | tờ
+次 | cì | kali | time(s) | ครั้ง | lần
+一下 | yíxià | sebentar | a bit | สักหน่อย | một chút
+是 | shì | adalah | is / am / are | คือ / เป็น | là
+在 | zài | di / sedang | at / be -ing | ที่ / กำลัง | ở / đang
+有 | yǒu | punya / ada | have / there is | มี | có
+没 | méi | tidak / belum | not / haven't | ไม่ได้ / ยังไม่ | không / chưa
+没有 | méiyǒu | tidak (punya) / belum | don't have / haven't | ไม่มี / ยังไม่ | không có / chưa
+不 | bù | tidak | not | ไม่ | không
+很 | hěn | sangat | very | มาก | rất
+也 | yě | juga | also | ก็ / ด้วย | cũng
+都 | dōu | semua / sama-sama | all / both | ทั้งหมด | đều
+就 | jiù | langsung / maka | then / right away | ก็ | thì / liền
+才 | cái | baru | only then | ถึงจะ / เพิ่ง | mới
+还 | hái | masih / juga | still / also | ยัง / อีก | còn / vẫn
+再 | zài | lagi (nanti) | again (later) | อีก (ครั้ง) | lại / nữa
+又 | yòu | lagi (sudah) | again (already) | อีกแล้ว | lại
+会 | huì | bisa / akan | can / will | เป็น / จะ | biết / sẽ
+能 | néng | bisa | can | ได้ | có thể
+要 | yào | mau / akan | want / will | จะ / ต้องการ | muốn / sẽ
+想 | xiǎng | ingin | would like | อยาก | muốn
+对 | duì | kepada / benar | to / right | ต่อ / ถูก | với / đúng
+给 | gěi | untuk / memberi | for / give | ให้ | cho
+跟 | gēn | dengan | with | กับ | với
+和 | hé | dan / dengan | and / with | และ / กับ | và / với
+比 | bǐ | dibanding | than | กว่า | so với
+从 | cóng | dari | from | จาก | từ
+到 | dào | sampai / ke | to / until | ถึง | đến
+离 | lí | jarak dari | from (distance) | ห่างจาก | cách
+向 | xiàng | ke arah | towards | ไปทาง | hướng về
+往 | wǎng | ke arah | towards | ไปทาง | về phía
+点 | diǎn | pukul | o'clock | โมง | giờ
+多 | duō | banyak / lebih | many / more | มาก / กว่า | nhiều / hơn
+上 | shàng | atas / di | on / up | บน | trên
+下 | xià | bawah / turun | under / down | ล่าง / ลง | dưới / xuống
+里 | lǐ | dalam | in | ใน | trong
+外 | wài | luar | out | นอก | ngoài
+这 | zhè | ini | this | นี่ | này
+那 | nà | itu | that | นั่น | kia
+杯 | bēi | gelas | cup | แก้ว | cốc
+澡 | zǎo | mandi | bath | อาบน้ำ | tắm
+王 | Wáng | Wang (nama) | Wang (name) | หวัง (ชื่อ) | Vương (họ)
+李 | Lǐ | Li (nama) | Li (name) | หลี่ (ชื่อ) | Lý (họ)
+小王 | Xiǎo Wáng | Xiao Wang (nama) | Xiao Wang (name) | เสี่ยวหวัง (ชื่อ) | Tiểu Vương
+小李 | Xiǎo Lǐ | Xiao Li (nama) | Xiao Li (name) | เสี่ยวหลี่ (ชื่อ) | Tiểu Lý
+老王 | Lǎo Wáng | Pak Wang | old Wang | ลุงหวัง | ông Vương
+多久 | duōjiǔ | berapa lama | how long | นานเท่าไร | bao lâu
+好好 | hǎohāo | baik-baik | properly | ให้ดี | cho tốt
+高高兴兴 | gāogāoxìngxìng | gembira | happily | อย่างมีความสุข | vui vẻ
+慢慢 | mànmàn | pelan-pelan | slowly | ค่อย ๆ | từ từ
+看看 | kànkan | lihat-lihat | have a look | ดูหน่อย | xem thử
+北京 | Běijīng | Beijing | Beijing | ปักกิ่ง | Bắc Kinh
+上海 | Shànghǎi | Shanghai | Shanghai | เซี่ยงไฮ้ | Thượng Hải
+印尼 | Yìnní | Indonesia | Indonesia | อินโดนีเซีย | Indonesia
+二十 | èrshí | dua puluh | twenty | ยี่สิบ | hai mươi
+三十 | sānshí | tiga puluh | thirty | สามสิบ | ba mươi
+话 | huà | kata-kata | words | คำพูด | lời
+英语 | Yīngyǔ | bahasa Inggris | English | ภาษาอังกฤษ | tiếng Anh
+耗 | hào | memakai | use up | ใช้ | tốn
+找到 | zhǎodào | menemukan | find | หาเจอ | tìm thấy
+问好 | wènhǎo | menyampaikan salam | say hello | ฝากสวัสดี | hỏi thăm
+镜 | jìng | cermin | mirror | กระจก | gương
+石 | shí | batu | stone | หิน | đá
+婚 | hūn | (nikah) | (marriage) | (การแต่งงาน) | (hôn nhân)
+点儿 | diǎnr | sedikit | a bit | หน่อย | chút
+十几 | shíjǐ | belasan | a dozen or so | สิบกว่า | mười mấy
+十二 | shí'èr | dua belas | twelve | สิบสอง | mười hai

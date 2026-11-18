@@ -235,6 +235,7 @@ mixin L10Keys {
   String gramDone(Object? a0, Object? a1) => f('gramDone', [a0, a1]);
   String get gramDue => s('gramDue');
   String get gramEx => s('gramEx');
+  String get gramFormula => s('gramFormula');
   String get gramGap => s('gramGap');
   String get gramGo => s('gramGo');
   String get gramGrow => s('gramGrow');

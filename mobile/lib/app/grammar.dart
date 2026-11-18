@@ -18,8 +18,35 @@ import '../engine/js.dart';
 import '../engine/learn.dart';
 import '../engine/model.dart';
 
-/// categories, in the order the page shows them
-const gramCats = ['S', 'K', 'F', 'A', 'R', 'C', 'U', 'V', 'P', 'N', 'W', 'E'];
+/// categories, in the order the page shows them (v1.6.1: the everyday ones first)
+const gramCats = ['S', 'U', 'P', 'N', 'A', 'R', 'C', 'V', 'K', 'F', 'W', 'E'];
+
+Map<String, String>? _m(Object? o) => o is Map ? o.map((k, v) => MapEntry('$k', '$v')) : null;
+
+/// one part of a formula: the grammar word itself (key) or a slot (主语, 名词, A) with its meaning
+class GPart {
+  final String t, py;
+  final Map<String, String>? g;
+  final bool key;
+  GPart(this.t, this.py, this.g, this.key);
+}
+
+/// one word of an example: hanzi, pinyin, the formula part it fills (0: none) and its meaning
+class GTok {
+  final String h, py;
+  final int slot;
+  final Map<String, String>? g;
+  GTok(this.h, this.py, this.slot, this.g);
+  bool get punct => py.isEmpty && g == null;
+}
+
+/// an example written word by word
+class GEx {
+  final String z, py;
+  final Map<String, String> tr;
+  final List<GTok> w;
+  GEx(this.z, this.py, this.tr, this.w);
+}
 
 class GOwn {
   final String zh, py;
@@ -37,8 +64,18 @@ class GPoint {
   final List<GOwn> own;
   GPoint(this.id, this.l, this.cat, this.zh, this.formula, this.keys, this.m, this.x, this.ex, this.pool, this.own);
 
+  // v1.6.1 (Josh: "as if everyone were a native speaker"): a name in the learner's language, the formula part by
+  // part with meanings, a warning about the usual mistake, examples word by word
+  Map<String, String> n = const {};
+  String npy = '';
+  List<GPart> parts = const [];
+  List<String> seps = const [];
+  Map<String, String>? warn;
+  List<GEx> eg = const [];
+
   String text(String lang) => x[lang] ?? x['en'] ?? '';
-  bool get practisable => keys.isNotEmpty && (pool.isNotEmpty || own.isNotEmpty);
+  String title(String lang) => n[lang] ?? n['en'] ?? zh;
+  bool get practisable => pool.isNotEmpty || own.isNotEmpty;
 
   /// the sentence shows this point
   bool fits(String z) {
@@ -83,6 +120,23 @@ class GBook {
             GOwn((e as List)[0] as String, e[1] as String, {'id': e[2] as String, 'en': e[3] as String, 'th': e[4] as String, 'vi': e[5] as String}),
         ],
       );
+      final nm = _m(o['n']);
+      if (nm != null) {
+        p.npy = nm.remove('py') ?? '';
+        p.n = nm;
+      }
+      p.parts = [
+        for (final q in (o['fp'] as List?) ?? const [])
+          GPart('${(q as Map)['t']}', '${q['py'] ?? ''}', _m(q['g']), q['k'] == true),
+      ];
+      p.seps = ((o['fx'] as List?) ?? const []).cast<String>();
+      p.warn = _m(o['w']);
+      p.eg = [
+        for (final e in (o['eg'] as List?) ?? const [])
+          GEx('${(e as Map)['z']}', '${e['py']}', _m(e['tr']) ?? const {}, [
+            for (final w in e['w'] as List) GTok('${(w as List)[0]}', '${w[1]}', (w[2] as num).toInt(), _m(w[3])),
+          ]),
+      ];
       if (byId.containsKey(p.id)) continue;
       pts.add(p);
       byId[p.id] = p;
