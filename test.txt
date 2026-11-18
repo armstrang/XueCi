@@ -1,0 +1,415 @@
+00:00 +0: loading /home/runner/work/XueCi/XueCi/mobile/test/perf_probe_test.dart
+00:00 +0: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:00 +0 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:00 +1 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:00 +2 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:03 +3 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:05 +4 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:05 +5 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:06 +6 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:07 +7 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:08 +8 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:09 +9 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:11 +10 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:11 +11 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:12 +12 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:13 +13 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:13 +14 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:14 +15 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:14 +16 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:15 +17 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:16 +18 ~1: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:16 +18 ~2: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:16 +18 ~3: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:17 +19 ~3: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:17 +20 ~3: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:17 +21 ~3: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:17 +22 ~3: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:17 +23 ~3: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:17 +24 ~3: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:17 +25 ~3: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~4: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~5: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~6: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~7: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~8: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~9: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~10: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~11: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~12: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~13: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~14: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~15: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~16: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~17: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~18: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~19: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~20: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~21: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~22: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~23: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~24: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~25: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~26: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~27: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~28: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:18 +25 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:21 +26 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:22 +27 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:24 +28 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:25 +29 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:26 +30 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:28 +31 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:30 +32 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:31 +33 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:32 +34 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:33 +35 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:34 +36 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:35 +37 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:36 +38 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:37 +39 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:38 +40 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:39 +41 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:41 +42 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:42 +43 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:43 +44 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:44 +45 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: between HSK 4 and 5, guessing cleverly: hardly ever 渡劫
+00:49 +46 ~29: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: hskk tab, tests tab, a practice and a mock
+00:50 +47 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+00:51 +48 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+00:52 +49 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+00:54 +50 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+00:55 +51 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+00:55 +52 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+00:57 +53 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+00:58 +54 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+00:59 +55 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:00 +56 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:01 +57 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:02 +58 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:04 +59 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:05 +60 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:06 +61 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:07 +62 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:08 +63 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:10 +64 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:11 +65 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:12 +66 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:14 +67 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:15 +68 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:17 +69 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:18 +70 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:19 +71 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:20 +72 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 5 really mastered: still 渡劫
+01:22 +73 ~29: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: grammar list, light
+01:22 +74 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: a pure guesser stays at the start
+01:23 +75 ~29: /home/runner/work/XueCi/XueCi/mobile/test/screens_test.dart: grammar list, dark
+01:24 +76 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:25 +77 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:26 +78 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:28 +79 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:29 +80 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:30 +81 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:32 +82 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:33 +83 ~29: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:33 +83 ~30: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:34 +84 ~30: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~31: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~32: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~33: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~34: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~35: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~36: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~37: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~38: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~39: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~40: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~41: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~42: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~43: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~44: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~45: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~46: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~47: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~48: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~49: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~50: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~51: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~52: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~53: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~54: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~55: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~56: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~57: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~58: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~59: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~60: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~61: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~62: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~63: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~64: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~65: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~66: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~67: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~68: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~69: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~70: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~71: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~72: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~73: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~74: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~75: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~76: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~77: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~78: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~79: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~80: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~81: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~82: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~83: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~84: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~85: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~86: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~87: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~88: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~89: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~90: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~91: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~92: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~93: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~94: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~95: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~96: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~97: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~98: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~99: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~100: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~101: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~102: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~103: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~104: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~105: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~106: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~107: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~108: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~109: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +84 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +85 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +86 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:35 +87 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:36 +88 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:38 +89 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:38 +90 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:39 +91 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:39 +92 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:39 +93 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:40 +94 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:40 +95 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:40 +96 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:41 +97 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:43 +98 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:44 +99 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:44 +100 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:45 +101 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:45 +102 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:45 +103 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:46 +104 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:46 +105 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: HSK 3 solid, HSK 4 half: HSK 3
+01:47 +106 ~110: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: contrast light exam
+01:47 +107 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:47 +108 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:47 +109 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:48 +110 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:48 +111 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:49 +112 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:49 +113 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:49 +114 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:50 +115 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:50 +116 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:50 +117 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:50 +118 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:51 +119 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:51 +120 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:51 +121 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:52 +122 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:52 +123 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:53 +124 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:53 +125 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:53 +126 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:54 +127 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:54 +128 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:54 +129 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:55 +130 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:55 +131 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:55 +132 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:55 +133 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:56 +134 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:56 +135 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:56 +136 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:57 +137 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:57 +138 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:57 +139 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:58 +140 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:58 +141 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:58 +142 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:59 +143 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:59 +144 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+01:59 +145 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:00 +146 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:00 +147 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:00 +148 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:00 +149 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:00 +149 ~110: /home/runner/work/XueCi/XueCi/mobile/test/contrast_test.dart: (tearDownAll)
+CONTRAST 0 findings
+
+02:00 +149 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:02 +150 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:03 +151 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:03 +152 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:04 +153 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:04 +154 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:04 +155 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:05 +156 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:05 +157 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:06 +158 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:06 +159 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:09 +160 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:10 +161 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:10 +162 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:11 +163 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:12 +164 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:13 +165 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: without a voice: listening becomes typing, the result holds
+02:13 +166 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: hskk
+02:14 +167 ~110: /home/runner/work/XueCi/XueCi/mobile/test/placement_sim_test.dart: the test is blind and complete: 60 questions, every one with a clock, sentences built from HSK 3 up
+02:14 +168 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: exam
+02:14 +169 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar
+02:15 +170 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar
+02:15 +171 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar
+02:15 +172 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar
+02:15 +173 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar
+02:15 +174 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar
+02:15 +175 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar
+02:15 +176 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar
+02:15 +177 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar
+02:16 +178 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar-point
+02:16 +179 ~110: /home/runner/work/XueCi/XueCi/mobile/test/widget_words_test.dart: the widget gets every word of the realm level, in list order, with tones and meanings
+02:16 +180 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, id: grammar-point1
+02:17 +181 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in mm_stats
+02:18 +182 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in mm_stats
+02:19 +183 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, en: list
+02:19 +184 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in mm_lang
+02:20 +185 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in mm_lang
+02:20 +186 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, en: quiz
+02:21 +187 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in hsk16_ui
+02:21 +188 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in hsk16_ui
+02:22 +189 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, en: soul
+02:22 +190 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in hsk16_theme
+02:23 +191 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in hsk16_theme
+02:23 +192 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, en: exam
+02:24 +193 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_mem
+02:25 +194 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, en: grammar
+02:25 +195 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_log
+02:26 +196 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_log
+02:26 +197 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, en: grammar-point1
+02:26 +198 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_logA
+02:27 +199 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_logA
+02:28 +200 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, th: list
+02:28 +201 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_goal
+02:29 +202 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_goal
+02:29 +203 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, th: quiz
+02:30 +204 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_w
+02:30 +205 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, th: stats
+02:30 +206 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_fit
+02:31 +207 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_fit
+02:32 +208 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, th: hskk
+02:32 +209 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_onb
+02:33 +210 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_onb
+02:33 +211 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, th: grammar
+02:34 +212 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_lvl
+02:35 +213 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_lvl
+02:35 +214 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, th: grammar-point1
+02:35 +215 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_rem
+02:36 +216 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, vi: home
+02:36 +217 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_tests
+02:37 +218 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_tests
+02:38 +219 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, vi: card
+02:38 +220 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_rest
+02:39 +221 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_rest
+02:39 +222 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, vi: stats
+02:39 +223 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_game
+02:40 +224 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_game
+02:41 +225 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, vi: hskk
+02:41 +226 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_amb
+02:42 +227 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, vi: exam
+02:42 +228 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_note
+02:43 +229 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_note
+02:44 +230 ~110: /home/runner/work/XueCi/XueCi/mobile/test/bigtext_test.dart: large text, vi: grammar-point
+02:44 +231 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_days
+02:45 +232 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_days
+02:45 +233 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_bk
+02:45 +234 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_bk
+02:47 +235 ~110: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace band.json
+02:47 +236 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_res
+02:48 +237 ~110: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace fresh.json
+02:49 +238 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_fx
+02:50 +239 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_fx
+02:50 +240 ~110: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace legacy.json
+02:51 +241 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_fxd
+02:51 +242 ~110: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace optimize.json
+02:52 +243 ~110: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace optimize.json
+02:53 +244 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_spk
+02:54 +245 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_spk
+02:54 +246 ~110: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace placement5.json
+02:55 +247 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_dn
+02:55 +248 ~110: /home/runner/work/XueCi/XueCi/mobile/test/boot_fuzz_test.dart: boots with rubbish in xc_dn
+02:55 +249 ~110: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace trib-pass.json
+02:56 +250 ~110: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace typed.json
+02:56 +251 ~110: /home/runner/work/XueCi/XueCi/mobile/test/backup_test.dart: a code from the earlier version reads and applies
+02:56 +252 ~110: /home/runner/work/XueCi/XueCi/mobile/test/engine_trace_test.dart: engine trace unstable.json
+02:56 +253 ~110: /home/runner/work/XueCi/XueCi/mobile/test/backup_test.dart: this app's code round-trips
+02:57 +254 ~110: /home/runner/work/XueCi/XueCi/mobile/test/backup_test.dart: an edited code that only adds the gate loses it
+02:57 +255 ~110: /home/runner/work/XueCi/XueCi/mobile/test/backup_test.dart: broken codes are refused
+02:57 +256 ~110: /home/runner/work/XueCi/XueCi/mobile/test/backup_test.dart: damaged codes never throw: cut, changed and wrongly typed
+02:57 +257 ~110: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: (setUpAll)
+02:57 +257 ~110: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+02:58 +258 ~110: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+02:59 +259 ~110: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+02:59 +260 ~110: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:00 +261 ~110: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:00 +262 ~110: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:00 +263 ~110: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~111: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~112: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~113: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~114: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~115: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~116: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~117: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~118: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~119: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~120: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~121: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~122: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~123: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~124: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~125: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~126: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~127: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~128: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~129: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:01 +263 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in mm_stats
+03:02 +264 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in hsk16_ui
+03:03 +265 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_mem
+03:05 +266 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_log
+03:07 +267 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_goal
+03:08 +268 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_w
+03:10 +269 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_lvl
+03:12 +270 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_tests
+03:13 +271 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_rest
+03:15 +272 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_game
+03:16 +273 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_note
+03:18 +274 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_days
+03:19 +275 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_mock
+03:21 +276 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: screens with rubbish in xc_spk
+03:22 +277 ~130: /home/runner/work/XueCi/XueCi/mobile/test/screen_fuzz_test.dart: (tearDownAll)
+03:22 +277 ~130: All tests passed!
