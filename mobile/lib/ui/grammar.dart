@@ -427,7 +427,7 @@ class _GrammarState extends State<GrammarScreen> {
       }
       final g = q.g?[lang] ?? q.g?['en'];
       kids.add(
-        Container(
+        MergeSemantics(child: Container(
           constraints: const BoxConstraints(minWidth: 64, maxWidth: 220),
           padding: const EdgeInsets.fromLTRB(10, 7, 10, 7),
           decoration: BoxDecoration(
@@ -444,7 +444,7 @@ class _GrammarState extends State<GrammarScreen> {
               if (q.py.isNotEmpty) Text(q.py, textAlign: TextAlign.center, style: F.s(10.5, c: p.soft, h: 1.3)),
             ],
           ),
-        ),
+        )),
       );
     }
     return Wrap(spacing: 6, runSpacing: 8, crossAxisAlignment: WrapCrossAlignment.start, children: kids);
@@ -464,7 +464,7 @@ class _GrammarState extends State<GrammarScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Semantics(
-                  label: '${e.z} ${e.py}',
+                  label: '${e.z}. ${e.py}. ${_glosses(e, lang)}',
                   excludeSemantics: true,
                   child: Wrap(
                     spacing: 10,
@@ -487,6 +487,12 @@ class _GrammarState extends State<GrammarScreen> {
       ),
     );
   }
+
+  /// what a screen reader says for the words of an example: "hanzi: meaning; …"
+  String _glosses(GEx e, String lang) => [
+    for (final w in e.w)
+      if (!w.punct && (w.g?[lang] ?? w.g?['en'] ?? '').isNotEmpty) '${w.h}: ${w.g?[lang] ?? w.g?['en']}',
+  ].join('; ');
 
   Widget _tok(Th th, GPoint x, GTok w, String lang) {
     final p = th.p;

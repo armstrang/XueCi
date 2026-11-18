@@ -41,6 +41,15 @@ void main() {
     'soul': () => app.go('soul'),
     'hskk': () => app.go('hskk'),
     'exam': () => app.go('exam'),
+    'grammar': () {
+      app.gramLevel = 3;
+      app.go('grammar');
+    },
+    'grammar-point': () {
+      app.gramLevel = 3;
+      app.gramPoint = '3-010';
+      app.go('grammar');
+    },
   };
   final nameless = <String>[], small = <String>[];
   for (final e in screens.entries) {

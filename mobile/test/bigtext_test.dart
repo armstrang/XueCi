@@ -22,6 +22,21 @@ void main() {
     'soul': () => app.go('soul'),
     'hskk': () => app.go('hskk'),
     'exam': () => app.go('exam'),
+    'grammar': () {
+      app.gramLevel = 4;
+      app.go('grammar');
+    },
+    // the longest point page (warning, many parts, word-by-word examples)
+    'grammar-point': () {
+      app.gramLevel = 6;
+      app.gramPoint = '6-054';
+      app.go('grammar');
+    },
+    'grammar-point1': () {
+      app.gramLevel = 1;
+      app.gramPoint = '1-037';
+      app.go('grammar');
+    },
   };
   for (final lang in ['id', 'en', 'th', 'vi']) {
     for (final e in screens.entries) {

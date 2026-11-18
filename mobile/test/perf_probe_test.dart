@@ -26,9 +26,15 @@ void main() {
     await t.pump(const Duration(seconds: 1));
     final out = <String>[];
     for (var round = 0; round < 3; round++) {
-      for (final s in ['list', 'card', 'quiz', 'soul', 'stats', 'hskk', 'exam', 'home']) {
+      for (final s in ['list', 'card', 'quiz', 'soul', 'stats', 'hskk', 'exam', 'grammar', 'grammar-point', 'home']) {
         final sw = Stopwatch()..start();
-        app.go(s);
+        if (s.startsWith('grammar')) {
+          app.gramLevel = s == 'grammar' ? 4 : 6;
+          app.gramPoint = s == 'grammar' ? null : '6-054';
+          app.go('grammar');
+        } else {
+          app.go(s);
+        }
         final b = t.binding;
         b.buildOwner!.buildScope(b.rootElement!);
         final tb = sw.elapsedMicroseconds;
