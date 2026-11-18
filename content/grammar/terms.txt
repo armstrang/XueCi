@@ -156,3 +156,26 @@ Y | | hal lain | something else | อีกสิ่ง | điều khác
 会儿 | huìr | sebentar | a moment | สักพัก | lát
 小事 | xiǎoshì | hal kecil | small matter | เรื่องเล็ก | chuyện nhỏ
 也罢 | yěbà | (boleh saja) | (either way) | (ก็ได้) | (cũng được)
+很多 | hěn duō | banyak | many | มาก | rất nhiều
+一个人 | yí ge rén | seorang diri | alone | คนเดียว | một mình
+海边 | hǎibiān | tepi laut | seaside | ริมทะเล | bờ biển
+想想 | xiǎngxiang | memikirkan | think it over | คิดดู | nghĩ thử
+照常 | zhàocháng | seperti biasa | as usual | ตามปกติ | như thường lệ
+房 | fáng | rumah, kamar | house, room | บ้าน, ห้อง | nhà, phòng
+想到 | xiǎngdào | terpikir | think of | นึกถึง | nghĩ đến
+长大 | zhǎngdà | tumbuh dewasa | grow up | โตขึ้น | lớn lên
+越来越 | yuè lái yuè | makin lama makin | more and more | ยิ่งๆ ขึ้น | càng ngày càng
+交给 | jiāogěi | menyerahkan kepada | hand to | มอบให้ | giao cho
+付款 | fùkuǎn | membayar | pay | จ่ายเงิน | thanh toán
+依照 | yīzhào | menurut | according to | ตาม | theo
+睡着 | shuìzháo | tertidur | fall asleep | หลับ | ngủ thiếp đi
+尾 | wěi | ekor, ujung | tail, end | หาง, ท้าย | đuôi, cuối
+过奖 | guòjiǎng | terlalu memuji | flatter too much | ชมเกินไป | khen quá lời
+敢当 | gǎndāng | berani menerima | dare accept | ไม่กล้ารับ | không dám nhận
+蘑菇 | mógu | jamur | mushroom | เห็ด | nấm
+活儿 | huór | pekerjaan | work, job | งาน | việc
+干干净净 | gānganjìngjìng | bersih sekali | spotlessly clean | สะอาดเอี่ยม | sạch sẽ tinh tươm
+腻 | nì | bosan, enek | tired of, greasy | เลี่ยน, เบื่อ | ngán
+天天 | tiāntiān | setiap hari | every day | ทุกวัน | mỗi ngày
+散散步 | sànsanbù | jalan-jalan santai | take a stroll | เดินเล่น | đi dạo
+谢 | xiè | terima kasih | thank | ขอบคุณ | cảm ơn
