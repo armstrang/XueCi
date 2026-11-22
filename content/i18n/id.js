@@ -1060,6 +1060,11 @@ I18N.id = {
   exBctB: 'Latihan BCT B',
   exBctD: 'Gaya ujian BCT (Mandarin bisnis), bukan soal resmi: dengar, baca, susun kalimat',
   mkBctT: b => `Latihan gaya BCT ${b}`,
+  mkBctPartD: {
+    listen: n => `${n} soal. Kalimatnya diputar otomatis, boleh diputar sekali lagi. Pilih kata yang kamu dengar, artinya, atau apakah kalimatnya sama.`,
+    read: n => `${n} soal: isi kata yang hilang dan pilih arti kalimat.`,
+    write: n => `${n} soal: susun potongan jadi kalimat yang benar.`,
+  },
   mkBctIntro:
     'Soalnya tentang pekerjaan: surel, rapat, telepon, tamu, pembayaran, perjalanan dinas. Kalimat dengar diputar dua kali. Jawabanmu baru dinilai di akhir.',
   mkBctNote:

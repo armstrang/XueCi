@@ -158,7 +158,7 @@ class _RunScreenState extends State<RunScreen> {
     }
     final title = switch (widget.mode) {
       'card' => t.card,
-      'quiz' => app.mockMode ? t.tMock : t.quiz,
+      'quiz' => app.mockMode ? (app.mockBook.isNotEmpty ? t.mkBctT(app.mockBook.toUpperCase()) : t.tMock) : t.quiz,
       _ => t.session,
     };
     final it = r.cur;
@@ -196,7 +196,7 @@ class _RunScreenState extends State<RunScreen> {
             children: [
               Capsule(
                 title: title,
-                pickers: widget.mode != 'session',
+                pickers: widget.mode != 'session' && !(app.mockMode && app.mockBook.isNotEmpty),
                 lead: [if (widget.mode == 'quiz' && !app.mockMode && !(m != null && m.started && it != null)) _qTypePill(context)],
                 pillTrail: trail ? _RunCount(r) : null,
               ),
@@ -2018,7 +2018,7 @@ class _MockPart extends StatelessWidget {
           Text(partHz[k]!.$2, textAlign: TextAlign.center, style: F.s(14, c: p.soft)),
           const SizedBox(height: 8),
           Text('${t.mkPartT(i + 1, m.m.parts.length)} · ${L10.text(t.partN[k])}', textAlign: TextAlign.center, style: F.s(18, w: FontWeight.w800, c: p.fg)),
-          _Note(L10.text(t.mkPartD[k], [pp.n])),
+          _Note(L10.text((m.m.book.isNotEmpty ? t.mkBctPartD : t.mkPartD)[k], [pp.n])),
           _Note(t.mkTime((pp.sec / 60).round())),
           const SizedBox(height: 10),
           MainBtn(t.mkPartGo, wide: true, radius: 16, onTap: () => app.runner.mockPart(k)),

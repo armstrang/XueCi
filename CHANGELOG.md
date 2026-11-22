@@ -27,7 +27,7 @@ Test builds before a release are published as pre-releases v1.0-alpha-N.
   two from daily life, one from study and one from work (polite, with 您 and 请), and a fifth that fits the book
   (school life for YCT, office life for BCT). Every part of the formula is marked in the sentence, with the Indonesian,
   English, Thai and Vietnamese translation, and a small label shows which situation it is.
-- New in the Tests tab: **BCT A practice** (the BCT B paper follows once its sentence bank is complete). A paper in
+- New in the Tests tab: **BCT A and BCT B practice**. Each is a paper in
   the style of the Business Chinese Test, built fresh each time from our own work sentences (meetings, calls, email,
   guests, meals, payment, trips, orders): listening, reading and sentence building, each section timed, scored out of
   100 with 60 as the pass mark, every question reviewed, and advice at the end. Full, short (a third), or one section

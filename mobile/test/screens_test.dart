@@ -233,6 +233,26 @@ void runs() {
     await shot(t, 'hk-mock-result', size: const Size(412, 1500), before: () => app.startHk(2, mock: true));
     hkTestMock = null;
   });
+  testWidgets('BCT practice: intro, a question', (t) async {
+    await t.runAsync(() async {
+      await bootApp({...sample(), 'hsk16_theme': '"dark"'}, lang: 'id');
+    });
+    await shot(t, 'bct-intro', before: () {
+      app.mockBook = 'a';
+      app.mockMode = true;
+      app.go('quiz');
+    });
+    await shot(t, 'bct-q', before: () => app.runner.mockStart());
+    await shot(t, 'bct-result', size: const Size(412, 1700), before: () {
+      final r = app.runner.run!;
+      for (var k = 0; k < r.items.length; k++) {
+        r.items[k].ok = k % 3 != 0;
+        r.items[k].st = 'done';
+      }
+      r.i = r.items.length;
+      app.changed();
+    });
+  });
   testWidgets('home light with the new tab bar', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"', 'xc_onb': '1'}, lang: 'en'));
     await shot(t, 'home-tabs-light');

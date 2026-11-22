@@ -1061,6 +1061,11 @@ I18N.en = {
   exBctB: 'BCT B practice',
   exBctD: 'In the style of the BCT (business Chinese), not official questions: listen, read, build sentences',
   mkBctT: b => `BCT ${b} style practice`,
+  mkBctPartD: {
+    listen: n => `${n} questions. Each sentence plays by itself and can be played once more. Pick the word you heard, its meaning, or whether the sentences match.`,
+    read: n => `${n} questions: fill in the missing word and pick the meaning of the sentence.`,
+    write: n => `${n} questions: put the pieces in order to make a correct sentence.`,
+  },
   mkBctIntro:
     'The questions are about work: email, meetings, calls, guests, payment, business trips. Listening sentences play twice. Your answers are marked at the end.',
   mkBctNote:

@@ -78,4 +78,17 @@ void main() {
     expect(b.lm.mocks.last[1], bctB);
     expect(jsonEncode(b.lm.mocks.last), jsonEncode(lm.mocks.last));
   });
+
+  test('the B paper: more questions, every gap one right word', () async {
+    final a = await boot();
+    final lm = a.lm;
+    lm.ttsReady = () => true;
+    expect(lm.bct!.of('b').length, greaterThan(150));
+    final m = lm.bctExam('b');
+    expect(m.L, bctB);
+    expect(m.items.length, greaterThan(80));
+    for (final it in m.items.where((x) => x.q == 'c' || x.q == 'ls')) {
+      expect(it.words!.map((w) => w.h).toSet().length, 4);
+    }
+  });
 }

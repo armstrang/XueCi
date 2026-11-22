@@ -397,6 +397,7 @@ mixin L10Keys {
   String mkBctNear(Object? a0) => f('mkBctNear', [a0]);
   String get mkBctNote => s('mkBctNote');
   String get mkBctOrder => s('mkBctOrder');
+  Map<String, dynamic> get mkBctPartD => (v('mkBctPartD') as Map?)?.cast<String, dynamic>() ?? const {};
   String get mkBctPass => s('mkBctPass');
   String get mkBctSecAll => s('mkBctSecAll');
   String get mkBctSecBtn => s('mkBctSecBtn');

@@ -1041,6 +1041,11 @@ I18N.vi = {
   exBctB: 'Luyện BCT B',
   exBctD: 'Theo kiểu thi BCT (tiếng Hán thương mại), không phải đề chính thức: nghe, đọc, sắp xếp câu',
   mkBctT: b => `Luyện kiểu BCT ${b}`,
+  mkBctPartD: {
+    listen: n => `${n} câu. Câu tự phát và có thể phát thêm một lần. Chọn từ bạn nghe, nghĩa của nó, hoặc xem hai câu có giống nhau không.`,
+    read: n => `${n} câu: điền từ còn thiếu và chọn nghĩa của câu.`,
+    write: n => `${n} câu: sắp các mảnh thành một câu đúng.`,
+  },
   mkBctIntro:
     'Câu hỏi về công việc: email, họp, điện thoại, tiếp khách, thanh toán, đi công tác. Câu nghe phát hai lần. Bài được chấm ở cuối.',
   mkBctNote:

@@ -20,6 +20,25 @@ import jieba  # noqa: E402
 ROOT = sp.ROOT
 CHARSET = open(os.path.join(ROOT, 'mobile', 'assets', 'fonts', 'charset.txt'), encoding='utf8').read()
 HAN = re.compile(r'[一-鿿]')
+AUTO = re.compile(r'\[([^\]|:]+):([nva])\]')
+# shorthand [word:n] (noun) / :v (verb) / :a (adjective): three clearly wrong words of the same kind, picked by hand-made pools
+POOL = {
+    'n': ['雨伞', '牙膏', '眼泪', '拖鞋', '眉毛', '胡子', '雨点', '书包', '鞋带', '窗帘', '西瓜', '月亮'],
+    'v': ['游泳', '睡觉', '唱歌', '洗澡', '散步', '跳舞'],
+    'a': ['酸甜', '肥胖', '窄小', '苦涩'],
+}
+
+
+def auto_gap(word, kind):
+    pool = [w for w in POOL[kind] if w != word and w not in word]
+    h = sum(ord(c) for c in word)
+    pick = [pool[(h + i * 5) % len(pool)] for i in range(3)]
+    for i in range(3):
+        while pick.count(pick[i]) > 1:
+            pick[i] = pool[(pool.index(pick[i]) + 1) % len(pool)]
+    return '[' + '|'.join([word] + pick) + ']'
+
+
 GAP = re.compile(r'\[([^\]|]+)\|([^\]|]+)\|([^\]|]+)\|([^\]|]+)\]')
 BANKS = {'a': 'a.txt', 'b': 'b.txt'}
 PARTICLES = set('的了吗吧呢啊着过地得')
@@ -87,6 +106,7 @@ def main():
                 problems.append(f'{where}: {len(f)} fields, want 5')
                 continue
             zg, idt, en, th, vi = f
+            zg = AUTO.sub(lambda a: auto_gap(a.group(1), a.group(2)), zg)
             m = GAP.search(zg)
             if not m or len(GAP.findall(zg)) != 1 or zg.count('[') != 1:
                 problems.append(f'{where}: need exactly one gap [right|w1|w2|w3]')

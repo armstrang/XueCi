@@ -109,7 +109,7 @@ class ExamScreen extends StatelessWidget {
               ),
             ),
           ],
-          if ((app.lm.bct?.of('b').length ?? 0) >= 100) ...[
+          if ((app.lm.bct?.of('b').length ?? 0) >= 150) ...[
             const SizedBox(height: 12),
             Rise(
               4,
