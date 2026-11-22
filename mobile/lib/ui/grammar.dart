@@ -329,7 +329,8 @@ class _GrammarState extends State<GrammarScreen> {
     final p = th.p;
     final lang = app.vocab.lang;
     final st = _status(x);
-    final e = x.eg.isEmpty ? null : x.eg.first;
+    final eg = x.egFor(app.gramBook);
+    final e = eg.isEmpty ? null : eg.first;
     final keySlots = {
       for (var i = 0; i < x.parts.length; i++)
         if (x.parts[i].key) i + 1,
@@ -565,7 +566,7 @@ class _GrammarState extends State<GrammarScreen> {
           ),
         if (x.eg.isNotEmpty) ...[
           const SizedBox(height: 14),
-          SGroup(t.gramEx, [for (final e in x.eg) _example(th, x, e, lang)]),
+          SGroup(t.gramEx, [for (final e in x.egFor(app.gramBook)) _example(th, x, e, lang)]),
         ],
       ],
     );
@@ -644,6 +645,14 @@ class _GrammarState extends State<GrammarScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (e.c.isNotEmpty)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      '${app.t.gramCtx[e.c] ?? ''}'.toUpperCase(),
+                      style: F.s(11, w: FontWeight.w800, c: p.soft, ls: .7),
+                    ),
+                  ),
                 Semantics(
                   label: '${e.z}. ${e.py}. ${_glosses(e, lang)}',
                   excludeSemantics: true,

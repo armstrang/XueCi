@@ -282,6 +282,10 @@ def formula(fs, T, dic):
 def examples(p, T, dic, byz, syl, problems):
     out = []
     for src, where in p.get('e', []):
+        ctx = ''
+        m = re.match(r'@([dswy])\s+', src)
+        if m:  # v1.8: where the sentence lives: d everyday, s study, w work, y children (YCT)
+            ctx, src = m.group(1), src[m.end():]
         head, *rest = [x.strip() for x in re.split(r'\|(?![^{]*\})', src)]
         toks = ex_tokens(head)
         z = ''.join(t for t, _, _ in toks)
@@ -308,7 +312,7 @@ def examples(p, T, dic, byz, syl, problems):
             if g is None:
                 problems.append(f'{where}: no meaning for {t} (split it or write {t}{{id|en|th|vi}})')
             rows.append([t, tp, slot, g])
-        out.append({'z': z, 'py': py, 'tr': tr, 'w': rows})
+        out.append({'z': z, 'py': py, 'tr': tr, 'w': rows, **({'c': ctx} if ctx else {})})
     return out
 
 

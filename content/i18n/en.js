@@ -313,6 +313,7 @@ I18N.en = {
   gramSubH2: l => `Patterns of HSK ${l} in the old HSK (2.0). Put together after its syllabus.`,
   gramSubYct: l => `Patterns of YCT ${l}, the Chinese test for children and teens. Put together after its syllabus.`,
   gramSubBct: l => `Patterns of BCT ${l}, Chinese for work and business. Put together after its syllabus.`,
+  gramCtx: { d: 'Everyday', s: 'Study', w: 'Work', y: 'Kids & school' },
   gramIn: 'This pattern is in',
 
   gramHeld: (a, b) => `${a} of ${b} patterns are strong`,

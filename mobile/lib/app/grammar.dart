@@ -59,6 +59,7 @@ class GEx {
   final String z, py;
   final Map<String, String> tr;
   final List<GTok> w;
+  String c = ''; // v1.8: where it lives: d everyday, s study, w work, y children
   GEx(this.z, this.py, this.tr, this.w);
 }
 
@@ -96,6 +97,15 @@ class GPoint {
 
   String text(String lang) => x[lang] ?? x['en'] ?? '';
   String title(String lang) => n[lang] ?? n['en'] ?? zh;
+
+  /// the examples in a book's order (v1.8): work first in BCT, children's and study first in YCT, else as written
+  List<GEx> egFor(String book) {
+    const first = {'bct': 'w', 'yct': 'y'};
+    final f = first[book];
+    if (f == null) return eg;
+    final out = [...eg.where((e) => e.c == f), ...eg.where((e) => e.c != f)];
+    return out;
+  }
   bool get practisable => pool.isNotEmpty || own.isNotEmpty;
 
   /// the sentence shows this point
@@ -167,7 +177,7 @@ class GBook {
         for (final e in (o['eg'] as List?) ?? const [])
           GEx('${(e as Map)['z']}', '${e['py']}', _m(e['tr']) ?? const {}, [
             for (final w in e['w'] as List) GTok('${(w as List)[0]}', '${w[1]}', (w[2] as num).toInt(), _m(w[3])),
-          ]),
+          ])..c = '${e['c'] ?? ''}',
       ];
       if (byId.containsKey(p.id)) continue;
       p.ord = pts.length;

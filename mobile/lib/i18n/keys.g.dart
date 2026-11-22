@@ -232,6 +232,7 @@ mixin L10Keys {
   String gramAdv(Object? a0, Object? a1) => f('gramAdv', [a0, a1]);
   String get gramAgain => s('gramAgain');
   Map<String, dynamic> get gramCat => (v('gramCat') as Map?)?.cast<String, dynamic>() ?? const {};
+  Map<String, dynamic> get gramCtx => (v('gramCtx') as Map?)?.cast<String, dynamic>() ?? const {};
   String gramDone(Object? a0, Object? a1) => f('gramDone', [a0, a1]);
   String get gramDue => s('gramDue');
   String get gramEx => s('gramEx');

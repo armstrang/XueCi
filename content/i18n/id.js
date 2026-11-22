@@ -312,6 +312,7 @@ I18N.id = {
   gramSubH2: l => `Pola kalimat HSK ${l} menurut HSK versi lama (2.0). Disusun mengikuti kurikulumnya.`,
   gramSubYct: l => `Pola kalimat YCT ${l}, ujian Mandarin untuk anak dan remaja. Disusun mengikuti kurikulumnya.`,
   gramSubBct: l => `Pola kalimat BCT ${l}, Mandarin untuk kerja dan bisnis. Disusun mengikuti kurikulumnya.`,
+  gramCtx: { d: 'Sehari-hari', s: 'Belajar', w: 'Kerja', y: 'Anak & sekolah' },
   gramIn: 'Pola ini ada di',
 
   gramHeld: (a, b) => `${a} dari ${b} pola sudah kuat`,

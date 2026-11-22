@@ -311,6 +311,7 @@ I18N.vi = {
   gramSubH2: l => `Mẫu câu HSK ${l} theo HSK cũ (2.0), soạn theo chương trình thi.`,
   gramSubYct: l => `Mẫu câu YCT ${l}, kỳ thi tiếng Trung cho thiếu nhi và thiếu niên, soạn theo chương trình thi.`,
   gramSubBct: l => `Mẫu câu BCT ${l}, tiếng Trung cho công việc và kinh doanh, soạn theo chương trình thi.`,
+  gramCtx: { d: 'Hằng ngày', s: 'Học tập', w: 'Công việc', y: 'Trẻ em & trường học' },
   gramIn: 'Mẫu này có trong',
 
   gramHeld: (a, b) => `${a}/${b} mẫu đã vững`,
