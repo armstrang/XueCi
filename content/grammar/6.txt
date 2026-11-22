@@ -17,6 +17,9 @@ e: @d 我 想 买 一 瓶 [1 无] [2 糖] 的 饮料 。 | Wǒ xiǎng mǎi yì p
 e: @d 她 现在 是 [1 准] [2 妈妈] 了 。 | Tā xiànzài shì zhǔn māma le. | Dia sekarang calon ibu. | She's a mum-to-be now. | ตอนนี้เธอเป็นว่าที่คุณแม่แล้ว | Cô ấy giờ đã là mẹ tương lai rồi.
 e: @s 这 本 词典 是 [1 多] [2 功能] 的 ， 很 方便 。 | Zhè běn cídiǎn shì duō gōngnéng de, hěn fāngbiàn. | Kamus ini serbaguna, sangat praktis. | This dictionary is multi-purpose and handy. | พจนานุกรมเล่มนี้มีหลายฟังก์ชัน สะดวกมาก | Cuốn từ điển này đa chức năng, rất tiện.
 e: @w 很多 人 [1 反] [2 对] 这 个 计划 。 | Hěn duō rén fǎnduì zhège jìhuà. | Banyak orang menentang rencana ini. | Many people oppose this plan. | หลายคนคัดค้านแผนนี้ | Nhiều người phản đối kế hoạch này.
+e: @w 这 台{unit|(measure word for machines)|เครื่อง|chiếc} 机器 是 [1 多] [2 功能] 的 。 | Zhè tái jīqì shì duō gōngnéng de. | Mesin ini serbaguna. | This machine is multi-functional. | เครื่องนี้มีหลายฟังก์ชัน | Chiếc máy này đa chức năng.
+e: @w 这 件 事 与 您 [1 无] [2 关] 。 | Zhè jiàn shì yǔ nín wúguān. | Hal ini tidak ada hubungannya dengan Anda. | This has nothing to do with you. | เรื่องนี้ไม่เกี่ยวข้องกับท่าน | Việc này không liên quan đến ông/bà.
+e: @w 我们 在 公司 楼下{lantai bawah|downstairs|ชั้นล่าง|tầng dưới} 的 [1 超] [2 市] 订 了 点心 。 | Wǒmen zài gōngsī lóuxià de chāoshì dìng le diǎnxin. | Kami memesan camilan di supermarket di bawah kantor. | We ordered snacks at the supermarket downstairs from the office. | เราสั่งขนมที่ซูเปอร์มาร์เก็ตข้างล่างบริษัท | Chúng tôi đặt đồ ăn nhẹ ở siêu thị dưới công ty.
 
 = W | 类后缀：化/式/型/性 | 名词/形容词 + 化/式/型/性
 t: 1
@@ -35,6 +38,9 @@ e: @d 这 座 城市 越来越 [1 现代] [2 化] 了 。 | Zhè zuò chéngshì
 e: @d 超市 旁边 新 开 了 一 家 [1 大] [2 型{tipe|type|แบบ|cỡ}] 商场 。 | Chāoshì pángbiān xīn kāi le yì jiā dà xíng shāngchǎng. | Di sebelah supermarket baru dibuka mal besar. | A large mall has just opened next to the supermarket. | ข้างซุปเปอร์เพิ่งเปิดห้างขนาดใหญ่ | Cạnh siêu thị mới mở một trung tâm thương mại cỡ lớn.
 e: @s 老师 讲 了 复习 的 [1 重要] [2 性] 。 | Lǎoshī jiǎng le fùxí de zhòngyào xìng. | Guru menjelaskan pentingnya mengulang. | The teacher explained the importance of reviewing. | ครูอธิบายความสำคัญของการทบทวน | Thầy giáo nói về tầm quan trọng của việc ôn tập.
 e: @w 我们 要 让 管理 更 [1 科学] [2 化] 。 | Wǒmen yào ràng guǎnlǐ gèng kēxué huà. | Kita harus membuat manajemen lebih ilmiah. | We need to make management more scientific. | เราต้องทำให้การบริหารเป็นระบบมากขึ้น | Chúng ta phải làm cho quản lý khoa học hóa hơn.
+e: @w 公司 的 工作 要 [1 现代] [2 化] 。 | Gōngsī de gōngzuò yào xiàndài huà. | Pekerjaan perusahaan harus dimodernisasi. | The company's work needs to be modernised. | งานของบริษัทต้องทำให้ทันสมัย | Công việc của công ty cần được hiện đại hoá.
+e: @w 这 是 一 台{unit|(measure word for machines)|เครื่อง|chiếc} [1 新] [2 型{model|model/type|รุ่น|kiểu}] 电脑 。 | Zhè shì yì tái xīn xíng diànnǎo. | Ini komputer model baru. | This is a new-model computer. | นี่คือคอมพิวเตอร์รุ่นใหม่ | Đây là máy tính kiểu mới.
+e: @w 这 个 办法 很 有 [1 实用] [2 性] 。 | Zhè ge bànfǎ hěn yǒu shíyòng xìng. | Cara ini sangat praktis. | This method is very practical. | วิธีนี้ใช้ได้จริงมาก | Cách này có tính thực dụng cao.
 
 = P | 指示代词：本/此 | 本/此 + 名词
 t: 1
@@ -54,6 +60,9 @@ e: @d [1 此] [2 处] 不 能 停车 。 | Cǐ chù bù néng tíngchē. | Dilar
 e: @d [1 本] [2 人] 同意 。 | Běn rén tóngyì. | Saya pribadi setuju. | I myself agree. | ข้าพเจ้าเห็นด้วย | Bản thân tôi đồng ý.
 e: @s [1 本] [2 次] 考试 共 有 三 个 部分 。 | Běn cì kǎoshì gòng yǒu sān ge bùfen. | Ujian kali ini terdiri dari tiga bagian. | This exam has three parts. | การสอบครั้งนี้มีสามส่วน | Kỳ thi lần này gồm ba phần.
 e: @w [1 本] [2 公司] 已经 成立 二十 年 了 。 | Běn gōngsī yǐjīng chénglì èrshí nián le. | Perusahaan kami sudah berdiri dua puluh tahun. | Our company was founded twenty years ago. | บริษัทของเราก่อตั้งมายี่สิบปีแล้ว | Công ty chúng tôi đã thành lập được hai mươi năm.
+e: @w [1 本] [2 公司] 欢迎 您 来 参观{mengunjungi|visit|เยี่ยมชม|tham quan} 。 | Běn gōngsī huānyíng nín lái cānguān. | Perusahaan kami menyambut kunjungan Anda. | Our company welcomes your visit. | บริษัทของเรายินดีต้อนรับท่านมาเยี่ยมชม | Công ty chúng tôi hoan nghênh ông/bà đến tham quan.
+e: @w [1 此] [2 事] 请 您 同意 。 | Cǐ shì qǐng nín tóngyì. | Mohon Anda menyetujui hal ini. | Please approve this matter. | เรื่องนี้ขอให้ท่านเห็นชอบ | Việc này xin ông/bà đồng ý.
+e: @w [1 本] [2 次] 会议 九 点 开始 。 | Běn cì huìyì jiǔ diǎn kāishǐ. | Rapat kali ini dimulai pukul sembilan. | This meeting starts at nine. | การประชุมครั้งนี้เริ่มเก้าโมง | Cuộc họp lần này bắt đầu lúc chín giờ.
 
 = N | 名量词：餐/串/滴/副/股/集/枝 | 数词 + 量词 + 名词
 t: 2
@@ -161,6 +170,9 @@ e: @d 天 [1 一] [2 黑] ， 路 灯 [3 便] [4 亮 了] 。 | Tiān yì hēi, 
 e: @d 她 [1 一] [2 看 见] 妈妈 [3 便] [4 跑 了 过去] 。 | Tā yí kàn jiàn māma biàn pǎo le guòqu. | Begitu melihat ibunya, dia langsung berlari menghampiri. | The moment she saw her mum, she ran over. | เธอพอเห็นแม่ก็วิ่งเข้าไปหา | Cô bé vừa thấy mẹ liền chạy tới.
 e: @s 这 道 题 他 [1 一] [2 看] [3 便] [4 知道 答案] 。 | Zhè dào tí tā yí kàn biàn zhīdào dá'àn. | Soal ini sekali lihat dia langsung tahu jawabannya. | He knew the answer the moment he saw this question. | ข้อนี้เขาดูปุ๊บก็รู้คำตอบ | Câu này cậu ấy vừa nhìn liền biết đáp án.
 e: @w 合同 [1 一] [2 签] ， 我们 [3 便] [4 开始 生产] 。 | Hétong yì qiān, wǒmen biàn kāishǐ shēngchǎn. | Begitu kontrak ditandatangani, kami langsung mulai produksi. | Once the contract is signed, we'll start production. | พอเซ็นสัญญา เราก็จะเริ่มผลิต | Hợp đồng vừa ký, chúng tôi liền bắt đầu sản xuất.
+e: @w 他 [1 一] [2 收到 邮件] [3 便] [4 回复 了] 。 | Tā yì shōudào yóujiàn biàn huífù le. | Begitu menerima surel, dia langsung membalas. | As soon as he received the email, he replied. | พอได้รับอีเมลเขาก็ตอบทันที | Anh ấy vừa nhận email là trả lời ngay.
+e: @w 经理 [1 一] [2 到 公司] [3 便] [4 开始 开 会] 。 | Jīnglǐ yí dào gōngsī biàn kāishǐ kāi huì. | Begitu tiba di kantor, manajer langsung rapat. | The manager started the meeting as soon as he arrived. | พอผู้จัดการถึงบริษัทก็เริ่มประชุม | Giám đốc vừa đến công ty là bắt đầu họp.
+e: @w 客人 [1 一] [2 看 价格{harga|price|ราคา|giá}] [3 便] [4 同意 了] 。 | Kèrén yí kàn jiàgé biàn tóngyì le. | Begitu melihat harga, tamu langsung setuju. | The customer agreed as soon as he saw the price. | ลูกค้าเห็นราคาก็เห็นด้วยทันที | Khách vừa xem giá là đồng ý ngay.
 
 = A | 方式副词：不禁/赶忙/亲眼/特地/特意 | 副词 + 动词
 t: 4
@@ -229,6 +241,9 @@ e: @d 这 种 茶 [1 产] [2 于] [3 云南{Yunnan|Yunnan|ยูนนาน|Vâ
 e: @d 长城{Tembok Besar|Great Wall|กำแพงเมืองจีน|Vạn Lý Trường Thành} [1 位] [2 于] [3 中国 北方] 。 | Chángchéng wèi yú Zhōngguó běifāng. | Tembok Besar terletak di utara Tiongkok. | The Great Wall lies in northern China. | กำแพงเมืองจีนตั้งอยู่ทางเหนือของจีน | Vạn Lý Trường Thành nằm ở miền Bắc Trung Quốc.
 e: @s 他 [1 毕业] [2 于] [3 北京 大学] 。 | Tā bìyè yú Běijīng Dàxué. | Dia lulusan Universitas Peking. | He graduated from Peking University. | เขาจบจากมหาวิทยาลัยปักกิ่ง | Anh ấy tốt nghiệp Đại học Bắc Kinh.
 e: @w 会议 将 [1 举行] [2 于] [3 下 周三] 。 | Huìyì jiāng jǔxíng yú xià Zhōusān. | Rapat akan diadakan Rabu depan. | The meeting will be held next Wednesday. | การประชุมจะจัดขึ้นในวันพุธหน้า | Cuộc họp sẽ được tổ chức vào thứ tư tuần sau.
+e: @w 会议 [1 定] [2 于] [3 下 周 一] 。 | Huìyì dìng yú xià zhōuyī. | Rapat dijadwalkan pada Senin depan. | The meeting is set for next Monday. | การประชุมกำหนดไว้วันจันทร์หน้า | Cuộc họp được ấn định vào thứ Hai tuần sau.
+e: @w 合同 [1 签] [2 于] [3 北京] 。 | Hétong qiān yú Běijīng. | Kontrak ditandatangani di Beijing. | The contract was signed in Beijing. | สัญญาลงนามที่ปักกิ่ง | Hợp đồng được ký tại Bắc Kinh.
+e: @w 这 家 公司 [1 成立] [2 于] [3 十 年 前] 。 | Zhè jiā gōngsī chénglì yú shí nián qián. | Perusahaan ini didirikan sepuluh tahun lalu. | This company was founded ten years ago. | บริษัทนี้ก่อตั้งเมื่อสิบปีที่แล้ว | Công ty này thành lập cách đây mười năm.
 
 = R | 介词：沿（着） | 沿着 + 路线 + 动词
 t: 2
@@ -264,6 +279,9 @@ e: @d 这 件 事 [1 与] [2 你] 无关 ， 别 [3 担心] 。 | Zhè jiàn sh�
 e: @d 她 [1 同] [2 邻居{tetangga|neighbours|เพื่อนบ้าน|hàng xóm}] [3 聊] 得 很 开心 。 | Tā tóng línjū liáo de hěn kāixīn. | Dia mengobrol asyik dengan tetangga. | She had a nice chat with the neighbours. | เธอคุยกับเพื่อนบ้านอย่างสนุก | Cô ấy trò chuyện với hàng xóm rất vui.
 e: @s 我 想 [1 与] [2 中国 学生] [3 交流] 。 | Wǒ xiǎng yǔ Zhōngguó xuésheng jiāoliú. | Saya ingin berinteraksi dengan siswa Tiongkok. | I'd like to talk with Chinese students. | ฉันอยากแลกเปลี่ยนกับนักเรียนจีน | Tôi muốn giao lưu với sinh viên Trung Quốc.
 e: @w 很 高兴 [1 与] [2 贵 公司] [3 合作{bekerja sama|cooperate|ร่วมมือ|hợp tác}] 。 | Hěn gāoxìng yǔ guì gōngsī hézuò. | Senang sekali bekerja sama dengan perusahaan Anda. | We're delighted to work with your company. | ยินดีที่ได้ร่วมงานกับบริษัทของท่าน | Rất vui được hợp tác với quý công ty.
+e: @w 我 [1 同] [2 客人] [3 谈 了 价格{harga|price|ราคา|giá}] 。 | Wǒ tóng kèrén tán le jiàgé. | Saya membahas harga dengan tamu. | I discussed the price with the guest. | ฉันคุยเรื่องราคากับลูกค้า | Tôi đã bàn giá với khách.
+e: @w 请 [1 与] [2 经理] [3 商量 一下] 。 | Qǐng yǔ jīnglǐ shāngliang yíxià. | Mohon berunding dulu dengan manajer. | Please talk it over with the manager. | กรุณาปรึกษากับผู้จัดการสักหน่อย | Xin hãy bàn bạc với giám đốc một chút.
+e: @w 我们 愿意 [1 与] [2 贵 公司] [3 合作] 。 | Wǒmen yuànyì yǔ guì gōngsī hézuò. | Kami bersedia bekerja sama dengan perusahaan Anda. | We are willing to cooperate with your company. | เรายินดีร่วมมือกับบริษัทของท่าน | Chúng tôi sẵn lòng hợp tác với quý công ty.
 
 = R | 至于 | 至于 + 话题，……
 t: 7
@@ -281,6 +299,9 @@ e: @d [1 他 答应 来 了] ， [2 至于] [3 几 点 到] ， [4 我 也 不 �
 e: @d [1 衣服 我 买 好 了] ， [2 至于] [3 鞋] ， [4 明天 再 说] 。 | Yīfu wǒ mǎi hǎo le, zhìyú xié, míngtiān zài shuō. | Bajunya sudah dibeli; soal sepatu, besok saja. | I've bought the clothes; shoes can wait till tomorrow. | เสื้อฉันซื้อแล้ว ส่วนรองเท้าค่อยว่ากันพรุ่งนี้ | Quần áo tôi mua xong rồi, còn giày thì mai tính.
 e: @s [1 你 先 把 作业 写 完] ， [2 至于] [3 玩] ， [4 以后 再 说] 。 | Nǐ xiān bǎ zuòyè xiě wán, zhìyú wán, yǐhòu zài shuō. | Selesaikan PR dulu; soal main, nanti saja. | Finish your homework first; playing can come later. | ทำการบ้านให้เสร็จก่อน ส่วนเรื่องเล่นค่อยว่ากัน | Con làm xong bài tập trước đã, còn chơi thì để sau.
 e: @w [1 方案 已经 通过 了] ， [2 至于] [3 具体 时间] ， [4 我们 下 周 再 定] 。 | Fāng'àn yǐjīng tōngguò le, zhìyú jùtǐ shíjiān, wǒmen xià zhōu zài dìng. | Rencananya sudah disetujui; soal waktu pastinya, minggu depan kita tentukan. | The plan is approved; as for the exact timing, we'll fix it next week. | แผนผ่านแล้ว ส่วนเวลาที่แน่นอน เราจะกำหนดสัปดาห์หน้า | Phương án đã được thông qua, còn thời gian cụ thể thì tuần sau chúng ta định.
+e: @w [1 价格{harga|price|ราคา|giá} 我们 已经 谈 好 了] ， [2 至于] [3 付款 方式] ， [4 明天 再 说] 。 | Jiàgé wǒmen yǐjīng tán hǎo le, zhìyú fùkuǎn fāngshì, míngtiān zài shuō. | Harga sudah disepakati; soal cara pembayaran, kita bahas besok. | The price is settled; as for the payment method, we'll discuss it tomorrow. | ตกลงราคาแล้ว ส่วนวิธีชำระเงิน คุยกันพรุ่งนี้ | Giá đã thoả thuận; còn về cách thanh toán, ngày mai bàn tiếp.
+e: @w [1 会议 时间 已经 定 了] ， [2 至于] [3 地点] ， [4 秘书{sekretaris|secretary|เลขา|thư ký} 会 通知 大家] 。 | Huìyì shíjiān yǐjīng dìng le, zhìyú dìdiǎn, mìshū huì tōngzhī dàjiā. | Waktu rapat sudah ditetapkan; soal tempat, sekretaris akan memberi tahu. | The time is fixed; as for the venue, the secretary will notify everyone. | กำหนดเวลาประชุมแล้ว ส่วนสถานที่ เลขาจะแจ้งทุกคน | Giờ họp đã định; còn địa điểm, thư ký sẽ thông báo.
+e: @w [1 机票 已经 订 好 了] ， [2 至于] [3 饭店] ， [4 我 明天 再 订] 。 | Jīpiào yǐjīng dìng hǎo le, zhìyú fàndiàn, wǒ míngtiān zài dìng. | Tiket sudah dipesan; soal hotel, saya pesan besok. | The tickets are booked; as for the hotel, I'll book it tomorrow. | จองตั๋วเครื่องบินแล้ว ส่วนโรงแรม พรุ่งนี้ฉันค่อยจอง | Vé máy bay đã đặt; còn khách sạn, mai tôi đặt.
 
 = R | 介词：因 | 因 + 原因 + 结果
 t: 7
@@ -299,6 +320,9 @@ e: @d [1 因] [2 病] ， [3 他 今天 没 来 上班] 。 | Yīn bìng, tā j�
 e: @d [1 因] [2 路 上 堵 车] ， [3 我们 晚 到 了] 。 | Yīn lù shàng dǔ chē, wǒmen wǎn dào le. | Karena macet, kami terlambat. | We were late because of traffic. | เนื่องจากรถติด เราจึงมาสาย | Do tắc đường, chúng tôi đến muộn.
 e: @s [1 因] [2 天气 原因] ， [3 今天 的 课 改 到 明天] 。 | Yīn tiānqì yuányīn, jīntiān de kè gǎi dào míngtiān. | Karena cuaca, kelas hari ini dipindah ke besok. | Due to the weather, today's class moves to tomorrow. | เนื่องจากสภาพอากาศ คาบวันนี้เลื่อนไปพรุ่งนี้ | Do thời tiết, buổi học hôm nay dời sang ngày mai.
 e: @w [1 因] [2 系统 升级] ， [3 本 周 六 暂停 服务] 。 | Yīn xìtǒng shēngjí, běn Zhōuliù zàntíng fúwù. | Karena pembaruan sistem, layanan dihentikan sementara Sabtu ini. | Service is suspended this Saturday for a system upgrade. | เนื่องจากอัปเกรดระบบ วันเสาร์นี้หยุดให้บริการชั่วคราว | Do nâng cấp hệ thống, thứ bảy này tạm ngừng dịch vụ.
+e: @w [1 因] [2 天气 不 好] ， [3 航班 取消 了] 。 | Yīn tiānqì bù hǎo, hángbān qǔxiāo le. | Karena cuaca buruk, penerbangan dibatalkan. | The flight was cancelled due to bad weather. | เที่ยวบินถูกยกเลิกเพราะอากาศไม่ดี | Do thời tiết xấu, chuyến bay bị huỷ.
+e: @w [1 因] [2 经理 出差{dinas luar|business trip|เดินทางไปทำงาน|đi công tác}] ， [3 会议 改 期 了] 。 | Yīn jīnglǐ chūchāi, huìyì gǎi qī le. | Karena manajer dinas, rapat diundur. | The meeting was postponed because the manager is away. | การประชุมเลื่อนเพราะผู้จัดการไปทำงานต่างถิ่น | Do giám đốc đi công tác, cuộc họp đổi lịch.
+e: @w [1 因] [2 价格{harga|price|ราคา|giá} 太 高] ， [3 客人 没 订 货] 。 | Yīn jiàgé tài gāo, kèrén méi dìng huò. | Karena harga terlalu tinggi, tamu tidak memesan. | The customer didn't order because the price was too high. | ลูกค้าไม่สั่งสินค้าเพราะราคาสูงเกินไป | Do giá quá cao, khách không đặt hàng.
 
 = R | 介词：除 | 除 + 对象 + 以外/之外
 t: 7
@@ -334,6 +358,9 @@ e: @d [1 据] [2 他 说] ， [3 这 家 饭店 很 有名] 。 | Jù tā shuō,
 e: @d [1 据] [2 我 所 知] ， [3 他 已经 搬 家 了] 。 | Jù wǒ suǒ zhī, tā yǐjīng bān jiā le. | Setahu saya, dia sudah pindah rumah. | As far as I know, he's moved house. | เท่าที่ฉันรู้ เขาย้ายบ้านไปแล้ว | Theo tôi biết, anh ấy đã chuyển nhà rồi.
 e: @s [1 据] [2 调查] ， [3 大 部分 学生 每 天 学习 两 个 小时] 。 | Jù diàochá, dàbùfen xuésheng měi tiān xuéxí liǎng ge xiǎoshí. | Menurut survei, sebagian besar siswa belajar dua jam sehari. | According to a survey, most students study two hours a day. | จากการสำรวจ นักเรียนส่วนใหญ่เรียนวันละสองชั่วโมง | Theo điều tra, phần lớn học sinh mỗi ngày học hai tiếng.
 e: @w [1 据] [2 统计] ， [3 今年 的 销售额{penjualan|sales|ยอดขาย|doanh số} 增长 了 百 分之 十 五] 。 | Jù tǒngjì, jīnnián de xiāoshòu'é zēngzhǎng le bǎi fēnzhī shíwǔ. | Menurut statistik, penjualan tahun ini naik lima belas persen. | According to the figures, sales rose 15% this year. | ตามสถิติ ยอดขายปีนี้เพิ่มขึ้นร้อยละสิบห้า | Theo thống kê, doanh số năm nay tăng mười lăm phần trăm.
+e: @w [1 据] [2 经理 说] ， [3 会议 要 改 期] 。 | Jù jīnglǐ shuō, huìyì yào gǎi qī. | Menurut manajer, rapat akan diundur. | According to the manager, the meeting will be rescheduled. | ตามที่ผู้จัดการบอก การประชุมจะเลื่อน | Theo giám đốc nói, cuộc họp sẽ đổi lịch.
+e: @w [1 据] [2 客人 介绍] ， [3 他们 的 价格{harga|price|ราคา|giá} 更 低] 。 | Jù kèrén jièshào, tāmen de jiàgé gèng dī. | Menurut tamu, harga mereka lebih rendah. | According to the customer, their price is lower. | ตามที่ลูกค้าแจ้ง ราคาของพวกเขาต่ำกว่า | Theo khách cho biết, giá của họ thấp hơn.
+e: @w [1 据] [2 公司 通知] ， [3 下 周 一 开始 新 的 服务] 。 | Jù gōngsī tōngzhī, xià zhōuyī kāishǐ xīn de fúwù. | Menurut pemberitahuan perusahaan, layanan baru dimulai Senin depan. | According to the company notice, a new service starts next Monday. | ตามประกาศของบริษัท บริการใหม่เริ่มวันจันทร์หน้า | Theo thông báo của công ty, dịch vụ mới bắt đầu từ thứ Hai tuần sau.
 
 = C | 连接词：而/同/与 | A + 而/同/与 + B
 t: 9
@@ -353,6 +380,9 @@ e: @d [1 我] [2 同] [3 我 妹妹] 都 喜欢 唱 歌 。 | Wǒ tóng wǒ mèi
 e: @d [1 天气 冷] [2 而] [3 干] ， 要 多 喝 水 。 | Tiānqì lěng ér gān, yào duō hē shuǐ. | Cuacanya dingin dan kering, banyak minum air. | It's cold and dry, so drink lots of water. | อากาศหนาวและแห้ง ต้องดื่มน้ำเยอะ ๆ | Thời tiết lạnh mà khô, phải uống nhiều nước.
 e: @s [1 语法] [2 与] [3 词汇] 都 很 重要 。 | Yǔfǎ yǔ cíhuì dōu hěn zhòngyào. | Tata bahasa dan kosakata sama-sama penting. | Grammar and vocabulary are both important. | ไวยากรณ์และคำศัพท์สำคัญทั้งคู่ | Ngữ pháp và từ vựng đều rất quan trọng.
 e: @w [1 价格] [2 与] [3 质量] 都 要 考虑 。 | Jiàgé yǔ zhìliàng dōu yào kǎolǜ. | Harga dan kualitas sama-sama harus dipertimbangkan. | Both price and quality must be considered. | ต้องพิจารณาทั้งราคาและคุณภาพ | Cả giá và chất lượng đều phải cân nhắc.
+e: @w [1 这 个 产品{produk|product|สินค้า|sản phẩm} 质量 高] ， [2 而] [3 价格{harga|price|ราคา|giá} 低] 。 | Zhè ge chǎnpǐn zhìliàng gāo, ér jiàgé dī. | Produk ini berkualitas tinggi sedangkan harganya rendah. | This product is of high quality and low in price. | สินค้านี้คุณภาพสูงแต่ราคาต่ำ | Sản phẩm này chất lượng cao mà giá lại thấp.
+e: @w [1 经理] [2 同] [3 秘书{sekretaris|secretary|เลขา|thư ký}] 一起 去 机场 接 客人 。 | Jīnglǐ tóng mìshū yìqǐ qù jīchǎng jiē kèrén. | Manajer dan sekretaris pergi bersama menjemput tamu di bandara. | The manager and the secretary went to the airport together to meet the guests. | ผู้จัดการกับเลขาไปรับแขกที่สนามบินด้วยกัน | Giám đốc cùng thư ký ra sân bay đón khách.
+e: @w [1 质量] [2 与] [3 价格{harga|price|ราคา|giá}] 都 很 重要 。 | Zhìliàng yǔ jiàgé dōu hěn zhòngyào. | Kualitas dan harga sama-sama penting. | Both quality and price are important. | ทั้งคุณภาพและราคาล้วนสำคัญ | Chất lượng và giá cả đều quan trọng.
 
 = C | 连接分句：不料/可/若 | 分句 + 不料/可 + 分句 ／ 若……就……
 t: 9
@@ -370,6 +400,9 @@ e: @d [1 我 想 给 他 打 电话] ， [2 可] [3 不 知道 他 的 号码] �
 e: @d [1 我们 明天 早上 出发] ， [2 若] [3 下 雨 就 改 天] 。 | Wǒmen míngtiān zǎoshang chūfā, ruò xià yǔ jiù gǎi tiān. | Kita berangkat besok pagi; jika hujan, ganti hari. | We leave tomorrow morning; if it rains, another day. | เราจะออกเดินทางพรุ่งนี้เช้า หากฝนตกก็เลื่อนวัน | Sáng mai chúng ta xuất phát, nếu mưa thì đổi ngày khác.
 e: @s [1 我 以为 考试 很 简单] ， [2 不料] [3 题目 那么 难] 。 | Wǒ yǐwéi kǎoshì hěn jiǎndān, búliào tímù nàme nán. | Saya kira ujiannya mudah, tak disangka soalnya sesulit itu. | I thought the exam would be easy; little did I know it'd be so hard. | ฉันคิดว่าการสอบง่าย ไม่คาดคิดว่าข้อสอบจะยากขนาดนั้น | Tôi tưởng thi đơn giản, không ngờ đề khó thế.
 e: @w [1 请 您 先 看 一下 合同] ， [2 若] [3 有 问题 ， 请 随时 与 我们 联系] 。 | Qǐng nín xiān kàn yíxià hétong, ruò yǒu wèntí, qǐng suíshí yǔ wǒmen liánxì. | Silakan baca kontraknya dulu; jika ada pertanyaan, hubungi kami kapan saja. | Please read the contract first; if anything is unclear, contact us any time. | กรุณาอ่านสัญญาก่อน หากมีปัญหา โปรดติดต่อเราได้ตลอดเวลา | Mời anh xem hợp đồng trước, nếu có vấn đề xin cứ liên hệ chúng tôi.
+e: @w [1 我们 准备 了 很 久] ， [2 不料] [3 客人 没 来] 。 | Wǒmen zhǔnbèi le hěn jiǔ, búliào kèrén méi lái. | Kami sudah lama bersiap, tak disangka tamu tidak datang. | We prepared for a long time, but unexpectedly the guest didn't come. | เราเตรียมตัวมานาน แต่ไม่คาดว่าลูกค้าจะไม่มา | Chúng tôi chuẩn bị rất lâu, không ngờ khách không đến.
+e: @w [1 价格{harga|price|ราคา|giá} 不 低] ， [2 可] [3 质量 很 好] 。 | Jiàgé bù dī, kě zhìliàng hěn hǎo. | Harganya tidak rendah, tetapi kualitasnya bagus. | The price isn't low, but the quality is good. | ราคาไม่ต่ำ แต่คุณภาพดีมาก | Giá không thấp, nhưng chất lượng rất tốt.
+e: @w [1 请 您 先 回复] ， [2 若] [3 有 问题 再 联系 我们] 。 | Qǐng nín xiān huífù, ruò yǒu wèntí zài liánxì wǒmen. | Mohon balas dulu, jika ada masalah hubungi kami lagi. | Please reply first; if there are problems, contact us again. | กรุณาตอบกลับก่อน หากมีปัญหาค่อยติดต่อเรา | Xin ông/bà trả lời trước, nếu có vấn đề thì liên hệ lại.
 
 = U | 结构助词：所 | 主语 + 所 + 动词 + 的
 t: 8
@@ -388,6 +421,9 @@ e: @d [1 他] [2 所] [3 说] [4 的] 都 是 真 的 。 | Tā suǒ shuō de d�
 e: @d [1 我] [2 所] [3 喜欢] [4 的] 季节 是 秋天 。 | Wǒ suǒ xǐhuan de jìjié shì qiūtiān. | Musim yang saya sukai adalah musim gugur. | The season I like is autumn. | ฤดูที่ฉันชอบคือฤดูใบไม้ร่วง | Mùa tôi thích là mùa thu.
 e: @s [1 我们] [2 所] [3 学] [4 的] 知识 要 用 在 生活 中 。 | Wǒmen suǒ xué de zhīshi yào yòng zài shēnghuó zhōng. | Ilmu yang kita pelajari harus dipakai dalam hidup. | What we learn should be used in daily life. | ความรู้ที่เราเรียนต้องนำไปใช้ในชีวิต | Kiến thức chúng ta học phải dùng trong cuộc sống.
 e: @w [1 您] [2 所] [3 需要] [4 的] 资料 已经 发 到 您 的 邮箱 。 | Nín suǒ xūyào de zīliào yǐjīng fā dào nín de yóuxiāng. | Berkas yang Anda butuhkan sudah dikirim ke email Anda. | The materials you need have been sent to your inbox. | เอกสารที่ท่านต้องการได้ส่งไปที่อีเมลแล้ว | Tài liệu anh cần đã được gửi vào hộp thư của anh.
+e: @w [1 这 是 我们] [2 所] [3 需要] [4 的] 材料 。 | Zhè shì wǒmen suǒ xūyào de cáiliào. | Inilah materi yang kami butuhkan. | These are the materials we need. | นี่คือเอกสารที่เราต้องการ | Đây là tài liệu mà chúng tôi cần.
+e: @w [1 我] [2 所] [3 知道] [4 的] 就 这些 。 | Wǒ suǒ zhīdào de jiù zhèxiē. | Yang saya ketahui hanya ini. | This is all I know. | ที่ฉันรู้ก็มีเท่านี้ | Những gì tôi biết chỉ có vậy.
+e: @w [1 经理] [2 所] [3 说] [4 的] 我们 都 听 懂 了 。 | Jīnglǐ suǒ shuō de wǒmen dōu tīng dǒng le. | Apa yang dikatakan manajer sudah kami pahami. | We all understood what the manager said. | ที่ผู้จัดการพูด พวกเราฟังเข้าใจหมดแล้ว | Những gì giám đốc nói chúng tôi đều nghe hiểu.
 
 = U | 语气助词：罢了/嘛 | 陈述 + 罢了/嘛
 t: 10
@@ -664,6 +700,9 @@ e: @d 她 [1 为了] [2 照顾 妈妈] [3 而] [4 辞{mundur|resign|ลา|từ}
 e: @d 他们 [1 为了] [2 一 家人 的 生活] [3 而] [4 辛苦 工作] 。 | Tāmen wèile yì jiārén de shēnghuó ér xīnkǔ gōngzuò. | Mereka bekerja keras demi kehidupan keluarga. | They work hard for the sake of their family's livelihood. | พวกเขาทำงานหนักเพื่อความเป็นอยู่ของครอบครัว | Họ làm việc vất vả vì cuộc sống của cả gia đình.
 e: @s 他 [1 为了] [2 考 上 好 大学] [3 而] [4 努力 学习] 。 | Tā wèile kǎo shàng hǎo dàxué ér nǔlì xuéxí. | Dia belajar giat demi masuk universitas yang bagus. | He studies hard in order to get into a good university. | เขาตั้งใจเรียนเพื่อสอบเข้ามหาวิทยาลัยดี ๆ | Cậu ấy chăm chỉ học để đỗ vào trường đại học tốt.
 e: @w 我们 [1 为了] [2 提高 效率] [3 而] [4 更换 了 系统] ， 请 您 理解 。 | Wǒmen wèile tígāo xiàolǜ ér gēnghuàn le xìtǒng, qǐng nín lǐjiě. | Kami mengganti sistem demi meningkatkan efisiensi, mohon pengertian Anda. | We replaced the system to improve efficiency, and we hope you'll understand. | เราเปลี่ยนระบบเพื่อเพิ่มประสิทธิภาพ ขอความกรุณาเข้าใจด้วย | Chúng tôi thay hệ thống để nâng cao hiệu suất, mong ông/bà thông cảm.
+e: @w [1 为了] [2 客人 的 满意] [3 而] [4 努力 工作] 。 | Wèile kèrén de mǎnyì ér nǔlì gōngzuò. | Bekerja keras demi kepuasan tamu. | We work hard for the customers' satisfaction. | ทำงานหนักเพื่อความพอใจของลูกค้า | Làm việc chăm chỉ vì sự hài lòng của khách.
+e: @w 我们 [1 为了] [2 这 次 合作] [3 而] [4 准备 了 很 久] 。 | Wǒmen wèile zhè cì hézuò ér zhǔnbèi le hěn jiǔ. | Kami sudah lama bersiap demi kerja sama ini. | We have prepared for a long time for this cooperation. | พวกเราเตรียมตัวมานานเพื่อความร่วมมือครั้งนี้ | Chúng tôi đã chuẩn bị lâu vì lần hợp tác này.
+e: @w 经理 [1 为了] [2 公司 的 发展] [3 而] [4 经常 出差{dinas luar|business trip|เดินทางไปทำงาน|đi công tác}] 。 | Jīnglǐ wèile gōngsī de fāzhǎn ér jīngcháng chūchāi. | Manajer sering dinas luar demi perkembangan perusahaan. | The manager travels often for the company's growth. | ผู้จัดการเดินทางไปทำงานต่างถิ่นบ่อยเพื่อการเติบโตของบริษัท | Giám đốc thường đi công tác vì sự phát triển của công ty.
 
 = S | 宾语的语义类型2：处所/结果 | 动词 + 处所宾语 / 结果宾语
 t: 1
@@ -797,6 +836,9 @@ e: @d [1 天 一 黑] [2 便] [3 开始 下雨 了] 。 | Tiān yì hēi biàn k
 e: @d [1 孩子 吃 完 饭] [2 便] [3 跑 出去 玩 了] 。 | Háizi chī wán fàn biàn pǎo chūqu wán le. | Selesai makan, anak itu langsung berlari keluar bermain. | The child finished eating and ran out to play. | เด็กกินข้าวเสร็จก็วิ่งออกไปเล่น | Đứa bé ăn xong là chạy ra ngoài chơi.
 e: @s [1 老师 讲 完 课] [2 便] [3 让 我们 做 练习] 。 | Lǎoshī jiǎng wán kè biàn ràng wǒmen zuò liànxí. | Setelah selesai mengajar, guru segera meminta kami mengerjakan latihan. | After finishing the lesson, the teacher had us do exercises. | อาจารย์สอนจบก็ให้พวกเราทำแบบฝึกหัด | Thầy giảng xong là cho chúng tôi làm bài tập.
 e: @w [1 收到 您 的 邮件] [2 便] [3 立刻 安排 了 人 处理] 。 | Shōudào nín de yóujiàn biàn lìkè ānpái le rén chǔlǐ. | Begitu menerima surel Anda, kami segera menugaskan orang untuk menanganinya. | As soon as we received your email, we arranged for someone to handle it. | พอได้รับอีเมลของท่านก็จัดคนไปดำเนินการทันที | Vừa nhận được email của ông/bà, chúng tôi đã lập tức sắp xếp người xử lý.
+e: @w [1 他 看 了 一 眼 合同] ， [2 便] [3 签 了 字] 。 | Tā kàn le yì yǎn hétong, biàn qiān le zì. | Dia melirik kontrak lalu langsung menandatangani. | He glanced at the contract and signed it. | เขามองสัญญาแวบหนึ่งแล้วก็ลงนาม | Anh ấy liếc qua hợp đồng rồi ký ngay.
+e: @w [1 客人 听 了 介绍] ， [2 便] [3 决定 订 货] 。 | Kèrén tīng le jièshào, biàn juédìng dìng huò. | Tamu mendengar penjelasan lalu memutuskan memesan. | The customer heard the introduction and decided to order. | ลูกค้าฟังการแนะนำแล้วก็ตัดสินใจสั่งสินค้า | Khách nghe giới thiệu xong liền quyết định đặt hàng.
+e: @w [1 经理 说 完] ， [2 便] [3 离开 了 会议室{ruang rapat|meeting room|ห้องประชุม|phòng họp}] 。 | Jīnglǐ shuō wán, biàn líkāi le huìyìshì. | Selesai bicara, manajer langsung meninggalkan ruang rapat. | The manager finished speaking and left the meeting room. | ผู้จัดการพูดจบก็ออกจากห้องประชุม | Giám đốc nói xong liền rời phòng họp.
 
 = F | 不但不……反而…… | 不但不 A，反而 B
 t: 9
@@ -890,6 +932,9 @@ e: @d 这 家 店 [1 虽] [2 不 大] [3 却] [4 什么 都 有] 。 | Zhè jiā
 e: @d 他 [1 虽] [2 年轻] [3 可] [4 很 有 经验] 。 | Tā suī niánqīng kě hěn yǒu jīngyàn. | Dia masih muda tetapi sangat berpengalaman. | He's young but very experienced. | เขาอายุน้อยแต่มีประสบการณ์มาก | Anh ấy tuy trẻ nhưng rất có kinh nghiệm.
 e: @s 这 篇 课文 [1 虽] [2 不 长] [3 但] [4 生词{kata baru|new words|คำศัพท์ใหม่|từ mới} 很 多] 。 | Zhè piān kèwén suī bù cháng dàn shēngcí hěn duō. | Teks ini tidak panjang tetapi banyak kata barunya. | This text isn't long, but it has lots of new words. | บทอ่านนี้แม้ไม่ยาวแต่มีคำศัพท์ใหม่เยอะ | Bài khoá này tuy không dài nhưng có nhiều từ mới.
 e: @w 贵 公司 的 产品 [1 虽] [2 好] [3 但] [4 价格 偏 高] ， 我们 还 需要 考虑 一下 。 | Guì gōngsī de chǎnpǐn suī hǎo dàn jiàgé piān gāo, wǒmen hái xūyào kǎolǜ yíxià. | Produk perusahaan Anda bagus tetapi harganya agak tinggi, kami masih perlu mempertimbangkannya. | Your company's product is good, but the price is a bit high, so we need to think it over. | สินค้าของบริษัทท่านแม้จะดีแต่ราคาค่อนข้างสูง เรายังต้องพิจารณาอีกที | Sản phẩm của quý công ty tuy tốt nhưng giá hơi cao, chúng tôi cần cân nhắc thêm.
+e: @w [1 虽] [2 价格{harga|price|ราคา|giá} 高] ， [3 但] [4 质量 好] 。 | Suī jiàgé gāo, dàn zhìliàng hǎo. | Meski harganya tinggi, kualitasnya bagus. | Though the price is high, the quality is good. | แม้ราคาสูง แต่คุณภาพดี | Tuy giá cao nhưng chất lượng tốt.
+e: @w [1 虽] [2 工作 很 忙] ， [3 却] [4 没 有 影响 质量] 。 | Suī gōngzuò hěn máng, què méi yǒu yǐngxiǎng zhìliàng. | Meski pekerjaan sibuk, kualitas tidak terpengaruh. | Though work was busy, quality was not affected. | แม้งานจะยุ่ง แต่ไม่กระทบคุณภาพ | Tuy công việc bận nhưng không ảnh hưởng chất lượng.
+e: @w [1 虽] [2 经理 不 在] ， [3 也] [4 有 人 接待 客人] 。 | Suī jīnglǐ bú zài, yě yǒu rén jiēdài kèrén. | Meski manajer tidak ada, ada yang menyambut tamu. | Though the manager is away, someone is receiving the guests. | แม้ผู้จัดการไม่อยู่ ก็มีคนต้อนรับแขก | Tuy giám đốc vắng mặt, vẫn có người tiếp khách.
 
 = F | ……要不然…… | A，要不然 B
 t: 9
@@ -925,6 +970,9 @@ e: @d [1 凡是] [2 下雨 天] [3 都] [4 会 堵车] 。 | Fánshì xiàyǔ ti
 e: @d [1 凡是] [2 我 能 做 到 的] [3 都] [4 会 帮 你] 。 | Fánshì wǒ néng zuò dào de dōu huì bāng nǐ. | Apa pun yang bisa kulakukan, pasti kubantu. | Whatever I can do, I'll help you with. | ทุกอย่างที่ฉันทำได้ ฉันจะช่วยเธอ | Bất cứ điều gì tôi làm được tôi đều sẽ giúp bạn.
 e: @s [1 凡是] [2 老师 布置 的 作业] [3 都] [4 要 按时 完成] 。 | Fánshì lǎoshī bùzhì de zuòyè dōu yào ànshí wánchéng. | Semua tugas dari guru harus diselesaikan tepat waktu. | All the homework the teacher assigns must be finished on time. | การบ้านทุกอย่างที่อาจารย์สั่งต้องทำให้เสร็จตามเวลา | Mọi bài tập thầy cô giao đều phải làm xong đúng hạn.
 e: @w [1 凡是] [2 贵 公司 提出 的 合理 要求] [3 都] [4 会 得到 认真 对待] 。 | Fánshì guì gōngsī tíchū de hélǐ yāoqiú dōu huì dédào rènzhēn duìdài. | Semua permintaan wajar dari perusahaan Anda akan ditangani dengan serius. | Every reasonable request from your company will be taken seriously. | ทุกข้อเรียกร้องที่สมเหตุสมผลของบริษัทท่านจะได้รับการพิจารณาอย่างจริงจัง | Mọi yêu cầu hợp lý của quý công ty đều sẽ được xem xét nghiêm túc.
+e: @w [1 凡是] [2 公司 的 规定] ， [3 大家 都] [4 要 遵守] 。 | Fánshì gōngsī de guīdìng, dàjiā dōu yào zūnshǒu. | Setiap aturan perusahaan wajib dipatuhi semua orang. | Every company rule must be followed by everyone. | ระเบียบทุกข้อของบริษัท ทุกคนต้องปฏิบัติตาม | Mọi quy định của công ty đều phải được mọi người tuân thủ.
+e: @w [1 凡是] [2 来 参加 会议 的 人] ， [3 都] [4 要 先 登记] 。 | Fánshì lái cānjiā huìyì de rén, dōu yào xiān dēngjì. | Setiap orang yang hadir rapat harus mendaftar dulu. | Everyone attending the meeting must register first. | ผู้ที่มาร่วมประชุมทุกคนต้องลงทะเบียนก่อน | Mọi người đến dự họp đều phải đăng ký trước.
+e: @w [1 凡是] [2 合同 上 写 的] ， [3 我们 都] [4 会 做 到] 。 | Fánshì hétong shang xiě de, wǒmen dōu huì zuò dào. | Semua yang tertulis dalam kontrak akan kami laksanakan. | Everything written in the contract, we will carry out. | ทุกสิ่งที่เขียนไว้ในสัญญา เราจะทำให้ได้ | Mọi điều ghi trong hợp đồng, chúng tôi đều sẽ thực hiện.
 
 = F | 就算/就是……也…… | 就算 A，也 B
 t: 9

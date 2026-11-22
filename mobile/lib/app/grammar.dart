@@ -98,11 +98,16 @@ class GPoint {
   String text(String lang) => x[lang] ?? x['en'] ?? '';
   String title(String lang) => n[lang] ?? n['en'] ?? zh;
 
-  /// the examples in a book's order (v1.8): work first in BCT, children's and study first in YCT, else as written
+  /// the examples in a book's order (v1.8): BCT shows work sentences only, children's and study first in YCT, else as written
   List<GEx> egFor(String book) {
     const first = {'bct': 'w', 'yct': 'y'};
     final f = first[book];
     if (f == null) return eg;
+    // BCT shows work sentences only (a point without any keeps what it has)
+    if (book == 'bct') {
+      final w = eg.where((e) => e.c == 'w').toList();
+      return w.isEmpty ? eg : w;
+    }
     final out = [...eg.where((e) => e.c == f), ...eg.where((e) => e.c != f)];
     return out;
   }

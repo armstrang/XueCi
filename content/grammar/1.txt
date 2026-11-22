@@ -22,6 +22,9 @@ e: @d [1 这] [2 是] [3 我 妈妈] 。 | Zhè shì wǒ māma. | Ini ibu saya. 
 e: @s [1 她] [2 是] [3 我们 的 汉语 老师] 。 | Tā shì wǒmen de Hànyǔ lǎoshī. | Dia guru bahasa Mandarin kami. | She's our Chinese teacher. | เธอเป็นครูสอนภาษาจีนของพวกเรา | Cô ấy là giáo viên tiếng Trung của chúng tôi.
 e: @w [1 您] [2 是] [3 王 先生] 吗 ？ | Nín shì Wáng xiānsheng ma? | Apakah Anda Pak Wang? | Are you Mr Wang? | คุณคือคุณหวังใช่ไหมครับ | Ông có phải là ông Vương không ạ?
 e: @y [1 那] [2 是] [3 我 的 小 猫] 。 | Nà shì wǒ de xiǎo māo. | Itu kucing kecilku. | That's my little cat. | นั่นคือแมวน้อยของฉัน | Đó là con mèo nhỏ của tớ.
+e: @w [1 他] [2 是] [3 我们 公司 的 经理] 。 | Tā shì wǒmen gōngsī de jīnglǐ. | Dia adalah manajer perusahaan kami. | He is the manager of our company. | เขาเป็นผู้จัดการของบริษัทเรา | Ông ấy là giám đốc công ty chúng tôi.
+e: @w [1 这 位] [2 是] [3 王 先生] ， 欢迎 您 来 我们 公司 。 | Zhè wèi shì Wáng xiānsheng, huānyíng nín lái wǒmen gōngsī. | Ini adalah Tuan Wang, selamat datang di perusahaan kami. | This is Mr. Wang. Welcome to our company. | ท่านนี้คือคุณหวัง ยินดีต้อนรับสู่บริษัทของเรา | Đây là ông Vương, hoan nghênh ông đến công ty chúng tôi.
+e: @w [1 这] [2 是] [3 我 的 电话 号码] ， 请 您 记 一下 。 | Zhè shì wǒ de diànhuà hàomǎ, qǐng nín jì yíxià. | Ini nomor telepon saya, mohon dicatat. | This is my phone number; please make a note of it. | นี่คือเบอร์โทรของฉัน กรุณาจดไว้ | Đây là số điện thoại của tôi, xin ông/bà ghi lại.
 
 = S | "有"字句 | 主语 + 有 + 名词
 t: 1
@@ -40,6 +43,9 @@ e: @d [1 我] [2 没有] [3 钱] 了 。 | Wǒ méiyǒu qián le. | Uang saya su
 e: @s [1 你] [2 有] [3 汉语 书] 吗 ？ | Nǐ yǒu Hànyǔ shū ma? | Kamu punya buku bahasa Mandarin? | Do you have a Chinese book? | คุณมีหนังสือภาษาจีนไหม | Bạn có sách tiếng Trung không?
 e: @w [1 我] 明天 上午 [2 没有] [3 时间] 。 | Wǒ míngtiān shàngwǔ méiyǒu shíjiān. | Besok pagi saya tidak ada waktu. | I don't have time tomorrow morning. | พรุ่งนี้เช้าฉันไม่มีเวลา | Sáng mai tôi không có thời gian.
 e: @y [1 我] [2 有] [3 一 只{ekor|(for animals)|ตัว|con} 小 狗] 。 | Wǒ yǒu yì zhī xiǎo gǒu. | Aku punya seekor anak anjing. | I have a puppy. | ฉันมีลูกหมาหนึ่งตัว | Tớ có một chú chó con.
+e: @w [1 我们 公司] [2 有] [3 三 层 楼] 。 | Wǒmen gōngsī yǒu sān céng lóu. | Perusahaan kami punya tiga lantai. | Our company has three floors. | บริษัทของเรามีสามชั้น | Công ty chúng tôi có ba tầng.
+e: @w [1 明天 下午] [2 有] [3 一 个 会] ， 请 您 参加 。 | Míngtiān xiàwǔ yǒu yí gè huì, qǐng nín cānjiā. | Besok sore ada rapat, mohon Anda hadir. | There is a meeting tomorrow afternoon; please attend. | บ่ายพรุ่งนี้มีประชุม ขอให้ท่านเข้าร่วม | Chiều mai có một cuộc họp, xin ông/bà tham dự.
+e: @w [1 经理 今天] [2 没有] [3 时间] ， 请 您 明天 再 来 。 | Jīnglǐ jīntiān méiyǒu shíjiān, qǐng nín míngtiān zài lái. | Manajer hari ini tidak ada waktu, mohon datang lagi besok. | The manager has no time today; please come again tomorrow. | วันนี้ผู้จัดการไม่ว่าง ขอให้ท่านมาใหม่พรุ่งนี้ | Hôm nay giám đốc không có thời gian, xin ông/bà mai quay lại.
 
 = S | 用"吗"提问 | 陈述句 + 吗？
 t: 1
@@ -57,6 +63,9 @@ e: @d [1 这个 好 吃] [2 吗] ？ | Zhège hǎochī ma? | Ini enak? | Is this
 e: @s [1 你 听 懂 了] [2 吗] ？ | Nǐ tīng dǒng le ma? | Kamu sudah paham? | Did you understand? | ฟังเข้าใจไหม | Bạn nghe hiểu chưa?
 e: @w [1 您 现在 有 时间] [2 吗] ？ | Nín xiànzài yǒu shíjiān ma? | Apakah Anda ada waktu sekarang? | Do you have a moment now? | ตอนนี้คุณมีเวลาไหมครับ | Bây giờ anh có thời gian không ạ?
 e: @y [1 你 喜欢 小 猫] [2 吗] ？ | Nǐ xǐhuan xiǎo māo ma? | Kamu suka anak kucing? | Do you like kittens? | เธอชอบลูกแมวไหม | Cậu có thích mèo con không?
+e: @w [1 您 是 王 经理] [2 吗] ？ | Nín shì Wáng jīnglǐ ma? | Apakah Anda Manajer Wang? | Are you Manager Wang? | ท่านคือผู้จัดการหวังใช่ไหมคะ | Ông có phải là giám đốc Vương không?
+e: @w [1 经理 在 办公室] [2 吗] ？ | Jīnglǐ zài bàngōngshì ma? | Apakah manajer ada di kantor? | Is the manager in the office? | ผู้จัดการอยู่ที่ออฟฟิศไหม | Giám đốc có ở văn phòng không?
+e: @w [1 这 个 星期 您 有 时间] [2 吗] ？ | Zhè ge xīngqī nín yǒu shíjiān ma? | Apakah Anda punya waktu minggu ini? | Do you have time this week? | สัปดาห์นี้ท่านว่างไหม | Tuần này ông/bà có thời gian không?
 
 = S | 用疑问代词提问 | 疑问代词在答案的位置
 t: 1
@@ -76,6 +85,9 @@ e: @d [1 你] [2 去] [3 哪儿] ？ | Nǐ qù nǎr? | Kamu mau ke mana? | Where
 e: @s [1 这个 字] [3 怎么] [2 读] ？ | Zhège zì zěnme dú? | Huruf ini dibaca bagaimana? | How do you read this character? | ตัวนี้อ่านว่าอย่างไร | Chữ này đọc thế nào?
 e: @w [1 您] [2 找] [3 谁] ？ | Nín zhǎo shéi? | Anda mencari siapa? | Who are you looking for? | คุณหาใครครับ | Anh tìm ai ạ?
 e: @y [1 你] [2 有] [3 几] 个 朋友 ？ | Nǐ yǒu jǐ ge péngyou? | Kamu punya berapa teman? | How many friends do you have? | เธอมีเพื่อนกี่คน | Cậu có mấy người bạn?
+e: @w [1 会议] [2 在] [3 哪儿] ？ | Huìyì zài nǎr? | Rapatnya di mana? | Where is the meeting? | ประชุมจัดที่ไหน | Cuộc họp ở đâu?
+e: @w [1 请问 您] [2 找] [3 谁] ？ | Qǐngwèn nín zhǎo shéi? | Permisi, Anda mencari siapa? | Excuse me, who are you looking for? | ขอถามหน่อย ท่านมาพบใคร | Xin hỏi ông/bà tìm ai?
+e: @w [1 你们 公司] [2 有] [3 多少 人] ？ | Nǐmen gōngsī yǒu duōshao rén? | Berapa orang di perusahaan kalian? | How many people are there in your company? | บริษัทของคุณมีกี่คน | Công ty các bạn có bao nhiêu người?
 
 = S | 形容词谓语句 | 主语 + 很 + 形容词
 t: 1
@@ -95,6 +107,9 @@ e: @d [1 这 家 饭店 的 菜] [2 很] [3 好吃] 。 | Zhè jiā fàndiàn de
 e: @s [1 汉字] [2 很] [3 难] ， 但是 很 有意思 。 | Hànzì hěn nán, dànshì hěn yǒu yìsi. | Hanzi itu sulit, tapi menarik. | Characters are hard, but interesting. | อักษรจีนยาก แต่น่าสนใจ | Chữ Hán khó nhưng rất thú vị.
 e: @w [1 我们 公司] [2 很] [3 大] 。 | Wǒmen gōngsī hěn dà. | Perusahaan kami besar. | Our company is big. | บริษัทของเราใหญ่มาก | Công ty chúng tôi rất lớn.
 e: @y [1 我 的 小 狗] [2 很] [3 可爱{lucu|cute|น่ารัก|đáng yêu}] 。 | Wǒ de xiǎo gǒu hěn kě'ài. | Anak anjingku lucu sekali. | My puppy is very cute. | ลูกหมาของฉันน่ารักมาก | Chú chó con của tớ rất đáng yêu.
+e: @w [1 这 个 工作] [2 很] [3 忙] ， 但是 我 很 喜欢 。 | Zhè ge gōngzuò hěn máng, dànshì wǒ hěn xǐhuan. | Pekerjaan ini sangat sibuk, tetapi saya sangat menyukainya. | This job is very busy, but I like it a lot. | งานนี้ยุ่งมาก แต่ฉันชอบมาก | Công việc này rất bận nhưng tôi rất thích.
+e: @w [1 我们 的 办公室] [2 很] [3 大] ， 也 很 干净 。 | Wǒmen de bàngōngshì hěn dà, yě hěn gānjìng. | Kantor kami sangat luas dan juga bersih. | Our office is very big and also clean. | ออฟฟิศของเรากว้างมากและสะอาดด้วย | Văn phòng của chúng tôi rất rộng và cũng rất sạch.
+e: @w [1 经理] [2 很] [3 高兴] ， 谢谢 您 的 帮助 。 | Jīnglǐ hěn gāoxìng, xièxie nín de bāngzhù. | Manajer sangat senang, terima kasih atas bantuan Anda. | The manager is very pleased; thank you for your help. | ผู้จัดการดีใจมาก ขอบคุณสำหรับความช่วยเหลือ | Giám đốc rất vui, cảm ơn sự giúp đỡ của ông/bà.
 
 = S | 名词谓语句 | 主语 + 名词(时间/年龄/价钱)
 t: 1
@@ -115,6 +130,9 @@ e: @d [1 这个] [2 十 块] 。 | Zhège shí kuài. | Yang ini sepuluh yuan. |
 e: @s [1 现在] [2 八 点] ， 上课 了 。 | Xiànzài bā diǎn, shàngkè le. | Sekarang jam delapan, kelas dimulai. | It's eight o'clock; class is starting. | ตอนนี้แปดโมงแล้ว เข้าเรียนแล้ว | Bây giờ tám giờ, vào học rồi.
 e: @w [1 明天] [2 十二 号] ， 我们 开会 。 | Míngtiān shí'èr hào, wǒmen kāihuì. | Besok tanggal 12, kita rapat. | Tomorrow is the 12th; we have a meeting. | พรุ่งนี้วันที่สิบสอง เราจะประชุม | Mai là ngày 12, chúng ta họp.
 e: @y [1 我 弟弟] [2 六 岁] 。 | Wǒ dìdi liù suì. | Adikku enam tahun. | My little brother is six. | น้องชายฉันอายุหกขวบ | Em trai tớ sáu tuổi.
+e: @w [1 现在] [2 九 点 半] ， 会议 开始 了 。 | Xiànzài jiǔ diǎn bàn, huìyì kāishǐ le. | Sekarang pukul sembilan lewat tiga puluh, rapat sudah dimulai. | It's half past nine now, and the meeting has begun. | ตอนนี้เก้าโมงครึ่ง ประชุมเริ่มแล้ว | Bây giờ chín giờ rưỡi, cuộc họp đã bắt đầu.
+e: @w [1 今天] [2 星期 三] ， 经理 不 在 。 | Jīntiān xīngqī sān, jīnglǐ bú zài. | Hari ini hari Rabu, manajer tidak ada. | Today is Wednesday, and the manager isn't in. | วันนี้วันพุธ ผู้จัดการไม่อยู่ | Hôm nay là thứ Tư, giám đốc không có mặt.
+e: @w [1 这 本 书] [2 三十 块] ， 请 您 付{membayar|pay|จ่าย|trả} 现金{tunai|cash|เงินสด|tiền mặt} 。 | Zhè běn shū sānshí kuài, qǐng nín fù xiànjīn. | Buku ini tiga puluh yuan, mohon bayar tunai. | This book costs thirty yuan; please pay in cash. | หนังสือเล่มนี้สามสิบหยวน กรุณาชำระเป็นเงินสด | Quyển sách này ba mươi đồng, xin ông/bà trả tiền mặt.
 
 = S | 动词谓语句 | 主语 + 动词 (+ 宾语)
 t: 1
@@ -169,6 +187,9 @@ e: @d [1 我们] [2 去] [3 饭店] [4 吃 饭] 吧 。 | Wǒmen qù fàndiàn c
 e: @s [1 我] [2 去] [3 学校] [4 学习] 。 | Wǒ qù xuéxiào xuéxí. | Saya pergi ke sekolah untuk belajar. | I go to school to study. | ฉันไปโรงเรียนเพื่อเรียนหนังสือ | Tôi đến trường để học.
 e: @w [1 王 经理] [2 来] [3 北京] [4 开会] 。 | Wáng jīnglǐ lái Běijīng kāihuì. | Manajer Wang datang ke Beijing untuk rapat. | Manager Wang is coming to Beijing for a meeting. | ผู้จัดการหวังมาปักกิ่งเพื่อประชุม | Giám đốc Vương đến Bắc Kinh họp.
 e: @y [1 我们] [2 去] [3 公园] [4 玩] 。 | Wǒmen qù gōngyuán wán. | Kami pergi main ke taman. | We're going to the park to play. | พวกเราไปเล่นที่สวนสาธารณะ | Chúng tớ đi công viên chơi.
+e: @w [1 我们] [2 去] [3 北京] [4 开 会] 。 | Wǒmen qù Běijīng kāi huì. | Kami pergi ke Beijing untuk rapat. | We are going to Beijing for a meeting. | พวกเราไปประชุมที่ปักกิ่ง | Chúng tôi đến Bắc Kinh họp.
+e: @w [1 王 经理] [2 来] [3 我们 公司] [4 参观{mengunjungi|visit|เยี่ยมชม|tham quan}] 。 | Wáng jīnglǐ lái wǒmen gōngsī cānguān. | Manajer Wang datang berkunjung ke perusahaan kami. | Manager Wang is coming to visit our company. | ผู้จัดการหวังมาเยี่ยมชมบริษัทของเรา | Giám đốc Vương đến tham quan công ty chúng tôi.
+e: @w [1 他] [2 去] [3 机场] [4 接 客人] 。 | Tā qù jīchǎng jiē kèrén. | Dia pergi ke bandara menjemput tamu. | He is going to the airport to pick up a guest. | เขาไปสนามบินรับแขก | Anh ấy ra sân bay đón khách.
 
 = S | 正反疑问 | 动词 + 不 + 动词？
 t: 1
@@ -189,6 +210,9 @@ e: @d 这个 [1 贵] [2 不] [3 贵] ？ | Zhège guì bu guì? | Ini mahal atau
 e: @s 作业 [1 难] [2 不] [3 难] ？ | Zuòyè nán bu nán? | PR-nya sulit atau tidak? | Is the homework hard? | การบ้านยากไหม | Bài tập có khó không?
 e: @w 您 明天 [1 来] [2 不] [3 来] 公司 ？ | Nín míngtiān lái bu lái gōngsī? | Besok Anda datang ke kantor atau tidak? | Will you come to the office tomorrow? | พรุ่งนี้คุณจะมาบริษัทไหมครับ | Ngày mai anh có đến công ty không ạ?
 e: @y 你 [1 想] [2 不] [3 想] 吃 冰淇淋{es krim|ice cream|ไอศกรีม|kem} ？ | Nǐ xiǎng bu xiǎng chī bīngqílín? | Kamu mau makan es krim? | Do you want some ice cream? | อยากกินไอศกรีมไหม | Cậu có muốn ăn kem không?
+e: @w [1 您 去] [2 不] [3 去] ， 请 告诉 我 。 | Nín qù bú qù, qǐng gàosu wǒ. | Anda pergi atau tidak, mohon beri tahu saya. | Are you going or not? Please let me know. | ท่านจะไปหรือไม่ กรุณาบอกฉัน | Ông/bà đi hay không, xin cho tôi biết.
+e: @w [1 明天 的 会 您 参加] [2 不] [3 参加] ？ | Míngtiān de huì nín cānjiā bu cānjiā? | Apakah Anda akan menghadiri rapat besok? | Will you attend tomorrow's meeting? | ท่านจะเข้าร่วมประชุมพรุ่งนี้หรือไม่ | Cuộc họp ngày mai ông/bà có tham dự không?
+e: @w [1 这 个 价格{harga|price|ราคา|giá} 您 满意] [2 不] [3 满意] ？ | Zhè ge jiàgé nín mǎnyì bu mǎnyì? | Apakah Anda puas dengan harga ini? | Are you satisfied with this price? | ท่านพอใจกับราคานี้หรือไม่ | Ông/bà có hài lòng với mức giá này không?
 
 = S | 双宾语句 | 动词 + 人 + 东西
 t: 6
@@ -208,6 +232,9 @@ e: @d 朋友 [1 送] [2 我] [3 一 本 书] 。 | Péngyou sòng wǒ yì běn s
 e: @s 老师 [1 教] [2 我们] [3 汉语] 。 | Lǎoshī jiāo wǒmen Hànyǔ. | Guru mengajari kami bahasa Mandarin. | The teacher teaches us Chinese. | ครูสอนภาษาจีนให้พวกเรา | Thầy dạy chúng tôi tiếng Trung.
 e: @w 我 想 [1 问] [2 您] [3 一 个 问题] 。 | Wǒ xiǎng wèn nín yí ge wèntí. | Saya ingin bertanya satu hal kepada Anda. | I'd like to ask you a question. | ผมขอถามคุณสักข้อครับ | Tôi muốn hỏi anh một câu.
 e: @y 妈妈 [1 给] [2 我] [3 一 个 苹果] 。 | Māma gěi wǒ yí ge píngguǒ. | Ibu memberiku sebuah apel. | Mom gave me an apple. | แม่ให้แอปเปิลฉันหนึ่งลูก | Mẹ cho tớ một quả táo.
+e: @w 经理 [1 给] [2 我们] [3 一 个 新 工作] 。 | Jīnglǐ gěi wǒmen yí gè xīn gōngzuò. | Manajer memberi kami tugas baru. | The manager gave us a new job. | ผู้จัดการมอบงานใหม่ให้เรา | Giám đốc giao cho chúng tôi một công việc mới.
+e: @w 请 [1 告诉] [2 我] [3 您 的 名字] 。 | Qǐng gàosu wǒ nín de míngzi. | Mohon beri tahu saya nama Anda. | Please tell me your name. | กรุณาบอกชื่อของท่านให้ฉัน | Xin cho tôi biết tên của ông/bà.
+e: @w 我 [1 送] [2 您] [3 一 本 书] ， 请 收 下 。 | Wǒ sòng nín yì běn shū, qǐng shōu xià. | Saya berikan sebuah buku untuk Anda, silakan diterima. | I'd like to give you a book; please accept it. | ฉันมอบหนังสือให้ท่านหนึ่งเล่ม กรุณารับไว้ | Tôi tặng ông/bà một quyển sách, xin nhận cho.
 
 = S | 祈使句 | 请/别 + 动词
 t: 1
@@ -225,6 +252,9 @@ e: @d [1 别] [2 担心] ， 我 没 事 。 | Bié dānxīn, wǒ méi shì. | J
 e: @s 上课 了 ， [1 请] [2 打开] 书 。 | Shàngkè le, qǐng dǎkāi shū. | Kelas dimulai, silakan buka buku. | Class is starting, please open your books. | เข้าเรียนแล้ว เปิดหนังสือด้วย | Vào học rồi, mời các em mở sách.
 e: @w [1 请] [2 进] ， 王 经理 在 等 您 。 | Qǐng jìn, Wáng jīnglǐ zài děng nín. | Silakan masuk, Manajer Wang sedang menunggu Anda. | Please come in, Manager Wang is expecting you. | เชิญเข้ามาครับ ผู้จัดการหวังรอคุณอยู่ | Mời vào, giám đốc Vương đang đợi anh.
 e: @y [1 别] [2 跑] ， 慢 点儿 ！ | Bié pǎo, màn diǎnr! | Jangan lari, pelan-pelan! | Don't run, slow down! | อย่าวิ่ง ช้า ๆ หน่อย | Đừng chạy, chậm thôi!
+e: @w [1 请] [2 坐] ， 经理 马上 就 来 。 | Qǐng zuò, jīnglǐ mǎshàng jiù lái. | Silakan duduk, manajer segera datang. | Please sit down; the manager will be here shortly. | เชิญนั่ง ผู้จัดการจะมาเดี๋ยวนี้ | Xin mời ngồi, giám đốc sẽ đến ngay.
+e: @w 开 会 时 ， [1 请] [2 关 手机] 。 | Kāi huì shí, qǐng guān shǒujī. | Saat rapat, mohon matikan ponsel. | Please turn off your phone during the meeting. | ระหว่างประชุม กรุณาปิดโทรศัพท์มือถือ | Khi họp, xin hãy tắt điện thoại.
+e: @w [1 别] [2 担心] ， 我们 会 帮 您 。 | Bié dānxīn, wǒmen huì bāng nín. | Jangan khawatir, kami akan membantu Anda. | Don't worry; we will help you. | อย่ากังวล เราจะช่วยท่าน | Đừng lo, chúng tôi sẽ giúp ông/bà.
 
 = S | 感叹句 | 太 + 形容词 + 了！
 t: 1
@@ -412,6 +442,9 @@ e: @d [1 他] [2 的] [3 车] 很 新 。 | Tā de chē hěn xīn. | Mobilnya ba
 e: @s [1 老师] [2 的] [3 书] 在 桌子 上 。 | Lǎoshī de shū zài zhuōzi shang. | Buku guru ada di atas meja. | The teacher's book is on the desk. | หนังสือของครูอยู่บนโต๊ะ | Sách của thầy ở trên bàn.
 e: @w 这 是 [1 我们 公司] [2 的] [3 电话] 。 | Zhè shì wǒmen gōngsī de diànhuà. | Ini nomor telepon perusahaan kami. | This is our company's phone number. | นี่คือเบอร์โทรของบริษัทเรา | Đây là số điện thoại của công ty chúng tôi.
 e: @y [1 小 明] [2 的] [3 狗] 叫 白白{Baibai|Baibai|ไป๋ไป๋|Bạch Bạch} 。 | Xiǎo Míng de gǒu jiào Báibái. | Anjing Xiao Ming bernama Baibai. | Xiao Ming's dog is called Baibai. | หมาของเสี่ยวหมิงชื่อไป๋ไป๋ | Chó của Tiểu Minh tên là Bạch Bạch.
+e: @w [1 经理] [2 的] [3 办公室] 在 三 楼 。 | Jīnglǐ de bàngōngshì zài sān lóu. | Kantor manajer ada di lantai tiga. | The manager's office is on the third floor. | ออฟฟิศของผู้จัดการอยู่ชั้นสาม | Văn phòng của giám đốc ở tầng ba.
+e: @w 这 是 [1 王 先生] [2 的] [3 电话] 。 | Zhè shì Wáng xiānsheng de diànhuà. | Ini telepon Tuan Wang. | This is Mr. Wang's telephone. | นี่คือโทรศัพท์ของคุณหวัง | Đây là điện thoại của ông Vương.
+e: @w [1 我们 公司] [2 的] [3 地址{alamat|address|ที่อยู่|địa chỉ}] 在 这儿 。 | Wǒmen gōngsī de dìzhǐ zài zhèr. | Alamat perusahaan kami ada di sini. | Our company's address is here. | ที่อยู่ของบริษัทเราอยู่ตรงนี้ | Địa chỉ công ty chúng tôi ở đây.
 
 = U | 动态助词：了 | 动词 + 了
 t: 3
@@ -431,6 +464,9 @@ e: @d 她 [1 买] [2 了] 一 件 新 衣服 。 | Tā mǎi le yí jiàn xīn y�
 e: @s 我 [1 写] [2 了] 二十 个 汉字 。 | Wǒ xiě le èrshí ge Hànzì. | Saya menulis dua puluh hanzi. | I wrote twenty characters. | ฉันเขียนอักษรจีนไปยี่สิบตัว | Tôi đã viết hai mươi chữ Hán.
 e: @w 我 已经 [1 看] [2 了] 您 的 信 。 | Wǒ yǐjīng kàn le nín de xìn. | Saya sudah membaca surat Anda. | I've read your letter. | ผมอ่านจดหมายของคุณแล้วครับ | Tôi đã đọc thư của anh rồi.
 e: @y 小 猫 [1 喝] [2 了] 很 多 水 。 | Xiǎo māo hē le hěn duō shuǐ. | Anak kucing minum banyak air. | The kitten drank lots of water. | ลูกแมวดื่มน้ำไปเยอะ | Mèo con đã uống rất nhiều nước.
+e: @w 我 [1 收 到] [2 了] 您 的 电话 。 | Wǒ shōudào le nín de diànhuà. | Saya sudah menerima telepon Anda. | I got your phone call. | ฉันได้รับโทรศัพท์ของท่านแล้ว | Tôi đã nhận được điện thoại của ông/bà.
+e: @w 会 [1 开 完] [2 了] ， 谢谢 大家 。 | Huì kāi wán le, xièxie dàjiā. | Rapat sudah selesai, terima kasih semuanya. | The meeting is over; thank you, everyone. | ประชุมเสร็จแล้ว ขอบคุณทุกคน | Họp xong rồi, cảm ơn mọi người.
+e: @w 经理 [1 来] [2 了] ， 请 您 等 一下 。 | Jīnglǐ lái le, qǐng nín děng yíxià. | Manajer sudah datang, mohon tunggu sebentar. | The manager has arrived; please wait a moment. | ผู้จัดการมาแล้ว กรุณารอสักครู่ | Giám đốc đã đến, xin ông/bà đợi một lát.
 
 = U | 完成态：了 | 动词 + 了 + 数量 + 宾语
 t: 3
@@ -449,6 +485,9 @@ e: @d 他 [1 买] [2 了] [3 三 本] [4 书] 。 | Tā mǎi le sān běn shū. 
 e: @s 我们 今天 [1 学] [2 了] [3 十 个] [4 生词{kata baru|new words|คำศัพท์ใหม่|từ mới}] 。 | Wǒmen jīntiān xué le shí ge shēngcí. | Hari ini kami belajar sepuluh kata baru. | Today we learned ten new words. | วันนี้พวกเราเรียนคำศัพท์ใหม่สิบคำ | Hôm nay chúng tôi đã học mười từ mới.
 e: @w 我 [1 打] [2 了] [3 两 个] [4 电话] ， 他 都 没 接 。 | Wǒ dǎ le liǎng ge diànhuà, tā dōu méi jiē. | Saya sudah menelepon dua kali, dia tidak mengangkat. | I called twice, and he didn't pick up. | ฉันโทรไปสองครั้ง เขาไม่รับเลย | Tôi đã gọi hai cuộc, anh ấy đều không nghe.
 e: @y 我 [1 吃] [2 了] [3 一 个] [4 苹果] 。 | Wǒ chī le yí ge píngguǒ. | Aku makan sebuah apel. | I ate an apple. | ฉันกินแอปเปิลไปหนึ่งลูก | Tớ đã ăn một quả táo.
+e: @w 我 [1 买] [2 了] [3 两 张] [4 票] 。 | Wǒ mǎi le liǎng zhāng piào. | Saya membeli dua tiket. | I bought two tickets. | ฉันซื้อตั๋วสองใบ | Tôi đã mua hai vé.
+e: @w 他 [1 写] [2 了] [3 三 封] [4 信] 。 | Tā xiě le sān fēng xìn. | Dia menulis tiga surat. | He wrote three letters. | เขาเขียนจดหมายสามฉบับ | Anh ấy đã viết ba bức thư.
+e: @w 我们 [1 开] [2 了] [3 两 个 小时] [4 会] 。 | Wǒmen kāi le liǎng gè xiǎoshí huì. | Kami rapat selama dua jam. | We held a meeting for two hours. | พวกเราประชุมกันสองชั่วโมง | Chúng tôi đã họp hai tiếng đồng hồ.
 
 = U | 变化态：了 | 句子 + 了 (变化)
 t: 3
@@ -485,6 +524,9 @@ e: @d [1 我 很 好 ， 你] [2 呢] ？ | Wǒ hěn hǎo, nǐ ne? | Saya baik, 
 e: @s [1 明天 有 考试] [2 吗] ？ | Míngtiān yǒu kǎoshì ma? | Besok ada ujian? | Is there a test tomorrow? | พรุ่งนี้มีสอบไหม | Ngày mai có thi không?
 e: @w [1 文件{dokumen|file|เอกสาร|tài liệu} 我 发 给 您] [2 了] 。 | Wénjiàn wǒ fā gěi nín le. | Dokumennya sudah saya kirim ke Anda. | I've sent you the file. | ผมส่งเอกสารให้คุณแล้วครับ | Tôi đã gửi tài liệu cho anh rồi.
 e: @y [1 你 的 小 狗] [2 呢] ？ | Nǐ de xiǎo gǒu ne? | Anak anjingmu mana? | Where's your puppy? | ลูกหมาของเธอล่ะ | Chó con của cậu đâu?
+e: @w [1 请 进] [2 吧] 。 | Qǐng jìn ba. | Silakan masuk. | Please come in. | เชิญเข้ามาเถอะ | Mời vào.
+e: @w 我 在 办公室 ， [1 您 在 哪儿] [2 呢] ？ | Wǒ zài bàngōngshì, nín zài nǎr ne? | Saya di kantor, Anda di mana? | I'm in the office; where are you? | ฉันอยู่ที่ออฟฟิศ แล้วท่านอยู่ที่ไหนคะ | Tôi đang ở văn phòng, còn ông/bà đang ở đâu?
+e: @w [1 会 已经 开始] [2 了] ， 请 您 快 一 点 。 | Huì yǐjīng kāishǐ le, qǐng nín kuài yìdiǎn. | Rapat sudah dimulai, mohon Anda lebih cepat. | The meeting has already started; please hurry. | ประชุมเริ่มแล้ว ขอให้ท่านรีบหน่อย | Cuộc họp đã bắt đầu rồi, xin ông/bà nhanh lên một chút.
 
 = A | 进行态 | 正在/在 + 动词 (+ 呢)
 t: 3
@@ -503,6 +545,9 @@ e: @d [1 外边] [2 在] [3 下 雨] 呢 。 | Wàibian zài xià yǔ ne. | Di l
 e: @s [1 我] [2 在] [3 做 作业] ， 等 一下 。 | Wǒ zài zuò zuòyè, děng yíxià. | Saya sedang mengerjakan PR, tunggu sebentar. | I'm doing homework, hold on. | ฉันกำลังทำการบ้าน รอแป๊บนึง | Tôi đang làm bài tập, đợi chút.
 e: @w [1 王 经理] [2 正在] [3 开会] ， 请 您 等 一下 。 | Wáng jīnglǐ zhèngzài kāihuì, qǐng nín děng yíxià. | Manajer Wang sedang rapat, mohon tunggu sebentar. | Manager Wang is in a meeting, please wait a moment. | ผู้จัดการหวังกำลังประชุม กรุณารอสักครู่ | Giám đốc Vương đang họp, xin anh đợi một chút.
 e: @y [1 小 猫] [2 在] [3 睡觉] 。 | Xiǎo māo zài shuìjiào. | Anak kucing sedang tidur. | The kitten is sleeping. | ลูกแมวกำลังนอน | Mèo con đang ngủ.
+e: @w [1 经理] [2 正在] [3 开 会] ， 请 您 等 一下 。 | Jīnglǐ zhèngzài kāi huì, qǐng nín děng yíxià. | Manajer sedang rapat, mohon tunggu sebentar. | The manager is in a meeting; please wait a moment. | ผู้จัดการกำลังประชุมอยู่ กรุณารอสักครู่ | Giám đốc đang họp, xin ông/bà đợi một lát.
+e: @w [1 他] [2 在] [3 打 电话] 。 | Tā zài dǎ diànhuà. | Dia sedang menelepon. | He is on the phone. | เขากำลังโทรศัพท์อยู่ | Anh ấy đang gọi điện thoại.
+e: @w [1 我们] [2 正在] [3 看 您 的 文件{berkas|document|เอกสาร|tài liệu}] 。 | Wǒmen zhèngzài kàn nín de wénjiàn. | Kami sedang membaca berkas Anda. | We are reading your document now. | พวกเรากำลังอ่านเอกสารของท่านอยู่ | Chúng tôi đang xem tài liệu của ông/bà.
 
 = P | 人称代词 | 我/你/他/她/我们/你们/他们
 t: 1
@@ -520,6 +565,9 @@ e: @d [1 他们] [2 是] 我 的 邻居{tetangga|neighbours|เพื่อน�
 e: @s [1 你们] [2 听] 我 说 。 | Nǐmen tīng wǒ shuō. | Kalian dengarkan saya. | Listen to me, everyone. | พวกเธอฟังครูพูดนะ | Các em nghe tôi nói nhé.
 e: @w [1 她] [2 是] 我们 的 新 同事 。 | Tā shì wǒmen de xīn tóngshì. | Dia rekan kerja baru kami. | She's our new colleague. | เธอเป็นเพื่อนร่วมงานใหม่ของเรา | Cô ấy là đồng nghiệp mới của chúng tôi.
 e: @y [1 你] [2 想] 和 我 一起 玩 吗 ？ | Nǐ xiǎng hé wǒ yìqǐ wán ma? | Kamu mau main bersamaku? | Do you want to play with me? | อยากเล่นกับฉันไหม | Cậu có muốn chơi với tớ không?
+e: @w [1 我] [2 想] 请 您 帮 一 个 忙 。 | Wǒ xiǎng qǐng nín bāng yí gè máng. | Saya ingin meminta bantuan Anda. | I'd like to ask you for a favour. | ฉันอยากขอให้ท่านช่วยหน่อย | Tôi muốn nhờ ông/bà giúp một việc.
+e: @w [1 我们] [2 欢迎] 您 来 我们 公司 。 | Wǒmen huānyíng nín lái wǒmen gōngsī. | Kami menyambut kedatangan Anda ke perusahaan kami. | We welcome you to our company. | พวกเราขอต้อนรับท่านสู่บริษัทของเรา | Chúng tôi hoan nghênh ông/bà đến công ty.
+e: @w [1 他们] [2 在] 办公室 等 您 。 | Tāmen zài bàngōngshì děng nín. | Mereka menunggu Anda di kantor. | They are waiting for you in the office. | พวกเขารอท่านอยู่ที่ออฟฟิศ | Họ đang đợi ông/bà ở văn phòng.
 
 = P | 指示代词 | 这/那/这儿/那儿/这里/那里
 t: 1
@@ -537,6 +585,9 @@ e: @d [1 那] [2 是] [3 我 的 车] 。 | Nà shì wǒ de chē. | Itu mobil sa
 e: @s [1 这] [2 是] [3 我们 的 新 课本{buku pelajaran|textbook|หนังสือเรียน|sách giáo khoa}] 。 | Zhè shì wǒmen de xīn kèběn. | Ini buku pelajaran baru kami. | This is our new textbook. | นี่คือหนังสือเรียนเล่มใหม่ของเรา | Đây là sách giáo khoa mới của chúng tôi.
 e: @w [1 这] [2 是] [3 我 的 名片{kartu nama|business card|นามบัตร|danh thiếp}] ， 请 收 好 。 | Zhè shì wǒ de míngpiàn, qǐng shōu hǎo. | Ini kartu nama saya, silakan disimpan. | Here's my business card. | นี่คือนามบัตรของผมครับ | Đây là danh thiếp của tôi, xin anh giữ lấy.
 e: @y [1 那] [2 是] [3 谁 的 球{bola|ball|ลูกบอล|quả bóng}] ？ | Nà shì shéi de qiú? | Itu bola siapa? | Whose ball is that? | นั่นลูกบอลของใคร | Đó là quả bóng của ai?
+e: @w [1 这] [2 是] [3 我们 的 新 产品{produk|product|สินค้า|sản phẩm}] 。 | Zhè shì wǒmen de xīn chǎnpǐn. | Ini produk baru kami. | This is our new product. | นี่คือสินค้าใหม่ของเรา | Đây là sản phẩm mới của chúng tôi.
+e: @w [1 那] [2 是] [3 经理 的 办公室] 。 | Nà shì jīnglǐ de bàngōngshì. | Itu kantor manajer. | That is the manager's office. | นั่นคือออฟฟิศของผู้จัดการ | Kia là văn phòng của giám đốc.
+e: @w [1 这] [2 是] [3 您 的 房间] ， 请 进 。 | Zhè shì nín de fángjiān, qǐng jìn. | Ini kamar Anda, silakan masuk. | This is your room; please come in. | นี่คือห้องของท่าน เชิญเข้าไป | Đây là phòng của ông/bà, xin mời vào.
 
 = P | 疑问代词 | 谁/什么/哪/哪儿/几/多少/怎么
 t: 1
@@ -554,6 +605,9 @@ e: @d 现在 [1 几] 点 了 ？ | Xiànzài jǐ diǎn le? | Sekarang jam berapa
 e: @s 这 句 话 是 [1 什么] 意思 ？ | Zhè jù huà shì shénme yìsi? | Kalimat ini artinya apa? | What does this sentence mean? | ประโยคนี้หมายความว่าอะไร | Câu này nghĩa là gì?
 e: @w 请问 ， 洗手间{toilet|restroom|ห้องน้ำ|nhà vệ sinh} 在 [1 哪儿] ？ | Qǐngwèn, xǐshǒujiān zài nǎr? | Permisi, toiletnya di mana? | Excuse me, where's the restroom? | ขอโทษครับ ห้องน้ำอยู่ที่ไหน | Xin hỏi, nhà vệ sinh ở đâu?
 e: @y [1 谁] 是 你 的 好 朋友 ？ | Shéi shì nǐ de hǎo péngyou? | Siapa sahabatmu? | Who's your best friend? | ใครเป็นเพื่อนสนิทของเธอ | Ai là bạn thân của cậu?
+e: @w 请问 ， [1 谁] 是 王 经理 ？ | Qǐngwèn, shéi shì Wáng jīnglǐ? | Permisi, siapa Manajer Wang? | Excuse me, who is Manager Wang? | ขอถามหน่อย ใครคือผู้จัดการหวัง | Xin hỏi, ai là giám đốc Vương?
+e: @w 您 想 喝 [1 什么] ？ | Nín xiǎng hē shénme? | Anda ingin minum apa? | What would you like to drink? | ท่านอยากดื่มอะไรคะ | Ông/bà muốn uống gì?
+e: @w 经理 [1 几] 点 来 ？ | Jīnglǐ jǐ diǎn lái? | Jam berapa manajer datang? | What time is the manager coming? | ผู้จัดการจะมากี่โมง | Mấy giờ giám đốc đến?
 
 = N | 方位名词 | 名词 + 上/下/里/外/前/后/旁边
 t: 2
@@ -572,6 +626,9 @@ e: @d [1 冰箱{kulkas|fridge|ตู้เย็น|tủ lạnh}] [2 里] 有 �
 e: @s [1 学校] [2 旁边] 有 一 个 书店 。 | Xuéxiào pángbiān yǒu yí ge shūdiàn. | Di sebelah sekolah ada toko buku. | There's a bookshop next to the school. | ข้างโรงเรียนมีร้านหนังสือ | Bên cạnh trường có một hiệu sách.
 e: @w 会议室{ruang rapat|meeting room|ห้องประชุม|phòng họp} 在 [1 办公室] [2 后面] 。 | Huìyìshì zài bàngōngshì hòumiàn. | Ruang rapat ada di belakang kantor. | The meeting room is behind the office. | ห้องประชุมอยู่หลังห้องทำงาน | Phòng họp ở phía sau văn phòng.
 e: @y 小 猫 在 [1 床] [2 下面] 。 | Xiǎo māo zài chuáng xiàmiàn. | Anak kucing di bawah tempat tidur. | The kitten is under the bed. | ลูกแมวอยู่ใต้เตียง | Mèo con ở dưới gầm giường.
+e: @w 文件{berkas|document|เอกสาร|tài liệu} 在 [1 桌子] [2 上] 。 | Wénjiàn zài zhuōzi shàng. | Berkas ada di atas meja. | The document is on the desk. | เอกสารอยู่บนโต๊ะ | Tài liệu ở trên bàn.
+e: @w 经理 在 [1 办公室] [2 里] 。 | Jīnglǐ zài bàngōngshì li. | Manajer ada di dalam kantor. | The manager is in the office. | ผู้จัดการอยู่ในออฟฟิศ | Giám đốc đang ở trong văn phòng.
+e: @w 银行 在 [1 公司] [2 旁边] 。 | Yínháng zài gōngsī pángbiān. | Bank ada di samping perusahaan. | The bank is next to the company. | ธนาคารอยู่ข้างบริษัท | Ngân hàng ở cạnh công ty.
 
 = N | 名量词 | 数词 + 个/本/口… + 名词
 t: 2
@@ -591,6 +648,9 @@ e: @d 我 家 有 [1 五] [2 口] [3 人] 。 | Wǒ jiā yǒu wǔ kǒu rén. | K
 e: @s 我们 班 有 [1 十 八] [2 个] [3 学生] 。 | Wǒmen bān yǒu shíbā ge xuésheng. | Kelas kami ada delapan belas siswa. | Our class has eighteen students. | ห้องเรามีนักเรียนสิบแปดคน | Lớp chúng tôi có mười tám học sinh.
 e: @w 请 给 我 [1 一] [2 杯] [3 咖啡] 。 | Qǐng gěi wǒ yì bēi kāfēi. | Tolong beri saya secangkir kopi. | A cup of coffee, please. | ขอกาแฟหนึ่งแก้วครับ | Cho tôi một cốc cà phê.
 e: @y 我 有 [1 三] [2 只{ekor|(for animals)|ตัว|con}] [3 小 鸟{burung|bird|นก|chim}] 。 | Wǒ yǒu sān zhī xiǎo niǎo. | Aku punya tiga burung kecil. | I have three little birds. | ฉันมีนกน้อยสามตัว | Tớ có ba chú chim nhỏ.
+e: @w 请 给 我 [1 一] [2 份{lembar|(measure word for documents)|ฉบับ|bản}] [3 文件{berkas|document|เอกสาร|tài liệu}] 。 | Qǐng gěi wǒ yí fèn wénjiàn. | Tolong berikan saya satu berkas. | Please give me a document. | กรุณาให้เอกสารฉันหนึ่งฉบับ | Xin đưa cho tôi một tài liệu.
+e: @w 会议室{ruang rapat|meeting room|ห้องประชุม|phòng họp} 里 有 [1 二十] [2 把] [3 椅子] 。 | Huìyìshì li yǒu èrshí bǎ yǐzi. | Di ruang rapat ada dua puluh kursi. | There are twenty chairs in the meeting room. | ในห้องประชุมมีเก้าอี้ยี่สิบตัว | Trong phòng họp có hai mươi cái ghế.
+e: @w 请 给 客人 [1 三] [2 杯] [3 茶] 。 | Qǐng gěi kèrén sān bēi chá. | Tolong hidangkan tiga cangkir teh untuk tamu. | Please bring the guests three cups of tea. | กรุณานำชาให้แขกสามถ้วย | Xin mang cho khách ba tách trà.
 
 = N | 数词 | 一 到 十，百
 t: 2
@@ -609,6 +669,9 @@ e: @d 这 个 菜 [1 三] [2 十] [3 五] 块 。 | Zhège cài sānshíwǔ kuà
 e: @s 请 打开 书 ， 看 第 [1 四] [2 十] [3 六] 页{halaman|page|หน้า|trang} 。 | Qǐng dǎkāi shū, kàn dì sìshíliù yè. | Silakan buka buku, lihat halaman 46. | Open your books to page 46. | เปิดหนังสือหน้าสี่สิบหก | Mời mở sách, xem trang bốn mươi sáu.
 e: @w 我们 公司 有 [1 六] [2 十] [3 八] 个 人 。 | Wǒmen gōngsī yǒu liùshíbā ge rén. | Perusahaan kami punya 68 orang. | Our company has 68 people. | บริษัทเรามีหกสิบแปดคน | Công ty chúng tôi có sáu mươi tám người.
 e: @y 我 会 数{menghitung|count|นับ|đếm} 到 [1 九] [2 十] [3 九] ！ | Wǒ huì shǔ dào jiǔshíjiǔ! | Aku bisa menghitung sampai 99! | I can count to 99! | ฉันนับถึงเก้าสิบเก้าได้นะ | Tớ đếm được đến chín mươi chín!
+e: @w 我们 公司 有 [1 三] [2 十] [3 五] 个 人 。 | Wǒmen gōngsī yǒu sānshíwǔ gè rén. | Perusahaan kami punya tiga puluh lima orang. | Our company has thirty-five people. | บริษัทของเรามีสามสิบห้าคน | Công ty chúng tôi có ba mươi lăm người.
+e: @w 您 的 房间 是 [1 二] [2 十] [3 八] 号 。 | Nín de fángjiān shì èrshíbā hào. | Kamar Anda nomor dua puluh delapan. | Your room is number twenty-eight. | ห้องของท่านคือเลขที่ยี่สิบแปด | Phòng của ông/bà là số hai mươi tám.
+e: @w 今天 来 了 [1 四] [2 十] [3 二] 位 客人 。 | Jīntiān lái le sìshí'èr wèi kèrén. | Hari ini datang empat puluh dua tamu. | Forty-two guests came today. | วันนี้มีแขกมาสี่สิบสองท่าน | Hôm nay có bốn mươi hai vị khách đến.
 
 = N | 数量短语 | 数词 + 量词
 t: 2
@@ -627,6 +690,9 @@ e: @d 他 喝 了 [1 三] [2 杯] 。 | Tā hē le sān bēi. | Dia minum tiga g
 e: @s 这 本 书 我 看 了 [1 两] [2 次] 。 | Zhè běn shū wǒ kàn le liǎng cì. | Buku ini sudah saya baca dua kali. | I've read this book twice. | หนังสือเล่มนี้ฉันอ่านไปสองรอบ | Quyển sách này tôi đã đọc hai lần.
 e: @w 会议 只 有 [1 十] [2 个] 人 参加 。 | Huìyì zhǐ yǒu shí ge rén cānjiā. | Yang ikut rapat hanya sepuluh orang. | Only ten people attended the meeting. | มีคนเข้าประชุมแค่สิบคน | Cuộc họp chỉ có mười người tham dự.
 e: @y 我 要 [1 一] [2 个] 大 的 ！ | Wǒ yào yí ge dà de! | Aku mau yang besar satu! | I want a big one! | ฉันเอาอันใหญ่หนึ่งอัน | Tớ muốn một cái to!
+e: @w 请 您 带 [1 两] [2 张] 照片 来 。 | Qǐng nín dài liǎng zhāng zhàopiàn lái. | Mohon bawa dua lembar foto. | Please bring two photos. | กรุณานำรูปถ่ายมาสองใบ | Xin ông/bà mang theo hai tấm ảnh.
+e: @w 我们 需要 [1 五] [2 个] 人 。 | Wǒmen xūyào wǔ gè rén. | Kami membutuhkan lima orang. | We need five people. | พวกเราต้องการห้าคน | Chúng tôi cần năm người.
+e: @w 经理 要 [1 一] [2 杯] 咖啡 。 | Jīnglǐ yào yì bēi kāfēi. | Manajer meminta secangkir kopi. | The manager would like a cup of coffee. | ผู้จัดการขอกาแฟหนึ่งแก้ว | Giám đốc muốn một ly cà phê.
 
 = N | 时量词 | 分钟/小时/天/年
 t: 2
@@ -644,6 +710,9 @@ e: @d 请 [1 等] [2 五] [3 分钟] 。 | Qǐng děng wǔ fēnzhōng. | Mohon t
 e: @s 我 [1 学] 了 [2 一] [3 年] 汉语 。 | Wǒ xué le yì nián Hànyǔ. | Saya sudah belajar Mandarin satu tahun. | I've studied Chinese for a year. | ฉันเรียนภาษาจีนมาหนึ่งปี | Tôi đã học tiếng Trung một năm.
 e: @w 我 要 去 上海 [1 出差{dinas|travel for work|ไปทำงานต่างเมือง|đi công tác}] [2 三] [3 天] 。 | Wǒ yào qù Shànghǎi chūchāi sān tiān. | Saya akan dinas ke Shanghai tiga hari. | I'm going on a three-day business trip to Shanghai. | ฉันจะไปทำงานที่เซี่ยงไฮ้สามวัน | Tôi sẽ đi công tác Thượng Hải ba ngày.
 e: @y 我们 [1 玩] 了 [2 一] 个 [3 小时] 。 | Wǒmen wán le yí ge xiǎoshí. | Kami bermain satu jam. | We played for an hour. | พวกเราเล่นกันหนึ่งชั่วโมง | Chúng tớ đã chơi một tiếng.
+e: @w 请 您 [1 等] [2 五] [3 分钟] 。 | Qǐng nín děng wǔ fēnzhōng. | Mohon tunggu lima menit. | Please wait five minutes. | กรุณารอห้านาที | Xin ông/bà đợi năm phút.
+e: @w 经理 每 天 [1 工作] [2 八] [3 小时] 。 | Jīnglǐ měi tiān gōngzuò bā xiǎoshí. | Manajer bekerja delapan jam sehari. | The manager works eight hours a day. | ผู้จัดการทำงานวันละแปดชั่วโมง | Giám đốc làm việc tám tiếng mỗi ngày.
+e: @w 我 在 北京 [1 住] [2 三] [3 天] 。 | Wǒ zài Běijīng zhù sān tiān. | Saya tinggal di Beijing selama tiga hari. | I'll stay in Beijing for three days. | ฉันพักอยู่ปักกิ่งสามวัน | Tôi ở Bắc Kinh ba ngày.
 
 = N | 序数表达法 | 第 + 数词
 t: 2
@@ -661,6 +730,9 @@ e: @d 我 家 在 [1 第] [2 三] 个 路口{persimpangan|crossing|สี่แ�
 e: @s 请 看 [1 第] [2 五] 课 。 | Qǐng kàn dì wǔ kè. | Silakan lihat pelajaran kelima. | Please look at lesson five. | ดูบทที่ห้า | Mời xem bài thứ năm.
 e: @w 我们 的 会议 在 [1 第] [2 二] 会议室{ruang rapat|meeting room|ห้องประชุม|phòng họp} 。 | Wǒmen de huìyì zài dì èr huìyìshì. | Rapat kita di ruang rapat kedua. | Our meeting is in meeting room two. | การประชุมของเราอยู่ห้องประชุมที่สอง | Cuộc họp của chúng ta ở phòng họp số hai.
 e: @y 我 跑 了 [1 第] [2 一] 名{peringkat|place|อันดับ|hạng} ！ | Wǒ pǎo le dì yī míng! | Aku juara satu lari! | I came first in the race! | ฉันวิ่งได้ที่หนึ่ง | Tớ chạy về nhất!
+e: @w 我们 公司 在 [1 第] [2 三] 层 。 | Wǒmen gōngsī zài dì sān céng. | Perusahaan kami ada di lantai tiga. | Our company is on the third floor. | บริษัทของเราอยู่ชั้นสาม | Công ty chúng tôi ở tầng ba.
+e: @w 这 是 我 [1 第] [2 一] 次 来 北京 。 | Zhè shì wǒ dì yī cì lái Běijīng. | Ini pertama kalinya saya ke Beijing. | This is my first time in Beijing. | นี่เป็นครั้งแรกที่ฉันมาปักกิ่ง | Đây là lần đầu tiên tôi đến Bắc Kinh.
+e: @w 请 看 [1 第] [2 二] 页 。 | Qǐng kàn dì èr yè. | Silakan lihat halaman dua. | Please look at page two. | กรุณาดูหน้าสอง | Xin xem trang thứ hai.
 
 = E | 钱数表示法 | 数 + 块/元 (+ 毛/角)
 t: 2
@@ -679,6 +751,9 @@ e: @d 苹果 [1 五] [2 块] 五 一 斤{setengah kilo|jin (half a kilo)|ชั�
 e: @s 这 本 书 [1 三十] [2 元] 。 | Zhè běn shū sānshí yuán. | Buku ini tiga puluh yuan. | This book is thirty yuan. | หนังสือเล่มนี้สามสิบหยวน | Quyển sách này ba mươi tệ.
 e: @w 这个 [1 一 百] [2 块] ， 您 要 几 个 ？ | Zhège yìbǎi kuài, nín yào jǐ ge? | Ini seratus yuan, Anda mau berapa? | It's a hundred yuan each, how many would you like? | อันนี้ร้อยหยวน คุณจะเอากี่อันครับ | Cái này một trăm tệ, anh muốn mấy cái ạ?
 e: @y 我 有 [1 十] [2 块] 钱 ！ | Wǒ yǒu shí kuài qián! | Aku punya sepuluh yuan! | I've got ten yuan! | ฉันมีเงินสิบหยวน | Tớ có mười tệ!
+e: @w 这 个 [1 五 十] [2 块] ， 请问 您 要 吗 ？ | Zhè ge wǔshí kuài, qǐngwèn nín yào ma? | Ini lima puluh yuan, apakah Anda mau? | This one is fifty yuan; would you like it? | อันนี้ห้าสิบหยวน ท่านต้องการไหมคะ | Cái này năm mươi đồng, ông/bà có lấy không?
+e: @w 一共 [1 二十] [2 元] ， 谢谢 。 | Yígòng èrshí yuán, xièxie. | Totalnya dua puluh yuan, terima kasih. | That's twenty yuan in total; thank you. | รวมทั้งหมดยี่สิบหยวน ขอบคุณค่ะ | Tổng cộng hai mươi đồng, cảm ơn.
+e: @w 请 付{membayar|pay|จ่าย|trả} [1 三十] [2 块] 。 | Qǐng fù sānshí kuài. | Mohon bayar tiga puluh yuan. | Please pay thirty yuan. | กรุณาชำระสามสิบหยวน | Xin trả ba mươi đồng.
 
 = E | 时间表示法 | 年 → 月 → 日 → 点 → 分
 t: 2
@@ -697,6 +772,9 @@ e: @d 我 的 生日 是 [1 三] [2 月] 八 号 。 | Wǒ de shēngrì shì sā
 e: @s 我们 [1 九] [2 点] 上课 。 | Wǒmen jiǔ diǎn shàngkè. | Kami masuk kelas jam sembilan. | Our class starts at nine. | พวกเราเข้าเรียนเก้าโมง | Chúng tôi vào học lúc chín giờ.
 e: @w 会议 下午 两 点 [1 三十] [2 分] 开始 。 | Huìyì xiàwǔ liǎng diǎn sānshí fēn kāishǐ. | Rapatnya mulai pukul 14.30. | The meeting starts at 2:30 pm. | การประชุมเริ่มบ่ายสองโมงครึ่ง | Cuộc họp bắt đầu lúc hai giờ ba mươi chiều.
 e: @y 我 [1 2018] [2 年] 出生{lahir|was born|เกิด|sinh ra} 。 | Wǒ 2018 nián chūshēng. | Aku lahir tahun 2018. | I was born in 2018. | ฉันเกิดปี 2018 | Tớ sinh năm 2018.
+e: @w 会议 在 [1 三] [2 点] 开始 。 | Huìyì zài sān diǎn kāishǐ. | Rapat dimulai pukul tiga. | The meeting starts at three o'clock. | ประชุมเริ่มสามโมง | Cuộc họp bắt đầu lúc ba giờ.
+e: @w 今天 是 [1 五] [2 号] 。 | Jīntiān shì wǔ hào. | Hari ini tanggal lima. | Today is the fifth. | วันนี้วันที่ห้า | Hôm nay là ngày mùng năm.
+e: @w 我们 在 [1 九] [2 月] 开 会 。 | Wǒmen zài jiǔ yuè kāi huì. | Kami mengadakan rapat pada bulan September. | We will hold the meeting in September. | พวกเราจะประชุมกันในเดือนกันยายน | Chúng tôi họp vào tháng Chín.
 
 = A | 程度副词 | 很/太/非常/真 + 形容词
 t: 5
@@ -714,6 +792,9 @@ e: @d 这 件 衣服 [1 太] [2 大] 了 。 | Zhè jiàn yīfu tài dà le. | B
 e: @s 你 的 汉字 写 得 [1 真] [2 好] ！ | Nǐ de Hànzì xiě de zhēn hǎo! | Hanzimu bagus sekali! | Your characters are really good! | เขียนอักษรจีนสวยจริง ๆ | Chữ Hán bạn viết đẹp thật!
 e: @w 这个 办法 [1 最] [2 好] 。 | Zhège bànfǎ zuì hǎo. | Cara ini yang terbaik. | This is the best way. | วิธีนี้ดีที่สุด | Cách này là tốt nhất.
 e: @y 熊猫{panda|panda|แพนด้า|gấu trúc} [1 很] [2 可爱{lucu|cute|น่ารัก|đáng yêu}] 。 | Xióngmāo hěn kě'ài. | Panda lucu sekali. | Pandas are very cute. | แพนด้าน่ารักมาก | Gấu trúc rất đáng yêu.
+e: @w 今天 [1 非常] [2 忙] 。 | Jīntiān fēicháng máng. | Hari ini sangat sibuk. | I'm extremely busy today. | วันนี้ยุ่งมาก | Hôm nay rất bận.
+e: @w 这 个 办公室 [1 太] [2 小] 了 。 | Zhè ge bàngōngshì tài xiǎo le. | Kantor ini terlalu kecil. | This office is too small. | ออฟฟิศนี้เล็กเกินไป | Văn phòng này nhỏ quá.
+e: @w 您 的 汉语 [1 真] [2 好] ！ | Nín de Hànyǔ zhēn hǎo! | Bahasa Mandarin Anda sungguh bagus! | Your Chinese is really good! | ภาษาจีนของท่านเก่งจริง ๆ | Tiếng Hán của ông/bà giỏi thật!
 
 = A | 范围副词：都/一起 | 主语 + 都/一起 + 动词
 t: 4
@@ -732,6 +813,9 @@ e: @d 周末 [1 我们] [2 一起] [3 去] 看 电影 吧 。 | Zhōumò wǒmen 
 e: @s [1 同学 们] [2 都] [3 来] 了 吗 ？ | Tóngxuémen dōu lái le ma? | Teman-teman sudah datang semua? | Is everyone here? | นักเรียนมากันครบหรือยัง | Các bạn đến đủ chưa?
 e: @w [1 大家] [2 一起] [3 看] 一下 这 个 文件{dokumen|file|เอกสาร|tài liệu} 。 | Dàjiā yìqǐ kàn yíxià zhège wénjiàn. | Mari kita semua lihat dokumen ini. | Let's all take a look at this file. | ทุกคนมาดูเอกสารนี้ด้วยกันหน่อย | Mọi người cùng xem tài liệu này nhé.
 e: @y [1 我 和 小 明] [2 一起] [3 玩] 球 。 | Wǒ hé Xiǎo Míng yìqǐ wán qiú. | Aku main bola bersama Xiao Ming. | Xiao Ming and I play ball together. | ฉันกับเสี่ยวหมิงเล่นบอลด้วยกัน | Tớ và Tiểu Minh cùng chơi bóng.
+e: @w [1 我们] [2 都] [3 去] 北京 。 | Wǒmen dōu qù Běijīng. | Kami semua pergi ke Beijing. | We are all going to Beijing. | พวกเราไปปักกิ่งกันหมด | Chúng tôi đều đi Bắc Kinh.
+e: @w [1 经理 和 我] [2 一起] [3 吃饭] 。 | Jīnglǐ hé wǒ yìqǐ chīfàn. | Manajer dan saya makan bersama. | The manager and I are having a meal together. | ผู้จัดการกับฉันกินข้าวด้วยกัน | Giám đốc và tôi cùng ăn cơm.
+e: @w [1 大家] [2 都] [3 来] 了 。 | Dàjiā dōu lái le. | Semua orang sudah datang. | Everyone has arrived. | ทุกคนมากันครบแล้ว | Mọi người đều đã đến.
 
 = A | 时间副词 | 现在/马上/正在 + 动词
 t: 3
@@ -749,6 +833,9 @@ e: @d 你 [1 先] [2 吃] ， 我 等 一下 再 吃 。 | Nǐ xiān chī, wǒ d
 e: @s 我们 [1 现在] [2 开始] 上课 。 | Wǒmen xiànzài kāishǐ shàngkè. | Kita mulai pelajaran sekarang. | Let's start class now. | ตอนนี้เราเริ่มเรียนกัน | Bây giờ chúng ta bắt đầu học.
 e: @w 好 的 ， 我 [1 马上] [2 发] 给 您 。 | Hǎo de, wǒ mǎshàng fā gěi nín. | Baik, segera saya kirim ke Anda. | Sure, I'll send it to you right away. | ได้ครับ ผมจะส่งให้คุณเดี๋ยวนี้ | Vâng, tôi gửi anh ngay.
 e: @y [1 先] [2 洗 手] ， 再 吃 饭 。 | Xiān xǐ shǒu, zài chī fàn. | Cuci tangan dulu, baru makan. | Wash your hands first, then eat. | ล้างมือก่อนแล้วค่อยกินข้าว | Rửa tay trước rồi hãy ăn cơm.
+e: @w 请 您 [1 先] [2 坐] 。 | Qǐng nín xiān zuò. | Mohon Anda duduk dulu. | Please have a seat first. | เชิญท่านนั่งก่อน | Xin ông/bà ngồi trước.
+e: @w 我 [1 马上] [2 来] 。 | Wǒ mǎshàng lái. | Saya segera datang. | I'll be right there. | ฉันจะมาเดี๋ยวนี้ | Tôi đến ngay.
+e: @w 请 [1 再] [2 说] 一 次 。 | Qǐng zài shuō yí cì. | Tolong katakan sekali lagi. | Please say it once more. | กรุณาพูดอีกครั้ง | Xin nói lại một lần nữa.
 
 = A | 频率、重复副词 | 常常/再/也 + 动词
 t: 4
@@ -767,6 +854,9 @@ e: @d 他 [1 又] [2 迟到] 了 。 | Tā yòu chídào le. | Dia terlambat lag
 e: @s 我 没 听 清楚 ， 请 您 [1 再] [2 说] 一 遍 。 | Wǒ méi tīng qīngchu, qǐng nín zài shuō yí biàn. | Saya kurang dengar, mohon ulangi sekali lagi. | I didn't catch that, please say it again. | ฉันฟังไม่ชัด ช่วยพูดอีกครั้ง | Em nghe chưa rõ, xin thầy nói lại một lần.
 e: @w 我 下 个 星期 [1 再] [2 给] 您 打 电话 。 | Wǒ xià ge xīngqī zài gěi nín dǎ diànhuà. | Minggu depan saya telepon Anda lagi. | I'll call you again next week. | สัปดาห์หน้าผมจะโทรหาคุณอีกครั้ง | Tuần sau tôi sẽ gọi lại cho anh.
 e: @y 我 [1 常常] [2 和] 爸爸 去 公园 。 | Wǒ chángcháng hé bàba qù gōngyuán. | Aku sering ke taman bersama ayah. | I often go to the park with Dad. | ฉันไปสวนกับพ่อบ่อย ๆ | Tớ hay đi công viên với bố.
+e: @w 经理 [1 常常] [2 出差{dinas luar|business trip|เดินทางไปทำงาน|đi công tác}] 。 | Jīnglǐ chángcháng chūchāi. | Manajer sering dinas luar. | The manager often goes on business trips. | ผู้จัดการเดินทางไปทำงานต่างถิ่นบ่อย | Giám đốc thường xuyên đi công tác.
+e: @w 请 您 [1 再] [2 等] 一下 。 | Qǐng nín zài děng yíxià. | Mohon tunggu sebentar lagi. | Please wait a little longer. | กรุณารออีกสักครู่ | Xin ông/bà đợi thêm một lát.
+e: @w 经理 [1 又] [2 开 会] 了 。 | Jīnglǐ yòu kāi huì le. | Manajer rapat lagi. | The manager is in a meeting again. | ผู้จัดการประชุมอีกแล้ว | Giám đốc lại họp rồi.
 
 = A | 关联副词：还/也 | 也/还 + 动词
 t: 4
@@ -803,6 +893,9 @@ e: @d 我 今天 [1 没] [2 吃] 早饭 。 | Wǒ jīntiān méi chī zǎofàn. 
 e: @s 上课 的 时候 [1 别] [2 说话] 。 | Shàngkè de shíhou bié shuōhuà. | Jangan mengobrol saat pelajaran. | Don't talk during class. | ตอนเรียนอย่าคุยกัน | Trong giờ học đừng nói chuyện.
 e: @w 他 今天 [1 没] [2 来] 上班 。 | Tā jīntiān méi lái shàngbān. | Hari ini dia tidak masuk kerja. | He didn't come to work today. | วันนี้เขาไม่ได้มาทำงาน | Hôm nay anh ấy không đi làm.
 e: @y [1 别] [2 哭] 了 ， 妈妈 马上 来 。 | Bié kū le, māma mǎshàng lái. | Jangan nangis, ibu segera datang. | Don't cry, Mom's coming soon. | อย่าร้องไห้ แม่กำลังมา | Đừng khóc nữa, mẹ đến ngay.
+e: @w 我 [1 不] [2 去] 北京 。 | Wǒ bú qù Běijīng. | Saya tidak pergi ke Beijing. | I'm not going to Beijing. | ฉันไม่ไปปักกิ่ง | Tôi không đi Bắc Kinh.
+e: @w 经理 [1 没] [2 来] 。 | Jīnglǐ méi lái. | Manajer tidak datang. | The manager didn't come. | ผู้จัดการไม่ได้มา | Giám đốc không đến.
+e: @w 请 [1 别] [2 关] 门 。 | Qǐng bié guān mén. | Tolong jangan tutup pintu. | Please don't close the door. | กรุณาอย่าปิดประตู | Xin đừng đóng cửa.
 
 = R | 介词：在 | 在 + 地方 + 动词
 t: 2
@@ -821,6 +914,9 @@ e: @d [1 我们] [2 在] [3 门口] [4 见] 吧 。 | Wǒmen zài ménkǒu jiàn
 e: @s [1 他] [2 在] [3 图书馆] [4 看 书] 。 | Tā zài túshūguǎn kàn shū. | Dia membaca di perpustakaan. | He's reading in the library. | เขาอ่านหนังสืออยู่ที่ห้องสมุด | Anh ấy đọc sách ở thư viện.
 e: @w [1 我] [2 在] [3 一 家 银行] [4 工作] 。 | Wǒ zài yì jiā yínháng gōngzuò. | Saya bekerja di sebuah bank. | I work at a bank. | ฉันทำงานที่ธนาคาร | Tôi làm việc ở một ngân hàng.
 e: @y [1 小 鱼] [2 在] [3 水 里] [4 游泳] 。 | Xiǎo yú zài shuǐ li yóuyǒng. | Ikan kecil berenang di air. | The little fish swims in the water. | ปลาน้อยว่ายน้ำอยู่ในน้ำ | Cá nhỏ bơi trong nước.
+e: @w [1 经理] [2 在] [3 办公室] [4 工作] 。 | Jīnglǐ zài bàngōngshì gōngzuò. | Manajer bekerja di kantor. | The manager works in the office. | ผู้จัดการทำงานอยู่ที่ออฟฟิศ | Giám đốc làm việc ở văn phòng.
+e: @w [1 我们] [2 在] [3 饭店] [4 开 会] 。 | Wǒmen zài fàndiàn kāi huì. | Kami rapat di hotel. | We are having the meeting at the hotel. | พวกเราประชุมกันที่โรงแรม | Chúng tôi họp ở khách sạn.
+e: @w [1 他] [2 在] [3 银行] [4 等 您] 。 | Tā zài yínháng děng nín. | Dia menunggu Anda di bank. | He is waiting for you at the bank. | เขารอท่านอยู่ที่ธนาคาร | Anh ấy đang đợi ông/bà ở ngân hàng.
 
 = R | 介词：和/对 | 和/对 + 人 + 动词
 t: 7
@@ -838,6 +934,9 @@ e: @d [1 他] [2 对] [3 我] [4 很 好] 。 | Tā duì wǒ hěn hǎo. | Dia ba
 e: @s [1 我] 想 [2 跟] [3 老师] [4 说] 一下 。 | Wǒ xiǎng gēn lǎoshī shuō yíxià. | Saya mau bicara sebentar dengan guru. | I'd like a word with the teacher. | ฉันอยากคุยกับครูหน่อย | Em muốn nói với thầy một chút.
 e: @w [1 我] [2 和] [3 王 经理] [4 见 过] 面 。 | Wǒ hé Wáng jīnglǐ jiàn guo miàn. | Saya pernah bertemu Manajer Wang. | I've met Manager Wang. | ฉันเคยพบผู้จัดการหวังแล้ว | Tôi đã từng gặp giám đốc Vương.
 e: @y [1 小 狗] [2 对] [3 我] [4 叫] 了 两 声 。 | Xiǎo gǒu duì wǒ jiào le liǎng shēng. | Anak anjing menggonggong dua kali kepadaku. | The puppy barked at me twice. | ลูกหมาเห่าใส่ฉันสองที | Chó con sủa với tớ hai tiếng.
+e: @w [1 我] [2 和] [3 经理] [4 一起 去 开 会] 。 | Wǒ hé jīnglǐ yìqǐ qù kāi huì. | Saya dan manajer pergi rapat bersama. | The manager and I are going to the meeting together. | ฉันกับผู้จัดการไปประชุมด้วยกัน | Tôi và giám đốc cùng đi họp.
+e: @w [1 他] [2 对] [3 客人] [4 很 客气{sopan|polite|สุภาพ|khách sáo}] 。 | Tā duì kèrén hěn kèqi. | Dia sangat sopan kepada tamu. | He is very polite to guests. | เขาสุภาพกับแขกมาก | Anh ấy rất lịch sự với khách.
+e: @w [1 我] [2 跟] [3 王 先生] [4 说 过 话] 。 | Wǒ gēn Wáng xiānsheng shuō guo huà. | Saya pernah berbicara dengan Tuan Wang. | I have spoken with Mr. Wang before. | ฉันเคยคุยกับคุณหวังแล้ว | Tôi đã từng nói chuyện với ông Vương.
 
 = C | 连接词：和/跟/还是 | A + 和 + B ／ A + 还是 + B？
 t: 7
@@ -856,6 +955,9 @@ e: @d 你 要 [1 大 的] [2 还是] [3 小 的] ？ | Nǐ yào dà de háishi x
 e: @s 我们 学 [1 汉字] [2 和] [3 拼音{pinyin|pinyin|พินอิน|pinyin}] 。 | Wǒmen xué Hànzì hé pīnyīn. | Kami belajar hanzi dan pinyin. | We learn characters and pinyin. | พวกเราเรียนอักษรจีนกับพินอิน | Chúng tôi học chữ Hán và pinyin.
 e: @w 会议 是 [1 今天] [2 还是] [3 明天] ？ | Huìyì shì jīntiān háishi míngtiān? | Rapatnya hari ini atau besok? | Is the meeting today or tomorrow? | ประชุมวันนี้หรือพรุ่งนี้ | Cuộc họp là hôm nay hay ngày mai?
 e: @y 你 喜欢 [1 猫] [2 还是] [3 狗] ？ | Nǐ xǐhuan māo háishi gǒu? | Kamu suka kucing atau anjing? | Do you like cats or dogs? | ชอบแมวหรือหมา | Cậu thích mèo hay chó?
+e: @w 您 喝 [1 茶] [2 还是] [3 咖啡] ？ | Nín hē chá háishi kāfēi? | Anda mau minum teh atau kopi? | Would you like tea or coffee? | ท่านดื่มชาหรือกาแฟคะ | Ông/bà uống trà hay cà phê?
+e: @w [1 经理] [2 和] [3 秘书{sekretaris|secretary|เลขา|thư ký}] 都 在 办公室 。 | Jīnglǐ hé mìshū dōu zài bàngōngshì. | Manajer dan sekretaris ada di kantor. | The manager and the secretary are both in the office. | ผู้จัดการและเลขาอยู่ที่ออฟฟิศทั้งคู่ | Giám đốc và thư ký đều có ở văn phòng.
+e: @w 您 坐 [1 飞机] [2 还是] [3 火车] 去 北京 ？ | Nín zuò fēijī háishi huǒchē qù Běijīng? | Anda ke Beijing naik pesawat atau kereta? | Are you going to Beijing by plane or by train? | ท่านไปปักกิ่งโดยเครื่องบินหรือรถไฟ | Ông/bà đi Bắc Kinh bằng máy bay hay tàu hoả?
 
 = V | 能愿动词：会/能 | 会/能 + 动词
 t: 6
@@ -873,6 +975,9 @@ e: @d [1 我] 明天 [2 能] [3 来] 。 | Wǒ míngtiān néng lái. | Besok sa
 e: @s [1 我] [2 会] [3 说] 一点儿 汉语 。 | Wǒ huì shuō yìdiǎnr Hànyǔ. | Saya bisa sedikit bahasa Mandarin. | I speak a little Chinese. | ฉันพูดภาษาจีนได้นิดหน่อย | Tôi biết nói chút tiếng Trung.
 e: @w [1 您] [2 能] [3 帮] 我 看 一下 吗 ？ | Nín néng bāng wǒ kàn yíxià ma? | Bisakah Anda membantu saya melihatnya? | Could you take a look for me? | คุณช่วยดูให้หน่อยได้ไหมครับ | Anh có thể xem giúp tôi một chút không?
 e: @y [1 我] [2 会] [3 游泳] 了 ！ | Wǒ huì yóuyǒng le! | Aku sudah bisa berenang! | I can swim now! | ฉันว่ายน้ำเป็นแล้ว | Tớ biết bơi rồi!
+e: @w [1 我] [2 会] [3 说 汉语] 。 | Wǒ huì shuō Hànyǔ. | Saya bisa berbicara bahasa Mandarin. | I can speak Chinese. | ฉันพูดภาษาจีนได้ | Tôi biết nói tiếng Hán.
+e: @w [1 您] [2 能] [3 等 一下] 吗 ？ | Nín néng děng yíxià ma? | Bisakah Anda menunggu sebentar? | Could you wait a moment? | ท่านรอสักครู่ได้ไหมคะ | Ông/bà có thể đợi một lát được không?
+e: @w [1 经理] [2 能] [3 参加] 明天 的 会 。 | Jīnglǐ néng cānjiā míngtiān de huì. | Manajer bisa menghadiri rapat besok. | The manager can attend tomorrow's meeting. | ผู้จัดการเข้าร่วมประชุมพรุ่งนี้ได้ | Giám đốc có thể tham dự cuộc họp ngày mai.
 
 = V | 能愿动词：想/要 | 想/要 + 动词
 t: 6
@@ -890,6 +995,9 @@ e: @d [1 我] [2 要] [3 买] 这 个 。 | Wǒ yào mǎi zhège. | Saya mau bel
 e: @s [1 我] [2 想] [3 去] 中国 学习 。 | Wǒ xiǎng qù Zhōngguó xuéxí. | Saya ingin belajar di Tiongkok. | I'd like to study in China. | ฉันอยากไปเรียนที่จีน | Tôi muốn sang Trung Quốc học.
 e: @w [1 我] 下午 [2 要] [3 见] 一 个 客人 。 | Wǒ xiàwǔ yào jiàn yí ge kèrén. | Sore ini saya harus bertemu klien. | I have to see a client this afternoon. | บ่ายนี้ฉันต้องพบลูกค้าคนหนึ่ง | Chiều nay tôi phải gặp một vị khách.
 e: @y [1 我] [2 想] [3 要] 一 个 新 书包 。 | Wǒ xiǎng yào yí ge xīn shūbāo. | Aku mau tas sekolah baru. | I want a new schoolbag. | ฉันอยากได้กระเป๋านักเรียนใบใหม่ | Tớ muốn có một cái cặp mới.
+e: @w [1 我] [2 想] [3 买 一 台{unit|(measure word for machines)|เครื่อง|chiếc} 电脑] 。 | Wǒ xiǎng mǎi yì tái diànnǎo. | Saya ingin membeli sebuah komputer. | I'd like to buy a computer. | ฉันอยากซื้อคอมพิวเตอร์หนึ่งเครื่อง | Tôi muốn mua một chiếc máy tính.
+e: @w [1 我们] [2 要] [3 开 会] 。 | Wǒmen yào kāi huì. | Kami akan rapat. | We are about to have a meeting. | พวกเราจะประชุมกัน | Chúng tôi sắp họp.
+e: @w [1 经理] [2 想] [3 见 您] 。 | Jīnglǐ xiǎng jiàn nín. | Manajer ingin bertemu Anda. | The manager would like to see you. | ผู้จัดการอยากพบท่าน | Giám đốc muốn gặp ông/bà.
 
 = V | 离合词 | 见面 → 见了面 / 见过两次面
 t: 6
@@ -925,6 +1033,9 @@ e: @d 我 [1 去] 过 两 [2 次] 上海 。 | Wǒ qù guo liǎng cì Shànghǎi
 e: @s 请 大家 [1 读] 三 [2 次] 。 | Qǐng dàjiā dú sān cì. | Silakan semuanya membaca tiga kali. | Everyone, read it three times. | ทุกคนอ่านสามรอบนะ | Mời mọi người đọc ba lần.
 e: @w 请 您 [1 看] [2 一下] 这 个 。 | Qǐng nín kàn yíxià zhège. | Mohon lihat ini sebentar. | Please take a look at this. | รบกวนดูอันนี้หน่อยครับ | Xin anh xem qua cái này.
 e: @y 我 可以 [1 试] [2 一下] 吗 ？ | Wǒ kěyǐ shì yíxià ma? | Boleh aku coba sebentar? | Can I have a try? | ขอลองหน่อยได้ไหม | Tớ thử một chút được không?
+e: @w 请 您 [1 看] [2 一下] 。 | Qǐng nín kàn yíxià. | Mohon Anda lihat sebentar. | Please take a look. | กรุณาดูหน่อย | Xin ông/bà xem qua một chút.
+e: @w 我 [1 去 过] 上海 三 [2 次] 。 | Wǒ qù guo Shànghǎi sān cì. | Saya sudah tiga kali ke Shanghai. | I have been to Shanghai three times. | ฉันเคยไปเซี่ยงไฮ้สามครั้ง | Tôi đã đến Thượng Hải ba lần.
+e: @w 请 您 [1 等] [2 一下] ， 经理 马上 来 。 | Qǐng nín děng yíxià, jīnglǐ mǎshàng lái. | Mohon tunggu sebentar, manajer segera datang. | Please wait a moment; the manager is coming right away. | กรุณารอสักครู่ ผู้จัดการจะมาเดี๋ยวนี้ | Xin ông/bà đợi một chút, giám đốc đến ngay.
 
 = W | 词缀 | 老/第 + …，… + 子/们
 t: 1
@@ -960,3 +1071,6 @@ e: @d [1 啊] ， [2 我 忘 了] ！ | À, wǒ wàng le! | Ah, saya lupa! | Oh,
 e: @s [1 哎{eh|hey|อ้าว|ơ}] ， [2 这个 字 我 认识] ！ | Āi, zhège zì wǒ rènshi! | Eh, huruf ini saya tahu! | Hey, I know this character! | อ้าว ตัวนี้ฉันรู้จัก | Ơ, chữ này tôi biết!
 e: @w [1 喂] ， [2 您 好] ， 这 里 是 东方 公司 。 | Wéi, nín hǎo, zhèlǐ shì Dōngfāng gōngsī. | Halo, selamat siang, di sini Perusahaan Dongfang. | Hello, this is Dongfang Company. | ฮัลโหล สวัสดีครับ ที่นี่บริษัทตงฟางครับ | Alô, xin chào, đây là công ty Đông Phương.
 e: @y [1 哎{eh|hey|อ้าว|ơ}] ， [2 你 看 ， 下 雪 了] ！ | Āi, nǐ kàn, xià xuě le! | Eh, lihat, turun salju! | Hey, look, it's snowing! | อ้าว ดูสิ หิมะตก | Ơ, cậu xem, tuyết rơi rồi!
+e: @w [1 喂] ， [2 您 好 ， 我 找 王 经理] 。 | Wèi, nín hǎo, wǒ zhǎo Wáng jīnglǐ. | Halo, selamat siang, saya mencari Manajer Wang. | Hello, I'm looking for Manager Wang. | ฮัลโหล สวัสดีค่ะ ฉันขอสายผู้จัดการหวัง | A lô, chào ông/bà, tôi muốn gặp giám đốc Vương.
+e: @w [1 喂] ， [2 请问 经理 在 吗] ？ | Wèi, qǐngwèn jīnglǐ zài ma? | Halo, permisi, apakah manajer ada? | Hello, is the manager in? | ฮัลโหล ขอถามหน่อย ผู้จัดการอยู่ไหมคะ | A lô, xin hỏi giám đốc có ở đó không?
+e: @w [1 啊] ， [2 对不起 ， 我 来 晚 了] 。 | À, duìbuqǐ, wǒ lái wǎn le. | Ah, maaf, saya datang terlambat. | Ah, sorry, I'm late. | อ้อ ขอโทษค่ะ ฉันมาสาย | À, xin lỗi, tôi đến muộn rồi.

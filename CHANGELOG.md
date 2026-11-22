@@ -27,6 +27,8 @@ Test builds before a release are published as pre-releases v1.0-alpha-N.
   two from daily life, one from study and one from work (polite, with 您 and 请), and a fifth that fits the book
   (school life for YCT, office life for BCT). Every part of the formula is marked in the sentence, with the Indonesian,
   English, Thai and Vietnamese translation, and a small label shows which situation it is.
+- The BCT book now speaks work: each of its 225 patterns has three more office examples (email, meetings, calls,
+  deliveries, payment, business trips), and the BCT book shows only those. HSK and YCT books are unchanged.
 - Mixed practice changes from round to round: mostly patterns that are fading, a few new ones and one or two strong
   ones, with sentences you haven't seen lately.
 - Going back from a pattern to the list keeps your place instead of jumping to the top.

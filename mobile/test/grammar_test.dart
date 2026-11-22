@@ -209,4 +209,16 @@ void main() {
     final again = await boot({'hsk16_ui': jsonEncode(a.store.get('hsk16_ui', {}))});
     expect(again.gramBook, 'bct');
   });
+  test('BCT shows work sentences only, and every BCT point has at least three of them', () async {
+    final a = await boot();
+    final b = a.gram!;
+    var n = 0;
+    for (final p in b.pts.where((p) => p.v.containsKey('bct'))) {
+      final w = p.egFor('bct');
+      n++;
+      expect(w.where((e) => e.c == 'w').length, greaterThanOrEqualTo(3), reason: p.id);
+      expect(w.every((e) => e.c == 'w'), isTrue, reason: p.id);
+    }
+    expect(n, greaterThan(200));
+  });
 }
