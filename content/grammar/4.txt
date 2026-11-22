@@ -1109,7 +1109,7 @@ t: 10
 v: h2 4
 i: 4-063
 n: fǎnwènjù 2 | "Siapa yang tidak tahu?": tanya balik | "Who doesn't know?": rhetorical questions | "ใครจะไม่รู้": คำถามย้อน | "Ai mà không biết?": câu hỏi tu từ
-fs: 谁/哪儿/怎么 + 句子 + ？
+fs: 谁/哪儿/怎么 + 句子
 w: Artinya kebalikan: 谁不知道？ = semua orang tahu. | It means the opposite: 谁不知道？ = everyone knows. | ความหมายกลับกัน: 谁不知道？ = ใคร ๆ ก็รู้ | Nghĩa ngược lại: 谁不知道？ = ai cũng biết.
 k: 谁|哪儿|怎么|什么
 m: (谁|哪儿|怎么|什么)[^\s]{1,8}(呢|啊)?[？?]$
@@ -1117,11 +1117,11 @@ id: Tanya balik dengan kata tanya untuk menegaskan: 谁不知道？ = semua oran
 en: A question-word question that insists: 谁不知道？ is everyone knows!
 th: ถามย้อนด้วยคำถามเพื่อเน้น 谁不知道？ คือใครจะไม่รู้
 vi: Hỏi ngược bằng từ để hỏi để khẳng định: 谁不知道？ là ai mà chẳng biết!
-e: @d [1 谁] [2 不 想 放假 呢] [3 ？] | Shéi bù xiǎng fàngjià ne? | Siapa yang tidak mau libur? | Who doesn't want a holiday? | ใครจะไม่อยากหยุดล่ะ | Ai mà không muốn được nghỉ chứ?
-e: @d 这么 冷 ， [1 怎么] [2 能 不 穿 外套 呢] [3 ？] | Zhème lěng, zěnme néng bù chuān wàitào ne? | Sedingin ini, masa tidak pakai jaket? | In this cold, how could you go without a coat? | หนาวขนาดนี้ จะไม่ใส่เสื้อนอกได้ยังไง | Lạnh thế này, sao có thể không mặc áo khoác được?
-e: @d 我 [1 哪儿] [2 有 时间 看 电视] [3 ？] | Wǒ nǎr yǒu shíjiān kàn diànshì? | Mana sempat saya nonton TV? | Where would I find time to watch TV? | ฉันจะเอาเวลาที่ไหนไปดูทีวี | Tôi lấy đâu ra thời gian xem tivi?
-e: @s 这么 简单 的 题 ， [1 谁] [2 不 会 做] [3 ？] | Zhème jiǎndān de tí, shéi bú huì zuò? | Soal semudah ini, siapa yang tidak bisa? | Who couldn't do such an easy question? | ข้อง่ายขนาดนี้ ใครจะทำไม่ได้ | Câu dễ thế này, ai mà không làm được?
-e: @w 这么 好 的 机会 ， 我们 [1 怎么] [2 能 错过] [3 ？] | Zhème hǎo de jīhuì, wǒmen zěnme néng cuòguò? | Kesempatan sebagus ini, mana mungkin kita lewatkan? | How could we miss such a good opportunity? | โอกาสดีขนาดนี้ เราจะพลาดได้ยังไง | Cơ hội tốt thế này, sao chúng ta có thể bỏ lỡ?
+e: @d [1 谁] [2 不 想 放假 呢] ？ | Shéi bù xiǎng fàngjià ne? | Siapa yang tidak mau libur? | Who doesn't want a holiday? | ใครจะไม่อยากหยุดล่ะ | Ai mà không muốn được nghỉ chứ?
+e: @d 这么 冷 ， [1 怎么] [2 能 不 穿 外套 呢] ？ | Zhème lěng, zěnme néng bù chuān wàitào ne? | Sedingin ini, masa tidak pakai jaket? | In this cold, how could you go without a coat? | หนาวขนาดนี้ จะไม่ใส่เสื้อนอกได้ยังไง | Lạnh thế này, sao có thể không mặc áo khoác được?
+e: @d 我 [1 哪儿] [2 有 时间 看 电视] ？ | Wǒ nǎr yǒu shíjiān kàn diànshì? | Mana sempat saya nonton TV? | Where would I find time to watch TV? | ฉันจะเอาเวลาที่ไหนไปดูทีวี | Tôi lấy đâu ra thời gian xem tivi?
+e: @s 这么 简单 的 题 ， [1 谁] [2 不 会 做] ？ | Zhème jiǎndān de tí, shéi bú huì zuò? | Soal semudah ini, siapa yang tidak bisa? | Who couldn't do such an easy question? | ข้อง่ายขนาดนี้ ใครจะทำไม่ได้ | Câu dễ thế này, ai mà không làm được?
+e: @w 这么 好 的 机会 ， 我们 [1 怎么] [2 能 错过] ？ | Zhème hǎo de jīhuì, wǒmen zěnme néng cuòguò? | Kesempatan sebagus ini, mana mungkin kita lewatkan? | How could we miss such a good opportunity? | โอกาสดีขนาดนี้ เราจะพลาดได้ยังไง | Cơ hội tốt thế này, sao chúng ta có thể bỏ lỡ?
 
 = E | 用双重否定表示强调 | 没有……不…… ／ 不能不……
 t: 10
