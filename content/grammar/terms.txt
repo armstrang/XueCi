@@ -133,6 +133,10 @@ Y | | hal lain | something else | อีกสิ่ง | điều khác
 问题 | wèntí | masalah | problem | ปัญหา | vấn đề
 做法 | zuòfǎ | tindakan | what is done | วิธีทำ | cách làm
 
+短语 | duǎnyǔ | frasa | phrase | วลี | cụm từ
+
+词根 | cígēn | akar kata | root | รากคำ | gốc từ
+
 # ---- small words whose meaning is a job
 了 | le | (sudah / berubah) | (done / now) | (แล้ว) | (rồi)
 的 | de | (milik / yang) | ('s / that) | (ของ / ที่) | (của / mà)
@@ -443,3 +447,7 @@ Y | | hal lain | something else | อีกสิ่ง | điều khác
 聊天 | liáotiān | ngobrol | chat | คุยกัน | nói chuyện
 宁可 | nìngkě | lebih baik | would rather | ยอม | thà
 宁愿 | nìngyuàn | lebih memilih | would rather | ยอม | thà
+一方面 | yì fāngmiàn | di satu sisi | on one hand | ด้านหนึ่ง | một mặt
+另一方面 | lìng yì fāngmiàn | di sisi lain | on the other hand | อีกด้านหนึ่ง | mặt khác
+不是 | búshì | bukan | is not | ไม่ใช่ | không phải
+哈哈 | hāha | haha | haha | ฮ่า ๆ | haha
