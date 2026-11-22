@@ -1,0 +1,323 @@
+# BCT A bank: work and business sentences, own writing. Line: sentence with the gap [right|wrong1|wrong2|wrong3] | id | en | th | vi
+## Greeting and introduction
+您好，我是[王|吃|大|对]经理的秘书。 | Halo, saya sekretaris Manajer Wang. | Hello, I'm Manager Wang's secretary. | สวัสดีค่ะ ฉันเป็นเลขาของผู้จัดการหวัง | Xin chào, tôi là thư ký của giám đốc Vương.
+很高兴[认识|知道|看见|喜欢]您，请多关照。 | Senang berkenalan dengan Anda, mohon bimbingannya. | Pleased to meet you; I look forward to working with you. | ยินดีที่ได้รู้จักท่าน ฝากตัวด้วยนะคะ | Rất vui được quen ông/bà, mong được giúp đỡ.
+这是我的[名片|衣服|桌子|医院]，请您收下。 | Ini kartu nama saya, silakan diterima. | This is my business card; please take it. | นี่คือนามบัตรของฉัน เชิญรับไว้ค่ะ | Đây là danh thiếp của tôi, xin ông/bà nhận cho.
+请问，您[贵姓|几岁|多高|去哪]？ | Permisi, siapa nama keluarga Anda? | May I ask your surname? | ขอถามนามสกุลของท่านหน่อยค่ะ | Xin hỏi quý danh của ông/bà là gì?
+我在一家[贸易|医院|学校|饭馆]公司工作。 | Saya bekerja di sebuah perusahaan perdagangan. | I work for a trading company. | ฉันทำงานที่บริษัทการค้าแห่งหนึ่ง | Tôi làm việc ở một công ty thương mại.
+他是我们公司的[销售|学生|司机|厨师]经理。 | Dia manajer penjualan perusahaan kami. | He is our company's sales manager. | เขาเป็นผู้จัดการฝ่ายขายของบริษัทเรา | Anh ấy là giám đốc kinh doanh của công ty chúng tôi.
+我们公司在[北京|月亮|山上|床上]有一个办公室。 | Perusahaan kami punya satu kantor di Beijing. | Our company has an office in Beijing. | บริษัทของเรามีออฟฟิศหนึ่งแห่งที่ปักกิ่ง | Công ty chúng tôi có một văn phòng ở Bắc Kinh.
+请允许我[介绍|离开|关上|打开]一下我们的同事。 | Izinkan saya memperkenalkan rekan kerja kami. | Allow me to introduce our colleagues. | ขออนุญาตแนะนำเพื่อนร่วมงานของเรา | Xin cho phép tôi giới thiệu các đồng nghiệp của chúng tôi.
+这位是[李|苹|很|慢]先生，从上海来的。 | Ini Tuan Li, datang dari Shanghai. | This is Mr. Li, who came from Shanghai. | ท่านนี้คือคุณหลี่ มาจากเซี่ยงไฮ้ | Đây là ông Lý, đến từ Thượng Hải.
+我的[电话|眼睛|牙齿|雨伞]号码是这个。 | Ini nomor telepon saya. | This is my phone number. | นี่คือเบอร์โทรศัพท์ของฉัน | Đây là số điện thoại của tôi.
+## Office and colleagues
+经理的办公室在[二|红|胖|旧]楼。 | Kantor manajer ada di lantai dua. | The manager's office is on the second floor. | ออฟฟิศของผู้จัดการอยู่ชั้นสอง | Văn phòng giám đốc ở tầng hai.
+我们每天早上[九|热|香|甜]点上班。 | Kami masuk kerja pukul sembilan setiap pagi. | We start work at nine every morning. | พวกเราเริ่มงานเก้าโมงทุกเช้า | Mỗi sáng chúng tôi đi làm lúc chín giờ.
+请把[文件|西瓜|雨伞|牛奶]放在我的桌子上。 | Tolong taruh berkas itu di meja saya. | Please put the document on my desk. | กรุณาวางเอกสารไว้บนโต๊ะของฉัน | Xin để tài liệu lên bàn của tôi.
+这台[电脑|冰箱|洗衣机|自行车]坏了，请找人修一下。 | Komputer ini rusak, tolong panggil orang untuk memperbaikinya. | This computer is broken; please get someone to fix it. | คอมพิวเตอร์เครื่องนี้เสีย กรุณาเรียกคนมาซ่อม | Máy tính này hỏng rồi, xin gọi người sửa giúp.
+会议室里有[投影|游泳|唱歌|跳舞]，可以放电影。 | Di ruang rapat ada proyektor, bisa memutar film. | The meeting room has a projector, so we can show films. | ในห้องประชุมมีโปรเจกเตอร์ ฉายหนังได้ | Phòng họp có máy chiếu, có thể chiếu phim.
+我的[同事|西瓜|电影|雨伞]小李今天请假了。 | Rekan saya Xiao Li hari ini izin. | My colleague Xiao Li is on leave today. | เสี่ยวหลี่เพื่อนร่วมงานของฉันลางานวันนี้ | Đồng nghiệp Tiểu Lý của tôi hôm nay xin nghỉ.
+公司中午[提供|游泳|生病|洗澡]免费的午饭。 | Perusahaan menyediakan makan siang gratis. | The company provides a free lunch at noon. | บริษัทมีอาหารกลางวันฟรีตอนเที่ยง | Công ty cung cấp bữa trưa miễn phí vào buổi trưa.
+请[关|写|读|买]上门，外面太吵了。 | Tolong tutup pintu, di luar terlalu berisik. | Please close the door; it's too noisy outside. | กรุณาปิดประตู ข้างนอกเสียงดังเกินไป | Xin đóng cửa lại, bên ngoài ồn quá.
+打印机[没有|很多|不少|太大]纸了，我去拿一些。 | Printer kehabisan kertas, saya ambilkan. | The printer is out of paper; I'll fetch some. | เครื่องพิมพ์กระดาษหมดแล้ว ฉันไปเอามาเพิ่ม | Máy in hết giấy rồi, tôi đi lấy thêm.
+我们部门一共有[十|红|白|大]个人。 | Departemen kami seluruhnya ada sepuluh orang. | Our department has ten people in all. | แผนกของเรามีทั้งหมดสิบคน | Bộ phận chúng tôi có tất cả mười người.
+今天[下班|蛋糕|苹果|颜色]以后，我们一起吃饭吧。 | Setelah pulang kerja hari ini, mari kita makan bersama. | After work today, let's have a meal together. | วันนี้เลิกงานแล้ว เรามากินข้าวด้วยกันเถอะ | Hôm nay tan làm xong chúng ta cùng đi ăn nhé.
+## Time and schedule
+我们的会议是[下午|电影|西瓜|房子]三点开始。 | Rapat kami dimulai pukul tiga sore. | Our meeting starts at three in the afternoon. | การประชุมของเราเริ่มตอนบ่ายสามโมง | Cuộc họp của chúng ta bắt đầu lúc ba giờ chiều.
+请问，明天上午您有[时间|雨水|眼睛|肚子]吗？ | Permisi, apakah besok pagi Anda ada waktu? | May I ask whether you're free tomorrow morning? | ขอถามหน่อยค่ะ พรุ่งนี้เช้าท่านว่างไหม | Xin hỏi sáng mai ông/bà có thời gian không?
+我们把会议改到[星期五|苹果|雨水|蛋糕]吧。 | Mari kita ubah rapat ke hari Jumat. | Let's move the meeting to Friday. | เรามาเลื่อนการประชุมเป็นวันศุกร์เถอะ | Chúng ta dời cuộc họp sang thứ Sáu nhé.
+请您[准时|慢慢|随便|一直]到，不要迟到。 | Mohon tiba tepat waktu, jangan terlambat. | Please arrive on time and don't be late. | กรุณามาตรงเวลา อย่ามาสาย | Xin ông/bà đến đúng giờ, đừng đến muộn.
+会议大概[一个|一次|一件|一双]小时就结束。 | Rapat kira-kira selesai dalam satu jam. | The meeting should be over in about an hour. | การประชุมน่าจะเสร็จในประมาณหนึ่งชั่วโมง | Cuộc họp khoảng một tiếng là kết thúc.
+下个月十五号，我要去[上海|电影|饭菜|雨伞]出差。 | Tanggal lima belas bulan depan, saya dinas ke Shanghai. | On the 15th of next month I'm going to Shanghai on business. | วันที่สิบห้าเดือนหน้า ฉันจะไปทำงานที่เซี่ยงไฮ้ | Ngày 15 tháng sau tôi đi công tác Thượng Hải.
+现在是[八点|八岁|八个|八块]半，会议还没开始。 | Sekarang pukul setengah sembilan, rapat belum dimulai. | It's half past eight now and the meeting hasn't begun. | ตอนนี้แปดโมงครึ่ง การประชุมยังไม่เริ่ม | Bây giờ là tám giờ rưỡi, cuộc họp chưa bắt đầu.
+这个星期我很忙，[下|上|左|外]星期可以见面。 | Minggu ini saya sibuk, minggu depan kita bisa bertemu. | I'm busy this week; we can meet next week. | สัปดาห์นี้ฉันยุ่ง สัปดาห์หน้าพบกันได้ | Tuần này tôi bận, tuần sau gặp nhau được.
+我每天[早上|生气|开心|难过]七点半起床。 | Setiap pagi saya bangun pukul setengah delapan. | I get up at half past seven every morning. | ทุกเช้าฉันตื่นตอนเจ็ดโมงครึ่ง | Mỗi sáng tôi dậy lúc bảy giờ rưỡi.
+下班以后我[还|很|太|最]要开一个短会。 | Setelah pulang kerja saya masih harus rapat singkat. | After work I still have a short meeting. | หลังเลิกงานฉันยังต้องประชุมสั้น ๆ อีก | Tan làm xong tôi vẫn phải họp ngắn một cuộc.
+## Phone calls
+喂，您好，请问[王|吃|花|黑]经理在吗？ | Halo, permisi, apakah Manajer Wang ada? | Hello, is Manager Wang in, please? | ฮัลโหล สวัสดีค่ะ ผู้จัดการหวังอยู่ไหมคะ | A lô, xin hỏi giám đốc Vương có ở đó không?
+他现在不在，您[过|飞|游|爬]一会儿再打吧。 | Dia sedang tidak ada, silakan telepon lagi sebentar lagi. | He's not in at the moment; please call back in a while. | ตอนนี้เขาไม่อยู่ กรุณาโทรมาใหม่อีกสักครู่ | Bây giờ anh ấy không có đây, lát nữa ông/bà gọi lại nhé.
+请问您[哪位|哪里|哪天|哪些]？ | Permisi, dengan siapa saya berbicara? | May I ask who is calling? | ขอทราบว่าท่านเป็นใครคะ | Xin hỏi ông/bà là ai ạ?
+我给您[留|吃|洗|穿]个言，请他回电话。 | Saya tinggalkan pesan, tolong minta dia menelepon balik. | I'll leave a message asking him to call back. | ฉันขอฝากข้อความให้เขาโทรกลับ | Tôi để lại lời nhắn, nhờ anh ấy gọi lại.
+这里信号不好，我[听|吃|洗|穿]不清楚。 | Sinyal di sini buruk, saya tidak bisa mendengar jelas. | The signal is bad here; I can't hear clearly. | ที่นี่สัญญาณไม่ดี ฉันฟังไม่ชัด | Ở đây sóng yếu, tôi nghe không rõ.
+请您再说[一遍|一件|一双|一条]，好吗？ | Mohon ulangi sekali lagi, bisa? | Could you say that once more, please? | ช่วยพูดอีกครั้งได้ไหมคะ | Xin ông/bà nói lại một lần nữa được không?
+我马上[回|唱|画|洗]电话给您。 | Saya segera menelepon Anda kembali. | I'll call you back right away. | ฉันจะโทรกลับหาท่านทันที | Tôi sẽ gọi lại cho ông/bà ngay.
+我的手机[没电|没钱|没空|没人]了，晚点儿联系。 | Ponsel saya kehabisan baterai, kita hubungi nanti. | My phone is out of battery; let's get in touch later. | โทรศัพท์ฉันแบตหมด ไว้ติดต่อกันทีหลัง | Điện thoại tôi hết pin, lát nữa liên lạc nhé.
+对不起，我打错[电话|电视|电影|电梯]了。 | Maaf, saya salah sambung. | Sorry, I've dialled the wrong number. | ขอโทษค่ะ ฉันโทรผิดเบอร์ | Xin lỗi, tôi gọi nhầm số.
+有[事|雨|雪|蛋]的话，请随时给我打电话。 | Kalau ada urusan, silakan telepon saya kapan saja. | If anything comes up, call me any time. | ถ้ามีเรื่องอะไร โทรหาฉันได้ทุกเมื่อ | Nếu có việc gì, ông/bà cứ gọi cho tôi bất cứ lúc nào.
+## Email and messages
+我已经给您[发|吃|喝|穿]了一封邮件。 | Saya sudah mengirimkan sebuah surel kepada Anda. | I've already sent you an email. | ฉันส่งอีเมลให้ท่านแล้วหนึ่งฉบับ | Tôi đã gửi cho ông/bà một email rồi.
+请查收[附件|冰箱|早饭|雨衣]里的合同。 | Mohon periksa kontrak di dalam lampiran. | Please check the contract in the attachment. | กรุณาตรวจสอบสัญญาในไฟล์แนบ | Xin xem hợp đồng trong tệp đính kèm.
+您的邮件我[收到|买到|找到|想到]了，谢谢。 | Surel Anda sudah saya terima, terima kasih. | I've received your email, thank you. | ฉันได้รับอีเมลของท่านแล้ว ขอบคุณค่ะ | Tôi đã nhận được email của ông/bà, cảm ơn.
+这封邮件请[回复|修理|清洗|打扫]给所有人。 | Mohon balas surel ini kepada semua orang. | Please reply to everyone on this email. | กรุณาตอบอีเมลฉบับนี้ถึงทุกคน | Xin trả lời email này cho tất cả mọi người.
+我在微信上给您[留言|留学|留心|留给]了。 | Saya sudah meninggalkan pesan untuk Anda di WeChat. | I left you a message on WeChat. | ฉันฝากข้อความถึงท่านไว้ใน WeChat แล้ว | Tôi đã để lại tin nhắn cho ông/bà trên WeChat.
+请把这份资料[转发|吃掉|放大|关上]给李经理。 | Tolong teruskan materi ini kepada Manajer Li. | Please forward this material to Manager Li. | กรุณาส่งต่อเอกสารนี้ให้ผู้จัดการหลี่ | Xin chuyển tiếp tài liệu này cho giám đốc Lý.
+邮件里的[地址|天气|水果|电影]写错了。 | Alamat di dalam surel itu salah tulis. | The address in the email is wrong. | ที่อยู่ในอีเมลเขียนผิด | Địa chỉ trong email viết sai rồi.
+我明天以前一定[回复|回家|回国|回头]您。 | Sebelum besok saya pasti membalas Anda. | I will definitely reply to you before tomorrow. | ก่อนพรุ่งนี้ฉันจะตอบท่านแน่นอน | Trước ngày mai tôi nhất định sẽ trả lời ông/bà.
+请在邮件里写清楚[时间|身体|颜色|年龄]和地点。 | Mohon tulis dengan jelas waktu dan tempat di dalam surel. | Please state the time and place clearly in the email. | กรุณาเขียนเวลาและสถานที่ในอีเมลให้ชัดเจน | Xin ghi rõ thời gian và địa điểm trong email.
+这个[文件|蛋糕|裙子|西瓜]太大了，发不出去。 | File ini terlalu besar, tidak bisa terkirim. | This file is too big to send. | ไฟล์นี้ใหญ่เกินไป ส่งไม่ได้ | Tệp này quá lớn, không gửi đi được.
+## Meetings
+请大家[坐|站|跑|跳]下，我们开始开会。 | Silakan semuanya duduk, kita mulai rapat. | Please take your seats, everyone; let's begin the meeting. | เชิญทุกคนนั่ง เราเริ่มประชุมกันเลย | Mời mọi người ngồi xuống, chúng ta bắt đầu họp.
+今天会议的[主题|主人|主食|主角]是新产品。 | Tema rapat hari ini adalah produk baru. | Today's meeting is about the new product. | หัวข้อของการประชุมวันนี้คือสินค้าใหม่ | Chủ đề cuộc họp hôm nay là sản phẩm mới.
+请您[发言|发烧|发财|发现]，说一下您的看法。 | Silakan berbicara, sampaikan pendapat Anda. | Please speak and tell us your view. | เชิญท่านกล่าว บอกความเห็นของท่านหน่อย | Mời ông/bà phát biểu, nói ý kiến của mình.
+我同意您的[意见|眼镜|雨伞|行李]。 | Saya setuju dengan pendapat Anda. | I agree with your opinion. | ฉันเห็นด้วยกับความเห็นของท่าน | Tôi đồng ý với ý kiến của ông/bà.
+这个问题我们下次[讨论|参观|游泳|旅游]吧。 | Masalah ini kita bahas pada pertemuan berikutnya. | Let's discuss this problem next time. | ปัญหานี้เราไว้คุยกันครั้งหน้าเถอะ | Vấn đề này lần sau chúng ta thảo luận nhé.
+会议[记录|记者|记号|记忆]由小李负责写。 | Notulen rapat ditulis oleh Xiao Li. | Xiao Li is responsible for writing the meeting minutes. | เสี่ยวหลี่รับผิดชอบเขียนบันทึกการประชุม | Biên bản cuộc họp do Tiểu Lý phụ trách viết.
+请把手机[调|吃|洗|买]成静音，谢谢。 | Mohon ubah ponsel ke mode senyap, terima kasih. | Please set your phone to silent, thank you. | กรุณาปิดเสียงโทรศัพท์ ขอบคุณค่ะ | Xin chuyển điện thoại sang chế độ im lặng, cảm ơn.
+今天的会议[到此|到处|到底|到家]结束，谢谢大家。 | Rapat hari ini sampai di sini, terima kasih semuanya. | That concludes today's meeting; thank you all. | การประชุมวันนี้จบเพียงเท่านี้ ขอบคุณทุกคน | Cuộc họp hôm nay đến đây là kết thúc, cảm ơn mọi người.
+我们需要[马上|昨天|去年|以前]做决定。 | Kita perlu segera mengambil keputusan. | We need to make a decision right away. | เราต้องตัดสินใจทันที | Chúng ta cần quyết định ngay.
+请大家看一下[屏幕|被子|筷子|裤子]上的数字。 | Silakan semua melihat angka di layar. | Please look at the figures on the screen. | ขอให้ทุกคนดูตัวเลขบนหน้าจอ | Mời mọi người xem các con số trên màn hình.
+## Guests and reception
+欢迎您来到[我们|他们|它们|咱们]公司参观。 | Selamat datang berkunjung ke perusahaan kami. | Welcome to visit our company. | ยินดีต้อนรับท่านมาเยี่ยมชมบริษัทของเรา | Hoan nghênh ông/bà đến tham quan công ty chúng tôi.
+您的[航班|旅游|电影|游泳]几点到？我去机场接您。 | Pukul berapa penerbangan Anda tiba? Saya jemput di bandara. | What time does your flight arrive? I'll pick you up at the airport. | เที่ยวบินของท่านถึงกี่โมง ฉันจะไปรับที่สนามบิน | Chuyến bay của ông/bà mấy giờ đến? Tôi ra sân bay đón.
+一路上[辛苦|画画|吃药|买票]了，请先休息一下。 | Perjalanan melelahkan ya, silakan istirahat dulu. | You must be tired from the journey; please rest first. | เดินทางมาเหนื่อยแล้ว เชิญพักก่อนนะคะ | Đi đường vất vả rồi, xin nghỉ một chút.
+我们已经为您[订|洗|买|做]好了饭店。 | Kami sudah memesankan hotel untuk Anda. | We've already booked a hotel for you. | เราจองโรงแรมให้ท่านเรียบร้อยแล้ว | Chúng tôi đã đặt sẵn khách sạn cho ông/bà.
+请[喝|看|写|画]茶，这是我们公司的客人茶。 | Silakan minum teh, ini teh untuk tamu perusahaan kami. | Please have some tea, our company's guest tea. | เชิญดื่มชา นี่คือชาต้อนรับแขกของบริษัทเรา | Mời ông/bà dùng trà, đây là trà dành cho khách của công ty.
+这是我们的[礼物|礼貌|礼堂|礼拜]，请您收下。 | Ini hadiah dari kami, silakan diterima. | This is a gift from us; please accept it. | นี่คือของขวัญจากเรา เชิญรับไว้ | Đây là món quà của chúng tôi, xin ông/bà nhận cho.
+明天下午我陪您去[参观|结婚|睡觉|洗澡]工厂。 | Besok sore saya temani Anda mengunjungi pabrik. | Tomorrow afternoon I'll accompany you on a tour of the factory. | บ่ายพรุ่งนี้ฉันจะพาท่านไปเยี่ยมชมโรงงาน | Chiều mai tôi đưa ông/bà đi tham quan nhà máy.
+司机在楼下[等|吃|洗|买]您，我们走吧。 | Sopir menunggu Anda di bawah, mari kita pergi. | The driver is waiting downstairs; let's go. | คนขับรถรออยู่ข้างล่าง เราไปกันเถอะ | Tài xế đang đợi ở dưới, chúng ta đi thôi.
+您[随便|已经|一直|刚刚]坐，不要客气。 | Silakan duduk di mana saja, jangan sungkan. | Sit wherever you like; please don't stand on ceremony. | เชิญนั่งตามสบาย ไม่ต้องเกรงใจ | Ông/bà cứ ngồi tự nhiên, đừng khách sáo.
+## Business meals
+今天晚上我们请您[吃饭|吃药|吃惊|吃亏]。 | Malam ini kami mengundang Anda makan. | Tonight we'd like to invite you to dinner. | คืนนี้เราขอเชิญท่านรับประทานอาหาร | Tối nay chúng tôi mời ông/bà dùng bữa.
+这家[饭馆|图书馆|银行|医院]的菜很有名。 | Hidangan restoran ini sangat terkenal. | This restaurant's food is very famous. | อาหารของร้านนี้มีชื่อเสียงมาก | Món ăn của nhà hàng này rất nổi tiếng.
+请问，您有什么[不能|不会|不爱|不是]吃的东西吗？ | Permisi, adakah makanan yang tidak boleh Anda makan? | May I ask if there is anything you can't eat? | ขอถามหน่อยค่ะ มีอาหารอะไรที่ท่านทานไม่ได้ไหม | Xin hỏi ông/bà có món gì không ăn được không?
+服务员，请给我们[菜单|雨衣|车票|地图]。 | Pelayan, tolong berikan kami menu. | Waiter, please bring us the menu. | พนักงาน ขอเมนูให้พวกเราด้วยค่ะ | Phục vụ, xin đưa thực đơn cho chúng tôi.
+这个菜很[辣|圆|远|笑]，您能吃辣吗？ | Hidangan ini tidak terlalu pedas, apakah Anda bisa makan pedas? | This dish isn't too spicy; can you eat spicy food? | อาหารจานนี้ไม่เผ็ดเกินไป ท่านทานเผ็ดได้ไหม | Món này không quá cay, ông/bà ăn cay được không?
+来，我们一起[干杯|写字|画画|洗澡]，祝合作愉快。 | Mari kita bersulang bersama, semoga kerja sama menyenangkan. | Let's raise a toast to a pleasant cooperation. | มาค่ะ เราชนแก้วกัน ขอให้ความร่วมมือราบรื่น | Nào, chúng ta cùng nâng ly, chúc hợp tác vui vẻ.
+我开车，所以不能[喝酒|喝药|喝水|喝汤]。 | Saya menyetir, jadi tidak bisa minum minuman beralkohol. | I'm driving, so I can't drink alcohol. | ฉันขับรถ จึงดื่มเหล้าไม่ได้ | Tôi lái xe nên không uống rượu được.
+服务员，[结账|说话|聊天|电话]，谢谢。 | Pelayan, tolong bonnya, terima kasih. | Waiter, the bill please, thank you. | พนักงาน เช็คบิลด้วยค่ะ ขอบคุณ | Phục vụ, tính tiền giúp, cảm ơn.
+这顿饭我来[请|买|卖|借]，请不要客气。 | Makan kali ini saya yang traktir, jangan sungkan. | This meal is on me; please don't be polite. | มื้อนี้ฉันเลี้ยงเอง ไม่ต้องเกรงใจ | Bữa này tôi mời, xin đừng khách sáo.
+今天的菜很[好吃|好听|好玩|好笑]，谢谢您的招待。 | Hidangan hari ini sangat enak, terima kasih atas jamuannya. | The food today was delicious; thank you for your hospitality. | อาหารวันนี้อร่อยมาก ขอบคุณที่เลี้ยงรับรอง | Món hôm nay rất ngon, cảm ơn ông/bà đã khoản đãi.
+## Shopping, price and payment
+这个[产品|天气|音乐|房子]的价格是多少？ | Berapa harga produk ini? | What is the price of this product? | ผลิตภัณฑ์นี้ราคาเท่าไร | Giá của sản phẩm này là bao nhiêu?
+我们可以[打折|生病|跳舞|睡觉]吗？ | Bisakah kami mendapat diskon? | Can we get a discount? | พวกเราขอส่วนลดได้ไหม | Chúng tôi có thể được giảm giá không?
+这个价格太[贵|远|冷|瘦]了，能便宜一点吗？ | Harga ini terlalu mahal, bisa lebih murah sedikit? | This price is too high; can it be a bit cheaper? | ราคานี้แพงเกินไป ลดหน่อยได้ไหม | Giá này đắt quá, có thể rẻ hơn chút không?
+请问可以[刷卡|洗澡|游泳|唱歌]吗？ | Permisi, bisakah bayar dengan kartu? | Excuse me, can I pay by card? | ขอถามว่าสามารถรูดบัตรได้ไหม | Xin hỏi có thể quẹt thẻ không?
+我想[付款|跑步|休息|搬家]，请问怎么付？ | Saya ingin membayar, bagaimana caranya? | I'd like to pay; how do I do it? | ฉันอยากชำระเงิน ต้องทำอย่างไร | Tôi muốn thanh toán, làm thế nào?
+这是您的[发票|护照|鞋子|作业]，请收好。 | Ini faktur Anda, silakan disimpan. | Here is your invoice; please keep it. | นี่คือใบเสร็จของท่าน โปรดเก็บไว้ | Đây là hóa đơn của ông/bà, xin giữ cẩn thận.
+一共[三百|三个|三天|三点]块钱。 | Totalnya tiga ratus yuan. | The total is three hundred yuan. | รวมทั้งหมดสามร้อยหยวน | Tổng cộng ba trăm tệ.
+这是找您的[零钱|头发|衣服|水果]。 | Ini uang kembalian Anda. | Here is your change. | นี่คือเงินทอนของท่าน | Đây là tiền thừa của ông/bà.
+我们的合同下个月[到期|结婚|出生|下雪]。 | Kontrak kami berakhir bulan depan. | Our contract expires next month. | สัญญาของเราจะหมดอายุเดือนหน้า | Hợp đồng của chúng tôi hết hạn vào tháng sau.
+请把[发票|雨|风|月亮]寄到我们公司。 | Tolong kirim faktur ke perusahaan kami. | Please send the invoice to our company. | กรุณาส่งใบเสร็จมาที่บริษัทของเรา | Xin gửi hóa đơn đến công ty chúng tôi.
+这笔钱已经[转|吃|穿|画]给你们了。 | Uang ini sudah kami transfer ke Anda. | This money has already been transferred to you. | เงินก้อนนี้โอนให้ท่านแล้ว | Khoản tiền này đã được chuyển cho quý vị rồi.
+我们需要先付一半的[订金|眼泪|感冒|生日]。 | Kami perlu membayar setengah uang muka dulu. | We need to pay half as a deposit first. | เราต้องจ่ายมัดจำครึ่งหนึ่งก่อน | Chúng tôi cần trả trước một nửa tiền đặt cọc.
+这家店的[服务|月亮|头发|拖鞋]很周到。 | Layanan toko ini sangat teliti. | The service at this shop is very thoughtful. | บริการของร้านนี้ใส่ใจมาก | Dịch vụ của cửa hàng này rất chu đáo.
+我想[退|听|闻|笑]这件货，可以吗？ | Saya ingin mengembalikan barang ini, boleh? | I'd like to return this item; is that all right? | ฉันอยากคืนสินค้านี้ ได้ไหม | Tôi muốn trả lại món hàng này, được không?
+## Business trips, transport and hotel
+我明天要去上海[出差|结婚|看病|上学]。 | Besok saya harus dinas ke Shanghai. | I have to go to Shanghai on a business trip tomorrow. | พรุ่งนี้ฉันต้องไปเซี่ยงไฮ้เพื่อทำงาน | Ngày mai tôi phải đi công tác ở Thượng Hải.
+我已经订好了[机票|雨伞|蛋糕|手表]。 | Saya sudah memesan tiket pesawat. | I have already booked the flight ticket. | ฉันจองตั๋วเครื่องบินไว้แล้ว | Tôi đã đặt vé máy bay rồi.
+飞机下午三点[起飞|开门|下雨|结束]。 | Pesawat lepas landas pukul tiga sore. | The plane takes off at three in the afternoon. | เครื่องบินออกเวลาบ่ายสามโมง | Máy bay cất cánh lúc ba giờ chiều.
+请问去机场[怎么走|几岁|多重|吃什么]？ | Permisi, bagaimana cara ke bandara? | Excuse me, how do I get to the airport? | ขอถามว่าไปสนามบินไปอย่างไร | Xin hỏi đi đến sân bay như thế nào?
+我们坐[高铁|筷子|沙发|牙刷]去北京，只要四个半小时。 | Kami naik kereta cepat ke Beijing, hanya empat setengah jam. | We take the high-speed train to Beijing; it only takes four and a half hours. | เรานั่งรถไฟความเร็วสูงไปปักกิ่ง ใช้เวลาแค่สี่ชั่วโมงครึ่ง | Chúng tôi đi tàu cao tốc đến Bắc Kinh, chỉ mất bốn tiếng rưỡi.
+我想订一间[双人房|鸡蛋|铅笔|雨衣]，住三天。 | Saya ingin memesan satu kamar twin, menginap tiga hari. | I'd like to book a twin room for three nights. | ฉันอยากจองห้องเตียงคู่หนึ่งห้อง พักสามวัน | Tôi muốn đặt một phòng đôi, ở ba ngày.
+请问几点可以[入住|吃药|上课|开会]？ | Permisi, pukul berapa bisa check-in? | Excuse me, what time can I check in? | ขอถามว่าเช็กอินได้กี่โมง | Xin hỏi mấy giờ có thể nhận phòng?
+退房的时间是[中午|昨天|冬天|去年]十二点。 | Waktu check-out adalah pukul dua belas siang. | Check-out time is twelve noon. | เวลาเช็กเอาต์คือเที่ยงวัน | Giờ trả phòng là mười hai giờ trưa.
+酒店[提供|禁止|忘记|害怕]免费早餐。 | Hotel menyediakan sarapan gratis. | The hotel provides free breakfast. | โรงแรมมีอาหารเช้าให้ฟรี | Khách sạn cung cấp bữa sáng miễn phí.
+我的[行李|心情|声音|成绩]还没有到。 | Bagasi saya belum tiba. | My luggage hasn't arrived yet. | สัมภาระของฉันยังมาไม่ถึง | Hành lý của tôi vẫn chưa đến.
+请帮我叫一辆去机场的[出租车|红包|月饼|名字]。 | Tolong panggilkan taksi ke bandara. | Please get me a taxi to the airport. | ช่วยเรียกแท็กซี่ไปสนามบินให้ฉันหน่อย | Xin gọi giúp tôi một chiếc taxi đến sân bay.
+我们的航班因为大雨[取消|结婚|搬家|睡觉]了。 | Penerbangan kami dibatalkan karena hujan deras. | Our flight was cancelled because of the heavy rain. | เที่ยวบินของเราถูกยกเลิกเพราะฝนตกหนัก | Chuyến bay của chúng tôi bị hủy vì mưa lớn.
+请出示您的[护照|眼镜|筷子|耳朵]。 | Silakan tunjukkan paspor Anda. | Please show your passport. | กรุณาแสดงพาสปอร์ตของท่าน | Xin xuất trình hộ chiếu của ông/bà.
+我想[换|吹|打|骂]一个安静一点的房间。 | Saya ingin tukar ke kamar yang lebih tenang. | I'd like to switch to a quieter room. | ฉันอยากเปลี่ยนเป็นห้องที่เงียบกว่านี้ | Tôi muốn đổi sang phòng yên tĩnh hơn.
+## Products, orders and delivery
+我们想订[一百|一匹|一碗|一双]件这种产品。 | Kami ingin memesan seratus buah produk ini. | We would like to order a hundred of this product. | เราอยากสั่งผลิตภัณฑ์นี้หนึ่งร้อยชิ้น | Chúng tôi muốn đặt một trăm cái sản phẩm này.
+请问这批货什么时候[发货|结婚|生病|放假]？ | Kapan barang ini dikirim? | When will this batch of goods be shipped? | สินค้าล็อตนี้จะส่งเมื่อไร | Lô hàng này khi nào gửi đi?
+货已经[发出|学会|想好|睡着]了，明天就能到。 | Barang sudah dikirim, besok sudah sampai. | The goods have been sent out and will arrive tomorrow. | ส่งสินค้าออกไปแล้ว พรุ่งนี้ก็ถึง | Hàng đã gửi đi, ngày mai sẽ đến.
+请您[确认|喝|穿|坐]一下订单。 | Mohon konfirmasi pesanan Anda. | Please confirm your order. | กรุณายืนยันคำสั่งซื้อของท่าน | Xin ông/bà xác nhận đơn hàng.
+这批货的质量[很好|很饿|很困|很甜]，客户非常满意。 | Kualitas barang ini sangat baik, pelanggan sangat puas. | The quality of this batch is very good and the customer is very satisfied. | คุณภาพสินค้าล็อตนี้ดีมาก ลูกค้าพอใจมาก | Chất lượng lô hàng này rất tốt, khách hàng rất hài lòng.
+我们可以提供[样品|衣柜|拖鞋|早饭]，请您先看看。 | Kami dapat menyediakan sampel, silakan lihat dulu. | We can provide samples; please take a look first. | เรามีตัวอย่างให้ ขอเชิญท่านดูก่อน | Chúng tôi có thể cung cấp hàng mẫu, xin ông/bà xem trước.
+包裹[收到|坐到|睡到|笑到]了吗？ | Apakah paketnya sudah diterima? | Has the package been received? | ได้รับพัสดุแล้วหรือยัง | Bạn đã nhận được bưu kiện chưa?
+货物在运输中[损坏|开花|唱歌|结冰]了。 | Barang rusak selama pengiriman. | The goods were damaged in transit. | สินค้าเสียหายระหว่างขนส่ง | Hàng bị hư hỏng trong quá trình vận chuyển.
+请把[地址|眼泪|梦想|汗水]发给我，我们寄样品。 | Tolong kirim alamat Anda, kami akan kirim sampel. | Please send me your address and we will mail the samples. | กรุณาส่งที่อยู่มาให้ฉัน เราจะส่งตัวอย่างไปให้ | Xin gửi địa chỉ cho tôi, chúng tôi sẽ gửi hàng mẫu.
+这个型号现在[没有货|没有头|没有手|没有脚]，下周才有。 | Model ini sekarang kosong, baru ada minggu depan. | This model is out of stock now; it will be available next week. | รุ่นนี้ตอนนี้สินค้าหมด สัปดาห์หน้าจึงจะมี | Mẫu này hiện hết hàng, tuần sau mới có.
+我们的[客户|西瓜|鞋带|窗帘]来自世界各地。 | Pelanggan kami datang dari seluruh dunia. | Our customers come from all over the world. | ลูกค้าของเรามาจากทั่วโลก | Khách hàng của chúng tôi đến từ khắp nơi trên thế giới.
+## Work tasks and reports
+这个[任务|月亮|鞋子|西瓜]需要三天才能完成。 | Tugas ini butuh tiga hari untuk selesai. | This task needs three days to complete. | งานนี้ต้องใช้เวลาสามวันจึงจะเสร็จ | Nhiệm vụ này cần ba ngày mới xong.
+请在周五之前把[报告|雨伞|衣服|盘子]交给我。 | Tolong serahkan laporan kepada saya sebelum hari Jumat. | Please hand the report to me before Friday. | กรุณาส่งรายงานให้ฉันก่อนวันศุกร์ | Xin nộp báo cáo cho tôi trước thứ sáu.
+我正在[准备|游泳|睡觉|生病]明天的汇报。 | Saya sedang menyiapkan presentasi untuk besok. | I'm preparing tomorrow's presentation. | ฉันกำลังเตรียมการนำเสนอวันพรุ่งนี้ | Tôi đang chuẩn bị bài thuyết trình ngày mai.
+这个项目[进行|吃|穿|画]得很顺利。 | Proyek ini berjalan dengan lancar. | This project is going smoothly. | โครงการนี้ดำเนินไปอย่างราบรื่น | Dự án này tiến hành rất thuận lợi.
+老板对我们的[工作|眼睛|牙齿|鼻子]很满意。 | Bos sangat puas dengan pekerjaan kami. | The boss is very satisfied with our work. | เจ้านายพอใจกับงานของเรามาก | Sếp rất hài lòng với công việc của chúng tôi.
+我们要[提高|打开|关上|放下]工作效率。 | Kita harus meningkatkan efisiensi kerja. | We need to improve work efficiency. | เราต้องเพิ่มประสิทธิภาพในการทำงาน | Chúng ta cần nâng cao hiệu suất làm việc.
+他每天[加班|游泳|喝汤|看雨]到很晚。 | Dia lembur sampai larut setiap hari. | He works overtime until late every day. | เขาทำงานล่วงเวลาจนดึกทุกวัน | Anh ấy ngày nào cũng làm thêm đến khuya.
+请把这份文件[复印|品尝|散步|洗澡]三份。 | Tolong fotokopi dokumen ini tiga rangkap. | Please make three copies of this document. | กรุณาถ่ายเอกสารฉบับนี้สามชุด | Xin photo tài liệu này ba bản.
+这个问题我们明天再[讨论|穿|煮|游]吧。 | Masalah ini kita bahas besok saja. | Let's discuss this issue tomorrow. | เรื่องนี้พรุ่งนี้ค่อยหารือกันเถอะ | Vấn đề này ngày mai chúng ta bàn tiếp nhé.
+我们公司今年的[利润|雪人|眼镜|鞋盒]增长了百分之十。 | Laba perusahaan kami tahun ini naik sepuluh persen. | Our company's profit grew by ten percent this year. | กำไรของบริษัทเราปีนี้เพิ่มขึ้นร้อยละสิบ | Lợi nhuận của công ty chúng tôi năm nay tăng mười phần trăm.
+他的[经验|雨伞|头发|拖鞋]很丰富，我们都向他学习。 | Pengalamannya sangat kaya, kami semua belajar darinya. | He has rich experience, and we all learn from him. | เขามีประสบการณ์มาก พวกเราทุกคนเรียนรู้จากเขา | Kinh nghiệm của anh ấy rất phong phú, chúng tôi đều học hỏi từ anh ấy.
+这个[方案|蛋糕|雨水|面条]我们还需要再修改一下。 | Rencana ini masih perlu kami revisi lagi. | We still need to revise this plan a little. | แผนนี้เรายังต้องแก้ไขอีกเล็กน้อย | Phương án này chúng tôi còn cần sửa thêm một chút.
+请大家[按时|按雨|按雪|按风]完成自己的工作。 | Mohon semua menyelesaikan pekerjaan masing-masing tepat waktu. | Please everyone finish your own work on time. | ขอให้ทุกคนทำงานของตนให้เสร็จตรงเวลา | Xin mọi người hoàn thành công việc của mình đúng giờ.
+我们部门下个月[招聘|下雪|吃饭|睡觉]两名新员工。 | Departemen kami akan merekrut dua karyawan baru bulan depan. | Our department will recruit two new employees next month. | แผนกของเราจะรับพนักงานใหม่สองคนเดือนหน้า | Bộ phận chúng tôi sẽ tuyển hai nhân viên mới vào tháng sau.
+新员工明天[上班|下雨|结冰|开花]，请大家帮助他。 | Karyawan baru mulai bekerja besok, mohon bantu dia. | The new employee starts work tomorrow; please help him. | พนักงานใหม่เริ่มงานพรุ่งนี้ ขอให้ทุกคนช่วยเหลือ | Nhân viên mới bắt đầu đi làm vào ngày mai, xin mọi người giúp đỡ.
+这份[计划|牙膏|围巾|雨衣]得到了经理的同意。 | Rencana ini telah disetujui manajer. | This plan has been approved by the manager. | แผนนี้ได้รับความเห็นชอบจากผู้จัดการ | Kế hoạch này đã được giám đốc đồng ý.
+你的意见对我们很[重要|红色|苦涩|干净]。 | Pendapat Anda sangat penting bagi kami. | Your opinion is very important to us. | ความคิดเห็นของท่านสำคัญต่อเรามาก | Ý kiến của ông/bà rất quan trọng đối với chúng tôi.
+## Notices and announcements
+各位同事请注意，明天下午[停电|下雪|开花|结婚]。 | Perhatian semua rekan, besok sore listrik padam. | Attention, colleagues: the power will be cut tomorrow afternoon. | เรียนเพื่อนร่วมงานทุกท่าน พรุ่งนี้บ่ายไฟฟ้าจะดับ | Các đồng nghiệp chú ý, chiều mai sẽ mất điện.
+本周五公司[放假|游泳|跳舞|生病]，下周一正常上班。 | Jumat ini perusahaan libur, Senin depan kerja seperti biasa. | The company is closed this Friday and opens as usual next Monday. | วันศุกร์นี้บริษัทหยุด วันจันทร์หน้าทำงานตามปกติ | Thứ sáu này công ty nghỉ, thứ hai tuần sau đi làm bình thường.
+会议[取消|结婚|开花|下雨]了，新的时间另行通知。 | Rapat dibatalkan, waktu baru akan diberitahukan kemudian. | The meeting has been cancelled; the new time will be announced later. | ยกเลิกการประชุมแล้ว จะแจ้งเวลาใหม่ภายหลัง | Cuộc họp đã bị hủy, thời gian mới sẽ thông báo sau.
+请大家在[公告栏|眼睛里|牙齿上|鞋子里]查看最新通知。 | Silakan lihat pengumuman terbaru di papan pengumuman. | Please check the latest notice on the notice board. | กรุณาดูประกาศล่าสุดที่บอร์ดประกาศ | Xin mọi người xem thông báo mới nhất ở bảng thông báo.
+办公室里[禁止|昨天|桌子|电脑]吸烟。 | Dilarang merokok di dalam kantor. | Smoking is forbidden in the office. | ห้ามสูบบุหรี่ในสำนักงาน | Cấm hút thuốc trong văn phòng.
+请[保持|出租|购买|搬走]安静，谢谢合作。 | Harap tetap tenang, terima kasih atas kerja samanya. | Please keep quiet; thank you for your cooperation. | กรุณาอยู่ในความสงบ ขอบคุณที่ให้ความร่วมมือ | Xin giữ yên lặng, cảm ơn sự hợp tác.
+电梯正在[维修|吃饭|唱歌|跳舞]，请走楼梯。 | Lift sedang diperbaiki, silakan gunakan tangga. | The lift is under repair; please use the stairs. | ลิฟต์กำลังซ่อม กรุณาใช้บันได | Thang máy đang sửa, xin đi cầu thang bộ.
+下班前请[关好|吃好|玩好|睡好]门窗和电脑。 | Sebelum pulang, tolong tutup pintu, jendela, dan komputer. | Before leaving work, please close the doors, windows, and computers. | ก่อนเลิกงานกรุณาปิดประตู หน้าต่าง และคอมพิวเตอร์ให้เรียบร้อย | Trước khi tan làm, xin đóng cửa, cửa sổ và tắt máy tính.
+公司的[新规定|新鞋子|新雨伞|新月亮]从下个月一号开始。 | Peraturan baru perusahaan mulai berlaku tanggal satu bulan depan. | The company's new rules take effect on the first of next month. | ระเบียบใหม่ของบริษัทมีผลตั้งแต่วันที่หนึ่งของเดือนหน้า | Quy định mới của công ty có hiệu lực từ ngày một tháng sau.
+## Small talk
+今天天气真好，很[适合|担心|害怕|生气]出去走走。 | Cuaca hari ini bagus sekali, cocok untuk jalan-jalan. | The weather is lovely today, just right for a walk. | วันนี้อากาศดีมาก เหมาะกับการออกไปเดินเล่น | Hôm nay thời tiết đẹp, rất thích hợp để đi dạo.
+您是第一次来[中国|月亮|星星|海里]吗？ | Apakah ini pertama kalinya Anda datang ke Tiongkok? | Is this your first time in China? | นี่เป็นครั้งแรกที่ท่านมาจีนใช่ไหม | Đây là lần đầu tiên ông/bà đến Trung Quốc phải không?
+您[旅途|雨伞|头发|窗户]愉快吗？路上累不累？ | Apakah perjalanan Anda menyenangkan? Apakah Anda lelah di jalan? | Was your trip pleasant? Are you tired from the journey? | การเดินทางของท่านราบรื่นไหม เหนื่อยหรือเปล่า | Chuyến đi của ông/bà có vui không? Trên đường có mệt không?
+我对中国的[文化|雨伞|衣柜|牙膏]很感兴趣。 | Saya sangat tertarik pada budaya Tiongkok. | I am very interested in Chinese culture. | ฉันสนใจวัฒนธรรมจีนมาก | Tôi rất quan tâm đến văn hóa Trung Quốc.
+您的[汉语|眼睛|耳朵|嘴巴]说得真好！ | Bahasa Mandarin Anda bagus sekali! | You speak Chinese really well! | ภาษาจีนของท่านพูดได้ดีจริงๆ | Tiếng Hán của ông/bà nói thật giỏi!
+这个周末您有[空|病|票|债]吗？一起吃个饭吧。 | Apakah Anda ada waktu akhir pekan ini? Mari makan bersama. | Are you free this weekend? Let's have a meal together. | สุดสัปดาห์นี้ท่านว่างไหม ไปกินข้าวด้วยกันนะ | Cuối tuần này ông/bà có rảnh không? Cùng ăn bữa cơm nhé.
+## Office and equipment
+我的[电脑|牙刷|拖鞋|筷子]出问题了，打不开文件。 | Komputer saya bermasalah, tidak bisa membuka berkas. | My computer has a problem and can't open the file. | คอมพิวเตอร์ของฉันมีปัญหา เปิดไฟล์ไม่ได้ | Máy tính của tôi bị lỗi, không mở được tệp.
+打印机里没有[纸|水|米|盐]了。 | Kertas di printer sudah habis. | The printer is out of paper. | ในเครื่องพิมพ์ไม่มีกระดาษแล้ว | Máy in hết giấy rồi.
+请问会议室[有人|有雪|有梦|有云]吗？ | Permisi, apakah ruang rapat ada orang? | Excuse me, is anyone in the meeting room? | ขอถามว่าห้องประชุมมีคนอยู่ไหม | Xin hỏi phòng họp có ai không?
+我的邮箱[密码|牙齿|眉毛|胡子]忘记了。 | Saya lupa kata sandi email saya. | I forgot my email password. | ฉันลืมรหัสผ่านอีเมล | Tôi quên mật khẩu hộp thư của mình.
+网络[太慢|太甜|太瘦|太香]了，视频一直打不开。 | Jaringannya terlalu lambat, videonya tidak bisa dibuka. | The network is too slow; the video won't open. | อินเทอร์เน็ตช้าเกินไป วิดีโอเปิดไม่ได้ | Mạng quá chậm, video mãi không mở được.
+请把文件[保存|吃饭|唱歌|洗澡]到桌面上。 | Tolong simpan berkas ke desktop. | Please save the file to the desktop. | กรุณาบันทึกไฟล์ไว้ที่หน้าจอเดสก์ท็อป | Xin lưu tệp vào màn hình nền.
+投影仪[坏了|饿了|困了|胖了]，我们换个房间吧。 | Proyektornya rusak, mari kita pindah ruangan. | The projector is broken; let's change rooms. | โปรเจกเตอร์เสีย เราย้ายห้องกันเถอะ | Máy chiếu hỏng rồi, chúng ta đổi phòng đi.
+这台[复印机|冰箱|电视|空调]怎么用？ | Bagaimana cara memakai mesin fotokopi ini? | How do I use this photocopier? | เครื่องถ่ายเอกสารนี้ใช้อย่างไร | Máy photo này dùng như thế nào?
+## Phone calls (more)
+喂，请问[王经理|王天气|王雨伞|王月亮]在吗？ | Halo, apakah Manajer Wang ada? | Hello, is Manager Wang in? | ฮัลโหล ขอถามว่าผู้จัดการหวังอยู่ไหม | Alô, xin hỏi giám đốc Vương có đó không?
+他现在不在办公室，您要[留言|游泳|跳舞|睡觉]吗？ | Dia sedang tidak di kantor, apakah Anda ingin meninggalkan pesan? | He isn't in the office now; would you like to leave a message? | ตอนนี้เขาไม่อยู่ที่ออฟฟิศ ท่านต้องการฝากข้อความไหม | Bây giờ ông ấy không có ở văn phòng, ông/bà có muốn để lại lời nhắn không?
+请您[稍等|下雨|开花|结冰]，我帮您转接。 | Mohon tunggu sebentar, saya sambungkan. | Please hold on; I'll transfer you. | กรุณารอสักครู่ ฉันจะโอนสายให้ | Xin chờ một lát, tôi nối máy giúp ông/bà.
+对不起，我这里信号[不好|不甜|不冷|不胖]，听不清楚。 | Maaf, sinyal di tempat saya kurang bagus, tidak terdengar jelas. | Sorry, the signal here is poor and I can't hear clearly. | ขอโทษค่ะ สัญญาณที่นี่ไม่ดี ฟังไม่ชัด | Xin lỗi, sóng ở chỗ tôi không tốt, nghe không rõ.
+您能[再说一遍|再洗一遍|再吃一遍|再跑一遍]吗？我没听清楚。 | Bisakah Anda mengulanginya? Saya kurang jelas mendengar. | Could you say that again? I didn't catch it. | ท่านพูดอีกครั้งได้ไหม ฉันฟังไม่ชัด | Ông/bà có thể nói lại lần nữa không? Tôi nghe chưa rõ.
+我一会儿再给您[回电话|回鞋子|回雨伞|回月亮]。 | Sebentar lagi saya telepon balik. | I'll call you back in a moment. | อีกสักครู่ฉันจะโทรกลับ | Lát nữa tôi sẽ gọi lại cho ông/bà.
+麻烦您转告他，我下午三点再[打来|吃来|洗来|画来]。 | Tolong sampaikan kepadanya bahwa saya akan menelepon lagi pukul tiga sore. | Please tell him I'll call again at three this afternoon. | รบกวนบอกเขาว่าบ่ายสามฉันจะโทรมาใหม่ | Phiền ông/bà nhắn lại là ba giờ chiều tôi sẽ gọi lại.
+## Meetings (more)
+会议[马上|昨天|去年|上月]开始，请大家就座。 | Rapat segera dimulai, silakan duduk. | The meeting is about to begin; please take your seats. | การประชุมกำลังจะเริ่ม เชิญทุกท่านนั่งประจำที่ | Cuộc họp sắp bắt đầu, xin mọi người ngồi vào chỗ.
+这次会议的[议程|眼泪|鞋带|牙签]已经发给大家了。 | Agenda rapat kali ini sudah dikirim ke semua orang. | The agenda for this meeting has been sent to everyone. | วาระการประชุมครั้งนี้ส่งให้ทุกคนแล้ว | Chương trình nghị sự của cuộc họp này đã được gửi cho mọi người.
+下面请[李经理|李雨伞|李月亮|李鞋子]介绍一下销售情况。 | Selanjutnya, mohon Manajer Li memaparkan situasi penjualan. | Next, I'd like Manager Li to present the sales situation. | ต่อไปขอเชิญผู้จัดการหลี่แนะนำสถานการณ์การขาย | Sau đây xin mời giám đốc Lý giới thiệu tình hình bán hàng.
+关于这个问题，我[同意|吃饭|睡觉|游泳]您的看法。 | Mengenai masalah ini, saya setuju dengan pendapat Anda. | On this issue, I agree with your view. | เรื่องนี้ ฉันเห็นด้วยกับความคิดของท่าน | Về vấn đề này, tôi đồng ý với ý kiến của ông/bà.
+我[不同意|不喝水|不下雨|不开花]这个方案，因为成本太高。 | Saya tidak setuju dengan rencana ini karena biayanya terlalu tinggi. | I don't agree with this plan because the cost is too high. | ฉันไม่เห็นด้วยกับแผนนี้เพราะต้นทุนสูงเกินไป | Tôi không đồng ý với phương án này vì chi phí quá cao.
+会议[记录|饭碗|雨衣|书包]请在今天下班前发给大家。 | Notulen rapat akan dikirim ke semua orang sebelum pulang kerja hari ini. | The meeting minutes will be sent to everyone before the end of today. | บันทึกการประชุมจะส่งให้ทุกคนก่อนเลิกงานวันนี้ | Biên bản cuộc họp sẽ được gửi cho mọi người trước khi tan làm hôm nay.
+我们下次开会的时间定在[下周二|上周二|去年二|前天二]上午。 | Waktu rapat berikutnya ditetapkan Selasa depan pagi hari. | The next meeting is set for next Tuesday morning. | การประชุมครั้งหน้ากำหนดไว้เช้าวันอังคารหน้า | Lần họp sau được ấn định vào sáng thứ ba tuần sau.
+## Visiting a company
+欢迎您来我们公司[参观|游泳|睡觉|跳舞]。 | Selamat datang berkunjung ke perusahaan kami. | Welcome to visit our company. | ยินดีต้อนรับท่านมาเยี่ยมชมบริษัทของเรา | Hoan nghênh ông/bà đến tham quan công ty chúng tôi.
+请跟我来，会议室在[三楼|三岁|三杯|三年]。 | Silakan ikut saya, ruang rapat ada di lantai tiga. | Please follow me; the meeting room is on the third floor. | เชิญตามฉันมา ห้องประชุมอยู่ชั้นสาม | Xin đi theo tôi, phòng họp ở tầng ba.
+这是我们的[工厂|眼镜|裙子|雨鞋]，一共有五百名工人。 | Ini pabrik kami, seluruhnya ada lima ratus pekerja. | This is our factory, with five hundred workers in all. | นี่คือโรงงานของเรา มีคนงานทั้งหมดห้าร้อยคน | Đây là nhà máy của chúng tôi, tổng cộng có năm trăm công nhân.
+我们的产品[出口|出租|出生|出汗]到二十多个国家。 | Produk kami diekspor ke lebih dari dua puluh negara. | Our products are exported to more than twenty countries. | ผลิตภัณฑ์ของเราส่งออกไปกว่ายี่สิบประเทศ | Sản phẩm của chúng tôi xuất khẩu sang hơn hai mươi nước.
+这是我们公司的[产品|雨伞|鞋盒|牙刷]手册，请您看看。 | Ini buklet produk perusahaan kami, silakan dilihat. | This is our company's product brochure; please have a look. | นี่คือโบรชัวร์ผลิตภัณฑ์ของบริษัทเรา เชิญท่านดู | Đây là sổ tay sản phẩm của công ty chúng tôi, xin ông/bà xem qua.
+司机已经在楼下[等|吃|画|洗]您了。 | Sopir sudah menunggu Anda di bawah. | The driver is already waiting for you downstairs. | คนขับรถรออยู่ข้างล่างแล้ว | Tài xế đã đợi ông/bà ở dưới lầu rồi.
+请这边[走|吃|睡|笑]，小心台阶。 | Silakan lewat sini, hati-hati dengan anak tangga. | This way, please; mind the steps. | เชิญทางนี้ ระวังขั้นบันได | Xin đi lối này, cẩn thận bậc thang.
+请在[来访|生日|下雨|感冒]登记表上写下您的名字。 | Silakan tulis nama Anda di formulir pendaftaran tamu. | Please write your name on the visitor registration form. | กรุณาเขียนชื่อของท่านลงในแบบฟอร์มลงทะเบียนผู้มาเยือน | Xin viết tên của ông/bà vào phiếu đăng ký khách.
+您需要喝点[茶|铅|墨|漆]还是咖啡？ | Anda ingin minum teh atau kopi? | Would you like some tea or coffee? | ท่านต้องการดื่มชาหรือกาแฟคะ | Ông/bà muốn uống trà hay cà phê?
+## Business meals (more)
+这家餐厅的[烤鸭|杯子|桌子|盘子]很有名。 | Bebek panggang restoran ini sangat terkenal. | The roast duck at this restaurant is very famous. | เป็ดย่างของร้านนี้มีชื่อเสียงมาก | Vịt quay của nhà hàng này rất nổi tiếng.
+请问您有什么[忌口|雨伞|电话|作业]吗？ | Permisi, apakah ada makanan yang tidak boleh Anda makan? | Excuse me, are there any foods you can't eat? | ท่านมีอาหารที่ต้องงดหรือไม่คะ | Xin hỏi ông/bà có món gì kiêng không?
+我对海鲜[过敏|唱歌|开花|游泳]，不能吃。 | Saya alergi seafood, tidak bisa memakannya. | I'm allergic to seafood and can't eat it. | ฉันแพ้อาหารทะเล กินไม่ได้ | Tôi bị dị ứng hải sản, không ăn được.
+我们先[点菜|点头|点火|点灯]吧，您想吃什么？ | Mari kita pesan makanan dulu, Anda ingin makan apa? | Let's order first; what would you like to eat? | เรามาสั่งอาหารกันก่อน ท่านอยากทานอะไร | Chúng ta gọi món trước nhé, ông/bà muốn ăn gì?
+来，我敬您一[杯|本|张|只]，祝我们合作愉快！ | Mari, saya bersulang untuk Anda, semoga kerja sama kita menyenangkan! | Here, a toast to you; may our cooperation be a pleasant one! | มาค่ะ ขอดื่มให้ท่านหนึ่งแก้ว ขอให้เราร่วมงานกันอย่างราบรื่น | Nào, tôi xin mời ông/bà một ly, chúc hợp tác vui vẻ!
+我开车来的，不能[喝酒|喝雨|喝雪|喝风]。 | Saya datang dengan mobil, tidak boleh minum alkohol. | I came by car, so I can't drink alcohol. | ฉันขับรถมา ดื่มเหล้าไม่ได้ | Tôi lái xe đến nên không thể uống rượu.
+## Thanks, apology and farewell
+非常[感谢|生气|害怕|讨厌]您今天抽出时间见我们。 | Terima kasih banyak telah menyempatkan waktu bertemu kami hari ini. | Many thanks for making time to see us today. | ขอบคุณมากที่สละเวลามาพบเราวันนี้ | Rất cảm ơn ông/bà hôm nay đã dành thời gian gặp chúng tôi.
+对不起，我来[晚|早|高|胖]了，让大家久等。 | Maaf, saya datang terlambat, membuat semua menunggu lama. | Sorry I'm late; I kept everyone waiting. | ขอโทษที่มาช้า ทำให้ทุกคนรอนาน | Xin lỗi, tôi đến muộn, để mọi người đợi lâu.
+给您添[麻烦|西瓜|雨伞|月饼]了，真不好意思。 | Maaf telah merepotkan Anda. | Sorry to have troubled you. | ขอโทษที่ทำให้ท่านลำบาก | Xin lỗi đã làm phiền ông/bà.
+这是我们的[失误|早饭|晚霞|睡衣]，我们会马上改正。 | Ini kesalahan kami, kami akan segera memperbaikinya. | This was our mistake, and we will correct it right away. | นี่เป็นความผิดพลาดของเรา เราจะแก้ไขทันที | Đây là sơ suất của chúng tôi, chúng tôi sẽ sửa ngay.
+请您[放心|放糖|放学|放假]，这件事我们一定办好。 | Tenang saja, hal ini pasti kami selesaikan dengan baik. | Please rest assured; we will definitely handle this well. | ท่านโปรดวางใจ เรื่องนี้เราจะจัดการให้ดีแน่นอน | Xin ông/bà yên tâm, việc này chúng tôi nhất định làm tốt.
+时间不早了，我们该[告辞|开花|结冰|下雪]了。 | Hari sudah larut, kami harus pamit. | It's getting late; we should take our leave. | ดึกแล้ว พวกเราควรขอตัวลากลับ | Đã muộn rồi, chúng tôi xin phép cáo từ.
+祝您一路[平安|很甜|很冷|很胖]，欢迎下次再来。 | Semoga perjalanan Anda selamat, silakan datang lagi lain kali. | Have a safe journey, and welcome back next time. | ขอให้เดินทางโดยสวัสดิภาพ ยินดีต้อนรับมาอีกครั้งหน้า | Chúc ông/bà thượng lộ bình an, lần sau lại hoan nghênh đến.
+期待下次[见面|见水|见雨|见雪]，再见！ | Sampai jumpa lagi lain kali, selamat tinggal! | Looking forward to seeing you next time; goodbye! | หวังว่าจะได้พบกันอีก ลาก่อนค่ะ | Mong lần sau gặp lại, tạm biệt!
+## After-sales and complaints
+这台机器用了一个月就[坏了|胖了|饿了|困了]。 | Mesin ini rusak baru sebulan dipakai. | This machine broke after only a month of use. | เครื่องนี้ใช้ได้เดือนเดียวก็เสีย | Chiếc máy này mới dùng một tháng đã hỏng.
+我们要求[退款|退休|退烧|退步]，请尽快处理。 | Kami meminta pengembalian dana, mohon segera diproses. | We request a refund; please handle it as soon as possible. | เราขอคืนเงิน กรุณาดำเนินการโดยเร็ว | Chúng tôi yêu cầu hoàn tiền, xin xử lý sớm.
+请问保修期[多长|多高|多重|多大]？ | Permisi, berapa lama masa garansinya? | Excuse me, how long is the warranty period? | ขอถามว่าระยะเวลารับประกันนานเท่าไร | Xin hỏi thời hạn bảo hành là bao lâu?
+我们会派人上门[维修|吃饭|散步|睡觉]。 | Kami akan mengirim orang untuk memperbaikinya di tempat. | We will send someone to your door to repair it. | เราจะส่งคนไปซ่อมถึงที่ | Chúng tôi sẽ cử người đến tận nơi sửa chữa.
+如果有[问题|雨伞|胡子|月亮]，请随时联系我们。 | Jika ada masalah, silakan hubungi kami kapan saja. | If there is any problem, please contact us at any time. | หากมีปัญหา กรุณาติดต่อเราได้ตลอดเวลา | Nếu có vấn đề, xin cứ liên hệ với chúng tôi bất cứ lúc nào.
+货物的数量和订单[不一样|不一块|不一匹|不一双]。 | Jumlah barang tidak sama dengan pesanan. | The quantity of goods doesn't match the order. | จำนวนสินค้าไม่ตรงกับคำสั่งซื้อ | Số lượng hàng không giống với đơn đặt hàng.
+我们对这次的[服务|晚饭|早饭|午饭]不太满意。 | Kami kurang puas dengan layanan kali ini. | We are not very satisfied with the service this time. | เราไม่ค่อยพอใจกับบริการครั้งนี้ | Chúng tôi không hài lòng lắm với dịch vụ lần này.
+## Training and skills
+公司下周为新员工[培训|结婚|生病|放假]。 | Perusahaan akan memberi pelatihan untuk karyawan baru minggu depan. | The company will train its new employees next week. | บริษัทจะอบรมพนักงานใหม่สัปดาห์หน้า | Tuần sau công ty sẽ đào tạo nhân viên mới.
+我想提高我的[汉语|雨伞|书包|鞋带]水平。 | Saya ingin meningkatkan kemampuan Mandarin saya. | I want to improve my Chinese level. | ฉันอยากพัฒนาระดับภาษาจีนของฉัน | Tôi muốn nâng cao trình độ tiếng Hán của mình.
+他会说英语、汉语和[日语|眼睛|鼻子|耳朵]。 | Dia bisa berbicara bahasa Inggris, Mandarin, dan Jepang. | He speaks English, Chinese, and Japanese. | เขาพูดภาษาอังกฤษ จีน และญี่ปุ่นได้ | Anh ấy nói được tiếng Anh, tiếng Hán và tiếng Nhật.
+我们需要一位会[翻译|游泳|唱歌|跳舞]的同事。 | Kami membutuhkan rekan yang bisa menerjemahkan. | We need a colleague who can translate. | เราต้องการเพื่อนร่วมงานที่แปลได้ | Chúng tôi cần một đồng nghiệp biết phiên dịch.
+他的电脑[技术|雨水|月光|牙膏]很好，公司很需要他。 | Keterampilan komputernya bagus, perusahaan sangat membutuhkannya. | His computer skills are excellent, and the company needs him badly. | เขามีทักษะคอมพิวเตอร์ดีมาก บริษัทต้องการเขามาก | Kỹ thuật máy tính của anh ấy rất giỏi, công ty rất cần anh ấy.
+## Email and messages (more)
+我给您发了一封[邮件|雨伞|筷子|窗户]，请查收。 | Saya telah mengirim sebuah email kepada Anda, mohon diperiksa. | I have sent you an email; please check it. | ฉันส่งอีเมลถึงท่านแล้ว กรุณาตรวจสอบ | Tôi đã gửi cho ông/bà một email, xin kiểm tra.
+邮件里有一个[附件|眼泪|胡子|耳朵]，是我们的报价单。 | Di dalam email ada satu lampiran, yaitu daftar penawaran kami. | The email has an attachment, which is our quotation. | ในอีเมลมีไฟล์แนบหนึ่งไฟล์ คือใบเสนอราคาของเรา | Trong email có một tệp đính kèm, là bảng báo giá của chúng tôi.
+请您[回复|回家|回头|回国]这封邮件，确认收到。 | Mohon balas email ini untuk mengonfirmasi penerimaan. | Please reply to this email to confirm receipt. | กรุณาตอบอีเมลฉบับนี้เพื่อยืนยันว่าได้รับแล้ว | Xin trả lời email này để xác nhận đã nhận.
+我把会议[通知|雨水|胡子|牙膏]发到您的邮箱了。 | Saya sudah mengirim pemberitahuan rapat ke email Anda. | I have sent the meeting notice to your mailbox. | ฉันส่งประกาศการประชุมไปที่อีเมลของท่านแล้ว | Tôi đã gửi thông báo họp vào hộp thư của ông/bà.
+微信上说话不方便，我们还是[打电话|打雨伞|打牙膏|打月亮]吧。 | Berbicara lewat WeChat kurang praktis, lebih baik kita telepon saja. | Talking on WeChat is inconvenient; let's just call. | คุยทางวีแชทไม่สะดวก โทรคุยกันดีกว่า | Nói chuyện qua WeChat không tiện, chúng ta gọi điện thì hơn.
+我加您的[微信|雨伞|梨子|裙子]吧，方便联系。 | Saya tambahkan WeChat Anda ya, agar mudah dihubungi. | Let me add you on WeChat so we can stay in touch. | ฉันขอแอดวีแชทท่านนะ จะได้ติดต่อสะดวก | Tôi kết bạn WeChat với ông/bà nhé, để tiện liên lạc.
+这条消息我[已经|已来|已去|已吃]读了，稍后回复您。 | Pesan ini sudah saya baca, akan saya balas sebentar lagi. | I have read this message and will reply shortly. | ฉันอ่านข้อความนี้แล้ว จะตอบกลับในอีกสักครู่ | Tin nhắn này tôi đã đọc, lát nữa sẽ trả lời ông/bà.
+## Time and dates (more)
+我们的会议在[下午|下巴|下雨|下车]两点半开始。 | Rapat kami dimulai pukul dua tiga puluh sore. | Our meeting starts at half past two in the afternoon. | การประชุมของเราเริ่มตอนบ่ายสองโมงครึ่ง | Cuộc họp của chúng tôi bắt đầu lúc hai giờ rưỡi chiều.
+今天是[星期四|星期八|星期零|星期十]，明天是星期五。 | Hari ini Kamis, besok Jumat. | Today is Thursday and tomorrow is Friday. | วันนี้วันพฤหัสบดี พรุ่งนี้วันศุกร์ | Hôm nay là thứ năm, ngày mai là thứ sáu.
+请您[提前|提高|提醒|提供]十分钟到，我们准时开始。 | Mohon datang sepuluh menit lebih awal, kami mulai tepat waktu. | Please arrive ten minutes early; we'll start on time. | กรุณามาถึงก่อนสิบนาที เราจะเริ่มตรงเวลา | Xin ông/bà đến sớm mười phút, chúng tôi bắt đầu đúng giờ.
+这个周末我要[加班|游泳|购物|散步]，不能去爬山。 | Akhir pekan ini saya harus lembur, tidak bisa naik gunung. | I have to work overtime this weekend and can't go hiking. | สุดสัปดาห์นี้ฉันต้องทำงานล่วงเวลา ไปปีนเขาไม่ได้ | Cuối tuần này tôi phải tăng ca, không thể đi leo núi.
+我们公司每天早上九点[上班|下班|放假|睡觉]。 | Perusahaan kami mulai bekerja pukul sembilan setiap pagi. | Our company starts work at nine every morning. | บริษัทของเราเริ่มงานเก้าโมงเช้าทุกวัน | Công ty chúng tôi mỗi sáng chín giờ bắt đầu làm việc.
+下个月[十五号|十五只|十五双|十五杯]是我们公司成立十周年。 | Tanggal lima belas bulan depan adalah ulang tahun kesepuluh perusahaan kami. | The fifteenth of next month is our company's tenth anniversary. | วันที่สิบห้าเดือนหน้าครบรอบสิบปีของบริษัทเรา | Ngày mười lăm tháng sau là kỷ niệm mười năm thành lập công ty chúng tôi.
+我们约在明天上午十点[见面|见雪|见雨|见风]，好吗？ | Kita bertemu besok pukul sepuluh pagi, bagaimana? | Shall we meet at ten tomorrow morning? | เรานัดเจอกันพรุ่งนี้สิบโมงเช้า ดีไหม | Chúng ta hẹn gặp lúc mười giờ sáng mai nhé?
+我可能会[迟到|吃饭|睡觉|游泳]十分钟，请先开始。 | Saya mungkin terlambat sepuluh menit, silakan mulai dulu. | I may be ten minutes late; please start first. | ฉันอาจมาสายสิบนาที กรุณาเริ่มก่อน | Tôi có thể đến muộn mười phút, xin cứ bắt đầu trước.
+## Money and bank
+我想在银行[开户|开花|开车|开门]，需要带什么？ | Saya ingin membuka rekening di bank, apa yang perlu dibawa? | I'd like to open an account at the bank; what do I need to bring? | ฉันอยากเปิดบัญชีธนาคาร ต้องเอาอะไรไปบ้าง | Tôi muốn mở tài khoản ở ngân hàng, cần mang theo gì?
+我想把美元[换成|写成|洗成|吃成]人民币。 | Saya ingin menukar dolar AS ke renminbi. | I'd like to exchange US dollars into renminbi. | ฉันอยากแลกดอลลาร์สหรัฐเป็นเงินหยวน | Tôi muốn đổi đô la Mỹ sang nhân dân tệ.
+今天的[汇率|汗水|雨伞|电梯]是多少？ | Berapa kurs hari ini? | What is today's exchange rate? | อัตราแลกเปลี่ยนวันนี้เท่าไร | Tỷ giá hôm nay là bao nhiêu?
+这笔钱请[存|吃|穿|画]到我的账户里。 | Tolong simpan uang ini ke rekening saya. | Please deposit this money into my account. | กรุณาฝากเงินก้อนนี้เข้าบัญชีของฉัน | Xin gửi khoản tiền này vào tài khoản của tôi.
+我们公司每个月[二十号|二十双|二十只|二十杯]发工资。 | Perusahaan kami membayar gaji setiap tanggal dua puluh. | Our company pays salaries on the twentieth of each month. | บริษัทของเราจ่ายเงินเดือนทุกวันที่ยี่สิบของเดือน | Công ty chúng tôi trả lương vào ngày hai mươi hàng tháng.
+## Cooperation and contracts
+我们希望能和贵公司[合作|游泳|跳舞|散步]。 | Kami berharap dapat bekerja sama dengan perusahaan Anda. | We hope to cooperate with your company. | เราหวังว่าจะได้ร่วมมือกับบริษัทของท่าน | Chúng tôi hy vọng được hợp tác với quý công ty.
+这份[合同|雨伞|苹果|鞋子]有两页，请您仔细看一下。 | Kontrak ini terdiri dari dua halaman, mohon dibaca dengan teliti. | This contract has two pages; please read it carefully. | สัญญาฉบับนี้มีสองหน้า กรุณาอ่านอย่างละเอียด | Hợp đồng này có hai trang, xin ông/bà xem kỹ.
+请在这里[签字|吃饭|唱歌|游泳]，然后盖章。 | Silakan tanda tangan di sini, lalu bubuhkan stempel. | Please sign here and then stamp it. | กรุณาเซ็นชื่อตรงนี้ แล้วประทับตรา | Xin ký tên ở đây, rồi đóng dấu.
+合同上的价格是[含税|含雨|含雪|含风]的。 | Harga dalam kontrak sudah termasuk pajak. | The price in the contract includes tax. | ราคาในสัญญารวมภาษีแล้ว | Giá trong hợp đồng đã bao gồm thuế.
+我们双方都需要[遵守|游泳|睡觉|洗澡]合同里的规定。 | Kedua pihak harus mematuhi ketentuan dalam kontrak. | Both parties need to abide by the terms of the contract. | ทั้งสองฝ่ายต้องปฏิบัติตามข้อกำหนดในสัญญา | Hai bên đều cần tuân thủ các quy định trong hợp đồng.
+这次谈判很[顺利|酸甜|肥胖|窄小]，我们达成了一致。 | Negosiasi kali ini berjalan lancar, kami mencapai kesepakatan. | The negotiation went smoothly and we reached an agreement. | การเจรจาครั้งนี้ราบรื่นมาก เราตกลงกันได้แล้ว | Cuộc đàm phán lần này rất thuận lợi, chúng tôi đã đạt được thỏa thuận.
+我们的[竞争|眼泪|蜡烛|牙刷]对手也在降价。 | Pesaing kami juga menurunkan harga. | Our competitors are also cutting prices. | คู่แข่งของเราก็กำลังลดราคาเหมือนกัน | Đối thủ cạnh tranh của chúng tôi cũng đang giảm giá.
+这是我们新产品的[优点|雨点|黑点|烧点]，请您看一下。 | Ini keunggulan produk baru kami, silakan Anda lihat. | These are the advantages of our new product; please take a look. | นี่คือข้อดีของผลิตภัณฑ์ใหม่ของเรา เชิญท่านดู | Đây là ưu điểm của sản phẩm mới của chúng tôi, xin ông/bà xem.
+我们公司的[网站|眉毛|牙齿|鞋带]上有详细的介绍。 | Di situs web perusahaan kami ada pengenalan yang rinci. | Our company's website has a detailed introduction. | บนเว็บไซต์ของบริษัทเรามีคำแนะนำโดยละเอียด | Trên trang web của công ty chúng tôi có phần giới thiệu chi tiết.
+## Health, safety and weather
+我今天[不舒服|不甜|不圆|不深]，想请半天假。 | Hari ini saya kurang enak badan, ingin izin setengah hari. | I'm not feeling well today and would like half a day off. | วันนี้ฉันไม่สบาย อยากลาครึ่งวัน | Hôm nay tôi không khỏe, muốn xin nghỉ nửa ngày.
+他[感冒|感谢|感动|感想]了，今天不能来上班。 | Dia terkena flu, hari ini tidak bisa masuk kerja. | He has a cold and can't come to work today. | เขาเป็นหวัด วันนี้มาทำงานไม่ได้ | Anh ấy bị cảm, hôm nay không thể đi làm.
+请注意[安全|眼泪|雨伞|鞋带]，工地上必须戴安全帽。 | Harap perhatikan keselamatan, di lokasi proyek wajib memakai helm. | Please mind safety; hard hats must be worn on the site. | กรุณาระวังความปลอดภัย ในไซต์งานต้องสวมหมวกนิรภัย | Xin chú ý an toàn, ở công trường phải đội mũ bảo hộ.
+外面在下大雨，出门请带[雨伞|筷子|耳机|围巾]。 | Di luar hujan deras, bawalah payung saat keluar. | It's raining heavily outside; please take an umbrella. | ข้างนอกฝนตกหนัก ออกไปข้างนอกกรุณาพกร่มไปด้วย | Bên ngoài đang mưa to, ra ngoài xin mang theo ô.
+下周北京会[降温|开花|结婚|搬家]，请多穿衣服。 | Minggu depan suhu di Beijing akan turun, mohon berpakaian lebih hangat. | The temperature in Beijing will drop next week; please wear more clothes. | สัปดาห์หน้าอุณหภูมิที่ปักกิ่งจะลดลง กรุณาใส่เสื้อผ้าหนาขึ้น | Tuần sau Bắc Kinh sẽ hạ nhiệt, xin mặc thêm áo.
+## Directions and places
+请问洗手间[在哪儿|有多重|几点钟|怎么吃]？ | Permisi, di mana toilet? | Excuse me, where is the restroom? | ขอถามว่าห้องน้ำอยู่ที่ไหน | Xin hỏi nhà vệ sinh ở đâu?
+前面[路口|路雨|路雪|路风]往左拐，就能看到银行。 | Belok kiri di persimpangan depan, Anda akan melihat bank. | Turn left at the intersection ahead and you will see the bank. | เลี้ยวซ้ายที่สี่แยกข้างหน้า ก็จะเห็นธนาคาร | Rẽ trái ở ngã tư phía trước là thấy ngân hàng.
+我们公司离地铁站[很近|很甜|很胖|很冷]，走路五分钟。 | Perusahaan kami dekat stasiun metro, jalan kaki lima menit. | Our company is very close to the subway station, five minutes on foot. | บริษัทของเราอยู่ใกล้สถานีรถไฟใต้ดินมาก เดินห้านาที | Công ty chúng tôi rất gần ga tàu điện ngầm, đi bộ năm phút.
+请[一直|一杯|一双|一只]往前走，不要拐弯。 | Silakan terus lurus ke depan, jangan belok. | Please keep going straight ahead and don't turn. | กรุณาเดินตรงไปเรื่อยๆ อย่าเลี้ยว | Xin cứ đi thẳng về phía trước, đừng rẽ.
+## Customers and service
+欢迎光临，请问您需要[帮忙|帮雨|帮雪|帮风]吗？ | Selamat datang, apakah Anda butuh bantuan? | Welcome; do you need any help? | ยินดีต้อนรับค่ะ ท่านต้องการให้ช่วยไหม | Hoan nghênh quý khách, ông/bà có cần giúp gì không?
+我们会尽快给您[答复|游泳|睡觉|洗澡]。 | Kami akan segera memberi jawaban kepada Anda. | We will give you a reply as soon as possible. | เราจะตอบท่านโดยเร็วที่สุด | Chúng tôi sẽ trả lời ông/bà sớm nhất có thể.
+这是我们的[会员卡|西瓜皮|眼镜盒|筷子盒]，可以打九折。 | Ini kartu anggota kami, bisa dapat diskon sepuluh persen. | This is our membership card, which gives you ten percent off. | นี่คือบัตรสมาชิกของเรา ลดได้สิบเปอร์เซ็นต์ | Đây là thẻ hội viên của chúng tôi, được giảm mười phần trăm.
+请您[排队|排雨|排雪|排风]，一个一个来。 | Silakan mengantre, satu per satu. | Please line up and come one at a time. | กรุณาเข้าแถว ทีละคน | Xin xếp hàng, từng người một.
+您的[订单|雨伞|头发|拖鞋]号码是多少？ | Berapa nomor pesanan Anda? | What is your order number? | หมายเลขคำสั่งซื้อของท่านคืออะไร | Số đơn hàng của ông/bà là bao nhiêu?
+请留下您的[联系方式|牙膏味道|眼泪颜色|鞋子大小]，我们会通知您。 | Silakan tinggalkan kontak Anda, kami akan memberi tahu. | Please leave your contact details and we will notify you. | กรุณาฝากข้อมูลติดต่อของท่าน เราจะแจ้งให้ทราบ | Xin để lại thông tin liên lạc, chúng tôi sẽ thông báo cho ông/bà.
+我们的客服[二十四小时|二十四岁|二十四只|二十四双]为您服务。 | Layanan pelanggan kami melayani Anda dua puluh empat jam. | Our customer service is at your service twenty-four hours a day. | ฝ่ายบริการลูกค้าของเราบริการท่านยี่สิบสี่ชั่วโมง | Bộ phận chăm sóc khách hàng phục vụ ông/bà hai mươi bốn giờ.
+这个问题[已经|已雨|已雪|已风]解决了，请您放心。 | Masalah ini sudah terselesaikan, mohon tenang. | This problem has been solved; please rest assured. | ปัญหานี้แก้ไขเรียบร้อยแล้ว ท่านโปรดวางใจ | Vấn đề này đã được giải quyết, xin ông/bà yên tâm.
+## Company and team
+我们公司有两百多名[员工|雨伞|眉毛|胡子]。 | Perusahaan kami punya lebih dari dua ratus karyawan. | Our company has more than two hundred employees. | บริษัทของเรามีพนักงานกว่าสองร้อยคน | Công ty chúng tôi có hơn hai trăm nhân viên.
+我们团队的[气氛|雨伞|牙膏|拖鞋]很好，大家互相帮助。 | Suasana tim kami sangat baik, semua saling membantu. | The atmosphere in our team is great; everyone helps each other. | บรรยากาศในทีมของเราดีมาก ทุกคนช่วยเหลือกัน | Bầu không khí trong nhóm chúng tôi rất tốt, mọi người giúp đỡ nhau.
+这位是我们的新[同事|西瓜|雨伞|牙膏]，他叫小张。 | Ini rekan baru kami, namanya Xiao Zhang. | This is our new colleague, Xiao Zhang. | นี่คือเพื่อนร่วมงานใหม่ของเรา ชื่อเสี่ยวจาง | Đây là đồng nghiệp mới của chúng tôi, tên là Tiểu Trương.
+经理[出差|出生|出汗|出租]了，下周一才回来。 | Manajer sedang dinas, baru kembali Senin depan. | The manager is away on business and won't be back until next Monday. | ผู้จัดการไปทำงานต่างถิ่น สัปดาห์หน้าวันจันทร์จึงกลับ | Giám đốc đi công tác rồi, thứ hai tuần sau mới về.
+他是我们部门[最|吃|雨|桌]年轻的经理。 | Dia manajer termuda di departemen kami. | He is the youngest manager in our department. | เขาเป็นผู้จัดการที่อายุน้อยที่สุดในแผนกของเรา | Anh ấy là giám đốc trẻ nhất trong bộ phận chúng tôi.
+## Plans and results
+我们今年的目标是[销售额|头发|眼泪|窗帘]增长两成。 | Target kami tahun ini adalah menaikkan penjualan dua puluh persen. | Our goal this year is to grow sales by twenty percent. | เป้าหมายปีนี้ของเราคือยอดขายเพิ่มขึ้นสองส่วนในสิบ | Mục tiêu năm nay của chúng tôi là tăng doanh thu hai mươi phần trăm.
+上个季度的[成绩|雨衣|牙刷|盘子]比我们想的要好。 | Hasil kuartal lalu lebih baik dari yang kami kira. | Last quarter's results were better than we expected. | ผลงานไตรมาสที่แล้วดีกว่าที่เราคิด | Thành tích quý trước tốt hơn chúng tôi nghĩ.
+我们已经[完成|穿上|睡着|喝醉]了今年百分之八十的计划。 | Kami sudah menyelesaikan delapan puluh persen rencana tahun ini. | We have already completed eighty percent of this year's plan. | เราทำแผนปีนี้สำเร็จแล้วร้อยละแปดสิบ | Chúng tôi đã hoàn thành tám mươi phần trăm kế hoạch năm nay.
+明年我们打算[扩大|睡觉|唱歌|洗澡]生产，再开一家工厂。 | Tahun depan kami berencana memperluas produksi dan membuka satu pabrik lagi. | Next year we plan to expand production and open another factory. | ปีหน้าเราวางแผนขยายการผลิต และเปิดโรงงานอีกแห่ง | Sang năm chúng tôi dự định mở rộng sản xuất, mở thêm một nhà máy.
+为了节约成本，我们[减少|喝醉|睡着|烤熟]了一些不必要的开支。 | Untuk menghemat biaya, kami mengurangi beberapa pengeluaran yang tidak perlu. | To save costs, we cut some unnecessary spending. | เพื่อประหยัดต้นทุน เราลดค่าใช้จ่ายที่ไม่จำเป็นบางส่วน | Để tiết kiệm chi phí, chúng tôi đã giảm một số chi tiêu không cần thiết.
+## Exhibitions, gifts and festivals
+我们下个月参加[展会|雨伞|眉毛|书包]，欢迎您来我们的展位。 | Bulan depan kami ikut pameran, selamat datang di stan kami. | We take part in a trade fair next month; you are welcome at our booth. | เดือนหน้าเราเข้าร่วมงานแสดงสินค้า ยินดีต้อนรับสู่บูธของเรา | Tháng sau chúng tôi tham dự hội chợ, hoan nghênh ông/bà ghé gian hàng của chúng tôi.
+这是一点小[礼物|雨水|牙签|鞋垫]，请您收下。 | Ini hadiah kecil, mohon diterima. | This is a small gift; please accept it. | นี่คือของขวัญเล็กน้อย ขอให้ท่านรับไว้ | Đây là món quà nhỏ, xin ông/bà nhận cho.
+春节快到了，公司给大家[发|吃|洗|读]了红包。 | Tahun Baru Imlek sudah dekat, perusahaan membagikan angpao kepada semua orang. | The Spring Festival is near, and the company gave everyone a red envelope. | ใกล้ตรุษจีนแล้ว บริษัทแจกอั่งเปาให้ทุกคน | Sắp đến Tết, công ty đã phát lì xì cho mọi người.
+中秋节[快乐|快跑|快吃|快洗]，祝您全家幸福！ | Selamat Festival Pertengahan Musim Gugur, semoga seluruh keluarga Anda bahagia! | Happy Mid-Autumn Festival; wishing your whole family happiness! | สุขสันต์วันไหว้พระจันทร์ ขอให้ครอบครัวท่านมีความสุข | Chúc ông/bà Trung thu vui vẻ, cả nhà hạnh phúc!
+## Hiring and job
+我们公司正在[招聘|吃饭|睡觉|游泳]一名会计，请问您有兴趣吗？ | Perusahaan kami sedang mencari seorang akuntan, apakah Anda berminat? | Our company is hiring an accountant; are you interested? | บริษัทของเรากำลังรับสมัครนักบัญชีหนึ่งคน ท่านสนใจไหม | Công ty chúng tôi đang tuyển một kế toán, ông/bà có quan tâm không?
+请先把您的[简历|雨伞|牙膏|鞋垫]发到我们的邮箱。 | Silakan kirim CV Anda ke email kami lebih dulu. | Please send your résumé to our mailbox first. | กรุณาส่งประวัติย่อของท่านมาที่อีเมลของเราก่อน | Xin gửi sơ yếu lý lịch của ông/bà đến hộp thư của chúng tôi trước.
+面试[安排|眼泪|牙膏|拖鞋]在下周二上午十点。 | Wawancara dijadwalkan Selasa depan pukul sepuluh pagi. | The interview is scheduled for next Tuesday at ten in the morning. | การสัมภาษณ์นัดไว้เช้าสิบโมงวันอังคารหน้า | Buổi phỏng vấn được xếp vào mười giờ sáng thứ ba tuần sau.
+他有五年的工作[经验|雨点|牙刷|耳朵]，很适合这个职位。 | Dia punya pengalaman kerja lima tahun, sangat cocok untuk posisi ini. | He has five years of work experience and suits this position very well. | เขามีประสบการณ์ทำงานห้าปี เหมาะกับตำแหน่งนี้มาก | Anh ấy có năm năm kinh nghiệm làm việc, rất phù hợp với vị trí này.
+## Driving and parking
+公司门口[停车|停雨|停雪|停风]很不方便。 | Parkir di depan kantor sangat tidak praktis. | Parking in front of the company is very inconvenient. | การจอดรถหน้าบริษัทไม่สะดวกมาก | Đỗ xe trước cổng công ty rất bất tiện.
+我们的[停车场|雨伞店|眼镜盒|牙膏厂]在地下一层。 | Tempat parkir kami ada di lantai bawah tanah satu. | Our car park is on the first basement level. | ที่จอดรถของเราอยู่ชั้นใต้ดินชั้นหนึ่ง | Bãi đỗ xe của chúng tôi ở tầng hầm một.
+路上[堵车|堵雨|堵雪|堵风]很严重，我们可能会迟到。 | Macetnya parah di jalan, kami mungkin terlambat. | The traffic jam on the road is serious; we may be late. | รถติดหนักมาก พวกเราอาจมาสาย | Trên đường kẹt xe rất nặng, chúng tôi có thể sẽ đến muộn.
+## Everyday office talk
+中午我们一起去[食堂|电梯|楼梯|窗户]吃饭吧。 | Siang ini mari makan bersama di kantin. | Let's go to the canteen together for lunch. | เที่ยงนี้เราไปกินข้าวที่โรงอาหารด้วยกันเถอะ | Trưa nay chúng ta cùng đi ăn ở căng-tin nhé.
+我去[倒|穿|买|写]杯水，您要喝点什么吗？ | Saya mau menuang segelas air, apakah Anda ingin minum sesuatu? | I'm going to pour a glass of water; would you like something to drink? | ฉันไปรินน้ำสักแก้ว ท่านอยากดื่มอะไรไหม | Tôi đi rót cốc nước, ông/bà muốn uống gì không?
+这个星期我[特别|桌子|雨伞|鞋带]忙，下个星期就好了。 | Minggu ini saya sangat sibuk, minggu depan akan lebih baik. | I'm especially busy this week; it will be better next week. | สัปดาห์นี้ฉันยุ่งเป็นพิเศษ สัปดาห์หน้าก็ดีขึ้น | Tuần này tôi đặc biệt bận, tuần sau sẽ ổn hơn.
+你需要[帮忙|喝水|睡觉|看雨]的话，随时告诉我。 | Kalau Anda butuh bantuan, kapan saja beri tahu saya. | If you need help, let me know any time. | หากท่านต้องการความช่วยเหลือ บอกฉันได้ทุกเมื่อ | Nếu cần giúp đỡ, cứ nói với tôi bất cứ lúc nào.
+这份文件很[重要|苦涩|甜蜜|干净]，请不要弄丢。 | Dokumen ini sangat penting, jangan sampai hilang. | This document is very important; please don't lose it. | เอกสารนี้สำคัญมาก กรุณาอย่าทำหาย | Tài liệu này rất quan trọng, xin đừng làm mất.
+请把[空调|雨伞|牙刷|拖鞋]调低一点，办公室太热了。 | Tolong turunkan AC sedikit, kantor terlalu panas. | Please turn the air conditioning down a bit; the office is too hot. | กรุณาปรับแอร์ให้เย็นลงหน่อย ออฟฟิศร้อนเกินไป | Xin chỉnh điều hòa thấp xuống một chút, văn phòng nóng quá.
+我下班后要去[健身房|雨伞店|眼镜店|牙膏店]锻炼一个小时。 | Setelah pulang kerja saya akan berolahraga satu jam di pusat kebugaran. | After work I'll exercise at the gym for an hour. | หลังเลิกงานฉันจะไปออกกำลังกายที่ยิมหนึ่งชั่วโมง | Tan làm tôi sẽ đi tập một tiếng ở phòng gym.
+这个[周末|雨伞|牙刷|书包]公司组织大家一起去爬山。 | Akhir pekan ini perusahaan mengajak semua orang naik gunung bersama. | This weekend the company is taking everyone hiking. | สุดสัปดาห์นี้บริษัทพาทุกคนไปปีนเขา | Cuối tuần này công ty tổ chức cho mọi người cùng đi leo núi.
+谢谢您的[邀请|雨伞|胡子|拖鞋]，我一定准时参加。 | Terima kasih atas undangan Anda, saya pasti hadir tepat waktu. | Thank you for your invitation; I will definitely attend on time. | ขอบคุณสำหรับคำเชิญของท่าน ฉันจะไปตรงเวลาแน่นอน | Cảm ơn lời mời của ông/bà, tôi nhất định đến đúng giờ.
+我们是[第一次|第一只|第一双|第一杯]合作，希望以后有更多机会。 | Kami baru pertama kali bekerja sama, semoga ke depan ada lebih banyak kesempatan. | This is our first time working together; we hope for more opportunities in the future. | เราร่วมงานกันเป็นครั้งแรก หวังว่าต่อไปจะมีโอกาสมากขึ้น | Chúng ta hợp tác lần đầu, hy vọng sau này có nhiều cơ hội hơn.
+这条路[修好|吃好|睡好|唱好]以后，去工厂就方便多了。 | Setelah jalan ini selesai diperbaiki, ke pabrik jadi jauh lebih mudah. | Once this road is repaired, getting to the factory will be much easier. | หลังจากซ่อมถนนเส้นนี้เสร็จ การไปโรงงานจะสะดวกขึ้นมาก | Sau khi con đường này sửa xong, đi đến nhà máy sẽ thuận tiện hơn nhiều.
+我们已经把样品[寄|吃|穿|画]给您了，请注意查收。 | Kami sudah mengirimkan sampel kepada Anda, mohon diperiksa penerimaannya. | We have mailed the samples to you; please watch for them. | เราส่งตัวอย่างให้ท่านแล้ว กรุณาตรวจรับ | Chúng tôi đã gửi hàng mẫu cho ông/bà, xin chú ý kiểm tra.

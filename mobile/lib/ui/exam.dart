@@ -22,7 +22,10 @@ class ExamScreen extends StatelessWidget {
     final lm = app.lm;
     final bottom = MediaQuery.paddingOf(context).bottom + 10 + 64 + 18;
     // the last written simulation at this level, and the last HSKK mock
-    final hsk = [for (final m in lm.mocks) if (m.length > 3 && m[1] == app.level) m];
+    final hsk = [
+      for (final m in lm.mocks)
+        if (m.length > 3 && m[1] == app.level) m,
+    ];
     final hskLast = hsk.isEmpty ? null : '${hsk.last[2]}/${hsk.last[3]}';
     final hk = app.spkLog.mocks;
     final hkLast = hk.isEmpty ? null : '${hk.last[2]}/100';
@@ -30,8 +33,20 @@ class ExamScreen extends StatelessWidget {
     // the latest results of both mock tests together, newest first
     final recent = <({num at, String name, String score})>[
       for (final m in lm.mocks)
-        if (m.length > 3) (at: m[0] as num, name: '${t.exHsk} · HSK ${m[1]}', score: '${m[2]}/${m[3]}'),
-      for (final m in hk) (at: m[0] as num, name: '${t.exHskk} · ${_hkName((m[1] as num).toInt())}', score: '${m[2]}/100'),
+        if (m.length > 3)
+          (
+            at: m[0] as num,
+            name: m[1] >= 101
+                ? (m[1] == 101 ? t.exBctA : t.exBctB)
+                : '${t.exHsk} · HSK ${m[1]}',
+            score: '${m[2]}/${m[3]}',
+          ),
+      for (final m in hk)
+        (
+          at: m[0] as num,
+          name: '${t.exHskk} · ${_hkName((m[1] as num).toInt())}',
+          score: '${m[2]}/100',
+        ),
     ]..sort((a, b) => b.at.compareTo(a.at));
     return SafeArea(
       bottom: false,
@@ -40,12 +55,16 @@ class ExamScreen extends StatelessWidget {
         children: [
           Semantics(
             header: true,
-            child: Text(t.exTitle, style: F.s(31, w: FontWeight.w800, c: p.fg, ls: -.6)),
+            child: Text(
+              t.exTitle,
+              style: F.s(31, w: FontWeight.w800, c: p.fg, ls: -.6),
+            ),
           ),
           const SizedBox(height: 2),
           Text(t.exSub, style: F.s(14, c: p.soft)),
           const SizedBox(height: 18),
-          Rise(1,
+          Rise(
+            1,
             child: _ExamCard(
               seal: '考',
               title: t.exHsk,
@@ -59,18 +78,59 @@ class ExamScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          Rise(2,
+          Rise(
+            2,
             child: _ExamCard(
               seal: '说',
               title: t.exHskk,
               sub: '${t.exHskkD} · ${_hkName(app.hkLv)} (${hkBand(app.hkLv)})',
               foot: hkLast == null ? t.exNone : t.hkLast(hkLast),
               color: p.warm,
-              onTap: () => app.startHk(app.hkLv.clamp(1, app.hkOpenTo), mock: true),
+              onTap: () =>
+                  app.startHk(app.hkLv.clamp(1, app.hkOpenTo), mock: true),
             ),
           ),
+          if ((app.lm.bct?.of('a').length ?? 0) >= 70) ...[
+            const SizedBox(height: 12),
+            Rise(
+              3,
+              child: _ExamCard(
+                seal: '商',
+                title: t.exBctA,
+                sub: t.exBctD,
+                foot: _bctLast(101) ?? t.exNone,
+                color: p.good,
+                onTap: () {
+                  app.mockBook = 'a';
+                  app.mockSec = null;
+                  app.mockMode = true;
+                  app.go('quiz');
+                },
+              ),
+            ),
+          ],
+          if ((app.lm.bct?.of('b').length ?? 0) >= 100) ...[
+            const SizedBox(height: 12),
+            Rise(
+              4,
+              child: _ExamCard(
+                seal: '务',
+                title: t.exBctB,
+                sub: t.exBctD,
+                foot: _bctLast(102) ?? t.exNone,
+                color: p.gold,
+                onTap: () {
+                  app.mockBook = 'b';
+                  app.mockSec = null;
+                  app.mockMode = true;
+                  app.go('quiz');
+                },
+              ),
+            ),
+          ],
           const SizedBox(height: 12),
-          Rise(3,
+          Rise(
+            5,
             child: _ExamCard(
               seal: '境',
               title: t.exRealm,
@@ -82,7 +142,10 @@ class ExamScreen extends StatelessWidget {
           ),
           if (recent.isNotEmpty) ...[
             const SizedBox(height: 22),
-            Text(t.exHist.toUpperCase(), style: F.s(12.5, w: FontWeight.w800, c: p.mute, ls: 1.2)),
+            Text(
+              t.exHist.toUpperCase(),
+              style: F.s(12.5, w: FontWeight.w800, c: p.mute, ls: 1.2),
+            ),
             const SizedBox(height: 8),
             Glass(
               radius: 22,
@@ -99,12 +162,26 @@ class ExamScreen extends StatelessWidget {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(recent[i].name, style: F.s(14.5, w: FontWeight.w700, c: p.fg)),
-                                Text(app.dateS(app.tDate(recent[i].at)), style: F.s(12.5, c: p.mute)),
+                                Text(
+                                  recent[i].name,
+                                  style: F.s(14.5, w: FontWeight.w700, c: p.fg),
+                                ),
+                                Text(
+                                  app.dateS(app.tDate(recent[i].at)),
+                                  style: F.s(12.5, c: p.mute),
+                                ),
                               ],
                             ),
                           ),
-                          Text(recent[i].score, style: F.s(16, w: FontWeight.w800, c: p.fg, feat: F.tab)),
+                          Text(
+                            recent[i].score,
+                            style: F.s(
+                              16,
+                              w: FontWeight.w800,
+                              c: p.fg,
+                              feat: F.tab,
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -119,6 +196,14 @@ class ExamScreen extends StatelessWidget {
   }
 }
 
+String? _bctLast(int l) {
+  final x = [
+    for (final m in app.lm.mocks)
+      if (m.length > 3 && m[1] == l) m,
+  ];
+  return x.isEmpty ? null : app.t.hkLast('${x.last[2]}/${x.last[3]}');
+}
+
 String _hkName(int lv) => switch (lv) {
   1 => app.t.hkL1,
   2 => app.t.hkL2,
@@ -129,7 +214,14 @@ class _ExamCard extends StatelessWidget {
   final String seal, title, sub, foot;
   final Color color;
   final VoidCallback onTap;
-  const _ExamCard({required this.seal, required this.title, required this.sub, required this.foot, required this.color, required this.onTap});
+  const _ExamCard({
+    required this.seal,
+    required this.title,
+    required this.sub,
+    required this.foot,
+    required this.color,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -151,23 +243,35 @@ class _ExamCard extends StatelessWidget {
                 border: Border.all(color: color.withValues(alpha: .45)),
               ),
               alignment: Alignment.center,
-              child: Text(seal, style: F.s(26, family: F.hz, c: p.fg, w: FontWeight.w600)),
+              child: Text(
+                seal,
+                style: F.s(26, family: F.hz, c: p.fg, w: FontWeight.w600),
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(title, style: F.s(16.5, w: FontWeight.w800, c: p.fg)),
+                  Text(
+                    title,
+                    style: F.s(16.5, w: FontWeight.w800, c: p.fg),
+                  ),
                   const SizedBox(height: 3),
                   Text(sub, style: F.s(13, c: p.soft, h: 1.35)),
                   const SizedBox(height: 5),
-                  Text(foot, style: F.s(12.5, w: FontWeight.w600, c: p.mute)),
+                  Text(
+                    foot,
+                    style: F.s(12.5, w: FontWeight.w600, c: p.mute),
+                  ),
                 ],
               ),
             ),
             const SizedBox(width: 6),
-            RotatedBox(quarterTurns: 3, child: Icon2(I.chev, size: 16, color: p.mute, width: 2.2)),
+            RotatedBox(
+              quarterTurns: 3,
+              child: Icon2(I.chev, size: 16, color: p.mute, width: 2.2),
+            ),
           ],
         ),
       ),

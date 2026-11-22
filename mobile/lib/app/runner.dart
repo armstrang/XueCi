@@ -6,6 +6,7 @@ library;
 import 'dart:async';
 import 'dart:math' as math;
 
+import '../data/bct.dart';
 import '../data/words.dart';
 import '../engine/learn.dart';
 import '../engine/model.dart';
@@ -117,7 +118,7 @@ class Runner {
       if (a.sessionQuick) items = quickOf(items);
     } else if (a.mockMode) {
       exam = true;
-      mock = MockRun(lm.mockExam(lv, short: a.mockShort));
+      mock = MockRun(a.mockBook.isEmpty ? lm.mockExam(lv, short: a.mockShort) : lm.bctExam(a.mockBook, short: a.mockShort, only: a.mockSec));
       items = mock.m.items;
     } else {
       items = lm.quizRound(a.pool(), roundQ, a.qType);
@@ -429,7 +430,7 @@ class Runner {
     it.ok = ok;
     final x = !ok && i >= 0 && !const {'s', 't', 'lt', 'lj'}.contains(it.q) && it.words != null ? it.words![i].id : null;
     final ms = nowMs() - it.t0;
-    lm.answer(it.d, Ans(LM.logQ(it.q!), ok, ms: ms, x: x, exam: r.exam, hint: it.hint));
+    if (!isBct(it.d.l)) lm.answer(it.d, Ans(LM.logQ(it.q!), ok, ms: ms, x: x, exam: r.exam, hint: it.hint));
     r.tot++;
     if (!r.exam) noteAns(ok, ms);
     _ease(r, ok);
@@ -552,6 +553,14 @@ class Runner {
     a.changed();
   }
 
+  /// BCT-style papers: one section only (null = all of them)
+  void mockSection(String? sec) {
+    if (a.mockSec == sec) return;
+    a.mockSec = sec;
+    reset();
+    a.changed();
+  }
+
   void mockFinish() {
     final r = run!;
     final m = r.mock!;
@@ -571,6 +580,7 @@ class Runner {
     final t = a.t;
     final r = m.r!;
     final mA = t.mkA;
+    if (m.m.book.isNotEmpty) return _bctAdvice(m);
     String f(String k, [List<Object?> args = const []]) => l10f(mA[k], args);
     final out = <({String t, String? bk, String? bl})>[];
     final L = m.m.L;
@@ -625,6 +635,40 @@ class Runner {
     }
     if (wrong.isNotEmpty) {
       out.add((t: f('wrong', [wrong.length]), bk: 'wrong', bl: f('wrongBtn', [wrong.length])));
+    }
+    return out;
+  }
+
+  List<({String t, String? bk, String? bl})> _bctAdvice(MockRun m) {
+    final t = a.t;
+    final r = m.r!;
+    final out = <({String t, String? bk, String? bl})>[];
+    final wrong = m.m.items.where((it) => it.ok != true).toList();
+    final pct = r.total / r.max;
+    if (r.pass) {
+      out.add((t: t.mkBctPass, bk: null, bl: null));
+    } else if (pct >= .5) {
+      out.add((t: t.mkBctNear(r.need - r.total), bk: null, bl: null));
+    } else {
+      out.add((t: t.mkBctLow, bk: null, bl: null));
+    }
+    final parts = [...r.parts]..sort((x, y) => x.score - y.score);
+    if (parts.isNotEmpty && parts.first.score < 85 && r.parts.length > 1) {
+      final w = parts.first;
+      out.add((t: t.mkBctWeak(L10.text(t.partN[w.k]), w.score), bk: 'part:${w.k}', bl: t.mkBctSecBtn));
+    }
+    bool hard(Set<String> q) {
+      final n = m.m.items.where((it) => q.contains(it.q)).length;
+      return n > 0 && wrong.where((it) => q.contains(it.q)).length / n >= .34;
+    }
+
+    if (hard({'c'})) out.add((t: t.mkBctCloze, bk: null, bl: null));
+    if (hard({'t', 'lt'})) out.add((t: t.mkBctTrans, bk: null, bl: null));
+    if (hard({'wo'})) out.add((t: t.mkBctOrder, bk: null, bl: null));
+    if (run!.timeUp) {
+      out.add((t: t.mkBctTime, bk: null, bl: null));
+    } else if (m.used < m.m.sec * .35 && pct < .7) {
+      out.add((t: t.mkBctFast, bk: null, bl: null));
     }
     return out;
   }

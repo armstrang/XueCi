@@ -1837,12 +1837,30 @@ class _MockIntro extends StatelessWidget {
     final t = app.t;
     final m = r.mock!.m;
     final prev = app.lm.mocks.where((x) => x[1] == m.L).toList();
+    final bct = m.book.isNotEmpty;
+    Widget secChip(String? k, String label) {
+      final on = app.mockSec == k;
+      return Press(
+        onTap: () => app.runner.mockSection(k),
+        scale: .96,
+        selected: on,
+        label: label,
+        child: Tile(
+          radius: 14,
+          color: on ? th.acc.withValues(alpha: .14) : null,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+          child: Text(label, style: F.s(13.5, w: FontWeight.w800, c: on ? th.acc : p.fg)),
+        ),
+      );
+    }
+
     ({int n, int min}) size(bool short) {
-      final pp = LM.mockPaper[math.min(m.L, 6)]!;
+      final pp = bct ? LM.bctPaper[m.L]! : LM.mockPaper[math.min(m.L, 6)]!;
       var n = 0, sec = 0;
       for (var i = 0; i < 3; i++) {
         var k = pp.n[i], s = pp.min[i] * 60;
         if (k == 0 || (i == 0 && m.skipped)) continue;
+        if (bct && app.mockSec != null && LM.mockSections[i] != app.mockSec) continue;
         if (short) {
           final j = math.max(3, (k / 3).round());
           s = math.max(180, (s * j / k / 60).round() * 60);
@@ -1884,12 +1902,21 @@ class _MockIntro extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('模拟考试', textAlign: TextAlign.center, style: F.s(15, w: FontWeight.w900, family: F.hz, c: p.gold, ls: 2)),
+          Text(bct ? '商务汉语' : '模拟考试', textAlign: TextAlign.center, style: F.s(15, w: FontWeight.w900, family: F.hz, c: p.gold, ls: 2)),
           const SizedBox(height: 6),
-          Text(t.mkIntroT(m.L), textAlign: TextAlign.center, style: F.s(18, w: FontWeight.w800, c: p.fg)),
-          _Note(t.mkIntro),
+          Text(bct ? t.mkBctT(m.book.toUpperCase()) : t.mkIntroT(m.L), textAlign: TextAlign.center, style: F.s(18, w: FontWeight.w800, c: p.fg)),
+          _Note(bct ? t.mkBctIntro : t.mkIntro),
           const SizedBox(height: 4),
           Row(children: [len(false), const SizedBox(width: 8), len(true)]),
+          if (bct) ...[
+            const SizedBox(height: 10),
+            Text(t.mkBctSecL, style: F.s(12.5, w: FontWeight.w800, c: p.mute)),
+            const SizedBox(height: 6),
+            Wrap(spacing: 8, runSpacing: 8, children: [
+              secChip(null, t.mkBctSecAll),
+              for (final k in LM.mockSections) secChip(k, L10.text(t.partN[k])),
+            ]),
+          ],
           const SizedBox(height: 6),
           for (final pp in m.parts) ...[
             const SizedBox(height: 7),
@@ -1915,10 +1942,10 @@ class _MockIntro extends StatelessWidget {
           const SizedBox(height: 12),
           _Rules([
             '${t.mkTime((m.sec / 60).round())} · ${t.mkPass(m.parts.length * 60, m.parts.length * 100)}',
-            if (m.L >= 5 && m.parts.any((x) => x.k == 'write')) t.mkWriteNote,
+            if (!bct && m.L >= 5 && m.parts.any((x) => x.k == 'write')) t.mkWriteNote,
             if (m.skipped) t.mkNoTts,
             if (prev.isNotEmpty) t.mkLast(prev.last[2], prev.last[3], app.dateS(app.tDate(prev.last[0] as num))),
-            t.mkNote,
+            bct ? t.mkBctNote : t.mkNote,
           ]),
           const SizedBox(height: 14),
           MainBtn(t.mkStart, wide: true, radius: 16, onTap: app.runner.mockStart),
@@ -2025,7 +2052,7 @@ class _MockResult extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text('模拟考试 · HSK ${m.m.L}', textAlign: TextAlign.center, style: F.s(14, w: FontWeight.w900, family: F.hz, c: p.gold, ls: 1)),
+          Text(m.m.book.isNotEmpty ? '商务汉语 · BCT ${m.m.book.toUpperCase()}' : '模拟考试 · HSK ${m.m.L}', textAlign: TextAlign.center, style: F.s(14, w: FontWeight.w900, family: F.hz, c: p.gold, ls: 1)),
           Text.rich(
             TextSpan(
               children: [
@@ -2150,7 +2177,7 @@ class _MockResult extends StatelessWidget {
               ),
             ),
           ],
-          _Note(t.mkNote),
+          _Note(m.m.book.isNotEmpty ? t.mkBctNote : t.mkNote),
           const SizedBox(height: 8),
           Row(
             children: [
@@ -2179,6 +2206,10 @@ class _MockResult extends StatelessWidget {
     final R = app.runner;
     final m = r.mock!;
     final wrong = m.m.items.where((it) => it.ok != true).toList();
+    if (m.m.book.isNotEmpty) {
+      if (k.startsWith('part:')) R.mockSection(k.substring(5));
+      return;
+    }
     if (k == 'wrong') {
       R.mockPractice(wrong);
     } else if (k.startsWith('part:')) {

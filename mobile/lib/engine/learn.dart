@@ -17,6 +17,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'dart:typed_data';
 
+import '../data/bct.dart';
 import '../data/pinyin.dart';
 import '../data/store.dart';
 import '../data/words.dart';
@@ -181,7 +182,8 @@ class Mock {
   final List<Item> items;
   final int sec;
   final bool skipped, short;
-  Mock(this.L, this.parts, this.items, this.sec, this.skipped, this.short);
+  final String book; // '' = the HSK paper; 'a' / 'b' = the BCT-style papers (L is then 101 / 102)
+  Mock(this.L, this.parts, this.items, this.sec, this.skipped, this.short, [this.book = '']);
 }
 
 class MockPart {
@@ -854,6 +856,7 @@ class LM {
 
   static bool clozeOK(Word d) => d.z.isNotEmpty && d.z.contains(d.h);
   bool Function() ttsReady = () => false;
+  BctBank? bct; // the BCT-style practice bank (bct.dart), set at boot
 
   /// the translation of an example sentence: the right one and three of other words' sentences, preferring look-
   /// or sound-alikes, then sentences of about the same length
@@ -1179,6 +1182,98 @@ class LM {
         : const {'c': 2, 't': 3},
     _ => l <= 3 ? const {'wo': 1, 'wh': 1} : const {'wo': 1},
   };
+
+  /// the BCT-style papers (practice in that style, not official questions): questions and minutes per section.
+  /// A: listening 30, reading 30, writing 10 (65 min); B: 50, 40, 10 (140 min). Writing builds sentences.
+  static const bctPaper = {
+    101: (n: [30, 30, 10], min: [25, 30, 10]),
+    102: (n: [50, 40, 10], min: [40, 60, 40]),
+  };
+
+  static Map<String, int> bctMix(String part, int l) => switch (part) {
+    'listen' => l == 101 ? const {'lt': 4, 'lj': 3, 'ls': 3} : const {'lt': 5, 'ls': 3, 'lj': 2},
+    'read' => l == 101 ? const {'c': 1, 't': 1} : const {'c': 1, 't': 2},
+    _ => const {'wo': 1},
+  };
+
+  /// the paper of a BCT-style practice: [only] keeps one section ('listen' / 'read' / 'write'); [short] is a third
+  Mock bctExam(String book, {bool short = false, String? only}) {
+    final L = bctLevel(book);
+    final paper = bctPaper[L]!;
+    final bank = bct?.of(book) ?? const <BctS>[];
+    final pool = shuf(bank.toList());
+    final used = <String>{};
+    BctS? take(bool Function(BctS) ok) {
+      for (final s in pool) {
+        if (!used.contains(s.id) && ok(s)) {
+          used.add(s.id);
+          return s;
+        }
+      }
+      return null;
+    }
+
+    String lang() => V.lang;
+    QMat meaning(BctS s) {
+      final me = (s.t[lang()] ?? '').trim();
+      final len = me.length;
+      final c = shuf(bank.where((x) => x.id != s.id && (x.t[lang()] ?? '').trim() != me && (x.t[lang()] ?? '').isNotEmpty).toList())
+          .take(30)
+          .toList();
+      c.sort((a, b) => (a.t[lang()]!.length - len).abs() - (b.t[lang()]!.length - len).abs());
+      final opts = shuf([s.word, ...c.take(3).map((x) => x.word)]);
+      return QMat(words: opts, ans: opts.indexOf(s.word));
+    }
+
+    QMat gap(BctS s) {
+      final opts = shuf([s.word, ...s.wrong]);
+      return QMat(words: opts, ans: opts.indexOf(s.word));
+    }
+
+    final parts = <({String k, int n, int sec})>[];
+    final items = <Item>[];
+    for (var i = 0; i < 3; i++) {
+      final part = mockSections[i];
+      if (only != null && only != part) continue;
+      var n = paper.n[i];
+      if (n == 0 || (part == 'listen' && !ttsReady())) continue;
+      var sec = paper.min[i] * 60;
+      if (short) {
+        final m = math.max(3, (n / 3).round());
+        sec = math.max(180, (sec * m / n / 60).round() * 60);
+        n = m;
+      }
+      final mine = <Item>[];
+      split(n, bctMix(part, L)).forEach((q, k) {
+        for (var j = 0; j < k; j++) {
+          final s = take((x) => q != 'wo' || x.w != null);
+          if (s == null) continue;
+          final it = Item.q(s.word, q, part: part);
+          switch (q) {
+            case 'c' || 'ls':
+              it.apply(gap(s));
+            case 't' || 'lt':
+              it.apply(meaning(s));
+            case 'lj':
+              final x = R() < 0.5 ? s.wrong[(R() * 3).floor()] : null;
+              it.apply(QMat(words: [x ?? s.word], ans: x == null ? 0 : 1));
+            case 'wo':
+              final p = s.w!;
+              var sh = shuf(p);
+              for (var k2 = 0; k2 < 4 && sh.join() == p.join(); k2++) {
+                sh = shuf(p);
+              }
+              it.apply(QMat(parts: sh));
+          }
+          mine.add(it);
+        }
+      });
+      if (mine.isEmpty) continue;
+      items.addAll(mine);
+      parts.add((k: part, n: mine.length, sec: sec));
+    }
+    return Mock(L, parts, items, parts.fold<int>(0, (a, p) => a + p.sec), !ttsReady(), short, book);
+  }
 
   /// n split by weights (largest remainders first, ties in the given order)
   static Map<String, int> split(int n, Map<String, int> w) {
@@ -1863,7 +1958,7 @@ class LM {
     }
     if (o['mock'] is List) {
       final l = (o['mock'] as List)
-          .where((x) => x is List && x.length >= 5 && isFin(x[0]) && x[1] is num && x[1] >= 1 && x[1] <= 9)
+          .where((x) => x is List && x.length >= 5 && isFin(x[0]) && x[1] is num && ((x[1] >= 1 && x[1] <= 9) || x[1] == 101 || x[1] == 102))
           .map((x) => x as List<dynamic>)
           .toList();
       mocks = l.length > 50 ? l.sublist(l.length - 50) : l;

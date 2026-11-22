@@ -13,6 +13,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+import '../data/bct.dart';
 import '../data/pinyin.dart' show tone;
 import '../data/seal.dart';
 import '../data/store.dart';
@@ -242,6 +243,8 @@ class App extends ChangeNotifier {
   /// the Quiz screen shows the HSK simulation (started from the Tests tab); not saved, and off again on any other screen
   bool mockMode = false;
   bool mockShort = false; // the HSK simulation: the short paper
+  String mockBook = ''; // '' = the HSK simulation, 'a' / 'b' = a BCT-style practice paper (not saved)
+  String? mockSec; // BCT practice: only this section (listen / read / write), null = the whole paper
   String spk = 'n'; // speaking practice: e easy, n normal, h hard
   int hkLv = 1; // HSKK: the level last chosen (1 Dasar, 2 Menengah, 3 Lanjutan)
   String gramBook = 'h3'; // the grammar book shown: h3 HSK 3.0, h2 HSK 2.0, bct, yct (v1.8)
@@ -529,6 +532,11 @@ class App extends ChangeNotifier {
     gprog = GProg(store, lm);
     try {
       gram = await GBook.load(bundle, vocab);
+      try {
+        lm.bct = await BctBank.load(bundle);
+      } catch (_) {
+        lm.bct = null;
+      }
       if (vocab.band) gram!.addBand(sealedX['gram'] as List?, vocab);
     } catch (_) {
       gram = null;
@@ -580,7 +588,11 @@ class App extends ChangeNotifier {
     for (final f in beforeShow) {
       f();
     }
-    if (s != 'quiz') mockMode = false;
+    if (s != 'quiz') {
+      mockMode = false;
+      mockBook = '';
+      mockSec = null;
+    }
     runner.reset();
     menuOpen = false;
     screen = s;

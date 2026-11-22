@@ -108,6 +108,9 @@ def main():
     for lang, (m, t) in LANG_COLS.items():
         name = f's-{lang}.bin'
         write(os.path.join(OUT_DATA, name), seal({'lang': lang, 'rows': [[d[m], d[t]] for d in band]}, name, material))
+    # the BCT-style practice sentences (built by content/tools/bct_build.py, which needs pypinyin + jieba)
+    import shutil
+    shutil.copyfile(os.path.join(ROOT, 'content', 'bct', 'bct.json'), os.path.join(OUT_DATA, 'bct.json'))
     # the speaking bank (HSKK practice and mock tests): make_speak.py
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import make_speak
