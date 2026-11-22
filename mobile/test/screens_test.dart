@@ -358,6 +358,24 @@ void runs() {
       });
     });
   }
+  // v1.8: the other books (HSK 2.0, BCT, YCT), a book's own point with its levels in each book
+  for (final (book, lv) in [('h2', 5), ('bct', 2), ('yct', 3)]) {
+    testWidgets('grammar book $book', (t) async {
+      await t.runAsync(() => bootApp(sample(), lang: 'id'));
+      await shot(t, 'grammar-$book', size: const Size(412, 1300), before: () {
+        app.gramBook = book;
+        app.gramLvBy[book] = lv;
+        app.go('grammar');
+      });
+    });
+  }
+  testWidgets('grammar point of two books', (t) async {
+    await t.runAsync(() => bootApp(sample(), lang: 'en'));
+    await shot(t, 'grammar-point-books', size: const Size(412, 1300), before: () {
+      app.gramPoint = '4-055';
+      app.go('grammar');
+    });
+  });
   for (final (name, id, lang) in [('grammar-point', '1-037', 'id'), ('grammar-point-en', '1-047', 'en'), ('grammar-point-th', '1-015', 'th')]) {
     testWidgets('grammar point $id $lang', (t) async {
       await t.runAsync(() => bootApp(sample(), lang: lang));

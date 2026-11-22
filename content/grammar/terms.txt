@@ -53,6 +53,86 @@ X | | sesuatu | something | สิ่งหนึ่ง | điều gì
 Y | | hal lain | something else | อีกสิ่ง | điều khác
 ？ | | tanda tanya | question mark | เครื่องหมายคำถาม | dấu hỏi
 
+结论 | jiélùn | kesimpulan | conclusion | ข้อสรุป | kết luận
+陈述 | chénshù | pernyataan | statement | ข้อความบอกเล่า | câu kể
+关联词 | guānliáncí | kata penghubung | linking word | คำเชื่อม | từ nối
+坏结果 | huài jiéguǒ | akibat buruk | bad result | ผลเสีย | kết quả xấu
+动作1 | dòngzuò | tindakan 1 | action 1 | การกระทำที่ 1 | hành động 1
+动作2 | dòngzuò | tindakan 2 | action 2 | การกระทำที่ 2 | hành động 2
+句子A | jùzi | kalimat A | sentence A | ประโยค A | câu A
+句子B | jùzi | kalimat B | sentence B | ประโยค B | câu B
+句子C | jùzi | kalimat C | sentence C | ประโยค C | câu C
+其他 | qítā | bagian lain | the rest | ส่วนอื่น | phần còn lại
+次数 | cìshù | berapa kali | how many times | จำนวนครั้ง | số lần
+依据 | yījù | dasar | basis | หลักฐานอ้างอิง | căn cứ
+事情 | shìqing | hal | matter | เรื่อง | việc
+事实 | shìshí | kenyataan | fact | ความจริง | sự thật
+行动 | xíngdòng | tindakan | action | การกระทำ | hành động
+建议 | jiànyì | usul | suggestion | ข้อเสนอ | đề nghị
+主谓 | zhǔwèi | subjek + predikat | subject + predicate | ประธาน + ภาคแสดง | chủ + vị
+动宾 | dòngbīn | kerja + objek | verb + object | กริยา + กรรม | động + tân
+偏正 | piānzhèng | penjelas + inti | modifier + head | ส่วนขยาย + หลัก | phụ + chính
+联合 | liánhé | sejajar | joined | ขนาน | đẳng lập
+方位 | fāngwèi | arah / letak | position | ตำแหน่ง | phương vị
+时间/情况 | shíjiān | waktu / keadaan | time / situation | เวลา / สถานการณ์ | thời gian / tình huống
+部分 | bùfen | bagian | parts | ส่วน | bộ phận
+某方面 | mǒu fāngmiàn | suatu bidang | some area | ด้านใดด้านหนึ่ง | một mặt nào đó
+谁的 | shéi de | milik siapa | whose | ของใคร | của ai
+证据 | zhèngjù | bukti | evidence | หลักฐาน | bằng chứng
+分句A | fēnjù | kalimat A | clause A | อนุประโยค A | vế A
+分句B | fēnjù | kalimat B | clause B | อนุประโยค B | vế B
+分句3 | fēnjù | kalimat 3 | clause 3 | ประโยคที่ 3 | vế 3
+身份 | shēnfèn | sebagai siapa | role | ฐานะ | thân phận
+强调 | qiángdiào | yang ditekankan | what is stressed | สิ่งที่เน้น | điều nhấn mạnh
+问 | wèn | tanya | question | ถาม | hỏi
+答 | dá | jawab | answer | ตอบ | đáp
+变化 | biànhuà | perubahan | change | การเปลี่ยนแปลง | thay đổi
+角度 | jiǎodù | sudut pandang | angle | มุมมอง | góc nhìn
+例子 | lìzi | contoh | example | ตัวอย่าง | ví dụ
+描写 | miáoxiě | gambaran | description | คำบรรยาย | miêu tả
+路线 | lùxiàn | jalur | route | เส้นทาง | tuyến đường
+来源 | láiyuán | sumber | source | แหล่งที่มา | nguồn
+复句A | fùjù | kalimat majemuk A | compound A | ประโยคความซ้อน A | câu phức A
+复句B | fùjù | kalimat majemuk B | compound B | ประโยคความซ้อน B | câu phức B
+复句 | fùjù | kalimat majemuk | compound sentence | ประโยคความซ้อน | câu phức
+单句 | dānjù | kalimat tunggal | simple sentence | ประโยคความเดียว | câu đơn
+称呼 | chēnghu | sebutan | form of address | คำเรียกขาน | cách xưng hô
+例外 | lìwài | pengecualian | exception | ข้อยกเว้น | ngoại lệ
+时段/次数 | shíduàn | lama / berapa kali | time span / times | ช่วงเวลา / จำนวนครั้ง | khoảng thời gian / số lần
+推测 | tuīcè | dugaan | guess | การคาดเดา | phỏng đoán
+有利条件 | yǒulì tiáojiàn | hal yang menguntungkan | lucky point | ข้อดี | điều kiện thuận lợi
+内容 | nèiróng | isi | content | เนื้อหา | nội dung
+有利情况 | yǒulì qíngkuàng | keadaan yang menguntungkan | lucky situation | สถานการณ์ที่ดี | tình huống thuận lợi
+好事 | hǎoshì | hal baik | good thing | เรื่องดี | việc tốt
+路径 | lùjìng | jalan yang diikuti | path | เส้นทาง | lối đi
+机会 | jīhuì | kesempatan | chance | โอกาส | cơ hội
+标准 | biāozhǔn | ukuran / aturan | standard | มาตรฐาน | tiêu chuẩn
+修饰语 | xiūshìyǔ | penjelas | modifier | ส่วนขยาย | từ bổ nghĩa
+抽象名词 | chōuxiàng míngcí | benda abstrak | abstract noun | คำนามนามธรรม | danh từ trừu tượng
+补充 | bǔchōng | tambahan | addition | ส่วนเพิ่มเติม | bổ sung
+事件A | shìjiàn | kejadian A | event A | เหตุการณ์ A | sự việc A
+事件B | shìjiàn | kejadian B | event B | เหตุการณ์ B | sự việc B
+事件 | shìjiàn | kejadian | event | เหตุการณ์ | sự việc
+概念 | gàiniàn | konsep | concept | แนวคิด | khái niệm
+解释 | jiěshì | penjelasan | explanation | คำอธิบาย | giải thích
+施事 | shīshì | pelaku | doer | ผู้กระทำ | tác nhân
+预期 | yùqī | yang diharapkan | expectation | สิ่งที่คาดไว้ | điều mong đợi
+意外 | yìwài | yang tak terduga | surprise | เรื่องไม่คาดคิด | điều bất ngờ
+极端补充 | jíduān bǔchōng | tambahan paling jauh | extreme addition | ส่วนเพิ่มที่สุดโต่ง | bổ sung cực điểm
+对方 | duìfāng | orang lain | the other side | อีกฝ่าย | đối phương
+预防 | yùfáng | pencegahan | precaution | การป้องกัน | phòng ngừa
+后果 | hòuguǒ | akibat | consequence | ผลที่ตามมา | hậu quả
+对立 | duìlì | sisi sebaliknya | the other side | ข้อโต้แย้ง | ý ngược lại
+并列/承接/递进/选择 | bìngliè | sejajar / urutan / tingkat / pilihan | joined / sequence / step-up / choice | ขนาน / ลำดับ / เพิ่มขึ้น / เลือก | đẳng lập / tiếp nối / tăng tiến / lựa chọn
+辅助句 | fǔzhùjù | kalimat pendukung | supporting sentence | ประโยคสนับสนุน | câu phụ
+主要句 | zhǔyàojù | kalimat utama | main sentence | ประโยคหลัก | câu chính
+好选择 | hǎo xuǎnzé | pilihan bagus | good choice | ทางเลือกที่ดี | lựa chọn tốt
+语境 | yǔjìng | konteks | context | บริบท | ngữ cảnh
+
+方法 | fāngfǎ | cara | way | วิธี | cách
+问题 | wèntí | masalah | problem | ปัญหา | vấn đề
+做法 | zuòfǎ | tindakan | what is done | วิธีทำ | cách làm
+
 # ---- small words whose meaning is a job
 了 | le | (sudah / berubah) | (done / now) | (แล้ว) | (rồi)
 的 | de | (milik / yang) | ('s / that) | (ของ / ที่) | (của / mà)
@@ -331,3 +411,35 @@ Y | | hal lain | something else | อีกสิ่ง | điều khác
 领导人 | lǐngdǎorén | pemimpin | leader | ผู้นำ | lãnh đạo
 骂人 | màrén | memarahi orang | scold people | ด่าคน | mắng người
 歉 | qiàn | maaf | apology | ขอโทษ | xin lỗi
+事实上 | shìshí shang | kenyataannya | in fact | ที่จริงแล้ว | thực tế là
+实际上 | shíjì shang | sebenarnya | actually | ที่จริง | thực ra
+说实话 | shuō shíhuà | jujur saja | to be honest | พูดตามตรง | nói thật là
+说实在的 | shuō shízài de | jujur saja | honestly | พูดตามจริง | nói thật
+免不了 | miǎnbuliǎo | pasti (tak terhindar) | bound to | หลีกเลี่ยงไม่ได้ | khó tránh khỏi
+当作 | dàngzuò | menganggap sebagai | treat as | ถือว่าเป็น | coi là
+当成 | dàngchéng | menganggap sebagai | take as | ถือว่าเป็น | coi là
+而言 | ér yán | (dilihat dari) | as for | ในแง่ | mà nói
+说到底 | shuō dào dǐ | pada akhirnya | in the end | ท้ายที่สุด | suy cho cùng
+反过来说 | fǎn guòlái shuō | sebaliknya | conversely | ในทางกลับกัน | ngược lại mà nói
+与其说 | yǔqí shuō | bukan … | less … | จะว่า … | nói là …
+不如说 | bùrú shuō | lebih tepat … | than … | น่าจะ … มากกว่า | chẳng bằng nói
+归根结底 | guīgēn jiédǐ | pada dasarnya | at root | ท้ายที่สุดแล้ว | rốt cuộc
+如有 | rú yǒu | bila ada | should there be | หากมี | nếu có
+截至 | jiézhì | sampai dengan | as of | ณ | tính đến
+为准 | wéi zhǔn | sebagai acuan | shall prevail | เป็นหลัก | làm chuẩn
+予以 | yǔyǐ | memberi | give | ให้ | dành cho
+加以 | jiāyǐ | melakukan | carry out | ดำเนินการ | tiến hành
+敬请 | jìng qǐng | dengan hormat mohon | kindly | ขอเรียนเชิญ | kính mời
+不至于 | búzhìyú | tidak sampai | not so far as | ไม่ถึงกับ | không đến mức
+难以 | nányǐ | sulit untuk | hard to | ยากที่จะ | khó mà
+不得不 | bùdébù | terpaksa | have to | จำต้อง | buộc phải
+直到 | zhídào | sampai | until | จนกระทั่ง | mãi đến
+每当 | měidāng | setiap kali | whenever | ทุกครั้งที่ | mỗi khi
+针对 | zhēnduì | untuk / ditujukan pada | aimed at | มุ่งไปที่ | nhằm vào
+无非 | wúfēi | tidak lain | nothing but | ก็แค่ | chẳng qua
+固然 | gùrán | memang | admittedly | ก็จริง | đành rằng
+何况 | hékuàng | apalagi | let alone | นับประสาอะไรกับ | huống hồ
+即便 | jíbiàn | sekalipun | even if | ถึงแม้ | cho dù
+聊天 | liáotiān | ngobrol | chat | คุยกัน | nói chuyện
+宁可 | nìngkě | lebih baik | would rather | ยอม | thà
+宁愿 | nìngyuàn | lebih memilih | would rather | ยอม | thà

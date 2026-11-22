@@ -21,6 +21,20 @@ import '../engine/model.dart';
 /// categories, in the order the page shows them (v1.6.1: the everyday ones first)
 const gramCats = ['S', 'U', 'P', 'N', 'A', 'R', 'C', 'V', 'K', 'F', 'W', 'E'];
 
+/// the books (v1.8, Josh: one button each): HSK 3.0 (the points' own level), HSK 2.0, BCT (A, B), YCT; a point of
+/// several books shows in each, with its level there
+const gramBooks = ['h3', 'h2', 'bct', 'yct'];
+
+/// a book's level as people say it: HSK 2.0 levels are HSK n, BCT A/B, YCT n
+String gramBookLv(String b, int l) => switch (b) {
+  'bct' => 'BCT ${l == 1 ? 'A' : 'B'}',
+  'yct' => 'YCT $l',
+  _ => l >= 7 ? 'HSK $l–${l + 2}' : 'HSK $l',
+};
+
+/// a book's name on its button
+String gramBookName(String b) => const {'h3': 'HSK 3.0', 'h2': 'HSK 2.0', 'bct': 'BCT', 'yct': 'YCT'}[b] ?? b;
+
 Map<String, String>? _m(Object? o) => o is Map ? o.map((k, v) => MapEntry('$k', '$v')) : null;
 
 /// one part of a formula: the grammar word itself (key) or a slot (主语, 名词, A) with its meaning
@@ -68,6 +82,13 @@ class GPoint {
   // part with meanings, a warning about the usual mistake, examples word by word
   Map<String, String> n = const {};
   String npy = '';
+  int t = 10; // the learning stage (1 sentence basics … 10 tone and expressions): the list's order
+  Map<String, int> v = const {}; // the other books and the point's level there (h2, bct, yct)
+  bool nh = false; // only in other books, not in the HSK 3.0 one
+  int ord = 0; // place in the book's files
+
+  /// the point's level in a book (null: not in it)
+  int? lvIn(String b) => b == 'h3' ? (nh ? null : l) : v[b];
   List<GPart> parts = const [];
   List<String> seps = const [];
   Map<String, String>? warn;
@@ -98,8 +119,19 @@ class GBook {
   final List<GPoint> pts = [];
   final Map<String, GPoint> byId = {};
 
-  List<GPoint> level(int l) => pts.where((p) => p.l == l).toList();
-  List<int> get levels => (pts.map((p) => p.l).toSet().toList()..sort());
+  /// the HSK 3.0 book's points of a level (the tests and the engine use these)
+  List<GPoint> level(int l) => pts.where((p) => p.l == l && !p.nh).toList();
+  List<int> get levels => (pts.where((p) => !p.nh).map((p) => p.l).toSet().toList()..sort());
+
+  /// a book's points of a level, in learning order (stage, then the book's own order)
+  List<GPoint> inBook(String b, int l) {
+    final out = pts.where((p) => p.lvIn(b) == l).toList();
+    jsSort(out, (a, c) => a.t != c.t ? a.t - c.t : a.ord - c.ord);
+    return out;
+  }
+
+  /// the levels a book has
+  List<int> levelsOf(String b) => b == 'h3' ? levels : (pts.map((p) => p.v[b]).whereType<int>().toSet().toList()..sort());
 
   void _add(List raw, Vocab v) {
     for (final o in raw.cast<Map>()) {
@@ -125,12 +157,12 @@ class GBook {
         p.npy = nm.remove('py') ?? '';
         p.n = nm;
       }
-      p.parts = [
-        for (final q in (o['fp'] as List?) ?? const [])
-          GPart('${(q as Map)['t']}', '${q['py'] ?? ''}', _m(q['g']), q['k'] == true),
-      ];
+      p.parts = [for (final q in (o['fp'] as List?) ?? const []) GPart('${(q as Map)['t']}', '${q['py'] ?? ''}', _m(q['g']), q['k'] == true)];
       p.seps = ((o['fx'] as List?) ?? const []).cast<String>();
       p.warn = _m(o['w']);
+      p.t = (o['t'] as num?)?.toInt() ?? 10;
+      p.v = {for (final e in ((o['v'] as Map?) ?? const {}).entries) '${e.key}': (e.value as num).toInt()};
+      p.nh = o['nh'] == 1;
       p.eg = [
         for (final e in (o['eg'] as List?) ?? const [])
           GEx('${(e as Map)['z']}', '${e['py']}', _m(e['tr']) ?? const {}, [
@@ -138,6 +170,7 @@ class GBook {
           ]),
       ];
       if (byId.containsKey(p.id)) continue;
+      p.ord = pts.length;
       pts.add(p);
       byId[p.id] = p;
     }
@@ -155,7 +188,10 @@ class GBook {
   }
 
   /// the points a sentence shows, of one level
-  List<GPoint> pointsIn(String z, int l) => [for (final p in level(l)) if (p.fits(z)) p];
+  List<GPoint> pointsIn(String z, int l) => [
+    for (final p in level(l))
+      if (p.fits(z)) p,
+  ];
 }
 
 /// progress per point (xc_gram)
@@ -286,7 +322,7 @@ class GPractice {
 
   /// a run of [n] questions on one point, gaps and order mixed
   List<GItem> run(GPoint p, {int n = 8}) {
-    final src = lm.shuf(sentences(p));
+    final src = _fresh(p);
     final out = <GItem>[];
     final second = <GItem>[];
     var i = 0;
@@ -295,6 +331,7 @@ class GPractice {
       final g = gap(p, d), o = order(p, d);
       final it = i.isEven ? (g ?? o) : (o ?? g);
       if (it != null) {
+        _used(d);
         out.add(it);
         i++;
         // few sentences (the low levels have few that show a point): the same sentence the other way, later
@@ -309,26 +346,55 @@ class GPractice {
     return out;
   }
 
-  /// a review across a level: the points most due (or never practised, in order) first, one question each
-  List<GItem> review(int l, GProg prog, {int n = 10}) {
-    final pts = book.level(l).where((p) => p.practisable).toList();
-    jsSort(pts, (a, b) {
-      double score(GPoint p) => prog.j.containsKey(p.id) ? prog.recall(p.id) : 2 + pts.indexOf(p) / 1000;
-      return score(a) - score(b);
-    });
+  /// sentences used lately (mixed practice and point runs prefer others), the last 80
+  final List<String> _recent = [];
+  void _used(Word d) {
+    _recent.remove(d.z);
+    _recent.add(d.z);
+    if (_recent.length > 80) _recent.removeAt(0);
+  }
+
+  /// a point's sentences, fresh ones first (shuffled), the ones used lately last
+  List<Word> _fresh(GPoint p) {
+    final ss = lm.shuf(sentences(p));
+    return [...ss.where((d) => !_recent.contains(d.z)), ...ss.where((d) => _recent.contains(d.z))];
+  }
+
+  /// mixed practice over a book's level (v1.8, Josh: "always the same questions"): mostly points that are fading,
+  /// some never practised (in learning order), one or two strong ones, drawn at random; one question per point,
+  /// sentences not used lately first, gaps and order mixed, then shuffled
+  List<GItem> review(String book, int l, GProg prog, {int n = 10}) {
+    final pts = this.book.inBook(book, l).where((p) => p.practisable).toList();
+    final weak = pts.where((p) => prog.j.containsKey(p.id) && !prog.held(p.id) || prog.due(p.id)).toList();
+    jsSort(weak, (a, b) => prog.recall(a.id) - prog.recall(b.id));
+    final fresh = pts.where((p) => !prog.j.containsKey(p.id)).toList();
+    final strong = pts.where((p) => !weak.contains(p) && !fresh.contains(p)).toList();
+    final pick = <GPoint>[];
+    void take(List<GPoint> src, int k) {
+      for (final p in src) {
+        if (k <= 0 || pick.length >= n) return;
+        if (pick.contains(p)) continue;
+        pick.add(p);
+        k--;
+      }
+    }
+
+    take(lm.shuf(weak.take(12).toList()), (n * .6).round());
+    take(lm.shuf(fresh.take(6).toList()), (n * .3).round());
+    take(lm.shuf(strong), 2);
+    take(lm.shuf(pts), n); // a level with few points of one kind: fill from all
     final out = <GItem>[];
-    for (final p in pts) {
-      if (out.length >= n) break;
-      final ss = lm.shuf(sentences(p));
-      for (final d in ss) {
-        final it = out.length.isEven ? (gap(p, d) ?? order(p, d)) : (order(p, d) ?? gap(p, d));
+    for (final p in pick) {
+      for (final d in _fresh(p)) {
+        final it = lm.R() < .5 ? (gap(p, d) ?? order(p, d)) : (order(p, d) ?? gap(p, d));
         if (it != null) {
+          _used(d);
           out.add(it);
           break;
         }
       }
     }
-    return out;
+    return lm.shuf(out);
   }
 }
 

@@ -240,6 +240,7 @@ mixin L10Keys {
   String get gramGo => s('gramGo');
   String get gramGrow => s('gramGrow');
   String gramHeld(Object? a0, Object? a1) => f('gramHeld', [a0, a1]);
+  String get gramIn => s('gramIn');
   String get gramList => s('gramList');
   String get gramNew => s('gramNew');
   String get gramOk => s('gramOk');
@@ -248,7 +249,11 @@ mixin L10Keys {
   String get gramRead => s('gramRead');
   String get gramReview => s('gramReview');
   String get gramRight => s('gramRight');
+  Map<String, dynamic> get gramStage => (v('gramStage') as Map?)?.cast<String, dynamic>() ?? const {};
   String gramSub(Object? a0) => f('gramSub', [a0]);
+  String gramSubBct(Object? a0) => f('gramSubBct', [a0]);
+  String gramSubH2(Object? a0) => f('gramSubH2', [a0]);
+  String gramSubYct(Object? a0) => f('gramSubYct', [a0]);
   String gramWeak(Object? a0) => f('gramWeak', [a0]);
   String get gramWrong => s('gramWrong');
   List<dynamic> get help => v('help') as List<dynamic>? ?? const [];

@@ -146,4 +146,67 @@ void main() {
       }
     }
   });
+
+  test('v1.8: the list follows the learning stages, mixed practice changes from one round to the next', () async {
+    final a = await boot();
+    final b = a.gram!;
+    for (final l in b.levels) {
+      final pts = b.inBook('h3', l);
+      expect(pts.length, b.level(l).length);
+      for (var i = 1; i < pts.length; i++) {
+        expect(pts[i].t >= pts[i - 1].t, isTrue, reason: '${pts[i].id} before ${pts[i - 1].id}');
+      }
+    }
+    // three rounds of the same level: different points and sentences, not the same ten every time
+    final r1 = a.gpr.review('h3', 2, a.gprog), r2 = a.gpr.review('h3', 2, a.gprog), r3 = a.gpr.review('h3', 2, a.gprog);
+    expect(r1.length, 10);
+    final z1 = r1.map((x) => x.d.z).toSet(), z2 = r2.map((x) => x.d.z).toSet(), z3 = r3.map((x) => x.d.z).toSet();
+    expect(z1.intersection(z2).length, lessThan(5));
+    expect(z2.intersection(z3).length, lessThan(5));
+    // after answers, fading points come back more often than strong ones, but not alone
+    for (final it in r1) {
+      a.gprog.answer(it.p.id, false);
+    }
+    final r4 = a.gpr.review('h3', 2, a.gprog);
+    final weak = r1.map((x) => x.p.id).toSet();
+    final back = r4.where((x) => weak.contains(x.p.id)).length;
+    expect(back, greaterThanOrEqualTo(4));
+    expect(back, lessThan(r4.length));
+  });
+
+  test('v1.8: the books: HSK 2.0 1–6, YCT 1–4, BCT A/B; their own points stay out of the HSK 3.0 book and the tests', () async {
+    final a = await boot();
+    final b = a.gram!;
+    expect(b.levelsOf('h3'), [1, 2, 3, 4, 5, 6]);
+    expect(b.levelsOf('h2'), [1, 2, 3, 4, 5, 6]);
+    expect(b.levelsOf('yct'), [1, 2, 3, 4]);
+    expect(b.levelsOf('bct'), [1, 2]);
+    final own = b.pts.where((p) => p.nh).toList();
+    expect(own, isNotEmpty);
+    for (final p in own) {
+      expect(p.id, startsWith('x-'));
+      expect(p.v, isNotEmpty);
+      expect(b.level(p.l), isNot(contains(p)), reason: p.id);
+      expect(p.lvIn('h3'), isNull);
+    }
+    // a point of several books shows in each, with the same progress
+    final p = b.byId['4-055']!; // 既然……就……
+    expect(b.inBook('h3', 4), contains(p));
+    expect(b.inBook('h2', p.v['h2']!), contains(p));
+    expect(b.inBook('bct', p.v['bct']!), contains(p));
+    for (final bk in gramBooks) {
+      for (final l in b.levelsOf(bk)) {
+        final ps = b.inBook(bk, l);
+        for (var i = 1; i < ps.length; i++) {
+          expect(ps[i].t >= ps[i - 1].t, isTrue);
+        }
+        expect(a.gpr.review(bk, l, a.gprog), isNotEmpty, reason: '$bk $l');
+      }
+    }
+    // a book's level is remembered in the UI settings
+    a.gramBook = 'bct';
+    a.saveUI();
+    final again = await boot({'hsk16_ui': jsonEncode(a.store.get('hsk16_ui', {}))});
+    expect(again.gramBook, 'bct');
+  });
 }

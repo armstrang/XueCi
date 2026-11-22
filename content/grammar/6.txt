@@ -1,6 +1,8 @@
 # HSK 6 grammar points (HSK 3.0 grammar syllabus, level 6). Format: see 1.txt.
 
 = W | 类前缀：超/多/反/无/亚/准 | 超 + 名词/形容词
+t: 1
+v: h2 6, bct B
 i: 6-001
 n: lèi qiánzhuì | Awalan: 超, 多, 反, 无, 准 | Prefixes: 超, 多, 反, 无, 准 | คำนำหน้า: 超 多 反 无 准 | Tiền tố: 超, 多, 反, 无, 准
 fs: 超/多/反/无/准 + 名词/形容词
@@ -15,6 +17,8 @@ e: 我们 公司 买 了 一 辆 [1 超{super-|super-|ซูเปอร์-|si�
 e: 现在 到处 都 有 [1 无{tanpa|without|ไม่มี|không}] [2 线] 网络 。 | Xiànzài dàochù dōu yǒu wúxiàn wǎngluò. | Sekarang di mana-mana ada jaringan nirkabel. | Now there is wireless internet everywhere. | ตอนนี้มีเครือข่ายไร้สายทุกที่ | Bây giờ đâu đâu cũng có mạng không dây.
 
 = W | 类后缀：化/式/型/性 | 名词/形容词 + 化/式/型/性
+t: 1
+v: h2 6, bct B
 i: 6-002
 n: lèi hòuzhuì | Akhiran: 化, 式, 型, 性 | Suffixes: 化, 式, 型, 性 | คำปิดท้าย: 化 式 型 性 | Hậu tố: 化, 式, 型, 性
 fs: 名词/形容词 + 化/式/型/性
@@ -29,6 +33,8 @@ e: 这 家 餐厅 是 [1 中{Tionghoa|Chinese|จีน|Trung Hoa}] [2 式{gaya|
 e: 这 件 事 的 [1 重要] [2 性{sifat, tingkat|nature, degree|ความ-|tính}] 很 大 。 | Zhè jiàn shì de zhòngyàoxìng hěn dà. | Pentingnya hal ini besar sekali. | This matter is very important. | เรื่องนี้สำคัญมาก | Việc này rất quan trọng.
 
 = P | 指示代词：本/此 | 本/此 + 名词
+t: 1
+v: h2 6, bct B
 i: 6-003
 n: zhǐshì dàicí "běn / cǐ" | Penunjuk resmi: 本 dan 此 | Formal "this": 本 and 此 | คำชี้เฉพาะ: 本 และ 此 | Từ chỉ định trang trọng: 本 và 此
 fs: 本/此 + 名词
@@ -44,6 +50,8 @@ e: [1 此] [2 时] 大家 都 安静 了 。 | Cǐ shí dàjiā dōu ānjìng le
 e: [1 本] [2 店] 今天 休息 。 | Běn diàn jīntiān xiūxi. | Toko kami hari ini libur. | Our shop is closed today. | ร้านเราวันนี้หยุด | Cửa hàng chúng tôi hôm nay nghỉ.
 
 = N | 名量词：餐/串/滴/副/股/集/枝 | 数词 + 量词 + 名词
+t: 2
+v: h2 6
 i: 6-004
 n: míng liàngcí 6 | Satuan: 餐, 串, 滴, 副, 股, 集 | Measure words: 餐, 串, 滴, 副, 股, 集 | ลักษณนาม: 餐 串 滴 副 股 集 | Lượng từ: 餐, 串, 滴, 副, 股, 集
 fs: 数词 + 量词 + 名词
@@ -58,6 +66,8 @@ e: 厨房 里 有 [1 一] [2 股] [3 奇怪 的 气味] 。
 e: 他 戴 着 [1 一] [2 副] [3 眼镜] 。 | Tā dàizhe yí fù yǎnjìng. | Dia memakai sepasang kacamata. | He is wearing a pair of glasses. | เขาใส่แว่นตาหนึ่งอัน | Anh ấy đeo một chiếc kính.
 
 = N | 动量词：一番/一声/一趟 | 动词 + 一番/一声/一趟
+t: 2
+v: h2 6
 i: 6-005
 n: dòngliàng bǔyǔ | Menghitung tindakan: 一番, 一声, 一趟 | Counting actions: 一番, 一声, 一趟 | นับครั้งของการกระทำ: 一番 一声 一趟 | Đếm lần của hành động: 一番, 一声, 一趟
 fs: 动词 + 一番/一声/一趟
@@ -66,11 +76,13 @@ id: 一番 sekali (dengan usaha), 一声 sekali bersuara, 一趟 sekali bolak-ba
 en: 一番 once (with effort), 一声 a word or call, 一趟 a trip.
 th: 一番 หนึ่งครั้ง (อย่างตั้งใจ) 一声 หนึ่งเสียง 一趟 หนึ่งเที่ยว
 vi: 一番 một phen, 一声 một tiếng, 一趟 một chuyến.
-e: 经过 [1 一 番] 努力 ， 他 终于 成功 了 。
-e: 如果 要 来 ， 请 事先 告诉 我 [1 一 声] 。
-e: 我 明天 要 去 [1 一 趟] 北京 。 | Wǒ míngtiān yào qù yí tàng Běijīng. | Besok saya harus pergi sekali ke Beijing. | I have to make a trip to Beijing tomorrow. | พรุ่งนี้ฉันต้องไปปักกิ่งหนึ่งเที่ยว | Ngày mai tôi phải đi Bắc Kinh một chuyến.
+e: [1 经过] [2 一 番] 努力 ， 他 终于 成功 了 。
+e: 如果 要 来 ， 请 事先 告诉 我 [2 一 声] 。
+e: [1 我 明天 要 去] [2 一 趟] 北京 。 | Wǒ míngtiān yào qù yí tàng Běijīng. | Besok saya harus pergi sekali ke Beijing. | I have to make a trip to Beijing tomorrow. | พรุ่งนี้ฉันต้องไปปักกิ่งหนึ่งเที่ยว | Ngày mai tôi phải đi Bắc Kinh một chuyến.
 
 = A | 程度副词：特/异常 | 特/异常 + 形容词
+t: 5
+v: h2 6
 i: 6-006
 n: chéngdù fùcí "tè / yìcháng" | Sangat: 特, 异常 | Very: 特, 异常 | มาก: 特 异常 | Rất: 特, 异常
 fs: 特/异常 + 形容词
@@ -86,6 +98,8 @@ e: 今年 夏天 [1 异常] [2 炎热] 。 | Jīnnián xiàtiān yìcháng yánr
 e: 这 个 菜 [1 特] [2 辣] ， 我 吃 不 了 。 | Zhè ge cài tè là, wǒ chī bu liǎo. | Masakan ini pedas sekali, saya tidak sanggup makan. | This dish is really spicy, I can't eat it. | อาหารจานนี้เผ็ดมาก ฉันกินไม่ไหว | Món này cay quá, tôi không ăn nổi.
 
 = A | 范围副词：尽/净/一齐/一同 | 尽/净 + 是 ／ 一齐/一同 + 动词
+t: 4
+v: h2 6
 i: 6-007
 n: fànwéi fùcí "jìn / jìng / yìqí / yìtóng" | Hanya & bersama: 净, 尽, 一齐, 一同 | Only & together: 净, 尽, 一齐, 一同 | แต่ & ด้วยกัน: 净 尽 一齐 一同 | Toàn & cùng nhau: 净, 尽, 一齐, 一同
 fs: 净/尽 + 是 ， 一齐/一同 + 动词
@@ -100,6 +114,8 @@ e: 大家 [3 一同] [4 出发] 吧 。 | Dàjiā yìtóng chūfā ba. | Ayo ber
 e: 孩子 们 [3 一齐] [4 喊] ： 新年 好 ！ | Háizi men yìqí hǎn: xīnnián hǎo! | Anak-anak berseru serempak: selamat tahun baru! | The children shouted together: Happy New Year! | เด็กๆ ตะโกนพร้อมกันว่า สวัสดีปีใหม่ | Bọn trẻ cùng hô: chúc mừng năm mới!
 
 = A | 时间副词：时时/一时/早晚 | 副词 + 动词
+t: 4
+v: h2 6
 i: 6-008
 n: shíjiān fùcí | Waktu: 时时, 一时, 早晚 | Time: 时时, 一时, 早晚 | คำบอกเวลา: 时时 一时 早晚 | Thời gian: 时时, 一时, 早晚
 fs: 时时/一时/早晚 + 动词
@@ -113,6 +129,8 @@ e: 你 [1 早晚] 会 明白 父母 的 苦 心 。
 e: 他 [1 时时] [2 想] 着 家乡 。 | Tā shíshí xiǎngzhe jiāxiāng. | Dia selalu merindukan kampung halamannya. | He thinks of his hometown all the time. | เขาคิดถึงบ้านเกิดอยู่ตลอดเวลา | Anh ấy lúc nào cũng nhớ quê.
 
 = A | 关联副词：便 | 一……便…… ／ 条件 + 便 + 结果
+t: 9
+v: h2 6, bct B
 i: 6-009
 n: guānlián fùcí "biàn" | 便 = 就 (tulisan) | 便 = 就 (written) | 便 = 就 (ภาษาเขียน) | 便 = 就 (văn viết)
 fs: 一 + 动词 ， 便 + 动词
@@ -122,11 +140,13 @@ id: 便 = 就 versi tulisan: 一到家便睡了.
 en: 便 is the written 就: 一到家便睡了.
 th: 便 คือ 就 แบบภาษาเขียน 一到家便睡了
 vi: 便 là 就 dạng văn viết: 一到家便睡了.
-e: 他 一 [1 到] 家 [2 便] 睡 了 。 | Tā yí dào jiā biàn shuì le. | Begitu sampai di rumah dia langsung tidur. | As soon as he got home, he went to sleep. | เขาถึงบ้านก็นอนเลย | Vừa về đến nhà là anh ấy ngủ ngay.
-e: 她 一 [1 看到] 我 ， [2 便] 笑 了 。 | Tā yí kàndào wǒ, biàn xiào le. | Begitu melihatku, dia langsung tersenyum. | As soon as she saw me, she smiled. | พอเห็นฉันเธอก็ยิ้ม | Vừa thấy tôi, cô ấy liền cười.
-e: 你 把 地址 告诉 我 ， 我 [2 便] 去 。 | Nǐ bǎ dìzhǐ gàosu wǒ, wǒ biàn qù. | Beri tahu aku alamatnya, aku langsung pergi. | Tell me the address and I'll go right away. | บอกที่อยู่ฉัน แล้วฉันจะไปทันที | Bạn cho tôi địa chỉ, tôi sẽ đi ngay.
+e: 他 [1 一] [2 到] 家 [3 便] [4 睡 了] 。 | Tā yí dào jiā biàn shuì le. | Begitu sampai di rumah dia langsung tidur. | As soon as he got home, he went to sleep. | เขาถึงบ้านก็นอนเลย | Vừa về đến nhà là anh ấy ngủ ngay.
+e: 她 [1 一] [2 看到] 我 ， [3 便] [4 笑 了] 。 | Tā yí kàndào wǒ, biàn xiào le. | Begitu melihatku, dia langsung tersenyum. | As soon as she saw me, she smiled. | พอเห็นฉันเธอก็ยิ้ม | Vừa thấy tôi, cô ấy liền cười.
+e: 你 把 地址 告诉 我 ， 我 [3 便] [4 去] 。 | Nǐ bǎ dìzhǐ gàosu wǒ, wǒ biàn qù. | Beri tahu aku alamatnya, aku langsung pergi. | Tell me the address and I'll go right away. | บอกที่อยู่ฉัน แล้วฉันจะไปทันที | Bạn cho tôi địa chỉ, tôi sẽ đi ngay.
 
 = A | 方式副词：不禁/赶忙/亲眼/特地/特意 | 副词 + 动词
+t: 4
+v: h2 6
 i: 6-010
 n: fāngshì fùcí | Cara melakukan: 不禁, 赶忙, 亲眼, 特地, 特意 | How it is done: 不禁, 赶忙, 亲眼, 特地, 特意 | วิธีทำ: 不禁 赶忙 亲眼 特地 特意 | Cách làm: 不禁, 赶忙, 亲眼, 特地, 特意
 fs: 不禁/赶忙/亲眼/特地/特意 + 动词
@@ -140,19 +160,23 @@ e: 这 是 我 [1 特意] [2 为] 你 准备 的 礼物 。
 e: 他 [1 特地] 从 北京 [2 赶] 来 参加 我 的 婚礼 。 | Tā tèdì cóng Běijīng gǎn lái cānjiā wǒ de hūnlǐ. | Dia sengaja datang dari Beijing untuk menghadiri pernikahan saya. | He came all the way from Beijing for my wedding. | เขาตั้งใจมาจากปักกิ่งเพื่องานแต่งของฉัน | Anh ấy cố ý từ Bắc Kinh đến dự đám cưới của tôi.
 
 = A | 情态副词：仿佛 | 仿佛 + (像……似的)
+t: 4
+v: h2 5
 i: 6-011
 n: qíngtài fùcí "fǎngfú" | Seolah-olah: 仿佛 | As if: 仿佛 | ราวกับ: 仿佛 | Dường như: 仿佛
-fs: 主语 + 仿佛 + 像……似的
+fs: 主语 + 仿佛 + 谓语
 k: 仿佛
 id: 仿佛 = seolah-olah.
 en: 仿佛 is as if.
 th: 仿佛 คือราวกับ
 vi: 仿佛 là dường như.
-e: 他 笑 得 [1 仿佛] 一 个 孩子 。
-e: 今天 的 [1 天气] [2 仿佛] 春天 一样 。 | Jīntiān de tiānqì fǎngfú chūntiān yíyàng. | Cuaca hari ini seolah-olah musim semi. | The weather today is like spring. | อากาศวันนี้เหมือนฤดูใบไม้ผลิ | Thời tiết hôm nay như mùa xuân.
-e: 我 [1 仿佛] 在 哪儿 见 过 他 。 | Wǒ fǎngfú zài nǎr jiàn guo tā. | Rasanya saya pernah melihatnya di suatu tempat. | I feel as if I've seen him somewhere. | ฉันรู้สึกเหมือนเคยเห็นเขาที่ไหนสักแห่ง | Tôi cảm giác như đã gặp anh ấy ở đâu đó.
+e: [1 他] 笑 得 [2 仿佛] [3 一 个 孩子] 。
+e: 今天 的 [1 天气] [2 仿佛] [3 春天 一样] 。 | Jīntiān de tiānqì fǎngfú chūntiān yíyàng. | Cuaca hari ini seolah-olah musim semi. | The weather today is like spring. | อากาศวันนี้เหมือนฤดูใบไม้ผลิ | Thời tiết hôm nay như mùa xuân.
+e: [1 我] [2 仿佛] [3 在 哪儿 见 过 他] 。 | Wǒ fǎngfú zài nǎr jiàn guo tā. | Rasanya saya pernah melihatnya di suatu tempat. | I feel as if I've seen him somewhere. | ฉันรู้สึกเหมือนเคยเห็นเขาที่ไหนสักแห่ง | Tôi cảm giác như đã gặp anh ấy ở đâu đó.
 
 = A | 语气副词：才/刚好/偏/恰好 | 副词 + 谓语
+t: 10
+v: h2 6
 i: 6-012
 n: yǔqì fùcí | Kebetulan & justru: 刚好, 恰好, 偏 | By chance & just: 刚好, 恰好, 偏 | บังเอิญพอดี: 刚好 恰好 偏 | Vừa đúng lúc: 刚好, 恰好, 偏
 fs: 刚好/恰好/偏 + 谓语
@@ -166,6 +190,8 @@ e: 我 到 车站 的 时候 ， 车 [1 刚好] [2 来] 了 。
 e: 我 不让 他 去 ， 他 [1 偏] [2 要] 去 。 | Wǒ bú ràng tā qù, tā piān yào qù. | Saya melarangnya pergi, tapi dia justru mau pergi. | I told him not to go, but he insisted on going. | ฉันไม่ให้เขาไป เขากลับจะไป | Tôi không cho anh ấy đi, anh ấy lại cứ đòi đi.
 
 = R | 介词：于 | 动词 + 于 + 时间/地方
+t: 7
+v: h2 6, bct B
 i: 6-013
 n: jiècí "yú" | Di, pada, dari: 于 | At, in, from: 于 | ที่ ใน จาก: 于 | Ở, tại, từ: 于
 fs: 动词 + 于 + 时间/地方
@@ -174,11 +200,13 @@ id: 于 = di, pada (tulisan): 生于1990年.
 en: 于 is at, in (written): 生于1990年.
 th: 于 คือที่ ใน (ภาษาเขียน) 生于1990年
 vi: 于 là tại, vào (văn viết): 生于1990年.
-e: 茶 起源 [1 于] 中国 。
-e: 加拿大 位 [1 于] 北美洲 。
-e: 他 生 [1 于] 一九九零 年 。 | Tā shēng yú yī jiǔ jiǔ líng nián. | Dia lahir pada tahun 1990. | He was born in 1990. | เขาเกิดเมื่อปี 1990 | Anh ấy sinh năm 1990.
+e: [1 茶 起源] [2 于] [3 中国] 。
+e: [1 加拿大 位] [2 于] [3 北美洲] 。
+e: [1 他 生] [2 于] [3 一九九零 年] 。 | Tā shēng yú yī jiǔ jiǔ líng nián. | Dia lahir pada tahun 1990. | He was born in 1990. | เขาเกิดเมื่อปี 1990 | Anh ấy sinh năm 1990.
 
 = R | 介词：沿（着） | 沿着 + 路线 + 动词
+t: 2
+v: h2 6
 i: 6-014
 n: jiècí "yánzhe" | Menyusuri: 沿着 | Along: 沿着 | ไปตาม: 沿着 | Dọc theo: 沿着
 fs: 沿着 + 路线 + 动词
@@ -192,6 +220,8 @@ e: [1 沿 着] [2 这 条 河] [3 走] ， 就 能 到 公园 。
 e: 他们 [1 沿着] [2 马路] [3 慢慢 地 走] 。 | Tāmen yánzhe mǎlù mànmàn de zǒu. | Mereka berjalan pelan-pelan menyusuri jalan raya. | They walked slowly along the road. | พวกเขาเดินช้าๆ ไปตามถนน | Họ chậm rãi đi dọc con đường.
 
 = R | 介词：同/与 | 同/与 + 对象 + 动词
+t: 7
+v: h2 6, bct B
 i: 6-015
 n: jiècí "tóng / yǔ" | Dengan: 同, 与 | With: 同, 与 | กับ: 同 与 | Với: 同, 与
 fs: 同/与 + 对象 + 动词
@@ -206,6 +236,8 @@ e: 请 [1 同] [2 他] [3 联系] 。 | Qǐng tóng tā liánxì. | Tolong hubun
 e: 他 [1 与] [2 同事] [3 讨论] 了 很 久 。 | Tā yǔ tóngshì tǎolùn le hěn jiǔ. | Dia berdiskusi lama dengan rekannya. | He discussed it for a long time with his colleague. | เขาหารือกับเพื่อนร่วมงานอยู่นาน | Anh ấy thảo luận rất lâu với đồng nghiệp.
 
 = R | 至于 | 至于 + 话题，……
+t: 7
+v: h2 5, bct B
 i: 6-016
 n: zhìyú | Adapun, mengenai: 至于 | As for: 至于 | ส่วน: 至于 | Còn về: 至于
 fs: 分句 ， 至于 + 话题 ， 分句
@@ -214,11 +246,13 @@ id: 至于 = adapun, mengenai (ganti topik).
 en: 至于 is as for (switching topic).
 th: 至于 คือส่วน (เปลี่ยนหัวข้อ)
 vi: 至于 là còn về (chuyển chủ đề).
-e: 我们 先 去 北京 ， [1 至于] [2 去 不 去 上海] ， 以后 再说 。
-e: 我 会 来 ， [1 至于] [2 带 什么] ， 你们 决定 吧 。 | Wǒ huì lái, zhìyú dài shénme, nǐmen juédìng ba. | Saya akan datang, adapun mau bawa apa, kalian putuskan saja. | I'll come. As for what to bring, you decide. | ฉันจะมา ส่วนจะเอาอะไรมา พวกคุณตัดสินใจเลย | Tôi sẽ đến, còn mang gì thì các bạn quyết định.
-e: 他 的 工作 很 好 ， [1 至于] [2 工资] ， 我 不 清楚 。 | Tā de gōngzuò hěn hǎo, zhìyú gōngzī, wǒ bù qīngchu. | Pekerjaannya bagus, adapun gajinya saya kurang tahu. | His job is good; as for the pay, I'm not sure. | งานเขาดี ส่วนเงินเดือนฉันไม่แน่ใจ | Công việc của anh ấy tốt, còn lương thì tôi không rõ.
+e: [1 我们 先 去 北京] ， [2 至于] [3 去 不 去 上海] ， [4 以后 再说] 。
+e: [1 我 会 来] ， [2 至于] [3 带 什么] ， [4 你们 决定 吧] 。 | Wǒ huì lái, zhìyú dài shénme, nǐmen juédìng ba. | Saya akan datang, adapun mau bawa apa, kalian putuskan saja. | I'll come. As for what to bring, you decide. | ฉันจะมา ส่วนจะเอาอะไรมา พวกคุณตัดสินใจเลย | Tôi sẽ đến, còn mang gì thì các bạn quyết định.
+e: [1 他 的 工作 很 好] ， [2 至于] [3 工资] ， [4 我 不 清楚] 。 | Tā de gōngzuò hěn hǎo, zhìyú gōngzī, wǒ bù qīngchu. | Pekerjaannya bagus, adapun gajinya saya kurang tahu. | His job is good; as for the pay, I'm not sure. | งานเขาดี ส่วนเงินเดือนฉันไม่แน่ใจ | Công việc của anh ấy tốt, còn lương thì tôi không rõ.
 
 = R | 介词：因 | 因 + 原因 + 结果
+t: 7
+v: h2 6, bct B
 i: 6-017
 n: jiècí "yīn" | Karena: 因 | Because of: 因 | เพราะ: 因 | Vì: 因
 fs: 因 + 原因 ， 结果
@@ -233,6 +267,8 @@ e: 他 [1 因] [2 病] [3 请假] 了 。 | Tā yīn bìng qǐngjià le. | Dia i
 e: 学校 [1 因] [2 天气] [3 停课] 了 。 | Xuéxiào yīn tiānqì tíngkè le. | Sekolah diliburkan karena cuaca. | School was cancelled because of the weather. | โรงเรียนหยุดเรียนเพราะอากาศ | Trường nghỉ học vì thời tiết.
 
 = R | 介词：除 | 除 + 对象 + 以外/之外
+t: 7
+v: h2 6
 i: 6-018
 n: jiècí "chú" | Selain: 除……以外 | Besides: 除……以外 | นอกจาก: 除……以外 | Ngoài: 除……以外
 fs: 除 + 对象 + 以外/之外 ， 都 + 谓语
@@ -242,11 +278,13 @@ id: 除…之外 = selain (tulisan).
 en: 除…之外 is apart from (written).
 th: 除…之外 คือนอกจาก (ภาษาเขียน)
 vi: 除…之外 là ngoài… ra (văn viết).
-e: [1 除] [2 他] [3 以外] ， 大家 都 到 了 。
-e: [1 除] [2 周日] [3 之外] ， 我 每 天 都 上班 。 | Chú zhōurì zhī wài, wǒ měi tiān dōu shàngbān. | Selain hari Minggu, saya kerja setiap hari. | Except Sundays, I work every day. | ยกเว้นวันอาทิตย์ ฉันทำงานทุกวัน | Trừ chủ nhật, ngày nào tôi cũng đi làm.
+e: [1 除] [2 他] [3 以外] ， 大家 [4 都] [5 到 了] 。
+e: [1 除] [2 周日] [3 之外] ， 我 每 天 [4 都] [5 上班] 。 | Chú zhōurì zhī wài, wǒ měi tiān dōu shàngbān. | Selain hari Minggu, saya kerja setiap hari. | Except Sundays, I work every day. | ยกเว้นวันอาทิตย์ ฉันทำงานทุกวัน | Trừ chủ nhật, ngày nào tôi cũng đi làm.
 e: [1 除] [2 汉语] [3 以外] ， 她 还 会 说 日语 。 | Chú Hànyǔ yǐwài, tā hái huì shuō Rìyǔ. | Selain bahasa Mandarin, dia juga bisa bahasa Jepang. | Besides Chinese, she can also speak Japanese. | นอกจากภาษาจีน เธอยังพูดภาษาญี่ปุ่นได้ | Ngoài tiếng Trung, cô ấy còn nói được tiếng Nhật.
 
 = R | 介词：据 | 据 + 来源，……
+t: 7
+v: h2 6, bct B
 i: 6-019
 n: jiècí "jù" | Menurut: 据 | According to: 据 | ตามที่: 据 | Theo: 据
 fs: 据 + 来源 ， 分句
@@ -255,11 +293,13 @@ id: 据 = menurut (sumber): 据说, 据报道.
 en: 据 is according to (a source): 据说, 据报道.
 th: 据 คือตามที่ (แหล่งข่าว) 据说 据报道
 vi: 据 là theo (nguồn): 据说, 据报道.
-e: [1 据] [2 报道] ， 明天 会 下雨 。 | Jù bàodào, míngtiān huì xiàyǔ. | Menurut berita, besok akan hujan. | According to reports, it will rain tomorrow. | ตามข่าว พรุ่งนี้ฝนจะตก | Theo đưa tin, ngày mai sẽ mưa.
-e: [1 据] [2 说] ， 这 家 店 的 面 很 好吃 。 | Jù shuō, zhè jiā diàn de miàn hěn hǎochī. | Katanya, mi di toko ini enak sekali. | They say the noodles in this shop are great. | เขาว่ากันว่าก๋วยเตี๋ยวร้านนี้อร่อยมาก | Nghe nói mì ở quán này rất ngon.
-e: [1 据] [2 我 所 知] ， 他 已经 回国 了 。 | Jù wǒ suǒ zhī, tā yǐjīng huíguó le. | Setahu saya, dia sudah pulang ke negaranya. | As far as I know, he has already gone back to his country. | เท่าที่ฉันรู้ เขากลับประเทศแล้ว | Theo tôi biết, anh ấy đã về nước rồi.
+e: [1 据] [2 报道] ， [3 明天 会 下雨] 。 | Jù bàodào, míngtiān huì xiàyǔ. | Menurut berita, besok akan hujan. | According to reports, it will rain tomorrow. | ตามข่าว พรุ่งนี้ฝนจะตก | Theo đưa tin, ngày mai sẽ mưa.
+e: [1 据] [2 说] ， [3 这 家 店 的 面 很 好吃] 。 | Jù shuō, zhè jiā diàn de miàn hěn hǎochī. | Katanya, mi di toko ini enak sekali. | They say the noodles in this shop are great. | เขาว่ากันว่าก๋วยเตี๋ยวร้านนี้อร่อยมาก | Nghe nói mì ở quán này rất ngon.
+e: [1 据] [2 我 所 知] ， [3 他 已经 回国 了] 。 | Jù wǒ suǒ zhī, tā yǐjīng huíguó le. | Setahu saya, dia sudah pulang ke negaranya. | As far as I know, he has already gone back to his country. | เท่าที่ฉันรู้ เขากลับประเทศแล้ว | Theo tôi biết, anh ấy đã về nước rồi.
 
 = C | 连接词：而/同/与 | A + 而/同/与 + B
+t: 9
+v: h2 6, bct B
 i: 6-020
 n: liáncí "ér / tóng / yǔ" | Dan, tetapi: 而, 同, 与 | And, yet: 而, 同, 与 | และ แต่: 而 同 与 | Và, nhưng: 而, 同, 与
 fs: A + 而/同/与 + B
@@ -275,6 +315,8 @@ e: [1 经济] [2 与] [3 文化] 同样 重要 。 | Jīngjì yǔ wénhuà tóng
 e: 他 [1 年轻] [2 而] [3 有 经验] 。 | Tā niánqīng ér yǒu jīngyàn. | Dia muda tapi berpengalaman. | He is young yet experienced. | เขาอายุน้อยแต่มีประสบการณ์ | Anh ấy trẻ nhưng có kinh nghiệm.
 
 = C | 连接分句：不料/可/若 | 分句 + 不料/可 + 分句 ／ 若……就……
+t: 9
+v: h2 6, bct B
 i: 6-021
 n: lián jùzi "búliào / kě / ruò" | Tak disangka, tetapi, jika: 不料, 可, 若 | Unexpectedly, but, if: 不料, 可, 若 | ไม่คาดคิด แต่ ถ้า: 不料 可 若 | Không ngờ, nhưng, nếu: 不料, 可, 若
 fs: 分句 ， 不料/可/若 + 分句
@@ -283,11 +325,13 @@ id: 不料 = tak disangka, 可 = tetapi, 若 = jika (tulisan).
 en: 不料 unexpectedly, 可 but, 若 if (written).
 th: 不料 ไม่นึกว่า 可 แต่ 若 ถ้า (ภาษาเขียน)
 vi: 不料 không ngờ, 可 nhưng, 若 nếu (văn viết).
-e: 我 本来 想 早点 走 ， [1 不料] [2 下起 了 大雨] 。 | Wǒ běnlái xiǎng zǎodiǎn zǒu, búliào xiàqǐ le dàyǔ. | Awalnya saya mau berangkat lebih awal, tak disangka hujan deras turun. | I meant to leave early, but unexpectedly it started pouring. | ฉันตั้งใจจะไปแต่เช้า ไม่คาดว่าฝนจะตกหนัก | Tôi định đi sớm, không ngờ trời đổ mưa to.
-e: [1 若] [2 有 问题] ， 请 随时 联系 我 。 | Ruò yǒu wèntí, qǐng suíshí liánxì wǒ. | Jika ada masalah, silakan hubungi saya kapan saja. | If you have questions, contact me any time. | หากมีปัญหา กรุณาติดต่อฉันได้ตลอดเวลา | Nếu có vấn đề, xin liên hệ tôi bất cứ lúc nào.
-e: 这 个 办法 好 是 好 ， [1 可] [2 太 贵 了] 。 | Zhè ge bànfǎ hǎo shì hǎo, kě tài guì le. | Cara ini memang bagus, tetapi terlalu mahal. | This method is good, but too expensive. | วิธีนี้ดีก็ดี แต่แพงเกินไป | Cách này tốt thì tốt, nhưng đắt quá.
+e: 我 本来 想 早点 走 ， [2 不料] [3 下起 了 大雨] 。 | Wǒ běnlái xiǎng zǎodiǎn zǒu, búliào xiàqǐ le dàyǔ. | Awalnya saya mau berangkat lebih awal, tak disangka hujan deras turun. | I meant to leave early, but unexpectedly it started pouring. | ฉันตั้งใจจะไปแต่เช้า ไม่คาดว่าฝนจะตกหนัก | Tôi định đi sớm, không ngờ trời đổ mưa to.
+e: [1 若] [2 有 问题] ， [3 请 随时 联系 我] 。 | Ruò yǒu wèntí, qǐng suíshí liánxì wǒ. | Jika ada masalah, silakan hubungi saya kapan saja. | If you have questions, contact me any time. | หากมีปัญหา กรุณาติดต่อฉันได้ตลอดเวลา | Nếu có vấn đề, xin liên hệ tôi bất cứ lúc nào.
+e: 这 个 办法 好 是 好 ， [2 可] [3 太 贵 了] 。 | Zhè ge bànfǎ hǎo shì hǎo, kě tài guì le. | Cara ini memang bagus, tetapi terlalu mahal. | This method is good, but too expensive. | วิธีนี้ดีก็ดี แต่แพงเกินไป | Cách này tốt thì tốt, nhưng đắt quá.
 
 = U | 结构助词：所 | 主语 + 所 + 动词 + 的
+t: 8
+v: h2 6, bct B
 i: 6-022
 n: jiégòu zhùcí "suǒ" | Apa yang…: 所……的 | What…: 所……的 | สิ่งที่…: 所……的 | Điều mà…: 所……的
 fs: 主语 + 所 + 动词 + 的
@@ -297,11 +341,13 @@ id: 所 + kata kerja + 的 = apa yang…: 我所知道的 = apa yang kuketahui.
 en: 所 + verb + 的 is what…: 我所知道的 is what I know.
 th: 所 + กริยา + 的 คือสิ่งที่… 我所知道的
 vi: 所 + động từ + 的 là điều mà…: 我所知道的.
-e: 这 就 是 我 [1 所] [2 知道] [3 的] 。 | Zhè jiù shì wǒ suǒ zhīdào de. | Inilah yang saya ketahui. | This is all I know. | นี่คือสิ่งที่ฉันรู้ | Đây là tất cả những gì tôi biết.
-e: 他 [1 所] [2 说] [3 的] 都 是 真 的 。 | Tā suǒ shuō de dōu shì zhēn de. | Semua yang dia katakan benar. | Everything he said is true. | ที่เขาพูดเป็นความจริงทั้งหมด | Những gì anh ấy nói đều là thật.
-e: 这 是 我 [1 所] [2 希望] [3 的] 结果 。 | Zhè shì wǒ suǒ xīwàng de jiéguǒ. | Ini hasil yang saya harapkan. | This is the result I hoped for. | นี่คือผลลัพธ์ที่ฉันหวัง | Đây là kết quả tôi mong muốn.
+e: 这 就 是 我 [2 所] [3 知道] [4 的] 。 | Zhè jiù shì wǒ suǒ zhīdào de. | Inilah yang saya ketahui. | This is all I know. | นี่คือสิ่งที่ฉันรู้ | Đây là tất cả những gì tôi biết.
+e: 他 [1 所] [2 说] [3 的] 都 是 真 [4 的] 。 | Tā suǒ shuō de dōu shì zhēn de. | Semua yang dia katakan benar. | Everything he said is true. | ที่เขาพูดเป็นความจริงทั้งหมด | Những gì anh ấy nói đều là thật.
+e: 这 是 我 [2 所] [3 希望] [4 的] 结果 。 | Zhè shì wǒ suǒ xīwàng de jiéguǒ. | Ini hasil yang saya harapkan. | This is the result I hoped for. | นี่คือผลลัพธ์ที่ฉันหวัง | Đây là kết quả tôi mong muốn.
 
 = U | 语气助词：罢了/嘛 | 陈述 + 罢了/嘛
+t: 10
+v: h2 6
 i: 6-023
 n: yǔqì zhùcí "bàle / ma" | Cuma… saja, kan: 罢了, 嘛 | Just, you know: 罢了, 嘛 | เท่านั้น นะ: 罢了 嘛 | Chỉ là, mà: 罢了, 嘛
 fs: 陈述 + 罢了/嘛
@@ -311,11 +357,13 @@ id: 罢了 = cuma…saja, 嘛 = kan (sudah jelas).
 en: 罢了 is that's all, 嘛 is obviously.
 th: 罢了 คือแค่นั้นเอง 嘛 คือก็…นี่ (ชัดอยู่แล้ว)
 vi: 罢了 là thế thôi, 嘛 là mà (đương nhiên).
-e: 有 问题 就 说 [1 嘛] ， 别 不好意思 。
-e: 我 只是 开 个 玩笑 [1 罢了] 。 | Wǒ zhǐshì kāi ge wánxiào bàle. | Saya cuma bercanda saja. | I was just joking. | ฉันแค่ล้อเล่นเท่านั้น | Tôi chỉ đùa thôi.
-e: 你 不 懂 就 问 [1 嘛] ， 没 关系 的 。 | Nǐ bù dǒng jiù wèn ma, méi guānxi de. | Kalau tidak paham ya tanya saja, tidak apa-apa. | If you don't understand, just ask, it's fine. | ถ้าไม่เข้าใจก็ถามสิ ไม่เป็นไร | Không hiểu thì hỏi đi mà, không sao đâu.
+e: [1 有 问题 就 说] [2 嘛] ， 别 不好意思 。
+e: [1 我 只是 开 个 玩笑] [2 罢了] 。 | Wǒ zhǐshì kāi ge wánxiào bàle. | Saya cuma bercanda saja. | I was just joking. | ฉันแค่ล้อเล่นเท่านั้น | Tôi chỉ đùa thôi.
+e: [1 你 不 懂 就 问] [2 嘛] ， 没 关系 的 。 | Nǐ bù dǒng jiù wèn ma, méi guānxi de. | Kalau tidak paham ya tanya saja, tidak apa-apa. | If you don't understand, just ask, it's fine. | ถ้าไม่เข้าใจก็ถามสิ ไม่เป็นไร | Không hiểu thì hỏi đi mà, không sao đâu.
 
 = N | 数词 + 形容词 + 量词 | 一大碗 / 一小块
+t: 2
+v: h2 6
 i: 6-024
 n: shùliàng zǔhé | Sifat di antara angka dan satuan: 一大碗 | Adjective between number and measure: 一大碗 | คำคุณศัพท์ระหว่างตัวเลขกับลักษณนาม | Tính từ giữa số và lượng từ: 一大碗
 fs: 数词 + 形容词 + 量词 + 名词
@@ -330,6 +378,8 @@ e: 开 公司 需要 [1 一] [2 大] [3 笔] [4 资金] 。
 e: 我 想 吃 [1 一] [2 小] [3 块] [4 蛋糕] 。 | Wǒ xiǎng chī yì xiǎo kuài dàngāo. | Saya mau makan sepotong kecil kue. | I'd like a small piece of cake. | ฉันอยากกินเค้กชิ้นเล็กๆ | Tôi muốn ăn một miếng bánh nhỏ.
 
 = E | 或A或B | 或 + A + 或 + B
+t: 10
+v: h2 6
 i: 6-025
 n: gé shì "huò A huò B" | Entah A entah B | Either A or B | ไม่ A ก็ B | Hoặc A hoặc B
 fs: 或 + A + 或 + B
@@ -345,6 +395,8 @@ e: 周末 他 [1 或] [2 看书] [3 或] [4 游泳] 。 | Zhōumò tā huò kàn
 e: 他 [1 或] [2 早] [3 或] [4 晚] 总会 来 。 | Tā huò zǎo huò wǎn zǒnghuì lái. | Cepat atau lambat dia pasti datang. | Sooner or later he will come. | เขาจะมาไม่เร็วก็ช้า | Sớm hay muộn thì anh ấy cũng sẽ đến.
 
 = E | 无A无B | 无 + A + 无 + B
+t: 10
+v: h2 6
 i: 6-026
 n: gé shì "wú A wú B" | Tanpa A tanpa B | Without A, without B | ไม่มี A ไม่มี B | Không A không B
 fs: 无 + A + 无 + B
@@ -360,6 +412,8 @@ e: 他 [1 无] [2 亲] [3 无] [4 故] ， 一 个 人 来 到 这里 。 | Tā 
 e: 这 样 [1 无] [2 声] [3 无] [4 息] 地 走 了 ， 太 奇怪 了 。 | Zhèyàng wú shēng wú xī de zǒu le, tài qíguài le. | Pergi tanpa suara tanpa kabar seperti itu, aneh sekali. | Leaving without a sound like that is so strange. | จากไปอย่างเงียบเชียบแบบนี้ แปลกจริงๆ | Lặng lẽ đi như vậy thật kỳ lạ.
 
 = E | A这A那 | 动词这动词那
+t: 10
+v: h2 6
 i: 6-027
 n: gé shì "A zhè A nà" | Ini-itu: 想这想那 | This and that: 想这想那 | นั่นนี่: 想这想那 | Cái này cái kia: 想这想那
 fs: 动词 + 这 + 动词 + 那
@@ -375,6 +429,8 @@ e: 他 [1 说] [2 这] [3 说] [4 那] ， 说 个 不 停 。 | Tā shuō zhè 
 e: 她 [1 看] [2 这] [3 看] [4 那] ， 什么 也 没 买 。 | Tā kàn zhè kàn nà, shénme yě méi mǎi. | Dia lihat sana lihat sini, tapi tidak membeli apa-apa. | She looked at this and that but bought nothing. | เธอดูนี่ดูนั่นแต่ไม่ได้ซื้ออะไร | Cô ấy xem cái này cái kia mà chẳng mua gì.
 
 = E | 左A右B | 左 + A + 右 + B
+t: 10
+v: h2 6
 i: 6-028
 n: gé shì "zuǒ A yòu B" | Berulang-ulang: 左思右想 | Over and over: 左思右想 | ซ้ำแล้วซ้ำอีก: 左思右想 | Lặp đi lặp lại: 左思右想
 fs: 左 + A + 右 + B
@@ -390,6 +446,8 @@ e: 他 [1 左] [2 看] [3 右] [4 看] ， 没 找到 路 。 | Tā zuǒ kàn y�
 e: 他 [1 左] [2 说] [3 右] [4 说] ， 我 终于 同意 了 。 | Tā zuǒ shuō yòu shuō, wǒ zhōngyú tóngyì le. | Dia membujuk berulang-ulang, akhirnya saya setuju. | He kept on persuading me and I finally agreed. | เขาพูดซ้ำแล้วซ้ำอีก ในที่สุดฉันก็ตกลง | Anh ấy nói đi nói lại, cuối cùng tôi đồng ý.
 
 = E | 不怎么 | 不怎么 + 形容词/动词
+t: 10
+v: h2 6
 i: 6-029
 n: bù zěnme | Tidak terlalu: 不怎么 | Not very: 不怎么 | ไม่ค่อย: 不怎么 | Không mấy: 不怎么
 fs: 主语 + 不怎么 + 形容词/动词
@@ -399,11 +457,13 @@ en: 不怎么 is not very: 不怎么好.
 th: 不怎么 คือไม่ค่อย 不怎么好
 vi: 不怎么 là không… lắm: 不怎么好.
 ex: 我不怎么喜欢吃辣的。 | Wǒ bù zěnme xǐhuan chī là de. | Aku tidak terlalu suka makanan pedas. | I don’t much like spicy food. | ฉันไม่ค่อยชอบกินเผ็ด | Tôi không thích ăn cay lắm.
-e: 我 [1 不 怎么] [2 喜欢] 吃 辣 的 。 | Wǒ bù zěnme xǐhuan chī là de. | Aku tidak terlalu suka makanan pedas. | I don’t much like spicy food. | ฉันไม่ค่อยชอบกินเผ็ด | Tôi không thích ăn cay lắm.
-e: 今天 [1 不 怎么] [2 冷] 。 | Jīntiān bù zěnme lěng. | Hari ini tidak terlalu dingin. | It isn't very cold today. | วันนี้ไม่ค่อยหนาว | Hôm nay không lạnh lắm.
-e: 他 [1 不 怎么] [2 说话] 。 | Tā bù zěnme shuōhuà. | Dia tidak banyak bicara. | He doesn't talk much. | เขาไม่ค่อยพูด | Anh ấy không hay nói.
+e: 我 [1 不 怎么] [2 喜欢] [3 吃 辣 的] 。 | Wǒ bù zěnme xǐhuan chī là de. | Aku tidak terlalu suka makanan pedas. | I don’t much like spicy food. | ฉันไม่ค่อยชอบกินเผ็ด | Tôi không thích ăn cay lắm.
+e: 今天 [2 不 怎么] [3 冷] 。 | Jīntiān bù zěnme lěng. | Hari ini tidak terlalu dingin. | It isn't very cold today. | วันนี้ไม่ค่อยหนาว | Hôm nay không lạnh lắm.
+e: 他 [2 不 怎么] [3 说话] 。 | Tā bù zěnme shuōhuà. | Dia tidak banyak bicara. | He doesn't talk much. | เขาไม่ค่อยพูด | Anh ấy không hay nói.
 
 = E | 不怎么样 | 主语 + 不怎么样
+t: 10
+v: h2 6
 i: 6-030
 n: bù zěnmeyàng | Biasa saja: 不怎么样 | Not so great: 不怎么样 | ไม่ค่อยดี: 不怎么样 | Chẳng ra sao: 不怎么样
 fs: 主语 + 不怎么样
@@ -418,20 +478,24 @@ e: 这 部 [1 电影] [2 不 怎么样] ， 别 去 看 了 。 | Zhè bù diàn
 e: 我 的 [1 汉语] [2 不 怎么样] 。 | Wǒ de Hànyǔ bù zěnmeyàng. | Bahasa Mandarin saya biasa saja. | My Chinese isn't much good. | ภาษาจีนของฉันไม่ค่อยดี | Tiếng Trung của tôi không giỏi lắm.
 
 = E | 好（不）容易 | 好（不）容易 + 动词，……
+t: 10
+v: h2 5
 i: 6-031
 n: hǎo bù róngyì | Susah payah akhirnya: 好不容易 | Finally, with difficulty: 好不容易 | ยากเย็นกว่าจะ: 好不容易 | Mãi mới: 好不容易
-fs: 好(不)容易 + 动词 ， 才 + 结果
+fs: 主语 + 好容易/好不容易 + 才 + 结果
 w: 好容易 dan 好不容易 artinya sama: "susah payah akhirnya berhasil". | 好容易 and 好不容易 mean the same: "finally managed after a struggle". | 好容易 กับ 好不容易 ความหมายเหมือนกัน: "ยากเย็นกว่าจะทำได้" | 好容易 và 好不容易 nghĩa giống nhau: "mãi mới làm được".
 k: 好不容易|好容易
 id: 好不容易 = susah payah akhirnya (artinya sama dengan 好容易!).
 en: 好不容易 is with great difficulty (same meaning as 好容易!).
 th: 好不容易 คือกว่าจะ…ได้ (ความหมายเท่ากับ 好容易)
 vi: 好不容易 là vất vả lắm mới (nghĩa giống 好容易!).
-e: 我 [1 好容易] [2 才] 买 到 了 这 张 票 。
-e: 我 [1 好不容易] [2 才] 找到 了 他 的 家 。 | Wǒ hǎobù róngyì cái zhǎodào le tā de jiā. | Dengan susah payah barulah saya menemukan rumahnya. | I finally found his house with great difficulty. | ฉันยากเย็นกว่าจะหาบ้านเขาเจอ | Tôi mãi mới tìm được nhà anh ấy.
-e: 他 [1 好不容易] [2 才] 睡着 。 | Tā hǎobù róngyì cái shuìzháo. | Dia susah payah baru bisa tertidur. | He had a hard time falling asleep. | เขายากเย็นกว่าจะหลับ | Anh ấy mãi mới ngủ được.
+e: [1 我] [2 好容易] [3 才] [4 买 到 了 这 张 票] 。
+e: [1 我] [2 好不容易] [3 才] [4 找到 了 他 的 家] 。 | Wǒ hǎobù róngyì cái zhǎodào le tā de jiā. | Dengan susah payah barulah saya menemukan rumahnya. | I finally found his house with great difficulty. | ฉันยากเย็นกว่าจะหาบ้านเขาเจอ | Tôi mãi mới tìm được nhà anh ấy.
+e: [1 他] [2 好不容易] [3 才] [4 睡着] 。 | Tā hǎobù róngyì cái shuìzháo. | Dia susah payah baru bisa tertidur. | He had a hard time falling asleep. | เขายากเย็นกว่าจะหลับ | Anh ấy mãi mới ngủ được.
 
 = E | 那倒（也）是 | 那倒也是
+t: 10
+v: h2 6
 i: 6-032
 n: nà dào yě shì | Benar juga: 那倒也是 | That's true: 那倒也是 | นั่นก็จริง: 那倒也是 | Cũng đúng: 那倒也是
 fs: 那倒也是
@@ -446,20 +510,24 @@ e: " 他 年纪 还 小 。 " " [1 那倒也是] ， 别 怪 他 了 。 "  | "T
 e: " 这 家 店 有点儿 贵 。 " " [1 那倒是] ， 但是 东西 很 好 。 "  | "Zhè jiā diàn yǒudiǎnr guì." "Nà dào shì, dànshì dōngxi hěn hǎo." | "Toko ini agak mahal." "Memang, tapi barangnya bagus." | "This shop is a bit pricey." "True, but the stuff is good." | "ร้านนี้แพงนิดหน่อย" "จริง แต่ของดี" | "Quán này hơi đắt." "Đúng, nhưng đồ rất tốt."
 
 = E | 就是说/这就是说 | ……，就是说……
+t: 10
+v: h2 5
 i: 6-033
 n: jiùshì shuō | Artinya, dengan kata lain: 就是说 | In other words: 就是说 | นั่นคือ: 就是说 | Nói cách khác: 就是说
-fs: 分句 ， 就是说 + 分句
+fs: 分句 ， 就是说/也就是说 + 分句
 k: 就是说|也就是说
 id: 就是说 = artinya, dengan kata lain.
 en: 就是说 is that is to say.
 th: 就是说 คือหมายความว่า
 vi: 就是说 là nghĩa là.
 ex: 他下个月退休，就是说，他不会再来上班了。 | Tā xià ge yuè tuìxiū, jiù shì shuō, tā bú huì zài lái shàngbān le. | Dia pensiun bulan depan, artinya dia tidak akan masuk kerja lagi. | He retires next month, that is, he won’t come to work any more. | เขาจะเกษียณเดือนหน้า หมายความว่าเขาจะไม่มาทำงานอีกแล้ว | Tháng sau ông ấy nghỉ hưu, nghĩa là sẽ không đi làm nữa.
-e: 他 下 个 月 退休 ， [1 就是 说] ， 他 不 会 再 来 上班 了 。 | Tā xià ge yuè tuìxiū, jiù shì shuō, tā bú huì zài lái shàngbān le. | Dia pensiun bulan depan, artinya dia tidak akan masuk kerja lagi. | He retires next month, that is, he won’t come to work any more. | เขาจะเกษียณเดือนหน้า หมายความว่าเขาจะไม่มาทำงานอีกแล้ว | Tháng sau ông ấy nghỉ hưu, nghĩa là sẽ không đi làm nữa.
-e: 明天 放假 ， [1 也 就是 说] ， 今天 是 最后 一 天 。 | Míngtiān fàngjià, yě jiù shì shuō, jīntiān shì zuìhòu yì tiān. | Besok libur, artinya hari ini hari terakhir. | Tomorrow is a holiday, which means today is the last day. | พรุ่งนี้หยุด นั่นคือวันนี้เป็นวันสุดท้าย | Ngày mai nghỉ, nghĩa là hôm nay là ngày cuối.
-e: 这 里 不 能 停车 ， [1 就是 说] ， 你 得 换 个 地方 。 | Zhèlǐ bù néng tíngchē, jiù shì shuō, nǐ děi huàn ge dìfang. | Di sini tidak boleh parkir, artinya kamu harus pindah tempat. | You can't park here, so you have to move. | ที่นี่จอดรถไม่ได้ นั่นคือคุณต้องเปลี่ยนที่ | Ở đây không được đậu xe, tức là bạn phải đổi chỗ.
+e: [1 他 下 个 月 退休] ， [2 就是 说] ， [3 他 不 会 再 来 上班 了] 。 | Tā xià ge yuè tuìxiū, jiù shì shuō, tā bú huì zài lái shàngbān le. | Dia pensiun bulan depan, artinya dia tidak akan masuk kerja lagi. | He retires next month, that is, he won’t come to work any more. | เขาจะเกษียณเดือนหน้า หมายความว่าเขาจะไม่มาทำงานอีกแล้ว | Tháng sau ông ấy nghỉ hưu, nghĩa là sẽ không đi làm nữa.
+e: [1 明天 放假] ， [2 也 就是 说] ， [3 今天 是 最后 一 天] 。 | Míngtiān fàngjià, yě jiù shì shuō, jīntiān shì zuìhòu yì tiān. | Besok libur, artinya hari ini hari terakhir. | Tomorrow is a holiday, which means today is the last day. | พรุ่งนี้หยุด นั่นคือวันนี้เป็นวันสุดท้าย | Ngày mai nghỉ, nghĩa là hôm nay là ngày cuối.
+e: [1 这 里 不 能 停车] ， [2 就是 说] ， [3 你 得 换 个 地方] 。 | Zhèlǐ bù néng tíngchē, jiù shì shuō, nǐ děi huàn ge dìfang. | Di sini tidak boleh parkir, artinya kamu harus pindah tempat. | You can't park here, so you have to move. | ที่นี่จอดรถไม่ได้ นั่นคือคุณต้องเปลี่ยนที่ | Ở đây không được đậu xe, tức là bạn phải đổi chỗ.
 
 = E | 算了 | ……，算了
+t: 10
+v: h2 5
 i: 6-034
 n: suàn le | Sudahlah: 算了 | Forget it: 算了 | ช่างเถอะ: 算了 | Thôi bỏ đi: 算了
 fs: 分句 ， 算了
@@ -468,11 +536,13 @@ id: 算了 = sudahlah, lupakan.
 en: 算了 is forget it.
 th: 算了 คือช่างเถอะ
 vi: 算了 là thôi bỏ đi.
-e: [1 算了] ， 别 生气 了 。
-e: 太 贵 了 ， [1 算了] 吧 。 | Tài guì le, suàn le ba. | Terlalu mahal, sudahlah. | Too expensive, forget it. | แพงเกินไป ช่างเถอะ | Đắt quá, thôi bỏ đi.
-e: 他 不 想 去 就 [1 算了] ， 我们 自己 去 。 | Tā bù xiǎng qù jiù suàn le, wǒmen zìjǐ qù. | Kalau dia tidak mau pergi ya sudahlah, kita pergi sendiri. | If he doesn't want to go, forget it, we'll go ourselves. | ถ้าเขาไม่อยากไปก็ช่างเถอะ เราไปกันเอง | Anh ấy không muốn đi thì thôi, chúng ta tự đi.
+e: [2 算了] ， 别 生气 了 。
+e: [1 太 贵 了] ， [2 算了] 吧 。 | Tài guì le, suàn le ba. | Terlalu mahal, sudahlah. | Too expensive, forget it. | แพงเกินไป ช่างเถอะ | Đắt quá, thôi bỏ đi.
+e: [1 他 不 想 去 就] [2 算了] ， 我们 自己 去 。 | Tā bù xiǎng qù jiù suàn le, wǒmen zìjǐ qù. | Kalau dia tidak mau pergi ya sudahlah, kita pergi sendiri. | If he doesn't want to go, forget it, we'll go ourselves. | ถ้าเขาไม่อยากไปก็ช่างเถอะ เราไปกันเอง | Anh ấy không muốn đi thì thôi, chúng ta tự đi.
 
 = E | A一MW，B一MW | A + 一 + 量词，B + 一 + 量词
+t: 10
+v: h2 6
 i: 6-035
 n: gé shì "yī A, yī B" | Bergantian: 你一句，我一句 | Taking turns: 你一句，我一句 | ผลัดกัน: 你一句 我一句 | Lần lượt: 你一句, 我一句
 fs: A + 一 + 量词 ， B + 一 + 量词
@@ -488,6 +558,8 @@ e: 孩子 们 [1 你] [2 一] [3 口] ， [4 我] [5 一] [6 口] ， 很快 就
 e: 他们 [1 你] [2 一] [3 下] ， [4 我] [5 一] [6 下] ， 玩 得 很 开心 。 | Tāmen nǐ yí xià, wǒ yí xià, wán de hěn kāixīn. | Mereka bermain bergantian, seru sekali. | They took turns and had a great time. | พวกเขาผลัดกันเล่น สนุกมาก | Họ thay phiên nhau, chơi rất vui.
 
 = E | 东一A，西一A | 东一 + 量词，西一 + 量词
+t: 10
+v: h2 6
 i: 6-036
 n: gé shì "dōng yī A, xī yī A" | Berserakan di sana-sini | Scattered here and there | กระจัดกระจายไปทั่ว | Rải rác khắp nơi
 fs: 东一 + 量词 ， 西一 + 量词
@@ -503,6 +575,8 @@ e: 地上 [1 东 一] [2 本] 书 ， [3 西 一] [4 本] 书 ， 乱 极 了 �
 e: 院子 里 [1 东 一] [2 棵] 树 ， [3 西 一] [4 棵] 树 。 | Yuànzi li dōng yì kē shù, xī yì kē shù. | Di halaman ada pohon di sana-sini. | There are trees scattered around the yard. | ในลานบ้านมีต้นไม้อยู่กระจัดกระจาย | Trong sân có cây mọc rải rác.
 
 = E | 为了……而…… | 为了 + 目的 + 而 + 动词
+t: 9
+v: h2 6, bct B
 i: 6-037
 n: wèile……ér…… | Demi… lalu…: 为了……而…… | For… so…: 为了……而…… | เพื่อ… จึง…: 为了……而…… | Vì… mà…: 为了……而……
 fs: 为了 + 目的 + 而 + 动词
@@ -518,9 +592,10 @@ e: 她 [1 为了] [2 孩子] [3 而] [4 放弃] 了 工作 。 | Tā wèile hái
 e: 他们 [1 为了] [2 比赛] [3 而] [4 训练] 了 一 年 。 | Tāmen wèile bǐsài ér xùnliàn le yì nián. | Mereka berlatih selama setahun demi pertandingan. | They trained for a year for the competition. | พวกเขาฝึกซ้อมหนึ่งปีเพื่อการแข่งขัน | Họ luyện tập một năm vì cuộc thi.
 
 = S | 宾语的语义类型2：处所/结果 | 动词 + 处所宾语 / 结果宾语
+t: 1
 i: 6-038
 n: bīnyǔ de yǔyì lèixíng | Objek: tempat atau hasil | Objects: place or result | กรรมที่เป็นสถานที่หรือผลลัพธ์ | Tân ngữ: nơi chốn hoặc kết quả
-fs: 主语 + 动词 + 处所/结果 + 宾语
+fs: 主语 + 动词 + 处所/结果{tempat / hasil|place / result|สถานที่ / ผลงาน|nơi chốn / kết quả}
 w: Objek tidak selalu "barang yang dikenai tindakan". Bisa tempat (去北京) atau hasil yang tercipta (写字, 做饭). | An object is not always "the thing acted on". It can be a place (去北京) or something that comes into being (写字, 做饭). | กรรมไม่ได้เป็น "สิ่งที่ถูกกระทำ" เสมอไป อาจเป็นสถานที่ (去北京) หรือผลที่เกิดขึ้น (写字 做饭) | Tân ngữ không phải lúc nào cũng là "vật bị tác động". Có thể là nơi chốn (去北京) hoặc kết quả được tạo ra (写字, 做饭).
 k:
 id: Objek bisa tempat (去北京, 回家) atau hasil (写字, 做饭: tulisan/masakan yang tercipta).
@@ -532,6 +607,8 @@ e: [1 妈妈] [2 做] [3 饭] 。 | Māma zuò fàn. | Ibu memasak. | Mom is coo
 e: [1 他] [2 写] [3 汉字] 。 | Tā xiě Hànzì. | Dia menulis hanzi. | He writes Chinese characters. | เขาเขียนอักษรจีน | Anh ấy viết chữ Hán.
 
 = K | 趋向补语引申用法 | 动词/形容词 + 下来/下去/起来/过来
+t: 6
+v: h2 6
 i: 6-039
 n: qūxiàng bǔyǔ de yĭnshēn yòngfǎ | Arah yang berarti perubahan: 下来, 起来, 过来 | Direction words showing change: 下来, 起来, 过来 | ทิศทางที่บอกการเปลี่ยนแปลง | Hướng chỉ sự thay đổi: 下来, 起来, 过来
 fs: 动词/形容词 + 下来/下去/起来/过来
@@ -548,6 +625,8 @@ e: 病人 终于 [1 醒] [2 过来] 了 。 | Bìngrén zhōngyú xǐng guolai l
 e: 他 最近 [1 胖] [2 起来] 了 。 | Tā zuìjìn pàng qilai le. | Belakangan ini dia mulai gemuk. | He has started putting on weight lately. | Dạo nàyเขาเริ่มอ้วน | Dạo này anh ấy bắt đầu béo ra.
 
 = S | "把"字句4：表致使 | 把 + 宾语 + 动词 + 补语 (使……)
+t: 8
+v: h2 6
 i: 6-040
 n: bǎ zì jù 4: shǐ rén …… | 把 yang membuat orang jadi…: 把我累坏了 | 把 that makes someone…: 把我累坏了 | 把 ที่ทำให้เป็น…: 把我累坏了 | 把 khiến ai đó…: 把我累坏了
 fs: 事情 + 把 + 人 + 动词 + 补语
@@ -559,11 +638,13 @@ en: 把 for "make someone…": 这件事把我累坏了 is this wore me out.
 th: 把 แบบ "ทำให้…" 这件事把我累坏了 คือเรื่องนี้ทำให้ฉันเหนื่อยแทบตาย
 vi: 把 nghĩa "làm cho…": 这件事把我累坏了 là việc này làm tôi mệt rã rời.
 ex: 这件事把我急坏了。 | Zhè jiàn shì bǎ wǒ jíhuài le. | Urusan ini membuatku cemas setengah mati. | This had me worried sick. | เรื่องนี้ทำให้ฉันร้อนใจแทบแย่ | Chuyện này làm tôi sốt ruột muốn chết.
-e: 这 件 事 [1 把] [2 我] [3 急] [4 坏] 了 。 | Zhè jiàn shì bǎ wǒ jíhuài le. | Urusan ini membuatku cemas setengah mati. | This matter has made me terribly anxious. | เรื่องนี้ทำให้ฉันร้อนใจแทบแย่ | Việc này làm tôi sốt ruột chết đi được.
-e: 一 天 的 工作 [1 把] [2 他] [3 累] [4 坏] 了 。 | Yì tiān de gōngzuò bǎ tā lèihuài le. | Kerja seharian membuatnya kelelahan. | A day of work wore him out. | งานทั้งวันทำให้เขาเหนื่อยมาก | Làm việc cả ngày khiến anh ấy mệt lả.
-e: 那 个 声音 [1 把] [2 孩子] [3 吓] [4 哭] 了 。 | Nà ge shēngyīn bǎ háizi xià kū le. | Suara itu membuat anak itu ketakutan sampai menangis. | That noise scared the child into tears. | เสียงนั้นทำให้เด็กตกใจร้องไห้ | Tiếng động đó làm đứa bé sợ khóc.
+e: 这 件 事 [1 把] [2 我] [3 急] [4 坏] [5 了] 。 | Zhè jiàn shì bǎ wǒ jíhuài le. | Urusan ini membuatku cemas setengah mati. | This matter has made me terribly anxious. | เรื่องนี้ทำให้ฉันร้อนใจแทบแย่ | Việc này làm tôi sốt ruột chết đi được.
+e: 一 天 的 工作 [1 把] [2 他] [3 累] [4 坏] [5 了] 。 | Yì tiān de gōngzuò bǎ tā lèihuài le. | Kerja seharian membuatnya kelelahan. | A day of work wore him out. | งานทั้งวันทำให้เขาเหนื่อยมาก | Làm việc cả ngày khiến anh ấy mệt lả.
+e: 那 个 声音 [1 把] [2 孩子] [3 吓] [4 哭] [5 了] 。 | Nà ge shēngyīn bǎ háizi xià kū le. | Suara itu membuat anak itu ketakutan sampai menangis. | That noise scared the child into tears. | เสียงนั้นทำให้เด็กตกใจร้องไห้ | Tiếng động đó làm đứa bé sợ khóc.
 
 = S | 被动句4：被/叫/让 + 宾语 + 给 + 动词 | 被 + 人 + 给 + 动词
+t: 8
+v: h2 6
 i: 6-041
 n: bèidòngjù 4: 被……给…… | Pasif lisan dengan 给 | Spoken passive with 给 | ประโยคถูกกระทำแบบพูดที่มี 给 | Câu bị động khẩu ngữ có 给
 fs: 东西 + 被/叫/让 + 人 + 给 + 动词
@@ -575,11 +656,13 @@ en: Spoken passive with 给: 杯子叫他给打破了.
 th: ประโยคถูกกระทำภาษาพูดที่มี 给 杯子叫他给打破了
 vi: Bị động khẩu ngữ có 给: 杯子叫他给打破了.
 ex: 我的自行车被人给骑走了。 | Wǒ de zìxíngchē bèi rén gěi qízǒu le. | Sepedaku dibawa kabur orang. | Someone rode off with my bike. | จักรยานของฉันถูกคนขี่ไปแล้ว | Xe đạp của tôi bị người ta lấy đi rồi.
-e: 我 的 自行车 [1 被] [2 人] [3 给] [4 骑走] 了 。 | Wǒ de zìxíngchē bèi rén gěi qízǒu le. | Sepedaku dibawa kabur orang. | Someone rode off with my bike. | จักรยานของฉันถูกคนขี่ไปแล้ว | Xe đạp của tôi bị người ta lấy đi rồi.
-e: 杯子 [1 叫] [2 他] [3 给] [4 打破] 了 。 | Bēizi jiào tā gěi dǎpò le. | Gelas itu dipecahkan olehnya. | The cup got broken by him. | แก้วถูกเขาทำแตก | Cái cốc bị anh ấy làm vỡ rồi.
-e: 我 的 钱包 [1 让] [2 小偷] [3 给] [4 偷走] 了 。 | Wǒ de qiánbāo ràng xiǎotōu gěi tōuzǒu le. | Dompetku dicuri maling. | My wallet was stolen by a thief. | กระเป๋าเงินของฉันถูกขโมยไป | Ví của tôi bị kẻ trộm lấy mất.
+e: 我 的 自行车 [1 被] [2 人] [3 给] [4 骑走] [5 了] 。 | Wǒ de zìxíngchē bèi rén gěi qízǒu le. | Sepedaku dibawa kabur orang. | Someone rode off with my bike. | จักรยานของฉันถูกคนขี่ไปแล้ว | Xe đạp của tôi bị người ta lấy đi rồi.
+e: 杯子 [1 叫] [2 他] [3 给] [4 打破] [5 了] 。 | Bēizi jiào tā gěi dǎpò le. | Gelas itu dipecahkan olehnya. | The cup got broken by him. | แก้วถูกเขาทำแตก | Cái cốc bị anh ấy làm vỡ rồi.
+e: 我 的 钱包 [1 让] [2 小偷] [3 给] [4 偷走] [5 了] 。 | Wǒ de qiánbāo ràng xiǎotōu gěi tōuzǒu le. | Dompetku dicuri maling. | My wallet was stolen by a thief. | กระเป๋าเงินของฉันถูกขโมยไป | Ví của tôi bị kẻ trộm lấy mất.
 
 = F | 时而……时而…… | 时而 A，时而 B
+t: 9
+v: h2 6
 i: 6-042
 n: shí'ér……shí'ér…… | Kadang A, kadang B | Sometimes A, sometimes B | บางครั้ง A บางครั้ง B | Lúc thì A, lúc thì B
 fs: 时而 + A ， 时而 + B
@@ -594,6 +677,8 @@ e: 他 [1 时而] [2 唱歌] ， [3 时而] [4 跳舞] 。 | Tā shí'ér chàng
 e: 海浪 [1 时而] [2 平静] ， [3 时而] [4 汹涌] 。 | Hǎilàng shí'ér píngjìng, shí'ér xiōngyǒng. | Ombak kadang tenang, kadang bergelora. | The waves are sometimes calm, sometimes rough. | คลื่นทะเลบางครั้งสงบ บางครั้งรุนแรง | Sóng biển lúc lặng lúc dữ.
 
 = F | 一时……一时…… | 一时 A，一时 B
+t: 9
+v: h2 6
 i: 6-043
 n: yìshí……yìshí…… | Sebentar A, sebentar B | One moment A, the next B | ชั่วครู่ A ชั่วครู่ B | Lúc A lúc B
 fs: 一时 + A ， 一时 + B
@@ -609,6 +694,8 @@ e: 她 [1 一时] [2 说 好] ， [3 一时] [4 说 不 好] 。 | Tā yìshí s
 e: 他 [1 一时] [2 想] 去 ， [3 一时] [4 又 不 想] 去 。 | Tā yìshí xiǎng qù, yìshí yòu bù xiǎng qù. | Sebentar dia ingin pergi, sebentar tidak ingin. | One moment he wants to go, the next he doesn't. | เดี๋ยวเขาก็อยากไป เดี๋ยวก็ไม่อยากไป | Lúc anh ấy muốn đi, lúc lại không muốn.
 
 = F | ……便…… | 分句1，便 + 分句2
+t: 9
+v: h2 6, bct B
 i: 6-044
 n: …… biàn …… | Lalu langsung (tulisan): 便 | Then right away (written): 便 | แล้วก็ทันที (ภาษาเขียน): 便 | Liền (văn viết): 便
 fs: 分句 ， 便 + 分句
@@ -619,11 +706,13 @@ en: 便 in the second clause is then (written).
 th: 便 ในประโยคหลังคือก็ (ภาษาเขียน)
 vi: 便 ở vế sau là liền (văn viết).
 ex: 他吃完饭，便出门了。 | Tā chīwán fàn, biàn chūmén le. | Selesai makan, dia langsung keluar. | Having eaten, he went out. | เขากินข้าวเสร็จก็ออกจากบ้าน | Ăn cơm xong, anh ấy liền ra ngoài.
-e: 他 吃完 饭 ， [1 便] [2 出门] 了 。 | Tā chīwán fàn, biàn chūmén le. | Selesai makan, dia langsung keluar. | Having eaten, he went out. | เขากินข้าวเสร็จก็ออกจากบ้าน | Ăn cơm xong, anh ấy liền ra ngoài.
-e: 他 敲 了 敲 门 ， [1 便] [2 走进] 去 了 。 | Tā qiāo le qiāo mén, biàn zǒujìn qù le. | Dia mengetuk pintu lalu langsung masuk. | He knocked on the door and went right in. | เขาเคาะประตูแล้วก็เดินเข้าไป | Anh ấy gõ cửa rồi đi thẳng vào.
-e: 她 看 了 一 眼 ， [1 便] [2 明白] 了 。 | Tā kàn le yì yǎn, biàn míngbai le. | Dia melirik sekali lalu langsung mengerti. | She glanced once and understood at once. | เธอมองครั้งเดียวก็เข้าใจ | Cô ấy liếc một cái là hiểu ngay.
+e: 他 吃完 饭 ， [1 便] [2 出门] [3 了] 。 | Tā chīwán fàn, biàn chūmén le. | Selesai makan, dia langsung keluar. | Having eaten, he went out. | เขากินข้าวเสร็จก็ออกจากบ้าน | Ăn cơm xong, anh ấy liền ra ngoài.
+e: 他 敲 了 敲 门 ， [1 便] [2 走进] [3 去 了] 。 | Tā qiāo le qiāo mén, biàn zǒujìn qù le. | Dia mengetuk pintu lalu langsung masuk. | He knocked on the door and went right in. | เขาเคาะประตูแล้วก็เดินเข้าไป | Anh ấy gõ cửa rồi đi thẳng vào.
+e: 她 看 了 一 眼 ， [1 便] [2 明白] [3 了] 。 | Tā kàn le yì yǎn, biàn míngbai le. | Dia melirik sekali lalu langsung mengerti. | She glanced once and understood at once. | เธอมองครั้งเดียวก็เข้าใจ | Cô ấy liếc một cái là hiểu ngay.
 
 = F | 不但不……反而…… | 不但不 A，反而 B
+t: 9
+v: h2 5
 i: 6-045
 n: búdàn bù……fǎn'ér…… | Bukannya A, malah B | Not A, but B instead | ไม่ใช่แค่ไม่ A กลับ B | Không những không A mà còn B
 fs: 不但 + 不 + A ， 反而 + B
@@ -634,14 +723,16 @@ en: 不但不A，反而B is not A, but on the contrary B.
 th: 不但不A，反而B คือไม่เพียงไม่A กลับB
 vi: 不但不A，反而B là chẳng những không A mà còn B.
 ex: 他不但不生气，反而笑了。 | Tā búdàn bù shēngqì, fǎn'ér xiào le. | Bukannya marah, dia malah tertawa. | Far from being angry, he laughed. | เขาไม่เพียงไม่โกรธ กลับหัวเราะ | Anh ấy chẳng những không giận mà còn cười.
-e: 他 [1 不但 不] [2 生气] ， [3 反而] [4 笑] 了 。 | Tā búdàn bù shēngqì, fǎn'ér xiào le. | Bukannya marah, dia malah tertawa. | Far from being angry, he laughed. | เขาไม่เพียงไม่โกรธ กลับหัวเราะ | Anh ấy chẳng những không giận mà còn cười.
-e: 雨 [1 不但 不] [2 停] ， [3 反而] [4 越 下 越 大] 了 。 | Yǔ búdàn bù tíng, fǎn'ér yuè xià yuè dà le. | Hujannya bukannya reda, malah makin deras. | The rain didn't stop; it got heavier instead. | ฝนไม่เพียงไม่หยุด กลับตกหนักขึ้น | Mưa không những không tạnh mà còn to hơn.
-e: 吃 了 药 ， 他 [1 不但 不] [2 好] ， [3 反而] [4 更 难受] 了 。 | Chī le yào, tā búdàn bù hǎo, fǎn'ér gèng nánshòu le. | Setelah minum obat, bukannya sembuh, dia malah makin tidak enak badan. | After taking the medicine he got worse instead of better. | กินยาแล้วเขาไม่เพียงไม่ดีขึ้น กลับแย่ลง | Uống thuốc xong anh ấy không khỏi mà còn khó chịu hơn.
+e: 他 [1 不但 不] [2 生气] ， [3 反而] [4 笑] [5 了] 。 | Tā búdàn bù shēngqì, fǎn'ér xiào le. | Bukannya marah, dia malah tertawa. | Far from being angry, he laughed. | เขาไม่เพียงไม่โกรธ กลับหัวเราะ | Anh ấy chẳng những không giận mà còn cười.
+e: 雨 [1 不但 不] [2 停] ， [3 反而] [4 越 下 越 大] [5 了] 。 | Yǔ búdàn bù tíng, fǎn'ér yuè xià yuè dà le. | Hujannya bukannya reda, malah makin deras. | The rain didn't stop; it got heavier instead. | ฝนไม่เพียงไม่หยุด กลับตกหนักขึ้น | Mưa không những không tạnh mà còn to hơn.
+e: 吃 了 药 ， 他 [1 不但 不] [2 好] ， [3 反而] [4 更 难受] [5 了] 。 | Chī le yào, tā búdàn bù hǎo, fǎn'ér gèng nánshòu le. | Setelah minum obat, bukannya sembuh, dia malah makin tidak enak badan. | After taking the medicine he got worse instead of better. | กินยาแล้วเขาไม่เพียงไม่ดีขึ้น กลับแย่ลง | Uống thuốc xong anh ấy không khỏi mà còn khó chịu hơn.
 
 = F | 不是……还/还是…… | 不是 A 就可以了，还 B
+t: 9
+v: h2 6
 i: 6-046
 n: bú shì……hái…… | Bukan cukup A saja, masih harus B | Not enough to just A, you also B | ไม่ใช่แค่ A ยังต้อง B | Không chỉ A mà còn phải B
-fs: 不是 + A + 就 可以 了 ， 还 + B
+fs: 不是 + A + 就可以了 ， 还 + B
 k: 不是
 m: 不是.{1,10}还
 id: Bukan cukup A saja, masih harus B.
@@ -649,11 +740,13 @@ en: It's not enough to A, you also need B.
 th: ไม่ใช่แค่A ก็พอ ยังต้องB
 vi: Không phải chỉ A là được, còn phải B.
 ex: 学汉语不是会说就可以了，还要会写。 | Xué Hànyǔ bú shì huì shuō jiù kěyǐ le, hái yào huì xiě. | Belajar Mandarin bukan cukup bisa bicara, juga harus bisa menulis. | Learning Chinese isn’t just speaking, you need to write too. | เรียนภาษาจีนไม่ใช่แค่พูดได้ก็พอ ยังต้องเขียนได้ด้วย | Học tiếng Trung không phải chỉ biết nói là được, còn phải biết viết.
-e: 学 汉语 [1 不 是] [2 会 说] 就 可以 了 ， [3 还] 要 [4 会 写] 。 | Xué Hànyǔ bú shì huì shuō jiù kěyǐ le, hái yào huì xiě. | Belajar Mandarin bukan cukup bisa bicara, juga harus bisa menulis. | Learning Chinese isn’t just speaking, you need to write too. | เรียนภาษาจีนไม่ใช่แค่พูดได้ก็พอ ยังต้องเขียนได้ด้วย | Học tiếng Trung không phải chỉ biết nói là được, còn phải biết viết.
-e: 当 老师 [1 不 是] [2 懂 知识] 就 可以 了 ， [3 还] 要 [4 会 教] 。 | Dāng lǎoshī bú shì dǒng zhīshi jiù kěyǐ le, hái yào huì jiāo. | Jadi guru tidak cukup hanya berpengetahuan, juga harus pandai mengajar. | Being a teacher isn't just about knowing things; you must also be able to teach. | การเป็นครูไม่ใช่แค่รู้ความรู้ ต้องสอนเป็นด้วย | Làm giáo viên không chỉ biết kiến thức mà còn phải biết dạy.
-e: 减肥 [1 不 是] [2 少 吃] 就 可以 了 ， [3 还] 要 [4 多 运动] 。 | Jiǎnféi bú shì shǎo chī jiù kěyǐ le, hái yào duō yùndòng. | Diet tidak cukup hanya makan sedikit, harus lebih banyak olahraga juga. | Losing weight isn't just eating less; you must exercise more too. | การลดน้ำหนักไม่ใช่แค่กินน้อย ต้องออกกำลังกายมากด้วย | Giảm cân không chỉ ăn ít mà còn phải vận động nhiều.
+e: 学 汉语 [1 不 是] [2 会 说] [3 就 可以 了] ， [4 还] 要 [5 会 写] 。 | Xué Hànyǔ bú shì huì shuō jiù kěyǐ le, hái yào huì xiě. | Belajar Mandarin bukan cukup bisa bicara, juga harus bisa menulis. | Learning Chinese isn’t just speaking, you need to write too. | เรียนภาษาจีนไม่ใช่แค่พูดได้ก็พอ ยังต้องเขียนได้ด้วย | Học tiếng Trung không phải chỉ biết nói là được, còn phải biết viết.
+e: 当 老师 [1 不 是] [2 懂 知识] [3 就 可以 了] ， [4 还] 要 [5 会 教] 。 | Dāng lǎoshī bú shì dǒng zhīshi jiù kěyǐ le, hái yào huì jiāo. | Jadi guru tidak cukup hanya berpengetahuan, juga harus pandai mengajar. | Being a teacher isn't just about knowing things; you must also be able to teach. | การเป็นครูไม่ใช่แค่รู้ความรู้ ต้องสอนเป็นด้วย | Làm giáo viên không chỉ biết kiến thức mà còn phải biết dạy.
+e: 减肥 [1 不 是] [2 少 吃] [3 就 可以 了] ， [4 还] 要 [5 多 运动] 。 | Jiǎnféi bú shì shǎo chī jiù kěyǐ le, hái yào duō yùndòng. | Diet tidak cukup hanya makan sedikit, harus lebih banyak olahraga juga. | Losing weight isn't just eating less; you must exercise more too. | การลดน้ำหนักไม่ใช่แค่กินน้อย ต้องออกกำลังกายมากด้วย | Giảm cân không chỉ ăn ít mà còn phải vận động nhiều.
 
 = F | 连……也/都……更/要…… | 连 A 也 X，更 Y
+t: 9
+v: h2 6
 i: 6-047
 n: lián……yě…… gèng…… | Bahkan A pun begitu, apalagi B | Even A, let alone B | แม้แต่ A ยัง… แล้ว B ยิ่ง… | Đến A còn…, huống chi B
 fs: 连 + A + 也/都 + X ， 更 + Y
@@ -664,11 +757,13 @@ en: Even A does X, all the more B.
 th: แม้แต่A ยังX ยิ่งB ไปใหญ่
 vi: Ngay cả A còn X, huống hồ B.
 ex: 连老师都不会，我们更不会了。 | Lián lǎoshī dōu bú huì, wǒmen gèng bú huì le. | Guru saja tidak bisa, apalagi kami. | Even the teacher can’t, let alone us. | แม้แต่ครูยังทำไม่ได้ พวกเรายิ่งทำไม่ได้ | Ngay cả thầy còn không biết, chúng tôi càng không biết.
-e: [1 连] [2 老师] [3 都] 不 会 ， 我们 [4 更] 不 会 了 。 | Lián lǎoshī dōu bú huì, wǒmen gèng bú huì le. | Guru saja tidak bisa, apalagi kami. | Even the teacher can’t, let alone us. | แม้แต่ครูยังทำไม่ได้ พวกเรายิ่งทำไม่ได้ | Ngay cả thầy còn không biết, chúng tôi càng không biết.
-e: [1 连] [2 大人] [3 都] 搬 不 动 ， 孩子 [4 更] 搬 不 动 了 。 | Lián dàren dōu bān bu dòng, háizi gèng bān bu dòng le. | Orang dewasa saja tidak sanggup memindahkannya, apalagi anak-anak. | Even adults can't move it, let alone children. | แม้แต่ผู้ใหญ่ยังยกไม่ไหว เด็กยิ่งยกไม่ไหว | Người lớn còn không khuân nổi, trẻ con càng không.
-e: [1 连] [2 我] [3 也] 不 知道 ， 别人 [4 更] 不 知道 了 。 | Lián wǒ yě bù zhīdào, biéren gèng bù zhīdào le. | Saya sendiri pun tidak tahu, apalagi orang lain. | Even I don't know, let alone anyone else. | แม้แต่ฉันก็ไม่รู้ คนอื่นยิ่งไม่รู้ | Đến tôi còn không biết, người khác càng không.
+e: [1 连] [2 老师] [3 都] [4 不 会] ， 我们 [5 更] [6 不 会 了] 。 | Lián lǎoshī dōu bú huì, wǒmen gèng bú huì le. | Guru saja tidak bisa, apalagi kami. | Even the teacher can’t, let alone us. | แม้แต่ครูยังทำไม่ได้ พวกเรายิ่งทำไม่ได้ | Ngay cả thầy còn không biết, chúng tôi càng không biết.
+e: [1 连] [2 大人] [3 都] [4 搬 不 动] ， 孩子 [5 更] [6 搬 不 动 了] 。 | Lián dàren dōu bān bu dòng, háizi gèng bān bu dòng le. | Orang dewasa saja tidak sanggup memindahkannya, apalagi anak-anak. | Even adults can't move it, let alone children. | แม้แต่ผู้ใหญ่ยังยกไม่ไหว เด็กยิ่งยกไม่ไหว | Người lớn còn không khuân nổi, trẻ con càng không.
+e: [1 连] [2 我] [3 也] [4 不 知道] ， 别人 [5 更] [6 不 知道 了] 。 | Lián wǒ yě bù zhīdào, biéren gèng bù zhīdào le. | Saya sendiri pun tidak tahu, apalagi orang lain. | Even I don't know, let alone anyone else. | แม้แต่ฉันก็ไม่รู้ คนอื่นยิ่งไม่รู้ | Đến tôi còn không biết, người khác càng không.
 
 = F | 要么……要么…… | 要么 A，要么 B
+t: 9
+v: h2 6
 i: 6-048
 n: yàome……yàome…… | A atau B, pilih satu | Either A or B | ไม่ A ก็ B | Hoặc là A hoặc là B
 fs: 要么 + A ， 要么 + B
@@ -682,6 +777,8 @@ e: 晚饭 [1 要么] [2 吃 面] ， [3 要么] [4 吃 饭] ， 你 选 吧 。 
 e: [1 要么] [2 你 去] ， [3 要么] [4 我 去] ， 总 得 有 人 去 。 | Yàome nǐ qù, yàome wǒ qù, zǒng děi yǒu rén qù. | Entah kamu yang pergi atau aku, harus ada yang pergi. | Either you go or I go; someone has to. | ไม่คุณไปก็ฉันไป ต้องมีคนไป | Hoặc bạn đi hoặc tôi đi, phải có người đi.
 
 = F | 虽……但/可/却/也…… | 虽 A，但 B
+t: 9
+v: h2 6, bct B
 i: 6-049
 n: suī……dàn…… | Meski… namun… (singkat) | Although… but… (short) | แม้… แต่… (แบบสั้น) | Tuy… nhưng… (ngắn)
 fs: 虽 + A ， 但/可/却/也 + B
@@ -692,11 +789,13 @@ id: 虽…但… = meski…namun (tulisan, lebih singkat dari 虽然).
 en: 虽…但… is though… (written, shorter than 虽然).
 th: 虽…但… คือแม้…แต่ (ภาษาเขียน สั้นกว่า 虽然)
 vi: 虽…但… là tuy… nhưng (văn viết, gọn hơn 虽然).
-e: 这 家 店 [1 虽] [2 小] ， [3 但是] 东西 很 全 。
-e: 这 个 孩子 [1 虽] [2 小] ， [3 却] 很 懂事 。 | Zhè ge háizi suī xiǎo, què hěn dǒngshì. | Anak ini meski kecil, sangat pengertian. | Though small, this child is very sensible. | เด็กคนนี้แม้ตัวเล็กแต่ก็รู้ความมาก | Đứa bé này tuy nhỏ nhưng rất hiểu chuyện.
-e: 他 [1 虽] [2 累] ， [3 也] 没 休息 。 | Tā suī lèi, yě méi xiūxi. | Dia meski capek, tetap tidak istirahat. | Though tired, he didn't rest. | เขาแม้เหนื่อยก็ไม่พัก | Anh ấy tuy mệt vẫn không nghỉ.
+e: 这 家 店 [1 虽] [2 小] ， [3 但是] [4 东西 很 全] 。
+e: 这 个 孩子 [1 虽] [2 小] ， [3 却] [4 很 懂事] 。 | Zhè ge háizi suī xiǎo, què hěn dǒngshì. | Anak ini meski kecil, sangat pengertian. | Though small, this child is very sensible. | เด็กคนนี้แม้ตัวเล็กแต่ก็รู้ความมาก | Đứa bé này tuy nhỏ nhưng rất hiểu chuyện.
+e: 他 [1 虽] [2 累] ， [3 也] [4 没 休息] 。 | Tā suī lèi, yě méi xiūxi. | Dia meski capek, tetap tidak istirahat. | Though tired, he didn't rest. | เขาแม้เหนื่อยก็ไม่พัก | Anh ấy tuy mệt vẫn không nghỉ.
 
 = F | ……要不然…… | A，要不然 B
+t: 9
+v: h2 5
 i: 6-050
 n: yàobùrán / bùrán | Kalau tidak: 要不然, 不然 | Otherwise: 要不然, 不然 | ไม่อย่างนั้น: 要不然 不然 | Nếu không thì: 要不然, 不然
 fs: 分句 ， 要不然/不然 + 结果
@@ -705,11 +804,13 @@ id: 要不然/不然 = kalau tidak.
 en: 要不然/不然 is otherwise.
 th: 要不然/不然 คือไม่อย่างนั้น
 vi: 要不然/不然 là nếu không thì.
-e: 多亏 你 提醒 我 ， [1 不然] 我 就 [2 忘] 了 。
-e: 现在 出发 吧 ， [1 不然] 可能 [2 赶 不 上] 最后 一 班 车 。
-e: 快 走 吧 ， [1 要不然] 我们 就 [2 迟到] 了 。 | Kuài zǒu ba, yàobùrán wǒmen jiù chídào le. | Ayo cepat jalan, kalau tidak kita terlambat. | Hurry up, or we'll be late. | รีบไปเถอะ ไม่อย่างนั้นเราจะสาย | Đi nhanh đi, không thì chúng ta muộn mất.
+e: 多亏 你 提醒 我 ， [1 不然] 我 就 [2 忘] [3 了] 。
+e: 现在 出发 吧 ， [1 不然] 可能 [2 赶 不 上] [3 最后 一 班 车] 。
+e: 快 走 吧 ， [1 要不然] 我们 就 [2 迟到] [3 了] 。 | Kuài zǒu ba, yàobùrán wǒmen jiù chídào le. | Ayo cepat jalan, kalau tidak kita terlambat. | Hurry up, or we'll be late. | รีบไปเถอะ ไม่อย่างนั้นเราจะสาย | Đi nhanh đi, không thì chúng ta muộn mất.
 
 = F | 凡是……都…… | 凡是 A，都 B
+t: 9
+v: h2 6, bct B
 i: 6-051
 n: fánshì……dōu…… | Semua yang… pasti…: 凡是 | Every… without exception: 凡是 | ทุกสิ่งที่… ล้วน…: 凡是 | Hễ là… đều…: 凡是
 fs: 凡是 + A ， 都 + B
@@ -719,11 +820,13 @@ en: 凡是…都… is all those who… without exception.
 th: 凡是…都… คือทุกสิ่งที่…ล้วน…
 vi: 凡是…都… là hễ là… đều….
 ex: 凡是来过这里的人，都说好。 | Fánshì láiguo zhèlǐ de rén, dōu shuō hǎo. | Semua orang yang pernah datang ke sini bilang bagus. | Everyone who’s been here says it’s good. | ทุกคนที่เคยมาที่นี่ล้วนบอกว่าดี | Hễ ai đã đến đây đều khen tốt.
-e: [1 凡是] [2 来 过 这里 的 人] ， [3 都] 说 好 。 | Fánshì láiguo zhèlǐ de rén, dōu shuō hǎo. | Semua orang yang pernah datang ke sini bilang bagus. | Everyone who has been here says it's good. | ทุกคนที่เคยมาที่นี่ล้วนบอกว่าดี | Hễ ai từng đến đây đều khen tốt.
-e: [1 凡是] [2 参加 比赛 的 人] [3 都] 有 纪念品 。
-e: [1 凡是] [2 学 过 的 词] ， 我 [3 都] 记得 。 | Fánshì xué guo de cí, wǒ dōu jìde. | Semua kata yang pernah dipelajari, saya ingat. | I remember every word I have learned. | คำศัพท์ทุกคำที่เคยเรียน ฉันจำได้ทั้งหมด | Hễ là từ đã học, tôi đều nhớ.
+e: [1 凡是] [2 来 过 这里 的 人] ， [3 都] [4 说 好] 。 | Fánshì láiguo zhèlǐ de rén, dōu shuō hǎo. | Semua orang yang pernah datang ke sini bilang bagus. | Everyone who has been here says it's good. | ทุกคนที่เคยมาที่นี่ล้วนบอกว่าดี | Hễ ai từng đến đây đều khen tốt.
+e: [1 凡是] [2 参加 比赛 的 人] [3 都] [4 有 纪念品] 。
+e: [1 凡是] [2 学 过 的 词] ， 我 [3 都] [4 记得] 。 | Fánshì xué guo de cí, wǒ dōu jìde. | Semua kata yang pernah dipelajari, saya ingat. | I remember every word I have learned. | คำศัพท์ทุกคำที่เคยเรียน ฉันจำได้ทั้งหมด | Hễ là từ đã học, tôi đều nhớ.
 
 = F | 就算/就是……也…… | 就算 A，也 B
+t: 9
+v: h2 5
 i: 6-052
 n: jiùsuàn……yě…… | Biarpun… tetap… | Even if… still… | ถึงแม้… ก็… | Cho dù… cũng…
 fs: 就算/就是 + A ， 也 + B
@@ -732,11 +835,13 @@ id: 就算…也… = biarpun… tetap… (lisan).
 en: 就算…也… is even if… (spoken).
 th: 就算…也… คือต่อให้…ก็… (ภาษาพูด)
 vi: 就算…也… là cho dù… cũng… (khẩu ngữ).
-e: [1 就算] [2 再 忙] ， [3 也] 要 按时 吃饭 。
-e: [1 就是] [2 下雨] ， [3 也] 要 去 。 | Jiùshì xià yǔ, yě yào qù. | Biarpun hujan, tetap harus pergi. | Even if it rains, we still have to go. | ต่อให้ฝนตกก็ต้องไป | Cho dù mưa cũng phải đi.
-e: [1 就算] [2 你 不 说] ， 我 [3 也] 知道 。 | Jiùsuàn nǐ bù shuō, wǒ yě zhīdào. | Biarpun kamu tidak bilang, aku juga tahu. | Even if you don't say it, I know. | ต่อให้คุณไม่พูด ฉันก็รู้ | Dù bạn không nói, tôi cũng biết.
+e: [1 就算] [2 再 忙] ， [3 也] [4 要 按时 吃饭] 。
+e: [1 就是] [2 下雨] ， [3 也] [4 要 去] 。 | Jiùshì xià yǔ, yě yào qù. | Biarpun hujan, tetap harus pergi. | Even if it rains, we still have to go. | ต่อให้ฝนตกก็ต้องไป | Cho dù mưa cũng phải đi.
+e: [1 就算] [2 你 不 说] ， 我 [3 也] [4 知道] 。 | Jiùsuàn nǐ bù shuō, wǒ yě zhīdào. | Biarpun kamu tidak bilang, aku juga tahu. | Even if you don't say it, I know. | ต่อให้คุณไม่พูด ฉันก็รู้ | Dù bạn không nói, tôi cũng biết.
 
 = F | 不……不…… | 不 + A + 不 + B
+t: 9
+v: h2 6
 i: 6-053
 n: gé shì "bù A bù B" | Kalau tidak A, tidak B: 不见不散 | No A, no B: 不见不散 | ไม่ A ไม่ B: 不见不散 | Không A không B: 不见不散
 fs: 不 + A + 不 + B
@@ -753,6 +858,7 @@ e: [1 不] [2 打] [3 不] [4 相识] 。 | Bù dǎ bù xiāngshí. | Tanpa bert
 e: [1 不] [2 来] [3 不] [4 行] ， 你 一定 得 来 。 | Bù lái bù xíng, nǐ yídìng děi lái. | Tidak datang tidak boleh, kamu harus datang. | You have to come, no way around it. | ไม่มาไม่ได้ คุณต้องมา | Không đến không được, bạn nhất định phải đến.
 
 = F | 二重复句2 | [复句A]，[关联词]，[复句B]
+t: 9
 i: 6-054
 n: èrchóng fùjù | Kalimat majemuk bertingkat | Nested compound sentences | ประโยคซ้อนสองชั้น | Câu phức hai tầng
 fs: 复句A + 关联词 + 复句B
@@ -767,6 +873,8 @@ e: [1 如果 天气 好 ， 我们 就 去 爬山] ， [2 不过] [3 要是 下�
 e: [1 因为 他 很 努力 ， 所以 成绩 很 好] ， [2 而且] [3 老师 也 很 喜欢 他] 。 | Yīnwèi tā hěn nǔlì, suǒyǐ chéngjì hěn hǎo, érqiě lǎoshī yě hěn xǐhuan tā. | Karena dia rajin, nilainya bagus, dan lagi gurunya juga menyukainya. | Because he works hard his grades are good, and besides, the teacher likes him. | เพราะเขาขยัน ผลการเรียนจึงดี และครูก็ชอบเขาด้วย | Vì anh ấy chăm chỉ nên điểm tốt, hơn nữa thầy cô cũng quý anh ấy.
 
 = E | 非……不可 | 非 + 动词 + 不可
+t: 10
+v: h2 5
 i: 6-055
 n: fēi……bùkě | Harus… , tidak boleh tidak: 非……不可 | Must…: 非……不可 | ต้อง…ให้ได้: 非……不可 | Nhất định phải…: 非……不可
 fs: 非 + 动词 + 不可
@@ -782,6 +890,8 @@ e: 他 [1 非] [2 要 买 这 个] [3 不可] 。 | Tā fēi yào mǎi zhè ge b
 e: 想 学好 汉语 ， [1 非] [2 多 练习] [3 不可] 。 | Xiǎng xuéhǎo Hànyǔ, fēi duō liànxí bùkě. | Kalau mau menguasai bahasa Mandarin, harus banyak berlatih. | To learn Chinese well, you must practise a lot. | อยากเรียนภาษาจีนให้ดีต้องฝึกมากๆ | Muốn học giỏi tiếng Trung thì phải luyện tập nhiều.
 
 = E | X到Y头上来了 | 动作 + 到 + 人 + 头上来了
+t: 10
+v: h2 6
 i: 6-056
 n: dào……tóu shang lái le | Sudah keterlaluan sampai ke aku | Now they're even targeting me | ถึงขั้นมาถึงตัวฉัน | Đến cả tôi mà cũng dám
 fs: 动作 + 到 + 人 + 头上来了
@@ -797,6 +907,8 @@ e: 小偷 [1 偷] [2 到] [3 警察] [4 头上来] 了 。 | Xiǎotōu tōu dào
 e: 他们 [1 吵] [2 到] [3 我家] [4 头上来] 了 。 | Tāmen chǎo dào wǒjiā tóu shang lái le. | Mereka bertengkar sampai ke rumahku. | They have even come to make a fuss at my home. | พวกเขามาทะเลาะถึงบ้านฉัน | Họ cãi nhau đến tận nhà tôi.
 
 = E | X来X吧 | 动作 + 来 + 动作 + 吧
+t: 10
+v: h2 6
 i: 6-057
 n: gé shì "X lái X ba" | Ya sudah, X saja: 来就来吧 | Fine, let it be: 来就来吧 | ก็ได้ ตามนั้น: 来就来吧 | Thôi cứ vậy: 来就来吧
 fs: 动词 + 就 + 动词 + 吧
@@ -812,6 +924,8 @@ e: 要 [1 走] [2 就] [3 走] [4 吧] ， 别 回头 。 | Yào zǒu jiù zǒu 
 e: 他 想 [1 说] [2 就] [3 说] [4 吧] ， 我们 听 着 。 | Tā xiǎng shuō jiù shuō ba, wǒmen tīngzhe. | Kalau dia mau bicara, biarkan saja, kita dengarkan. | If he wants to talk, let him; we'll listen. | ถ้าเขาอยากพูดก็พูดเถอะ เราฟังอยู่ | Anh ấy muốn nói thì cứ nói, chúng tôi nghe.
 
 = E | X是X（让步） | 形容词 + 是 + 形容词，但……
+t: 10
+v: h2 6
 i: 6-058
 n: gé shì "A shì A" | Memang A, tapi… | A it is, but… | A ก็ A แต่… | A thì A, nhưng…
 fs: 形容词 + 是 + 形容词 ， 但是 + 分句
@@ -823,11 +937,13 @@ en: It's X all right, but…: 累是累，但很开心.
 th: X ก็X อยู่หรอก แต่… 累是累，但很开心
 vi: X thì có X, nhưng…: 累是累，但很开心.
 ex: 累是累，但是很开心。 | Lèi shì lèi, dànshì hěn kāixīn. | Capek sih capek, tapi senang. | Tiring, yes, but fun. | เหนื่อยก็เหนื่อยอยู่หรอก แต่สนุกมาก | Mệt thì có mệt, nhưng rất vui.
-e: [1 累] [2 是] [3 累] ， [4 但是] 很 开心 。 | Lèi shì lèi, dànshì hěn kāixīn. | Capek sih capek, tapi senang. | Tiring, yes, but fun. | เหนื่อยก็เหนื่อยอยู่หรอก แต่สนุกมาก | Mệt thì có mệt, nhưng rất vui.
-e: [1 贵] [2 是] [3 贵] ， [4 不过] 质量 很 好 。 | Guì shì guì, búguò zhìliàng hěn hǎo. | Mahal sih mahal, tapi kualitasnya bagus. | It's pricey, sure, but the quality is good. | แพงก็แพง แต่คุณภาพดีมาก | Đắt thì đắt, nhưng chất lượng rất tốt.
-e: [1 好吃] [2 是] [3 好吃] ， [4 可是] 太 辣 了 。 | Hǎochī shì hǎochī, kěshì tài là le. | Enak sih enak, tapi terlalu pedas. | Tasty yes, but too spicy. | อร่อยก็อร่อย แต่เผ็ดเกินไป | Ngon thì ngon, nhưng cay quá.
+e: [1 累] [2 是] [3 累] ， [4 但是] [5 很 开心] 。 | Lèi shì lèi, dànshì hěn kāixīn. | Capek sih capek, tapi senang. | Tiring, yes, but fun. | เหนื่อยก็เหนื่อยอยู่หรอก แต่สนุกมาก | Mệt thì có mệt, nhưng rất vui.
+e: [1 贵] [2 是] [3 贵] ， [4 不过] [5 质量 很 好] 。 | Guì shì guì, búguò zhìliàng hěn hǎo. | Mahal sih mahal, tapi kualitasnya bagus. | It's pricey, sure, but the quality is good. | แพงก็แพง แต่คุณภาพดีมาก | Đắt thì đắt, nhưng chất lượng rất tốt.
+e: [1 好吃] [2 是] [3 好吃] ， [4 可是] [5 太 辣 了] 。 | Hǎochī shì hǎochī, kěshì tài là le. | Enak sih enak, tapi terlalu pedas. | Tasty yes, but too spicy. | อร่อยก็อร่อย แต่เผ็ดเกินไป | Ngon thì ngon, nhưng cay quá.
 
 = E | 不X不X，一X…… | 不 + 动词 + 不 + 结果，一 + 动词 + 意外
+t: 10
+v: h2 6
 i: 6-059
 n: bú X bù X, yī X…… | Tidak dilihat tidak tahu, begitu dilihat kaget | Don't look and you won't know… | ไม่ทำก็ไม่รู้ พอทำแล้วตกใจ | Không… thì không biết, vừa… đã giật mình
 fs: 不 + 动词 + 不 + 知道 ， 一 + 动词 + 结果
@@ -838,11 +954,13 @@ en: You don't know until you X, then you're surprised.
 th: ไม่X ก็ไม่รู้ พอX แล้วถึงกับตกใจ
 vi: Không X thì không biết, X rồi mới giật mình.
 ex: 不看不知道，一看吓一跳。 | Bú kàn bù zhīdào, yí kàn xià yí tiào. | Tidak dilihat tidak tahu, begitu dilihat kaget sekali. | You’d never know till you look, then you’re shocked. | ไม่ดูก็ไม่รู้ พอดูแล้วตกใจเลย | Không xem thì không biết, xem rồi mới giật mình.
-e: [1 不] [2 看] [3 不] [4 知道] ， [5 一] [6 看] 吓 一 跳 。 | Bú kàn bù zhīdào, yí kàn xià yí tiào. | Tidak dilihat tidak tahu, begitu dilihat kaget sekali. | You’d never know till you look, then you’re shocked. | ไม่ดูก็ไม่รู้ พอดูแล้วตกใจเลย | Không xem thì không biết, xem rồi mới giật mình.
+e: [1 不] [2 看] [3 不] [4 知道] ， [5 一] [6 看] [7 吓 一 跳] 。 | Bú kàn bù zhīdào, yí kàn xià yí tiào. | Tidak dilihat tidak tahu, begitu dilihat kaget sekali. | You’d never know till you look, then you’re shocked. | ไม่ดูก็ไม่รู้ พอดูแล้วตกใจเลย | Không xem thì không biết, xem rồi mới giật mình.
 e: [1 不] [2 算] [3 不] [4 知道] ， [5 一] [6 算] 吓 一 跳 ， 花 了 这么 多 钱 。 | Bú suàn bù zhīdào, yí suàn xià yí tiào, huā le zhème duō qián. | Tidak dihitung tidak tahu, begitu dihitung kaget, uangnya habis sebanyak ini. | You don't know until you count; once I did, I was shocked at how much I'd spent. | ไม่คิดก็ไม่รู้ พอคิดแล้วตกใจ ใช้เงินไปเยอะขนาดนี้ | Không tính thì không biết, tính ra giật mình, tiêu nhiều tiền thế.
-e: [1 不] [2 问] [3 不] [4 知道] ， [5 一] [6 问] 才 明白 。 | Bú wèn bù zhīdào, yí wèn cái míngbai. | Tidak bertanya tidak tahu, begitu bertanya baru mengerti. | You don't know until you ask; only when I asked did I understand. | ไม่ถามก็ไม่รู้ พอถามก็เข้าใจ | Không hỏi thì không biết, hỏi rồi mới hiểu.
+e: [1 不] [2 问] [3 不] [4 知道] ， [5 一] [6 问] [7 才 明白] 。 | Bú wèn bù zhīdào, yí wèn cái míngbai. | Tidak bertanya tidak tahu, begitu bertanya baru mengerti. | You don't know until you ask; only when I asked did I understand. | ไม่ถามก็ไม่รู้ พอถามก็เข้าใจ | Không hỏi thì không biết, hỏi rồi mới hiểu.
 
 = E | 好你个X | 好你个 + 称呼
+t: 10
+v: h2 6
 i: 6-060
 n: hǎo nǐ ge X | Dasar kamu…: 好你个 | You little…: 好你个 | ไอ้นี่…: 好你个 | Cái đồ nhà…: 好你个
 fs: 好 + 你 + 个 + 称呼
@@ -858,6 +976,8 @@ e: [1 好] [2 你] [3 个] [4 小李] ， 又 迟到 了 ！ | Hǎo nǐ ge Xiǎo
 e: [1 好] [2 你] [3 个] [4 老王] ， 藏 得 真 深 啊 ！ | Hǎo nǐ ge Lǎo Wáng, cáng de zhēn shēn a! | Dasar kamu Lao Wang, pandai sekali menyembunyikannya! | You old Wang, you hid that well! | ไอ้เฒ่าหวัง ซ่อนเก่งจริงๆ | Cái ông Lão Vương này, giấu kỹ thật đấy!
 
 = E | 动词 + 什么（就）是什么 | 动词 + 什么 + 就是什么
+t: 10
+v: h2 6
 i: 6-061
 n: dòngcí + shénme jiùshì shénme | Apa yang di-X, itulah dia | Whatever you X is what it is | …อะไรก็คืออย่างนั้น | Nói gì thì là cái đó
 fs: 动词 + 什么 + 就是 + 什么
@@ -873,6 +993,8 @@ e: 你 [1 点] [2 什么] [3 就是] [4 什么] ， 我 请客 。 | Nǐ diǎn s
 e: 今天 你 [1 吃] [2 什么] [3 就是] [4 什么] ， 我 不 挑 。 | Jīntiān nǐ chī shénme jiù shì shénme, wǒ bù tiāo. | Hari ini kamu makan apa saja boleh, aku tidak pilih-pilih. | Whatever you eat today is fine, I'm not picky. | วันนี้คุณกินอะไรก็ได้ ฉันไม่เลือก | Hôm nay bạn ăn gì cũng được, tôi không kén.
 
 = E | 早（也）不X，晚（也）不X | 早不X，晚不X，偏偏……
+t: 10
+v: h2 6
 i: 6-062
 n: zǎo bù X, wǎn bù X | Tidak lebih awal, tidak lebih lambat, justru sekarang | Not earlier, not later, but right now | ไม่ก่อนไม่หลัง แต่ดันตอนนี้ | Không sớm không muộn, đúng lúc này
 fs: 早 + 不 + A ， 晚 + 不 + A ， 偏偏 + B
@@ -884,11 +1006,13 @@ en: Not earlier, not later, but right now (bad timing).
 th: ไม่…ก่อน ไม่…ทีหลัง ดันมา…ตอนนี้ (ผิดจังหวะ)
 vi: Sớm không X, muộn không X, lại đúng lúc này (không đúng lúc).
 ex: 早不下雨，晚不下雨，偏偏这时候下雨。 | Zǎo bú xià yǔ, wǎn bú xià yǔ, piānpiān zhè shíhou xià yǔ. | Tidak hujan sebelumnya, tidak juga nanti, justru sekarang hujan. | It didn’t rain before or after, it had to rain right now. | ไม่ตกก่อน ไม่ตกทีหลัง ดันมาตกตอนนี้ | Sớm không mưa, muộn không mưa, lại mưa đúng lúc này.
-e: [1 早] 不 [2 下雨] ， [3 晚] 不 [4 下雨] ， [5 偏偏] 这 时候 下雨 。 | Zǎo bú xià yǔ, wǎn bú xià yǔ, piānpiān zhè shíhou xià yǔ. | Tidak hujan sebelumnya, tidak juga nanti, justru sekarang hujan. | It didn’t rain before or after, it had to rain right now. | ไม่ตกก่อน ไม่ตกทีหลัง ดันมาตกตอนนี้ | Sớm không mưa, muộn không mưa, lại mưa đúng lúc này.
-e: [1 早] 不 [2 来] ， [3 晚] 不 [4 来] ， [5 偏偏] 我 睡觉 时 来 。 | Zǎo bù lái, wǎn bù lái, piānpiān wǒ shuìjiào shí lái. | Tidak datang lebih awal, tidak lebih lambat, justru saat aku tidur. | Not earlier, not later, he comes right when I'm sleeping. | ไม่มาก่อนไม่มาหลัง ดันมาตอนฉันนอน | Không đến sớm không đến muộn, lại đến đúng lúc tôi ngủ.
-e: [1 早] 不 [2 坏] ， [3 晚] 不 [4 坏] ， [5 偏偏] 考试 前 坏 了 。 | Zǎo bú huài, wǎn bú huài, piānpiān kǎoshì qián huài le. | Tidak rusak lebih awal, tidak lebih lambat, justru rusak sebelum ujian. | It couldn't break earlier or later, only right before the exam. | ไม่เสียก่อนไม่เสียหลัง ดันเสียก่อนสอบ | Không hỏng sớm không hỏng muộn, lại hỏng ngay trước kỳ thi.
+e: [1 早] [2 不] [3 下雨] ， [4 晚] [5 不] [6 下雨] ， [7 偏偏] [8 这 时候 下雨] 。 | Zǎo bú xià yǔ, wǎn bú xià yǔ, piānpiān zhè shíhou xià yǔ. | Tidak hujan sebelumnya, tidak juga nanti, justru sekarang hujan. | It didn’t rain before or after, it had to rain right now. | ไม่ตกก่อน ไม่ตกทีหลัง ดันมาตกตอนนี้ | Sớm không mưa, muộn không mưa, lại mưa đúng lúc này.
+e: [1 早] [2 不] [3 来] ， [4 晚] [5 不] [6 来] ， [7 偏偏] [8 我 睡觉 时 来] 。 | Zǎo bù lái, wǎn bù lái, piānpiān wǒ shuìjiào shí lái. | Tidak datang lebih awal, tidak lebih lambat, justru saat aku tidur. | Not earlier, not later, he comes right when I'm sleeping. | ไม่มาก่อนไม่มาหลัง ดันมาตอนฉันนอน | Không đến sớm không đến muộn, lại đến đúng lúc tôi ngủ.
+e: [1 早] [2 不] [3 坏] ， [4 晚] [5 不] [6 坏] ， [7 偏偏] [8 考试 前 坏 了] 。 | Zǎo bú huài, wǎn bú huài, piānpiān kǎoshì qián huài le. | Tidak rusak lebih awal, tidak lebih lambat, justru rusak sebelum ujian. | It couldn't break earlier or later, only right before the exam. | ไม่เสียก่อนไม่เสียหลัง ดันเสียก่อนสอบ | Không hỏng sớm không hỏng muộn, lại hỏng ngay trước kỳ thi.
 
 = E | 看/瞧把 + 宾语 + X得 | 看把你 + 形容词 + 得
+t: 10
+v: h2 6
 i: 6-063
 n: kàn bǎ nǐ …… de | Lihat sampai kamu jadi…: 看把你 | Look how… you are: 看把你 | ดูสิ…จนเป็นอย่างนี้: 看把你 | Nhìn xem bạn…: 看把你
 fs: 看 + 把 + 你 + 形容词 + 得
@@ -905,6 +1029,8 @@ e: [1 看] [2 把] [3 你] [4 累] [5 得] ， 快 去 休息 吧 。 | Kàn bǎ
 e: [1 瞧] [2 把] [3 你] [4 得意] [5 得] ！ | Qiáo bǎ nǐ déyì de! | Lihat kamu sampai sebangga itu! | Look how pleased with yourself you are! | ดูคุณภูมิใจใหญ่เลย | Nhìn bạn đắc ý chưa kìa!
 
 = E | 放着X不Y | 放着 + 好选择 + 不 + 动词
+t: 10
+v: h2 6
 i: 6-064
 n: fàngzhe X bù Y | Ada X tapi tidak dipakai | Having X but not using it | มี X อยู่แต่ไม่ใช้ | Có X mà không dùng
 fs: 放着 + 好东西 + 不 + 动词
@@ -921,6 +1047,8 @@ e: 你 [1 放着] [2 家里 的 饭] [3 不] [4 吃] ， 非 要 去 外面 吃 
 e: 她 [1 放着] [2 电梯] [3 不] [4 坐] ， 爬 了 十 层 楼 。 | Tā fàngzhe diàntī bú zuò, pá le shí céng lóu. | Ada lift tapi tidak dipakai, dia malah memanjat sepuluh lantai. | She skipped the elevator and climbed ten floors. | เธอมีลิฟต์ไม่นั่ง เดินขึ้นสิบชั้น | Có thang máy không đi, cô ấy leo mười tầng.
 
 = E | X来X去，都/就是…… | V来V去，都是……
+t: 10
+v: h2 6
 i: 6-065
 n: V lái V qù, dōu shì | Bolak-balik, hasilnya sama | Over and over, same result | ซ้ำไปซ้ำมา ผลเหมือนเดิม | Nói đi nói lại, vẫn vậy
 fs: 动词 + 来 + 动词 + 去 ， 就是 + 结果
@@ -931,11 +1059,13 @@ en: X-ing back and forth, it's still the same.
 th: X ไปX มา ก็ยังเหมือนเดิม
 vi: X tới X lui vẫn thế.
 ex: 他说来说去，就是不想去。 | Tā shuō lái shuō qù, jiù shì bù xiǎng qù. | Bicara panjang lebar, intinya dia tidak mau pergi. | However he puts it, he just doesn’t want to go. | เขาพูดไปพูดมา ก็คือไม่อยากไป | Anh ấy nói tới nói lui, tóm lại là không muốn đi.
-e: 他 [1 说] [2 来] [3 说] [4 去] ， [5 就是] 不 想 去 。 | Tā shuō lái shuō qù, jiù shì bù xiǎng qù. | Bicara panjang lebar, intinya dia tidak mau pergi. | However he puts it, he just doesn’t want to go. | เขาพูดไปพูดมา ก็คือไม่อยากไป | Anh ấy nói tới nói lui, tóm lại là không muốn đi.
-e: 我 [1 想] [2 来] [3 想] [4 去] ， [5 还是] 没 想 好 。 | Wǒ xiǎng lái xiǎng qù, háishi méi xiǎnghǎo. | Aku pikir bolak-balik, tetap belum memutuskan. | I thought it over and over and still haven't decided. | ฉันคิดไปคิดมา ก็ยังตัดสินใจไม่ได้ | Tôi nghĩ đi nghĩ lại vẫn chưa quyết được.
-e: 他们 [1 找] [2 来] [3 找] [4 去] ， [5 都] 没 找到 。 | Tāmen zhǎo lái zhǎo qù, dōu méi zhǎodào. | Mereka mencari ke sana kemari, tetap tidak ketemu. | They searched everywhere and still didn't find it. | พวกเขาหาไปหามา ก็ไม่เจอ | Họ tìm đi tìm lại mà vẫn không thấy.
+e: 他 [1 说] [2 来] [3 说] [4 去] ， [5 就是] [6 不 想 去] 。 | Tā shuō lái shuō qù, jiù shì bù xiǎng qù. | Bicara panjang lebar, intinya dia tidak mau pergi. | However he puts it, he just doesn’t want to go. | เขาพูดไปพูดมา ก็คือไม่อยากไป | Anh ấy nói tới nói lui, tóm lại là không muốn đi.
+e: 我 [1 想] [2 来] [3 想] [4 去] ， [5 还是] [6 没 想 好] 。 | Wǒ xiǎng lái xiǎng qù, háishi méi xiǎnghǎo. | Aku pikir bolak-balik, tetap belum memutuskan. | I thought it over and over and still haven't decided. | ฉันคิดไปคิดมา ก็ยังตัดสินใจไม่ได้ | Tôi nghĩ đi nghĩ lại vẫn chưa quyết được.
+e: 他们 [1 找] [2 来] [3 找] [4 去] ， [5 都] [6 没 找到] 。 | Tāmen zhǎo lái zhǎo qù, dōu méi zhǎodào. | Mereka mencari ke sana kemari, tetap tidak ketemu. | They searched everywhere and still didn't find it. | พวกเขาหาไปหามา ก็ไม่เจอ | Họ tìm đi tìm lại mà vẫn không thấy.
 
 = E | X了就X了 | X了就X了，没什么
+t: 10
+v: h2 6
 i: 6-066
 n: X le jiù X le | Sudah X ya sudah | What's done is done | …แล้วก็…ไปแล้ว | …rồi thì thôi
 fs: 动词 + 了 + 就 + 动词 + 了
@@ -946,11 +1076,13 @@ en: What's X-ed is X-ed, no big deal.
 th: X แล้วก็แล้วไป ไม่เป็นไร
 vi: X rồi thì thôi, không sao.
 ex: 丢了就丢了吧，再买一个。 | Diū le jiù diū le ba, zài mǎi yí gè. | Hilang ya sudah, beli lagi saja. | Lost is lost, just buy another. | หายก็หายไปเถอะ ซื้อใหม่ | Mất thì thôi, mua cái khác.
-e: [1 丢] [2 了] [3 就] [4 丢] 了 吧 ， 再 买 一 个 。 | Diū le jiù diū le ba, zài mǎi yí gè. | Hilang ya sudah, beli lagi saja. | Lost is lost, just buy another. | หายก็หายไปเถอะ ซื้อใหม่ | Mất thì thôi, mua cái khác.
-e: [1 错] [2 了] [3 就] [4 错] 了 ， 下次 注意 吧 。 | Cuò le jiù cuò le, xià cì zhùyì ba. | Sudah salah ya sudah, lain kali hati-hati. | What's wrong is wrong; be careful next time. | ผิดแล้วก็ผิดไป คราวหน้าระวังนะ | Sai rồi thì thôi, lần sau chú ý nhé.
-e: [1 输] [2 了] [3 就] [4 输] 了 ， 没 什么 大不了 的 。 | Shū le jiù shū le, méi shénme dàbuliǎo de. | Kalah ya sudah kalah, tidak ada yang serius. | Losing is losing; it's no big deal. | แพ้ก็แพ้ไป ไม่ใช่เรื่องใหญ่ | Thua thì thua, chẳng có gì to tát.
+e: [1 丢] [2 了] [3 就] [4 丢] [5 了] 吧 ， 再 买 一 个 。 | Diū le jiù diū le ba, zài mǎi yí gè. | Hilang ya sudah, beli lagi saja. | Lost is lost, just buy another. | หายก็หายไปเถอะ ซื้อใหม่ | Mất thì thôi, mua cái khác.
+e: [1 错] [2 了] [3 就] [4 错] [5 了] ， 下次 注意 吧 。 | Cuò le jiù cuò le, xià cì zhùyì ba. | Sudah salah ya sudah, lain kali hati-hati. | What's wrong is wrong; be careful next time. | ผิดแล้วก็ผิดไป คราวหน้าระวังนะ | Sai rồi thì thôi, lần sau chú ý nhé.
+e: [1 输] [2 了] [3 就] [4 输] [5 了] ， 没 什么 大不了 的 。 | Shū le jiù shū le, méi shénme dàbuliǎo de. | Kalah ya sudah kalah, tidak ada yang serius. | Losing is losing; it's no big deal. | แพ้ก็แพ้ไป ไม่ใช่เรื่องใหญ่ | Thua thì thua, chẳng có gì to tát.
 
 = E | 这也不X，那也不Y | 这也不X，那也不Y
+t: 10
+v: h2 6
 i: 6-067
 n: zhè yě bù X, nà yě bù Y | Ini tidak mau, itu tidak mau | Won't this, won't that | อันนี้ก็ไม่ อันนั้นก็ไม่ | Cái này không, cái kia cũng không
 fs: 这 + 也 + 不 + A ， 那 + 也 + 不 + B
@@ -965,3 +1097,18 @@ ex: 这孩子这也不吃，那也不吃。 | Zhè háizi zhè yě bù chī, nà
 e: 这 孩子 [1 这] [2 也] [3 不] [4 吃] ， [5 那] [6 也] [7 不] [8 吃] 。 | Zhè háizi zhè yě bù chī, nà yě bù chī. | Anak ini ini tidak mau dimakan, itu juga tidak. | This kid won’t eat this or that. | เด็กคนนี้นี่ก็ไม่กิน นั่นก็ไม่กิน | Đứa bé này cái này cũng không ăn, cái kia cũng không ăn.
 e: 他 [1 这] [2 也] [3 不] [4 喜欢] ， [5 那] [6 也] [7 不] [8 喜欢] ， 真 难 伺候 。 | Tā zhè yě bù xǐhuan, nà yě bù xǐhuan, zhēn nán cìhou. | Ini tidak suka, itu tidak suka, susah sekali dilayani. | He dislikes this and dislikes that; he's hard to please. | เขาอันนี้ก็ไม่ชอบ อันนั้นก็ไม่ชอบ เอาใจยากจริงๆ | Cái này anh ấy không thích, cái kia cũng không, khó chiều thật.
 e: 你 [1 这] [2 也] [3 不] [4 要] ， [5 那] [6 也] [7 不] [8 要] ， 到底 想 要 什么 ？ | Nǐ zhè yě bú yào, nà yě bú yào, dàodǐ xiǎng yào shénme? | Ini tidak mau, itu tidak mau, sebenarnya kamu mau apa? | You don't want this, you don't want that; what do you actually want? | คุณอันนี้ก็ไม่เอา อันนั้นก็ไม่เอา สรุปอยากได้อะไร | Cái này bạn không lấy, cái kia cũng không, rốt cuộc bạn muốn gì?
+
+= E | 反过来说 | ……，反过来说，……
+t: 10
+v: h2 6
+i: 6-068
+n: fǎn guòlái shuō | "Sebaliknya …": 反过来说 | "Conversely …": 反过来说 | "ในทางกลับกัน …": 反过来说 | "Ngược lại mà nói …": 反过来说
+fs: 陈述 ， 反过来说 + 补充
+k: 反过来说
+id: Melihat hal yang sama dari arah sebaliknya.
+en: Looks at the same thing from the other direction.
+th: มองเรื่องเดียวกันจากอีกด้าน
+vi: Nhìn cùng một việc từ phía ngược lại.
+e: [1 努力 不 一定 成功] ， [2 反过来说] ， [3 不 努力 一定 不 会 成功] 。 | Nǔlì bù yídìng chénggōng, fǎn guòlái shuō, bù nǔlì yídìng bú huì chénggōng. | Usaha belum tentu berhasil; sebaliknya, tanpa usaha pasti tidak berhasil. | Effort doesn't guarantee success; conversely, without effort you surely won't succeed. | พยายามไม่แน่ว่าจะสำเร็จ ในทางกลับกัน ไม่พยายามไม่มีทางสำเร็จ | Cố gắng chưa chắc thành công, ngược lại, không cố gắng chắc chắn không thành công.
+e: [1 这 是 缺点] ， [2 反过来说] ， [3 也 是 优点] 。 | Zhè shì quēdiǎn, fǎn guòlái shuō, yě shì yōudiǎn. | Ini kekurangan; dari sisi lain, juga kelebihan. | It's a weakness; looked at the other way, it's also a strength. | นี่คือข้อเสีย ในทางกลับกันก็เป็นข้อดีด้วย | Đây là nhược điểm, ngược lại mà nói cũng là ưu điểm.
+e: [1 他 帮 了 我] ， [2 反过来说] ， [3 我 也 应该 帮 他] 。 | Tā bāng le wǒ, fǎn guòlái shuō, wǒ yě yīnggāi bāng tā. | Dia sudah membantu saya; sebaliknya, saya juga harus membantunya. | He helped me; in turn, I should help him too. | เขาช่วยฉัน ในทางกลับกันฉันก็ควรช่วยเขา | Anh ấy đã giúp tôi, ngược lại tôi cũng nên giúp anh ấy.

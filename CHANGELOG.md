@@ -6,6 +6,27 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.8
+
+**Grammar in four books, in the order you learn it.**
+
+- Four buttons on the Grammar page: HSK 3.0, HSK 2.0, BCT (Chinese for work, levels A and B) and YCT (the test for
+  children and teens). A pattern found in several books shows in each of them, with its level there, and your
+  progress on it is shared. HSK 2.0, BCT and YCT are put together after their syllabuses, not copied from an
+  official list.
+- The patterns of a level now follow the order you learn them in: sentence basics, numbers and time, 了 过 着,
+  adverbs, comparing, verbs and complements, prepositions, special patterns like 把 and 被, joining sentences, then
+  tone and expressions.
+- 37 new patterns, among them 一边……一边, 刚……就, 直到……才, 每当……就, 不得不, 事实上, 说实话, 特别是, 通过, 难以,
+  把……当作, 对于……而言, 针对, 与其……不如 and business patterns like 请您/麻烦您, 由……负责, 如有……请, 截至 and
+  以……为准.
+- Every formula was checked against its examples: the colours of each part now match the words in the sentence, a
+  few formulas were corrected, and examples where the grammar word only hid inside another word (及 in 涉及) were
+  replaced. Practice no longer uses such sentences either.
+- Mixed practice changes from round to round: mostly patterns that are fading, a few new ones and one or two strong
+  ones, with sentences you haven't seen lately.
+- Going back from a pattern to the list keeps your place instead of jumping to the top.
+
 ## v1.7
 
 **A friendlier Grammar page.**

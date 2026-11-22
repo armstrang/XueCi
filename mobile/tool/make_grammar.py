@@ -19,6 +19,20 @@ N_EX = 3  # examples shown
 N_POOL = 40  # sentences kept for practice
 
 
+BOOKS = {'h2': range(1, 7), 'yct': range(1, 5), 'bct': range(1, 3)}
+
+
+def books(val, where):
+    """"h2 2, yct 3, bct A" → {'h2': 2, 'yct': 3, 'bct': 1} (BCT A = 1, B = 2)"""
+    out = {}
+    for x in val.split(','):
+        b, _, l = x.strip().partition(' ')
+        l = {'A': '1', 'B': '2'}.get(l.strip(), l.strip()) if b == 'bct' else l.strip()
+        assert b in BOOKS and l.isdigit() and int(l) in BOOKS[b], f'{where}: book level {x}'
+        out[b] = int(l)
+    return out
+
+
 def parse(path, level):
     pts, cur = [], None
     with open(path, encoding='utf8') as f:
@@ -60,10 +74,25 @@ def parse(path, level):
                 cur['w'] = dict(zip(LANGS, e))
             elif key == 'e':
                 cur.setdefault('e', []).append((val, f'{path}:{n}'))
+            elif key == 't':
+                assert val.isdigit() and 1 <= int(val) <= 10, f'{path}:{n}: t is a stage 1-10'
+                cur['t'] = int(val)
+            elif key == 'v':
+                cur['v'] = books(val, f'{path}:{n}')
+            elif key == 'l':
+                assert level == 0 and val.isdigit() and 1 <= int(val) <= 6, f'{path}:{n}: l only in x.txt, 1-6'
+                cur['l'] = int(val)
             else:
                 raise AssertionError(f'{path}:{n}: {line}')
     for i, p in enumerate(pts):
         assert set(p['x']) == set(LANGS), f'{path}: {p["zh"]} lacks {set(LANGS) - set(p["x"])}'
+        assert 't' in p, f'{path}: {p["zh"]} has no stage (t:)'
+        if level == 0:
+            # x.txt: points of the other books only (not in the HSK 3.0 book): own id, base level, books
+            assert p.get('id', '').startswith('x-') and p['l'] and p.get('v'), f'{path}: {p["zh"]} needs i: x-…, l: and v:'
+            p['nh'] = 1
+        else:
+            assert level <= 6 or not p.get('v'), f'{path}: {p["zh"]}: the advanced band belongs to no other book'
         p.setdefault('id', f'{level}-{i + 1:03d}')
     ids = [p['id'] for p in pts]
     assert len(set(ids)) == len(ids), f'{path}: an id twice'
@@ -205,7 +234,21 @@ def gloss(t, T, dic):
 
 def formula(fs, T, dic):
     """"主语 + 有 + 名词" → parts with meaning and pinyin, and the signs between them"""
-    toks = re.split(r'\s+([+＋，,…]|……)\s+', ' ' + fs.strip() + ' ')
+    # the signs between parts, never inside a {meaning} (a meaning may hold " + " itself)
+    src = ' ' + fs.strip() + ' '
+    toks, buf, depth, i = [], '', 0, 0
+    while i < len(src):
+        c = src[i]
+        depth += (c == '{') - (c == '}')
+        m = re.match(r'\s+([+＋，,…]|……)\s+', src[i:]) if depth == 0 else None
+        if m:
+            toks += [buf, m.group(1)]
+            buf = ''
+            i += m.end()
+            continue
+        buf += c
+        i += 1
+    toks.append(buf)
     parts, seps = [], []
     for i, t in enumerate(toks):
         t = t.strip()
@@ -269,10 +312,26 @@ def examples(p, T, dic, byz, syl, problems):
     return out
 
 
-def fits(p, z):
+def inside(p, words):
+    """the longer words that hold one of the point's words without being it (涉及 for 及, 以便 for 以): a sentence
+    shows the point only where its word stands alone (v1.8, Josh: examples that do not fit the formula)"""
+    if p['c'] in 'WK' or not p['k']:  # affixes and complements live inside words (桌子, 回来)
+        return []
+    ks = set(p['k'])
+    return sorted({w for w in words if len(w) > 1 and w not in ks and any(k in w and len(k) < len(w) for k in ks)}, key=len, reverse=True)
+
+
+def bare_of(z, longer):
+    for w in longer:
+        if w in z:
+            z = z.replace(w, '□' * len(w))
+    return z
+
+
+def fits(p, z, longer=()):
     if not p['k'] and 'm' not in p:
         return None
-    if p['k'] and not any(k in z for k in p['k']):
+    if p['k'] and not any(k in bare_of(z, longer) for k in p['k']):
         return None
     if 'm' in p and not re.search(p['m'], z):
         return None
@@ -290,17 +349,20 @@ def build(words):
         dic_all[d['h']] = d
         if d['l'] <= 6:
             dic_pub[d['h']] = d
+    hz_words = {d['h'] for d in words if len(d['h']) > 1}
     byz = {}
     for d in sorted(words, key=lambda d: -d['l']):
         if d.get('z'):
             byz[d['z']] = d
-    for level in range(1, 10):
-        path = os.path.join(DIR, f'{level}.txt')
+    for level in [*range(1, 10), 0]:
+        path = os.path.join(DIR, f'{level}.txt' if level else 'x.txt')
         if not os.path.exists(path):
             continue
         for p in parse(path, level):
+            level = p['l']
             top = min(level + 1, 6) if level <= 6 else 9
-            cand = [d for d in words if d['l'] <= top and d.get('z') and fits(p, d['z'])]
+            longer = inside(p, hz_words)
+            cand = [d for d in words if d['l'] <= top and d.get('z') and fits(p, d['z'], longer)]
             # nearest level first, then the shortest sentences (clearest examples)
             cand.sort(key=lambda d: (abs(d['l'] - level) + (0.5 if d['l'] > level else 0), len(d['z'])))
             seen, ex, pool = set(), [], []
@@ -312,7 +374,7 @@ def build(words):
                     ex.append(wid(d))
                 if len(pool) < N_POOL:
                     pool.append(wid(d))
-            if (p['k'] or 'm' in p) and not ex and not p['own']:
+            if (p['k'] or 'm' in p) and not ex and not p['own'] and not p.get('e'):
                 problems.append(f"{p['id']} {p['zh']}: no example sentence")
             out = {k: v for k, v in p.items() if k not in ('own', 'e', 'fs')}
             out['ex'], out['pool'] = ex, pool

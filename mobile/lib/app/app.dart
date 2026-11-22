@@ -244,6 +244,7 @@ class App extends ChangeNotifier {
   bool mockShort = false; // the HSK simulation: the short paper
   String spk = 'n'; // speaking practice: e easy, n normal, h hard
   int hkLv = 1; // HSKK: the level last chosen (1 Dasar, 2 Menengah, 3 Lanjutan)
+  String gramBook = 'h3'; // the grammar book shown: h3 HSK 3.0, h2 HSK 2.0, bct, yct (v1.8)
   String theme = 'auto';
   String fxPref = 'full'; // Josh: glassy by default; auto and low stay in Settings
   int bgm = 1; // background music: 0 off, 1 soft (the default, Josh), 2 medium, 3 loud
@@ -259,6 +260,7 @@ class App extends ChangeNotifier {
     if (spk != 'n') 'spk': spk,
     if (bgm != 1) 'bgm': bgm,
     if (hkLv != 1) 'hk': hkLv,
+    if (gramBook != 'h3') 'gb': gramBook,
   });
   void saveNote() => store.set('xc_note', note);
 
@@ -279,6 +281,7 @@ class App extends ChangeNotifier {
       if (spkLevels.contains(ui['spk'])) spk = ui['spk'] as String;
       final hk = ui['hk'];
       if (hk is num && hkLevels.contains(hk.toInt())) hkLv = hk.toInt();
+      if (gramBooks.contains(ui['gb'])) gramBook = ui['gb'] as String; // a book without points: see _initGram
       final b = ui['bgm'];
       if (b is num && b >= 0 && b <= 3) bgm = b.toInt();
     }
@@ -532,17 +535,19 @@ class App extends ChangeNotifier {
     }
     final g = gram;
     if (g != null) {
+      if (g.levelsOf(gramBook).isEmpty) gramBook = 'h3';
       gpr = GPractice(lm, g);
       lm.grammarFirst = (pool, l) => gramFirst(g, pool, l);
     }
   }
 
   /// the levels the grammar book shows (the advanced band as one level 7, after the gate)
-  List<int> get gramLevels => gram?.levels ?? const [];
+  List<int> get gramLevels => gram?.levelsOf(gramBook) ?? const [];
 
   /// the point the grammar screen opens on (null: the level's list), and the level shown
   String? gramPoint;
-  int? gramLevel;
+  int? gramLevel; // a link to an HSK 3.0 level (read once by the screen)
+  final Map<String, int> gramLvBy = {}; // the level last shown in each book
 
   // ---------------------------------------------------------------- HSKK (hskk.dart)
   SpkLog spkLog = SpkLog(null);

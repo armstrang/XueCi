@@ -1,0 +1,313 @@
+# Points of the other books only (HSK 2.0, BCT, YCT), not in the HSK 3.0 book (v1.8). Like the level files, plus
+# "l:" = the HSK 3.0 level whose words the point practises with, "i: x-nnn" (never change), and "v:" its books.
+
+= F | 与其……不如…… | 与其 A，不如 B
+t: 9
+l: 5
+v: h2 5, bct B
+i: x-001
+n: yǔqí……bùrú | "Daripada …, lebih baik …": 与其……不如 | "Rather than …, better to …": 与其……不如 | "แทนที่จะ … สู้ … ดีกว่า": 与其……不如 | "Thay vì … chi bằng …": 与其……不如
+fs: 与其 + A ， 不如 + B
+k: 与其
+id: Membandingkan dua pilihan, lalu memilih yang kedua.
+en: Compares two choices and picks the second.
+th: เปรียบสองทางเลือกแล้วเลือกทางที่สอง
+vi: So sánh hai lựa chọn rồi chọn cái sau.
+e: [1 与其] [2 抱怨] ， [3 不如] [4 想 办法 解决] 。 | Yǔqí bàoyuàn, bùrú xiǎng bànfǎ jiějué. | Daripada mengeluh, lebih baik cari cara mengatasinya. | Rather than complain, better to find a way to fix it. | แทนที่จะบ่น สู้หาทางแก้ดีกว่า | Thay vì phàn nàn, chi bằng nghĩ cách giải quyết.
+e: [1 与其] [2 在 家 等] ， [3 不如] [4 出去 找 他] 。 | Yǔqí zài jiā děng, bùrú chūqu zhǎo tā. | Daripada menunggu di rumah, lebih baik keluar mencarinya. | Rather than wait at home, better to go and look for him. | แทนที่จะรอที่บ้าน สู้ออกไปหาเขาดีกว่า | Thay vì ở nhà chờ, chi bằng ra ngoài tìm anh ấy.
+e: [1 与其] [2 坐 车] ， [3 不如] [4 走路 去] 。 | Yǔqí zuò chē, bùrú zǒulù qù. | Daripada naik mobil, lebih baik jalan kaki. | Rather than take the car, better to walk. | แทนที่จะนั่งรถ สู้เดินไปดีกว่า | Thay vì đi xe, chi bằng đi bộ.
+
+= F | 与其说……不如说…… | 与其说 A，不如说 B
+t: 9
+l: 6
+v: h2 6
+i: x-002
+n: yǔqí shuō……bùrú shuō | "Bukan … tapi lebih tepat …": 与其说……不如说 | "Less … than …": 与其说……不如说 | "จะว่า … น่าจะเป็น … มากกว่า": 与其说……不如说 | "Nói là … chẳng bằng nói là …": 与其说……不如说
+fs: 与其说 + A ， 不如说 + B
+k: 与其说
+id: Mengganti sebutan pertama dengan sebutan yang lebih tepat.
+en: Swaps the first label for a more accurate one.
+th: เปลี่ยนคำเรียกแรกเป็นคำที่ตรงกว่า
+vi: Thay cách gọi thứ nhất bằng cách gọi đúng hơn.
+e: [1 与其说] [2 他 是 老师] ， [3 不如说] [4 他 是 朋友] 。 | Yǔqí shuō tā shì lǎoshī, bùrú shuō tā shì péngyou. | Dia bukan seperti guru, lebih tepat seperti teman. | He's less a teacher than a friend. | จะว่าเขาเป็นครู น่าจะเป็นเพื่อนมากกว่า | Nói anh ấy là thầy giáo, chẳng bằng nói anh ấy là bạn.
+e: [1 与其说] [2 这 是 工作] ， [3 不如说] [4 这 是 爱好] 。 | Yǔqí shuō zhè shì gōngzuò, bùrú shuō zhè shì àihào. | Ini bukan sekadar kerja, lebih tepat hobi. | It's less a job than a hobby. | จะว่านี่เป็นงาน น่าจะเป็นงานอดิเรกมากกว่า | Nói đây là công việc, chẳng bằng nói đây là sở thích.
+e: [1 与其说] [2 他 聪明] ， [3 不如说] [4 他 努力] 。 | Yǔqí shuō tā cōngming, bùrú shuō tā nǔlì. | Dia bukan pintar, lebih tepat rajin. | It's not so much that he's clever as that he works hard. | จะว่าเขาฉลาด น่าจะว่าเขาขยันมากกว่า | Nói anh ấy thông minh, chẳng bằng nói anh ấy chăm chỉ.
+
+= F | 宁可/宁愿……也不…… | 宁可 A，也不 B
+t: 9
+l: 5
+v: h2 5
+i: x-003
+n: nìngkě……yě bù | "Lebih baik … daripada …": 宁可……也不 | "Would rather … than …": 宁可……也不 | "ยอม … ดีกว่า …": 宁可……也不 | "Thà … chứ không …": 宁可……也不
+fs: 宁可/宁愿 + A ， 也不 + B
+k: 宁可|宁愿
+id: Memilih yang kurang enak supaya tidak perlu melakukan yang lain.
+en: Picks the harder option so as not to do the other.
+th: เลือกทางที่ลำบากกว่า เพื่อไม่ต้องทำอีกอย่าง
+vi: Chọn điều khó hơn để khỏi phải làm điều kia.
+e: [1 宁可] [2 走路] ， [3 也 不] [4 坐 他 的 车] 。 | Nìngkě zǒulù, yě bú zuò tā de chē. | Lebih baik jalan kaki daripada naik mobilnya. | I'd rather walk than ride in his car. | ยอมเดินดีกว่านั่งรถเขา | Thà đi bộ chứ không ngồi xe anh ta.
+e: [1 宁愿] [2 少 赚 点儿 钱] ， [3 也 不] [4 做 不 喜欢 的 工作] 。 | Nìngyuàn shǎo zhuàn diǎnr qián, yě bú zuò bù xǐhuan de gōngzuò. | Lebih baik uangnya sedikit daripada kerja yang tidak disukai. | I'd rather earn less than do a job I don't like. | ยอมได้เงินน้อยหน่อยดีกว่าทำงานที่ไม่ชอบ | Thà kiếm ít tiền chứ không làm công việc mình không thích.
+e: [1 宁可] [2 多 等 一会儿] ， [3 也 不] [4 要 走 错 路] 。 | Nìngkě duō děng yíhuìr, yě bú yào zǒu cuò lù. | Lebih baik menunggu sebentar lagi daripada salah jalan. | Better to wait a little longer than take the wrong road. | ยอมรออีกหน่อยดีกว่าไปผิดทาง | Thà chờ thêm một lúc chứ đừng đi nhầm đường.
+
+= F | ……，何况…… | A，何况 B
+t: 9
+l: 5
+v: h2 5
+i: x-004
+n: hékuàng | "Apalagi …": 何况 | "Let alone …": 何况 | "นับประสาอะไรกับ …": 何况 | "Huống hồ …": 何况
+fs: A ， 何况 + B
+k: 何况
+id: Kalau yang pertama saja begitu, yang kedua lebih lagi.
+en: If the first is so, the second is even more so.
+th: ถ้าอย่างแรกยังเป็นอย่างนั้น อย่างที่สองยิ่งกว่า
+vi: Cái thứ nhất đã vậy, cái thứ hai càng vậy.
+e: [1 这么 简单 的 题 他 都 不 会] ， [2 何况] [3 难 题] 呢 。 | Zhème jiǎndān de tí tā dōu bú huì, hékuàng nán tí ne. | Soal semudah ini saja dia tidak bisa, apalagi soal sulit. | He can't do a question this easy, let alone a hard one. | โจทย์ง่ายแค่นี้เขายังทำไม่ได้ นับประสาอะไรกับโจทย์ยาก | Bài dễ thế này anh ấy còn không làm được, huống hồ bài khó.
+e: [1 他 都 不 知道] ， [2 何况] [3 我] 呢 。 | Tā dōu bù zhīdào, hékuàng wǒ ne. | Dia saja tidak tahu, apalagi saya. | Even he doesn't know, let alone me. | เขายังไม่รู้ นับประสาอะไรกับฉัน | Anh ấy còn không biết, huống hồ tôi.
+e: [1 走路 都 很 累] ， [2 何况] [3 跑步] 呢 。 | Zǒulù dōu hěn lèi, hékuàng pǎobù ne. | Jalan kaki saja capek, apalagi lari. | Even walking is tiring, let alone running. | เดินยังเหนื่อย นับประสาอะไรกับวิ่ง | Đi bộ còn mệt, huống hồ chạy bộ.
+
+= F | 固然……但是…… | A 固然 B，但是 C
+t: 9
+l: 6
+v: h2 6
+i: x-005
+n: gùrán……dànshì | "Memang …, tapi …": 固然……但是 | "Admittedly …, but …": 固然……但是 | "… ก็จริง แต่ …": 固然……但是 | "Đành rằng … nhưng …": 固然……但是
+fs: 固然 + A ， 但是 + B
+k: 固然
+id: Mengakui satu hal, lalu menambahkan hal yang lebih penting.
+en: Grants one point, then adds a weightier one.
+th: ยอมรับเรื่องหนึ่ง แล้วเพิ่มอีกเรื่องที่สำคัญกว่า
+vi: Thừa nhận một điều rồi nêu điều quan trọng hơn.
+e: 钱 [1 固然] [2 重要] ， [3 但是] [4 健康 更 重要] 。 | Qián gùrán zhòngyào, dànshì jiànkāng gèng zhòngyào. | Uang memang penting, tapi kesehatan lebih penting. | Money matters, admittedly, but health matters more. | เงินสำคัญก็จริง แต่สุขภาพสำคัญกว่า | Tiền đành rằng quan trọng, nhưng sức khỏe quan trọng hơn.
+e: 这个 方法 [1 固然] [2 好] ， [3 但是] [4 太 贵 了] 。 | Zhège fāngfǎ gùrán hǎo, dànshì tài guì le. | Cara ini memang bagus, tapi terlalu mahal. | This method is good, admittedly, but too expensive. | วิธีนี้ดีก็จริง แต่แพงเกินไป | Cách này đành rằng tốt, nhưng đắt quá.
+e: 你 说 的 [1 固然] [2 有 道理] ， [3 但是] [4 我 还是 不 同意] 。 | Nǐ shuō de gùrán yǒu dàolǐ, dànshì wǒ háishi bù tóngyì. | Kata-katamu memang masuk akal, tapi saya tetap tidak setuju. | You have a point, admittedly, but I still disagree. | ที่คุณพูดก็มีเหตุผล แต่ฉันยังไม่เห็นด้วย | Bạn nói đành rằng có lý, nhưng tôi vẫn không đồng ý.
+
+= F | 即便……也…… | 即便 A，也 B
+t: 9
+l: 5
+v: h2 5, bct B
+i: x-006
+n: jíbiàn……yě | "Sekalipun …": 即便……也 | "Even if …": 即便……也 | "ถึงแม้ … ก็ …": 即便……也 | "Cho dù … cũng …": 即便……也
+fs: 即便 + A ， 也 + B
+k: 即便
+id: Bentuk tulis dari 即使: syarat yang berat pun tidak mengubah hasilnya.
+en: A written form of 即使: even a hard condition doesn't change the result.
+th: แบบภาษาเขียนของ 即使 แม้เงื่อนไขยากก็ไม่เปลี่ยนผล
+vi: Dạng viết của 即使: dù điều kiện khó cũng không đổi kết quả.
+e: [1 即便] [2 下 雨] ， [3 也] [4 要 按时 到] 。 | Jíbiàn xià yǔ, yě yào ànshí dào. | Sekalipun hujan, tetap harus datang tepat waktu. | Even if it rains, you must arrive on time. | ถึงแม้ฝนตกก็ต้องมาตรงเวลา | Cho dù trời mưa cũng phải đến đúng giờ.
+e: [1 即便] [2 失败 了] ， 我 [3 也] [4 不 后悔] 。 | Jíbiàn shībài le, wǒ yě bú hòuhuǐ. | Sekalipun gagal, saya tidak menyesal. | Even if I fail, I won't regret it. | ถึงแม้ล้มเหลวฉันก็ไม่เสียใจ | Cho dù thất bại, tôi cũng không hối hận.
+e: [1 即便] [2 很 忙] ， 他 [3 也] [4 每 天 运动] 。 | Jíbiàn hěn máng, tā yě měi tiān yùndòng. | Sekalipun sibuk, dia olahraga tiap hari. | Even when busy, he exercises every day. | ถึงแม้ยุ่ง เขาก็ออกกำลังกายทุกวัน | Cho dù rất bận, anh ấy cũng tập thể dục mỗi ngày.
+
+= E | 以……为…… | 以 A 为 B
+t: 8
+l: 6
+v: h2 6, bct B
+i: x-007
+n: yǐ……wéi | "Menjadikan A sebagai B": 以……为 | "Take A as B": 以……为 | "ถือ A เป็น B": 以……为 | "Lấy A làm B": 以……为
+fs: 以{dengan|take|ถือ|lấy} + A + 为{sebagai|as|เป็น|làm} + B
+k: 为
+m: 以.+为
+id: Bentuk tulis: menjadikan A sebagai B, misalnya tujuan, pusat, atau ukuran.
+en: Written: to take A as B, such as an aim, a centre or a standard.
+th: ภาษาเขียน: ถือ A เป็น B เช่น เป้าหมาย ศูนย์กลาง หรือมาตรฐาน
+vi: Văn viết: lấy A làm B, như mục tiêu, trung tâm hay tiêu chuẩn.
+e: 我们 要 [1 以{dengan|take|ถือ|lấy}] [2 学生] [3 为{sebagai|as|เป็น|làm}] [4 中心] 。 | Wǒmen yào yǐ xuésheng wéi zhōngxīn. | Kita harus menjadikan siswa sebagai pusat. | We should put students at the centre. | เราต้องถือนักเรียนเป็นศูนย์กลาง | Chúng ta phải lấy học sinh làm trung tâm.
+e: 公司 [1 以{dengan|take|ถือ|lấy}] [2 质量] [3 为{sebagai|as|เป็น|làm}] [4 第一] 。 | Gōngsī yǐ zhìliàng wéi dì yī. | Perusahaan mengutamakan kualitas. | The company puts quality first. | บริษัทถือคุณภาพเป็นอันดับหนึ่ง | Công ty lấy chất lượng làm đầu.
+e: 他 [1 以{dengan|take|ถือ|lấy}] [2 帮助 别人] [3 为{sebagai|as|เป็น|làm}] [4 快乐] 。 | Tā yǐ bāngzhù biérén wéi kuàilè. | Baginya, membantu orang lain adalah kebahagiaan. | He finds his joy in helping others. | เขาถือการช่วยเหลือผู้อื่นเป็นความสุข | Anh ấy lấy việc giúp người khác làm niềm vui.
+
+= A | 无非 | 无非 + 是
+t: 10
+l: 6
+v: h2 6
+i: x-008
+n: wúfēi | "Tidak lain hanya …": 无非 | "Nothing but …": 无非 | "ก็แค่ …": 无非 | "Chẳng qua là …": 无非
+fs: 主语 + 无非 + 是 + 内容
+k: 无非
+id: Hal itu tidak lebih dari ini, tidak ada yang istimewa.
+en: It's no more than this, nothing special.
+th: ก็ไม่มีอะไรมากไปกว่านี้
+vi: Chẳng qua chỉ là thế, không có gì đặc biệt.
+e: [1 他 说 的] [2 无非] [3 是] [4 想 要 钱] 。 | Tā shuō de wúfēi shì xiǎng yào qián. | Yang dia katakan tidak lain hanya mau uang. | All he's saying is that he wants money. | ที่เขาพูดก็แค่อยากได้เงิน | Những gì anh ta nói chẳng qua là muốn tiền.
+e: [1 我 每 天] [2 无非] [3 是] [4 上班 、 下班] 。 | Wǒ měi tiān wúfēi shì shàngbān, xiàbān. | Setiap hari saya hanya berangkat lalu pulang kerja. | Every day I just go to work and come home. | ทุกวันฉันก็แค่ไปทำงานแล้วกลับบ้าน | Mỗi ngày tôi chẳng qua là đi làm rồi tan làm.
+e: [1 他们 聊 的] [2 无非] [3 是] [4 工作 的 事] 。 | Tāmen liáo de wúfēi shì gōngzuò de shì. | Yang mereka obrolkan tidak lain soal kerja. | All they talk about is work. | ที่พวกเขาคุยกันก็แค่เรื่องงาน | Những gì họ nói chẳng qua là chuyện công việc.
+
+= E | 归根结底 | 归根结底，……
+t: 10
+l: 6
+v: h2 6
+i: x-009
+n: guīgēn jiédǐ | "Pada dasarnya …": 归根结底 | "When all is said and done …": 归根结底 | "ท้ายที่สุดแล้ว …": 归根结底 | "Rốt cuộc thì …": 归根结底
+fs: 归根结底 ， 结论
+k: 归根结底
+id: Bentuk tulis dari 说到底: menyebut sebab yang paling dasar.
+en: A written form of 说到底: names the root cause.
+th: แบบภาษาเขียนของ 说到底 บอกต้นเหตุที่แท้จริง
+vi: Dạng viết của 说到底: nêu nguyên nhân gốc rễ.
+e: [1 归根结底] ， [2 问题 在 管理] 。 | Guīgēn jiédǐ, wèntí zài guǎnlǐ. | Pada dasarnya, masalahnya ada di manajemen. | When all is said and done, the problem is management. | ท้ายที่สุดแล้ว ปัญหาอยู่ที่การจัดการ | Rốt cuộc thì vấn đề nằm ở quản lý.
+e: [1 归根结底] ， [2 成功 靠 的 是 努力] 。 | Guīgēn jiédǐ, chénggōng kào de shì nǔlì. | Pada dasarnya, keberhasilan bergantung pada usaha. | When all is said and done, success comes from effort. | ท้ายที่สุดแล้ว ความสำเร็จมาจากความพยายาม | Rốt cuộc thì thành công dựa vào nỗ lực.
+e: [1 归根结底] ， [2 这 是 习惯 的 问题] 。 | Guīgēn jiédǐ, zhè shì xíguàn de wèntí. | Pada dasarnya, ini soal kebiasaan. | When all is said and done, it's a matter of habit. | ท้ายที่สุดแล้ว นี่เป็นเรื่องนิสัย | Rốt cuộc thì đây là vấn đề thói quen.
+
+# ---- BCT: Chinese at work
+
+= S | 请您……/麻烦您…… | 请/麻烦 + 您 + 动作
+t: 1
+l: 2
+v: bct A
+i: x-010
+n: qǐng nín / máfan nín | "Mohon … / Tolong …": 请您 / 麻烦您 | "Please … / Could you …": 请您 / 麻烦您 | "กรุณา … / รบกวน …": 请您 / 麻烦您 | "Xin … / Phiền …": 请您 / 麻烦您
+fs: 请/麻烦 + 您 + 动作
+k: 请您|麻烦您
+id: Cara sopan meminta orang lain melakukan sesuatu, di kantor atau lewat telepon.
+en: A polite way to ask someone to do something, at work or on the phone.
+th: วิธีขอให้คนอื่นทำบางอย่างอย่างสุภาพ ในที่ทำงานหรือทางโทรศัพท์
+vi: Cách lịch sự nhờ người khác làm gì, ở chỗ làm hay qua điện thoại.
+w: 麻烦您 lebih sopan lagi, karena mengakui kita merepotkan. | 麻烦您 is politer still: it admits you're troubling them. | 麻烦您 สุภาพกว่าอีก เพราะยอมรับว่ากำลังรบกวน | 麻烦您 còn lịch sự hơn vì thừa nhận mình làm phiền.
+e: [1 请] [2 您] [3 等 一下] 。 | Qǐng nín děng yíxià. | Mohon tunggu sebentar. | Please wait a moment. | กรุณารอสักครู่ | Xin anh chị chờ một chút.
+e: [1 麻烦] [2 您] [3 把 文件 发 给 我] 。 | Máfan nín bǎ wénjiàn fā gěi wǒ. | Tolong kirimkan dokumennya ke saya. | Could you send me the file, please? | รบกวนส่งเอกสารให้ฉันหน่อย | Phiền anh chị gửi tài liệu cho tôi.
+e: [1 请] [2 您] [3 在 这里 签字] 。 | Qǐng nín zài zhèlǐ qiānzì. | Mohon tanda tangan di sini. | Please sign here. | กรุณาเซ็นชื่อตรงนี้ | Xin anh chị ký tên ở đây.
+
+= S | 由……负责 | 事情 + 由 + 人 + 负责
+t: 8
+l: 4
+v: bct B
+i: x-011
+n: yóu……fùzé | "Ditangani oleh …": 由……负责 | "… is in charge": 由……负责 | "… เป็นผู้รับผิดชอบ": 由……负责 | "Do … phụ trách": 由……负责
+fs: 事情 + 由 + 人 + 负责
+k: 负责
+m: 由.+负责
+id: Menyebut siapa yang bertanggung jawab atas suatu pekerjaan.
+en: Says who is responsible for a task.
+th: บอกว่าใครรับผิดชอบงานนี้
+vi: Nói ai chịu trách nhiệm việc gì.
+e: [1 这个 项目] [2 由] [3 王{Wang|Wang|หวัง|Vương} 经理] [4 负责] 。 | Zhège xiàngmù yóu Wáng jīnglǐ fùzé. | Proyek ini ditangani Manajer Wang. | Manager Wang is in charge of this project. | โครงการนี้ผู้จัดการหวังเป็นผู้รับผิดชอบ | Dự án này do giám đốc Vương phụ trách.
+e: [1 会议 的 准备] [2 由] [3 我] [4 负责] 。 | Huìyì de zhǔnbèi yóu wǒ fùzé. | Persiapan rapat saya yang tangani. | I'm in charge of preparing the meeting. | การเตรียมประชุมฉันเป็นผู้รับผิดชอบ | Việc chuẩn bị cuộc họp do tôi phụ trách.
+e: [1 客人 的 安排] [2 由] [3 小李{Xiao Li|Xiao Li|เสี่ยวหลี่|Tiểu Lý}] [4 负责] 。 | Kèrén de ānpái yóu Xiǎo Lǐ fùzé. | Pengaturan tamu ditangani Xiao Li. | Xiao Li is in charge of arranging the guests. | การจัดการแขกเสี่ยวหลี่เป็นผู้รับผิดชอบ | Việc sắp xếp cho khách do Tiểu Lý phụ trách.
+
+= F | 如有……，请…… | 如有 A，请 B
+t: 9
+l: 5
+v: bct B
+i: x-012
+n: rú yǒu……qǐng | "Bila ada …, silakan …": 如有……请 | "Should there be …, please …": 如有……请 | "หากมี … กรุณา …": 如有……请 | "Nếu có … xin …": 如有……请
+fs: 如有 + 问题 ， 请 + 动作
+k: 如有
+id: Dipakai di surat, pengumuman, dan email: kalau ada hal itu, silakan lakukan ini.
+en: Used in letters, notices and emails: if there's this, please do that.
+th: ใช้ในจดหมาย ประกาศ และอีเมล: หากมีสิ่งนี้ กรุณาทำสิ่งนั้น
+vi: Dùng trong thư, thông báo, email: nếu có điều này, xin hãy làm điều kia.
+e: [1 如有] [2 问题] ， [3 请] [4 随时 联系 我们] 。 | Rú yǒu wèntí, qǐng suíshí liánxì wǒmen. | Bila ada masalah, silakan hubungi kami kapan saja. | Should you have any questions, please contact us any time. | หากมีปัญหา กรุณาติดต่อเราได้ตลอดเวลา | Nếu có vấn đề, xin liên hệ chúng tôi bất cứ lúc nào.
+e: [1 如有] [2 变化] ， [3 请] [4 提前 通知] 。 | Rú yǒu biànhuà, qǐng tíqián tōngzhī. | Bila ada perubahan, mohon beri tahu lebih dulu. | Should anything change, please let us know in advance. | หากมีการเปลี่ยนแปลง กรุณาแจ้งล่วงหน้า | Nếu có thay đổi, xin báo trước.
+e: [1 如有] [2 不 清楚 的 地方] ， [3 请] [4 问 我] 。 | Rú yǒu bù qīngchu de dìfang, qǐng wèn wǒ. | Bila ada yang kurang jelas, silakan tanya saya. | If anything is unclear, please ask me. | หากมีตรงไหนไม่ชัดเจน กรุณาถามฉัน | Nếu có chỗ nào chưa rõ, xin hỏi tôi.
+
+= R | 截至…… | 截至 + 时间，……
+t: 2
+l: 6
+v: bct B
+i: x-013
+n: jiézhì | "Sampai dengan …": 截至 | "As of …": 截至 | "ณ …": 截至 | "Tính đến …": 截至
+fs: 截至 + 时间 ， 结果
+k: 截至
+id: Dipakai di laporan: angka dihitung sampai waktu itu.
+en: Used in reports: figures counted up to that time.
+th: ใช้ในรายงาน: ตัวเลขนับถึงเวลานั้น
+vi: Dùng trong báo cáo: số liệu tính đến lúc đó.
+e: [1 截至] [2 昨天] ， [3 已经 有 三 百 人 报名] 。 | Jiézhì zuótiān, yǐjīng yǒu sān bǎi rén bàomíng. | Sampai kemarin, sudah 300 orang mendaftar. | As of yesterday, 300 people had signed up. | ณ เมื่อวาน มีคนสมัครแล้วสามร้อยคน | Tính đến hôm qua đã có ba trăm người đăng ký.
+e: [1 截至] [2 今年 六 月] ， [3 公司 卖 出 了 一 万 台 电脑] 。 | Jiézhì jīnnián liù yuè, gōngsī mài chū le yí wàn tái diànnǎo. | Sampai Juni tahun ini, perusahaan sudah menjual 10.000 komputer. | As of June this year, the company had sold 10,000 computers. | ณ เดือนมิถุนายนปีนี้ บริษัทขายคอมพิวเตอร์ได้หนึ่งหมื่นเครื่อง | Tính đến tháng sáu năm nay, công ty đã bán được mười nghìn máy tính.
+e: [1 截至] [2 目前] ， [3 还 没有 人 回答] 。 | Jiézhì mùqián, hái méiyǒu rén huídá. | Sampai saat ini, belum ada yang menjawab. | So far, nobody has replied. | ณ ตอนนี้ ยังไม่มีใครตอบ | Tính đến nay vẫn chưa có ai trả lời.
+
+= E | 以……为准 | 以 + 依据 + 为准
+t: 8
+l: 6
+v: bct B
+i: x-014
+n: yǐ……wéi zhǔn | "Yang berlaku adalah …": 以……为准 | "… shall prevail": 以……为准 | "ให้ยึด … เป็นหลัก": 以……为准 | "Lấy … làm chuẩn": 以……为准
+fs: 以{mengikuti|by|ตาม|lấy} + 依据 + 为准
+k: 为准
+id: Dipakai di aturan dan kontrak: hal itulah yang dijadikan acuan.
+en: Used in rules and contracts: that is what counts.
+th: ใช้ในกฎและสัญญา: ให้ถือสิ่งนั้นเป็นหลัก
+vi: Dùng trong quy định, hợp đồng: lấy cái đó làm chuẩn.
+e: 时间 [1 以{mengikuti|by|ตาม|lấy}] [2 通知] [3 为准] 。 | Shíjiān yǐ tōngzhī wéi zhǔn. | Waktunya mengikuti pemberitahuan. | The time in the notice shall apply. | เวลาให้ยึดตามประกาศ | Thời gian lấy thông báo làm chuẩn.
+e: 价格 [1 以{mengikuti|by|ตาม|lấy}] [2 合同] [3 为准] 。 | Jiàgé yǐ hétong wéi zhǔn. | Harga mengikuti kontrak. | The contract price shall prevail. | ราคาให้ยึดตามสัญญา | Giá cả lấy hợp đồng làm chuẩn.
+e: 一切 [1 以{mengikuti|by|ตาม|lấy}] [2 最后 的 结果] [3 为准] 。 | Yíqiè yǐ zuìhòu de jiéguǒ wéi zhǔn. | Semuanya mengikuti hasil akhir. | The final result is what counts. | ทุกอย่างให้ยึดผลสุดท้าย | Mọi thứ lấy kết quả cuối cùng làm chuẩn.
+
+= V | 予以/加以 + 动词 | 予以/加以 + 动词
+t: 6
+l: 6
+v: bct B
+i: x-015
+n: yǔyǐ / jiāyǐ | "Memberi / melakukan …": 予以 / 加以 | "To give / to carry out …": 予以 / 加以 | "ให้ / ดำเนินการ …": 予以 / 加以 | "Dành cho / tiến hành …": 予以 / 加以
+fs: 主语 + 予以/加以 + 动词
+k: 予以|加以
+id: Bentuk tulis resmi: kata kerja dua suku kata sesudahnya menjadi tindakan resmi.
+en: Formal writing: the two-syllable verb after it becomes an official action.
+th: ภาษาเขียนทางการ: คำกริยาสองพยางค์ข้างหลังกลายเป็นการกระทำทางการ
+vi: Văn viết trang trọng: động từ hai âm tiết phía sau thành hành động chính thức.
+e: 对 这个 问题 ， [1 公司] 会 [2 加以] [3 研究] 。 | Duì zhège wèntí, gōngsī huì jiāyǐ yánjiū. | Masalah ini akan dipelajari perusahaan. | The company will look into this issue. | บริษัทจะศึกษาปัญหานี้ | Công ty sẽ nghiên cứu vấn đề này.
+e: 对 表现 好 的 员工 ， [1 公司] [2 予以] [3 奖励] 。 | Duì biǎoxiàn hǎo de yuángōng, gōngsī yǔyǐ jiǎnglì. | Karyawan yang berprestasi diberi penghargaan oleh perusahaan. | The company rewards staff who perform well. | บริษัทให้รางวัลพนักงานที่ทำงานดี | Công ty khen thưởng nhân viên làm việc tốt.
+e: 这些 意见 ， [1 我们] 会 [2 加以] [3 考虑] 。 | Zhèxiē yìjiàn, wǒmen huì jiāyǐ kǎolǜ. | Pendapat-pendapat ini akan kami pertimbangkan. | We'll take these views into account. | ความเห็นเหล่านี้เราจะนำไปพิจารณา | Những ý kiến này chúng tôi sẽ cân nhắc.
+
+= S | 敬请…… | 敬请 + 动作
+t: 1
+l: 6
+v: bct B
+i: x-016
+n: jìng qǐng | "Dengan hormat, mohon …": 敬请 | "Kindly …": 敬请 | "ขอเรียนเชิญ / กรุณา …": 敬请 | "Kính mời / Kính đề nghị …": 敬请
+fs: 敬请 + 动作
+k: 敬请
+id: Permintaan yang sangat sopan di surat, undangan, dan pengumuman.
+en: A very polite request in letters, invitations and notices.
+th: คำขอที่สุภาพมากในจดหมาย บัตรเชิญ และประกาศ
+vi: Lời đề nghị rất lịch sự trong thư, thiệp mời và thông báo.
+e: [1 敬请] [2 光临{datang|come|มาร่วมงาน|ghé thăm}] 。 | Jìng qǐng guānglín. | Dengan hormat kami nantikan kehadiran Anda. | We kindly request the pleasure of your company. | ขอเรียนเชิญมาร่วมงาน | Kính mời quý khách ghé thăm.
+e: [1 敬请] [2 准时 参加] 。 | Jìng qǐng zhǔnshí cānjiā. | Mohon hadir tepat waktu. | Kindly attend on time. | กรุณามาร่วมตรงเวลา | Kính mời tham dự đúng giờ.
+e: [1 敬请] [2 注意 安全] 。 | Jìng qǐng zhùyì ānquán. | Mohon perhatikan keselamatan. | Kindly mind your safety. | กรุณาระวังความปลอดภัย | Kính đề nghị chú ý an toàn.
+
+= R | 与……有关 | A + 与 + B + 有关
+t: 7
+l: 4
+v: h2 5, bct B
+i: x-017
+n: yǔ……yǒuguān | "Berkaitan dengan …": 与……有关 | "Related to …": 与……有关 | "เกี่ยวข้องกับ …": 与……有关 | "Liên quan đến …": 与……有关
+fs: A + 与/和 + B + 有关
+k: 有关
+id: Menyatakan dua hal saling berhubungan.
+en: Says two things are connected.
+th: บอกว่าสองสิ่งเกี่ยวข้องกัน
+vi: Nói hai việc có liên quan với nhau.
+e: [1 这 件 事] [2 与] [3 他] [4 有关] 。 | Zhè jiàn shì yǔ tā yǒuguān. | Hal ini berkaitan dengan dia. | This matter has to do with him. | เรื่องนี้เกี่ยวข้องกับเขา | Việc này có liên quan đến anh ấy.
+e: [1 他 的 工作] [2 和] [3 电脑] [4 有关] 。 | Tā de gōngzuò hé diànnǎo yǒuguān. | Pekerjaannya berkaitan dengan komputer. | His work is computer-related. | งานของเขาเกี่ยวข้องกับคอมพิวเตอร์ | Công việc của anh ấy liên quan đến máy tính.
+e: [1 身体 健康] [2 与] [3 习惯] [4 有关] 。 | Shēntǐ jiànkāng yǔ xíguàn yǒuguān. | Kesehatan berkaitan dengan kebiasaan. | Health is tied to habits. | สุขภาพเกี่ยวข้องกับนิสัย | Sức khỏe liên quan đến thói quen.
+
+= S | 经……同意 | 经 + 人 + 同意，……
+t: 8
+l: 6
+v: bct B
+i: x-018
+n: jīng……tóngyì | "Atas persetujuan …": 经……同意 | "With the approval of …": 经……同意 | "โดยได้รับความเห็นชอบจาก …": 经……同意 | "Được … đồng ý": 经……同意
+fs: 经{atas|with|โดย|được} + 人 + 同意 ， 结果
+k: 同意
+m: 经.+同意
+id: Bentuk tulis: setelah disetujui seseorang, barulah sesuatu dilakukan.
+en: Written: once someone approves, something is done.
+th: ภาษาเขียน: เมื่อได้รับความเห็นชอบจากใครแล้วจึงทำ
+vi: Văn viết: sau khi được ai đồng ý thì mới làm.
+e: [1 经{atas|with|โดย|được}] [2 经理] [3 同意] ， [4 他 下 周 休假] 。 | Jīng jīnglǐ tóngyì, tā xià zhōu xiūjià. | Atas persetujuan manajer, dia cuti minggu depan. | With the manager's approval, he's taking leave next week. | โดยได้รับความเห็นชอบจากผู้จัดการ เขาลาพักสัปดาห์หน้า | Được giám đốc đồng ý, tuần sau anh ấy nghỉ phép.
+e: [1 经{atas|with|โดย|được}] [2 大家] [3 同意] ， [4 合同 改 了] 。 | Jīng dàjiā tóngyì, hétong gǎi le. | Atas persetujuan semua, kontraknya diubah. | With everyone's agreement, the contract was changed. | โดยได้รับความเห็นชอบจากทุกคน สัญญาจึงถูกแก้ไข | Được mọi người đồng ý, hợp đồng đã được sửa.
+e: [1 经{atas|with|โดย|được}] [2 公司] [3 同意] ， [4 我们 可以 用 这个 房间] 。 | Jīng gōngsī tóngyì, wǒmen kěyǐ yòng zhège fángjiān. | Atas persetujuan perusahaan, kita boleh memakai ruangan ini. | With the company's approval, we can use this room. | โดยได้รับความเห็นชอบจากบริษัท เราใช้ห้องนี้ได้ | Được công ty đồng ý, chúng tôi có thể dùng phòng này.
+
+= S | 将……于……举行 | 事情 + 将 + 于 + 时间/地方 + 举行
+t: 8
+l: 6
+v: bct B
+i: x-019
+n: jiāng……yú……jǔxíng | "Akan diadakan pada …": 将……于……举行 | "Will be held on/at …": 将……于……举行 | "จะจัดขึ้นเมื่อ / ที่ …": 将……于……举行 | "Sẽ được tổ chức vào/tại …": 将……于……举行
+fs: 事情 + 将 + 于 + 时间/地方 + 举行
+k: 举行
+m: 将.*于.*举行
+id: Kalimat pengumuman resmi: acara akan diadakan pada waktu atau di tempat itu.
+en: The sentence of an official notice: an event will be held at that time or place.
+th: ประโยคประกาศทางการ: งานจะจัดขึ้นในเวลาหรือสถานที่นั้น
+vi: Câu thông báo chính thức: sự kiện sẽ được tổ chức vào lúc hay tại nơi đó.
+e: [1 会议] [2 将] [3 于] [4 明天 上午 九 点] [5 举行] 。 | Huìyì jiāng yú míngtiān shàngwǔ jiǔ diǎn jǔxíng. | Rapat akan diadakan besok pukul sembilan pagi. | The meeting will be held tomorrow at 9 a.m. | การประชุมจะจัดขึ้นพรุ่งนี้เก้าโมงเช้า | Cuộc họp sẽ được tổ chức vào 9 giờ sáng mai.
+e: [1 比赛] [2 将] [3 于] [4 下 个 月] [5 举行] 。 | Bǐsài jiāng yú xià ge yuè jǔxíng. | Pertandingan akan diadakan bulan depan. | The competition will be held next month. | การแข่งขันจะจัดขึ้นเดือนหน้า | Cuộc thi sẽ được tổ chức vào tháng sau.
+e: [1 活动] [2 将] [3 于] [4 公司 门口] [5 举行] 。 | Huódòng jiāng yú gōngsī ménkǒu jǔxíng. | Acaranya akan diadakan di depan gedung perusahaan. | The event will be held at the company entrance. | กิจกรรมจะจัดขึ้นที่หน้าบริษัท | Hoạt động sẽ được tổ chức trước cửa công ty.
