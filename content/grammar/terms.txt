@@ -75,6 +75,7 @@ Y | | hal lain | something else | อีกสิ่ง | điều khác
 联合 | liánhé | sejajar | joined | ขนาน | đẳng lập
 方位 | fāngwèi | arah / letak | position | ตำแหน่ง | phương vị
 时间/情况 | shíjiān | waktu / keadaan | time / situation | เวลา / สถานการณ์ | thời gian / tình huống
+情况 | qíngkuàng | keadaan | situation | สถานการณ์ | tình huống
 部分 | bùfen | bagian | parts | ส่วน | bộ phận
 某方面 | mǒu fāngmiàn | suatu bidang | some area | ด้านใดด้านหนึ่ง | một mặt nào đó
 谁的 | shéi de | milik siapa | whose | ของใคร | của ai
