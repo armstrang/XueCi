@@ -23,6 +23,10 @@ Test builds before a release are published as pre-releases v1.0-alpha-N.
 - Every formula was checked against its examples: the colours of each part now match the words in the sentence, a
   few formulas were corrected, and examples where the grammar word only hid inside another word (及 in 涉及) were
   replaced. Practice no longer uses such sentences either.
+- About 2,350 new example sentences, five for every pattern of HSK 1–6, BCT and YCT. Each one is a real situation:
+  two from daily life, one from study and one from work (polite, with 您 and 请), and a fifth that fits the book
+  (school life for YCT, office life for BCT). Every part of the formula is marked in the sentence, with the Indonesian,
+  English, Thai and Vietnamese translation, and a small label shows which situation it is.
 - Mixed practice changes from round to round: mostly patterns that are fading, a few new ones and one or two strong
   ones, with sentences you haven't seen lately.
 - Going back from a pattern to the list keeps your place instead of jumping to the top.
