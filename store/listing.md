@@ -43,6 +43,9 @@ Ucapkan kata atau contoh kalimat, dan tiap hanzi jadi hijau atau merah. Kamu lan
 KUIS DAN SIMULASI HSK
 Kenali arti, ingat hanzi, nada, dengar, isi kalimat, ketik pinyin, dan terjemahan. Soal isi kalimat memberi bantuan sesuai level, jadi pemula tidak langsung menyerah. Simulasi HSK mengikuti susunan ujian HSK 3.0, dengan waktu per bagian dan pembahasan setiap soal di akhir.
 
+MANDARIN BISNIS (BCT)
+Latihan bergaya BCT untuk Mandarin kerja: 1.100 kalimat tentang surel, rapat, kontrak, dan pembayaran, plus 465 kosakata bisnis dengan pinyin dan arti. Ini latihan mandiri, bukan soal resmi.
+
 ISTIRAHAT JUGA BELAJAR
 Kalau kamu mulai lelah, aplikasi mengajak jeda 5 menit. Pilih hari meditasi tanpa latihan dan tanpa pengingat, dan hitungan harimu tetap jalan.
 
@@ -89,6 +92,9 @@ Say a word or an example sentence out loud and every hanzi turns green or red, s
 
 QUIZ AND HSK MOCK EXAM
 Recognise meanings, recall hanzi, tones, listening, sentence gaps, typed pinyin and translation. Sentence questions give help by level, so beginners don't give up. The mock exam follows the HSK 3.0 paper, with a clock for each section and every question explained at the end.
+
+BUSINESS CHINESE (BCT)
+BCT-style practice for working Mandarin: 1,100 sentences about emails, meetings, contracts and payments, plus 465 business words with pinyin and meaning. Independent practice, not official exam questions.
 
 REST IS PART OF LEARNING
 When you start to tire, the app suggests a 5-minute break. Pick meditation days with no practice and no reminder, and your streak keeps going.

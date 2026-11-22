@@ -29,10 +29,17 @@ POOL = {
 }
 
 
-def auto_gap(word, kind):
-    pool = [w for w in POOL[kind] if w != word and w not in word]
-    h = sum(ord(c) for c in word)
-    pick = [pool[(h + i * 5) % len(pool)] for i in range(3)]
+SMART = {}  # kind -> {length: [words]} of business words, filled in main() (same part of speech, same length)
+
+
+def auto_gap(word, kind, sentence=''):
+    """three wrong words of the same kind and length as the right one, taken from the business words of other topics
+    (they fit the grammar, not the meaning); falls back to the plain pools"""
+    pool = [w for w in SMART.get(kind, {}).get(len(word), []) if w != word and not set(w) & set(word) and w not in sentence]
+    if len(pool) < 12:
+        pool = [w for w in POOL[kind] if w != word and w not in word]
+    h = sum(ord(c) * (i + 3) for i, c in enumerate(word))
+    pick = [pool[(h + i * 7919) % len(pool)] for i in range(3)]
     for i in range(3):
         while pick.count(pick[i]) > 1:
             pick[i] = pool[(pool.index(pick[i]) + 1) % len(pool)]
@@ -85,6 +92,26 @@ def main():
             jieba.add_word(w)
     for w in ('小李', '小王', '小张', '小刘', '小陈', '小林', '小周', '小赵'):
         jieba.add_word(w, 100000)
+    import jieba.posseg as pseg
+    cand = set()
+    for fn in ('words.txt', 'a.txt', 'b.txt'):
+        pth = os.path.join(ROOT, 'content', 'bct', fn)
+        if not os.path.exists(pth):
+            continue
+        for line in open(pth, encoding='utf8').read().split('\n'):
+            if fn == 'words.txt':
+                if line and not line.startswith('#'):
+                    cand.add(line.split(' | ')[0].strip())
+            else:
+                for m in re.finditer(r'\[([^\]|:]+)[|:]', line):
+                    cand.add(m.group(1))
+    for w in sorted(cand):
+        if not (2 <= len(w) <= 4) or not all(ch in CHARSET for ch in w) or set(w) & set('王李张刘陈林周赵'):
+            continue
+        fl = [f for _, f in pseg.lcut(w)]
+        kind = 'n' if len(fl) == 1 and fl[0].startswith('n') else 'v' if len(fl) == 1 and fl[0].startswith('v') else 'a' if len(fl) == 1 and fl[0].startswith('a') else None
+        if kind:
+            SMART.setdefault(kind, {}).setdefault(len(w), []).append(w)
     problems = []
     out = {}
     seen = set()
@@ -106,7 +133,7 @@ def main():
                 problems.append(f'{where}: {len(f)} fields, want 5')
                 continue
             zg, idt, en, th, vi = f
-            zg = AUTO.sub(lambda a: auto_gap(a.group(1), a.group(2)), zg)
+            zg = AUTO.sub(lambda a: auto_gap(a.group(1), a.group(2), zg), zg)
             m = GAP.search(zg)
             if not m or len(GAP.findall(zg)) != 1 or zg.count('[') != 1:
                 problems.append(f'{where}: need exactly one gap [right|w1|w2|w3]')
