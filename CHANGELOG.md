@@ -32,7 +32,9 @@ Test builds before a release are published as pre-releases v1.0-alpha-N.
   guests, meals, payment, trips, orders): listening, reading and sentence building, each section timed, scored out of
   100 with 60 as the pass mark, every question reviewed, and advice at the end. Full, short (a third), or one section
   only. It is practice in that style, not official questions, and says so. Answers are not written into your word
-  memory.
+  memory. The banks hold 300 sentences for A and 800 for B.
+- A **business word list** for BCT B in the Tests tab: 465 work words with pinyin and a meaning in your study language,
+  grouped by topic, with search.
 - The BCT book now speaks work: each of its 225 patterns has three more office examples (email, meetings, calls,
   deliveries, payment, business trips), and the BCT book shows only those. HSK and YCT books are unchanged.
 - Mixed practice changes from round to round: mostly patterns that are fading, a few new ones and one or two strong

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../app/app.dart';
 import '../app/hskk.dart';
+import 'bct_words.dart';
 import 'glass.dart';
 import 'icons.dart';
 import 'splash.dart';
@@ -125,6 +126,20 @@ class ExamScreen extends StatelessWidget {
                   app.mockMode = true;
                   app.go('quiz');
                 },
+              ),
+            ),
+          ],
+          if ((app.lm.bct?.words.length ?? 0) > 0) ...[
+            const SizedBox(height: 12),
+            Rise(
+              4,
+              child: _ExamCard(
+                seal: '词',
+                title: t.exBctW,
+                sub: t.exBctWD,
+                foot: t.bwCount(app.fmt(app.lm.bct!.words.length)),
+                color: p.warm,
+                onTap: () => openBctWords(context),
               ),
             ),
           ],

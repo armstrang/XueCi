@@ -32,9 +32,17 @@ class BctS {
   }
 }
 
+/// a business word of the BCT B list (assets/data/bct_words.json): hanzi, pinyin, topic, four meanings
+class BctW {
+  final String h, p, s;
+  final Map<String, String> t;
+  const BctW(this.h, this.p, this.s, this.t);
+}
+
 class BctBank {
   final Map<String, List<BctS>> by;
-  BctBank(this.by);
+  final List<BctW> words;
+  BctBank(this.by, [this.words = const []]);
 
   List<BctS> of(String book) => by[book] ?? const [];
 
@@ -58,6 +66,11 @@ class BctBank {
           ),
       ];
     });
-    return BctBank(out);
+    var words = <BctW>[];
+    try {
+      final w = json.decode(await b.loadString('assets/data/bct_words.json')) as List;
+      words = [for (final r in w) BctW(r['h'] as String, r['p'] as String, (r['s'] as String?) ?? '', (r['t'] as Map).cast<String, String>())];
+    } catch (_) {}
+    return BctBank(out, words);
   }
 }

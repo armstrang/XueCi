@@ -111,6 +111,10 @@ mixin L10Keys {
   String btToast(Object? a0) => f('btToast', [a0]);
   String get btUnstable => s('btUnstable');
   String get btWeak => s('btWeak');
+  String get bwAll => s('bwAll');
+  String bwCount(Object? a0) => f('bwCount', [a0]);
+  String get bwNone => s('bwNone');
+  String get bwSearch => s('bwSearch');
   String get cancel => s('cancel');
   String capNote(Object? a0, Object? a1, Object? a2) => f('capNote', [a0, a1, a2]);
   String get card => s('card');
@@ -173,6 +177,8 @@ mixin L10Keys {
   String get exBctA => s('exBctA');
   String get exBctB => s('exBctB');
   String get exBctD => s('exBctD');
+  String get exBctW => s('exBctW');
+  String get exBctWD => s('exBctWD');
   String get exHist => s('exHist');
   String get exHsk => s('exHsk');
   String get exHskD => s('exHskD');

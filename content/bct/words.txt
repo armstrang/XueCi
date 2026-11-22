@@ -1,0 +1,477 @@
+# BCT B business words: hanzi | pinyin | id | en | th | vi. Written for this app (not copied from any official list). `## topic` starts a group.
+## Company and organization
+公司 | gōngsī | perusahaan | company | บริษัท | công ty
+企业 | qǐyè | badan usaha, perusahaan | enterprise | องค์กรธุรกิจ | doanh nghiệp
+总部 | zǒngbù | kantor pusat | headquarters | สำนักงานใหญ่ | trụ sở chính
+分公司 | fēngōngsī | kantor cabang | branch office | บริษัทสาขา | chi nhánh
+部门 | bùmén | bagian, departemen | department | แผนก | bộ phận
+董事会 | dǒngshìhuì | dewan direksi | board of directors | คณะกรรมการบริษัท | hội đồng quản trị
+股东 | gǔdōng | pemegang saham | shareholder | ผู้ถือหุ้น | cổ đông
+总经理 | zǒngjīnglǐ | direktur utama | general manager | ผู้จัดการทั่วไป | tổng giám đốc
+经理 | jīnglǐ | manajer | manager | ผู้จัดการ | giám đốc, quản lý
+主管 | zhǔguǎn | penyelia, kepala | supervisor | หัวหน้างาน | người phụ trách
+员工 | yuángōng | karyawan | employee | พนักงาน | nhân viên
+同事 | tóngshì | rekan kerja | colleague | เพื่อนร่วมงาน | đồng nghiệp
+上级 | shàngjí | atasan | superior | ผู้บังคับบัญชา | cấp trên
+下属 | xiàshǔ | bawahan | subordinate | ผู้ใต้บังคับบัญชา | cấp dưới
+团队 | tuánduì | tim | team | ทีม | đội nhóm
+职位 | zhíwèi | jabatan | position | ตำแหน่ง | chức vụ
+职责 | zhízé | tugas dan tanggung jawab | duty | หน้าที่ความรับผิดชอบ | trách nhiệm công việc
+章程 | zhāngchéng | anggaran dasar | articles of association | ข้อบังคับ | điều lệ
+规章制度 | guīzhāng zhìdù | peraturan dan tata tertib | rules and regulations | กฎระเบียบและข้อบังคับ | quy chế
+管理 | guǎnlǐ | mengelola, manajemen | manage; management | บริหาร, การจัดการ | quản lý
+经营 | jīngyíng | menjalankan usaha | operate (a business) | ดำเนินกิจการ | kinh doanh
+创办 | chuàngbàn | mendirikan | to found | ก่อตั้ง | sáng lập
+成立 | chénglì | berdiri, dibentuk | be established | ก่อตั้งขึ้น | thành lập
+合并 | hébìng | merger, menggabungkan | merge | ควบรวม | sáp nhập
+行业 | hángyè | industri, bidang usaha | industry | อุตสาหกรรม | ngành nghề
+集团 | jítuán | grup perusahaan | group, conglomerate | กลุ่มบริษัท | tập đoàn
+子公司 | zǐgōngsī | anak perusahaan | subsidiary | บริษัทลูก | công ty con
+合资 | hézī | patungan, joint venture | joint venture | ร่วมทุน | liên doanh
+外资 | wàizī | modal asing | foreign capital | ทุนต่างชาติ | vốn nước ngoài
+国有 | guóyǒu | milik negara | state-owned | รัฐวิสาหกิจ | thuộc sở hữu nhà nước
+民营 | mínyíng | swasta | privately run | เอกชน | tư nhân
+总裁 | zǒngcái | presiden direktur | president, CEO | ประธานบริษัท | tổng tài
+董事长 | dǒngshìzhǎng | ketua dewan direksi | chairman | ประธานกรรมการ | chủ tịch hội đồng quản trị
+秘书 | mìshū | sekretaris | secretary | เลขานุการ | thư ký
+助理 | zhùlǐ | asisten | assistant | ผู้ช่วย | trợ lý
+代表 | dàibiǎo | perwakilan, mewakili | representative | ตัวแทน | đại diện
+负责人 | fùzérén | penanggung jawab | person in charge | ผู้รับผิดชอบ | người phụ trách
+前台 | qiántái | resepsionis | front desk | แผนกต้อนรับ | lễ tân
+法务 | fǎwù | urusan hukum | legal affairs | ฝ่ายกฎหมาย | pháp chế
+人事 | rénshì | kepegawaian, SDM | personnel, HR | ฝ่ายบุคคล | nhân sự
+财务 | cáiwù | keuangan | finance, accounting | การเงิน | tài chính
+采购 | cǎigòu | pengadaan, membeli | purchasing | จัดซื้อ | mua hàng
+销售 | xiāoshòu | penjualan | sales | การขาย | bán hàng
+研发 | yánfā | riset dan pengembangan | R&D | วิจัยและพัฒนา | nghiên cứu phát triển
+## Office and daily work
+办公室 | bàngōngshì | ruang kantor | office | ห้องทำงาน | văn phòng
+办公 | bàngōng | bekerja di kantor | work in an office | ทำงานสำนักงาน | làm việc văn phòng
+文件 | wénjiàn | berkas, dokumen | document, file | เอกสาร | tài liệu
+资料 | zīliào | data, materi | material, data | ข้อมูล | tư liệu
+报告 | bàogào | laporan | report | รายงาน | báo cáo
+汇报 | huìbào | melaporkan | report (to a superior) | รายงานต่อผู้บังคับบัญชา | báo cáo (lên cấp trên)
+通知 | tōngzhī | pemberitahuan | notice; notify | แจ้ง, ประกาศ | thông báo
+安排 | ānpái | mengatur, jadwal | arrange | จัดการ, จัดเตรียม | sắp xếp
+计划 | jìhuà | rencana | plan | แผน | kế hoạch
+任务 | rènwu | tugas | task | ภารกิจ | nhiệm vụ
+进度 | jìndù | kemajuan, progres | progress | ความคืบหน้า | tiến độ
+截止 | jiézhǐ | batas akhir | deadline, cut off | ครบกำหนด | hết hạn
+期限 | qīxiàn | tenggat, jangka waktu | time limit | ระยะเวลา | kỳ hạn
+加班 | jiābān | lembur | work overtime | ทำงานล่วงเวลา | tăng ca
+考勤 | kǎoqín | absensi | attendance record | การลงเวลาทำงาน | chấm công
+请假 | qǐngjià | minta izin, cuti | ask for leave | ลา | xin nghỉ phép
+出差 | chūchāi | dinas luar | business trip | เดินทางไปทำงาน | đi công tác
+报销 | bàoxiāo | klaim penggantian biaya | reimburse | เบิกค่าใช้จ่าย | thanh toán chi phí
+复印 | fùyìn | fotokopi | photocopy | ถ่ายเอกสาร | photo
+打印 | dǎyìn | mencetak | print | พิมพ์ | in
+传真 | chuánzhēn | faks | fax | โทรสาร | fax
+邮箱 | yóuxiāng | kotak surel | mailbox, email address | กล่องอีเมล | hộp thư
+附件 | fùjiàn | lampiran | attachment | ไฟล์แนบ | tệp đính kèm
+签字 | qiānzì | tanda tangan | sign | ลงชื่อ | ký tên
+盖章 | gàizhāng | mencap | stamp, seal | ประทับตรา | đóng dấu
+登记 | dēngjì | mendaftar | register | ลงทะเบียน | đăng ký
+预约 | yùyuē | membuat janji | make an appointment | นัดหมายล่วงหน้า | hẹn trước
+预订 | yùdìng | memesan (tempat) | book, reserve | จอง | đặt trước
+名片 | míngpiàn | kartu nama | business card | นามบัตร | danh thiếp
+会议室 | huìyìshì | ruang rapat | meeting room | ห้องประชุม | phòng họp
+文具 | wénjù | alat tulis | stationery | เครื่องเขียน | văn phòng phẩm
+电梯 | diàntī | lift | lift, elevator | ลิฟต์ | thang máy
+门禁 | ménjìn | akses pintu | door access control | ระบบควบคุมการเข้าออก | kiểm soát ra vào
+停车 | tíngchē | parkir | park | จอดรถ | đỗ xe
+上班 | shàngbān | berangkat kerja | go to work | ไปทำงาน | đi làm
+下班 | xiàbān | pulang kerja | finish work | เลิกงาน | tan làm
+午休 | wǔxiū | istirahat siang | lunch break | พักกลางวัน | nghỉ trưa
+值班 | zhíbān | bertugas jaga | be on duty | เข้าเวร | trực ban
+## Meetings and communication
+会议 | huìyì | rapat | meeting | การประชุม | cuộc họp
+开会 | kāihuì | mengadakan rapat | hold a meeting | ประชุม | họp
+主持 | zhǔchí | memimpin, memandu | preside over | ดำเนินรายการ | chủ trì
+议程 | yìchéng | agenda | agenda | วาระการประชุม | chương trình nghị sự
+讨论 | tǎolùn | membahas | discuss | หารือ | thảo luận
+发言 | fāyán | berbicara, menyampaikan | speak, make a statement | กล่าวแสดงความเห็น | phát biểu
+发表 | fābiǎo | menyampaikan, menerbitkan | publish, express | เผยแพร่, แสดง | phát biểu, công bố
+意见 | yìjiàn | pendapat | opinion | ความเห็น | ý kiến
+建议 | jiànyì | saran | suggestion | ข้อเสนอแนะ | đề xuất
+提议 | tíyì | usul | propose | เสนอ | đề nghị
+同意 | tóngyì | setuju | agree | เห็นด้วย | đồng ý
+反对 | fǎnduì | menentang | oppose | คัดค้าน | phản đối
+决定 | juédìng | memutuskan | decide; decision | ตัดสินใจ | quyết định
+通过 | tōngguò | menyetujui, melalui | pass, approve | ผ่าน, อนุมัติ | thông qua
+纪要 | jìyào | risalah | minutes | บันทึกการประชุม | biên bản tóm tắt
+总结 | zǒngjié | rangkuman | summarize; summary | สรุป | tổng kết
+补充 | bǔchōng | menambahkan | supplement | เสริม | bổ sung
+解释 | jiěshì | menjelaskan | explain | อธิบาย | giải thích
+说明 | shuōmíng | keterangan, menjelaskan | explain; instructions | ชี้แจง | giải thích, thuyết minh
+沟通 | gōutōng | berkomunikasi | communicate | สื่อสาร | trao đổi
+协调 | xiétiáo | mengoordinasikan | coordinate | ประสานงาน | điều phối
+联系 | liánxì | menghubungi | contact | ติดต่อ | liên hệ
+通话 | tōnghuà | bicara lewat telepon | phone call | สนทนาทางโทรศัพท์ | cuộc gọi
+留言 | liúyán | meninggalkan pesan | leave a message | ฝากข้อความ | để lại lời nhắn
+回复 | huífù | membalas | reply | ตอบกลับ | trả lời
+答复 | dáfù | menjawab secara resmi | give a reply | ตอบ, ชี้แจง | trả lời chính thức
+转告 | zhuǎngào | menyampaikan pesan | pass on (a message) | ฝากบอก | nhắn lại
+确认 | quèrèn | memastikan | confirm | ยืนยัน | xác nhận
+核实 | héshí | memverifikasi | verify | ตรวจสอบ | xác minh
+演讲 | yǎnjiǎng | pidato, presentasi | speech | การบรรยาย | bài phát biểu
+发布 | fābù | merilis, mengumumkan | release, announce | ประกาศ, เผยแพร่ | công bố
+报道 | bàodào | memberitakan | report (news) | รายงานข่าว | đưa tin
+采访 | cǎifǎng | mewawancarai | interview (press) | สัมภาษณ์ข่าว | phỏng vấn (báo chí)
+新闻 | xīnwén | berita | news | ข่าว | tin tức
+公告 | gōnggào | pengumuman resmi | public notice | ประกาศ | thông cáo
+## Finance and accounting
+资金 | zījīn | dana | funds | เงินทุน | vốn, quỹ
+资产 | zīchǎn | aset | assets | สินทรัพย์ | tài sản
+负债 | fùzhài | utang, liabilitas | liabilities, debt | หนี้สิน | nợ phải trả
+收入 | shōurù | pendapatan | income, revenue | รายได้ | thu nhập
+支出 | zhīchū | pengeluaran | expenditure | รายจ่าย | chi tiêu
+成本 | chéngběn | biaya produksi | cost | ต้นทุน | chi phí, giá thành
+利润 | lìrùn | laba | profit | กำไร | lợi nhuận
+亏损 | kuīsǔn | rugi | loss | ขาดทุน | thua lỗ
+预算 | yùsuàn | anggaran | budget | งบประมาณ | ngân sách
+账目 | zhàngmù | pembukuan | accounts | บัญชี | sổ sách
+账户 | zhànghù | rekening | account | บัญชี | tài khoản
+发票 | fāpiào | faktur | invoice | ใบแจ้งหนี้ | hóa đơn
+收据 | shōujù | kuitansi | receipt | ใบเสร็จ | biên lai
+报表 | bàobiǎo | laporan (tabel) | statement, report form | งบรายงาน | báo cáo (bảng biểu)
+审计 | shěnjì | audit | audit | ตรวจสอบบัญชี | kiểm toán
+税 | shuì | pajak | tax | ภาษี | thuế
+纳税 | nàshuì | membayar pajak | pay tax | เสียภาษี | nộp thuế
+申报 | shēnbào | melaporkan (pajak, bea) | declare, file | ยื่นแบบ | kê khai
+付款 | fùkuǎn | membayar | make payment | ชำระเงิน | thanh toán
+收款 | shōukuǎn | menerima pembayaran | receive payment | รับเงิน | thu tiền
+货款 | huòkuǎn | uang pembayaran barang | payment for goods | ค่าสินค้า | tiền hàng
+尾款 | wěikuǎn | sisa pembayaran | final balance | เงินงวดสุดท้าย | khoản còn lại
+定金 | dìngjīn | uang muka (tanda jadi) | deposit | เงินมัดจำ | tiền đặt cọc
+预付 | yùfù | bayar di muka | prepay | ชำระล่วงหน้า | trả trước
+汇款 | huìkuǎn | transfer uang | remit | โอนเงิน | chuyển tiền
+转账 | zhuǎnzhàng | transfer antar rekening | transfer | โอนบัญชี | chuyển khoản
+现金 | xiànjīn | uang tunai | cash | เงินสด | tiền mặt
+余额 | yú'é | saldo | balance | ยอดคงเหลือ | số dư
+贷款 | dàikuǎn | pinjaman | loan | เงินกู้ | khoản vay
+利率 | lìlǜ | suku bunga | interest rate | อัตราดอกเบี้ย | lãi suất
+汇率 | huìlǜ | nilai tukar | exchange rate | อัตราแลกเปลี่ยน | tỷ giá
+融资 | róngzī | pembiayaan | financing | ระดมทุน | huy động vốn
+投资 | tóuzī | investasi | invest | ลงทุน | đầu tư
+回报 | huíbào | imbal hasil | return | ผลตอบแทน | lợi nhuận đầu tư
+收益 | shōuyì | hasil, keuntungan | earnings | ผลตอบแทน | lợi tức
+风险 | fēngxiǎn | risiko | risk | ความเสี่ยง | rủi ro
+股票 | gǔpiào | saham | stock | หุ้น | cổ phiếu
+基金 | jījīn | dana investasi | fund | กองทุน | quỹ
+保险 | bǎoxiǎn | asuransi | insurance | ประกัน | bảo hiểm
+理赔 | lǐpéi | klaim asuransi | settle a claim | เคลมประกัน | bồi thường bảo hiểm
+担保 | dānbǎo | jaminan | guarantee | ค้ำประกัน | bảo lãnh
+通货膨胀 | tōnghuò péngzhàng | inflasi | inflation | เงินเฟ้อ | lạm phát
+增长 | zēngzhǎng | tumbuh | grow | เติบโต | tăng trưởng
+下降 | xiàjiàng | turun | decline | ลดลง | giảm
+同比 | tóngbǐ | dibanding tahun lalu | year on year | เทียบกับปีก่อน | so với cùng kỳ
+季度 | jìdù | kuartal | quarter | ไตรมาส | quý
+年度 | niándù | tahunan | annual | ประจำปี | hằng năm
+总额 | zǒng'é | jumlah total | total amount | ยอดรวม | tổng số tiền
+金额 | jīn'é | nominal | amount of money | จำนวนเงิน | số tiền
+折扣 | zhékòu | diskon | discount | ส่วนลด | chiết khấu
+手续费 | shǒuxùfèi | biaya administrasi | handling fee | ค่าธรรมเนียม | phí thủ tục
+补贴 | bǔtiē | subsidi | subsidy | เงินอุดหนุน | trợ cấp
+## Trade and logistics
+贸易 | màoyì | perdagangan | trade | การค้า | thương mại
+进口 | jìnkǒu | impor | import | นำเข้า | nhập khẩu
+出口 | chūkǒu | ekspor | export | ส่งออก | xuất khẩu
+海关 | hǎiguān | bea cukai | customs | ศุลกากร | hải quan
+报关 | bàoguān | pemberitahuan pabean | customs declaration | ยื่นสำแดงศุลกากร | khai báo hải quan
+通关 | tōngguān | lolos bea cukai | clear customs | ผ่านพิธีศุลกากร | thông quan
+关税 | guānshuì | bea masuk | tariff | ภาษีศุลกากร | thuế quan
+货物 | huòwù | barang kiriman | goods, cargo | สินค้า | hàng hóa
+商品 | shāngpǐn | barang dagangan | commodity | สินค้า | hàng hóa, sản phẩm
+样品 | yàngpǐn | sampel | sample | ตัวอย่างสินค้า | hàng mẫu
+原料 | yuánliào | bahan mentah | raw material | วัตถุดิบ | nguyên liệu
+零件 | língjiàn | suku cadang | spare part | ชิ้นส่วน | linh kiện
+包装 | bāozhuāng | kemasan | packaging | บรรจุภัณฑ์ | bao bì
+装运 | zhuāngyùn | memuat dan mengirim | ship, load | ขนส่ง | bốc xếp, vận chuyển
+运输 | yùnshū | pengangkutan | transport | ขนส่ง | vận tải
+运费 | yùnfèi | ongkos kirim | freight charge | ค่าขนส่ง | cước vận chuyển
+空运 | kōngyùn | kargo udara | air freight | ขนส่งทางอากาศ | vận chuyển hàng không
+海运 | hǎiyùn | angkutan laut | sea freight | ขนส่งทางทะเล | vận chuyển đường biển
+港口 | gǎngkǒu | pelabuhan | port | ท่าเรือ | cảng
+集装箱 | jízhuāngxiāng | kontainer | container | ตู้คอนเทนเนอร์ | container
+提单 | tídān | konosemen | bill of lading | ใบตราส่งสินค้า | vận đơn
+仓库 | cāngkù | gudang | warehouse | คลังสินค้า | kho
+库存 | kùcún | stok | inventory | สินค้าคงคลัง | tồn kho
+补货 | bǔhuò | menambah stok | restock | เติมสินค้า | bổ sung hàng
+发货 | fāhuò | mengirim barang | ship goods | จัดส่งสินค้า | giao hàng đi
+交货 | jiāohuò | menyerahkan barang | deliver goods | ส่งมอบสินค้า | giao hàng
+收货 | shōuhuò | menerima barang | receive goods | รับสินค้า | nhận hàng
+验货 | yànhuò | memeriksa barang | inspect goods | ตรวจสินค้า | kiểm hàng
+退货 | tuìhuò | mengembalikan barang | return goods | คืนสินค้า | trả hàng
+换货 | huànhuò | menukar barang | exchange goods | เปลี่ยนสินค้า | đổi hàng
+快递 | kuàidì | kurir, ekspedisi | courier, express | พัสดุด่วน | chuyển phát nhanh
+包裹 | bāoguǒ | paket | parcel | พัสดุ | bưu kiện
+订单 | dìngdān | pesanan | order | คำสั่งซื้อ | đơn hàng
+下单 | xiàdān | memesan | place an order | สั่งซื้อ | đặt hàng
+供应商 | gōngyìngshāng | pemasok | supplier | ผู้จัดหาสินค้า | nhà cung cấp
+供应链 | gōngyìngliàn | rantai pasok | supply chain | ห่วงโซ่อุปทาน | chuỗi cung ứng
+供货 | gōnghuò | memasok barang | supply goods | จัดหาสินค้า | cung cấp hàng
+延误 | yánwù | tertunda | delay | ล่าช้า | chậm trễ
+短缺 | duǎnquē | kekurangan | shortage | ขาดแคลน | thiếu hụt
+清关 | qīngguān | pengurusan bea cukai | customs clearance | เคลียร์ศุลกากร | thông quan
+原产地 | yuánchǎndì | negara asal | place of origin | ถิ่นกำเนิด | xuất xứ
+## Contracts and law
+合同 | hétong | kontrak | contract | สัญญา | hợp đồng
+协议 | xiéyì | perjanjian | agreement | ข้อตกลง | thỏa thuận
+条款 | tiáokuǎn | pasal, klausul | clause | ข้อสัญญา | điều khoản
+条件 | tiáojiàn | syarat | condition | เงื่อนไข | điều kiện
+签订 | qiāndìng | menandatangani | conclude (a contract) | ลงนามทำสัญญา | ký kết
+签署 | qiānshǔ | menandatangani (resmi) | sign (formally) | ลงนาม | ký
+续约 | xùyuē | memperpanjang kontrak | renew a contract | ต่อสัญญา | gia hạn hợp đồng
+履行 | lǚxíng | melaksanakan | perform, fulfil | ปฏิบัติตาม | thực hiện
+违约 | wéiyuē | ingkar janji | breach of contract | ผิดสัญญา | vi phạm hợp đồng
+赔偿 | péicháng | ganti rugi | compensate | ชดใช้ | bồi thường
+责任 | zérèn | tanggung jawab | responsibility | ความรับผิดชอบ | trách nhiệm
+权利 | quánlì | hak | right | สิทธิ | quyền lợi
+义务 | yìwù | kewajiban | obligation | หน้าที่ | nghĩa vụ
+有效期 | yǒuxiàoqī | masa berlaku | period of validity | ระยะเวลามีผล | thời hạn hiệu lực
+生效 | shēngxiào | berlaku | take effect | มีผลบังคับ | có hiệu lực
+终止 | zhōngzhǐ | menghentikan, berakhir | terminate | ยุติ | chấm dứt
+解除 | jiěchú | membatalkan | rescind | ยกเลิก | hủy bỏ
+修改 | xiūgǎi | mengubah | amend | แก้ไข | sửa đổi
+授权 | shòuquán | memberi kuasa | authorize | มอบอำนาจ | ủy quyền
+专利 | zhuānlì | paten | patent | สิทธิบัตร | bằng sáng chế
+商标 | shāngbiāo | merek dagang | trademark | เครื่องหมายการค้า | nhãn hiệu
+知识产权 | zhīshi chǎnquán | hak kekayaan intelektual | intellectual property | ทรัพย์สินทางปัญญา | quyền sở hữu trí tuệ
+法律 | fǎlǜ | hukum | law | กฎหมาย | pháp luật
+律师 | lǜshī | pengacara | lawyer | ทนายความ | luật sư
+纠纷 | jiūfēn | sengketa | dispute | ข้อพิพาท | tranh chấp
+仲裁 | zhòngcái | arbitrase | arbitration | อนุญาโตตุลาการ | trọng tài
+不可抗力 | bùkěkànglì | keadaan kahar | force majeure | เหตุสุดวิสัย | bất khả kháng
+保密 | bǎomì | menjaga kerahasiaan | keep confidential | รักษาความลับ | bảo mật
+泄露 | xièlòu | membocorkan | leak | เปิดเผยความลับ | tiết lộ
+许可 | xǔkě | izin | permit | อนุญาต | cho phép, giấy phép
+执照 | zhízhào | surat izin usaha | licence | ใบอนุญาต | giấy phép
+审批 | shěnpī | persetujuan resmi | approve (officially) | อนุมัติ | phê duyệt
+规定 | guīdìng | aturan, menetapkan | regulation; stipulate | ระเบียบ, กำหนด | quy định
+处分 | chǔfèn | sanksi disiplin | disciplinary action | บทลงโทษ | xử lý kỷ luật
+## Marketing and sales
+市场 | shìchǎng | pasar | market | ตลาด | thị trường
+客户 | kèhù | klien, pelanggan | client | ลูกค้า | khách hàng
+顾客 | gùkè | pelanggan (toko) | customer | ลูกค้า | khách hàng
+消费者 | xiāofèizhě | konsumen | consumer | ผู้บริโภค | người tiêu dùng
+需求 | xūqiú | permintaan, kebutuhan | demand, need | ความต้องการ | nhu cầu
+供应 | gōngyìng | pasokan | supply | อุปทาน | cung ứng
+竞争 | jìngzhēng | persaingan | compete | แข่งขัน | cạnh tranh
+对手 | duìshǒu | pesaing | rival | คู่แข่ง | đối thủ
+品牌 | pǐnpái | merek | brand | แบรนด์ | thương hiệu
+产品 | chǎnpǐn | produk | product | ผลิตภัณฑ์ | sản phẩm
+新品 | xīnpǐn | produk baru | new product | สินค้าใหม่ | sản phẩm mới
+价格 | jiàgé | harga | price | ราคา | giá cả
+报价 | bàojià | penawaran harga | quote | เสนอราคา | báo giá
+降价 | jiàngjià | menurunkan harga | cut prices | ลดราคา | giảm giá
+涨价 | zhǎngjià | harga naik | price rise | ราคาขึ้น | tăng giá
+优惠 | yōuhuì | promo, keringanan | preferential offer | สิทธิพิเศษ | ưu đãi
+促销 | cùxiāo | promosi penjualan | sales promotion | ส่งเสริมการขาย | khuyến mãi
+广告 | guǎnggào | iklan | advertisement | โฆษณา | quảng cáo
+宣传 | xuānchuán | promosi, publisitas | publicize | ประชาสัมพันธ์ | tuyên truyền, quảng bá
+推广 | tuīguǎng | memasarkan luas | promote | ส่งเสริม | quảng bá
+策划 | cèhuà | merencanakan | plan, organize | วางแผนจัดการ | lên kế hoạch
+销量 | xiāoliàng | volume penjualan | sales volume | ยอดขาย (ปริมาณ) | doanh số (số lượng)
+销售额 | xiāoshòu'é | nilai penjualan | sales revenue | ยอดขาย (มูลค่า) | doanh thu bán hàng
+业绩 | yèjì | kinerja | performance | ผลงาน | thành tích
+指标 | zhǐbiāo | target, indikator | target, index | ตัวชี้วัด | chỉ tiêu
+目标 | mùbiāo | tujuan, sasaran | goal | เป้าหมาย | mục tiêu
+份额 | fèn'é | pangsa | share | ส่วนแบ่ง | thị phần
+扩大 | kuòdà | memperluas | expand | ขยาย | mở rộng
+开拓 | kāituò | merintis | open up | บุกเบิก | khai thác
+开发 | kāifā | mengembangkan | develop | พัฒนา | phát triển
+渠道 | qúdào | saluran | channel | ช่องทาง | kênh
+代理 | dàilǐ | agen, mewakili | agent | ตัวแทน | đại lý
+经销商 | jīngxiāoshāng | distributor | distributor | ผู้จัดจำหน่าย | nhà phân phối
+零售 | língshòu | eceran | retail | ค้าปลีก | bán lẻ
+批发 | pīfā | grosir | wholesale | ขายส่ง | bán buôn
+门店 | méndiàn | gerai | store | ร้านสาขา | cửa hàng
+会员 | huìyuán | anggota | member | สมาชิก | hội viên
+积分 | jīfēn | poin | points | แต้มสะสม | điểm tích lũy
+网店 | wǎngdiàn | toko online | online shop | ร้านออนไลน์ | cửa hàng trực tuyến
+直播 | zhíbō | siaran langsung | livestream | ไลฟ์สด | phát trực tiếp
+平台 | píngtái | platform | platform | แพลตฟอร์ม | nền tảng
+佣金 | yōngjīn | komisi | commission | ค่าคอมมิชชัน | hoa hồng
+问卷 | wènjuàn | kuesioner | questionnaire | แบบสอบถาม | bảng khảo sát
+调研 | diàoyán | riset lapangan | investigate and study | วิจัยสำรวจ | khảo sát nghiên cứu
+调查 | diàochá | menyelidiki, survei | survey, investigate | สำรวจ, สอบสวน | điều tra
+形势 | xíngshì | situasi | situation | สถานการณ์ | tình hình
+趋势 | qūshì | tren | trend | แนวโน้ม | xu hướng
+优势 | yōushì | keunggulan | advantage | ข้อได้เปรียบ | lợi thế
+策略 | cèlüè | strategi, taktik | strategy | กลยุทธ์ | chiến lược
+战略 | zhànlüè | strategi besar | strategy (long-term) | ยุทธศาสตร์ | chiến lược (tầm dài hạn)
+规划 | guīhuà | perencanaan | planning | การวางแผน | quy hoạch
+## Human resources and careers
+招聘 | zhāopìn | merekrut | recruit | รับสมัครงาน | tuyển dụng
+应聘 | yìngpìn | melamar kerja | apply for a job | สมัครงาน | ứng tuyển
+面试 | miànshì | wawancara kerja | job interview | สัมภาษณ์งาน | phỏng vấn
+简历 | jiǎnlì | CV, riwayat hidup | résumé | ประวัติย่อ | sơ yếu lý lịch
+录用 | lùyòng | menerima bekerja | hire | รับเข้าทำงาน | tuyển dụng (nhận)
+入职 | rùzhí | mulai bekerja | join a company | เข้าทำงาน | nhận việc
+离职 | lízhí | berhenti bekerja | leave a job | ลาออก | nghỉ việc
+辞职 | cízhí | mengundurkan diri | resign | ลาออก | từ chức
+交接 | jiāojiē | serah terima | hand over | ส่งมอบงาน | bàn giao
+试用期 | shìyòngqī | masa percobaan | probation period | ช่วงทดลองงาน | thời gian thử việc
+转正 | zhuǎnzhèng | diangkat tetap | become permanent | บรรจุเป็นพนักงานประจำ | chuyển chính thức
+工资 | gōngzī | gaji | salary | เงินเดือน | tiền lương
+奖金 | jiǎngjīn | bonus | bonus | โบนัส | tiền thưởng
+福利 | fúlì | tunjangan, kesejahteraan | benefits | สวัสดิการ | phúc lợi
+待遇 | dàiyù | gaji dan perlakuan | pay and treatment | ค่าตอบแทนและสิทธิ | đãi ngộ
+晋升 | jìnshēng | naik jabatan | be promoted | เลื่อนตำแหน่ง | thăng tiến
+提升 | tíshēng | meningkatkan, mempromosikan | promote, raise | เลื่อน, ยกระดับ | nâng lên, thăng chức
+培训 | péixùn | pelatihan | training | อบรม | đào tạo
+进修 | jìnxiū | studi lanjutan | take a further course | เรียนต่อ | học nâng cao
+考核 | kǎohé | menilai kinerja | assess | ประเมิน | đánh giá
+经验 | jīngyàn | pengalaman | experience | ประสบการณ์ | kinh nghiệm
+能力 | nénglì | kemampuan | ability | ความสามารถ | năng lực
+潜力 | qiánlì | potensi | potential | ศักยภาพ | tiềm năng
+资深 | zīshēn | senior | senior | อาวุโส | kỳ cựu
+专业 | zhuānyè | profesional, jurusan | professional; major | มืออาชีพ, สาขาวิชา | chuyên nghiệp, chuyên ngành
+学历 | xuélì | latar belakang pendidikan | educational background | วุฒิการศึกษา | trình độ học vấn
+证书 | zhèngshū | sertifikat | certificate | ใบรับรอง | chứng chỉ
+合格 | hégé | lulus, memenuhi syarat | qualified | ผ่านเกณฑ์ | đạt chuẩn
+表扬 | biǎoyáng | memuji | praise | ชมเชย | khen ngợi
+责任心 | zérènxīn | rasa tanggung jawab | sense of responsibility | ความรับผิดชอบ | tinh thần trách nhiệm
+团队精神 | tuánduì jīngshén | semangat kerja tim | team spirit | จิตวิญญาณการทำงานเป็นทีม | tinh thần đồng đội
+配合 | pèihé | bekerja sama | cooperate | ประสานงาน | phối hợp
+承担 | chéngdān | memikul | bear, undertake | รับผิดชอบ | gánh vác
+## Technology, production and quality
+技术 | jìshù | teknologi | technology | เทคโนโลยี | kỹ thuật
+设备 | shèbèi | peralatan | equipment | อุปกรณ์ | thiết bị
+系统 | xìtǒng | sistem | system | ระบบ | hệ thống
+软件 | ruǎnjiàn | perangkat lunak | software | ซอฟต์แวร์ | phần mềm
+网络 | wǎngluò | jaringan | network | เครือข่าย | mạng
+数据 | shùjù | data | data | ข้อมูล | dữ liệu
+备份 | bèifèn | cadangan | back up | สำรองข้อมูล | sao lưu
+加密 | jiāmì | enkripsi | encrypt | เข้ารหัส | mã hóa
+升级 | shēngjí | peningkatan versi | upgrade | อัปเกรด | nâng cấp
+故障 | gùzhàng | gangguan, kerusakan | fault | ความขัดข้อง | sự cố
+维修 | wéixiū | perbaikan | repair | ซ่อมบำรุง | sửa chữa
+检修 | jiǎnxiū | memeriksa dan memperbaiki | overhaul | ตรวจซ่อม | kiểm tra sửa chữa
+安装 | ānzhuāng | memasang | install | ติดตั้ง | lắp đặt
+测试 | cèshì | menguji | test | ทดสอบ | thử nghiệm
+研究 | yánjiū | meneliti | research | วิจัย | nghiên cứu
+创新 | chuàngxīn | inovasi | innovate | นวัตกรรม | đổi mới
+设计 | shèjì | merancang | design | ออกแบบ | thiết kế
+样机 | yàngjī | prototipe | prototype | ต้นแบบ | mẫu thử
+生产 | shēngchǎn | produksi | produce | ผลิต | sản xuất
+生产线 | shēngchǎnxiàn | lini produksi | production line | สายการผลิต | dây chuyền sản xuất
+工厂 | gōngchǎng | pabrik | factory | โรงงาน | nhà máy
+车间 | chējiān | bengkel produksi | workshop | โรงงานย่อย (เวิร์กช็อป) | phân xưởng
+产量 | chǎnliàng | jumlah produksi | output | ปริมาณการผลิต | sản lượng
+产能 | chǎnnéng | kapasitas produksi | production capacity | กำลังการผลิต | công suất
+效率 | xiàolǜ | efisiensi | efficiency | ประสิทธิภาพ | hiệu suất
+工艺 | gōngyì | proses teknis | technique, process | กรรมวิธีผลิต | công nghệ chế tạo
+质量 | zhìliàng | mutu | quality | คุณภาพ | chất lượng
+品质 | pǐnzhì | kualitas | quality (of goods) | คุณภาพ | phẩm chất
+检验 | jiǎnyàn | pemeriksaan | inspect | ตรวจสอบ | kiểm nghiệm
+抽查 | chōuchá | pemeriksaan acak | spot check | สุ่มตรวจ | kiểm tra xác suất
+缺陷 | quēxiàn | cacat | defect | ข้อบกพร่อง | khuyết tật
+认证 | rènzhèng | sertifikasi | certification | การรับรอง | chứng nhận
+标准 | biāozhǔn | standar | standard | มาตรฐาน | tiêu chuẩn
+规格 | guīgé | spesifikasi | specification | สเปก | quy cách
+保修 | bǎoxiū | garansi | warranty | รับประกัน | bảo hành
+售后 | shòuhòu | purna jual | after-sales | หลังการขาย | hậu mãi
+节能 | jiénéng | hemat energi | save energy | ประหยัดพลังงาน | tiết kiệm năng lượng
+环保 | huánbǎo | ramah lingkungan | environmental protection | รักษาสิ่งแวดล้อม | bảo vệ môi trường
+安全 | ānquán | keselamatan | safety | ความปลอดภัย | an toàn
+事故 | shìgù | kecelakaan | accident | อุบัติเหตุ | tai nạn
+隐患 | yǐnhuàn | bahaya tersembunyi | hidden danger | อันตรายแฝง | nguy cơ tiềm ẩn
+## Service and customer care
+服务 | fúwù | layanan | service | บริการ | dịch vụ
+客服 | kèfú | layanan pelanggan | customer service | ฝ่ายบริการลูกค้า | chăm sóc khách hàng
+投诉 | tóusù | mengeluh, pengaduan | complain | ร้องเรียน | khiếu nại
+道歉 | dàoqiàn | meminta maaf | apologize | ขอโทษ | xin lỗi
+歉意 | qiànyì | penyesalan | apology | ความเสียใจ | lời xin lỗi
+满意 | mǎnyì | puas | satisfied | พอใจ | hài lòng
+热情 | rèqíng | ramah, antusias | warm, enthusiastic | กระตือรือร้น | nhiệt tình
+耐心 | nàixīn | sabar | patient | อดทน | kiên nhẫn
+周到 | zhōudào | cermat | thoughtful | รอบคอบ | chu đáo
+赔礼 | péilǐ | minta maaf dengan hormat | make amends | ขอขมา | xin lỗi
+补偿 | bǔcháng | kompensasi | compensate | ชดเชย | bồi thường
+退款 | tuìkuǎn | pengembalian dana | refund | คืนเงิน | hoàn tiền
+投递 | tóudì | mengantar, mengirim | deliver | นำส่ง | chuyển phát
+接待 | jiēdài | menyambut tamu | receive guests | ต้อนรับ | tiếp đãi
+招待 | zhāodài | menjamu | entertain | เลี้ยงรับรอง | chiêu đãi
+宴会 | yànhuì | jamuan | banquet | งานเลี้ยง | tiệc
+欢迎 | huānyíng | menyambut | welcome | ยินดีต้อนรับ | hoan nghênh
+欢送 | huānsòng | melepas, perpisahan | send off | เลี้ยงส่ง | tiễn
+参观 | cānguān | berkunjung, meninjau | visit (a place) | เยี่ยมชม | tham quan
+来宾 | láibīn | tamu undangan | guest | แขกผู้มาเยือน | khách mời
+光临 | guānglín | kunjungan terhormat | honour with a visit | มาเยือน | quang lâm
+陪同 | péitóng | mendampingi | accompany | ติดตามไปด้วย | tháp tùng
+纪念品 | jìniànpǐn | cendera mata | souvenir | ของที่ระลึก | quà lưu niệm
+礼品 | lǐpǐn | hadiah | gift | ของขวัญ | quà tặng
+酒店 | jiǔdiàn | hotel | hotel | โรงแรม | khách sạn
+住宿 | zhùsù | menginap | lodging | ที่พัก | chỗ ở
+机票 | jīpiào | tiket pesawat | air ticket | ตั๋วเครื่องบิน | vé máy bay
+航班 | hángbān | penerbangan | flight | เที่ยวบิน | chuyến bay
+接机 | jiējī | jemput di bandara | meet at the airport | รับที่สนามบิน | đón sân bay
+行程 | xíngchéng | jadwal perjalanan | itinerary | กำหนดการเดินทาง | hành trình
+旅游 | lǚyóu | pariwisata | tourism | ท่องเที่ยว | du lịch
+游客 | yóukè | wisatawan | tourist | นักท่องเที่ยว | du khách
+导游 | dǎoyóu | pemandu wisata | tour guide | ไกด์ | hướng dẫn viên
+展览 | zhǎnlǎn | pameran | exhibition | นิทรรศการ | triển lãm
+展会 | zhǎnhuì | pameran dagang | trade fair | งานแสดงสินค้า | hội chợ
+展位 | zhǎnwèi | stan pameran | booth | บูธ | gian hàng
+参展 | cānzhǎn | ikut pameran | take part in an exhibition | เข้าร่วมแสดงสินค้า | tham gia triển lãm
+## Banking and everyday business
+银行 | yínháng | bank | bank | ธนาคาร | ngân hàng
+存款 | cúnkuǎn | menabung, setor | deposit | ฝากเงิน | gửi tiền
+取款 | qǔkuǎn | menarik uang | withdraw | ถอนเงิน | rút tiền
+密码 | mìmǎ | kata sandi | password, PIN | รหัสผ่าน | mật khẩu
+刷卡 | shuākǎ | gesek kartu | pay by card | รูดบัตร | quẹt thẻ
+扫码 | sǎomǎ | pindai kode | scan a code | สแกนคิวอาร์ | quét mã
+对账 | duìzhàng | mencocokkan rekening | reconcile accounts | ตรวจสอบบัญชี | đối chiếu tài khoản
+信用 | xìnyòng | kepercayaan, kredit | credit, trust | ความน่าเชื่อถือ | tín dụng, uy tín
+诚信 | chéngxìn | integritas | integrity | ความซื่อสัตย์ | trung thực, uy tín
+价值 | jiàzhí | nilai | value | คุณค่า | giá trị
+效益 | xiàoyì | manfaat ekonomi | benefit | ผลประโยชน์ | hiệu quả
+利益 | lìyì | kepentingan, keuntungan | interest, benefit | ผลประโยชน์ | lợi ích
+互利 | hùlì | saling menguntungkan | mutually beneficial | ประโยชน์ร่วมกัน | cùng có lợi
+合作 | hézuò | kerja sama | cooperate | ความร่วมมือ | hợp tác
+伙伴 | huǒbàn | mitra | partner | พันธมิตร | đối tác
+谈判 | tánpàn | perundingan | negotiate | เจรจา | đàm phán
+让步 | ràngbù | mengalah | make a concession | ยอมถอย | nhượng bộ
+底线 | dǐxiàn | batas terendah | bottom line | เส้นต่ำสุด | giới hạn cuối
+达成 | dáchéng | mencapai (kesepakatan) | reach (an agreement) | บรรลุ | đạt được
+共识 | gòngshí | kesepakatan bersama | consensus | ฉันทามติ | nhận thức chung
+一致 | yízhì | sepakat, sama | unanimous | เป็นเอกฉันท์ | nhất trí
+方案 | fāng'àn | rencana, usulan | plan, proposal | แผนงาน | phương án
+草案 | cǎo'àn | rancangan, draf | draft | ร่าง | bản thảo
+细节 | xìjié | detail | detail | รายละเอียด | chi tiết
+环节 | huánjié | tahapan, mata rantai | link, step | ขั้นตอน | khâu
+流程 | liúchéng | alur proses | process, workflow | กระบวนการ | quy trình
+手续 | shǒuxù | prosedur, formalitas | formalities | ขั้นตอนทางเอกสาร | thủ tục
+办理 | bànlǐ | mengurus | handle | ดำเนินการ | làm (thủ tục)
+申请 | shēnqǐng | mengajukan | apply | ยื่นขอ | xin, đăng ký
+批准 | pīzhǔn | menyetujui | approve | อนุมัติ | phê chuẩn
+提交 | tíjiāo | menyerahkan | submit | ส่ง | nộp
+完成 | wánchéng | menyelesaikan | complete | เสร็จสิ้น | hoàn thành
+推迟 | tuīchí | menunda | postpone | เลื่อน | hoãn
+取消 | qǔxiāo | membatalkan | cancel | ยกเลิก | hủy
+改进 | gǎijìn | memperbaiki | improve | ปรับปรุง | cải tiến
+调整 | tiáozhěng | menyesuaikan | adjust | ปรับ | điều chỉnh
+控制 | kòngzhì | mengendalikan | control | ควบคุม | kiểm soát
+保证 | bǎozhèng | menjamin | guarantee | รับประกัน | bảo đảm
+确保 | quèbǎo | memastikan | ensure | ให้แน่ใจ | đảm bảo
+维护 | wéihù | menjaga, merawat | maintain | รักษา | duy trì, bảo vệ
+遵守 | zūnshǒu | mematuhi | abide by | ปฏิบัติตาม | tuân thủ
+违反 | wéifǎn | melanggar | violate | ฝ่าฝืน | vi phạm
+尊重 | zūnzhòng | menghormati | respect | เคารพ | tôn trọng
+重视 | zhòngshì | menganggap penting | attach importance to | ให้ความสำคัญ | coi trọng
+注重 | zhùzhòng | menekankan | emphasize | เน้น | chú trọng
+充分 | chōngfèn | cukup, sepenuhnya | full, ample | เต็มที่ | đầy đủ
+及时 | jíshí | tepat waktu, segera | timely | ทันเวลา | kịp thời
+顺利 | shùnlì | lancar | smooth | ราบรื่น | thuận lợi
+稳定 | wěndìng | stabil | stable | มั่นคง | ổn định
+明显 | míngxiǎn | jelas, nyata | obvious | ชัดเจน | rõ rệt
+严格 | yángé | ketat | strict | เข้มงวด | nghiêm ngặt
+灵活 | línghuó | fleksibel | flexible | ยืดหยุ่น | linh hoạt
+准确 | zhǔnquè | akurat | accurate | แม่นยำ | chính xác
+详细 | xiángxì | terperinci | detailed | ละเอียด | chi tiết
+简洁 | jiǎnjié | ringkas | concise | กระชับ | ngắn gọn
+正式 | zhèngshì | resmi | formal | เป็นทางการ | chính thức
+临时 | línshí | sementara, mendadak | temporary | ชั่วคราว | tạm thời
+共同 | gòngtóng | bersama | joint | ร่วมกัน | cùng nhau
+相关 | xiāngguān | terkait | related | ที่เกี่ยวข้อง | liên quan

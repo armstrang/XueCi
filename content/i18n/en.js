@@ -1060,6 +1060,12 @@ I18N.en = {
   exBctA: 'BCT A practice',
   exBctB: 'BCT B practice',
   exBctD: 'In the style of the BCT (business Chinese), not official questions: listen, read, build sentences',
+  exBctW: 'Business words',
+  exBctWD: 'Work vocabulary for BCT B, with pinyin and meanings',
+  bwSearch: 'Search a word or meaning',
+  bwAll: 'All',
+  bwNone: 'Nothing matches',
+  bwCount: n => `${n} words`,
   mkBctT: b => `BCT ${b} style practice`,
   mkBctPartD: {
     listen: n => `${n} questions. Each sentence plays by itself and can be played once more. Pick the word you heard, its meaning, or whether the sentences match.`,

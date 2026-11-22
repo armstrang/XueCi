@@ -136,6 +136,36 @@ def main():
                          't': {'id': idt, 'en': en, 'th': th, 'vi': vi}})
         out[key] = rows
         print(f'bank {key}: {len(rows)} sentences')
+    # the business words (content/bct/words.txt): hanzi | pinyin | id | en | th | vi, `## topic` groups
+    wpath = os.path.join(ROOT, 'content', 'bct', 'words.txt')
+    words = []
+    if os.path.exists(wpath):
+        from pypinyin import lazy_pinyin, Style
+        sec, seenw = '', set()
+        for ln, line in enumerate(open(wpath, encoding='utf8').read().split('\n'), 1):
+            line = line.strip()
+            if not line or line.startswith('# '):
+                continue
+            if line.startswith('## '):
+                sec = line[3:].strip()
+                continue
+            where = f'words.txt:{ln}'
+            f = [x.strip() for x in line.split(' | ')]
+            if len(f) != 6 or not all(f):
+                problems.append(f'{where}: want 6 filled fields')
+                continue
+            h, py, idt, en, th, vi = f
+            if h in seenw:
+                problems.append(f'{where}: {h} twice')
+            seenw.add(h)
+            for ch in set(HAN.findall(h)):
+                if ch not in CHARSET:
+                    problems.append(f'{where}: {ch} is not in the font subset')
+            norm = lambda x: re.sub(r"[\s']", '', x).lower()
+            if norm(py) != norm(''.join(lazy_pinyin(h, style=Style.TONE))):
+                print(f'check pinyin {where}: {h} {py} (pypinyin: {" ".join(lazy_pinyin(h, style=Style.TONE))})')
+            words.append({'h': h, 'p': py, 's': sec, 't': {'id': idt, 'en': en, 'th': th, 'vi': vi}})
+        print(f'words: {len(words)}')
     if problems:
         print('\n'.join(problems[:60]))
         print(f'{len(problems)} problems')
@@ -144,6 +174,11 @@ def main():
     with open(dst, 'w', encoding='utf8') as f:
         f.write('{' + ',\n'.join(f'"{k}":[\n' + ',\n'.join(json.dumps(r, ensure_ascii=False, separators=(',', ':')) for r in v) + '\n]' for k, v in out.items()) + '}\n')
     print('wrote', dst)
+    if words:
+        wd = os.path.join(ROOT, 'content', 'bct', 'words.json')
+        with open(wd, 'w', encoding='utf8') as f:
+            f.write('[\n' + ',\n'.join(json.dumps(w, ensure_ascii=False, separators=(',', ':')) for w in words) + '\n]\n')
+        print('wrote', wd)
 
 
 if __name__ == '__main__':

@@ -1059,6 +1059,12 @@ I18N.id = {
   exBctA: 'Latihan BCT A',
   exBctB: 'Latihan BCT B',
   exBctD: 'Gaya ujian BCT (Mandarin bisnis), bukan soal resmi: dengar, baca, susun kalimat',
+  exBctW: 'Kosakata bisnis',
+  exBctWD: 'Kata-kata kerja untuk BCT B, dengan pinyin dan arti',
+  bwSearch: 'Cari kata atau arti',
+  bwAll: 'Semua',
+  bwNone: 'Tidak ada yang cocok',
+  bwCount: n => `${n} kata`,
   mkBctT: b => `Latihan gaya BCT ${b}`,
   mkBctPartD: {
     listen: n => `${n} soal. Kalimatnya diputar otomatis, boleh diputar sekali lagi. Pilih kata yang kamu dengar, artinya, atau apakah kalimatnya sama.`,

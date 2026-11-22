@@ -1040,6 +1040,12 @@ I18N.vi = {
   exBctA: 'Luyện BCT A',
   exBctB: 'Luyện BCT B',
   exBctD: 'Theo kiểu thi BCT (tiếng Hán thương mại), không phải đề chính thức: nghe, đọc, sắp xếp câu',
+  exBctW: 'Từ vựng thương mại',
+  exBctWD: 'Từ vựng công việc cho BCT B, kèm pinyin và nghĩa',
+  bwSearch: 'Tìm từ hoặc nghĩa',
+  bwAll: 'Tất cả',
+  bwNone: 'Không có kết quả',
+  bwCount: n => `${n} từ`,
   mkBctT: b => `Luyện kiểu BCT ${b}`,
   mkBctPartD: {
     listen: n => `${n} câu. Câu tự phát và có thể phát thêm một lần. Chọn từ bạn nghe, nghĩa của nó, hoặc xem hai câu có giống nhau không.`,
