@@ -22,6 +22,7 @@ import 'lens.dart';
 import 'qi.dart';
 import 'screens.dart';
 import 'splash.dart';
+import 'talk.dart';
 import 'theme.dart';
 
 final navKey = GlobalKey<NavigatorState>();
@@ -187,7 +188,7 @@ class _ShellState extends State<Shell> {
     }
     final kb = MediaQuery.viewInsetsOf(context).bottom > 80;
     // hidden while answering: a session, the quiz, the tests, typing, an open menu, an exam
-    final tabs = !const ['session', 'placement', 'bt', 'hkrun'].contains(s) && !kb && !app.menuOpen && !app.inExam && app.mockPick.isEmpty;
+    final tabs = !const ['session', 'placement', 'bt', 'hkrun', 'talk'].contains(s) && !kb && !app.menuOpen && !app.inExam && app.mockPick.isEmpty;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (did, _) {
@@ -259,6 +260,7 @@ Widget screenFor(String s) => switch (s) {
   'hskk' => const HskkScreen(),
   'exam' => const ExamScreen(),
   'hkrun' => const HkRunScreen(),
+  'talk' => const TalkScreen(),
   _ => FocusScreenHost(mode: s),
 };
 
@@ -614,7 +616,7 @@ class ToastHost extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bottom = MediaQuery.paddingOf(context).bottom;
-    final tabs = !const ['session', 'placement', 'bt', 'hkrun'].contains(app.screen);
+    final tabs = !const ['session', 'placement', 'bt', 'hkrun', 'talk'].contains(app.screen);
     return ValueListenableBuilder(
       valueListenable: app.toastV,
       builder: (c, v, _) => IgnorePointer(

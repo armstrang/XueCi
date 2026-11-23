@@ -316,6 +316,8 @@ class _BctStudyState extends State<BctStudyScreen> {
             app.go('quiz');
           },
         ),
+        const SizedBox(height: 10),
+        GhostBtn(t.talkBtn, wide: true, lead: Icon2(I.mic, size: 18, color: th.acc, width: 1.9), onTap: () => app.go('talk')),
       ],
     );
   }

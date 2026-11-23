@@ -21,6 +21,7 @@ import 'package:xueci/ui/settings.dart';
 import 'package:xueci/ui/share.dart';
 import 'package:xueci/ui/shell.dart';
 import 'package:xueci/ui/splash.dart';
+import 'package:xueci/ui/talk.dart' show talkSeed, talkListen;
 import 'package:xueci/ui/tests.dart' show btJump, gateShow, ptJump;
 import 'package:xueci/ui/run_view.dart' show OptBtn;
 
@@ -282,6 +283,55 @@ void runs() {
     await shot(t, 'bct-study-quiz', before: () => app.setStudy('bct'), act: () async {
       await t.tap(find.text('Kuis'));
       await t.pump(const Duration(milliseconds: 300));
+    });
+  });
+  testWidgets('Bicara BCT: entry, thread, report', (t) async {
+    talkSeed = 5;
+    addTearDown(() => talkListen = null);
+    await t.runAsync(() async {
+      await bootApp({...sample(), 'hsk16_theme': '"light"'}, lang: 'id');
+    });
+    await shot(t, 'talk-entry', size: const Size(412, 1000), before: () => app.setStudy('bct'));
+    // the phone's recognizer is replaced by what the learner "says": a partial text first, then the final one
+    Future<void> say(String text) async {
+      talkListen = ({onEvent, limitMs = 0}) async {
+        onEvent?.call({'t': 'partial', 'v': text.substring(0, text.length ~/ 2)});
+        return [text];
+      };
+      await t.tap(find.text('Bicara'));
+      await t.pump(const Duration(milliseconds: 400));
+    }
+
+    await shot(t, 'talk-nomic', before: () {
+      app.canListen = false;
+      app.go('talk');
+    }, after: () => expect(find.text('Bicara'), findsNothing));
+    await shot(t, 'talk-start', before: () {
+      app.canListen = true;
+      app.go('talk');
+    });
+    await t.runAsync(() => Future.delayed(const Duration(milliseconds: 300)));
+    await shot(t, 'talk-thread', size: const Size(412, 1100), before: () {
+      app.canListen = true;
+      app.go('talk');
+    }, act: () async {
+      await t.runAsync(() => Future.delayed(const Duration(milliseconds: 300)));
+      await say('真的非常抱歉，给您添麻烦了。');
+      await say('因为海关查验，所以晚了三天。');
+      await say('我们今天重新发货，星期四之前送到。');
+      expect(find.text('Minta maaf'), findsOneWidget);
+      expect(find.text('Janji hari tiba'), findsOneWidget);
+    });
+    await shot(t, 'talk-report', size: const Size(412, 1500), before: () {
+      app.canListen = true;
+      app.go('talk');
+    }, act: () async {
+      await t.runAsync(() => Future.delayed(const Duration(milliseconds: 300)));
+      await say('真的非常抱歉，给您添麻烦了。');
+      await say('因为海关查验，所以晚了三天。');
+      await say('我们今天重新发货，星期四之前送到。');
+      await say('这次给您打九折，作为补偿。');
+      await say('谢谢您的理解，期待我们继续合作。');
     });
   });
   testWidgets('home light with the new tab bar', (t) async {

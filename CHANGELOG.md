@@ -6,6 +6,20 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.13
+
+**Speak BCT: answer an angry client with your voice.**
+
+- **Voice-note practice.** On the BCT page, "Balas klien lewat suara" opens a chat with a client whose goods are late.
+  You answer by voice (or type, if your phone cannot listen inside apps). The app understands what you said: an
+  apology, a reason, a day, a discount, a refusal, thanks. The client answers from what he still needs, so the talk
+  does not follow a script, and it ends well, so-so, or with the client gone.
+- **A score and better wording.** At the end you get a score out of 100 with what was missing, common learner slips
+  with a better sentence, and model sentences you can listen to. It is a guide, not an examiner's mark.
+- **On your phone, offline.** Everything is read on the device by a small model (under 1 MB). It uses the phone's
+  speech recognizer, so a misheard word can lower the score. Explanations and translations of the client's lines are
+  in Indonesian for now.
+
 ## v1.12
 
 **Every grammar pattern now says when to use it, and BCT gets its own study path.**

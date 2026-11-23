@@ -4,10 +4,14 @@ import 'dart:js_interop';
 
 import 'package:xueci/app/talk/coach.dart';
 import 'package:xueci/app/talk/dialog.dart';
+import 'package:xueci/app/talk/model.dart';
 import 'package:xueci/app/talk/nlu.dart';
+import 'package:xueci/app/talk/sound.g.dart';
 
 import '../test/talk/eval.dart' show noiser;
 
+@JS('talkModelJson')
+external JSString? get _modelJson;
 @JS('talkParse')
 external set _parse(JSFunction f);
 @JS('talkNew')
@@ -22,7 +26,8 @@ Map<String, Object?> _f(Frame f) => {
     };
 
 void main() {
-  final nlu = TalkNlu();
+  final mj = _modelJson?.toDart;
+  final nlu = TalkNlu(model: mj == null ? null : TalkModel.fromJson(mj, soundFrom, soundTo));
   TalkDialog? d;
   var seedN = 1;
   Map<String, Object?> state() => {

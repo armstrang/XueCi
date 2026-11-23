@@ -113,6 +113,8 @@ def main():
     shutil.copyfile(os.path.join(ROOT, 'content', 'bct', 'bct.json'), os.path.join(OUT_DATA, 'bct.json'))
     if os.path.exists(os.path.join(ROOT, 'content', 'bct', 'words.json')):
         shutil.copyfile(os.path.join(ROOT, 'content', 'bct', 'words.json'), os.path.join(OUT_DATA, 'bct_words.json'))
+    # the talk engine's small classifier (Bicara BCT; trained by make_talk_model.py, kept in content/talk/model/)
+    shutil.copyfile(os.path.join(ROOT, 'content', 'talk', 'model', 'talk_model.json'), os.path.join(OUT_DATA, 'talk_model.json'))
     # the speaking bank (HSKK practice and mock tests): make_speak.py
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import make_speak
