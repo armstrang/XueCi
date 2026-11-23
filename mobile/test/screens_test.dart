@@ -274,12 +274,12 @@ void runs() {
     await t.runAsync(() async {
       await bootApp({...sample(), 'hsk16_theme': '"dark"'}, lang: 'id');
     });
-    await shot(t, 'bct-study', before: () => app.go('bct'));
-    await shot(t, 'bct-study-cards', before: () => app.go('bct'), act: () async {
+    await shot(t, 'bct-study', before: () => app.setStudy('bct'));
+    await shot(t, 'bct-study-cards', before: () => app.setStudy('bct'), act: () async {
       await t.tap(find.text('Kartu'));
       await t.pump(const Duration(milliseconds: 300));
     });
-    await shot(t, 'bct-study-quiz', before: () => app.go('bct'), act: () async {
+    await shot(t, 'bct-study-quiz', before: () => app.setStudy('bct'), act: () async {
       await t.tap(find.text('Kuis'));
       await t.pump(const Duration(milliseconds: 300));
     });

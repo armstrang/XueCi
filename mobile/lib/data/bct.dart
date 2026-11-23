@@ -37,7 +37,9 @@ class BctW {
   final String h, p, s;
   final String b; // the book it belongs to: 'a' or 'b'
   final Map<String, String> t;
-  const BctW(this.h, this.p, this.s, this.t, [this.b = 'b']);
+  final String? z, zp; // an example sentence (the word stands in it) and its pinyin (the word in {})
+  final Map<String, String>? x; // its four translations
+  const BctW(this.h, this.p, this.s, this.t, [this.b = 'b', this.z, this.zp, this.x]);
 }
 
 class BctBank {
@@ -71,7 +73,7 @@ class BctBank {
     var words = <BctW>[];
     try {
       final w = json.decode(await b.loadString('assets/data/bct_words.json')) as List;
-      words = [for (final r in w) BctW(r['h'] as String, r['p'] as String, (r['s'] as String?) ?? '', (r['t'] as Map).cast<String, String>(), (r['b'] as String?) ?? 'b')];
+      words = [for (final r in w) BctW(r['h'] as String, r['p'] as String, (r['s'] as String?) ?? '', (r['t'] as Map).cast<String, String>(), (r['b'] as String?) ?? 'b', r['z'] as String?, r['zp'] as String?, (r['x'] as Map?)?.cast<String, String>())];
     } catch (_) {}
     return BctBank(out, words);
   }

@@ -8,9 +8,11 @@ import 'package:flutter/material.dart';
 
 import '../app/app.dart';
 import '../data/bct.dart';
+import 'bct_stats.dart';
 import 'bct_words.dart';
 import 'focus.dart';
 import 'glass.dart';
+import 'home.dart' show HomeHeader;
 import 'icons.dart';
 import 'theme.dart';
 import 'widgets.dart';
@@ -45,8 +47,8 @@ class StudyPick extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          seg('HSK', !bct, () => app.go('home')),
-          seg('BCT', bct, () => app.go('bct')),
+          seg('HSK', !bct, () => app.setStudy('hsk')),
+          seg('BCT', bct, () => app.setStudy('bct')),
         ],
       ),
     );
@@ -81,6 +83,15 @@ class _BctStudyState extends State<BctStudyScreen> {
   void initState() {
     super.initState();
     app.backHook = _back;
+    // a new rank is told once (the first time only the rank is noted)
+    final r = app.bctInfo.rank, seen = app.note['bctr'];
+    if (seen is! num || seen != r) {
+      app.note['bctr'] = r;
+      app.saveNote();
+      if (seen is num && r > seen) {
+        WidgetsBinding.instance.addPostFrameCallback((_) => app.toast(app.t.brUp(rankMeaning(r)), 3200));
+      }
+    }
   }
 
   @override
@@ -195,18 +206,14 @@ class _BctStudyState extends State<BctStudyScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (mode == 'home')
-                Row(
-                  children: [
-                    Expanded(
-                      child: Semantics(
-                        header: true,
-                        child: Text(t.bsTitle, style: F.s(28, w: FontWeight.w800, c: p.fg, ls: -.5)),
-                      ),
-                    ),
-                    const StudyPick(bct: true),
-                  ],
-                )
+              if (mode == 'home') ...[
+                const HomeHeader(short: false),
+                const SizedBox(height: 16),
+                Semantics(
+                  header: true,
+                  child: Text(t.bsTitle, style: F.s(28, w: FontWeight.w800, c: p.fg, ls: -.5)),
+                ),
+              ]
               else
                 Capsule(title: t.bsBook(app.bctBook.toUpperCase()), onBack: () => setState(() => mode = 'home')),
               const SizedBox(height: 14),
@@ -223,9 +230,6 @@ class _BctStudyState extends State<BctStudyScreen> {
     final p = th.p;
     final t = app.t;
     final ws = _words;
-    final held = ws.where((w) => app.bprog.held(_id(w))).length;
-    final due = ws.where((w) => app.bprog.due(_id(w))).length;
-    final frac = ws.isEmpty ? 0.0 : held / ws.length;
     Widget book(String b) {
       final on = app.bctBook == b;
       final n = app.lm.bct?.wordsOf(b).length ?? 0;
@@ -279,25 +283,7 @@ class _BctStudyState extends State<BctStudyScreen> {
         const SizedBox(height: 14),
         Row(children: [book('a'), const SizedBox(width: 10), book('b')]),
         const SizedBox(height: 14),
-        Glass(
-          radius: 24,
-          padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(t.bsHeld(app.fmt(held), app.fmt(ws.length)), style: F.s(14.5, w: FontWeight.w700, c: p.fg)),
-              const SizedBox(height: 8),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(99),
-                child: LinearProgressIndicator(value: frac, minHeight: 8, backgroundColor: p.sunk, valueColor: AlwaysStoppedAnimation(th.acc)),
-              ),
-              if (due > 0) ...[
-                const SizedBox(height: 8),
-                Text(t.bsDue(app.fmt(due)), style: F.s(12.5, w: FontWeight.w600, c: p.mute)),
-              ],
-            ],
-          ),
-        ),
+        const BctRankCard(),
         const SizedBox(height: 14),
         Row(
           children: [
@@ -306,6 +292,17 @@ class _BctStudyState extends State<BctStudyScreen> {
             tile(t.card, Icon2(I.cards, size: 22, color: th.acc, width: 1.9), _startCards),
             const SizedBox(width: 10),
             tile(t.quiz, Icon2(I.quiz, size: 22, color: th.acc, width: 1.9), _startQuiz),
+            const SizedBox(width: 10),
+            tile(
+              t.gram,
+              MediaQuery.withNoTextScaling(
+                child: Text('语', locale: const Locale('zh', 'CN'), style: F.s(21, w: FontWeight.w800, c: th.acc, family: F.zh, h: 1.05)),
+              ),
+              () {
+                app.gramBook = 'bct';
+                app.go('grammar');
+              },
+            ),
           ],
         ),
         const SizedBox(height: 14),
@@ -363,9 +360,15 @@ class _BctStudyState extends State<BctStudyScreen> {
                 const SizedBox(height: 10),
                 Spk(w.h, size: 40),
                 const SizedBox(height: 18),
-                if (flipped)
-                  Text(_m(w), textAlign: TextAlign.center, style: F.s(21, w: FontWeight.w800, c: th.acc, h: 1.3))
-                else
+                if (flipped) ...[
+                  Text(_m(w), textAlign: TextAlign.center, style: F.s(21, w: FontWeight.w800, c: th.acc, h: 1.3)),
+                  if (w.z != null) ...[
+                    const SizedBox(height: 16),
+                    Divider(height: 1, thickness: 1, color: p.line),
+                    const SizedBox(height: 14),
+                    BctExample(w),
+                  ],
+                ] else
                   Text(t.bsFlip, style: F.s(13.5, c: p.mute)),
               ],
             ),

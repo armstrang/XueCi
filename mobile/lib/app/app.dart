@@ -23,6 +23,7 @@ import '../engine/js.dart';
 import '../engine/learn.dart';
 import '../i18n/l10.dart';
 import 'bct_prog.dart';
+import 'bct_rank.dart';
 import 'grammar.dart';
 import 'hskk.dart';
 import 'mastery.dart';
@@ -249,6 +250,10 @@ class App extends ChangeNotifier {
   String? mockSec; // BCT practice: only this section (listen / read / write), null = the whole paper
   String spk = 'n'; // speaking practice: e easy, n normal, h hard
   int hkLv = 1; // HSKK: the level last chosen (1 Dasar, 2 Menengah, 3 Lanjutan)
+  String study = 'hsk'; // the study path chosen on Home: 'hsk' or 'bct' (v1.12, Josh: one switch for the whole app)
+  bool get bctMode => study == 'bct';
+  /// the BCT rank and numbers (own statistics, apart from the HSK realm)
+  BctRankInfo get bctInfo => memo('bctinfo', () => bctRankInfo(bprog, lm.bct, lm.mocks));
   String gramBook = 'h3'; // the grammar book shown: h3 HSK 3.0, h2 HSK 2.0, bct, yct (v1.8)
   String theme = 'auto';
   String fxPref = 'full'; // Josh: glassy by default; auto and low stay in Settings
@@ -266,6 +271,7 @@ class App extends ChangeNotifier {
     if (bgm != 1) 'bgm': bgm,
     if (hkLv != 1) 'hk': hkLv,
     if (gramBook != 'h3') 'gb': gramBook,
+    if (study != 'hsk') 'sm': study,
   });
   void saveNote() => store.set('xc_note', note);
 
@@ -287,6 +293,7 @@ class App extends ChangeNotifier {
       final hk = ui['hk'];
       if (hk is num && hkLevels.contains(hk.toInt())) hkLv = hk.toInt();
       if (gramBooks.contains(ui['gb'])) gramBook = ui['gb'] as String; // a book without points: see _initGram
+      if (ui['sm'] == 'bct') study = 'bct';
       final b = ui['bgm'];
       if (b is num && b >= 0 && b <= 3) bgm = b.toInt();
     }
@@ -546,6 +553,9 @@ class App extends ChangeNotifier {
     } catch (_) {
       gram = null;
     }
+    if (study == 'bct') {
+      if (lm.bct == null) study = 'hsk';
+    }
     final g = gram;
     if (g != null) {
       if (g.levelsOf(gramBook).isEmpty) gramBook = 'h3';
@@ -588,7 +598,27 @@ class App extends ChangeNotifier {
   // ---------------------------------------------------------------- navigation
   final List<VoidCallback> beforeShow = [];
   late final Runner runner = Runner(this);
+  /// the HSK | BCT switch: Home, the list, cards, quiz and grammar follow it; Tests stays, HSKK goes
+  void setStudy(String m) {
+    if (m != 'bct') m = 'hsk';
+    if (m == 'bct' && lm.bct == null) return;
+    if (study == m) return;
+    study = m;
+    if (m == 'bct') {
+      gramBook = 'bct';
+    } else if (gramBook == 'bct') {
+      gramBook = 'h3';
+    }
+    saveUI();
+    if (screen == 'hskk') {
+      go('home');
+    } else {
+      notifyListeners();
+    }
+  }
+
   void go(String s) {
+    if (s == 'hskk' && bctMode) s = 'home';
     if (s == 'stats' && screen != 'stats') prevScreen = screen;
     for (final f in beforeShow) {
       f();

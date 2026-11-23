@@ -22,6 +22,13 @@ Test builds before a release are published as pre-releases v1.0-alpha-N.
   import and export, logistics, contracts and law, marketing and sales, HR, manufacturing and quality, IT and
   e-commerce, real estate, meetings and letters, the economy, idioms and formal written Chinese, with pinyin and the
   meaning in four languages. The app fonts got 35 more characters for them.
+- **HSK | BCT switch.** The switch on Home now changes the whole app. In BCT mode the study tab shows business words,
+  and the HSKK tab melts away like a drop of water joining the others while Tests stays. Switch back and everything
+  returns. Your choice is remembered.
+- **BCT rank.** BCT has its own ladder: 实习, 职员, 主管, 经理 and 董事, based on the business words you hold and your
+  BCT practice and mock results. It has its own statistics page, separate from your HSK realm.
+- **Example sentences for all BCT words.** Each of the 4,579 BCT words now has a short example sentence with pinyin
+  and a translation in four languages, on the card and in the word list.
 - **Tests tab.** The page is only for exams now. Simulasi HSK starts with a page where you choose HSK 1–6 (your level
   is marked), the confusing "Unit" button is gone there, BCT A and B practice are one card where you choose A or B,
   and the business word list moved to the BCT page.

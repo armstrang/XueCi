@@ -324,7 +324,7 @@ class HomeHeader extends StatelessWidget {
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 6),
-                child: FittedBox(fit: BoxFit.scaleDown, child: StudyPick(bct: false)),
+                child: FittedBox(fit: BoxFit.scaleDown, child: StudyPick(bct: app.bctMode)),
               ),
             ),
           ),

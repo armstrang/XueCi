@@ -2,13 +2,16 @@
 library;
 
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import '../app/app.dart';
+import '../app/bct_rank.dart';
 import '../app/native.dart';
+import 'bct_study.dart';
 import 'exam.dart';
 import 'fx.dart';
 import 'glass.dart';
@@ -220,7 +223,7 @@ class _ShellState extends State<Shell> {
                       ),
                     ),
                     child: RepaintBoundary(
-                      key: ValueKey(s == 'list' || focusScreens.contains(s) ? 'f:$s' : s),
+                      key: ValueKey(s == 'list' || focusScreens.contains(s) ? 'f:$s' : (s == 'home' && app.bctMode ? 'home:bct' : s)),
                       child: screenFor(s),
                     ),
                   ),
@@ -250,7 +253,7 @@ class _ShellState extends State<Shell> {
 }
 
 Widget screenFor(String s) => switch (s) {
-  'home' => const HomeScreen(),
+  'home' => app.bctMode ? const BctStudyScreen() : const HomeScreen(),
   'stats' => const StatsScreenHost(),
   'soul' => const SoulScreenHost(),
   'hskk' => const HskkScreen(),
@@ -273,27 +276,64 @@ void back(BuildContext context) {
 /// the tab bar (v1.4, like Gala's): a frosted capsule with HSK (Home with List, Cards and Quiz), HSKK (speaking) and
 /// Tests, each an icon over its name with a glass lens under the open one; beside it, apart, a round orb for the Soul
 /// Sea in the realm's colour, breathing slowly
-class TabBar2 extends StatelessWidget {
+class TabBar2 extends StatefulWidget {
   const TabBar2({super.key});
   static const tabs = ['home', 'hskk', 'exam'];
   static const height = 64.0;
 
   /// the tab a screen belongs to (List, Cards and Quiz live under HSK)
   static int tabOf(String s) => switch (s) {
-    'home' || 'list' || 'card' || 'quiz' || 'grammar' || 'bct' => 0,
+    'home' || 'list' || 'card' || 'quiz' || 'grammar' || 'bct' || 'bctstats' => 0,
     'hskk' => 1,
     'exam' => 2,
     _ => -1,
   };
 
   @override
+  State<TabBar2> createState() => _TabBar2State();
+}
+
+/// v1.12 (Josh): in BCT mode the HSKK tab goes away and Tests stays. The middle tab is a drop of water that
+/// pinches off and rises away while the two sides flow together (and back again for HSK).
+class _TabBar2State extends State<TabBar2> with SingleTickerProviderStateMixin {
+  static const tabs = TabBar2.tabs;
+  static const height = TabBar2.height;
+  late final AnimationController _a = AnimationController(vsync: this, duration: const Duration(milliseconds: 620));
+  bool _bct = app.bctMode;
+
+  @override
+  void initState() {
+    super.initState();
+    _a.value = _bct ? 1 : 0;
+    app.addListener(_onApp);
+  }
+
+  void _onApp() {
+    if (app.bctMode == _bct) return;
+    _bct = app.bctMode;
+    if (!mounted) return;
+    if (MediaQuery.of(context).disableAnimations) {
+      _a.value = _bct ? 1 : 0;
+    } else {
+      _a.animateTo(_bct ? 1 : 0, curve: Curves.easeInOutCubic);
+    }
+  }
+
+  @override
+  void dispose() {
+    app.removeListener(_onApp);
+    _a.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final names = [t.tabHsk, t.tabHskk, t.tabExam];
+    final names = [_bct ? t.tabBct : t.tabHsk, t.tabHskk, t.tabExam];
     const icons = [I.cards, I.mic, I.qExam];
-    final cur = tabOf(app.screen);
+    final cur = TabBar2.tabOf(app.screen);
     final bottom = MediaQuery.paddingOf(context).bottom;
     final w = MediaQuery.sizeOf(context).width;
     final barW = (w - 28).clamp(0, 460).toDouble();
@@ -313,55 +353,103 @@ class TabBar2 extends StatelessWidget {
                 child: Semantics(
                   container: true,
                   label: t.modesL,
-                  child: Glass(
-                    radius: 999,
-                    frost: true,
-                    shadow: shadow,
-                    child: Compact(
-                      max: 1.1,
-                      child: LensRow(
-                        count: tabs.length,
-                        selected: cur,
-                        height: height,
-                        padding: const EdgeInsets.all(5),
-                        onSelect: (i) => app.go(tabs[i]),
-                        lens: (c, sel, drag) => sel < 0 ? const SizedBox() : TabLens(lc: th.acc),
-                        item: (c, i, on) {
-                          final col = on ? th.acc : p.soft;
-                          return Press(
-                            onTap: () {
-                              if (app.screen == tabs[i]) {
-                                app.scrollTop++;
-                                app.changed();
-                              } else {
-                                app.go(tabs[i]);
-                              }
-                            },
-                            scale: .9,
-                            label: names[i],
-                            selected: on,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 2),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon2(icons[i], size: 23, color: col, width: on ? 2.1 : 1.9),
-                                  const SizedBox(height: 3),
-                                  FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text(
-                                      names[i],
-                                      maxLines: 1,
-                                      style: F.s(10.5, w: on ? FontWeight.w800 : FontWeight.w600, c: col, ls: -.1),
+                  child: AnimatedBuilder(
+                    animation: _a,
+                    builder: (context, _) {
+                      final k = _a.value; // 0 HSK .. 1 BCT
+                      return LayoutBuilder(
+                        builder: (context, bc) {
+                          final full = bc.maxWidth;
+                          final pillW = full * (3 - k) / 3;
+                          // a faint squeeze while the water moves
+                          final sq = 1 - .05 * math.sin(math.pi * k);
+                          return Stack(
+                            alignment: Alignment.center,
+                            clipBehavior: Clip.none,
+                            children: [
+                              if (k > 0 && k < 1)
+                                Positioned.fill(
+                                  child: IgnorePointer(
+                                    child: CustomPaint(painter: _DropPainter(k, height, p.dark, pillW)),
+                                  ),
+                                ),
+                              Transform.scale(
+                                scaleY: sq,
+                                scaleX: 1 + .02 * math.sin(math.pi * k),
+                                child: SizedBox(
+                                  width: pillW,
+                                  height: height,
+                                  child: Glass(
+                                    radius: 999,
+                                    frost: true,
+                                    shadow: shadow,
+                                    child: Compact(
+                                      max: 1.1,
+                                      child: LensRow(
+                                        count: tabs.length,
+                                        selected: cur,
+                                        height: height,
+                                        padding: const EdgeInsets.all(5),
+                                        widths: (total, sel) {
+                                          final u = total / (3 - k);
+                                          return [u, u * (1 - k), u];
+                                        },
+                                        onSelect: (i) {
+                                          if (i == 1 && _bct) return;
+                                          app.go(tabs[i]);
+                                        },
+                                        lens: (c, sel, drag) => sel < 0 ? const SizedBox() : TabLens(lc: th.acc),
+                                        item: (c, i, on) {
+                                          final col = on ? th.acc : p.soft;
+                                          final gone = i == 1;
+                                          return Opacity(
+                                            opacity: gone ? (1 - k * 1.6).clamp(0.0, 1.0) : 1,
+                                            child: ClipRect(
+                                              child: Press(
+                                                onTap: () {
+                                                  if (gone && _bct) return;
+                                                  if (app.screen == tabs[i]) {
+                                                    app.scrollTop++;
+                                                    app.changed();
+                                                  } else {
+                                                    app.go(tabs[i]);
+                                                  }
+                                                },
+                                                scale: .9,
+                                                label: gone && _bct ? '' : names[i],
+                                                selected: on,
+                                                child: Padding(
+                                                  padding: const EdgeInsets.symmetric(horizontal: 2),
+                                                  child: Column(
+                                                    mainAxisAlignment: MainAxisAlignment.center,
+                                                    children: [
+                                                      Icon2(icons[i], size: 23, color: col, width: on ? 2.1 : 1.9),
+                                                      const SizedBox(height: 3),
+                                                      FittedBox(
+                                                        fit: BoxFit.scaleDown,
+                                                        child: Text(
+                                                          names[i],
+                                                          maxLines: 1,
+                                                          style: F.s(10.5, w: on ? FontWeight.w800 : FontWeight.w600, c: col, ls: -.1),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
                           );
                         },
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ),
               ),
@@ -373,6 +461,49 @@ class TabBar2 extends StatelessWidget {
       ),
     );
   }
+}
+
+/// the drop of water that pinches off the middle of the bar and rises away (k 0 → 1), or falls back in (1 → 0)
+class _DropPainter extends CustomPainter {
+  final double k, h;
+  final bool dark;
+  final double pillW;
+  _DropPainter(this.k, this.h, this.dark, this.pillW);
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final cx = size.width / 2;
+    final top = (size.height - h) / 2; // the pill's top edge
+    final r = (h * .44) * (1 - math.pow(k, 1.6));
+    if (r < .5) return;
+    final rise = h * .66 * Curves.easeOut.transform(k);
+    final cy = top + h * .5 - rise;
+    final a = (1 - k).clamp(0.0, 1.0);
+    final fill = Paint()..color = Color.fromRGBO(255, 255, 255, (dark ? .34 : .75) * (.3 + .7 * a));
+    final rim = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 1
+      ..color = Color.fromRGBO(255, 255, 255, (dark ? .55 : .95) * (.4 + .6 * a));
+    // the neck: a waist from the pill's top edge up to the drop, thinner as it rises
+    final neck = r * .8 * (1 - k * .8);
+    final path = Path()
+      ..addOval(Rect.fromCircle(center: Offset(cx, cy), radius: r));
+    if (k < .55 && neck > .6) {
+      final y0 = top + 2, y1 = cy;
+      final n = Path()
+        ..moveTo(cx - r * .9, y1 + r * .2)
+        ..quadraticBezierTo(cx - neck, (y0 + y1) / 2, cx - r * 1.4, y0)
+        ..lineTo(cx + r * 1.4, y0)
+        ..quadraticBezierTo(cx + neck, (y0 + y1) / 2, cx + r * .9, y1 + r * .2)
+        ..close();
+      path.addPath(n, Offset.zero);
+    }
+    canvas.drawPath(path, fill);
+    canvas.drawPath(path, rim);
+  }
+
+  @override
+  bool shouldRepaint(_DropPainter o) => o.k != k || o.dark != dark || o.pillW != pillW;
 }
 
 /// the Soul Sea button beside the tab bar: the realm's red seal (see _SoulStampState)
@@ -397,14 +528,16 @@ class _SoulStampState extends State<SoulOrbButton> with SingleTickerProviderStat
   }
 
   static const red = Color(0xFFD9432F), redDeep = Color(0xFFB3261E), ink = Color(0xFFFFF4EA);
+  static const gold1 = Color(0xFF9A6410), gold2 = Color(0xFF724608); // the BCT rank's seal
 
   @override
   Widget build(BuildContext context) {
     final th = Th.of(context);
     final t = app.t;
-    final on = app.screen == 'soul';
-    final r = app.lm.realm();
-    final name = r >= 0 && r < app.rn.length ? app.rn[r] : app.rn.first;
+    final bct = app.bctMode;
+    final on = app.screen == (bct ? 'bctstats' : 'soul');
+    final r = bct ? 100 + app.bctInfo.rank : app.lm.realm();
+    final name = bct ? BctRank.names[app.bctInfo.rank] : (r >= 0 && r < app.rn.length ? app.rn[r] : app.rn.first);
     if (_shown != null && _shown != r) {
       _a.forward(from: 0);
     }
@@ -421,9 +554,9 @@ class _SoulStampState extends State<SoulOrbButton> with SingleTickerProviderStat
         height: w,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(w * .2),
-          gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: [red, redDeep]),
+          gradient: LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, colors: bct ? const [gold1, gold2] : const [red, redDeep]),
           border: on ? Border.all(color: th.p.gold, width: 2) : null,
-          boxShadow: th.low ? const [] : [BoxShadow(color: redDeep.withValues(alpha: th.p.dark ? .55 : .35), blurRadius: 18, offset: const Offset(0, 6), spreadRadius: -4)],
+          boxShadow: th.low ? const [] : [BoxShadow(color: (bct ? gold2 : redDeep).withValues(alpha: th.p.dark ? .55 : .35), blurRadius: 18, offset: const Offset(0, 6), spreadRadius: -4)],
         ),
         alignment: Alignment.center,
         padding: EdgeInsets.all(w * .07),
@@ -447,11 +580,11 @@ class _SoulStampState extends State<SoulOrbButton> with SingleTickerProviderStat
           app.scrollTop++;
           app.changed();
         } else {
-          app.go('soul');
+          app.go(bct ? 'bctstats' : 'soul');
         }
       },
       scale: .92,
-      label: '${t.tabSoul} · $name',
+      label: '${bct ? t.bstTitle : t.tabSoul} · $name',
       selected: on,
       child: RepaintBoundary(
         child: SizedBox(

@@ -196,6 +196,42 @@ def main():
                 print(f'check pinyin {where}: {h} {py} (pypinyin: {" ".join(lazy_pinyin(h, style=Style.TONE))})')
             words.append({'h': h, 'p': py, 's': sec, 'b': bk, 't': {'id': idt, 'en': en, 'th': th, 'vi': vi}})
         print(f'words {bk}: {sum(1 for w in words if w["b"] == bk)}')
+    # one example sentence per word: ex-a.txt / ex-b.txt, `hanzi | sentence | id | en | th | vi` (the word stands in it)
+    byh = {w['h']: w for w in words}
+    for fn in ('ex-a.txt', 'ex-b.txt'):
+        epath = os.path.join(ROOT, 'content', 'bct', fn)
+        if not os.path.exists(epath):
+            continue
+        for ln, line in enumerate(open(epath, encoding='utf8').read().split('\n'), 1):
+            line = line.strip()
+            if not line or line.startswith('#'):
+                continue
+            where = f'{fn}:{ln}'
+            f = [x.strip() for x in line.split(' | ')]
+            if len(f) != 6 or not all(f):
+                problems.append(f'{where}: want 6 filled fields')
+                continue
+            h, z, idt, en, th, vi = f
+            w = byh.get(h)
+            if w is None:
+                problems.append(f'{where}: {h} is not a BCT word')
+                continue
+            if 'z' in w:
+                problems.append(f'{where}: {h} has an example already')
+                continue
+            if h not in z:
+                problems.append(f'{where}: {h} does not stand in its sentence')
+                continue
+            if not z.endswith(('。', '？', '！')):
+                problems.append(f'{where}: no final punctuation')
+            for ch in set(HAN.findall(z)):
+                if ch not in CHARSET:
+                    problems.append(f'{where}: {ch} is not in the font subset')
+            w['z'] = z
+            w['zp'] = sp.read_sentence(z, h, vocab)
+            w['x'] = {'id': idt, 'en': en, 'th': th, 'vi': vi}
+    have = sum(1 for w in words if 'z' in w)
+    print(f'examples: {have} of {len(words)} words')
     if problems:
         print('\n'.join(problems[:60]))
         print(f'{len(problems)} problems')

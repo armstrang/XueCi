@@ -8,6 +8,7 @@ import '../app/native.dart';
 import '../i18n/l10.dart' show jsTruthy;
 import 'dart:async';
 
+import 'bct_stats.dart';
 import 'bct_study.dart';
 import 'donate.dart';
 import 'focus.dart';
@@ -48,6 +49,7 @@ class FocusScreenHost extends StatelessWidget {
     'bt' => const TribScreen(),
     'grammar' => const GrammarScreen(),
     'bct' => const BctStudyScreen(),
+    'bctstats' => const BctStatsScreen(),
     _ => const SizedBox(),
   };
 }

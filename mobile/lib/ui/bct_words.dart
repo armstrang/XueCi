@@ -8,6 +8,7 @@ import '../app/app.dart';
 import '../data/bct.dart';
 import 'glass.dart';
 import 'sheet.dart';
+import 'word_ui.dart' show Spk;
 import 'theme.dart';
 
 void openBctWords(BuildContext context, [String book = 'b']) => openSheet(context, name: 'bctwords', (c) => _Words(book));
@@ -120,10 +121,76 @@ class _WordsState extends State<_Words> {
                       ],
                     ),
                   ),
-                  Expanded(child: Text(_m(shown[i]), style: F.s(14.5, c: p.soft, h: 1.4))),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(_m(shown[i]), style: F.s(14.5, c: p.soft, h: 1.4)),
+                        if (shown[i].z != null) ...[const SizedBox(height: 6), BctExample(shown[i], small: true)],
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
+      ],
+    );
+  }
+}
+
+/// the example sentence of a BCT word: the sentence (the word in the accent colour), its pinyin and the
+/// translation in the study language, with a speaker
+class BctExample extends StatelessWidget {
+  final BctW w;
+  final bool small;
+  const BctExample(this.w, {super.key, this.small = false});
+
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final p = th.p;
+    final z = w.z;
+    if (z == null) return const SizedBox.shrink();
+    final i = z.indexOf(w.h);
+    final tr = w.x?[app.lang] ?? w.x?['en'] ?? w.x?['id'] ?? '';
+    final zs = small ? 15.0 : 19.0;
+    final base = F.s(zs, family: F.hz, w: FontWeight.w600, c: p.fg, h: 1.45);
+    return Column(
+      crossAxisAlignment: small ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Flexible(
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(text: i < 0 ? z : z.substring(0, i)),
+                    if (i >= 0) TextSpan(text: w.h, style: TextStyle(color: th.acc, fontWeight: FontWeight.w800)),
+                    if (i >= 0) TextSpan(text: z.substring(i + w.h.length)),
+                  ],
+                ),
+                textAlign: small ? TextAlign.start : TextAlign.center,
+                style: base,
+              ),
+            ),
+            const SizedBox(width: 6),
+            Spk(z, size: small ? 26 : 32),
+          ],
+        ),
+        if (w.zp != null) ...[
+          const SizedBox(height: 2),
+          Text(
+            w.zp!.replaceAll(RegExp('[{}]'), ''),
+            textAlign: small ? TextAlign.start : TextAlign.center,
+            style: F.s(small ? 12 : 13.5, c: p.mute, h: 1.35),
+          ),
+        ],
+        if (tr.isNotEmpty) ...[
+          const SizedBox(height: 3),
+          Text(tr, textAlign: small ? TextAlign.start : TextAlign.center, style: F.s(small ? 13 : 15, c: p.soft, h: 1.4)),
+        ],
       ],
     );
   }
