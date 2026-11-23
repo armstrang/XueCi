@@ -105,3 +105,18 @@ Status: **hampir, belum lulus.** F1 uji buta resmi 89,4 % (target ≥ 90 %). Bel
 - Penilai independen untuk batas atas akibat label tidak konsisten.
 - Rekaman suara Josh (±30) sebagai uji pengenal suara asli di HP.
 - Mock di artifact masih versi ronde 1.
+
+## Round 4 (uji buta keempat, 510 ucapan, STRICT, diukur sekali)
+Model dilatih ulang pada train5_all (12.890 baris: train3 + blind3 + 1.200 data presisi tulis tangan), 911 KB.
+Set buta 4 (penulis H/I/J, aturan SPEC_v4) tidak dipakai untuk melatih.
+
+| | Presisi | Perolehan | F1 |
+|---|---|---|---|
+| Model ronde 4 | 85,5 | 92,0 | **88,7** |
+| Model ronde 3 (di set yang sama) | 83,6 | 90,9 | 87,1 |
+| Aturan saja | 83,0 | 69,4 | 75,6 |
+| Model ronde 4 + derau | 87,1 | 87,8 | 87,5 |
+
+Tepat seluruhnya 79,2 %; negasi tertangkap 76,5 % (dari 51); salah terima di ucapan sulit 19,1 %; slot pct 91,7 %, when 87,7 %, reason 81,3 %; 0,83 ms/ucapan.
+Salah terima terbanyak: deny_fault (14), cause (14), promise_time (11). Set ini lebih sulit (sengaja berisi pasangan minimal), jadi 88,7 tidak sebanding langsung dengan 89,4 di blind3; perbandingan yang adil adalah baris model ronde 3 di set yang sama (+1,6 poin).
+Belum diuji: ucapan hasil pengenal suara sungguhan.
