@@ -1,0 +1,271 @@
+##### STRICT model+rules
+== blind3_all.jsonl: 510 ucapan
+presisi 86.7%  perolehan 92.3%  F1 89.4%  (tp 491 fp 75 fn 41, opsional 6)
+ucapan tepat seluruhnya 81.0%
+negasi (bingkai -) tertangkap 88.9% dari 54
+salah terima di ucapan sulit 17.3% dari 150
+slot pct 80.0% (25)  when 86.3% (80)  reason 78.7% (61)
+zona konfirmasi 60 bingkai; waktu 0.86 ms/ucapan
+  acknowledge    tp  22 fp   7 fn   6
+  agree          tp  23 fp   6 fn   0
+  apologize      tp  53 fp   3 fn   2
+  ask_deadline   tp  15 fp   1 fn   0
+  ask_order      tp  18 fp   0 fn   0
+  cause          tp  61 fp  11 fn   4
+  closing        tp  18 fp   2 fn   0
+  compensate     tp  52 fp  12 fn  11
+  deny_fault     tp  15 fp  10 fn   4
+  discount       tp  44 fp   3 fn   1
+  expedite       tp  31 fp   2 fn   3
+  greet          tp  18 fp   1 fn   3
+  promise_time   tp  49 fp   4 fn   3
+  refuse         tp  15 fp   0 fn   0
+  resend         tp  40 fp  13 fn   4
+  thanks         tp  17 fp   0 fn   0
+
+E 对不起啊，货慢了，我们真的不好意思。
+    kurang [] lebih [acknowledge+] mesin [apologize+(1.00 «对不起»), acknowledge+(0.71 «·»)]
+E 您想我们补发，还是退钱？
+    kurang [] lebih [resend+] mesin [resend+(1.00 «补发»)]
+E 您的单子我看到了，晚了很久，我明白您生气。
+    kurang [acknowledge+] lebih [] mesin []
+E 给您送一个小礼物当赔罪。
+    kurang [] lebih [apologize+] mesin [apologize+(0.76 «·»), compensate+(1.00 «小礼物»)]
+E 九五折，补偿您。
+    kurang [] lebih [compensate+] mesin [discount+(1.00 pct=5 «九五折»), compensate+(0.98 «补偿»)]
+E 哎呀，抱歉，晚点到。
+    kurang [] lebih [promise_time+] mesin [apologize+(1.00 «抱歉»), promise_time+(0.79 «·»)]
+E 不能加急，因为已经在海上了。
+    kurang [] lebih [cause+] mesin [cause+(0.85 «·»), expedite-(1.00 «加急»)]
+E 给您抹零，再减十块，当赔礼。
+    kurang [] lebih [compensate+,closing+] mesin [discount+(0.99 «抹零»), compensate+(0.90 «·»), closing+(0.71 «再减»)]
+E 那我们打八折吧，补偿您。
+    kurang [] lebih [compensate+] mesin [discount+(0.99 pct=20 «打八折»), compensate+(0.95 «补偿»)]
+E 如果您不要了，我们可以全部退。
+    kurang [compensate+] lebih [] mesin []
+E 假如您愿意再等两天，我们送一条围巾。
+    kurang [compensate+] lebih [] mesin []
+E 没有说不发货，只是晚一点。
+    kurang [resend+] lebih [] mesin []
+E 不是我们不想赔，是系统还没批。
+    kurang [compensate+] lebih [cause+,compensate-] mesin [cause+(0.94 reason=other «系统»), compensate-(0.82 «·»)]
+E 昨天晚上下大雨，我家都淹了。
+    kurang [] lebih [cause+] mesin [cause+(0.83 reason=weather «大雨»)]
+E 这个不关我们的事，快递自己丢了。
+    kurang [] lebih [acknowledge+] mesin [acknowledge+(0.65 «·»), cause+(0.99 reason=logistics «快递»), deny_fault+(0.95 «·»)]
+E 不是我们不发，是那边卡车罢工。
+    kurang [] lebih [deny_fault+] mesin [cause+(1.00 reason=logistics «卡车»), deny_fault+(0.96 «·»)]
+E 我们做不到十点前送到，太早。
+    kurang [promise_time-] lebih [] mesin [refuse+(0.90 «做不到»)]
+E 优惠没有，赠品有。
+    kurang [compensate+] lebih [compensate-] mesin [discount-(0.98 «优惠»), compensate-(0.99 «·»)]
+E 谁说我们不管？我们当然负责。
+    kurang [acknowledge+] lebih [deny_fault+] mesin [deny_fault+(0.78 «·»)]
+E 您讲得对，货迟到，我们要负责。
+    kurang [] lebih [deny_fault+] mesin [acknowledge+(0.81 «·»), deny_fault+(0.71 «·»)]
+E 感谢，感谢，还请您再给一次机会。
+    kurang [] lebih [closing+] mesin [thanks+(1.00 «感谢»), closing+(0.75 «·»)]
+E 好想吃芒果糯米饭啊，你吃过吗？
+    kurang [] lebih [agree+] mesin [agree+(0.80 «·»)]
+E 要不是海关，早就到了。
+    kurang [] lebih [cause+] mesin [cause+(1.00 reason=customs «海关»)]
+E 全部免费寄，快递钱我出。
+    kurang [compensate+] lebih [resend+] mesin [resend+(0.84 «·»)]
+E 那个钱我会还给您的，三个工作日。
+    kurang [compensate+] lebih [] mesin []
+E 我让司机今天晚上连夜送过去。
+    kurang [promise_time+] lebih [] mesin [expedite+(0.93 when=today «·»)]
+E 一个星期以后才有，不好意思。
+    kurang [promise_time+] lebih [] mesin [apologize+(1.00 «不好意思»)]
+E 哈哈，又是我，不好意思又打扰您。
+    kurang [] lebih [greet+,acknowledge+] mesin [greet+(0.63 «·»), apologize+(1.00 «不好意思»), acknowledge+(0.70 «·»)]
+E 你的货被我同事放错地方，哎呀。
+    kurang [acknowledge+] lebih [cause+] mesin [cause+(0.86 «·»)]
+E 我们一直都有联系快递，天天追。
+    kurang [] lebih [cause+,deny_fault+] mesin [cause+(0.70 reason=logistics «快递»), deny_fault+(0.79 «·»)]
+F 真的不好意思，这单落单之后一直压货，是我们没跟好
+    kurang [cause+] lebih [] mesin [apologize+(1.00 «不好意思»), acknowledge+(1.00 «·»)]
+F 货在海关那边卡了三天，不是我们不发
+    kurang [] lebih [resend+] mesin [cause+(1.00 reason=customs «海关»), deny_fault+(0.97 «·»), resend+(0.69 «不发»)]
+F 我们可以加急处理，明天就安排优先出货
+    kurang [] lebih [resend+] mesin [resend+(0.79 when=tomorrow «·»), expedite+(1.00 «加急»)]
+F 我们绝对不是不想快点发，是厂那边没出货
+    kurang [deny_fault+] lebih [resend+] mesin [cause+(0.92 «·»), resend+(0.92 «·»)]
+F 您要的话，明天早上跟进完我就帮您换顺丰
+    kurang [] lebih [resend+] mesin [resend+(0.77 when=tomorrow «·»), expedite+(0.97 when=tomorrow «换顺丰»)]
+F 嗯，那个，就是，我们这边仓库真的爆单
+    kurang [] lebih [acknowledge+] mesin [acknowledge+(0.95 «·»), cause+(0.62 «·»)]
+F 我们不是不想送，是真的缺货，三天内补返
+    kurang [deny_fault+,resend+] lebih [] mesin [cause+(0.98 reason=stock «缺货»)]
+F 本来想今天发，但是供应商那边晚了
+    kurang [] lebih [resend-] mesin [cause+(1.00 «·»), resend-(0.77 when=today «今天发»)]
+F 好，那我们周一再发一份，可以吗
+    kurang [] lebih [agree+] mesin [resend+(1.00 when=monday «再发一»), agree+(0.96 «好»)]
+F 您说货没到，我这边显示是昨天签收
+    kurang [] lebih [deny_fault+] mesin [deny_fault+(0.65 «·»)]
+F 好的好的，谢谢您的耐心
+    kurang [] lebih [agree+] mesin [agree+(0.90 «好的好的»), thanks+(1.00 «谢谢»)]
+F 补偿这块，我们会送您一份小礼物，随货一起寄
+    kurang [] lebih [resend+] mesin [resend+(0.83 «·»), compensate+(1.00 «小礼物»)]
+F 您讲得对，我们这边食货太慢
+    kurang [cause+] lebih [] mesin [acknowledge+(0.85 «·»)]
+F 您落单的时候我们已经讲过要五天
+    kurang [deny_fault+] lebih [] mesin []
+F 加急费我们出，货后天到
+    kurang [] lebih [resend+] mesin [resend+(0.64 when=dayafter «·»), expedite+(0.98 when=dayafter «·»), promise_time+(1.00 when=dayafter «后天到»)]
+F 实在没办法，今天一定发不了
+    kurang [] lebih [resend-] mesin [resend-(0.88 when=today «发不了»), refuse+(0.73 «·»)]
+F 要不要我送您一张优惠券？
+    kurang [] lebih [compensate+] mesin [compensate+(0.90 «·»)]
+F 您想不想我们免运费补发？
+    kurang [] lebih [resend+,compensate+] mesin [resend+(0.97 «·»), compensate+(0.66 «·»)]
+F 您刚才说我们态度不好，这点我接受
+    kurang [acknowledge+] lebih [] mesin []
+F 客服之前跟您讲今天到？那是他搞错了，其实周四
+    kurang [acknowledge+] lebih [] mesin [promise_time+(0.99 when=today «·»)]
+F 您的货已经在派送了，快递员说下午到
+    kurang [] lebih [promise_time+] mesin [promise_time+(0.99 «下午到»)]
+F 我不是说不赔，只是要先走流程
+    kurang [] lebih [compensate+] mesin [compensate+(0.80 «·»)]
+F 我不是不道歉，我昨天已经道歉过了
+    kurang [] lebih [apologize+] mesin [apologize+(0.94 «道歉»)]
+F 就这样，没问题的话我先挂了
+    kurang [] lebih [agree+] mesin [agree+(0.86 «没问题»), closing+(0.94 «·»)]
+F 如果您同意，我们周四前送到，再送一份赠品
+    kurang [] lebih [resend+] mesin [resend+(0.83 «再送一»), promise_time+(0.99 when=thursday «周四前送到»), compensate+(0.81 «再送一»)]
+F 您说要赔钱？这个公司规定不允许
+    kurang [] lebih [compensate-] mesin [compensate-(0.77 «·»), refuse+(0.95 «·»)]
+F 退款我们不做，只能补发
+    kurang [compensate-] lebih [compensate+] mesin [resend+(1.00 «补发»), compensate+(0.68 «退款»)]
+F 我们不发了？没有，我们一直在发
+    kurang [] lebih [deny_fault+] mesin [deny_fault+(0.65 «·»)]
+F 这不是我们的责任，是客户自己填错地址
+    kurang [cause+] lebih [] mesin [deny_fault+(1.00 «不是我们的责任»)]
+F 发您一个红包赔罪
+    kurang [apologize+] lebih [] mesin [compensate+(1.00 «红包»)]
+F 这单我们免单
+    kurang [compensate+] lebih [] mesin []
+F 打个七折，行吗
+    kurang [] lebih [discount+] mesin [discount+(0.99 pct=30 «打个七折»)]
+F 您说想要折扣是吧，没问题，给您九折
+    kurang [] lebih [agree+] mesin [discount+(1.00 pct=10 «九折»), agree+(1.00 «没问题»)]
+F 好的，您说今天内处理，我们一定做到
+    kurang [] lebih [promise_time+] mesin [promise_time+(0.94 when=today «·»), agree+(0.97 «好的»)]
+F 午安，我是仓管阿强
+    kurang [greet+] lebih [] mesin []
+F 具体什么时候到，我们也不确定
+    kurang [] lebih [promise_time-,ask_deadline+] mesin [promise_time-(0.96 «·»), ask_deadline+(0.66 «什么时候到»)]
+F 您上次投诉的事，我们后来有跟进
+    kurang [] lebih [acknowledge+] mesin [acknowledge+(0.73 «·»)]
+F 有人说我们收了钱不发货，这话不对
+    kurang [] lebih [deny_fault+] mesin [deny_fault+(0.72 «·»)]
+F 如果没有台风就不会晚，真的倒霉
+    kurang [] lebih [cause-] mesin [cause-(0.95 reason=weather «台风»)]
+F 您先别发火，我们已经在催工厂了
+    kurang [] lebih [cause+] mesin [cause+(0.85 reason=factory «工厂»)]
+F 货压在深圳仓，我们也被坑了，真不是我们的问题
+    kurang [] lebih [acknowledge+] mesin [acknowledge+(0.82 «·»), cause+(0.99 «·»), deny_fault+(1.00 «不是我们的问题»)]
+F 我哋唔系唔想补，系厂方未出货，周四补返
+    kurang [deny_fault+,cause+] lebih [] mesin [resend+(0.83 when=thursday «·»)]
+G 您说我们没发货，那是误会
+    kurang [] lebih [deny_fault+] mesin [deny_fault+(0.86 «·»)]
+G 要不要给您打个八折呀
+    kurang [] lebih [discount+] mesin [discount+(0.63 pct=20 «·»)]
+G 只要您不退单，运费给您减一半
+    kurang [] lebih [compensate+] mesin [discount+(0.93 «·»), compensate+(0.89 «·»)]
+G 本来想今天发的，但是仓库在盘点
+    kurang [resend-] lebih [] mesin [cause+(0.99 «·»)]
+G 优先给您发，不用排队
+    kurang [] lebih [resend+] mesin [resend+(0.66 «给您发»), expedite+(0.98 «优先给您»)]
+G 退款是不可能的亲
+    kurang [compensate-] lebih [] mesin [refuse+(0.95 «退款»)]
+G 需不需要给您加急呀？
+    kurang [] lebih [expedite-] mesin [expedite-(0.77 «·»)]
+G 行吧，那就退差价给您
+    kurang [] lebih [agree+] mesin [compensate+(0.95 «退差价»), agree+(0.99 «行吧»)]
+G 哎呀这快递，真是…！
+    kurang [] lebih [cause+] mesin [cause+(0.62 reason=logistics «快递»)]
+G 快递公司已经把货送到站点了
+    kurang [] lebih [cause+] mesin [cause+(0.62 reason=logistics «快递»)]
+G 因为快递公司分拣出了问题，所以才晚
+    kurang [] lebih [deny_fault+] mesin [cause+(1.00 reason=logistics «快递»), deny_fault+(0.68 «·»)]
+G Sorry啊亲，货还在路上
+    kurang [apologize+] lebih [cause+] mesin [cause+(0.68 reason=logistics «路上»)]
+G 不好意思哈亲，我们搞砸了
+    kurang [acknowledge+] lebih [] mesin [apologize+(1.00 «不好意思»)]
+G 之前说的优惠取消了哈
+    kurang [discount-] lebih [discount+] mesin [discount+(0.69 «优惠»)]
+G 不能再催了，催也没用
+    kurang [expedite-] lebih [] mesin []
+G 如果您愿意换成顺丰，我们承担差价
+    kurang [expedite+,compensate+] lebih [] mesin []
+G 早啊亲
+    kurang [greet+] lebih [] mesin []
+G 是的是的，您说得没错
+    kurang [] lebih [acknowledge+] mesin [acknowledge+(0.61 «您说得没错»), agree+(0.96 «·»)]
+G 最迟周一到，货今天已经出了
+    kurang [resend+] lebih [] mesin [promise_time+(1.00 when=monday «周一到»)]
+G 您说“不赔钱就差评”，这个我们理解
+    kurang [] lebih [compensate-] mesin [compensate-(0.83 «·»)]
+G 不是没发，是快递没揽收
+    kurang [] lebih [deny_fault+] mesin [cause+(0.98 reason=logistics «快递»), deny_fault+(0.95 «·»)]
+G 不是不能加急，是加急要加钱
+    kurang [expedite+] lebih [expedite-] mesin [expedite-(0.99 «加急»)]
+G 咱就是个小店，不容易，您多包涵
+    kurang [] lebih [apologize+] mesin [apologize+(0.66 «·»)]
+G 在，亲，请讲
+    kurang [greet+] lebih [] mesin []
+G 实在抱歉，货明天补，红包也给您
+    kurang [compensate+] lebih [] mesin [apologize+(1.00 «实在抱歉»), resend+(0.80 when=tomorrow «·»)]
+
+##### STRICT rules only
+== blind3_all.jsonl: 510 ucapan
+presisi 84.5%  perolehan 71.0%  F1 77.2%  (tp 377 fp 69 fn 154, opsional 7)
+ucapan tepat seluruhnya 63.9%
+negasi (bingkai -) tertangkap 63.0% dari 54
+salah terima di ucapan sulit 16.7% dari 150
+slot pct 95.2% (21)  when 91.7% (60)  reason 91.9% (37)
+zona konfirmasi 36 bingkai; waktu 0.69 ms/ucapan
+  acknowledge    tp   3 fp  11 fn  25
+  agree          tp  20 fp  10 fn   3
+  apologize      tp  53 fp  10 fn   2
+  ask_deadline   tp  14 fp   2 fn   1
+  ask_order      tp  16 fp   0 fn   2
+  cause          tp  37 fp   7 fn  28
+  closing        tp  14 fp   1 fn   4
+  compensate     tp  40 fp   5 fn  23
+  deny_fault     tp  11 fp   1 fn   8
+  discount       tp  40 fp   2 fn   5
+  expedite       tp  23 fp   7 fn  11
+  greet          tp  16 fp   0 fn   5
+  promise_time   tp  39 fp   4 fn  13
+  refuse         tp   7 fp   0 fn   7
+  resend         tp  27 fp   9 fn  17
+  thanks         tp  17 fp   0 fn   0
+
+
+##### STRICT model+rules + noise
+== blind3_all.jsonl + gangguan: 510 ucapan
+presisi 86.3%  perolehan 90.0%  F1 88.1%  (tp 478 fp 76 fn 53, opsional 6)
+ucapan tepat seluruhnya 78.8%
+negasi (bingkai -) tertangkap 85.2% dari 54
+salah terima di ucapan sulit 18.7% dari 150
+slot pct 76.0% (25)  when 79.7% (79)  reason 74.6% (59)
+zona konfirmasi 57 bingkai; waktu 0.74 ms/ucapan
+  acknowledge    tp  21 fp   6 fn   7
+  agree          tp  23 fp   6 fn   0
+  apologize      tp  52 fp   3 fn   3
+  ask_deadline   tp  15 fp   1 fn   0
+  ask_order      tp  18 fp   0 fn   0
+  cause          tp  59 fp   8 fn   6
+  closing        tp  18 fp   2 fn   0
+  compensate     tp  51 fp  13 fn  12
+  deny_fault     tp  15 fp  10 fn   4
+  discount       tp  43 fp   5 fn   2
+  expedite       tp  31 fp   3 fn   3
+  greet          tp  17 fp   1 fn   4
+  promise_time   tp  48 fp   5 fn   4
+  refuse         tp  13 fp   1 fn   1
+  resend         tp  37 fp  12 fn   7
+  thanks         tp  17 fp   0 fn   0
+

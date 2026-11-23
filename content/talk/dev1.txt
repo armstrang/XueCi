@@ -1,0 +1,105 @@
+王经理您好，我是小李。 || greet+
+喂，张总吗？我是物流部的。 || greet+
+您好，关于您的订单，我想跟您说明一下。 || greet+
+真的非常抱歉，让您等了这么久。 || apologize+
+对不起，这次是我们的失误。 || apologize+
+不好意思啊，货晚到了。 || apologize+
+我代表公司向您郑重道歉。 || apologize+
+给您添麻烦了，实在过意不去。 || apologize+
+这件事是我们没处理好。 || apologize+
+请您原谅我们这一次。 || apologize+
+我们深表歉意。 || apologize+
+我理解您现在的心情。 || acknowledge+
+换成是我，我也会很着急。 || acknowledge+
+您一定很生气吧，我明白。 || acknowledge+
+您的不满我们完全能理解。 || acknowledge+
+因为最近下大雨，路上耽误了两天。 || cause+/weather
+货卡在海关了，清关比平时慢。 || cause+/customs
+工厂那边机器出了故障，生产延迟了。 || cause+/factory
+物流公司爆仓，所以发晚了。 || cause+/logistics
+仓库临时缺货，我们在等补货。 || cause+/stock
+这次主要是系统出了问题，订单没有及时处理。 || cause+/other
+由于台风，船期推迟了。 || cause+/weather
+这不能怪我们，是快递那边弄丢了。 || deny_fault+ cause+/logistics
+责任不在我们这边。 || deny_fault+
+跟我们公司没有关系，是海关查得严。 || deny_fault+ cause+/customs
+我们今天就给您重新发一批。 || resend+/today
+明天上午给您补发。 || resend+/tomorrow
+我马上安排发货。 || resend+/today
+货已经重新寄出了，您留意一下。 || resend+
+我们给您加急处理。 || expedite+
+这次改走空运，速度快很多。 || expedite+
+我们会优先安排您的订单。 || expedite+
+用顺丰给您寄，次日达。 || expedite+ resend+
+保证周五之前送到。 || promise_time+/friday
+后天一定能到您手上。 || promise_time+/dayafter
+三天之内肯定到货。 || promise_time+/3_days
+最晚下周一送到。 || promise_time+/monday
+给您打九折。 || discount+/10
+这批货我们打个八折给您。 || discount+/20
+价格上给您优惠百分之十五。 || discount+/15
+这次给您便宜一点。 || discount+
+我们给您少算两百块。 || discount+
+运费我们来承担。 || compensate+
+再送您一些样品作为补偿。 || compensate+
+给您一张五百元的代金券。 || compensate+
+这次的运费全免。 || compensate+
+请问您最晚什么时候要货？ || ask_deadline+
+您那边什么时候需要用？ || ask_deadline+
+您急不急？ || ask_deadline+
+麻烦把订单号发给我，我帮您查。 || ask_order+
+您的运单号是多少？ || ask_order+
+能告诉我一下订单编号吗？ || ask_order+
+好的，没问题。 || agree+
+行，就按您说的办。 || agree+
+可以，我们同意。 || agree+
+您的要求我们接受。 || agree+
+退货这个恐怕不行。 || refuse+
+取消订单我们做不到。 || refuse+
+这个要求我们实在满足不了。 || refuse+
+谢谢您的耐心。 || thanks+
+非常感谢您的理解。 || thanks+
+辛苦您了。 || thanks+
+期待我们下次合作。 || closing+
+有什么问题随时联系我。 || closing+
+祝您生意兴隆，再见。 || closing+
+我们不会给您打折。 || discount- #neg
+折扣是不可能的。 || discount- #neg
+运费我们不能承担。 || compensate- #neg
+今天发不了货。 || resend- #neg
+后天到不了。 || promise_time- #neg
+我们没法加急。 || expedite- #neg
+我不会道歉的。 || apologize- #neg
+我们不是不想给您加急，是真的没车。 || expedite- cause+/logistics #neg
+我们不得不承认，这是我们的错。 || apologize+ #neg
+我不能不向您道歉。 || apologize+ #neg
+要不要给您打个九折？ || none #question
+您需要我们重新发货吗？ || none #question
+我们能不能下周再送？ || none #question
+经理说可以给您打九折，但我还要确认。 || none #quote
+您刚才说要我们道歉。 || none #quote
+客户说他们不要补偿。 || none #quote
+本来想给您八折，但是公司不同意。 || discount- #neg
+原本打算今天发货，现在不行了。 || resend- #neg
+我们已经给别的客户道歉了。 || none #quote
+折扣店那边人很多。 || none #offtopic
+发货单我放在桌上了。 || none #offtopic
+今天天气真不错。 || none #offtopic
+我昨天去吃火锅了。 || none #offtopic
+您看过那个新闻吗？ || none #offtopic #question
+对不起，因为天气原因货晚了，我们明天给您补发。 || apologize+ cause+/weather resend+/tomorrow
+非常抱歉，海关查验耽误了时间，我们会加急处理，周四前送到。 || apologize+ cause+/customs expedite+ promise_time+/thursday
+您好，我理解您的心情，这次是我们的问题，给您打九折作为补偿。 || greet+ acknowledge+ apologize+ discount+/10
+真的对不起，我们今天就重新发货，运费我们出。 || apologize+ resend+/today compensate+
+好的，那就这么定了，谢谢您，期待下次合作。 || agree+ thanks+ closing+
+不好意思，请问您订单号是多少？我帮您查一下。 || apologize+ ask_order+
+我们不能退款，但是可以给您打个八五折。 || refuse+ discount+/15
+运费不能免，不过可以送您一些样品。 || compensate- compensate+
+因为缺货，我们没办法今天发货，明天一定发出。 || cause+/stock resend- resend+/tomorrow
+虽然不是我们的错，我们还是给您道个歉。 || deny_fault+ apologize+
+如果您同意，我们今天就安排补发。 || resend+/today #hyp
+要是明天还到不了，我们就全额赔偿。 || none #hyp
+假如您还要这批货，可以给您九折。 || discount+/10 #hyp
+您说的我们都同意，谢谢。 || agree+ thanks+
+我们保证后天送到，再给您百分之五的优惠。 || promise_time+/dayafter discount+/5
+这次真的很抱歉，以后不会再晚了。 || apologize+ promise_time+

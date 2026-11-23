@@ -1,0 +1,400 @@
+{"text": "您好,我这边直接给您全额退款", "frames": [{"act": "greet", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起啊,这次赔偿您一张五十块的优惠券", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没有补偿的规定,真的不好意思", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这单运费我们给您免了", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "退不了,已经发出去了啊", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["casual"], "note": ""}
+{"text": "送您一个小礼物当赔礼", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "要不要我给您退款?", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "如果货早到就好了,我们也不想这样", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "本来想给您免运费,但是公司不让", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "您说要赔偿,这个我们得商量一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "海关扣了货才晚的,运费退给您", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不是我们的问题,是快递太慢,所以赔偿的事恐怕不行", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "退款今天就打到您账上", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉抱歉,代金券马上发您微信", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯,那个,赔偿的话,我们没有这个规定", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["filler"], "note": ""}
+{"text": "是我们没做好,给您退款并且明天重新发货", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "您要退钱?行,没问题", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "免邮这件事我真的做不了主", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "赔您三十块,后天一定到", "frames": [{"act": "compensate", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "对不住,退款退不了,但是可以补发", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}, {"act": "resend", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "客服说可以赔偿,不过我这边查不到记录", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "No problem,给您refund", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["mixed"], "note": ""}
+{"text": "因为天气不好晚了,我们补偿您一张券", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "你要我们赔偿?这个真的不行", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "不是不想赔,是平台不允许", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "谢谢您的理解,下次订单送您一个赠品,再见", "frames": [{"act": "thanks", "pol": "+"}, {"act": "compensate", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您别着急,我们会给您一个交代", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "补偿的事,我们不会考虑的", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "为了赔偿,这单的运费免掉", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "赔钱这个事我说了不算,要问老板", "frames": [{"act": "none", "pol": "+"}], "tags": ["hedge"], "note": "neither offer nor denial"}
+{"text": "如果您愿意等到周四,我们就送您一份赠品", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "一分钱都不会赔,订单条款写得很清楚", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "实在抱歉,您的退款我们已经申请了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没有退钱的先例啊", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["casual"], "note": ""}
+{"text": "赔偿您的损失,还有加急发货", "frames": [{"act": "compensate", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好的好的,就按您说的,退款", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "红包就别想了,我们只能道歉", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "返现五块,今晚到账", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "补差价这种事,我们没办过", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "赔偿金按订单金额的百分之十给您", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["number"], "note": ""}
+{"text": "违约金?合同里没有这一条", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["quote"], "note": ""}
+{"text": "您想要免费升级?这个我请示一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这次免费给您升级顺丰,另外退您十块", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉让您久等了,会员给您延长一个月", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "会员延期?不行不行", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["casual"], "note": ""}
+{"text": "转账我现在就给您转", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "退款我们不能做,因为已经过了七天", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "没办法退,真对不起", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "试用品是有的,但是补偿金没有", "frames": [{"act": "compensate", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "没发货我才能退,发了就退不了", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["conditional"], "note": ""}
+{"text": "我们愿意承担您多花的运费", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "多花的钱不归我们管", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们这边不提供任何形式的赔偿", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["formal"], "note": ""}
+{"text": "哎呀,下次一定送您礼物,这次没有", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["casual"], "note": ""}
+{"text": "我的错,我给您退钱", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "责任在我们,运费不收了", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您好,补偿方案是退款加赠品", "frames": [{"act": "greet", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "赠品没有了,抱歉", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "免运费这个只有会员有", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["conditional"], "note": ""}
+{"text": "给您送个小玩意儿赔不是", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["idiom"], "note": ""}
+{"text": "赔不起,真的赔不起", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["casual"], "note": ""}
+{"text": "您说货坏了要赔,我们收到照片再说", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "没有道理赔,您这边签收了呀", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "退款申请已通过", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "退款被系统驳回了,我也没办法", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "本来可以赔,可惜过期了", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "哪有赔钱的道理,是快递压货", "frames": [{"act": "compensate", "pol": "-"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "补偿我给不了,只能尽快发货", "frames": [{"act": "compensate", "pol": "-"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "送一个手机壳吧,算我们的歉意", "frames": [{"act": "compensate", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "要赔偿的话,请您提供照片", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "老板,您好,货在路上了,运费给您免掉", "frames": [{"act": "greet", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "工厂那边出了问题,所以才晚,真抱歉", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这批货断货了,我们周五补发", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}, {"act": "resend", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "我们今天重新发货,您别担心", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "您的订单号能发我看看吗", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您什么时候要用?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思啊,三天内到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "请放心,明天一定送到", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "放心吧,我们会处理好", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们马上给您走空运", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "优先发货,今晚就出库", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "换顺丰给您寄,快一点", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可以,没问题,就按您说的办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个我们恐怕做不到", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "公司规定不允许,实在没办法", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢理解,期待继续合作", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您好您好", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天天气真好,中午吃什么", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "如果没下雨就不会晚了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "您说我们没发货,其实已经发了", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "快递公司已经发出去了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "折扣没有,但是退款是可以的", "frames": [{"act": "discount", "pol": "-"}, {"act": "compensate", "pol": "+"}], "tags": ["tricky"], "note": ""}
+{"text": "九折给您,另外送您一张券", "frames": [{"act": "discount", "pol": "+", "pct": 10}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "打八折吧,运费也免了", "frames": [{"act": "discount", "pol": "+", "pct": 20}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不会给折扣,也不退款", "frames": [{"act": "discount", "pol": "-"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "便宜五块钱,再送个赠品", "frames": [{"act": "discount", "pol": "+", "pct": null}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "减一半运费,这就是我们的赔偿", "frames": [{"act": "discount", "pol": "+", "pct": 50}, {"act": "compensate", "pol": "+"}], "tags": ["number"], "note": "discount vs compensate: halved shipping stated as price cut"}
+{"text": "赔偿和打折,我们两个都做不了", "frames": [{"act": "compensate", "pol": "-"}, {"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "不是不想补偿,实在是系统没法操作", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "真的没有办法退钱,请您谅解", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们会考虑赔您一点,您给个地址", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "买家说要退款,我这边还没收到申请", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "你们要求的赔偿,我们收到了,在核实", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "对不起,我们的错,退款马上办", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没做好是我们不对,送您优惠券", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "海关耽误了,不是我们的责任,赔偿的话要看海关", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "customs"}, {"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "物流的错,我们不赔", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我也想帮您,可是补偿真的没有", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "退款退到哪一个账户?", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您免单,下次再来", "frames": [{"act": "compensate", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "免单这件事您想都不要想", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "您这个情况按规定只能换货,不能退钱", "frames": [{"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "换新的发给您,明天出货", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "退钱的话,您得自己寄回来", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "拿到货再说补偿吧", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "是我不好,让您等这么久,红包补偿您", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "欠您的补偿,我记着呢,下次一并给", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "回头给您补点积分,行不行", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没钱赔啊兄弟,小本生意", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["casual"], "note": ""}
+{"text": "麻烦您等一下,我去问问能不能退款", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抵扣券?不好意思,活动已经结束了", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哥,耽误您事儿了,给您退了啊", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["casual"], "note": ""}
+{"text": "亲,包邮券已经发您了哦", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "宝贝,这个补偿我们真的没有哦", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "他们说要免运费,可是我没收到通知", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "你说退货退款?我们这里没有这个服务", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["quote"], "note": ""}
+{"text": "退货可以,退款要等验货以后", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "我们赔,我们赔,您说多少", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["casual"], "note": ""}
+{"text": "保险公司会赔,我们这边不赔", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "价格不变,但是送您一年延保", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没有延保,抱歉哈", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这单加急,另外赠送一包配件", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "空运费用我们承担,算是补偿", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "空运的钱您自己出,我们没有补偿", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "走快件要加钱,这个补偿没有", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "先给您退一部分,等货到了再退剩下的", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "钱退您了,但是货不能再发了", "frames": [{"act": "compensate", "pol": "+"}, {"act": "resend", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "您的赠品我这边没看到,请再说一下订单号", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["filler"], "note": ""}
+{"text": "请问订单号是多少,我给您查一下赔偿", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您大概几号需要货?我好安排补偿方案", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货要是周五到不了,我们就赔", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "周五到,如果晚了,运费全退", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}, {"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "本来周三能到的,下雨了,抱歉", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "要是没压货,早就给您送到了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "压货是因为仓库盘点,给您补一张券", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "工厂停电,我们也很无奈,但没补偿", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "库存不足,我们补发的同时给您退一点运费", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}, {"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,对不起,我们赔偿,您消消气", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "别生气了,给您一个红包,好不好", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "咱们谈谈补偿吧", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您想要退款还是赠品,告诉我", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "补偿可以谈,折扣没得谈", "frames": [{"act": "compensate", "pol": "+"}, {"act": "discount", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "折扣可以,补偿没有", "frames": [{"act": "discount", "pol": "+", "pct": null}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "打九五折,同时免运费", "frames": [{"act": "discount", "pol": "+", "pct": 5}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "便宜十块钱,算是补偿", "frames": [{"act": "discount", "pol": "+", "pct": null}, {"act": "compensate", "pol": "+"}], "tags": ["discount vs comp"], "note": ""}
+{"text": "退十块钱给您,算是赔礼", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["number"], "note": "a refund not a price cut"}
+{"text": "没问题,您要的赔偿我们照办", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "赔偿我们不认,这是您自己填错地址", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "对,免运费可以", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您提的赔偿方案我们同意", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思,您提的赔偿方案我们不同意", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个赔偿方案我们接受不了", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "您想退款?嗯,我看看系统", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "退款!退款!好的,办", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哦,那个送礼物的活动,过期了", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "送礼活动没过期,您的礼物我已经备注", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "满五百送赠品,您差一点,所以这次没有", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["conditional"], "note": ""}
+{"text": "您只要再拍一单,就送您赠品", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "差价我们退,不过得等财务审核", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "财务说,补偿这块不批", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["quote"], "note": "reported refusal by third party"}
+{"text": "他们不给赔,我也没办法", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "没有赔偿款,您另想办法吧", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "您的损失,我们愿意用优惠券补偿", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "优惠券到期了,没法补给您", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "给您补发,并且附赠一件小礼", "frames": [{"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "补发的货再免运费", "frames": [{"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "补发今天出,赠品一起带上", "frames": [{"act": "resend", "pol": "+", "when": "today"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "明天到,礼物也同时到", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "周一到货,如果延迟,赔您一百", "frames": [{"act": "promise_time", "pol": "+", "when": "monday"}, {"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "三天内到,到不了赔您", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}, {"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "抱歉啊,今天发,周四到,运费退", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "thursday"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没有赔款,但是周三一定到", "frames": [{"act": "compensate", "pol": "-"}, {"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不可能赔,谁也不想晚", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们赔!", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["short"], "note": ""}
+{"text": "不赔", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["short"], "note": ""}
+{"text": "退款", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["short"], "note": ""}
+{"text": "免运费", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["short"], "note": ""}
+{"text": "没补偿", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["short"], "note": ""}
+{"text": "包邮,包邮,没问题", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["casual"], "note": ""}
+{"text": "别投诉,我给您退款", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "如果您撤销投诉,我们就赔偿", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "撤销投诉才能退款,这是规矩", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "您投诉也没用,赔偿是不会有的", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您,赔偿的事就这样吧,再见", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["none of compensation specifics"], "note": ""}
+{"text": "退款已经办完,祝您生活愉快", "frames": [{"act": "compensate", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好的,感谢您的包涵,优惠券已发", "frames": [{"act": "thanks", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "赠品是随机的,请您见谅,不过一定有", "frames": [{"act": "compensate", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "请原谅,我们只能退款,不能赔偿", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "您收到赔偿了吗?", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这是我们该赔的", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这不是该赔的范围", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "赔的话要看合同,合同上没有写", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "货款原数奉还,您放心", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal"], "note": ""}
+{"text": "收款码发我,我现在就转", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "退款我这边做不了,得您自己在平台点申请", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "在平台申请退款,我这边会同意的", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "我们没法赔,不过给您道个歉", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对您造成的不便,深表歉意,并愿意赔偿", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["formal"], "note": ""}
+{"text": "万分抱歉,补偿方案稍后发您", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "补偿?嗯……这个我真不好说", "frames": [{"act": "none", "pol": "+"}], "tags": ["hedge"], "note": ""}
+{"text": "是这样的,那个,赠品呢,我们是会送的", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["filler"], "note": ""}
+{"text": "就是,运费吧,我们不免的", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["filler"], "note": ""}
+{"text": "您好,我是客服,关于您说的赔偿,已经记录", "frames": [{"act": "greet", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说得对,是我们的问题,券马上给您", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们管理不善,给您添麻烦了,退款处理中", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们没有做到位,赔偿您一箱同款", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "是物流拖了,不是我们,所以赔偿由快递出", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "物流公司承诺赔您,我们帮您跟进", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "海关在查,我们不能赔,等清关吧", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "清关完了,我们送您一些礼品补偿", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "天气原因,不可抗力,不赔", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "台风封港,您见谅,运费我们出", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}, {"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "库存没了,所以晚,退您的钱", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "工厂排期满了,免费给您升级配件", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "他们生产线坏了,我们也被坑,但还是会补偿您", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "咱们是小店,免运费这种事我们做不到", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "免运,没问题", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["short"], "note": ""}
+{"text": "这个补偿我们给不了,不过加急可以", "frames": [{"act": "compensate", "pol": "-"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "先加急,补偿的事等货到再谈", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["hedge"], "note": ""}
+{"text": "给您退款,同时马上空运新货", "frames": [{"act": "compensate", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "优先出库,送您礼品一份", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "补偿?您看,加急已经是我们最大的诚意了", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "我们不赔钱,但是会优先处理您的订单", "frames": [{"act": "compensate", "pol": "-"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没有现金补偿,只有积分", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "没有现金补偿,不过有一张十块的券", "frames": [{"act": "compensate", "pol": "-"}, {"act": "compensate", "pol": "+"}], "tags": ["tricky"], "note": ""}
+{"text": "现金不行,礼品可以", "frames": [{"act": "compensate", "pol": "-"}, {"act": "compensate", "pol": "+"}], "tags": ["tricky"], "note": ""}
+{"text": "礼品不行,现金可以", "frames": [{"act": "compensate", "pol": "-"}, {"act": "compensate", "pol": "+"}], "tags": ["tricky"], "note": ""}
+{"text": "不用退款,您留着货,我们再给您一份", "frames": [{"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "不退款,换货吧", "frames": [{"act": "compensate", "pol": "-"}, {"act": "resend", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您是想退款对吧,那我现在办", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说\"退款\",我听明白了,办理中", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您说我们没赔,其实我们赔过了", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说不要赠品,那我就不寄了", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不是不赔,是要先查清楚责任", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "不是不赔偿,是流程要十个工作日", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["tricky"], "note": ""}
+{"text": "并不是没有补偿,只是现在没法给", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "不能说没有补偿,您下单就送", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["tricky"], "note": ""}
+{"text": "这么说吧,补偿没有,道歉有", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉,赠品已经送完,实在不能补", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "退货运费险您买了吗?买了的话保险会赔", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没买运费险,运费我们不赔", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "这样吧,运费各出一半", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "全额损失我们自己扛", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您自己扛吧,与我们无关", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["casual"], "note": ""}
+{"text": "赔您两倍货款,但是您得收回投诉", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "赔您十倍?不可能的啊", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["quote"], "note": ""}
+{"text": "退款我们照理是要走流程的", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "退款需要三个步骤,您先别急", "frames": [{"act": "none", "pol": "+"}], "tags": ["hedge"], "note": ""}
+{"text": "按规定不能赔的,真的", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "没有规定要赔偿,有规定要道歉的话我就道歉", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["tricky"], "note": "conditional apology not a real apology"}
+{"text": "我们请您喝杯咖啡,电子券已发", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "奶茶券发您了,别气了", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["casual"], "note": ""}
+{"text": "请您吃饭,就是线上饭票啦", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["casual"], "note": ""}
+{"text": "我私人给您发个红包,公司不知道的", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["casual"], "note": ""}
+{"text": "我个人的话可以补偿,公司那边没有", "frames": [{"act": "compensate", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "要是我说了算,我就给您退款了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "假如您在上周下单,可以退的,现在不行了", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "假如时间允许,我们愿意补偿", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "如果货丢了,我们保证赔偿", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "如果货没丢,那就不用赔了", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["conditional"], "note": ""}
+{"text": "货丢了的话,只能退款,没有额外赔偿", "frames": [{"act": "compensate", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "丢件我们按价赔偿,延误的话没有", "frames": [{"act": "compensate", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "延误赔偿?这个国际快递没有", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["quote"], "note": ""}
+{"text": "国际件延误是没有补偿的", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "空运延误的话,我们补您运费", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "已经帮您申请了超时赔付", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不处理超时赔付,您找平台", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉,赔付要找平台,我们这边弄不了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "请您联系平台,让平台来赔", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "请您等一等,我们领导同意了就赔", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "领导同意了,免费送您一台小风扇", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "领导没同意,所以补偿没有", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我争取不到,抱歉", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["ambiguous"], "note": "object omitted"}
+{"text": "老板说可以送您一个赠品", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "老板说,一个赠品都没有", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "批不了啊", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["short"], "note": ""}
+{"text": "ok,没问题,券给你", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["mixed"], "note": ""}
+{"text": "可以可以,退款我马上办,您别急", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "行吧,就免您这次运费", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好,明天发,另外送您礼物", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "明天补发,运费我们出", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "下周一补发,但是补偿没有", "frames": [{"act": "resend", "pol": "+", "when": "monday"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "这个月下单,赠送双倍积分作为补偿", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "下次购买,我们免运费", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "下单不赠积分,这个是常规", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "道歉礼没有,只有道歉", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们谨此致歉,并给予一份补偿", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["formal"], "note": ""}
+{"text": "不好意思哦,没法赔", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["casual"], "note": ""}
+{"text": "咱们这单,免您一半运费,包您满意", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货款我们退,损失您自己担", "frames": [{"act": "compensate", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "货款一分不少退,损失不赔", "frames": [{"act": "compensate", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "订单金额全部返还", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal"], "note": ""}
+{"text": "返还不了,系统已经结算", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "全额返现,马上到账", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "返现?我们没有这个活动", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["quote"], "note": ""}
+{"text": "补贴没有,只有道歉信一封", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "补您一个手机支架", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您换一个更好的型号,不加钱", "frames": [{"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "同款再来一件,不收钱", "frames": [{"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "重新给您发一件,免费", "frames": [{"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "重发一件,但不赔偿损失", "frames": [{"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "重发我们做,赔偿是另一回事", "frames": [{"act": "resend", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "赔偿是另外的事,重发不收钱", "frames": [{"act": "compensate", "pol": "+"}, {"act": "resend", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉,今天重发,周四到,免您运费", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "thursday"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "昨天已经发了,后天到,别着急", "frames": [{"act": "resend", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "补发的货三天内到,赠品也一起", "frames": [{"act": "resend", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "3_days"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您好,是我们的错,实在抱歉,券和退款您选一个", "frames": [{"act": "greet", "pol": "+"}, {"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您好,您的订单号是多少,我帮您看赔偿", "frames": [{"act": "greet", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您好,请问您什么时候要货,赔偿方案再给您", "frames": [{"act": "greet", "pol": "+"}, {"act": "ask_deadline", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您提醒,补偿我们会做的,再联系", "frames": [{"act": "thanks", "pol": "+"}, {"act": "compensate", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢,赔偿已经处理完毕,不打扰了", "frames": [{"act": "thanks", "pol": "+"}, {"act": "compensate", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "感谢理解,不过赔偿我们真给不了,再见", "frames": [{"act": "thanks", "pol": "+"}, {"act": "compensate", "pol": "-"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "呃,就是,这个,赔,赔偿,有的有的", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["filler"], "note": ""}
+{"text": "嗯嗯,免运这个,可以考虑吧", "frames": [{"act": "none", "pol": "+"}], "tags": ["hedge"], "note": ""}
+{"text": "可以考虑,但没有保证", "frames": [{"act": "none", "pol": "+"}], "tags": ["hedge"], "note": ""}
+{"text": "包邮的话,您拍两件就行", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "你们要免邮,那就拍两件嘛", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional"], "note": "casual"}
+{"text": "赔偿申请,公司不批准", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "您不说我也想赔您", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["casual"], "note": ""}
+{"text": "我不会赔给您,这是原则", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们早就说过,没有赔这回事", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "今天没有补偿,明天说不定有", "frames": [{"act": "none", "pol": "+"}], "tags": ["hedge"], "note": ""}
+{"text": "我这边的权限只能给您免运费,别的不行", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["tricky"], "note": ""}
+{"text": "只能退钱,不能再送东西了", "frames": [{"act": "compensate", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["tricky"], "note": ""}
+{"text": "要么退钱,要么补发,您挑一个", "frames": [{"act": "compensate", "pol": "+"}, {"act": "resend", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您选退款还是补发?告诉我", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "真的对不起,这批货出了点问题", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您添麻烦了,实在不好意思", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉让您白等了三天", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "是我们的疏忽,责任在我们", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们没安排好,这点我承认", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,是我们疏忽,今天一定重发", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "货被海关扣下了,正在处理", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "暴雨把路冲断了,车进不来", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent"], "note": ""}
+{"text": "工厂放假,没人出货", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "仓库缺货,正在调", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "快递员把件弄丢了,我们在查", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "不是我们的问题,是快递站压件", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "我们三天前就发了,延误与我们无关", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天下午就给您重新发一件", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "我们马上补发,请您放心", "frames": [{"act": "resend", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "周五发货,下周一就到", "frames": [{"act": "resend", "pol": "+", "when": "friday"}, {"act": "promise_time", "pol": "+", "when": "monday"}], "tags": ["fluent"], "note": ""}
+{"text": "货明天一定到您手里", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "三天之内,货到您门口", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "最迟周四送到", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "走空运,两天到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "2_days"}], "tags": ["fluent"], "note": ""}
+{"text": "我这就给您加急,您等着", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "优先发出,别的单子先放一放", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "换了快递,这个快多了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您打九折,您看行吗,不行的话再谈", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["conditional"], "note": ""}
+{"text": "八折,不能再低了", "frames": [{"act": "discount", "pol": "+", "pct": 20}], "tags": ["fluent"], "note": ""}
+{"text": "我们给您减一半价钱", "frames": [{"act": "discount", "pol": "+", "pct": 50}], "tags": ["fluent"], "note": ""}
+{"text": "优惠一点点,还是可以的", "frames": [{"act": "discount", "pol": "+", "pct": null}], "tags": ["fluent"], "note": ""}
+{"text": "折扣没有,这是底价", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "不打折,不好意思", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "请问您的订单号是什么", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "单号发我一下,我查物流", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您大概几号要货呢", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您最晚什么时候需要?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您好,很高兴为您服务", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "喂,您好,我是店里的客服", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "早上好,您的事我看到了", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好,我同意您的方案", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯嗯,行,就这么办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没问题,您说怎么办就怎么办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个要求我们满足不了", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个恐怕不行,您见谅", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们没办法再提前了,这是极限", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您的耐心,祝您顺利", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "多谢理解,有事再联系", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "非常感谢,再见", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好了,先这样,拜拜", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天风好大,我这边都吹倒了", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "你吃了没,我正在吃饭", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "您说\"我要退款\",我明白您的意思", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您刚才说货没到,我们在查", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "要是早点发货,就不会这样了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "如果天气好,货昨天就到了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "好吧,我再想想办法", "frames": [{"act": "none", "pol": "+"}], "tags": ["hedge"], "note": ""}
+{"text": "您稍等一下,我看看系统", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "让我问问同事", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "放心,我会盯着的", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您别着急,慢慢说", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯,这个情况我了解了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思,让您不开心了,我帮您催仓库", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,仓库缺货,我们周三补发", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "stock"}, {"act": "resend", "pol": "+", "when": "wednesday"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉,工厂延期,三天内到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "factory"}, {"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "海关查了,不是我们不发,周一到", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "customs"}, {"act": "promise_time", "pol": "+", "when": "monday"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思,我们没法提前,周四才能到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "refuse", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "这单没有赠品的啦,我也想帮您", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["casual"], "note": ""}

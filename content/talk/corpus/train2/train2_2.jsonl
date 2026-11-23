@@ -1,0 +1,400 @@
+{"text": "这单我给您加急处理，今天就安排出库", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们改走空运，明天就能到您手上", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "已经帮您插队了，排在最前面", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉让您久等了，我换顺丰给您发过去", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这批货我让仓库优先发，您放心", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "空运过去的话两天就到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "2_days", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们开了绿色通道，专人跟进您这单", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯，那个，我帮您换成特快专递吧", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起，这次是我们的错，我给您加派车辆直接送过去", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货我提前出库了，走最快的方式", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我现在就找人给您加急，今天一定发出去", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "就是说我们换专线，三天内到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "3_days", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的订单我已经标记优先发货了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们安排专人带货，坐飞机过去", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这件我走空运补发，明天到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思啊，加急费用我们出，您不用管", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我给您换EMS，比普通快递快很多", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可以的，我帮您申请加急通道", "frames": [{"act": "agree", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "公司同意给您的单子插队了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "如果您现在确认地址，我们就走空运", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "只要您同意，我马上换顺丰发货", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "货在路上太慢了，我们改用专线直送", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天下午的航班，我们空运给您", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "那个，我让师傅连夜把货送到您那儿，加急的", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们已经给您升级成次日达了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这单我优先安排，排第一个发", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉，我们把您的货提前出库，明天上午到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们加派了两辆车，今晚就装完", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "走空运太贵了，这次不走空运", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "加急做不到，现在旺季所有单都在排队", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "stock", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "不能插队，对不起，大家都是按顺序来的", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "空运我们没办法安排，只能走陆运", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我们不提供加急服务，这是公司规定", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "优先发货这个我们真的没有，不好意思", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "换顺丰的话运费您得自己出，我们不换", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "您想让我们插队，这个不行", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "如果空运的话要加三百，您要不要走？", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您说让我们加急，我们尽快处理就是了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "尽快给您处理，您稍等", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我马上处理，您别着急", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "要是货早点出就好了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您是想要空运还是陆运？", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "今天天气不错，您那边下雨吗", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您好，请问您的订单号是多少", "frames": [{"act": "greet", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您什么时候要货呢", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好的，没问题，就按您说的办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您的理解，期待继续合作", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "是我们的错，没做好", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不是我们的问题，是物流公司的错", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "reason": "logistics", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "海关把货扣了，我们也没办法", "frames": [{"act": "cause", "reason": "customs", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们明天重新发货，补发一份", "frames": [{"act": "resend", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "亲，我给您走顺丰空运，后天保证到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "dayafter", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起对不起，我们马上加急，您的货今天下午出库", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货被压在分拣中心了，我让他们开绿色通道先放行", "frames": [{"act": "cause", "reason": "logistics", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个单子我已经跟仓库说了，优先拣货优先打包", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "要不我帮您改成当天达？", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我们换专线物流，三天内一定到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "3_days", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您补发一件，同时走加急，明天到", "frames": [{"act": "resend", "when": null, "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉，是我们没做好，我们走空运给您补上", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们派专人跟进您的包裹，每天给您报进度", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这次我们特批，让您的单先走", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "咱们改走特快，别的货先放一边", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我让司机今晚直接开车送过去，不绕站了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们为这票货包了一架小货机", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我这边已经申请了加急出库，财务也批了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "走快递专线，大概周四能到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "thursday", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货压了两天，我现在帮您提前发，用最快的车", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您那个订单我标红了，仓库会先处理", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您安排了空运，运费不用您付", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们先把您的货拆出来单独发，走顺丰", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货直接送机场了，下午三点的飞机", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "如果您今天付款，我们就给您加急发货", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "要是您同意换空运，我就帮您改单", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "您要是急的话，我们可以走空运，费用算我们的", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "加急这个，抱歉，我们现在真做不到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "空运过去得七八百，我们不走", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我们不能让您的单插队，其他客户也在等", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "并不是不想给您加急，而是仓库已经爆仓了", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "stock", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "本来想走空运，但是航班取消了，没办法", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "other", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "优先发货的名额今天没了", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我们没有专线，只能走普通快递", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "没有办法换顺丰，系统不支持", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "插队是不可能的，这个您得理解", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "如果可以加急的话我早就加了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您想要加急是吗？我看看有没有办法", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您刚才说要空运，对吧", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您说我们没有加急，这个我得查一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您的货在路上，快递公司已经发出来了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我不太清楚，您问一下仓库吧", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "中午吃了吗，您那边几点下班", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "稍等一下，我查查看", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您好，您那个订单我看到了", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "非常抱歉给您添麻烦了", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们给您退款，另外送一张五十块的券", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您打八折，您看行不行", "frames": [{"act": "discount", "pct": 20, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们可以优惠一点", "frames": [{"act": "discount", "pct": null, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "明天一定到，您放心", "frames": [{"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没问题，您的要求我们都满足", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个我们做不到，公司规定不允许", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不会给折扣的", "frames": [{"act": "discount", "pct": null, "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我找了个跑腿的专门给您送，一小时就到", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个货我们换顺丰到付，已经改好了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的单号我加到急件列表里了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "快递太慢了我们自己的车送，周五前到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "friday", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我已经联系了空运代理，今天晚上订舱", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哎呀，让您等这么久，我们用最快的方式给您补发", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我跟老板说了，您这单特事特办，优先走", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货今天提前出库，申请了次日达", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "走高铁快运吧，比汽运快一天", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们给您升级配送，由普快改成特快", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您要的货我们安排专车，直达不转运", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "咱们走空运行吗？我马上给您订", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "有个快一点的办法，就是走空运", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们开通了加急通道，专门处理这种情况", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这次不会再拖了，我亲自盯着，优先发", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉抱歉，我立马给您插队发出，您明天就收得到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天发货的话我们就给您走航空件", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "只要您回个话，我这边马上给您加急", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "您不急的话，我们按正常流程走，不加急了", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我们不加急，也不换快递", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "真的没法优先，系统是自动排序的", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "走空运我们公司不批，抱歉", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "不是我们不想加急，是您那个地区空运不通", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "other", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "这个加急单已经满了，没办法再加", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "插队？不行不行", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "换快递的事情我们不考虑", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "他们说空运很贵，所以没走", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "本来可以空运的，现在晚了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "要是我们走空运就好了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我们会尽快发货的", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "马上马上，您稍等一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "这边会尽力的，请放心", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "对不起，让您久等", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们的责任，没有及时通知您", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这件事我们已经处理了，补发一个新的，后天到", "frames": [{"act": "resend", "when": null, "pol": "+"}, {"act": "promise_time", "when": "dayafter", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "重新发一份，今天下午", "frames": [{"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们给您免运费，再补偿一点", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "退款我们马上办", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您减一半，好吗", "frames": [{"act": "discount", "pct": 50, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "九折，您看怎么样", "frames": [{"act": "discount", "pct": 10, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "三天内到", "frames": [{"act": "promise_time", "when": "3_days", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "周四送到您手上", "frames": [{"act": "promise_time", "when": "thursday", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您要的话我们可以做，但是得等工厂", "frames": [{"act": "cause", "reason": "factory", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货被海关扣了几天", "frames": [{"act": "cause", "reason": "customs", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "下雨影响了运输", "frames": [{"act": "cause", "reason": "weather", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可以，就这样吧", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您，再见", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好的，您发我单号，我帮您看看", "frames": [{"act": "agree", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的单号是多少呀", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这批货什么时候要用？", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我给你们快点发，用空运，好不好", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯就是那个，我们帮你换顺丰，快一点", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我已经 expedite 了你的订单，优先发", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个货我们走加急，明天可以到的啦", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "老板批了，您的货坐飞机过去", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我叫仓库立刻拣货，您这单排最前", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们加开一趟车，专门送您这批", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "已经帮您转成急件，今晚就走", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我亲自把货送到物流点，让他们走快线", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的货现在换成了优先配送，不用再等", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起，我们没按时发，我现在帮您走绿色通道，今天出库", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这批货我们空运出去，海关那边我们先报关", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不走陆运了，改空运，两天内到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "2_days", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "让快递员今天加班，把您的货先送", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我今天亲自去仓库盯着，优先给您装车", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的订单被我提到最优先的位置了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们用最快的渠道重新给您发一份", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "补发的那件走顺丰，不收您运费", "frames": [{"act": "resend", "when": null, "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉，补偿您一张券，货用特快寄", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我让他们走专线，周三就送到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "wednesday", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "如果明天能出货，我们就走空运，周四到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "thursday", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "只要您确认收货地址，我们立刻走加急", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "您愿意加钱的话，我们可以走空运", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "您这边需要加急吗？我们可以安排", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "要不要给您换顺丰？", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您想不想走空运？", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我们不接受插队的要求", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "空运那条线最近停了，没办法", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "other", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "加急不行，这个季节全部在排队", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我们不提供空运，这一点真的抱歉", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "专人跟进这个我们暂时没有安排", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "优先发货只给会员，您不是", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "他们没让我加急，说不允许", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "不是不能走空运，是您的货太重了不划算，所以不走", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我不会给您换快递的，换了更慢", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "加急没办法，但是我们给您退一部分款", "frames": [{"act": "expedite", "pol": "-"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "加急做不到，不过明天一定发出去", "frames": [{"act": "expedite", "pol": "-"}, {"act": "resend", "when": "tomorrow", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我们不能插队，不过周五前会到", "frames": [{"act": "expedite", "pol": "-"}, {"act": "promise_time", "when": "friday", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "空运不走了，给您打九折吧", "frames": [{"act": "expedite", "pol": "-"}, {"act": "discount", "pct": 10, "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "您说我们应该加急，这个我跟领导反映一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "客户说想要空运，我这边会考虑", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "你们怎么还没发货，这句话我听到了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "天气预报说明天有雨", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "最近电影好看吗", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "哦，这样啊", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我明白您的心情", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您好您好", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "再见，祝您顺利", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货已经交给机场了，今天飞", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们改走快运专线，路上少两天", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "把您的订单抬到最前面，今天必须发", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们特地给您安排了加急车次", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "从今天起这单由专人负责，每个节点都盯着", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "把货提前拉出库，上午就走", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们换成当天发的快递", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "新货我们直接空运给您，补发的，后天到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}, {"act": "promise_time", "when": "dayafter", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的货我给您走加急件", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我和快递公司说好了，优先派送您的", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉，货太慢了，我们改乘飞机运", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯这个，我们会走一条快的路线给您", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "优先处理，我现在就下单", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "咱们不等了，直接空运，我来订", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个我们特事特办，开了加急口", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的包裹转了航空，预计明晚到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "派人开车送过去，不走中转", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们把您的货放到第一批发出", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您是急用的话，我们走特快，三天内能到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "3_days", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "如果您今天回复，我保证优先安排您", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "一旦您同意，我们空运补发，周四到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}, {"act": "promise_time", "when": "thursday", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "要是您愿意付差价，我们换航空", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "走空运这条路行不通，价格太高", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "抱歉，您的订单没办法加急", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我们这边没有绿色通道这种说法", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "没法子插队啊，真的", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "不好意思，换成顺丰这个要求我们满足不了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "优先发货是不可能的，所有订单一视同仁", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "加急的话得等三天审批，等不及的，所以不加急", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "并不是我们不愿意走空运，而是这类货不能上飞机", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "other", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "空运？不用了，太贵", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "没有加急服务，我们帮您退款", "frames": [{"act": "expedite", "pol": "-"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "这货我们不换快递，周五到", "frames": [{"act": "expedite", "pol": "-"}, {"act": "promise_time", "when": "friday", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "您说让我们空运，我们考虑一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "他说可以走空运，我不太清楚", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "空运大概多少钱，我帮您问问", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我们已经在发了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我们会尽力快点", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "是的，我们理解", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "这货是工厂延迟了，不是我们的问题", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "reason": "factory", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "工厂缺料，所以晚了", "frames": [{"act": "cause", "reason": "factory", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您补发，今天发出", "frames": [{"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们道歉，真的很抱歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您一个赠品作为补偿", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们给您九五折", "frames": [{"act": "discount", "pct": 5, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好，可以按您说的来", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您的耐心", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们用空运给您追货，运费公司承担", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哥，我给你走顺丰，今天就发", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉哈，我让他们插个队，先发你的", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货放我们总仓了，我叫他们专车送你", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的急件我们已经登记，会走快线", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们找了个货拉拉当天送过去", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这单我标记VIP，优先处理", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们加快一点，换空运的方式发", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "太慢了是吧，我换天天快递改次日达", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您稍等，我帮您申请走快件通道", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起让您着急了，我们连夜赶工，加急发出", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我保证这次走空运，周三一定到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "wednesday", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这次我们提前一天出库，走的是航空", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货在海关卡着，我们找人开加急放行", "frames": [{"act": "cause", "reason": "customs", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "如果您愿意晚一点收，我们走陆运；要快的话走空运", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "我们可以给您安排专线直达，您觉得呢", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "让您久等了，这批改发顺丰特快，免运费", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起，我马上让物流这边优先给您发，再补一张优惠券", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们就给您插队，没问题的", "frames": [{"act": "agree", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好，那就走空运吧，我来办", "frames": [{"act": "agree", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "加急费我们不收了，直接空运", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您这个情况，我们是不能走加急的", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "空运这个我们不做", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "咱们公司没有优先发货这一说", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "插队不行，您理解一下，我们要公平", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "并不是说我们不想换专线，是现在换不了", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我是想给您走空运的，可是主管不同意", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "走飞机不可能的，几百块的东西", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "加急做不了，您看是不是退款", "frames": [{"act": "expedite", "pol": "-"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "换成顺丰也不行，这个地方顺丰不到", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "logistics", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "您问能不能加急？不能", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "不给您加急了，货明天到", "frames": [{"act": "expedite", "pol": "-"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "您要是想加急，需要自己联系物流", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "他们跟我说可以加急，其实不是", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "要不要加急？", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您希望我们怎么处理？", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我先去问问仓库有没有办法", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我这边也很着急", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "这是我们的失误", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "责任在我们，没有及时处理", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "是物流那边出了问题，货堆在站里", "frames": [{"act": "cause", "reason": "logistics", "pol": "+"}, {"act": "deny_fault", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "那边下大雨，路不通", "frames": [{"act": "cause", "reason": "weather", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们明天上午重新发一个", "frames": [{"act": "resend", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您可以放心，货一定到", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "请您放心，周六前一定送到", "frames": [{"act": "promise_time", "when": "saturday", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "退您一半的钱，行吗", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对您的损失，我们赔偿", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "优惠十个点", "frames": [{"act": "discount", "pct": 10, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我让他们走专线，货明天中午前到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的货我们走“特快专递”，比一般的快", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我会让快递公司优先派件", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们跟航空公司订了舱位，货今晚上机", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我找了熟人，让这单走绿色通道", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们是最快发给您的，已经用航空件了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我已经让仓库把您的货先挑出来先发", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这回我们换EMS，应该会快很多", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货太急了，我们决定用空运，您不用担心", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "先把您的单提前，其他的往后放", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今晚就出库，走最快那一档", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们专门调一辆车，把货直接拉到您的仓库", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "帮您升级成加急配送，不加钱", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉让您等，我们给您重发，加急走航空", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们直接空运重新发一批过去", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我这儿已经给您插了队，您等通知", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们申请了快速通道，应该两天内", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "2_days", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好的，我们换顺丰，没问题", "frames": [{"act": "agree", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起，我们走空运补上，后天到，再送您一个小礼物", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}, {"act": "promise_time", "when": "dayafter", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您答应的话我们就走空运，运费我们包", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "如果您需要更快，我们可以走加急，价格另算", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "想要快的话，只有空运一条路", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "加急可以，但需要多等一天审批", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "我们不走空运了，您那边机场关闭", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "other", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "没办法优先，您的货已经在路上，改不了", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我们公司规定不允许插队", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "不好意思，专人跟进这种服务我们没有", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "没有空运这个选项，您看看别的", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "说实话，加急真的帮不上", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我们就按照正常的速度发，没加急", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "这单没办法特殊处理，不会优先的", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "我不能答应您换快递，因为已经发了", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "都已经走航空了，您还想怎么快？", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "快递现在到哪了，我帮您查", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我们尽快想办法", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "稍等，我马上联系一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您那个包裹我们正在处理", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "这个问题我们很重视", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您消消气，慢慢说", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "先吃饭吧，晚点再说", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我们明天发，后天可以到", "frames": [{"act": "resend", "when": "tomorrow", "pol": "+"}, {"act": "promise_time", "when": "dayafter", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起，货在工厂还没做好", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "reason": "factory", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉，补偿您一百块", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可以八五折", "frames": [{"act": "discount", "pct": 15, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的订单号麻烦发一下", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您最晚什么时候要？", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好的好的", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货我已经亲自盯着装车，走加急的", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们决定换空运，一到机场就有人接", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "请放心，这次我们给您走航空，周四到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "thursday", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "老板说了，您的单子最优先", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我现在就催仓库，把您那件抢先发出去", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯，我们尽量走快线，大概周五", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "friday", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "你们要得急，我们就用直达专线送", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货我们加急了，另外我给您退了运费", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起，是我们的疏忽，已经改走空运", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "现在开始，您的货享受优先通道", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们临时加了一个班次送您的货", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们替您换了更快的快递公司", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这边有个加急的办法：货直接飞过去", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您这批货我们提前备好，明早特快寄出", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "物流太慢，我们自己安排车把货送到楼下", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我安排最快的，今晚装车，明天就到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": "today", "pol": "+"}, {"act": "promise_time", "when": "tomorrow", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "已经催了又催，现在给您转空运", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉，您稍等，我申请插队处理", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这单就走航空了，不管多少钱", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "先发一部分走空运，剩下的随后", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "如果货今天备齐了，我们就用顺丰发", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "您要是同意加钱，我这就给您走空运", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "你确认一下地址，我们立刻走快件", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "conditional"], "note": ""}
+{"text": "空运不走了", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "这个加急我们不能做，请原谅", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "不能优先，因为大家都在等", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "换成特快我们办不到，仓库只合作一家", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "专线今天停运，所以不能走", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "logistics", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "不会为您一个人开绿色通道的", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "没有加急，不过我们给您减一半的价钱", "frames": [{"act": "expedite", "pol": "-"}, {"act": "discount", "pct": 50, "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "加急没办法，对不起，我们给您退款", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "空运，这个货太大，上不了飞机", "frames": [{"act": "expedite", "pol": "-"}, {"act": "cause", "reason": "other", "pol": "+"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "您提到的加急，我们这边不支持", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "要是能加急，我早就给您办了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "您问我走空运行不行，我得问问", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "有人说加急了，不知道是谁", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "今天星期二，对吧", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "这几天天气很热", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "不好意思，我刚才在开会", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们会处理的", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "抱歉耽误您时间了，我们补发一份，今天寄", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "when": "today", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货在路上，三天到", "frames": [{"act": "promise_time", "when": "3_days", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们周一发货", "frames": [{"act": "resend", "when": "monday", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起，我们马上给您退款，也送您一张优惠券", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们是工厂的原因", "frames": [{"act": "cause", "reason": "factory", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这不是我们的错", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没问题，就这样处理", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您，祝您生意兴隆", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的订单编号是什么", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不能给您折扣，也不会补偿", "frames": [{"act": "discount", "pct": null, "pol": "-"}, {"act": "compensate", "pol": "-"}], "tags": ["fluent", "negation"], "note": ""}
+{"text": "这个要求我们没办法，实在抱歉", "frames": [{"act": "apologize", "pol": "+"}, {"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "先不说这个了，我们先想办法解决", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我这边已经让快递公司催了", "frames": [{"act": "none", "pol": "+"}], "tags": ["none"], "note": ""}
+{"text": "我们帮您把货转到空运仓，今晚起飞", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这单走加急车，司机已经出发了", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我去跟仓管说，让他们先打您的包", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "麻烦您稍等，我给您升级成顺丰次晨达", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起，我们赶紧给您补发，用最快的快递", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "when": null, "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货物改走航班，后天上午能到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "when": "dayafter", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们特别照顾您，插队给您发", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent"], "note": ""}

@@ -1,0 +1,170 @@
+{"text":"哎呀老板，对不起哈，货晚了是我们搞慢了。","frames":[{"act":"apologize","pol":"+"},{"act":"acknowledge","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"晓得你急，我今天下午就给你重新发一单。","frames":[{"act":"resend","pol":"+","when":"today"}],"tags":["fluent"],"note":""}
+{"text":"莫得办法嘛，海关扣了几天，我们也着急。","frames":[{"act":"cause","pol":"+","reason":"customs"}],"tags":["fluent"],"note":""}
+{"text":"你把订单号发我看一哈。","frames":[{"act":"ask_order","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"您好您好，我是店里的老李。","frames":[{"act":"greet","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"周四一定到，我给你包住。","frames":[{"act":"promise_time","pol":"+","when":"thursday"}],"tags":["fluent"],"note":""}
+{"text":"不是我们不发噻，是仓库那边缺货了嘛。","frames":[{"act":"cause","pol":"+","reason":"stock"}],"tags":["trap","negation"],"note":"decision 19"}
+{"text":"这个嘛，打折我们搞不赢，真的没有这个规定。","frames":[{"act":"discount","pol":"-","pct":null}],"tags":["negation"],"note":""}
+{"text":"你啥时候要嘛？我好安排。","frames":[{"act":"ask_deadline","pol":"+"}],"tags":["question"],"note":""}
+{"text":"可以，中，就按你说的办。","frames":[{"act":"agree","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"快递钱我出，你莫管了。","frames":[{"act":"compensate","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"给你加急嘞，走空运，明天就到。","frames":[{"act":"expedite","pol":"+"},{"act":"promise_time","pol":"+","when":"tomorrow"}],"tags":["fluent"],"note":""}
+{"text":"我给你算九折嘛，莫生气了。","frames":[{"act":"discount","pol":"+","pct":10}],"tags":["fluent"],"note":""}
+{"text":"谢谢你体谅哈，以后常来噻。","frames":[{"act":"thanks","pol":"+"},{"act":"closing","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"好嘛好嘛，再见哈。","frames":[{"act":"closing","pol":"+"}],"tags":["short"],"note":""}
+{"text":"天气今天好热哦，我这铺子里头像蒸笼。","frames":[{"act":"none","pol":"+"}],"tags":["offtopic"],"note":""}
+{"text":"你说我们没发货？不是的，早就发了，是物流压在中转站了。","frames":[{"act":"cause","pol":"+","reason":"logistics"}],"tags":["quote","trap"],"note":"quote part none"}
+{"text":"如果货早点到就好了嘛，我也愁得很。","frames":[{"act":"none","pol":"+"}],"tags":["hypothetical"],"note":""}
+{"text":"咋个办嘛，我也不晓得……哎。","frames":[{"act":"none","pol":"+"}],"tags":["emotion"],"note":""}
+{"text":"不是我们的错哈，是快递公司拖的。","frames":[{"act":"deny_fault","pol":"+"},{"act":"cause","pol":"+","reason":"logistics"}],"tags":["fluent"],"note":""}
+{"text":"补发一件给你，今天就寄出去。","frames":[{"act":"resend","pol":"+","when":"today"}],"tags":["fluent"],"note":""}
+{"text":"送你一张五十块的券，下回用。","frames":[{"act":"compensate","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"退款我现在就给你退，莫生气。","frames":[{"act":"compensate","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"我们不会退钱的哈，规定摆在那。","frames":[{"act":"compensate","pol":"-"}],"tags":["negation"],"note":""}
+{"text":"你想要啥时候到嘛？","frames":[{"act":"ask_deadline","pol":"+"}],"tags":["question"],"note":""}
+{"text":"单号发来，我查一哈子。","frames":[{"act":"ask_order","pol":"+"}],"tags":["short"],"note":""}
+{"text":"优惠肯定给你，少收一点嘛。","frames":[{"act":"discount","pol":"+","pct":null}],"tags":["fluent"],"note":""}
+{"text":"这个事情我们恐怕做不到，实在没办法。","frames":[{"act":"refuse","pol":"+"}],"tags":["polite"],"note":""}
+{"text":"对不住对不住，是我们没做好。","frames":[{"act":"apologize","pol":"+"},{"act":"acknowledge","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"我们没做好哈。","frames":[{"act":"acknowledge","pol":"+"}],"tags":["short"],"note":""}
+{"text":"要是没下雨嘛，也不会晚，唉。","frames":[{"act":"none","pol":"+"}],"tags":["hypothetical"],"note":""}
+{"text":"昨天我屋头水管爆了，搞了一晚上。","frames":[{"act":"none","pol":"+"}],"tags":["offtopic"],"note":"decision 22"}
+{"text":"如果你现在就确认，我给你打八折。","frames":[{"act":"discount","pol":"+","pct":20}],"tags":["conditional"],"note":""}
+{"text":"只要你同意嘞，明天就给你发出去。","frames":[{"act":"resend","pol":"+","when":"tomorrow"}],"tags":["conditional"],"note":""}
+{"text":"本来想今天发的，但是车子坏了，没走成。","frames":[{"act":"cause","pol":"+","reason":"other"}],"tags":["trap"],"note":"本来想...但是: failed plan, only cause"}
+{"text":"您别着急哈，慢慢来。","frames":[{"act":"none","pol":"+"}],"tags":["soothing"],"note":""}
+{"text":"请放心，后天肯定送到你手上。","frames":[{"act":"promise_time","pol":"+","when":"dayafter"}],"tags":["fluent"],"note":""}
+{"text":"三天内到，我保证。","frames":[{"act":"promise_time","pol":"+","when":"3_days"}],"tags":["short"],"note":""}
+{"text":"您说客服讲今天到？那个是她说错了，我给你问清楚。","frames":[{"act":"none","pol":"+"}],"tags":["quote"],"note":""}
+{"text":"空运费我们承担，你不用出钱。","frames":[{"act":"compensate","pol":"+"},{"act":"expedite","pol":"+"}],"tags":["fluent"],"note":"decision 21"}
+{"text":"换个快递，优先给你发。","frames":[{"act":"expedite","pol":"+"}],"tags":["short"],"note":""}
+{"text":"喂，你好你好。","frames":[{"act":"greet","pol":"+"}],"tags":["short"],"note":""}
+{"text":"嗯，那个，对不起，让你等久了嘛。","frames":[{"act":"apologize","pol":"+"}],"tags":["filler"],"note":""}
+{"text":"这事跟我们没得关系，是厂子那边没出货。","frames":[{"act":"deny_fault","pol":"+"},{"act":"cause","pol":"+","reason":"factory"}],"tags":["fluent"],"note":""}
+{"text":"你讲得对，货是迟到了，我们要负责。","frames":[{"act":"acknowledge","pol":"+"}],"tags":["fluent"],"note":"decision 24"}
+{"text":"吃了没得嘛？我这儿正在吃面。","frames":[{"act":"none","pol":"+"}],"tags":["offtopic"],"note":""}
+{"text":"订单号多少哇？我帮你盯着。","frames":[{"act":"ask_order","pol":"+"}],"tags":["question"],"note":""}
+{"text":"好的好的，没问题，你说了算。","frames":[{"act":"agree","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"不是不想给你加急，是空运那边满舱了，实在做不到。","frames":[{"act":"expedite","pol":"-"}],"tags":["trap","negation"],"note":"denies expedite; 满舱 explains refusal not delay"}
+{"text":"赔礼嘛，九五折，再送你个小玩意儿。","frames":[{"act":"discount","pol":"+","pct":5},{"act":"compensate","pol":"+"}],"tags":["fluent"],"note":"decision 20, gift is other compensation"}
+{"text":"您要的折扣我们给不了，真的，没有这个价。","frames":[{"act":"discount","pol":"-","pct":null}],"tags":["negation"],"note":""}
+{"text":"加急这个事嘛，我们没得这个服务。","frames":[{"act":"expedite","pol":"-"}],"tags":["negation"],"note":""}
+{"text":"补发？不得行哦，库里头已经空了。","frames":[{"act":"resend","pol":"-"}],"tags":["negation","question"],"note":""}
+{"text":"今天肯定到不了，莫指望哈。","frames":[{"act":"promise_time","pol":"-","when":"today"}],"tags":["negation"],"note":""}
+{"text":"赔偿的话，没有哇，没有这个规矩。","frames":[{"act":"compensate","pol":"-"}],"tags":["negation"],"note":""}
+{"text":"我也莫得办法，公司规定不让退。","frames":[{"act":"refuse","pol":"+"}],"tags":["polite"],"note":"decision 8"}
+{"text":"免运费这个事，我们不干的哈。","frames":[{"act":"compensate","pol":"-"}],"tags":["negation"],"note":""}
+{"text":"你说是我们的错？这个我不认。","frames":[{"act":"deny_fault","pol":"+"}],"tags":["quote"],"note":""}
+{"text":"不是我们拖的，是你地址写错了嘛。","frames":[{"act":"deny_fault","pol":"+"},{"act":"cause","pol":"+","reason":"other"}],"tags":["negation"],"note":""}
+{"text":"我们没有说今天发嘛，你听岔了。","frames":[{"act":"resend","pol":"-","when":"today"},{"act":"deny_fault","pol":"+"}],"tags":["negation","trap"],"note":""}
+{"text":"重新发货可以，不过得等到下周一。","frames":[{"act":"resend","pol":"+","when":"monday"}],"tags":["fluent"],"note":""}
+{"text":"下周一发，周三到，你看嘛。","frames":[{"act":"resend","pol":"+","when":"monday"},{"act":"promise_time","pol":"+","when":"wednesday"}],"tags":["fluent"],"note":""}
+{"text":"那个，您的订单号是多少？还有收货人手机尾号。","frames":[{"act":"ask_order","pol":"+"}],"tags":["question"],"note":""}
+{"text":"嗯…那个…就是…我们这边…唉。","frames":[{"act":"none","pol":"+"}],"tags":["filler"],"note":""}
+{"text":"哎呀这个快递哟，真是的哦！","frames":[{"act":"none","pol":"+"}],"tags":["emotion"],"note":"decision 23"}
+{"text":"要不要我给你打个折哟？","frames":[{"act":"none","pol":"+"}],"tags":["question"],"note":"decision 3"}
+{"text":"您什么时候要货嘛，说个准日子。","frames":[{"act":"ask_deadline","pol":"+"}],"tags":["question"],"note":""}
+{"text":"要是仓库不搬家就好了，唉。","frames":[{"act":"none","pol":"+"}],"tags":["hypothetical"],"note":""}
+{"text":"九五折，补偿你嘛，真的不好意思。","frames":[{"act":"discount","pol":"+","pct":5},{"act":"apologize","pol":"+"}],"tags":["fluent"],"note":"decision 20"}
+{"text":"八五折哈，就这个价了。","frames":[{"act":"discount","pol":"+","pct":15}],"tags":["short"],"note":""}
+{"text":"立减一半，我亏本卖给你。","frames":[{"act":"discount","pol":"+","pct":50}],"tags":["fluent"],"note":""}
+{"text":"十个点嘛，给你优惠百分之十。","frames":[{"act":"discount","pol":"+","pct":10}],"tags":["fluent"],"note":""}
+{"text":"抱歉哈，实在是抱歉，让您久等。","frames":[{"act":"apologize","pol":"+"}],"tags":["formal"],"note":""}
+{"text":"请原谅哈，我们人手实在不够。","frames":[{"act":"apologize","pol":"+"},{"act":"cause","pol":"+","reason":"other"}],"tags":["fluent"],"note":""}
+{"text":"工厂那边停电，所以生产推迟了嘛。","frames":[{"act":"cause","pol":"+","reason":"factory"}],"tags":["fluent"],"note":""}
+{"text":"台风来了，航班全停，与我们无关哈。","frames":[{"act":"cause","pol":"+","reason":"weather"},{"act":"deny_fault","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"货压在海关，没放行，我们天天催。","frames":[{"act":"cause","pol":"+","reason":"customs"}],"tags":["fluent"],"note":""}
+{"text":"仓库盘点，库存对不上，所以拖了。","frames":[{"act":"cause","pol":"+","reason":"stock"}],"tags":["fluent"],"note":""}
+{"text":"货已经到你们那个城市了，快递员今晚送。","frames":[{"act":"promise_time","pol":"+","when":"today"}],"tags":["fluent"],"note":""}
+{"text":"快递公司已经发出来了哈。","frames":[{"act":"none","pol":"+"}],"tags":["trap"],"note":"decision 12: no delay explanation"}
+{"text":"快递公司把货弄丢了，我们重新给你发。","frames":[{"act":"cause","pol":"+","reason":"logistics"},{"act":"resend","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"明天一早，保证出现在你门口。","frames":[{"act":"promise_time","pol":"+","when":"tomorrow"}],"tags":["fluent"],"note":""}
+{"text":"星期五之前，一准儿到，我给你盯着。","frames":[{"act":"promise_time","pol":"+","when":"friday"}],"tags":["fluent"],"note":""}
+{"text":"谢谢谢谢，你人真好，理解我们。","frames":[{"act":"thanks","pol":"+"}],"tags":["short"],"note":""}
+{"text":"感谢您的耐心，期待下次再合作。","frames":[{"act":"thanks","pol":"+"},{"act":"closing","pol":"+"}],"tags":["formal"],"note":""}
+{"text":"先这样哈，有事再说，拜拜。","frames":[{"act":"closing","pol":"+"}],"tags":["short"],"note":""}
+{"text":"您好哇，上次那单是不是？","frames":[{"act":"greet","pol":"+"}],"tags":["truncated"],"note":""}
+{"text":"行，就这么办，我听你的。","frames":[{"act":"agree","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"好嘛，你要退，那就退，我没意见。","frames":[{"act":"agree","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"对不起你哈，不过这个真不是我们的责任。","frames":[{"act":"apologize","pol":"+"},{"act":"deny_fault","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"你讲我们骗你？我们做生意十几年了，不得骗人。","frames":[{"act":"none","pol":"+"}],"tags":["quote"],"note":""}
+{"text":"今天中午吃的回锅肉，安逸得很。","frames":[{"act":"none","pol":"+"}],"tags":["offtopic"],"note":""}
+{"text":"要不要加急，你说嘛？","frames":[{"act":"none","pol":"+"}],"tags":["question"],"note":"decision 3"}
+{"text":"退款一到两天到账，我这就去办。","frames":[{"act":"compensate","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"免单是不可能的哈，打个折还行。","frames":[{"act":"compensate","pol":"-"},{"act":"discount","pol":"+","pct":null}],"tags":["negation"],"note":""}
+{"text":"我们没有说过要给你退钱哦。","frames":[{"act":"compensate","pol":"-"}],"tags":["negation"],"note":""}
+{"text":"不是说不赔，是你先把单号给我噻。","frames":[{"act":"ask_order","pol":"+"}],"tags":["trap","negation"],"note":"不是说不赔 does not assert refusal"}
+{"text":"空运不是不可以，就是要加钱。","frames":[{"act":"expedite","pol":"+"}],"tags":["conditional","trap"],"note":"double negation, offer conditional on payment"}
+{"text":"我们会尽快处理，走优先通道。","frames":[{"act":"expedite","pol":"+"}],"tags":["formal"],"note":""}
+{"text":"您的货今天已经重发了，运单号稍后给您。","frames":[{"act":"resend","pol":"+","when":"today"}],"tags":["formal"],"note":""}
+{"text":"你喊我们赔？不得行嘛，真的赔不起。","frames":[{"act":"compensate","pol":"-"}],"tags":["quote","negation"],"note":""}
+{"text":"九折都不行，我们本来就没赚啥。","frames":[{"act":"discount","pol":"-","pct":10}],"tags":["negation"],"note":""}
+{"text":"我晓得你生气，换我我也气，但是今天真发不了。","frames":[{"act":"resend","pol":"-","when":"today"}],"tags":["negation","trap"],"note":""}
+{"text":"你问啥时候到？这个我现在说不准哈。","frames":[{"act":"none","pol":"+"}],"tags":["quote","trap"],"note":"no concrete promise"}
+{"text":"客服说周三到？那个是她乱讲的，周五才得行。","frames":[{"act":"promise_time","pol":"+","when":"friday"}],"tags":["quote","trap"],"note":""}
+{"text":"退货我们收，钱给你原路退回去。","frames":[{"act":"compensate","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"老板您好，我是李记的，专门给您回话。","frames":[{"act":"greet","pol":"+"}],"tags":["formal"],"note":""}
+{"text":"不好意思哈，给您添麻烦了，实在抱歉。","frames":[{"act":"apologize","pol":"+"}],"tags":["formal"],"note":""}
+{"text":"是我们仓库搞错了，发成别家的了。","frames":[{"act":"acknowledge","pol":"+"},{"act":"cause","pol":"+","reason":"other"}],"tags":["fluent"],"note":""}
+{"text":"责任在我们，这个我认。","frames":[{"act":"acknowledge","pol":"+"}],"tags":["short"],"note":""}
+{"text":"这事怪我，是我手松了没点发货。","frames":[{"act":"acknowledge","pol":"+"},{"act":"cause","pol":"+","reason":"other"}],"tags":["fluent"],"note":""}
+{"text":"重发一份嘛，今晚就打包。","frames":[{"act":"resend","pol":"+","when":"today"}],"tags":["short"],"note":""}
+{"text":"补一个新的给您，周一发出，周三到。","frames":[{"act":"resend","pol":"+","when":"monday"},{"act":"promise_time","pol":"+","when":"wednesday"}],"tags":["fluent"],"note":""}
+{"text":"最迟三天，货就到您手上。","frames":[{"act":"promise_time","pol":"+","when":"3_days"}],"tags":["fluent"],"note":""}
+{"text":"麻烦把你的订单编号给我嘛。","frames":[{"act":"ask_order","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"你到底哪天要得急？告诉我嘛。","frames":[{"act":"ask_deadline","pol":"+"}],"tags":["question"],"note":""}
+{"text":"您大概需要几号收到？","frames":[{"act":"ask_deadline","pol":"+"}],"tags":["question","formal"],"note":""}
+{"text":"嗯，那个，请问，下单的时候留的手机号是多少？","frames":[{"act":"ask_order","pol":"+"}],"tags":["filler","question"],"note":"phone number to find the order"}
+{"text":"周末到行不行？","frames":[{"act":"ask_deadline","pol":"+"}],"tags":["question","short"],"note":"asks the buyer's need"}
+{"text":"今天太阳好大哦，我在门口收快递都出汗了。","frames":[{"act":"none","pol":"+"}],"tags":["offtopic"],"note":""}
+{"text":"我昨天看了个电影，好看得很。","frames":[{"act":"none","pol":"+"}],"tags":["offtopic"],"note":""}
+{"text":"中午吃火锅没得？这几天太忙了。","frames":[{"act":"none","pol":"+"}],"tags":["offtopic"],"note":""}
+{"text":"你说“我要给差评”？莫急嘛，我们好好说。","frames":[{"act":"none","pol":"+"}],"tags":["quote","soothing"],"note":""}
+{"text":"如果当时多备点货，就不会这样了。","frames":[{"act":"none","pol":"+"}],"tags":["hypothetical"],"note":""}
+{"text":"假如你早一点下单，说不定就赶上了嘛。","frames":[{"act":"none","pol":"+"}],"tags":["hypothetical"],"note":""}
+{"text":"您别急哈，别急别急。","frames":[{"act":"none","pol":"+"}],"tags":["soothing"],"note":""}
+{"text":"嗯……这个……我们……哎，真是……","frames":[{"act":"none","pol":"+"}],"tags":["truncated","emotion"],"note":""}
+{"text":"要不要换个快递嘛？顺丰还是京东？","frames":[{"act":"none","pol":"+"}],"tags":["question"],"note":"decision 3"}
+{"text":"想不想要个小礼物嘛？","frames":[{"act":"none","pol":"+"}],"tags":["question"],"note":"decision 3"}
+{"text":"那就送你个充电宝，算赔礼。","frames":[{"act":"compensate","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"昨天路上堵车，我孩子上学都迟到了。","frames":[{"act":"none","pol":"+"}],"tags":["offtopic"],"note":"decision 22"}
+{"text":"暴雨那天仓库进水，你这单的货也泡了，所以才拖。","frames":[{"act":"cause","pol":"+","reason":"weather"}],"tags":["fluent"],"note":""}
+{"text":"厂里头机器坏了，排期往后挪了嘛。","frames":[{"act":"cause","pol":"+","reason":"factory"}],"tags":["fluent"],"note":""}
+{"text":"货缺得很，现在断码了，你那个尺码没得。","frames":[{"act":"cause","pol":"+","reason":"stock"}],"tags":["fluent"],"note":""}
+{"text":"海关查得严，我们也没得办法，只能等。","frames":[{"act":"cause","pol":"+","reason":"customs"}],"tags":["fluent"],"note":""}
+{"text":"路上下雪，车开不动，这个老天爷说了算。","frames":[{"act":"cause","pol":"+","reason":"weather"}],"tags":["fluent"],"note":""}
+{"text":"不是我们压着不发，是快递站爆仓了噻。","frames":[{"act":"cause","pol":"+","reason":"logistics"}],"tags":["trap","negation"],"note":"decision 19"}
+{"text":"不是我们偷懒，是货真的还在海关。","frames":[{"act":"cause","pol":"+","reason":"customs"}],"tags":["trap","negation"],"note":"decision 19"}
+{"text":"这个不关我们的事哈，是物流那边没送。","frames":[{"act":"deny_fault","pol":"+"},{"act":"cause","pol":"+","reason":"logistics"}],"tags":["fluent"],"note":""}
+{"text":"你那是错怪我们了，我们早发了。","frames":[{"act":"deny_fault","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"九折嘛，这个我们真给不了哈，利润太薄。","frames":[{"act":"discount","pol":"-","pct":10}],"tags":["negation"],"note":""}
+{"text":"那好，我答应你，退一半的钱。","frames":[{"act":"agree","pol":"+"},{"act":"compensate","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"可以可以，就这样，你发我地址。","frames":[{"act":"agree","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"中中中，你说得对，就这么整。","frames":[{"act":"agree","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"咋整嘛，那我现在就联系快递，给你换条线，快一点。","frames":[{"act":"expedite","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"走顺丰特快，邮费我们出，明天上午到。","frames":[{"act":"expedite","pol":"+"},{"act":"compensate","pol":"+"},{"act":"promise_time","pol":"+","when":"tomorrow"}],"tags":["fluent"],"note":""}
+{"text":"邮费算我们的，你不用管。","frames":[{"act":"compensate","pol":"+"}],"tags":["short"],"note":"decision 21"}
+{"text":"我是王姐，对不起哈，货的事我们办砸了，运费全免。","frames":[{"act":"apologize","pol":"+"},{"act":"acknowledge","pol":"+"},{"act":"compensate","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"谢谢你哈，下次再来，慢走。","frames":[{"act":"thanks","pol":"+"},{"act":"closing","pol":"+"}],"tags":["short"],"note":""}
+{"text":"就这样哈，我先挂了，有事你喊我。","frames":[{"act":"closing","pol":"+"}],"tags":["short"],"note":""}
+{"text":"哎呀，您好您好，实在对不住哈！","frames":[{"act":"greet","pol":"+"},{"act":"apologize","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"您稍等，我给您查一下，订单号能再说一遍吗？","frames":[{"act":"ask_order","pol":"+"}],"tags":["question","formal"],"note":""}
+{"text":"优先给你出库，明早第一车就走。","frames":[{"act":"expedite","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"补发的这个单，今天下午四点前发走，保证。","frames":[{"act":"resend","pol":"+","when":"today"}],"tags":["fluent"],"note":""}
+{"text":"货到了你给我拍个照，我再送你一包小零食。","frames":[{"act":"compensate","pol":"+"}],"tags":["conditional"],"note":""}
+{"text":"你要是不满意，我就给你打七折。","frames":[{"act":"discount","pol":"+","pct":30}],"tags":["conditional"],"note":""}
+{"text":"五折？你想得美哦，不可能的。","frames":[{"act":"discount","pol":"-","pct":50}],"tags":["negation","quote"],"note":""}
+{"text":"还有，那个，你要的发票我们开不了。","frames":[{"act":"refuse","pol":"+"}],"tags":["filler"],"note":""}
+{"text":"实在没办法了，这个要求我们办不到，对不起哈。","frames":[{"act":"refuse","pol":"+"},{"act":"apologize","pol":"+"}],"tags":["polite"],"note":""}
+{"text":"我们没做好，让你受气了，该打。","frames":[{"act":"acknowledge","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"您说得对，我们晚了两天，是我们不对。","frames":[{"act":"acknowledge","pol":"+"}],"tags":["fluent"],"note":""}
+{"text":"对啊，我们也着急，货在转运中心压了三天。","frames":[{"act":"cause","pol":"+","reason":"logistics"}],"tags":["fluent"],"note":""}
+{"text":"台风过境，渡轮停开，货过不来海。","frames":[{"act":"cause","pol":"+","reason":"weather"}],"tags":["fluent"],"note":""}
+{"text":"你说的“退钱”我听懂了，不过先让我查查。","frames":[{"act":"none","pol":"+"}],"tags":["quote"],"note":""}
+{"text":"哎，今天一堆事，锅都要烧干了。","frames":[{"act":"none","pol":"+"}],"tags":["emotion"],"note":""}
+{"text":"星期四，对，周四下午你就能签收了。","frames":[{"act":"promise_time","pol":"+","when":"thursday"}],"tags":["fluent"],"note":""}
+{"text":"好的，没得问题，明天我让人给你重发，晚上你就收到。","frames":[{"act":"agree","pol":"+"},{"act":"resend","pol":"+","when":"tomorrow"},{"act":"promise_time","pol":"+","when":"tomorrow"}],"tags":["fluent"],"note":""}
+{"text":"感谢您，再次抱歉，我们会改进，再见。","frames":[{"act":"thanks","pol":"+"},{"act":"apologize","pol":"+"},{"act":"closing","pol":"+"}],"tags":["formal"],"note":""}
+{"text":"不是我们不愿意给赔偿，是真没有这一项，请理解。","frames":[{"act":"compensate","pol":"-"}],"tags":["trap","negation"],"note":"Y is a denial, not a cause"}
+{"text":"您好，请问您是几号下的单？我这边帮您看。","frames":[{"act":"greet","pol":"+"},{"act":"ask_order","pol":"+"}],"tags":["question","formal"],"note":""}

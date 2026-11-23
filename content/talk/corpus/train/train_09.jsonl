@@ -1,0 +1,800 @@
+{"text": "我不是不想道歉,对不起,真的对不起您", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "不是我们不想补发,是库存真的空了", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["negation"], "note": ""}
+{"text": "不是我们不愿意打折,是公司规定不允许", "frames": [{"act": "discount", "pol": "-"}], "tags": ["negation"], "note": ""}
+{"text": "要不要我现在给您重新发一份?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您是想让我们退货吗?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "请问您的订单号是多少?", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您大概什么时候要用?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "如果货早到就好了,真遗憾", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "要是当初多备点货,也不会拖这么久", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "您说我们没有发货,我查过了,其实已经出库", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说要退货,这个我们做不到", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "本来想给您打九折,但是老板不同意", "frames": [{"act": "discount", "pol": "-", "pct": 10}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "本来今天能发出去,结果仓库停电了", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "您刚才说对不起没用,我听到了,不过我还是要说声抱歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "如果您现在确认地址,我们明天就重新发货", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["conditional"], "note": ""}
+{"text": "只要您点头,这单给您打八折", "frames": [{"act": "discount", "pol": "+", "pct": 20}], "tags": ["conditional"], "note": ""}
+{"text": "昨天我在商场看到到处都挂着折扣牌子,真夸张", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "今天雨下得好大,路上全是水", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "嗯 那个 抱歉啊 让您等这么久", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["filler"], "note": ""}
+{"text": "您好,这里是客服小李", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您的理解,以后还请多关照", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好的,没问题,就按您说的办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "周四一定送到,请放心", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不会给折扣,这是规定", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "实在没办法,这个我们恐怕帮不上忙", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "海关把货扣了,所以才慢", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "这是我们的错,没有借口", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不是我们的问题,是物流的错,他们送错了城市", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "您问什么时候能到?周五,最晚周五", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["quote"], "note": ""}
+{"text": "请放心,明天一定到", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "请放心,我们会处理的", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您别着急,慢慢说", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我sorry啊,明天一定给您送到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["mixed"], "note": ""}
+{"text": "我们没做好,责任在我们这边", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "真是不好意思,耽误您时间了", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天下午就重新寄一个给您", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "后天就能收到,放心吧", "frames": [{"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "工厂那边出了点问题,生产晚了", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "不能打折,真的不行,老板定的", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "这个价格已经是最低的了,没有优惠空间", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们会补发的,今天就安排", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "三天内到,绝对没问题", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "您的单号是多少?我帮您查", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您急用吗?哪天要?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "如果可以的话,我们给您减一半的钱,您看行吗?", "frames": [{"act": "discount", "pol": "+", "pct": 50}], "tags": ["conditional"], "note": ""}
+{"text": "要是没有下雨,货昨天就到了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "下雨路滑,车子开不了,所以晚了", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent"], "note": ""}
+{"text": "您说周三到,可是现在已经周二了,我知道", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "本来说周五到,但是现在可能周六", "frames": [{"act": "none", "pol": "+"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "货在海关卡着呢,没办法,你们也知道的", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢,再见,祝您生活愉快", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哈喽,您好呀", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯,可以,就这样吧", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我给你补发,明天出货,周四到", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "我们今天重发,后天肯定到您手上", "frames": [{"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,是我们没做好", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉抱歉,是我们的失误", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天中午才发出去,晚点到是我们的问题", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "别家可能会打折,我们这边没有这个政策", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我没说不给您补偿,只是折扣这块确实没有", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不是故意拖延的,请您见谅", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个订单我们没有拖,是快递压了三天", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "快递员说今天一定到,我只是转达", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "老板说九折,不过我没权利决定", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "如果您不满意,我们可以重新发货,后天到", "frames": [{"act": "resend", "pol": "+", "when": null}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["conditional"], "note": ""}
+{"text": "您要退款?这个我们真的办不到", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哎呀 货太多了 仓库忙不过来", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "我们保证三天以内送到,一天都不拖", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "昨天我女儿说她想要折扣券,哈哈", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "我下午要去开会,所以回您慢了", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "打折?对不起,我们这边不行", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起这个字我今天说了好多遍了,但还是要说,对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您说我们态度不好,真的很抱歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说要补偿,这个我要请示一下老板", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "周一发,周三到,您看可以吗", "frames": [{"act": "resend", "pol": "+", "when": "monday"}, {"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["fluent"], "note": ""}
+{"text": "明天发,大后天到", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "我们周五之前肯定补发", "frames": [{"act": "resend", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "订单号麻烦发我一下", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "你什么时候要货?告诉我就行", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "库存不够,所以才拖到现在", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "没有货,不是我们不想发", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["negation"], "note": ""}
+{"text": "我们这边已经尽力了,真的没办法再快", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "退货?我们不接受退货", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这是我们工作不到位,让您失望了", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "老实说,这次是我们的责任,对不起您", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我不会说不是我们的错,是我们的错", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "本来我想亲自送过去,但是路太远", "frames": [{"act": "none", "pol": "+"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "如果下次再晚,您尽管骂我", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "要不是台风,货早就到了", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent"], "note": ""}
+{"text": "请您放心,明天上午到", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "您好,请问是李先生吗?", "frames": [{"act": "greet", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "谢谢您等了这么久,辛苦了", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "再次抱歉,期待下次合作", "frames": [{"act": "apologize", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "行,没问题,我们按您说的时间", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可以,您说的那个我们接受", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们这个货,呃,明天,明天会到您那里", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["filler"], "note": ""}
+{"text": "就是那个,九折,我们可以给您九折", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["filler"], "note": ""}
+{"text": "我很抱歉的,货物来得太慢", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["learner"], "note": ""}
+{"text": "我们会再发一次货,今天晚上就发", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["learner"], "note": ""}
+{"text": "你的货在海关,海关检查很严,我们没办法", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "货被放在仓库里没有人发,是我们同事忘了", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "给您添麻烦了,实在过意不去", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "真不好意思啊,这单是我们搞砸了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "如果您愿意再等一天,周四我们一定送到", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["conditional"], "note": ""}
+{"text": "假如货今天到,您能收吗?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您能不能告诉我,您最晚哪天要?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "订单编号是不是以88开头的?", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "我们能不能给您打折?这个我得问问老板", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您说我们是骗子,这话我不能认,货真的在路上", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "他们说八五折,不过那是别家的价格,我们不做", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "八五折没有,九五折也没有,原价", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "九五折可以,您看行吗", "frames": [{"act": "discount", "pol": "+", "pct": 5}], "tags": ["fluent"], "note": ""}
+{"text": "给您优惠一点吧,您下次来还照顾我们", "frames": [{"act": "discount", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "减百分之二十,这是我们最大的诚意", "frames": [{"act": "discount", "pol": "+", "pct": 20}], "tags": ["fluent"], "note": ""}
+{"text": "十个点的优惠,现在就能给", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "没有优惠,一分钱都不能少", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "折扣的事我先不说,先把您的货找回来", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "说到折扣,我家附近超市今天全场五折", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "我们老板爱打高尔夫,今天又不在公司", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "您那边天气怎么样?我们这边下大雨", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "中午吃什么好呢,我都饿了", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "昨天看了个电影,里面的人也在道歉,真好笑", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "他不停地说对不起,可是那是别人的事", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "同事已经跟您道过歉了,我再补一句,抱歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "快递公司那边已经给您道歉了,但我们这边也要说声对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "快递小哥说他迷路了,所以送得晚", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "物流公司把您的包裹弄丢了一次,现在找到了", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "供应商那边断货,所以才发不了", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "这个责任不在我们,是工厂的问题", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "不怪我们,是天气的原因,台风封路了", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent"], "note": ""}
+{"text": "这怎么能怪我们,是快递送错地址", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "您看,这个不是我们的错吧,我们是按时发的", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们按时发了,是路上耽误了", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "今天我们一定会再发一次,您放心收货", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "明天上午补发一个新的", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "周一我们重新给您寄", "frames": [{"act": "resend", "pol": "+", "when": "monday"}], "tags": ["fluent"], "note": ""}
+{"text": "周六发出去,您看行不行", "frames": [{"act": "resend", "pol": "+", "when": "saturday"}], "tags": ["fluent"], "note": ""}
+{"text": "我们赶紧补发,您明天就能收到", "frames": [{"act": "resend", "pol": "+", "when": null}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "后天发货,您一周内能拿到", "frames": [{"act": "resend", "pol": "+", "when": "dayafter"}, {"act": "promise_time", "pol": "+", "when": "7_days"}], "tags": ["fluent"], "note": ""}
+{"text": "五天内肯定到,您别担心", "frames": [{"act": "promise_time", "pol": "+", "when": "5_days"}], "tags": ["fluent"], "note": ""}
+{"text": "您周末前一定能收到", "frames": [{"act": "promise_time", "pol": "+", "when": "saturday"}], "tags": ["fluent"], "note": ""}
+{"text": "明天晚上之前,货到您门口", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "三天后到,不会更晚了", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "大概周三吧,我不敢保证", "frames": [{"act": "none", "pol": "+"}], "tags": ["vague"], "note": ""}
+{"text": "也许明天到,也许后天,我也不知道", "frames": [{"act": "none", "pol": "+"}], "tags": ["vague"], "note": ""}
+{"text": "我不确定几号能到,要问物流", "frames": [{"act": "none", "pol": "+"}], "tags": ["vague"], "note": ""}
+{"text": "不一定今天到,但是我们在催", "frames": [{"act": "none", "pol": "+"}], "tags": ["vague"], "note": ""}
+{"text": "我们保证不会再晚了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不会再让您等了,请相信我们", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您放心,我一定盯着这个单子", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您放心,我今天亲自跟进,明天一定给您回复", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "明天一定给您回复,到货时间我再确认", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,我不能给您确切的日子", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "很抱歉没办法给您折扣", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思,折扣这块我们真的无能为力", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们公司规定不能退货,请您谅解", "frames": [{"act": "refuse", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个事情实在没办法,请您原谅", "frames": [{"act": "refuse", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们这边做不了,请您体谅", "frames": [{"act": "refuse", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉,退货这个我们不能处理", "frames": [{"act": "apologize", "pol": "+"}, {"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的要求我们办不到,但是能补发", "frames": [{"act": "refuse", "pol": "+"}, {"act": "resend", "pol": "+", "when": null}], "tags": ["fluent"], "note": ""}
+{"text": "我们不能退钱,不过可以重新发货", "frames": [{"act": "refuse", "pol": "+"}, {"act": "resend", "pol": "+", "when": null}], "tags": ["fluent"], "note": ""}
+{"text": "您要的加急,我们做不到,最快也要周五", "frames": [{"act": "refuse", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思,明天到不了,后天可以", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "明天到不了,真的到不了", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "明天不是不能到,只要您确认就行", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["negation", "conditional"], "note": ""}
+{"text": "今天没办法发,明天一定发出", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "我没有说今天会到,我说的是明天", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["quote"], "note": ""}
+{"text": "我没说要拖到周五,是物流说的", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "我们没有说过会打折,可能是您看错了", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "我们从来没有承诺过折扣,这点必须说明白", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "没有人答应过您打折,不好意思", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "您看到的折扣活动已经结束了", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们曾经有过折扣,现在没有了", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "上个月打过八折,现在恢复原价了", "frames": [{"act": "none", "pol": "+"}], "tags": ["past"], "note": ""}
+{"text": "昨天的单子已经走了,今天的还在打包", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天周二,您的货还在途中", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天是周二,不是周三,所以还没到", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "周三到的话您在家吗?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "后天您在家吗?我们好安排", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "周五到可以吗?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您希望哪天收到?周四还是周五?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您要的是明天还是后天?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "订单号能再发一遍吗,我这边没看清", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "麻烦把单号拍个照发过来", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "老板,不是,我是说您,您的货周四肯定到", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["filler"], "note": ""}
+{"text": "哎,这批货真的是我们疏忽了,抱歉啊", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们这边的流程出了错,让您白等", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "是我们打包的同事搞错了,责任我们担", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "确实是我们发晚了,这点我认", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我承认我们有问题,没有第二句话", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这单是我们耽误的,不关快递的事", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "道歉的话我说过了,现在说怎么办:今天重发", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "我向您道歉,也向您的同事道歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "请接受我们诚挚的歉意", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "万分抱歉,恳请见谅", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不住啊,真的对不住", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "让您操心了,不好意思哈", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉让您久等,货在路上了", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "实在是对不起,我们会改进的", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起对不起,这次真的是意外", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "sorry sorry,货今天寄", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}], "tags": ["mixed"], "note": ""}
+{"text": "maaf ya,我们明天补发", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["mixed"], "note": ""}
+{"text": "xin lỗi nhé,后天一定到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["mixed"], "note": ""}
+{"text": "您好您好,我是店里的客服", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "早上好,先生,关于您的订单", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "晚上好,打扰您休息了", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "喂,您好,听得到吗?", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "非常感谢您的耐心", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "多谢您体谅,我们会做得更好", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢,期待下次再合作", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "那就先这样,祝您一切顺利", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好,今天先说到这里,再联系", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "拜拜,有事再找我", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可以的,您说的我们照办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "行啊,没意见", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好的好的,就这么定了", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "同意,按您提的办法来", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没问题,您说退一部分,我们照做", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您说想换颜色,可以,没问题", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您说要周五送,好,周五送到", "frames": [{"act": "agree", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["quote"], "note": ""}
+{"text": "您要九折,可以,给您九折", "frames": [{"act": "agree", "pol": "+"}, {"act": "discount", "pol": "+", "pct": 10}], "tags": ["quote"], "note": ""}
+{"text": "您说要折扣?好吧,就十个点", "frames": [{"act": "agree", "pol": "+"}, {"act": "discount", "pol": "+", "pct": 10}], "tags": ["quote"], "note": ""}
+{"text": "您提的我们办不到,换个办法行吗", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这条我们真的没办法答应", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "很遗憾,公司不允许我们这么做", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个要求超出了我们的权限,不能答应", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们做不到当天到,抱歉", "frames": [{"act": "refuse", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个我恐怕处理不了,要找经理", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "让我们赔您三倍?这个不可能,对不起", "frames": [{"act": "refuse", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您想要的赔偿,我们这边没有这个规定", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "免费换新这种事,店里不允许", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "价格我们不能动,真的", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们店不搞折扣,从来不搞", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "一毛钱的优惠都没有,请别为难我", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "想打八折?这个我们不行", "frames": [{"act": "discount", "pol": "-", "pct": 20}], "tags": ["fluent"], "note": ""}
+{"text": "您要的七折我们没办法给", "frames": [{"act": "discount", "pol": "-", "pct": 30}], "tags": ["fluent"], "note": ""}
+{"text": "不可以减一半,这个我肯定没权限", "frames": [{"act": "discount", "pol": "-", "pct": 50}], "tags": ["fluent"], "note": ""}
+{"text": "五折?别开玩笑了,不可能", "frames": [{"act": "discount", "pol": "-", "pct": 50}], "tags": ["fluent"], "note": ""}
+{"text": "打九折的事我问过了,老板说不行", "frames": [{"act": "discount", "pol": "-", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "可以考虑给您百分之五的优惠", "frames": [{"act": "discount", "pol": "+", "pct": 5}], "tags": ["fluent"], "note": ""}
+{"text": "给您抹个零,这样算优惠", "frames": [{"act": "discount", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "下次下单我们给您十个点,您看如何", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "这次先给您优惠一点,下不为例", "frames": [{"act": "discount", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "要不要我给您九折?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您想不想要折扣?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "你想要多少折?我们先看看", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "我们给您打折,好不好?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "给您重新发一个,怎么样?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "道歉有用吗?您觉得呢?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "我是不是应该先说声对不起?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您能理解吗?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "货什么时候到,您是不是也很急?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "快递到了吗?到了请告诉我", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您收到短信了吗?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您订的什么颜色?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "单号是哪一个?红的还是蓝的?", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您的订单是什么时候下的?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您的货是哪天下单的?订单号多少?", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您需要几号收到?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "要在哪天之前到?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "几时要?我们好排期", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "截止日是几号呢?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您订单上的编号我这边显示不出来,您能再告诉我吗", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "如果货丢了,我们就重发", "frames": [{"act": "resend", "pol": "+", "when": null}], "tags": ["conditional"], "note": ""}
+{"text": "如果您在周四之前没收到,我们马上重新发一份", "frames": [{"act": "resend", "pol": "+", "when": null}], "tags": ["conditional"], "note": ""}
+{"text": "若是明天还没到,我们补发一件", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["conditional"], "note": ""}
+{"text": "要是您今天确认收货地址,我们明天就能寄出", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["conditional"], "note": ""}
+{"text": "只要您同意换货,明天发,周四到", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["conditional"], "note": ""}
+{"text": "假如您不满意,我们退一半的钱", "frames": [{"act": "discount", "pol": "+", "pct": 50}], "tags": ["conditional"], "note": ""}
+{"text": "您要是现在下单,我们给您九五折", "frames": [{"act": "discount", "pol": "+", "pct": 5}], "tags": ["conditional"], "note": ""}
+{"text": "如果您愿意等到周五,我们就多送一个赠品", "frames": [{"act": "none", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "如果货真的丢了就太糟糕了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "假如我们早一天发货,您就不用着急了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "早知道这样,我们当初就走空运了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "要是我是您,我也会生气", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "如果可以的话,我真想马上飞到您那里把货送过去", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "那天要是没有停电,货今天就在您手里了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "如果没有这场大雨就好了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "我真希望能打九折,可惜没有这个权限", "frames": [{"act": "discount", "pol": "-", "pct": 10}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "我很想给您退货,但是总公司不批", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "原计划今天发货,但是仓库临时盘点,所以推迟", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "原本说明天到,现在看来要推迟了", "frames": [{"act": "none", "pol": "+"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "本来我们是打算周四送到的,可惜遇到下雪", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "本来想周三送,没想到司机生病了", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "我知道您很生气,换作是我也一样,所以先跟您说声抱歉,然后马上帮您查", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["long"], "note": ""}
+{"text": "您听我说,这个货呢,本来是周一就应该出的,结果仓库那边漏了,是我们的问题,明天一定出", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["long"], "note": ""}
+{"text": "我们公司在曼谷也有仓库,但是这单的货在泰国海关停了好几天", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["long"], "note": ""}
+{"text": "我查了一下系统,发现货卡在分拣中心,那边机器坏了", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "货在雅加达港口排队,船太多了,没办法", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "最近原料涨价,工厂停产一周,所以您的货没做完", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "供货商说缺货,什么时候有他们也不知道", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "雨季嘛,路都淹了,车根本进不去", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent"], "note": ""}
+{"text": "大雪封山,司机困在路上两天了", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent"], "note": ""}
+{"text": "工人放假回家,厂里没人干活", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "系统出了bug,订单没有传到仓库", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "我们新来的员工把地址填错了,货送到隔壁区", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "货是昨天才到仓库的,所以今天才能发", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "我们没有故意拖,是原材料没到", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["negation"], "note": ""}
+{"text": "您的货没丢,在中转站,就是那边堆满了", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,运费涨了,所以厂家不愿意先发", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "您的包裹被扣在海关抽查,要三天左右", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "这几天节日,快递全爆仓了,我们也没办法", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思,这个是我们的问题,不是快递的问题", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不是工厂的问题,是我们自己没排好单", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不要怪客服,这个不是她的错,是我的疏忽", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您别怪快递,他们已经尽力了,是我们没提前发", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "和物流无关,是我们这边漏发了", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "快递公司的责任,和我们没关系,他们把货弄坏了", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "你该找快递公司,我们这边没问题", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这是海关的政策,不是我们能控制的", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "不关我们事,是仓库外包公司搞的", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "您说是我们的错,其实是天气的问题,不是我们", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["quote"], "note": ""}
+{"text": "您说货被我们压了?没有的事,是物流的问题", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["quote"], "note": ""}
+{"text": "您说我们骗人,我们没有骗人,货在路上", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说我们不负责任,我只能说抱歉,但我们真的在跟进", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说\"明天必须到\",我尽量,但是不敢保证", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说周五要,没问题,周四我们就到", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["quote"], "note": ""}
+{"text": "您说要三天内,我们能做到,三天内到", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["quote"], "note": ""}
+{"text": "您说想要退钱,抱歉,这个我们不行", "frames": [{"act": "apologize", "pol": "+"}, {"act": "refuse", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说要重发,好的,今天就办", "frames": [{"act": "agree", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}], "tags": ["quote"], "note": ""}
+{"text": "您说要折扣,实在没有,不好意思", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说要赔钱,这个不在我们能做的范围内", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您刚才问为什么晚,原因是海关扣货", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["quote"], "note": ""}
+{"text": "您问我们啥时候发,明天就发", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["quote"], "note": ""}
+{"text": "您问有没有折扣,对不起,没有", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您问订单号?我马上看看", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "你说订单号是12345,好,我查一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "订单号12345对吧,这个我看到了,在路上", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我看到您的单号了,发货时间是上周五", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您写的地址我这边显示不全", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您那边的电话是不是打不通?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "刚才打您电话没人接,所以发语音", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我先发语音,您听完再回", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们的小哥会在周五上午打电话给您", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我已经把您的情况报给主管了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我这边记下来了,有结果马上通知", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的意见我们收到,会转给负责人", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个问题我会向上反映", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "稍等一下,我去仓库问问", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯嗯,我在听", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "明白了,您继续说", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我理解您的心情", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的心情我完全明白,换谁都会生气", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "别担心,这个事我来处理", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "放心吧,有我在", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们会尽快,请再给我们一点时间", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "再等等,马上有消息", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个我再确认一下,稍后回您", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今天一定发,明天一定到,请您放心,真的对不起", "frames": [{"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,今天发货,三天内到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "很抱歉,明天补发,周五一定送到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "我们补发一份,周六到,同时给您九折", "frames": [{"act": "resend", "pol": "+", "when": null}, {"act": "promise_time", "pol": "+", "when": "saturday"}, {"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "重新寄一份,再给您打个九五折,您看行吗", "frames": [{"act": "resend", "pol": "+", "when": null}, {"act": "discount", "pol": "+", "pct": 5}], "tags": ["fluent"], "note": ""}
+{"text": "是我们的错,我们今天重发,还给您八折", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}, {"act": "discount", "pol": "+", "pct": 20}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉,这一单全免,下次再合作", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "+", "pct": 100}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这次给您打折,算是赔礼", "frames": [{"act": "discount", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您减十块,算道歉", "frames": [{"act": "discount", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们重新发货,折扣的话,真的给不了", "frames": [{"act": "resend", "pol": "+", "when": null}, {"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "可以补发,但是折扣没有", "frames": [{"act": "resend", "pol": "+", "when": null}, {"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "折扣不行,不过明天一定补发,后天到", "frames": [{"act": "discount", "pol": "-"}, {"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "补发可以,退款不行,您看怎么样?", "frames": [{"act": "resend", "pol": "+", "when": null}, {"act": "refuse", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "退钱我们做不了,但是可以重发", "frames": [{"act": "refuse", "pol": "+"}, {"act": "resend", "pol": "+", "when": null}], "tags": ["fluent"], "note": ""}
+{"text": "货不能退,但是我们补发新的,三天到", "frames": [{"act": "refuse", "pol": "+"}, {"act": "resend", "pol": "+", "when": null}, {"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不会说不是我们的错,这次确实是我们的错", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "我不是说不给您补发,是说今天补发不了,明天可以", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["negation"], "note": ""}
+{"text": "不是不给您折扣,是现在没有活动", "frames": [{"act": "discount", "pol": "-"}], "tags": ["negation"], "note": ""}
+{"text": "我不是不理您,只是之前在开会,对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "并不是我们不道歉,而是怕您更生气,现在说,对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "不得不说,是我们的失误,抱歉", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "三天前就该到了,我知道,是我们的错", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "三天前我们已经发出了,现在应该到了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "前天发的,昨天到港,今天清关", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "上周三发的货,到现在还没到,是我们没跟进", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "周二也就是今天,货已经在路上", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "明天是周三,货会准时到", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "后天周四,您就能收到", "frames": [{"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "周四晚上七点前到", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "周五早上第一件就送您这单", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "周日不送货,所以最快周一", "frames": [{"act": "promise_time", "pol": "+", "when": "monday"}], "tags": ["fluent"], "note": ""}
+{"text": "周末不上班,周一我们补发", "frames": [{"act": "resend", "pol": "+", "when": "monday"}], "tags": ["fluent"], "note": ""}
+{"text": "下午三点前送到", "frames": [{"act": "promise_time", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "今晚就能到您手里", "frames": [{"act": "promise_time", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "今天下班前给您寄出", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "最迟周六中午到", "frames": [{"act": "promise_time", "pol": "+", "when": "saturday"}], "tags": ["fluent"], "note": ""}
+{"text": "四天内送到,最晚第五天", "frames": [{"act": "promise_time", "pol": "+", "when": "4_days"}], "tags": ["fluent"], "note": ""}
+{"text": "一周内一定到", "frames": [{"act": "promise_time", "pol": "+", "when": "7_days"}], "tags": ["fluent"], "note": ""}
+{"text": "十天以内,不会超过十天", "frames": [{"act": "promise_time", "pol": "+", "when": "10_days"}], "tags": ["fluent"], "note": ""}
+{"text": "两天内给您答复", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "两天以后再联系您", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "两天内补发,不会更久", "frames": [{"act": "resend", "pol": "+", "when": "2_days"}], "tags": ["fluent"], "note": ""}
+{"text": "两天到,真的两天", "frames": [{"act": "promise_time", "pol": "+", "when": "2_days"}], "tags": ["fluent"], "note": ""}
+{"text": "一个星期前您就下单了,我知道,耽误了", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "第三天了,第三天货还没动,是我们的问题", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "一二三,三个订单都晚了,对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们有三个仓库,您这单在最远那个", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个月已经晚了三单,我们会检讨", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "九折这个数我记得,但是现在没有", "frames": [{"act": "discount", "pol": "-", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "九月的时候是有折扣,现在已经没了", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "九点前下单当天发,您是几点下的", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "十点之前能回我吗?我要查一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "折扣这个词,我今天听了十遍了,没有就是没有", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我数学不好,算不出折扣,您说个数字", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "一折也好五折也好,我都做不了主", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "八折的衣服我自己都舍不得买,哈哈", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "我朋友开店,最近天天搞折扣,卖得很好", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "我们小区超市今天抱歉停业,哈哈,我都没买到菜", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "楼下那家店老板娘一直说对不起,结果还是涨价", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "昨天的足球赛太精彩了,您看了吗?", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic"], "note": ""}
+{"text": "我刚吃完饭,有点困,抱歉,继续", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,刚才我这边信号不好,您说什么?", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉打断您,您先说", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思,我说错了,是周四不是周三", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "刚才我说错了,周四到,不是周三,对不起", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉,更正一下,是明天发,不是今天", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,我记错了您的名字", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我没有道歉的权利,是老板的事", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "我无权给折扣,只有老板能决定", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "这事不归我管,我给您转同事", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我转给经理,让他跟您说", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "别家价格可能更低,我们的价格不动", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "同行有人打七折,但是我们质量不一样,不打折", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "比起他们,我们的退货条件更严,恐怕不能退", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "跟隔壁店比,我们速度确实慢了,是我们的问题", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "他们三天到,我们五天到,这是实话", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "他们那边可能更快,但是我们保证五天到", "frames": [{"act": "promise_time", "pol": "+", "when": "5_days"}], "tags": ["fluent"], "note": ""}
+{"text": "上次那个客户也是这样,后来我们补发了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "其他客户都收到了,只有您的还在路上,对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "别人的货都按时到,唯独您的晚了,这是我们的疏忽", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "去年同一时间我们也晚过,所以这次提前三天发的,结果还是晚", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "他说今天到,她说明天到,我也搞不清楚", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "司机说他下午会到,但是我不敢保证", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "快递公司说明天到,我们帮您盯着", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "物流系统显示明天到,不过我们不太信", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "客服同事说会补偿,我不确定,我再问问", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "老板刚刚说同意打折,具体几折还没定", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "老板说可以打九折,我先给您报个价", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "经理批了八五折,给您", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["fluent"], "note": ""}
+{"text": "经理批了百分之二十的优惠", "frames": [{"act": "discount", "pol": "+", "pct": 20}], "tags": ["fluent"], "note": ""}
+{"text": "刚才领导说了,不能减价,但是赠品可以多给", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "领导说了,折扣可以谈,您想要多少", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们的价格已经压到最低,您看别的店也不会更便宜", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "减价这件事,没得商量", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "减免这种事,店里没这个规定", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "打折是不可能的,但是我可以道歉,对不起", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "折扣没有,但是诚意有,对不起", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "真的对不起,货晚了,又没有折扣,我也难过", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,货晚了三天,我给您打九五折赔罪", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "+", "pct": 5}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉,我们补发,并免您下一单运费", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": null}], "tags": ["fluent"], "note": ""}
+{"text": "实在不好意思,九折给您", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "给您道个歉,折扣八折,您看如何", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "+", "pct": 20}], "tags": ["fluent"], "note": ""}
+{"text": "道个歉,再补个货,明天到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": null}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "是我们错了,抱歉,今天重新发货,明天一定到", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "错在我们,不好意思,您等到周四,我们保证到", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "不是不想发,是真的没货了,给您添麻烦,抱歉", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}, {"act": "apologize", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "不是我们不努力,海关就是不放行,抱歉", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}, {"act": "apologize", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "您好啊,我是售后的,看到您的留言了", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "喂,是您吗?我是卖家,关于那个订单", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "各位好,先跟您问个好,再说货的事", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这边是店铺客服,有点事要跟您说明", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "感谢您的反馈,我们一定重视", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您给我们机会解释", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "多谢您不取消订单,真的感谢", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "感激不尽,您这么宽容", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "合作愉快,我们保持联系", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "就这样吧,有事随时找我,再见", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "先聊到这里,晚点我再告诉您进展", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您的理解,期待继续合作,再见", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好了,不多说了,祝您顺利,谢谢", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "行,您说周五就周五", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没关系,您说退一半我也行", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对对对,您说得对", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的建议很好,我们采纳", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可以啊,这样处理可以", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没问题,您想换货的话换货", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好吧,就依您,今天补发", "frames": [{"act": "agree", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "好的,听您的,明天发货", "frames": [{"act": "agree", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "可以,就按您说的,周四到", "frames": [{"act": "agree", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "同意您的方案,我们周五前补上", "frames": [{"act": "agree", "pol": "+"}, {"act": "resend", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "您要九五折?行,九五折", "frames": [{"act": "agree", "pol": "+"}, {"act": "discount", "pol": "+", "pct": 5}], "tags": ["fluent"], "note": ""}
+{"text": "您提出的要求我们可以接受,给您八折", "frames": [{"act": "agree", "pol": "+"}, {"act": "discount", "pol": "+", "pct": 20}], "tags": ["fluent"], "note": ""}
+{"text": "同意,折扣就按您说的两成算", "frames": [{"act": "agree", "pol": "+"}, {"act": "discount", "pol": "+", "pct": 20}], "tags": ["fluent"], "note": ""}
+{"text": "行,我们先发,您后付款也可以", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们会看看能不能提前,不保证", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我试试催一下仓库,但是不敢说准话", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可能的话,我们会提前一天,到时候再通知您", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "说不定明天就到了,您留意一下电话", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "也许可以打折,我问问", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可能要晚几天,具体还不清楚", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我想想办法,您先别急", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "有消息了第一时间告诉您", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货到了我马上通知", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货发出以后我会发运单号给您", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "发出后我把单号给您", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您可以用单号查物流,我发给您", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "单号我已经发您了,您看看", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "订单的事我让同事处理,他叫小王", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "麻烦您提供一下收货人的姓名", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "请把收货地址再发一遍", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "地址对的话,我们就明天发", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["conditional"], "note": ""}
+{"text": "您确认一下地址,没问题我们就今天发", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["conditional"], "note": ""}
+{"text": "地址确认以后,三天内到", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["conditional"], "note": ""}
+{"text": "您发个地址,我给您补发", "frames": [{"act": "resend", "pol": "+", "when": null}], "tags": ["conditional"], "note": ""}
+{"text": "您要是不要这个货了,我们就取消,不用付钱", "frames": [{"act": "none", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "如果您想取消订单,我可以帮您申请", "frames": [{"act": "none", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "想取消?那个我得问问", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您想要补发还是退款?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您想要几折呢?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您要不要等一等?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您看明天发行不行?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您是想今天收到吗?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "想几号收到?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "到底几号要?我这边好定", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "最晚能等到哪一天?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您的订单号还记得吗?", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "有没有订单截图?单号在上面", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "单号有没有?没有的话手机号也行", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "您下的单能不能告诉我编号?", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "编号和姓名,麻烦发一下", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您要的我们已经在做了,没有问题", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的货我们已经打包好了,等快递来取", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货已经出仓,正在送往转运站", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "今早司机已经装车了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的货现在在海关", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "包裹到了本市,还没派送", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "快递刚刚来取货了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "快递公司已经发出了,您的货在路上", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "快递公司把货发到别的城市了,真是气人", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "物流中间转运错了,多绕了一圈", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "这趟车抛锚了,所以晚了", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "司机在路上出车祸了,人没事,货晚了", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "货船因为风浪改道,晚了几天", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent"], "note": ""}
+{"text": "暴风雨让港口关闭了两天", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent"], "note": ""}
+{"text": "高温,物流车不能运生鲜,所以停了", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent"], "note": ""}
+{"text": "海关最近查得特别严,很多货都压着", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "报关资料有点问题,海关退回来了", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "清关花了比平时更长的时间", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "原料厂着火了,我们的货得等", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "工厂机器坏了,正在修", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "工厂说排产排到下周了", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "我们这个款式卖光了,要重新做", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "仓库里还剩一件,但是有瑕疵,所以不能发", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "库存数据错了,实际没货", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "货是有的,只是放错了仓", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "当时是人手不够,几个同事请假", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "因为春节,我们人都回家了", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "我们很道歉,货物到你的地方很慢", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["learner"], "note": ""}
+{"text": "我明天再发送货物一次给你", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["learner"], "note": ""}
+{"text": "货物会到你那边在星期四", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["learner"], "note": ""}
+{"text": "我们不能给你折扣,公司没有这个政策", "frames": [{"act": "discount", "pol": "-"}], "tags": ["learner"], "note": ""}
+{"text": "不好意思我们的错,没有注意你的订单", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["learner"], "note": ""}
+{"text": "你的订单号码是什么?我想检查一下", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["learner"], "note": ""}
+{"text": "你需要货物在哪一天?", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["learner"], "note": ""}
+{"text": "货物被海关留住了,我们不能做什么", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["learner"], "note": ""}
+{"text": "谢谢你的了解,我们再联系", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["learner"], "note": ""}
+{"text": "我保证三天以后货物到你家", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["learner"], "note": ""}
+{"text": "卖家这边真的很对不起你,明天补发", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["learner"], "note": ""}
+{"text": "这个问题不是我们公司,是快递公司的问题", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["learner"], "note": ""}
+{"text": "我们想给你打九折,可是老板说不可以", "frames": [{"act": "discount", "pol": "-", "pct": 10}], "tags": ["learner", "cancelled_plan"], "note": ""}
+{"text": "嗯,那个,抱歉,我,我们明天寄", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["filler"], "note": ""}
+{"text": "就是,这个,海关那边,有点问题", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["filler"], "note": ""}
+{"text": "呃,折扣,折扣的话,我们没有", "frames": [{"act": "discount", "pol": "-"}], "tags": ["filler"], "note": ""}
+{"text": "那个那个,您的单号能再说一次吗", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["filler"], "note": ""}
+{"text": "嗯 就是说 后天一定到啦", "frames": [{"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["filler"], "note": ""}
+{"text": "啊对,我们是应该早点发的,是我们不对", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["filler"], "note": ""}
+{"text": "欸,不是,我是说周四,周四到", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["filler"], "note": ""}
+{"text": "唉,真没办法,实在帮不了您", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "唉,都怪我们,对不起", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哎呀,真糟糕,是我们弄错了", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "天哪,这么晚?我马上查,抱歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "咦,系统显示已发货,但是您没收到?我再查", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哦,明白了,您是想退货,这个我们不能办", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哦,您是要折扣,我们这边没有", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "哦,您想知道什么时候到,周五", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "哦您的单号?稍等一下", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嘿,别生气,我们补发,明天到", "frames": [{"act": "resend", "pol": "+", "when": null}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "别气了,货今天出发,周四前到", "frames": [{"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "请您消消气,我们今天就补发", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "请消气,我们保证周五前送到", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "不要生气嘛,我们明天一定补发", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "别生气别生气,我给您道歉,抱歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "抱歉哈,给您添乱了", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "给您赔个不是", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我给您鞠躬了,对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "承蒙您体谅,我们一定改进", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谅解一下,货三天内必到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "请谅解,我们这边也很着急", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "还请海涵,货明天到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "烦请您见谅,折扣是真的没有", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "这件事我们负全部责任", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "全是我们的原因,和您没关系", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们工作上有漏洞,这点要认", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们的安排不周,让您受累", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "是我们疏忽,货发错了,您的那份还没发", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "是我们这边的失误,今天马上发", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "是我们的过错,明天给您补上", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "我们的责任,您的货明天重新发,后天到", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "我们的问题,不用找别人,抱歉", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不是别人的问题,就是我们的问题", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不会推卸责任,是我们没做好", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这次真的没法怪别人,是我们没处理好", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我不想找借口,是我们做错了", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我没有找借口的意思,海关确实扣货了", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["negation"], "note": ""}
+{"text": "我不是在找借口,下雨路断是事实", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["negation"], "note": ""}
+{"text": "我不是推卸责任,但这个确实是快递的错", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["negation"], "note": ""}
+{"text": "我没推卸,但工厂确实延迟了", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["negation"], "note": ""}
+{"text": "这个责任我们担,但是工厂也有责任", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent"], "note": ""}
+{"text": "工厂也有责任,但是我们先赔不是,对不起", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "虽然是快递的问题,我们还是说声抱歉", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "虽然不是我们的错,还是要道个歉", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "虽然没有折扣,不过我们会补发", "frames": [{"act": "discount", "pol": "-"}, {"act": "resend", "pol": "+", "when": null}], "tags": ["fluent"], "note": ""}
+{"text": "虽然没办法退款,但是我们可以重新发货,周四到", "frames": [{"act": "refuse", "pol": "+"}, {"act": "resend", "pol": "+", "when": null}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "虽说明天到不了,但是后天一定到", "frames": [{"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "就算您不满意,我们也只能周五到", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "即使您取消订单,我们也不能退钱", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哪怕您再生气,折扣也给不了", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "哪怕再晚,最迟周六也会到", "frames": [{"act": "promise_time", "pol": "+", "when": "saturday"}], "tags": ["fluent"], "note": ""}
+{"text": "无论如何,明天一定出货", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "不管怎样,我们先补发", "frames": [{"act": "resend", "pol": "+", "when": null}], "tags": ["fluent"], "note": ""}
+{"text": "不论您要不要,我们都会补发一次", "frames": [{"act": "resend", "pol": "+", "when": null}], "tags": ["fluent"], "note": ""}
+{"text": "反正货肯定会到的,只是时间问题", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货肯定会到,但我现在不能说哪天", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货迟早会到的,您先别急", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这批货确实有点晚,不过质量没问题", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货物质量您放心,只是晚了点", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们的东西没有问题,只是路上慢了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "货没问题,是路上耽搁了", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent"], "note": ""}
+{"text": "他们说货在路上,可我也还没看到", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们的物流系统显示昨天签收了,可您说没收到", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您说没收到,我们查到的是已经签收了,有点奇怪", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说我们应该打折,我们理解,但是折扣这个事真的没有", "frames": [{"act": "discount", "pol": "-"}], "tags": ["quote"], "note": ""}
+{"text": "您说别家有折扣,我们这里没有这个", "frames": [{"act": "discount", "pol": "-"}], "tags": ["quote"], "note": ""}
+{"text": "您说要八折,这个比例太大了,我们给不了", "frames": [{"act": "discount", "pol": "-", "pct": 20}], "tags": ["quote"], "note": ""}
+{"text": "您说\"明天不到就退款\",退款我们做不到,但是明天会到", "frames": [{"act": "refuse", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["quote"], "note": ""}
+{"text": "您说\"必须道歉\",好,对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说我们不诚实,这话我接不住,只能说抱歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您说\"骗子\",这个词我听到了,不过货真的在路上", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您刚才讲的\"周五\",我记下了,我们尽量周五", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "您讲\"后天要\",后天可以,保证到", "frames": [{"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["quote"], "note": ""}
+{"text": "您说要加急,可以加急,明天到", "frames": [{"act": "agree", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["quote"], "note": ""}
+{"text": "您说\"重新发一份\",可以,今天就发", "frames": [{"act": "agree", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}], "tags": ["quote"], "note": ""}
+{"text": "您问为什么不打折,因为公司没有这个规定", "frames": [{"act": "discount", "pol": "-"}], "tags": ["quote"], "note": ""}
+{"text": "您问\"什么时候发\",我们明天发", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["quote"], "note": ""}
+{"text": "您问\"能不能退\",不能退", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "他问我们为什么晚,我说是因为海关", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["quote"], "note": ""}
+{"text": "同事问我要不要补发,我说要,今天发", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["quote"], "note": ""}
+{"text": "我同事说我们没有折扣,对,没有", "frames": [{"act": "discount", "pol": "-"}], "tags": ["quote"], "note": ""}
+{"text": "客户说\"道歉没用\",我同意,所以我们直接补发,今天寄", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["quote"], "note": ""}
+{"text": "买家说对不起不够,我认同,所以我们补发加折扣九折", "frames": [{"act": "resend", "pol": "+", "when": null}, {"act": "discount", "pol": "+", "pct": 10}], "tags": ["quote"], "note": ""}
+{"text": "别人说我们态度差,我们不认同,不过还是想对您说抱歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["quote"], "note": ""}
+{"text": "我们的广告上写\"全场八折\",那是上个月的活动,现在没有了", "frames": [{"act": "discount", "pol": "-", "pct": 20}], "tags": ["fluent"], "note": ""}
+{"text": "网站上的折扣标签是旧的,现在没有折扣,抱歉", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "商品页面写错了,折扣不是八折,没有折扣", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "海报上的九折是店庆,已经过去了", "frames": [{"act": "discount", "pol": "-", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "折扣券已经过期,下次有活动我通知您", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "折扣码在哪?我这边没看到,您能给我看看吗", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "优惠券用不了是系统的问题,我们修好后补给您", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent"], "note": ""}
+{"text": "优惠券我们补发给您,明天到账", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "十块钱优惠券,明天发给您", "frames": [{"act": "discount", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "下单立减,抱歉,这个活动已经停了", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "满减活动结束了,请原谅", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "会员价八五折,您是会员,可以用", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["fluent"], "note": ""}
+{"text": "会员折扣可以用,九折,您的订单我帮您改", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "您是老客户,我们给您九折,没问题", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "老客户也没有折扣,真是不好意思", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "新客户首单半价,不过您不算新客户", "frames": [{"act": "discount", "pol": "-", "pct": 50}], "tags": ["fluent"], "note": ""}
+{"text": "批发价五折,您这次量不够,所以没有", "frames": [{"act": "discount", "pol": "-", "pct": 50}], "tags": ["fluent"], "note": ""}
+{"text": "量大的话九折,这次量小,恐怕没有", "frames": [{"act": "discount", "pol": "-", "pct": 10}], "tags": ["fluent"], "note": ""}
+{"text": "再多买一件,我们打八五折", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["conditional"], "note": ""}
+{"text": "您下次下单前告诉我,我给您九折", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["conditional"], "note": ""}
+{"text": "您能接受晚三天,我们减百分之十", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["conditional"], "note": ""}
+{"text": "您接受周五到的话,给您减价", "frames": [{"act": "discount", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "等您确认了,我们今天就发货,周四到", "frames": [{"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["conditional"], "note": ""}
+{"text": "没问题的话,后天发,四天内到", "frames": [{"act": "resend", "pol": "+", "when": "dayafter"}, {"act": "promise_time", "pol": "+", "when": "4_days"}], "tags": ["conditional"], "note": ""}
+{"text": "您要是同意,我们这就安排补发", "frames": [{"act": "resend", "pol": "+", "when": null}], "tags": ["conditional"], "note": ""}
+{"text": "如果您那边方便,周三我们派人送", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["conditional"], "note": ""}
+{"text": "如果您周五在家,我们周五送", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["conditional"], "note": ""}
+{"text": "假如您能提前告诉我们要哪天,我们会安排", "frames": [{"act": "none", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "一旦货到了,我们立刻通知", "frames": [{"act": "none", "pol": "+"}], "tags": ["conditional"], "note": ""}
+{"text": "万一明天没到,您打我电话", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "要是再晚,我们就退您一半,您看行吗", "frames": [{"act": "discount", "pol": "+", "pct": 50}], "tags": ["conditional"], "note": ""}
+{"text": "要是再晚,我们该怎么办呢?", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "要是我们早点联系您就好了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "假如我们当初检查仔细,就不会出这种错", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical"], "note": ""}
+{"text": "我宁愿您骂我,也不想看到您失望", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我希望能给您满意的结果", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我希望货明天到,但不能保证", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我真想帮您,可是实在没办法", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我想给您打折,可是老板不批,没办法", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我想补发,可是库存是零", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "我想重发,但是海关还卡着,所以得等", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "想给您周四送,没想到下雪了,改周五", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}, {"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "本想今天发出,可惜机器坏了,明天发", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "原来打算周三给您,现在确定周四", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "原先说今天到,现在改成明天", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "之前说周五,现在提前到周四", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "之前答应过周三,但是做不到了,对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "之前讲的明天到,取消了,新的时间周六", "frames": [{"act": "promise_time", "pol": "+", "when": "saturday"}], "tags": ["fluent"], "note": ""}
+{"text": "计划是下周一发,您要的话我可以提前到今天", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["conditional"], "note": ""}
+{"text": "计划发周二的,可以现在就发吗,您看", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "我们本来答应八折的,现在老板反悔了", "frames": [{"act": "discount", "pol": "-", "pct": 20}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "我答应过您九折,可是后来没批下来,抱歉", "frames": [{"act": "discount", "pol": "-", "pct": 10}, {"act": "apologize", "pol": "+"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "我们原本想补偿您的,但是公司没这个规定", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["cancelled_plan"], "note": ""}
+{"text": "没打算赖账,就是流程慢", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "不是不想退,是系统不让退", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "不是不发,是不能发", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "不是不让您退货,只是退货要等七天", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "不是没有货,是货在路上", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "货不是没发,是已经发了,在路上", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "货并非没有出库,是物流没扫描", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["negation"], "note": ""}
+{"text": "不会不赔您,只是赔多少还没定", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "不是不负责任,我们真的在处理,对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "我们并没有放弃您的订单,抱歉让您误会", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "这不是无法解决的问题,明天我们补发", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["negation"], "note": ""}
+{"text": "没有不到的货,只有晚到的货", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "没有人不想准时,实在是意外", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "没有不道歉的意思,对不起啊", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["negation"], "note": ""}
+{"text": "没有不愿意补发,明天就补", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["negation"], "note": ""}
+{"text": "老板刚才骂了我一顿,所以我专门来给您说声对不起", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们全公司都在查您这个单子", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您的单子现在是最高优先级", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我把您的单子标红了,仓库会先处理", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我给仓库打了三个电话了,还没人接", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "一直在打电话催,请您相信我", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我自己去仓库看了,货确实没有", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent"], "note": ""}
+{"text": "我查了三遍,您的货在海关", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent"], "note": ""}
+{"text": "亲爱的顾客,您好,让您久等了", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "亲,在吗?关于您的货", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "大哥,您好,我是卖家", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "老师您好,关于您订的书", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "阿姨您好,您的货我们已经在处理", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "请问您方便说话吗?", "frames": [{"act": "greet", "pol": "+"}], "tags": ["question"], "note": ""}
+{"text": "谢谢您的宽容,真的", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "谢谢您给了我们补救的机会,再见", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "感谢您一直以来的支持,期待下次", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不好意思打扰了,谢谢,再见", "frames": [{"act": "apologize", "pol": "+"}, {"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "祝您周末愉快,再联系", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "晚安,明天再聊", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "那我先去处理,有消息再告诉您,拜拜", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "嗯,我同意", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可以,那就这样办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对,您的想法我们完全同意", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "好,收到,就这么办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "没错,您说得有道理,我们照您的意思", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "行,您来定时间", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我马上给您补发,无需您再操心", "frames": [{"act": "resend", "pol": "+", "when": null}], "tags": ["fluent"], "note": ""}
+{"text": "今早就重发了,请您留意", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "刚刚已经给您重新下单发货了", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent"], "note": ""}
+{"text": "明早第一时间重新发出", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "周三上午给您重发", "frames": [{"act": "resend", "pol": "+", "when": "wednesday"}], "tags": ["fluent"], "note": ""}
+{"text": "周四前一定补上这一件", "frames": [{"act": "resend", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "下周之前肯定重新发", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这批货周日出发", "frames": [{"act": "resend", "pol": "+", "when": "sunday"}], "tags": ["fluent"], "note": ""}
+{"text": "周六重新打包再发", "frames": [{"act": "resend", "pol": "+", "when": "saturday"}], "tags": ["fluent"], "note": ""}
+{"text": "周一一早补寄", "frames": [{"act": "resend", "pol": "+", "when": "monday"}], "tags": ["fluent"], "note": ""}
+{"text": "后天一早再次发货", "frames": [{"act": "resend", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "明天就能到,真的,请放心", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent"], "note": ""}
+{"text": "三天内能到您那里,请您放心", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent"], "note": ""}
+{"text": "周三之前您会收到包裹", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["fluent"], "note": ""}
+{"text": "周二不行,周三可以到", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["fluent"], "note": ""}
+{"text": "周四中午前到您家门口", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent"], "note": ""}
+{"text": "周五下班前保证送到", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["fluent"], "note": ""}
+{"text": "周六一早就能收到", "frames": [{"act": "promise_time", "pol": "+", "when": "saturday"}], "tags": ["fluent"], "note": ""}
+{"text": "周日也送,您周日就能收到", "frames": [{"act": "promise_time", "pol": "+", "when": "sunday"}], "tags": ["fluent"], "note": ""}
+{"text": "一定在周一送到", "frames": [{"act": "promise_time", "pol": "+", "when": "monday"}], "tags": ["fluent"], "note": ""}
+{"text": "后天上午,包裹会在您手里", "frames": [{"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent"], "note": ""}
+{"text": "六天内您会收到", "frames": [{"act": "promise_time", "pol": "+", "when": "6_days"}], "tags": ["fluent"], "note": ""}
+{"text": "最多两天,最少明天", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "最快明天,最慢后天", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "可能要等三四天吧", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "大概一周,不好说", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "具体日期还没出来,先别催", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我也想知道什么时候到呀", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您问到货日期,我也在等物流给结果", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "订单号已经给到物流,他们还在查", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "订单号我这边是有的,谢谢", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "订单号码不用给我了,我已经查到", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不用报订单号,我认得您的声音,哈哈", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不用告诉我什么时候要,我们尽快", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您不必说截止日期,我们最快安排", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "您不用再问订单号了,我已经有了", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "拜托您,别取消订单", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "求您再给我们一次机会", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我保证不再出这种事,真的", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "以后不会了,这次是意外", "frames": [{"act": "none", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "公司规定,我们不能退款,您见谅", "frames": [{"act": "refuse", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "公司规定,不许打折,您理解一下", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "公司规定,发出的货不能退", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "老板规定,三天内不接受取消订单", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这是店规,我们没权限改", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "手续上有规定,我们不能提前", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个我得拒绝,请不要生气", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我只能说不,抱歉", "frames": [{"act": "refuse", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "这个请求我没法满足", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "对不起,您这个要求超出我们范围,不能办", "frames": [{"act": "apologize", "pol": "+"}, {"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "折扣不行,补发也不行,只能等", "frames": [{"act": "discount", "pol": "-"}, {"act": "refuse", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "不给折扣,也不退货,只给您道歉", "frames": [{"act": "discount", "pol": "-"}, {"act": "refuse", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "我们不接受退货,折扣也没有,对不起", "frames": [{"act": "refuse", "pol": "+"}, {"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent"], "note": ""}
+{"text": "哪有什么折扣,没有的事", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "折扣?没听说过,没有", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
+{"text": "我们根本没有这个优惠", "frames": [{"act": "discount", "pol": "-"}], "tags": ["fluent"], "note": ""}
