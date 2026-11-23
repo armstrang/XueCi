@@ -22,6 +22,7 @@ import '../engine/fsrs.dart' as fsrs;
 import '../engine/js.dart';
 import '../engine/learn.dart';
 import '../i18n/l10.dart';
+import 'bct_prog.dart';
 import 'grammar.dart';
 import 'hskk.dart';
 import 'mastery.dart';
@@ -244,6 +245,7 @@ class App extends ChangeNotifier {
   bool mockMode = false;
   bool mockShort = false; // the HSK simulation: the short paper
   String mockBook = ''; // '' = the HSK simulation, 'a' / 'b' = a BCT-style practice paper (not saved)
+  String mockPick = ''; // the level / paper picker before a simulation: '' = none, 'hsk' or 'bct' (not saved)
   String? mockSec; // BCT practice: only this section (listen / read / write), null = the whole paper
   String spk = 'n'; // speaking practice: e easy, n normal, h hard
   int hkLv = 1; // HSKK: the level last chosen (1 Dasar, 2 Menengah, 3 Lanjutan)
@@ -527,9 +529,12 @@ class App extends ChangeNotifier {
   // ---------------------------------------------------------------- the grammar book (grammar.dart, v1.6)
   GBook? gram;
   late GProg gprog;
+  late BProg bprog;
+  String bctBook = 'a'; // the BCT study screen's book (not saved)
   late GPractice gpr;
   Future<void> _initGram() async {
     gprog = GProg(store, lm);
+    bprog = BProg(store, lm);
     try {
       gram = await GBook.load(bundle, vocab);
       try {
@@ -592,6 +597,7 @@ class App extends ChangeNotifier {
       mockMode = false;
       mockBook = '';
       mockSec = null;
+      mockPick = '';
     }
     runner.reset();
     menuOpen = false;

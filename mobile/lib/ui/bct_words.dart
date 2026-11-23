@@ -10,10 +10,11 @@ import 'glass.dart';
 import 'sheet.dart';
 import 'theme.dart';
 
-void openBctWords(BuildContext context) => openSheet(context, name: 'bctwords', (c) => const _Words());
+void openBctWords(BuildContext context, [String book = 'b']) => openSheet(context, name: 'bctwords', (c) => _Words(book));
 
 class _Words extends StatefulWidget {
-  const _Words();
+  final String book;
+  const _Words(this.book);
   @override
   State<_Words> createState() => _WordsState();
 }
@@ -35,7 +36,7 @@ class _WordsState extends State<_Words> {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final all = app.lm.bct?.words ?? const <BctW>[];
+    final all = app.lm.bct?.wordsOf(widget.book) ?? const <BctW>[];
     final topics = <String>[];
     for (final w in all) {
       if (w.s.isNotEmpty && !topics.contains(w.s)) topics.add(w.s);
@@ -64,7 +65,7 @@ class _WordsState extends State<_Words> {
       ),
     );
     return SheetBody(
-      titleW: Text(t.exBctW, style: F.s(19, w: FontWeight.w800, c: p.fg, h: 1.25)),
+      titleW: Text('${t.exBctW} · BCT ${widget.book.toUpperCase()}', style: F.s(19, w: FontWeight.w800, c: p.fg, h: 1.25)),
       children: [
         Padding(
           padding: const EdgeInsets.only(bottom: 10),

@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import '../app/app.dart';
 import '../engine/learn.dart' show Stage;
 import '../i18n/l10.dart';
+import 'bct_study.dart';
 import 'glass.dart';
 import 'icons.dart';
 import 'lens.dart';
@@ -318,7 +319,15 @@ class HomeHeader extends StatelessWidget {
             ),
             ),
           ),
-          const Spacer(),
+          // HSK | BCT: the study path (BCT has its own screen)
+          Expanded(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 6),
+                child: FittedBox(fit: BoxFit.scaleDown, child: StudyPick(bct: false)),
+              ),
+            ),
+          ),
           // cultivation days · 护法 · Settings in one glass capsule
           Rise(0, child: Glass(
             frost: true,

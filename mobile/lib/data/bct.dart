@@ -35,8 +35,9 @@ class BctS {
 /// a business word of the BCT B list (assets/data/bct_words.json): hanzi, pinyin, topic, four meanings
 class BctW {
   final String h, p, s;
+  final String b; // the book it belongs to: 'a' or 'b'
   final Map<String, String> t;
-  const BctW(this.h, this.p, this.s, this.t);
+  const BctW(this.h, this.p, this.s, this.t, [this.b = 'b']);
 }
 
 class BctBank {
@@ -45,6 +46,7 @@ class BctBank {
   BctBank(this.by, [this.words = const []]);
 
   List<BctS> of(String book) => by[book] ?? const [];
+  List<BctW> wordsOf(String book) => [for (final w in words) if (w.b == book) w];
 
   static Future<BctBank> load(AssetBundle b) async {
     final raw = json.decode(await b.loadString('assets/data/bct.json')) as Map;
@@ -69,7 +71,7 @@ class BctBank {
     var words = <BctW>[];
     try {
       final w = json.decode(await b.loadString('assets/data/bct_words.json')) as List;
-      words = [for (final r in w) BctW(r['h'] as String, r['p'] as String, (r['s'] as String?) ?? '', (r['t'] as Map).cast<String, String>())];
+      words = [for (final r in w) BctW(r['h'] as String, r['p'] as String, (r['s'] as String?) ?? '', (r['t'] as Map).cast<String, String>(), (r['b'] as String?) ?? 'b')];
     } catch (_) {}
     return BctBank(out, words);
   }

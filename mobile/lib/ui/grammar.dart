@@ -473,6 +473,7 @@ class _GrammarState extends State<GrammarScreen> {
     final lang = app.vocab.lang;
     final st = _status(x);
     final w = x.warn?[lang] ?? x.warn?['en'];
+    final u = x.use?[lang] ?? x.use?['en'];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
@@ -519,6 +520,15 @@ class _GrammarState extends State<GrammarScreen> {
                 _formula(th, x, lang),
               const SizedBox(height: 12),
               Rich(x.text(lang), style: F.s(14.5, c: p.fg, h: 1.5)),
+              if (u != null && u.isNotEmpty) ...[
+                const SizedBox(height: 14),
+                Text(
+                  t.gramUse.toUpperCase(),
+                  style: F.s(11.5, w: FontWeight.w800, c: p.soft, ls: .8),
+                ),
+                const SizedBox(height: 6),
+                Rich(u, style: F.s(14.5, c: p.fg, h: 1.5)),
+              ],
               if (w != null && w.isNotEmpty) ...[
                 const SizedBox(height: 10),
                 Container(

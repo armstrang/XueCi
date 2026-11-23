@@ -342,8 +342,30 @@ def fits(p, z, longer=()):
     return True
 
 
+def load_use(problems):
+    # content/grammar/use*.tsv: "id | Indonesian | English | Thai | Vietnamese", one line per point (when to use it)
+    out = {}
+    for name in sorted(os.listdir(DIR)):
+        if not (name.startswith('use') and name.endswith('.tsv')):
+            continue
+        with open(os.path.join(DIR, name), encoding='utf8') as f:
+            for n, line in enumerate(f, 1):
+                line = line.rstrip('\n')
+                if not line.strip() or line.startswith('#'):
+                    continue
+                e = [q.strip() for q in line.split('|')]
+                if len(e) != 5 or not all(e):
+                    problems.append(f'{name}:{n}: needs id + 4 texts')
+                    continue
+                if e[0] in out:
+                    problems.append(f'{name}:{n}: {e[0]} twice')
+                out[e[0]] = dict(zip(LANGS, e[1:]))
+    return out
+
+
 def build(words):
     problems = []
+    USE = load_use(problems)
     wid = lambda d: f"{d['l']}:{d['h']}"
     pub, sealed = [], []
     T = terms()
@@ -382,6 +404,10 @@ def build(words):
                 problems.append(f"{p['id']} {p['zh']}: no example sentence")
             out = {k: v for k, v in p.items() if k not in ('own', 'e', 'fs')}
             out['ex'], out['pool'] = ex, pool
+            if p['id'] in USE:
+                out['u'] = USE.pop(p['id'])
+            else:
+                problems.append(f"{p['id']} {p['zh']}: no use text (use.tsv)")
             dic = dic_pub if level <= 6 else dic_all
             out['fp'], out['fx'] = formula(p.get('fs') or p['f'], T, dic)
             eg = examples(p, T, dic, byz, syl, problems)
@@ -399,6 +425,8 @@ def build(words):
             if own:
                 out['own'] = own
             (pub if level <= 6 else sealed).append(out)
+    for k in USE:
+        problems.append(f'use.tsv: unknown point {k}')
     return pub, sealed, problems
 
 

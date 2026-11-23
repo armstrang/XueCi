@@ -163,12 +163,15 @@ def main():
                          't': {'id': idt, 'en': en, 'th': th, 'vi': vi}})
         out[key] = rows
         print(f'bank {key}: {len(rows)} sentences')
-    # the business words (content/bct/words.txt): hanzi | pinyin | id | en | th | vi, `## topic` groups
-    wpath = os.path.join(ROOT, 'content', 'bct', 'words.txt')
+    # the business words: words-a.txt (BCT A) and words.txt (BCT B): hanzi | pinyin | id | en | th | vi, `## topic` groups
     words = []
-    if os.path.exists(wpath):
-        from pypinyin import lazy_pinyin, Style
-        sec, seenw = '', set()
+    from pypinyin import lazy_pinyin, Style
+    seenw = {}
+    for fn, bk in (('words-a.txt', 'a'), ('words.txt', 'b')):
+        wpath = os.path.join(ROOT, 'content', 'bct', fn)
+        if not os.path.exists(wpath):
+            continue
+        sec = ''
         for ln, line in enumerate(open(wpath, encoding='utf8').read().split('\n'), 1):
             line = line.strip()
             if not line or line.startswith('# '):
@@ -176,23 +179,23 @@ def main():
             if line.startswith('## '):
                 sec = line[3:].strip()
                 continue
-            where = f'words.txt:{ln}'
+            where = f'{fn}:{ln}'
             f = [x.strip() for x in line.split(' | ')]
             if len(f) != 6 or not all(f):
                 problems.append(f'{where}: want 6 filled fields')
                 continue
             h, py, idt, en, th, vi = f
-            if h in seenw:
-                problems.append(f'{where}: {h} twice')
-            seenw.add(h)
+            if (h, py) in seenw:
+                problems.append(f'{where}: {h} {py} already in {seenw[(h, py)]}')
+            seenw[(h, py)] = where
             for ch in set(HAN.findall(h)):
                 if ch not in CHARSET:
                     problems.append(f'{where}: {ch} is not in the font subset')
             norm = lambda x: re.sub(r"[\s']", '', x).lower()
             if norm(py) != norm(''.join(lazy_pinyin(h, style=Style.TONE))):
                 print(f'check pinyin {where}: {h} {py} (pypinyin: {" ".join(lazy_pinyin(h, style=Style.TONE))})')
-            words.append({'h': h, 'p': py, 's': sec, 't': {'id': idt, 'en': en, 'th': th, 'vi': vi}})
-        print(f'words: {len(words)}')
+            words.append({'h': h, 'p': py, 's': sec, 'b': bk, 't': {'id': idt, 'en': en, 'th': th, 'vi': vi}})
+        print(f'words {bk}: {sum(1 for w in words if w["b"] == bk)}')
     if problems:
         print('\n'.join(problems[:60]))
         print(f'{len(problems)} problems')

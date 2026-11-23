@@ -17,6 +17,7 @@ import '../engine/learn.dart';
 import '../engine/model.dart';
 import '../i18n/l10.dart';
 import 'focus.dart';
+import 'bct_words.dart';
 import 'glass.dart';
 import 'icons.dart';
 import 'qi.dart';
@@ -145,6 +146,7 @@ class _RunScreenState extends State<RunScreen> {
   @override
   Widget build(BuildContext context) {
     app.backHook = _back;
+    if (widget.mode == 'quiz' && app.mockMode && app.mockPick.isNotEmpty) return const _MockPick();
     final R = app.runner;
     final r = R.ensure(widget.mode);
     R.prepare();
@@ -196,7 +198,7 @@ class _RunScreenState extends State<RunScreen> {
             children: [
               Capsule(
                 title: title,
-                pickers: widget.mode != 'session' && !(app.mockMode && app.mockBook.isNotEmpty),
+                pickers: widget.mode != 'session' && !app.mockMode,
                 lead: [if (widget.mode == 'quiz' && !app.mockMode && !(m != null && m.started && it != null)) _qTypePill(context)],
                 pillTrail: trail ? _RunCount(r) : null,
               ),
@@ -1827,6 +1829,119 @@ class _BreakViewState extends State<_BreakView> with SingleTickerProviderStateMi
 }
 
 // ---------------------------------------------------------------- HSK simulation
+/// the first page of a simulation: which HSK level (1-6), or which BCT paper (A / B)
+class _MockPick extends StatelessWidget {
+  const _MockPick();
+  @override
+  Widget build(BuildContext context) {
+    final th = Th.of(context);
+    final p = th.p;
+    final t = app.t;
+    final bct = app.mockPick == 'bct';
+    final now = math.min(app.lm.realm() == 0 ? 1 : app.lm.realm(), 6);
+    void pick(VoidCallback f) {
+      f();
+      app.mockPick = '';
+      app.runner.reset();
+      app.changed();
+    }
+
+    Widget big(String top, String sub, VoidCallback onTap, {bool mark = false}) => Press(
+      onTap: onTap,
+      label: '$top. $sub',
+      child: Glass(
+        radius: 24,
+        padding: const EdgeInsets.fromLTRB(16, 14, 16, 14),
+        child: Row(
+          children: [
+            Text(top, style: F.s(24, w: FontWeight.w900, c: th.acc)),
+            const SizedBox(width: 14),
+            Expanded(child: Text(sub, style: F.s(14, c: p.soft, h: 1.35))),
+          ],
+        ),
+      ),
+    );
+
+    Widget lvl(int l) {
+      final on = l == now;
+      return Press(
+        onTap: () => pick(() => app.setLevel(l)),
+        label: 'HSK $l${on ? ', ${t.mkPickNow}' : ''}',
+        selected: on,
+        child: Tile(
+          radius: 22,
+          color: on ? th.acc.withValues(alpha: .14) : null,
+          padding: const EdgeInsets.symmetric(vertical: 20),
+          child: Column(
+            children: [
+              Text('HSK', style: F.s(12.5, w: FontWeight.w800, c: on ? th.acc : p.mute, ls: 1)),
+              Text('$l', style: F.s(34, w: FontWeight.w900, c: on ? th.acc : p.fg, feat: F.tab)),
+              Text(on ? t.mkPickNow : ' ', style: F.s(11.5, w: FontWeight.w700, c: th.acc)),
+            ],
+          ),
+        ),
+      );
+    }
+
+    final words = app.lm.bct?.words.length ?? 0;
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(16, MediaQuery.paddingOf(context).top + 10, 16, MediaQuery.paddingOf(context).bottom + 24),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 640),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Capsule(title: bct ? t.exBct : t.exHsk),
+              const SizedBox(height: 18),
+              Text(
+                bct ? t.mkPickBct : t.mkPickHsk,
+                style: F.s(24, w: FontWeight.w800, c: p.fg, ls: -.3, h: 1.2),
+              ),
+              if (!bct) ...[
+                const SizedBox(height: 6),
+                Text(t.mkPickHskD, style: F.s(14, c: p.soft, h: 1.4)),
+              ],
+              const SizedBox(height: 18),
+              if (!bct)
+                GridView.count(
+                  crossAxisCount: 3,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: .86,
+                  children: [for (var l = 1; l <= 6; l++) lvl(l)],
+                )
+              else ...[
+                if ((app.lm.bct?.of('a').length ?? 0) >= 70)
+                  big('A', t.mkPickBctA, () => pick(() {
+                    app.mockBook = 'a';
+                    app.mockSec = null;
+                  })),
+                if ((app.lm.bct?.of('b').length ?? 0) >= 150) ...[
+                  const SizedBox(height: 10),
+                  big('B', t.mkPickBctB, () => pick(() {
+                    app.mockBook = 'b';
+                    app.mockSec = null;
+                  })),
+                ],
+                if (words > 0) ...[
+                  const SizedBox(height: 18),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: GhostBtn(t.mkPickWords(app.fmt(words)), fontSize: 13.5, onTap: () => openBctWords(context, 'a')),
+                  ),
+                ],
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
 class _MockIntro extends StatelessWidget {
   final Run r;
   const _MockIntro(this.r);

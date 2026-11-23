@@ -184,7 +184,7 @@ class _ShellState extends State<Shell> {
     }
     final kb = MediaQuery.viewInsetsOf(context).bottom > 80;
     // hidden while answering: a session, the quiz, the tests, typing, an open menu, an exam
-    final tabs = !const ['session', 'placement', 'bt', 'hkrun'].contains(s) && !kb && !app.menuOpen && !app.inExam;
+    final tabs = !const ['session', 'placement', 'bt', 'hkrun'].contains(s) && !kb && !app.menuOpen && !app.inExam && app.mockPick.isEmpty;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (did, _) {
@@ -280,7 +280,7 @@ class TabBar2 extends StatelessWidget {
 
   /// the tab a screen belongs to (List, Cards and Quiz live under HSK)
   static int tabOf(String s) => switch (s) {
-    'home' || 'list' || 'card' || 'quiz' || 'grammar' => 0,
+    'home' || 'list' || 'card' || 'quiz' || 'grammar' || 'bct' => 0,
     'hskk' => 1,
     'exam' => 2,
     _ => -1,

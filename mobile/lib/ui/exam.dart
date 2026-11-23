@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../app/app.dart';
 import '../app/hskk.dart';
-import 'bct_words.dart';
 import 'glass.dart';
 import 'icons.dart';
 import 'splash.dart';
@@ -74,6 +73,7 @@ class ExamScreen extends StatelessWidget {
               color: th.acc,
               onTap: () {
                 app.mockMode = true;
+                app.mockPick = 'hsk';
                 app.go('quiz');
               },
             ),
@@ -91,61 +91,28 @@ class ExamScreen extends StatelessWidget {
                   app.startHk(app.hkLv.clamp(1, app.hkOpenTo), mock: true),
             ),
           ),
-          if ((app.lm.bct?.of('a').length ?? 0) >= 70) ...[
+          if ((app.lm.bct?.of('a').length ?? 0) >= 70 || (app.lm.bct?.of('b').length ?? 0) >= 150) ...[
             const SizedBox(height: 12),
             Rise(
               3,
               child: _ExamCard(
                 seal: '商',
-                title: t.exBctA,
+                title: t.exBct,
                 sub: t.exBctD,
-                foot: _bctLast(101) ?? t.exNone,
+                foot: _bctLast() ?? t.exNone,
                 color: p.good,
                 onTap: () {
-                  app.mockBook = 'a';
-                  app.mockSec = null;
                   app.mockMode = true;
+                  app.mockPick = 'bct';
+                  app.mockSec = null;
                   app.go('quiz');
                 },
-              ),
-            ),
-          ],
-          if ((app.lm.bct?.of('b').length ?? 0) >= 150) ...[
-            const SizedBox(height: 12),
-            Rise(
-              4,
-              child: _ExamCard(
-                seal: '务',
-                title: t.exBctB,
-                sub: t.exBctD,
-                foot: _bctLast(102) ?? t.exNone,
-                color: p.gold,
-                onTap: () {
-                  app.mockBook = 'b';
-                  app.mockSec = null;
-                  app.mockMode = true;
-                  app.go('quiz');
-                },
-              ),
-            ),
-          ],
-          if ((app.lm.bct?.words.length ?? 0) > 0) ...[
-            const SizedBox(height: 12),
-            Rise(
-              4,
-              child: _ExamCard(
-                seal: '词',
-                title: t.exBctW,
-                sub: t.exBctWD,
-                foot: t.bwCount(app.fmt(app.lm.bct!.words.length)),
-                color: p.warm,
-                onTap: () => openBctWords(context),
               ),
             ),
           ],
           const SizedBox(height: 12),
           Rise(
-            5,
+            4,
             child: _ExamCard(
               seal: '境',
               title: t.exRealm,
@@ -211,11 +178,12 @@ class ExamScreen extends StatelessWidget {
   }
 }
 
-String? _bctLast(int l) {
+/// the latest BCT result, A or B
+String? _bctLast() {
   final x = [
     for (final m in app.lm.mocks)
-      if (m.length > 3 && m[1] == l) m,
-  ];
+      if (m.length > 3 && m[1] >= 101) m,
+  ]..sort((a, b) => (a[0] as num).compareTo(b[0] as num));
   return x.isEmpty ? null : app.t.hkLast('${x.last[2]}/${x.last[3]}');
 }
 

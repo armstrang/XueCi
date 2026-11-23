@@ -253,6 +253,37 @@ void runs() {
       app.changed();
     });
   });
+  testWidgets('simulation pickers: HSK level and BCT paper', (t) async {
+    await t.runAsync(() async {
+      await bootApp({...sample(), 'hsk16_theme': '"dark"'}, lang: 'id');
+    });
+    await shot(t, 'pick-hsk', before: () {
+      app.mockMode = true;
+      app.mockPick = 'hsk';
+      app.go('quiz');
+    });
+    await shot(t, 'pick-bct', before: () {
+      app.go('exam');
+      app.mockMode = true;
+      app.mockPick = 'bct';
+      app.go('quiz');
+    });
+    await shot(t, 'exam-tab', before: () => app.go('exam'));
+  });
+  testWidgets('BCT study: home, cards, quiz', (t) async {
+    await t.runAsync(() async {
+      await bootApp({...sample(), 'hsk16_theme': '"dark"'}, lang: 'id');
+    });
+    await shot(t, 'bct-study', before: () => app.go('bct'));
+    await shot(t, 'bct-study-cards', before: () => app.go('bct'), act: () async {
+      await t.tap(find.text('Kartu'));
+      await t.pump(const Duration(milliseconds: 300));
+    });
+    await shot(t, 'bct-study-quiz', before: () => app.go('bct'), act: () async {
+      await t.tap(find.text('Kuis'));
+      await t.pump(const Duration(milliseconds: 300));
+    });
+  });
   testWidgets('home light with the new tab bar', (t) async {
     await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"light"', 'xc_onb': '1'}, lang: 'en'));
     await shot(t, 'home-tabs-light');

@@ -1,0 +1,603 @@
+# BCT A business words: hanzi | pinyin | id | en | th | vi. Written for this app (not copied from any official list). `## topic` starts a group.
+## Greetings and introductions
+您 | nín | Anda (sopan) | you (polite) | ท่าน | ngài, quý vị
+先生 | xiānsheng | Tuan, Bapak | Mr., sir | คุณ (ผู้ชาย) | ông, ngài
+女士 | nǚshì | Nyonya, Ibu | Ms., madam | คุณ (ผู้หญิง) | bà, quý bà
+小姐 | xiǎojiě | Nona | Miss | คุณผู้หญิง | cô
+经理 | jīnglǐ | manajer | manager | ผู้จัดการ | giám đốc, quản lý
+老板 | lǎobǎn | bos, pemilik | boss, owner | เจ้านาย | ông chủ
+同事 | tóngshì | rekan kerja | colleague | เพื่อนร่วมงาน | đồng nghiệp
+朋友 | péngyou | teman | friend | เพื่อน | bạn
+客人 | kèrén | tamu | guest | แขก | khách
+客户 | kèhù | pelanggan, klien | client | ลูกค้า | khách hàng
+欢迎 | huānyíng | selamat datang | welcome | ยินดีต้อนรับ | hoan nghênh
+请问 | qǐngwèn | permisi, boleh tanya | excuse me, may I ask | ขอถามหน่อย | xin hỏi
+谢谢 | xièxie | terima kasih | thank you | ขอบคุณ | cảm ơn
+不客气 | bú kèqi | sama-sama | you're welcome | ไม่เป็นไร | đừng khách sáo
+对不起 | duìbuqǐ | maaf | sorry | ขอโทษ | xin lỗi
+没关系 | méi guānxi | tidak apa-apa | it doesn't matter | ไม่เป็นไร | không sao
+再见 | zàijiàn | sampai jumpa | goodbye | ลาก่อน | tạm biệt
+你好 | nǐ hǎo | halo | hello | สวัสดี | xin chào
+早上好 | zǎoshang hǎo | selamat pagi | good morning | อรุณสวัสดิ์ | chào buổi sáng
+晚安 | wǎn'ān | selamat malam | good night | ราตรีสวัสดิ์ | chúc ngủ ngon
+认识 | rènshi | kenal | to know (a person) | รู้จัก | quen biết
+介绍 | jièshào | memperkenalkan | to introduce | แนะนำ | giới thiệu
+名字 | míngzi | nama | name | ชื่อ | tên
+姓 | xìng | nama keluarga | surname | นามสกุล | họ
+贵姓 | guìxìng | siapa nama keluarga Anda | your surname (polite) | ท่านนามสกุลอะไร | quý danh
+名片 | míngpiàn | kartu nama | business card | นามบัตร | danh thiếp
+国家 | guójiā | negara | country | ประเทศ | quốc gia
+中国 | Zhōngguó | Tiongkok | China | จีน | Trung Quốc
+印度尼西亚 | Yìndùníxīyà | Indonesia | Indonesia | อินโดนีเซีย | Indonesia
+人 | rén | orang | person | คน | người
+大家 | dàjiā | semuanya | everyone | ทุกคน | mọi người
+我们 | wǒmen | kami, kita | we | พวกเรา | chúng tôi
+他们 | tāmen | mereka | they | พวกเขา | họ
+## Time and dates
+时间 | shíjiān | waktu | time | เวลา | thời gian
+现在 | xiànzài | sekarang | now | ตอนนี้ | bây giờ
+今天 | jīntiān | hari ini | today | วันนี้ | hôm nay
+明天 | míngtiān | besok | tomorrow | พรุ่งนี้ | ngày mai
+昨天 | zuótiān | kemarin | yesterday | เมื่อวาน | hôm qua
+后天 | hòutiān | lusa | the day after tomorrow | มะรืนนี้ | ngày kia
+上午 | shàngwǔ | pagi hari | morning | ช่วงเช้า | buổi sáng
+中午 | zhōngwǔ | siang | noon | เที่ยง | buổi trưa
+下午 | xiàwǔ | sore | afternoon | บ่าย | buổi chiều
+晚上 | wǎnshang | malam | evening | ตอนเย็น/กลางคืน | buổi tối
+点 | diǎn | pukul, jam | o'clock | โมง | giờ
+分钟 | fēnzhōng | menit | minute | นาที | phút
+小时 | xiǎoshí | jam (durasi) | hour | ชั่วโมง | tiếng, giờ
+半 | bàn | setengah | half | ครึ่ง | nửa
+星期 | xīngqī | minggu, hari | week | สัปดาห์ | tuần
+星期一 | xīngqīyī | Senin | Monday | วันจันทร์ | thứ Hai
+星期二 | xīngqī'èr | Selasa | Tuesday | วันอังคาร | thứ Ba
+星期三 | xīngqīsān | Rabu | Wednesday | วันพุธ | thứ Tư
+星期四 | xīngqīsì | Kamis | Thursday | วันพฤหัสบดี | thứ Năm
+星期五 | xīngqīwǔ | Jumat | Friday | วันศุกร์ | thứ Sáu
+星期六 | xīngqīliù | Sabtu | Saturday | วันเสาร์ | thứ Bảy
+星期天 | xīngqītiān | Minggu | Sunday | วันอาทิตย์ | Chủ nhật
+周末 | zhōumò | akhir pekan | weekend | วันหยุดสุดสัปดาห์ | cuối tuần
+月 | yuè | bulan | month | เดือน | tháng
+年 | nián | tahun | year | ปี | năm
+号 | hào | tanggal | day of the month | วันที่ | ngày (trong tháng)
+日期 | rìqī | tanggal | date | วันที่ | ngày tháng
+早 | zǎo | awal, pagi | early | เช้า/เร็ว | sớm
+晚 | wǎn | terlambat, malam | late | ช้า/ดึก | muộn
+迟到 | chídào | terlambat datang | to be late | มาสาย | đến muộn
+准时 | zhǔnshí | tepat waktu | on time | ตรงเวลา | đúng giờ
+马上 | mǎshàng | segera | right away | ทันที | ngay lập tức
+等 | děng | menunggu | to wait | รอ | đợi
+每天 | měitiān | setiap hari | every day | ทุกวัน | mỗi ngày
+经常 | jīngcháng | sering | often | บ่อยๆ | thường xuyên
+有时候 | yǒu shíhou | kadang-kadang | sometimes | บางครั้ง | thỉnh thoảng
+已经 | yǐjīng | sudah | already | แล้ว | đã
+## Numbers and money
+一 | yī | satu | one | หนึ่ง | một
+二 | èr | dua | two | สอง | hai
+三 | sān | tiga | three | สาม | ba
+十 | shí | sepuluh | ten | สิบ | mười
+百 | bǎi | seratus | hundred | ร้อย | trăm
+千 | qiān | seribu | thousand | พัน | nghìn
+万 | wàn | sepuluh ribu | ten thousand | หมื่น | vạn
+多少 | duōshao | berapa | how many, how much | เท่าไร | bao nhiêu
+几 | jǐ | berapa (sedikit) | how many (small number) | กี่ | mấy
+钱 | qián | uang | money | เงิน | tiền
+块 | kuài | yuan (lisan) | yuan (spoken) | หยวน (พูด) | đồng (khẩu ngữ)
+元 | yuán | yuan | yuan | หยวน | nhân dân tệ
+角 | jiǎo | jiao (sepersepuluh yuan) | jiao (a tenth of a yuan) | เจี่ยว | hào
+价格 | jiàgé | harga | price | ราคา | giá cả
+价钱 | jiàqian | harga | price | ราคา | giá tiền
+便宜 | piányi | murah | cheap | ถูก | rẻ
+贵 | guì | mahal | expensive | แพง | đắt
+打折 | dǎzhé | diskon | to give a discount | ลดราคา | giảm giá
+免费 | miǎnfèi | gratis | free of charge | ฟรี | miễn phí
+付款 | fùkuǎn | membayar | to pay | จ่ายเงิน | thanh toán
+现金 | xiànjīn | uang tunai | cash | เงินสด | tiền mặt
+刷卡 | shuākǎ | gesek kartu | to pay by card | รูดบัตร | quẹt thẻ
+信用卡 | xìnyòngkǎ | kartu kredit | credit card | บัตรเครดิต | thẻ tín dụng
+银行卡 | yínhángkǎ | kartu bank | bank card | บัตรธนาคาร | thẻ ngân hàng
+发票 | fāpiào | faktur, kuitansi | invoice, receipt | ใบเสร็จ/ใบกำกับภาษี | hóa đơn
+找钱 | zhǎoqián | memberi kembalian | to give change | ทอนเงิน | thối tiền
+零钱 | língqián | uang receh | small change | เงินทอน | tiền lẻ
+总共 | zǒnggòng | total keseluruhan | altogether | รวมทั้งหมด | tổng cộng
+## Office and equipment
+办公室 | bàngōngshì | kantor, ruang kerja | office | ห้องทำงาน | văn phòng
+桌子 | zhuōzi | meja | desk, table | โต๊ะ | bàn
+椅子 | yǐzi | kursi | chair | เก้าอี้ | ghế
+电脑 | diànnǎo | komputer | computer | คอมพิวเตอร์ | máy tính
+笔记本电脑 | bǐjìběn diànnǎo | laptop | laptop | แล็ปท็อป | máy tính xách tay
+打印机 | dǎyìnjī | printer | printer | เครื่องพิมพ์ | máy in
+复印 | fùyìn | memfotokopi | to photocopy | ถ่ายเอกสาร | photocopy
+纸 | zhǐ | kertas | paper | กระดาษ | giấy
+笔 | bǐ | pulpen, pena | pen | ปากกา | bút
+文件 | wénjiàn | dokumen, berkas | document, file | เอกสาร | tài liệu
+资料 | zīliào | bahan, data | materials, data | ข้อมูล | tài liệu, dữ liệu
+本子 | běnzi | buku catatan | notebook | สมุด | vở
+电话 | diànhuà | telepon | telephone | โทรศัพท์ | điện thoại
+手机 | shǒujī | ponsel | mobile phone | โทรศัพท์มือถือ | điện thoại di động
+号码 | hàomǎ | nomor | number | หมายเลข | số
+电子邮件 | diànzǐ yóujiàn | surel, email | email | อีเมล | thư điện tử
+邮箱 | yóuxiāng | kotak surel | mailbox | กล่องอีเมล | hộp thư
+网站 | wǎngzhàn | situs web | website | เว็บไซต์ | trang web
+网络 | wǎngluò | jaringan, internet | network, internet | เครือข่าย | mạng
+密码 | mìmǎ | kata sandi | password | รหัสผ่าน | mật khẩu
+软件 | ruǎnjiàn | perangkat lunak | software | ซอฟต์แวร์ | phần mềm
+文件夹 | wénjiànjiā | map, folder | folder | โฟลเดอร์ | thư mục
+会议室 | huìyìshì | ruang rapat | meeting room | ห้องประชุม | phòng họp
+前台 | qiántái | resepsionis, meja depan | reception desk | แผนกต้อนรับ | quầy lễ tân
+电梯 | diàntī | lift | elevator | ลิฟต์ | thang máy
+楼 | lóu | gedung, lantai | building, floor | อาคาร/ชั้น | tòa nhà, tầng
+门 | mén | pintu | door | ประตู | cửa
+钥匙 | yàoshi | kunci | key | กุญแจ | chìa khóa
+空调 | kōngtiáo | AC | air conditioner | เครื่องปรับอากาศ | điều hòa
+## Work and jobs
+工作 | gōngzuò | bekerja, pekerjaan | to work, job | ทำงาน/งาน | làm việc, công việc
+上班 | shàngbān | masuk kerja | to go to work | เข้างาน | đi làm
+下班 | xiàbān | pulang kerja | to finish work | เลิกงาน | tan làm
+加班 | jiābān | lembur | to work overtime | ทำงานล่วงเวลา | làm thêm giờ
+休息 | xiūxi | istirahat | to rest | พัก | nghỉ ngơi
+请假 | qǐngjià | minta izin cuti | to ask for leave | ลา | xin nghỉ phép
+出差 | chūchāi | dinas luar | business trip | เดินทางไปทำงาน | đi công tác
+职员 | zhíyuán | karyawan | office worker | พนักงาน | nhân viên
+员工 | yuángōng | pegawai, staf | employee, staff | พนักงาน | nhân viên
+秘书 | mìshū | sekretaris | secretary | เลขานุการ | thư ký
+助理 | zhùlǐ | asisten | assistant | ผู้ช่วย | trợ lý
+主任 | zhǔrèn | kepala (bagian) | director, head | หัวหน้า | trưởng phòng
+部门 | bùmén | departemen | department | แผนก | bộ phận
+翻译 | fānyì | penerjemah, menerjemahkan | interpreter, to translate | ล่าม/แปล | phiên dịch
+会计 | kuàijì | akuntan | accountant | นักบัญชี | kế toán
+销售员 | xiāoshòuyuán | tenaga penjual | salesperson | พนักงานขาย | nhân viên bán hàng
+司机 | sījī | sopir | driver | คนขับรถ | tài xế
+工人 | gōngrén | pekerja, buruh | worker | คนงาน | công nhân
+工程师 | gōngchéngshī | insinyur | engineer | วิศวกร | kỹ sư
+律师 | lǜshī | pengacara | lawyer | ทนายความ | luật sư
+任务 | rènwu | tugas | task | ภารกิจ | nhiệm vụ
+计划 | jìhuà | rencana | plan | แผน | kế hoạch
+安排 | ānpái | mengatur, jadwal | to arrange | จัดการ | sắp xếp
+完成 | wánchéng | menyelesaikan | to complete | ทำให้เสร็จ | hoàn thành
+忙 | máng | sibuk | busy | ยุ่ง | bận
+累 | lèi | lelah | tired | เหนื่อย | mệt
+帮忙 | bāngmáng | membantu | to help | ช่วย | giúp đỡ
+需要 | xūyào | membutuhkan | to need | ต้องการ | cần
+负责 | fùzé | bertanggung jawab | to be in charge | รับผิดชอบ | phụ trách
+## Phone, email and messages
+打电话 | dǎ diànhuà | menelepon | to make a call | โทรศัพท์ | gọi điện thoại
+接电话 | jiē diànhuà | mengangkat telepon | to answer the phone | รับโทรศัพท์ | nghe điện thoại
+喂 | wèi | halo (telepon) | hello (on the phone) | ฮัลโหล | alô
+留言 | liúyán | meninggalkan pesan | to leave a message | ฝากข้อความ | để lại lời nhắn
+短信 | duǎnxìn | pesan singkat | text message | ข้อความสั้น | tin nhắn
+微信 | Wēixìn | WeChat | WeChat | วีแชท | WeChat
+发 | fā | mengirim | to send | ส่ง | gửi
+收到 | shōudào | menerima | to receive | ได้รับ | nhận được
+回复 | huífù | membalas | to reply | ตอบกลับ | trả lời
+转告 | zhuǎngào | menyampaikan | to pass on a message | ฝากบอก | nhắn lại
+占线 | zhànxiàn | sibuk (saluran) | line busy | สายไม่ว่าง | máy bận
+信号 | xìnhào | sinyal | signal | สัญญาณ | tín hiệu
+充电 | chōngdiàn | mengisi daya | to charge | ชาร์จไฟ | sạc pin
+地址 | dìzhǐ | alamat | address | ที่อยู่ | địa chỉ
+附件 | fùjiàn | lampiran | attachment | ไฟล์แนบ | tệp đính kèm
+## Appointments and meetings
+约 | yuē | membuat janji | to make an appointment | นัด | hẹn
+预约 | yùyuē | reservasi, janji | to book, appointment | จองล่วงหน้า | đặt lịch hẹn
+见面 | jiànmiàn | bertemu | to meet | พบหน้า | gặp mặt
+开会 | kāihuì | rapat | to have a meeting | ประชุม | họp
+会议 | huìyì | rapat | meeting | การประชุม | cuộc họp
+讨论 | tǎolùn | berdiskusi | to discuss | อภิปราย | thảo luận
+同意 | tóngyì | setuju | to agree | เห็นด้วย | đồng ý
+意见 | yìjiàn | pendapat | opinion | ความเห็น | ý kiến
+问题 | wèntí | masalah, pertanyaan | question, problem | ปัญหา/คำถาม | vấn đề, câu hỏi
+决定 | juédìng | memutuskan | to decide | ตัดสินใจ | quyết định
+通知 | tōngzhī | memberi tahu, pemberitahuan | to notify, notice | แจ้ง/ประกาศ | thông báo
+改 | gǎi | mengubah | to change | เปลี่ยน | đổi
+取消 | qǔxiāo | membatalkan | to cancel | ยกเลิก | hủy
+推迟 | tuīchí | menunda | to postpone | เลื่อน | hoãn
+提前 | tíqián | lebih awal | in advance, earlier | ล่วงหน้า | trước
+有空 | yǒu kòng | ada waktu luang | to be free | ว่าง | rảnh
+方便 | fāngbiàn | nyaman, memudahkan | convenient | สะดวก | tiện
+## Company and products
+公司 | gōngsī | perusahaan | company | บริษัท | công ty
+工厂 | gōngchǎng | pabrik | factory | โรงงาน | nhà máy
+商店 | shāngdiàn | toko | shop | ร้านค้า | cửa hàng
+超市 | chāoshì | supermarket | supermarket | ซูเปอร์มาร์เก็ต | siêu thị
+市场 | shìchǎng | pasar | market | ตลาด | thị trường
+产品 | chǎnpǐn | produk | product | สินค้า | sản phẩm
+东西 | dōngxi | barang | thing | ของ | đồ vật
+样品 | yàngpǐn | sampel | sample | ตัวอย่างสินค้า | hàng mẫu
+质量 | zhìliàng | kualitas | quality | คุณภาพ | chất lượng
+数量 | shùliàng | jumlah | quantity | จำนวน | số lượng
+大小 | dàxiǎo | ukuran | size | ขนาด | kích cỡ
+颜色 | yánsè | warna | color | สี | màu sắc
+新 | xīn | baru | new | ใหม่ | mới
+旧 | jiù | lama, bekas | old, used | เก่า | cũ
+好 | hǎo | bagus | good | ดี | tốt
+坏 | huài | rusak, buruk | bad, broken | เสีย/แย่ | hỏng, xấu
+## Buying and selling
+买 | mǎi | membeli | to buy | ซื้อ | mua
+卖 | mài | menjual | to sell | ขาย | bán
+商品 | shāngpǐn | barang dagangan | goods | สินค้า | hàng hóa
+订 | dìng | memesan | to order, to book | สั่งจอง | đặt
+订单 | dìngdān | pesanan | order | ใบสั่งซื้อ | đơn đặt hàng
+送 | sòng | mengantar, memberi | to deliver, to give | ส่ง/ให้ | giao, tặng
+送货 | sònghuò | mengantar barang | to deliver goods | ส่งสินค้า | giao hàng
+货 | huò | barang | goods | สินค้า | hàng
+到货 | dàohuò | barang tiba | goods arrive | สินค้ามาถึง | hàng về
+快递 | kuàidì | kurir, pengiriman cepat | express delivery | ขนส่งด่วน | chuyển phát nhanh
+包装 | bāozhuāng | kemasan | packaging | บรรจุภัณฑ์ | bao bì
+箱 | xiāng | kardus, kotak | box | กล่อง | thùng
+包 | bāo | bungkus, tas | pack, bag | ห่อ/กระเป๋า | gói, túi
+退货 | tuìhuò | retur barang | to return goods | คืนสินค้า | trả hàng
+换货 | huànhuò | tukar barang | to exchange goods | เปลี่ยนสินค้า | đổi hàng
+保修 | bǎoxiū | garansi perbaikan | warranty | รับประกันซ่อม | bảo hành
+合适 | héshì | cocok | suitable | เหมาะสม | phù hợp
+选 | xuǎn | memilih | to choose | เลือก | chọn
+试 | shì | mencoba | to try | ลอง | thử
+要 | yào | mau, perlu | to want | ต้องการ | muốn
+有 | yǒu | ada, punya | to have | มี | có
+没有 | méiyǒu | tidak ada | not to have | ไม่มี | không có
+够 | gòu | cukup | enough | พอ | đủ
+多 | duō | banyak | many, much | มาก | nhiều
+少 | shǎo | sedikit | few, little | น้อย | ít
+一共 | yígòng | seluruhnya | in total | ทั้งหมด | tổng cộng
+优惠 | yōuhuì | promo, potongan | discount, preferential | ส่วนลดพิเศษ | ưu đãi
+促销 | cùxiāo | promosi penjualan | sales promotion | โปรโมชั่น | khuyến mãi
+广告 | guǎnggào | iklan | advertisement | โฆษณา | quảng cáo
+品牌 | pǐnpái | merek | brand | ยี่ห้อ | thương hiệu
+顾客 | gùkè | pelanggan | customer | ลูกค้า | khách hàng
+服务员 | fúwùyuán | pelayan | waiter, attendant | พนักงานบริการ | nhân viên phục vụ
+售货员 | shòuhuòyuán | pramuniaga | shop assistant | พนักงานขายของ | nhân viên bán hàng
+## Eating and hospitality
+吃 | chī | makan | to eat | กิน | ăn
+喝 | hē | minum | to drink | ดื่ม | uống
+饭 | fàn | nasi, makanan | meal, rice | ข้าว/อาหาร | cơm
+菜 | cài | masakan, sayur | dish, vegetables | กับข้าว/ผัก | món ăn, rau
+菜单 | càidān | menu | menu | เมนู | thực đơn
+点菜 | diǎn cài | memesan makanan | to order dishes | สั่งอาหาร | gọi món
+饭店 | fàndiàn | restoran, hotel | restaurant, hotel | ร้านอาหาร/โรงแรม | nhà hàng, khách sạn
+餐厅 | cāntīng | ruang makan, restoran | dining hall, restaurant | ห้องอาหาร | nhà ăn
+请客 | qǐngkè | mentraktir | to treat someone | เลี้ยง | mời khách
+干杯 | gānbēi | bersulang | cheers | ชนแก้ว | cạn ly
+茶 | chá | teh | tea | ชา | trà
+咖啡 | kāfēi | kopi | coffee | กาแฟ | cà phê
+水 | shuǐ | air | water | น้ำ | nước
+啤酒 | píjiǔ | bir | beer | เบียร์ | bia
+酒 | jiǔ | minuman keras | alcohol | เหล้า | rượu
+果汁 | guǒzhī | jus | juice | น้ำผลไม้ | nước ép
+米饭 | mǐfàn | nasi | cooked rice | ข้าวสวย | cơm
+面条 | miàntiáo | mi | noodles | บะหมี่ | mì
+鸡肉 | jīròu | daging ayam | chicken | เนื้อไก่ | thịt gà
+牛肉 | niúròu | daging sapi | beef | เนื้อวัว | thịt bò
+鱼 | yú | ikan | fish | ปลา | cá
+鸡蛋 | jīdàn | telur | egg | ไข่ไก่ | trứng gà
+水果 | shuǐguǒ | buah | fruit | ผลไม้ | trái cây
+好吃 | hǎochī | enak | delicious | อร่อย | ngon
+辣 | là | pedas | spicy | เผ็ด | cay
+甜 | tián | manis | sweet | หวาน | ngọt
+咸 | xián | asin | salty | เค็ม | mặn
+饿 | è | lapar | hungry | หิว | đói
+渴 | kě | haus | thirsty | กระหาย | khát
+饱 | bǎo | kenyang | full | อิ่ม | no
+素食 | sùshí | makanan vegetarian | vegetarian food | อาหารมังสวิรัติ | đồ chay
+清真 | qīngzhēn | halal | halal | ฮาลาล | halal
+## Travel, transport and hotels
+旅行 | lǚxíng | bepergian | to travel | ท่องเที่ยว | du lịch
+旅游 | lǚyóu | wisata | tourism | ท่องเที่ยว | du lịch
+机场 | jīchǎng | bandara | airport | สนามบิน | sân bay
+飞机 | fēijī | pesawat | airplane | เครื่องบิน | máy bay
+机票 | jīpiào | tiket pesawat | plane ticket | ตั๋วเครื่องบิน | vé máy bay
+航班 | hángbān | penerbangan | flight | เที่ยวบิน | chuyến bay
+护照 | hùzhào | paspor | passport | หนังสือเดินทาง | hộ chiếu
+签证 | qiānzhèng | visa | visa | วีซ่า | thị thực
+行李 | xíngli | bagasi | luggage | สัมภาระ | hành lý
+登机 | dēngjī | naik pesawat | to board a plane | ขึ้นเครื่อง | lên máy bay
+起飞 | qǐfēi | lepas landas | to take off | ขึ้นบิน | cất cánh
+到达 | dàodá | tiba | to arrive | มาถึง | đến nơi
+出发 | chūfā | berangkat | to set out | ออกเดินทาง | xuất phát
+火车 | huǒchē | kereta api | train | รถไฟ | tàu hỏa
+高铁 | gāotiě | kereta cepat | high-speed rail | รถไฟความเร็วสูง | tàu cao tốc
+地铁 | dìtiě | kereta bawah tanah, MRT | subway | รถไฟใต้ดิน | tàu điện ngầm
+公共汽车 | gōnggòng qìchē | bus | bus | รถเมล์ | xe buýt
+出租车 | chūzūchē | taksi | taxi | แท็กซี่ | taxi
+车站 | chēzhàn | stasiun, halte | station, stop | สถานี | bến xe, nhà ga
+票 | piào | tiket | ticket | ตั๋ว | vé
+单程 | dānchéng | sekali jalan | one-way | เที่ยวเดียว | một chiều
+往返 | wǎngfǎn | pulang pergi | round trip | ไปกลับ | khứ hồi
+座位 | zuòwèi | tempat duduk | seat | ที่นั่ง | chỗ ngồi
+堵车 | dǔchē | macet | traffic jam | รถติด | tắc đường
+开车 | kāichē | menyetir | to drive | ขับรถ | lái xe
+酒店 | jiǔdiàn | hotel | hotel | โรงแรม | khách sạn
+房间 | fángjiān | kamar | room | ห้อง | phòng
+单人间 | dānrénjiān | kamar single | single room | ห้องเดี่ยว | phòng đơn
+双人间 | shuāngrénjiān | kamar twin | double room | ห้องคู่ | phòng đôi
+订房 | dìngfáng | memesan kamar | to book a room | จองห้อง | đặt phòng
+入住 | rùzhù | check-in | to check in | เช็คอิน | nhận phòng
+退房 | tuìfáng | check-out | to check out | เช็คเอาท์ | trả phòng
+## Places and directions
+地方 | dìfang | tempat | place | สถานที่ | nơi
+城市 | chéngshì | kota | city | เมือง | thành phố
+路 | lù | jalan | road | ถนน | đường
+街 | jiē | jalan, jalan raya | street | ถนน | phố
+附近 | fùjìn | dekat | nearby | ใกล้ๆ | gần đây
+远 | yuǎn | jauh | far | ไกล | xa
+近 | jìn | dekat | near | ใกล้ | gần
+左边 | zuǒbian | sebelah kiri | left side | ด้านซ้าย | bên trái
+右边 | yòubian | sebelah kanan | right side | ด้านขวา | bên phải
+前面 | qiánmiàn | depan | in front | ข้างหน้า | phía trước
+后面 | hòumiàn | belakang | behind | ข้างหลัง | phía sau
+旁边 | pángbiān | samping | beside | ข้างๆ | bên cạnh
+对面 | duìmiàn | seberang | opposite | ตรงข้าม | đối diện
+中间 | zhōngjiān | tengah | middle | ตรงกลาง | ở giữa
+里面 | lǐmiàn | dalam | inside | ข้างใน | bên trong
+外面 | wàimiàn | luar | outside | ข้างนอก | bên ngoài
+东 | dōng | timur | east | ตะวันออก | đông
+南 | nán | selatan | south | ใต้ | nam
+西 | xī | barat | west | ตะวันตก | tây
+北 | běi | utara | north | เหนือ | bắc
+一直走 | yìzhí zǒu | jalan terus | to go straight | เดินตรงไป | đi thẳng
+拐 | guǎi | belok | to turn | เลี้ยว | rẽ
+过马路 | guò mǎlù | menyeberang jalan | to cross the road | ข้ามถนน | qua đường
+红绿灯 | hónglǜdēng | lampu lalu lintas | traffic light | ไฟจราจร | đèn giao thông
+路口 | lùkǒu | persimpangan | intersection | สี่แยก | ngã tư
+地图 | dìtú | peta | map | แผนที่ | bản đồ
+到 | dào | tiba, sampai | to arrive | ถึง | đến
+离 | lí | dari (jarak) | away from | ห่างจาก | cách
+## Bank, post and everyday services
+银行 | yínháng | bank | bank | ธนาคาร | ngân hàng
+账户 | zhànghù | rekening | account | บัญชี | tài khoản
+存钱 | cúnqián | menabung | to deposit | ฝากเงิน | gửi tiền
+取钱 | qǔqián | menarik uang | to withdraw money | ถอนเงิน | rút tiền
+汇款 | huìkuǎn | mengirim uang | to remit money | โอนเงิน | chuyển tiền
+换钱 | huànqián | menukar uang | to change money | แลกเงิน | đổi tiền
+汇率 | huìlǜ | kurs | exchange rate | อัตราแลกเปลี่ยน | tỷ giá
+人民币 | rénmínbì | renminbi | renminbi | เงินหยวน | nhân dân tệ
+美元 | měiyuán | dolar AS | US dollar | ดอลลาร์สหรัฐ | đô la Mỹ
+印尼盾 | yìnnídùn | rupiah | rupiah | รูเปียห์ | rupiah
+邮局 | yóujú | kantor pos | post office | ที่ทำการไปรษณีย์ | bưu điện
+寄 | jì | mengirim (pos) | to mail | ส่ง (ไปรษณีย์) | gửi (bưu điện)
+信 | xìn | surat | letter | จดหมาย | thư
+包裹 | bāoguǒ | paket | parcel | พัสดุ | bưu kiện
+医院 | yīyuàn | rumah sakit | hospital | โรงพยาบาล | bệnh viện
+药 | yào | obat | medicine | ยา | thuốc
+药店 | yàodiàn | apotek | pharmacy | ร้านขายยา | hiệu thuốc
+警察 | jǐngchá | polisi | police | ตำรวจ | cảnh sát
+洗手间 | xǐshǒujiān | toilet | restroom | ห้องน้ำ | nhà vệ sinh
+## Weather and health
+天气 | tiānqì | cuaca | weather | อากาศ | thời tiết
+下雨 | xiàyǔ | hujan | to rain | ฝนตก | mưa
+热 | rè | panas | hot | ร้อน | nóng
+冷 | lěng | dingin | cold | หนาว | lạnh
+舒服 | shūfu | nyaman | comfortable | สบาย | dễ chịu
+生病 | shēngbìng | sakit | to be ill | ป่วย | bị bệnh
+感冒 | gǎnmào | pilek, masuk angin | a cold | หวัด | cảm lạnh
+发烧 | fāshāo | demam | to have a fever | มีไข้ | sốt
+头疼 | tóuténg | sakit kepala | headache | ปวดหัว | đau đầu
+身体 | shēntǐ | badan, kesehatan | body, health | ร่างกาย | cơ thể, sức khỏe
+健康 | jiànkāng | sehat | healthy | สุขภาพดี | khỏe mạnh
+注意 | zhùyì | memperhatikan | to pay attention | ระวัง | chú ý
+小心 | xiǎoxīn | hati-hati | careful | ระวัง | cẩn thận
+安全 | ānquán | aman | safe | ปลอดภัย | an toàn
+## Everyday verbs at work
+来 | lái | datang | to come | มา | đến
+去 | qù | pergi | to go | ไป | đi
+回 | huí | kembali | to return | กลับ | về
+走 | zǒu | berjalan, pergi | to walk, to leave | เดิน/ไป | đi bộ, đi
+坐 | zuò | duduk, naik | to sit, to take | นั่ง | ngồi, đi (xe)
+站 | zhàn | berdiri | to stand | ยืน | đứng
+进 | jìn | masuk | to enter | เข้า | vào
+出 | chū | keluar | to go out | ออก | ra
+开 | kāi | membuka, menyalakan | to open, to turn on | เปิด | mở
+关 | guān | menutup, mematikan | to close, to turn off | ปิด | đóng, tắt
+拿 | ná | mengambil | to take, to hold | ถือ/หยิบ | cầm, lấy
+给 | gěi | memberi | to give | ให้ | đưa, cho
+带 | dài | membawa | to bring | พา/นำ | mang
+找 | zhǎo | mencari | to look for | หา | tìm
+看 | kàn | melihat, membaca | to look, to read | ดู | xem
+听 | tīng | mendengar | to listen | ฟัง | nghe
+说 | shuō | berbicara | to speak | พูด | nói
+讲 | jiǎng | menjelaskan | to speak, to explain | พูด/อธิบาย | nói, giảng
+写 | xiě | menulis | to write | เขียน | viết
+读 | dú | membaca | to read | อ่าน | đọc
+问 | wèn | bertanya | to ask | ถาม | hỏi
+回答 | huídá | menjawab | to answer | ตอบ | trả lời
+告诉 | gàosu | memberi tahu | to tell | บอก | nói cho biết
+知道 | zhīdào | tahu | to know | รู้ | biết
+懂 | dǒng | mengerti | to understand | เข้าใจ | hiểu
+明白 | míngbai | paham | to understand | เข้าใจ | hiểu rõ
+会 | huì | bisa, akan | can, will | เป็น/จะ | biết, sẽ
+能 | néng | dapat | can, be able to | สามารถ | có thể
+可以 | kěyǐ | boleh | may, can | ได้ | được
+想 | xiǎng | ingin, berpikir | to want, to think | อยาก/คิด | muốn, nghĩ
+觉得 | juéde | merasa | to feel, to think | รู้สึก | cảm thấy
+喜欢 | xǐhuan | suka | to like | ชอบ | thích
+爱 | ài | cinta | to love | รัก | yêu
+学习 | xuéxí | belajar | to study | เรียน | học
+教 | jiāo | mengajar | to teach | สอน | dạy
+练习 | liànxí | berlatih | to practice | ฝึก | luyện tập
+考试 | kǎoshì | ujian | exam | สอบ | thi
+做 | zuò | mengerjakan | to do, to make | ทำ | làm
+用 | yòng | memakai | to use | ใช้ | dùng
+放 | fàng | meletakkan | to put | วาง | đặt
+搬 | bān | memindahkan | to move | ย้าย | khuân, chuyển
+修 | xiū | memperbaiki | to repair | ซ่อม | sửa
+洗 | xǐ | mencuci | to wash | ล้าง | rửa
+准备 | zhǔnbèi | mempersiapkan | to prepare | เตรียม | chuẩn bị
+参加 | cānjiā | ikut | to take part in | เข้าร่วม | tham gia
+遇到 | yùdào | bertemu, mengalami | to encounter | พบเจอ | gặp phải
+希望 | xīwàng | berharap | to hope | หวัง | hy vọng
+开始 | kāishǐ | mulai | to begin | เริ่ม | bắt đầu
+结束 | jiéshù | selesai | to end | จบ | kết thúc
+## Describing things
+大 | dà | besar | big | ใหญ่ | to
+小 | xiǎo | kecil | small | เล็ก | nhỏ
+长 | cháng | panjang | long | ยาว | dài
+短 | duǎn | pendek | short | สั้น | ngắn
+高 | gāo | tinggi | tall, high | สูง | cao
+低 | dī | rendah | low | ต่ำ | thấp
+快 | kuài | cepat | fast | เร็ว | nhanh
+慢 | màn | lambat | slow | ช้า | chậm
+容易 | róngyì | mudah | easy | ง่าย | dễ
+难 | nán | sulit | difficult | ยาก | khó
+简单 | jiǎndān | sederhana | simple | ง่าย | đơn giản
+重要 | zhòngyào | penting | important | สำคัญ | quan trọng
+清楚 | qīngchu | jelas | clear | ชัดเจน | rõ ràng
+对 | duì | benar | correct | ถูก | đúng
+错 | cuò | salah | wrong | ผิด | sai
+一样 | yíyàng | sama | the same | เหมือนกัน | giống nhau
+不同 | bùtóng | berbeda | different | ต่างกัน | khác nhau
+干净 | gānjìng | bersih | clean | สะอาด | sạch sẽ
+脏 | zāng | kotor | dirty | สกปรก | bẩn
+漂亮 | piàoliang | cantik, bagus | pretty, nice | สวย | đẹp
+安静 | ānjìng | tenang | quiet | เงียบ | yên tĩnh
+热闹 | rènao | ramai | lively | คึกคัก | náo nhiệt
+满意 | mǎnyì | puas | satisfied | พอใจ | hài lòng
+高兴 | gāoxìng | senang | glad | ดีใจ | vui
+着急 | zháojí | cemas, gelisah | anxious | ร้อนใจ | sốt ruột
+特别 | tèbié | istimewa, sangat | special, especially | พิเศษ | đặc biệt
+最 | zuì | paling | most | ที่สุด | nhất
+更 | gèng | lebih | even more | ยิ่ง | hơn nữa
+非常 | fēicháng | sangat | very | มาก | rất
+太 | tài | terlalu | too | เกินไป | quá
+很 | hěn | sangat | very | มาก | rất
+## Linking words and questions
+和 | hé | dan | and | และ | và
+也 | yě | juga | also | ก็ | cũng
+还 | hái | masih, juga | still, also | ยัง | còn
+都 | dōu | semua | all | ทั้งหมด | đều
+只 | zhǐ | hanya | only | เท่านั้น | chỉ
+就 | jiù | langsung | then, right away | ก็ | liền
+才 | cái | baru | only then | เพิ่ง | mới
+但是 | dànshì | tetapi | but | แต่ | nhưng
+因为 | yīnwèi | karena | because | เพราะ | bởi vì
+所以 | suǒyǐ | jadi | so | ดังนั้น | cho nên
+如果 | rúguǒ | jika | if | ถ้า | nếu
+或者 | huòzhě | atau | or | หรือ | hoặc
+可是 | kěshì | tetapi | but | แต่ | nhưng
+然后 | ránhòu | lalu | then | หลังจากนั้น | sau đó
+先 | xiān | dulu | first | ก่อน | trước
+再 | zài | lagi, kemudian | again, then | อีก | lại, rồi
+什么 | shénme | apa | what | อะไร | cái gì
+谁 | shéi | siapa | who | ใคร | ai
+哪 | nǎ | yang mana | which | ไหน | nào
+哪儿 | nǎr | di mana | where | ที่ไหน | ở đâu
+怎么 | zěnme | bagaimana | how | อย่างไร | thế nào
+怎么样 | zěnmeyàng | bagaimana (keadaan) | how about | เป็นอย่างไร | thế nào
+为什么 | wèishénme | mengapa | why | ทำไม | tại sao
+吗 | ma | partikel tanya | question particle | ไหม | không (hỏi)
+呢 | ne | partikel (lanjutan) | and you? (particle) | ล่ะ | thì sao
+吧 | ba | partikel ajakan | suggestion particle | เถอะ | nhé
+的 | de | partikel penanda milik | possessive particle | ของ | của
+了 | le | partikel perubahan, selesai | perfective particle | แล้ว | rồi
+在 | zài | di, sedang | at, in progress | อยู่ที่ | ở, đang
+跟 | gēn | dengan, mengikuti | with, to follow | กับ/ตาม | với, theo
+## Measure words and amounts
+个 | gè | kata penggolong umum | general measure word | ลักษณนามทั่วไป | lượng từ chung
+位 | wèi | kata penggolong orang (sopan) | measure word for people (polite) | ท่าน | vị
+张 | zhāng | lembar | measure word for flat things | แผ่น/ใบ | tờ, tấm
+本 | běn | buah (buku) | measure word for books | เล่ม | quyển
+件 | jiàn | potong, hal | measure word for items, matters | ชิ้น/เรื่อง | cái, việc
+台 | tái | unit (mesin) | measure word for machines | เครื่อง | chiếc (máy)
+辆 | liàng | unit (kendaraan) | measure word for vehicles | คัน | chiếc (xe)
+瓶 | píng | botol | bottle | ขวด | chai
+杯 | bēi | gelas | cup | แก้ว | cốc, ly
+双 | shuāng | pasang | pair | คู่ | đôi
+些 | xiē | beberapa | some | บางส่วน | một số
+次 | cì | kali | time (occurrence) | ครั้ง | lần
+遍 | biàn | kali (dari awal sampai akhir) | time (all the way through) | รอบ | lượt
+一点儿 | yìdiǎnr | sedikit | a little | นิดหน่อย | một chút
+一些 | yìxiē | beberapa | some | บางส่วน | một vài
+全部 | quánbù | seluruh | all | ทั้งหมด | toàn bộ
+## Company basics
+成立 | chénglì | didirikan | to be founded | ก่อตั้ง | thành lập
+历史 | lìshǐ | sejarah | history | ประวัติศาสตร์ | lịch sử
+规模 | guīmó | skala, ukuran | scale | ขนาด | quy mô
+业务 | yèwù | bisnis, usaha | business, operations | ธุรกิจ | nghiệp vụ
+生意 | shēngyi | usaha dagang | business, trade | การค้า | việc buôn bán
+合作 | hézuò | bekerja sama | to cooperate | ร่วมมือ | hợp tác
+伙伴 | huǒbàn | mitra | partner | หุ้นส่วน | đối tác
+分公司 | fēngōngsī | cabang | branch office | บริษัทสาขา | chi nhánh
+总经理 | zǒngjīnglǐ | direktur utama | general manager | ผู้จัดการทั่วไป | tổng giám đốc
+代表 | dàibiǎo | perwakilan | representative | ตัวแทน | đại diện
+团队 | tuánduì | tim | team | ทีม | đội nhóm
+地点 | dìdiǎn | lokasi | location | สถานที่ | địa điểm
+网址 | wǎngzhǐ | alamat situs web | website address | ที่อยู่เว็บไซต์ | địa chỉ trang web
+传真 | chuánzhēn | faksimile | fax | โทรสาร | fax
+公司名称 | gōngsī míngchēng | nama perusahaan | company name | ชื่อบริษัท | tên công ty
+职位 | zhíwèi | jabatan | position | ตำแหน่ง | chức vụ
+工资 | gōngzī | gaji | salary | เงินเดือน | tiền lương
+奖金 | jiǎngjīn | bonus | bonus | โบนัส | tiền thưởng
+假期 | jiàqī | libur | holiday | วันหยุด | kỳ nghỉ
+## Orders and delivery
+价目表 | jiàmùbiǎo | daftar harga | price list | รายการราคา | bảng giá
+报价 | bàojià | penawaran harga | quotation | เสนอราคา | báo giá
+合同 | hétong | kontrak | contract | สัญญา | hợp đồng
+签 | qiān | menandatangani | to sign | ลงนาม | ký
+签字 | qiānzì | tanda tangan | to sign (a name) | เซ็นชื่อ | ký tên
+盖章 | gàizhāng | memberi stempel | to stamp | ประทับตรา | đóng dấu
+样本 | yàngběn | contoh (katalog) | sample copy | ตัวอย่าง | bản mẫu
+目录 | mùlù | katalog, daftar isi | catalogue | แคตตาล็อก | danh mục
+库存 | kùcún | stok | stock | สต็อก | tồn kho
+现货 | xiànhuò | barang ready | goods in stock | สินค้าพร้อมส่ง | hàng có sẵn
+交货 | jiāohuò | penyerahan barang | to deliver goods | ส่งมอบสินค้า | giao hàng
+运费 | yùnfèi | ongkos kirim | freight charge | ค่าขนส่ง | cước vận chuyển
+运输 | yùnshū | pengangkutan | transport | ขนส่ง | vận chuyển
+海运 | hǎiyùn | pengiriman laut | sea freight | ขนส่งทางเรือ | vận tải biển
+空运 | kōngyùn | pengiriman udara | air freight | ขนส่งทางอากาศ | vận tải hàng không
+仓库 | cāngkù | gudang | warehouse | โกดัง | kho
+码头 | mǎtóu | dermaga | wharf | ท่าเรือ | bến cảng
+海关 | hǎiguān | bea cukai | customs | ศุลกากร | hải quan
+进口 | jìnkǒu | impor | to import | นำเข้า | nhập khẩu
+出口 | chūkǒu | ekspor | to export | ส่งออก | xuất khẩu
+重量 | zhòngliàng | berat | weight | น้ำหนัก | trọng lượng
+公斤 | gōngjīn | kilogram | kilogram | กิโลกรัม | ki-lô-gam
+吨 | dūn | ton | ton | ตัน | tấn
+米 | mǐ | meter | meter | เมตร | mét
+厘米 | límǐ | sentimeter | centimeter | เซนติเมตร | xăng-ti-mét
+## Production and quality basics
+生产 | shēngchǎn | memproduksi | to produce | ผลิต | sản xuất
+制造 | zhìzào | membuat | to manufacture | ผลิต | chế tạo
+机器 | jīqì | mesin | machine | เครื่องจักร | máy móc
+设备 | shèbèi | peralatan | equipment | อุปกรณ์ | thiết bị
+原料 | yuánliào | bahan baku | raw material | วัตถุดิบ | nguyên liệu
+材料 | cáiliào | bahan | material | วัสดุ | vật liệu
+零件 | língjiàn | suku cadang | spare part | ชิ้นส่วน | linh kiện
+检查 | jiǎnchá | memeriksa | to inspect | ตรวจสอบ | kiểm tra
+合格 | hégé | memenuhi syarat | qualified | ผ่านมาตรฐาน | đạt tiêu chuẩn
+故障 | gùzhàng | gangguan, kerusakan | malfunction | ขัดข้อง | hỏng hóc
+修理 | xiūlǐ | memperbaiki | to repair | ซ่อมแซม | sửa chữa
+使用 | shǐyòng | menggunakan | to use | ใช้งาน | sử dụng
+说明书 | shuōmíngshū | buku petunjuk | manual | คู่มือ | sách hướng dẫn
+安装 | ānzhuāng | memasang | to install | ติดตั้ง | lắp đặt
+技术 | jìshù | teknologi, teknik | technology | เทคโนโลยี | kỹ thuật
+## Training and skills
+培训 | péixùn | pelatihan | training | การฝึกอบรม | đào tạo
+课 | kè | pelajaran, kelas | lesson, class | บทเรียน | bài học
+老师 | lǎoshī | guru | teacher | ครู | thầy cô
+学生 | xuésheng | pelajar | student | นักเรียน | học sinh
+汉语 | Hànyǔ | bahasa Mandarin | Chinese language | ภาษาจีน | tiếng Hán
+英语 | Yīngyǔ | bahasa Inggris | English | ภาษาอังกฤษ | tiếng Anh
+语言 | yǔyán | bahasa | language | ภาษา | ngôn ngữ
+汉字 | Hànzì | huruf Han | Chinese character | ตัวอักษรจีน | chữ Hán
+发音 | fāyīn | pengucapan | pronunciation | การออกเสียง | phát âm
+句子 | jùzi | kalimat | sentence | ประโยค | câu
+意思 | yìsi | arti | meaning | ความหมาย | ý nghĩa
+词 | cí | kata | word | คำ | từ
+经验 | jīngyàn | pengalaman | experience | ประสบการณ์ | kinh nghiệm
+能力 | nénglì | kemampuan | ability | ความสามารถ | năng lực
+机会 | jīhuì | kesempatan | opportunity | โอกาส | cơ hội
+进步 | jìnbù | kemajuan | progress | ความก้าวหน้า | tiến bộ
+成功 | chénggōng | sukses | success | ความสำเร็จ | thành công
+努力 | nǔlì | berusaha keras | to work hard | พยายาม | nỗ lực
+## Useful work phrases
+没问题 | méi wèntí | tidak masalah | no problem | ไม่มีปัญหา | không vấn đề gì
+请稍等 | qǐng shāo děng | mohon tunggu sebentar | please wait a moment | กรุณารอสักครู่ | xin chờ một chút
+麻烦您 | máfan nín | maaf merepotkan Anda | sorry to trouble you | รบกวนท่าน | làm phiền ông/bà
+请多关照 | qǐng duō guānzhào | mohon bimbingannya | I look forward to working with you | ฝากตัวด้วย | mong được chiếu cố
+辛苦了 | xīnkǔ le | terima kasih atas kerja kerasnya | thank you for your hard work | ขอบคุณที่เหนื่อย | vất vả rồi
+没听清 | méi tīngqīng | tidak terdengar jelas | I didn't catch that | ฟังไม่ชัด | không nghe rõ
+请再说一遍 | qǐng zài shuō yí biàn | tolong ulangi sekali lagi | please say it again | กรุณาพูดอีกครั้ง | xin nói lại lần nữa
+请慢点儿说 | qǐng màn diǎnr shuō | tolong bicara lebih pelan | please speak more slowly | กรุณาพูดช้าลงหน่อย | xin nói chậm một chút
+我明白了 | wǒ míngbai le | saya mengerti | I understand | ฉันเข้าใจแล้ว | tôi hiểu rồi
+好的 | hǎo de | baik | okay | ได้ | được
+当然 | dāngrán | tentu | of course | แน่นอน | tất nhiên
+可能 | kěnéng | mungkin | maybe | อาจจะ | có thể
+一定 | yídìng | pasti | surely | แน่นอน | nhất định
+应该 | yīnggāi | seharusnya | should | ควรจะ | nên

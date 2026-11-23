@@ -6,6 +6,23 @@ before pushing.
 
 Test builds before a release are published as pre-releases v1.0-alpha-N.
 
+## v1.12
+
+**Every grammar pattern now says when to use it, and BCT gets its own study path.**
+
+- **When to use it.** Every pattern in the Grammar book has a short note under its formula: the situation, how it
+  sounds (polite, written, casual, annoyed…) and the one thing to watch out for. In Indonesian, English, Thai and
+  Vietnamese.
+- **Study tab.** The first tab is now called Study and has a small HSK | BCT switch at the top of Home. BCT has its
+  own page with a word list, cards and a quiz, for BCT A and BCT B. It is extra practice: it never changes your realm
+  or your daily plan. Your progress on these words is kept on the phone and is part of the backup code.
+- **BCT A words.** 579 new business words for BCT A (greetings, time and money, office, phone and email, meetings,
+  shopping, restaurants, travel, banking, orders and delivery, production, useful phrases), each with pinyin and the
+  meaning in four languages. BCT B keeps its own list (351 words after the overlap moved to A).
+- **Tests tab.** The page is only for exams now. Simulasi HSK starts with a page where you choose HSK 1–6 (your level
+  is marked), the confusing "Unit" button is gone there, BCT A and B practice are one card where you choose A or B,
+  and the business word list moved to the BCT page.
+
 ## v1.8
 
 **Grammar in four books, in the order you learn it.**

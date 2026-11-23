@@ -93,6 +93,7 @@ class GPoint {
   List<GPart> parts = const [];
   List<String> seps = const [];
   Map<String, String>? warn;
+  Map<String, String>? use; // when and how to use it
   List<GEx> eg = const [];
 
   String text(String lang) => x[lang] ?? x['en'] ?? '';
@@ -175,6 +176,7 @@ class GBook {
       p.parts = [for (final q in (o['fp'] as List?) ?? const []) GPart('${(q as Map)['t']}', '${q['py'] ?? ''}', _m(q['g']), q['k'] == true)];
       p.seps = ((o['fx'] as List?) ?? const []).cast<String>();
       p.warn = _m(o['w']);
+      p.use = _m(o['u']);
       p.t = (o['t'] as num?)?.toInt() ?? 10;
       p.v = {for (final e in ((o['v'] as Map?) ?? const {}).entries) '${e.key}': (e.value as num).toInt()};
       p.nh = o['nh'] == 1;
