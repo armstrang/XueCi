@@ -18,7 +18,10 @@ Test builds before a release are published as pre-releases v1.0-alpha-N.
   or your daily plan. Your progress on these words is kept on the phone and is part of the backup code.
 - **BCT A words.** 579 new business words for BCT A (greetings, time and money, office, phone and email, meetings,
   shopping, restaurants, travel, banking, orders and delivery, production, useful phrases), each with pinyin and the
-  meaning in four languages. BCT B keeps its own list (351 words after the overlap moved to A).
+  meaning in four languages. BCT B grows from 351 to 3,941 words: strategy and management, accounting and tax, banking and finance,
+  import and export, logistics, contracts and law, marketing and sales, HR, manufacturing and quality, IT and
+  e-commerce, real estate, meetings and letters, the economy, idioms and formal written Chinese, with pinyin and the
+  meaning in four languages. The app fonts got 35 more characters for them.
 - **Tests tab.** The page is only for exams now. Simulasi HSK starts with a page where you choose HSK 1–6 (your level
   is marked), the confusing "Unit" button is gone there, BCT A and B practice are one card where you choose A or B,
   and the business word list moved to the BCT page.
