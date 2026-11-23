@@ -4009,3 +4009,69 @@
 代表性 | dàibiǎoxìng | representatif | representative | เป็นตัวแทน | tính đại diện
 示范 | shìfàn | memberi contoh | demonstrate | แสดงตัวอย่าง | làm mẫu
 示范区 | shìfànqū | zona percontohan | demonstration zone | เขตตัวอย่าง | khu thí điểm mẫu
+## Extra business terms
+商誉 | shāngyù | goodwill, reputasi usaha | goodwill | ค่าความนิยม | uy tín thương hiệu
+销路 | xiāolù | pasar penjualan | sales outlet, market | ช่องทางขาย | đầu ra tiêu thụ
+价位 | jiàwèi | kisaran harga | price range | ระดับราคา | mức giá
+追加订单 | zhuījiā dìngdān | pesanan tambahan | additional order | สั่งซื้อเพิ่ม | đơn hàng bổ sung
+退订 | tuìdìng | membatalkan pesanan | cancel an order | ยกเลิกการสั่ง | hủy đặt hàng
+延期交货 | yánqī jiāohuò | pengiriman tertunda | delayed delivery | ส่งมอบล่าช้า | giao hàng chậm
+点数 | diǎnshù | menghitung jumlah | count items | นับจำนวน | kiểm đếm
+促销价 | cùxiāojià | harga promo | promotional price | ราคาโปรโมชั่น | giá khuyến mãi
+会员价 | huìyuánjià | harga anggota | member price | ราคาสมาชิก | giá hội viên
+挂账 | guàzhàng | dicatat sebagai utang | put on account | ลงบัญชีค้าง | ghi sổ nợ
+对账单 | duìzhàngdān | rekening koran | statement of account | ใบแจ้งยอดบัญชี | bảng đối chiếu công nợ
+收款人 | shōukuǎnrén | penerima pembayaran | payee | ผู้รับเงิน | người thụ hưởng
+付款人 | fùkuǎnrén | pembayar | payer | ผู้จ่ายเงิน | người thanh toán
+汇款单 | huìkuǎndān | slip transfer | remittance slip | ใบโอนเงิน | phiếu chuyển tiền
+解约 | jiěyuē | memutus kontrak | terminate a contract | ยกเลิกสัญญา | chấm dứt hợp đồng
+履约 | lǚyuē | melaksanakan kontrak | perform a contract | ปฏิบัติตามสัญญา | thực hiện hợp đồng
+盖章页 | gàizhāngyè | halaman bercap | stamped page | หน้าประทับตรา | trang đóng dấu
+回执 | huízhí | tanda terima balasan | acknowledgment slip | ใบตอบรับ | giấy biên nhận
+议程表 | yìchéngbiǎo | jadwal acara | agenda | กำหนดการประชุม | chương trình nghị sự
+出席率 | chūxílǜ | tingkat kehadiran | attendance rate | อัตราการเข้าร่วม | tỷ lệ tham dự
+异议 | yìyì | keberatan | objection | ข้อโต้แย้ง | dị nghị
+双赢 | shuāngyíng | sama-sama untung | win-win | win-win | đôi bên cùng có lợi
+## Extra business terms 2
+总经销 | zǒngjīngxiāo | distributor utama | master distributor | ตัวแทนจำหน่ายหลัก | tổng đại lý phân phối
+进货价 | jìnhuòjià | harga kulak | purchase price | ราคารับซื้อ | giá nhập hàng
+提货单 | tíhuòdān | surat pengambilan barang | delivery order | ใบสั่งปล่อยสินค้า | phiếu lấy hàng
+检验证书 | jiǎnyàn zhèngshū | sertifikat inspeksi | inspection certificate | ใบรับรองการตรวจสอบ | giấy chứng nhận kiểm định
+货柜 | huòguì | peti kemas | cargo container | ตู้สินค้า | công-ten-nơ
+滞港 | zhìgǎng | tertahan di pelabuhan | held at port | ตกค้างที่ท่าเรือ | lưu bãi cảng
+滞期费 | zhìqīfèi | biaya demurrage | demurrage | ค่าปรับตู้ล่าช้า | phí lưu container
+运价 | yùnjià | tarif angkut | freight rate | ค่าระวาง | cước vận chuyển
+空运单 | kōngyùndān | surat muatan udara | air waybill | ใบตราส่งสินค้าทางอากาศ | vận đơn hàng không
+海运单 | hǎiyùndān | surat muatan laut | sea waybill | ใบตราส่งสินค้าทางทะเล | vận đơn đường biển
+调岗 | diàogǎng | pindah jabatan | transfer to another post | ย้ายตำแหน่ง | điều chuyển vị trí
+名片夹 | míngpiànjiā | tempat kartu nama | business card holder | ที่ใส่นามบัตร | hộp đựng danh thiếp
+递名片 | dì míngpiàn | menyerahkan kartu nama | hand over a business card | ยื่นนามบัตร | đưa danh thiếp
+多多关照 | duōduō guānzhào | mohon bantuannya | please take care of me | ฝากตัวด้วย | mong được giúp đỡ nhiều
+## Extra business terms 3
+货真价实 | huòzhēn jiàshí | barang asli harga jujur | genuine goods at fair price | ของแท้ราคายุติธรรม | hàng thật giá thật
+诚信经营 | chéngxìn jīngyíng | usaha yang jujur | honest business practice | ทำธุรกิจอย่างซื่อสัตย์ | kinh doanh trung thực
+一手货源 | yīshǒu huòyuán | pasokan langsung dari pabrik | first-hand supply | สินค้าตรงจากแหล่งผลิต | nguồn hàng gốc
+现货供应 | xiànhuò gōngyìng | stok siap kirim | goods in stock | มีสินค้าพร้อมส่ง | cung cấp hàng có sẵn
+热销 | rèxiāo | laris manis | selling well | ขายดี | bán chạy
+好评率 | hǎopínglǜ | persentase ulasan baik | positive review rate | อัตรารีวิวดี | tỷ lệ đánh giá tốt
+复购率 | fùgòulǜ | tingkat pembelian ulang | repurchase rate | อัตราซื้อซ้ำ | tỷ lệ mua lại
+达人 | dárén | influencer, ahli | influencer, expert | ผู้เชี่ยวชาญ | người có ảnh hưởng
+直播间 | zhíbōjiān | ruang siaran langsung | livestream room | ห้องไลฟ์สด | phòng livestream
+## Extra business terms 4
+毛利率 | máolìlǜ | margin laba kotor | gross margin | อัตรากำไรขั้นต้น | biên lợi nhuận gộp
+审计报告 | shěnjì bàogào | laporan audit | audit report | รายงานการตรวจสอบ | báo cáo kiểm toán
+进项税 | jìnxiàngshuì | pajak masukan | input tax | ภาษีซื้อ | thuế đầu vào
+销项税 | xiāoxiàngshuì | pajak keluaran | output tax | ภาษีขาย | thuế đầu ra
+## Extra business terms 5
+行程单 | xíngchéngdān | jadwal perjalanan | itinerary | กำหนดการเดินทาง | lịch trình
+时差 | shíchā | perbedaan waktu | time difference | ความต่างเวลา | chênh lệch múi giờ
+签证官 | qiānzhèngguān | petugas visa | visa officer | เจ้าหน้าที่วีซ่า | viên chức visa
+展位号 | zhǎnwèihào | nomor stan | booth number | หมายเลขบูธ | số gian hàng
+参展商 | cānzhǎnshāng | peserta pameran | exhibitor | ผู้ออกงานแสดงสินค้า | nhà triển lãm
+## Extra business terms 6
+展台 | zhǎntái | stan pameran | exhibition stand | แท่นแสดงสินค้า | quầy trưng bày
+样品间 | yàngpǐnjiān | ruang sampel | showroom | ห้องแสดงตัวอย่าง | phòng mẫu
+竞标书 | jìngbiāoshū | dokumen penawaran | bid document | เอกสารเสนอราคา | hồ sơ dự thầu
+## Extra business terms 7
+招标公告 | zhāobiāo gōnggào | pengumuman tender | tender notice | ประกาศประมูล | thông báo mời thầu
+评标 | píngbiāo | evaluasi penawaran | evaluate bids | พิจารณาข้อเสนอประมูล | chấm thầu
