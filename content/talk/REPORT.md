@@ -120,3 +120,15 @@ Set buta 4 (penulis H/I/J, aturan SPEC_v4) tidak dipakai untuk melatih.
 Tepat seluruhnya 79,2 %; negasi tertangkap 76,5 % (dari 51); salah terima di ucapan sulit 19,1 %; slot pct 91,7 %, when 87,7 %, reason 81,3 %; 0,83 ms/ucapan.
 Salah terima terbanyak: deny_fault (14), cause (14), promise_time (11). Set ini lebih sulit (sengaja berisi pasangan minimal), jadi 88,7 tidak sebanding langsung dengan 89,4 di blind3; perbandingan yang adil adalah baris model ronde 3 di set yang sama (+1,6 poin).
 Belum diuji: ucapan hasil pengenal suara sungguhan.
+
+## Simulasi pengenal suara (BUKAN suara asli; hanya uji ketahanan)
+`mobile/tool/make_asr_sim.py` menulis ulang blind4 (510) seperti keluaran pengenal suara: tanpa tanda baca, hanzi tertukar dengan suku kata sama (nada lain / nada sama) atau mirip (zh/z, sh/s, n/l, in/ing, an/ang), sebagian hanzi hilang. Bunyi hanzi diambil dari daftar kata, bukan dari lipatan homofon mesin. Model ronde 4, STRICT:
+
+| | F1 | negasi | when |
+|---|---|---|---|
+| bersih | 88,7 | 76,5 | 87,7 |
+| ringan (3 % hanzi) | 86,3 | 70,6 | 74,0 |
+| berat (8 % hanzi) | 84,3 | 62,7 | 76,7 |
+| berat, aturan saja | 68,3 | | |
+
+Kelemahan: negasi dan slot waktu paling rentan. Ini tebakan saya tentang jenis kesalahan; hanya rekaman asli yang membuktikan.

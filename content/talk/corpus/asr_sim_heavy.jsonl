@@ -1,0 +1,510 @@
+{"text": "您好这里是客服部首先本订单仰误深表千意", "frames": [{"act": "greet", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "此次我方疏忽造承发货迟恳请您简谅", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "经查货物慕前滞留宰海预计后天可以反行敬请谅解", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}, {"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "请问您希婉最迟哪一天收悼货物呢", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "恳顷您提供一下订单编号我们好立即为您查询", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "我方将于今天重新安排发货并预计周肆送打跪处", "frames": [{"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "关折扣一事公司内部规定不云许实在难衣应允", "frames": [{"act": "discount", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "如果您现在确认订单我们可以为您九折", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["conditional", "asr_sim"], "note": "", "set": "H"}
+{"text": "如果货物能早一到究好了真的很遗憾", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "H"}
+{"text": "您说我们根本没有发货这个我们再核实一下", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "H"}
+{"text": "本次研误并非我方责任是快递公司在中转站积压所致", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "为表示歉意我们将赠送您一张捂十元的优卉券", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "运费由我们承担另外安排空运萎您加急处理", "frames": [{"act": "compensate", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "实在抱歉加急服务我们这边恐怕法提供", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "好的就按您说的办我们尽快处理", "frames": [{"act": "agree", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "非感谢您的耐心等待与理解期待今后继续合作", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "今天天气很热您那边怎么样", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们不是不想给您退款而是财务步门还在审核当中", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "恳请您再款限我们两三天货一定在三天内送到", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "对不对不是我们没有做好给添麻烦了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["casual", "asr_sim"], "note": "", "set": "H"}
+{"text": "这批货因为工厂蜡边生产线出了故障以才耽误了", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "请您放行我们一定会负责到底的", "frames": [{"act": "none", "pol": "+"}], "tags": ["reassure", "asr_sim"], "note": "", "set": "H"}
+{"text": "要不要我们给您换一家快递呢", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们将改走空运悠先为您发初预计明天抵达", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "嗯那个就使说我们这会给您补发一份", "frames": [{"act": "resend", "pol": "+"}], "tags": ["filler", "asr_sim"], "note": "", "set": "H"}
+{"text": "本公饲没有补偿的相关规定还望您体谅", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "因台风影响函颁诠部停飞所以货物晚到了", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "您讲得对货物确实翅到了这是我们的失职", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "贵方的订单号码是多少呢麻烦告诉我一下", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们不汇为您提功任何折扣请见谅", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "请问您大概几号需要这批货呢", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "好的没问题我们星期五之前颂到您手上", "frames": [{"act": "agree", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["casual", "asr_sim"], "note": "", "set": "H"}
+{"text": "昨天我们公司开了一整天的会所以没来得及复您", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "H"}
+{"text": "九五折作为赔礼请收下同时伸表歉意", "frames": [{"act": "discount", "pol": "+", "pct": 5}, {"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "劝额退还运非再送您一份小礼物以表歉意", "frames": [{"act": "compensate", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "如果没有下雨的话货早就到了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "H"}
+{"text": "您好您好让您久等了真的非常不好意思", "frames": [{"act": "greet", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["casual", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们浸天下午就把包裹重新寄出明天中午前一定到", "frames": [{"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "这不是我的错是海关扣了货我梦也很无奈", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "客服说今天会到那是前线桶思的法实情况请以我这边为准", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "H"}
+{"text": "意的话我们可以给您百分之二十的优惠您觉的如何", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "只要您同意明天就给您发货", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["conditional", "asr_sim"], "note": "", "set": "H"}
+{"text": "谢谢您真的很感谢", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "我马给您补发同时排优先配送", "frames": [{"act": "resend", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "抱歉现在没办法保蒸明天一定能到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "tomorrow"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "此番给您带来诸多不便谨致以最诚挚的歉意", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "恭请您确一下收货地址是否有误", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "货在仓库里压了好几天是我们工作疏漏", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们不会推卸责任一定会处礼倒底", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "并不是我们不像早点发货而是原料迟迟没有到齐", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "您说收到的是错的商品我们马上核对", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "H"}
+{"text": "关于您提出的退款要求我们已向上级申请退款金恶会在三各躬作日内到账", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "竖我直言本次延误与我司无关", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "能否请您告知方便收货的日期", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "敬请告知运耽号以便我们向物流公司核实", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "好的明白了我梦会安照您的要求办理", "frames": [{"act": "agree", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "那个这个我们周丧肯定发出去周五到", "frames": [{"act": "resend", "pol": "+", "when": "wednesday"}, {"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["filler", "asr_sim"], "note": "", "set": "H"}
+{"text": "如果您同意换成顺丰我们可以优先安排", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["conditional", "asr_sim"], "note": "", "set": "H"}
+{"text": "今甜午饭吃了腊面味道环不错", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "H"}
+{"text": "哎呀这个筷递啊真是……唉", "frames": [{"act": "none", "pol": "+"}], "tags": ["emotion", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们愿意承担全部的赔偿责任", "frames": [{"act": "compensate", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "恐怕遮扣方面我们实在爱莫能助", "frames": [{"act": "discount", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "抱歉让您久等货侮已于昨天交由顺丰预计明填送达", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "要是早点告诉我们您着急久不会这样了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "H"}
+{"text": "请您稍候片刻我立刻为您确认", "frames": [{"act": "none", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "本次迟延系由当地港口罢工引起并非我方所能控制", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "您好我是韩国总部的客服李某", "frames": [{"act": "greet", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "恳请拧宽限几日我们将尽快安排", "frames": [{"act": "none", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "给您打八折您看样可以吗", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们给您八这请务必接受我们的诚意", "frames": [{"act": "discount", "pol": "+", "pct": 20}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "抱歉我们无法接兽退货这是公司规订", "frames": [{"act": "apologize", "pol": "+"}, {"act": "refuse", "pol": "+"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "货物将于大后天抵瘩", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "振是对不住是我们则边物流安排出了差错下周一之前到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "monday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "您提到的三天内必须到我们恐帕办不到", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "H"}
+{"text": "蒙您多次催促实在惭愧我们这就加急处理", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "加急费用由我方负担请您不必担心", "frames": [{"act": "compensate", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "非常感谢您的指睁我们会引以为戒", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "祝您生意兴隆今后也请多多关照", "frames": [{"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "那拜托您了再见", "frames": [{"act": "closing", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "伤品没有问题只是炉上耽搁了", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["casual", "asr_sim"], "note": "", "set": "H"}
+{"text": "您说要取消订单这个握们坷亿办理", "frames": [{"act": "agree", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "H"}
+{"text": "不好意思嗯这个货呢因为哪个下雨所以晚了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["filler", "asr_sim"], "note": "", "set": "H"}
+{"text": "退医步讲就蒜我们补发也未彼原来的块", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "H"}
+{"text": "请问您的订单是哪一天下的", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们不是没有给您发货是快递员联系不上您", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "为了表达我们的潜意特此赠送精美礼品一缝并免除本次运费", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "十分抱嵌周四之前我们捂法松到", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "thursday"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "退款的话我们枚有这样的衔例", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们今天已经重新发出运单号稍后短信给您", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "嗯好吧那就这样", "frames": [{"act": "agree", "pol": "+"}], "tags": ["filler", "asr_sim"], "note": "", "set": "H"}
+{"text": "请问贵方希望我们几点之前送达", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "此事给贵司添了大麻烦我们深咳反省诚恳刀歉", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "折扣的话九折已经是们给的底线了", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们遮鞭没有哲扣这一说真的捕好意思", "frames": [{"act": "discount", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "麻烦您发下订单截图给我", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["casual", "asr_sim"], "note": "", "set": "H"}
+{"text": "货物目前在广州转运中心因为裹量泰所以处理比轿慢", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "不是我们不愿意赔偿而是需要走公司流程", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "您讲的完全正确是我们延误了责任在我们", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们不不发货是有库存了", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "若您愿意再等一天我门送您一张免运费券", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional", "asr_sim"], "note": "", "set": "H"}
+{"text": "如果您肯收下陪偿我们这就打款", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional", "asr_sim"], "note": "", "set": "H"}
+{"text": "您说已经了一个星期我们择边在查", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们明天上午一定补发后天午送到", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "货在海关查验一旦放行我们立即空运您", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}, {"act": "expedite", "pol": "+"}], "tags": ["conditional", "asr_sim"], "note": "", "set": "H"}
+{"text": "请您千万不要着急我们会想办法", "frames": [{"act": "none", "pol": "+"}], "tags": ["reassure", "asr_sim"], "note": "", "set": "H"}
+{"text": "这不是我萌造成的而是天气原因台风太大了", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "本来想镜天就寄初但是仓库盘点所以颓到明天了", "frames": [{"act": "cause", "pol": "+", "reason": "other"}, {"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "本来打算给您补偿的但上级没有批准", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "不是不想给您加急实在是没有苍位了", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["trap", "asr_sim"], "note": "", "set": "H"}
+{"text": "好的您的求我们已充分理解将按此执行", "frames": [{"act": "agree", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "感谢您的来电乞待再次为您服务", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "先生您好关于您订单的史我来给您回复", "frames": [{"act": "greet", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "隔壁棒公室的电脑坏了所以大嫁都修", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "H"}
+{"text": "抱嵌抱欠那个我们送获的师傅嗯今天请假了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["filler", "asr_sim"], "note": "", "set": "H"}
+{"text": "全额退款不用退货这样可以吗", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "退款我们已经办理金额会在联天馁返回您的账户", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们这边不太可能再给您打则了", "frames": [{"act": "discount", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "大约三天吧三天内一定到您手上", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["casual", "asr_sim"], "note": "", "set": "H"}
+{"text": "对于此次的疏忽我们负全责", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "您说约好二到现在已经周四您说得没错", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "H"}
+{"text": "请您放心周六之前绝堆送叨", "frames": [{"act": "promise_time", "pol": "+", "when": "saturday"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "请问您还需要我们提供什么帮助吗", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "若是方便的话可否告知贵公司的收货截止时间", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "抱前这批货我闷没法优纤骑他客也在等", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "十分钟之内我会再联系您请稍等", "frames": [{"act": "none", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们将尽快安排空运费用我们出您捕用再付一分钱", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "那份折扣我们可以保留待您下次下单时屎用", "frames": [{"act": "discount", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "谢谢您的体谅我们一定改进", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "真的是非常对不起让您白跑了一趟还禽多多海涵", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "不好意思啊那个快递今天呃没耸出去", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["filler", "asr_sim"], "note": "", "set": "H"}
+{"text": "今后我们一定改进请您放心", "frames": [{"act": "none", "pol": "+"}], "tags": ["reassure", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们拒绝承担这笔额外费用", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "请述我们无法满足您的要求实遗憾", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "货品在途中受损所以我们重新为泞生产三天后发出", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}, {"act": "resend", "pol": "+", "when": "3_days"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "星期三我们就把新的货寄给您到时候请注意查收", "frames": [{"act": "resend", "pol": "+", "when": "wednesday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "若您还有疑问请随时联系我闷再见", "frames": [{"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "打扰您了祝您愉快再会", "frames": [{"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "您好这里是售后您的包裹我们已经在跟进了", "frames": [{"act": "greet", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "对此我们没有任何借口完全是我们的过失", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "合同里写明哺可抗力除外所以这刺与我蒙无关", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "这次港口大雾封港所有货都压住了", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们送您九五折和免运费作为赔罪", "frames": [{"act": "discount", "pol": "+", "pct": 5}, {"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "补偿得话我们怨意提供一次免费的升汲配送", "frames": [{"act": "compensate", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "给您八五折已经嗜极限了理解", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "打折是不可能的我们不接受议价", "frames": [{"act": "discount", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "对于您的投苏我们已记录在案将严肃处理", "frames": [{"act": "none", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "请告诉我您的订单编号厚四位即可", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["casual", "asr_sim"], "note": "", "set": "H"}
+{"text": "您到底要在哪一天之前收到呢", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "如果您那边方便我们明天傍晚前送到", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["conditional", "asr_sim"], "note": "", "set": "H"}
+{"text": "没问题您说的我们都照办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "抱迁因为系统故障您德订单琢天才被录入", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "您说客服瘩应过免运费但是我们这里寐有这样的记露", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["quote", "asr_sim"], "note": "", "set": "H"}
+{"text": "近日物价波动较大贵国的行情如何", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "H"}
+{"text": "此次事件深感愧疚进后定当严加管理", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "敬清原谅我们的疏漏已经修正", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "货会在下周一抵这次没问题", "frames": [{"act": "promise_time", "pol": "+", "when": "monday"}], "tags": ["short", "asr_sim"], "note": "", "set": "H"}
+{"text": "昨天我家猫生病了一整晚没睡", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "H"}
+{"text": "我方将安加急件今日内发出周四痹达", "frames": [{"act": "expedite", "pol": "+"}, {"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "退款不行但渴以换货", "frames": [{"act": "compensate", "pol": "-"}, {"act": "resend", "pol": "+"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "我门不打算再补发因为库存已经清空", "frames": [{"act": "resend", "pol": "-"}, {"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "麻烦您确认一下是不是已经签收了", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "H"}
+{"text": "嗯我们会跟筋的旧是不意思您再等一下", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["filler", "asr_sim"], "note": "", "set": "H"}
+{"text": "愿您拾业顺利期歹下次合作", "frames": [{"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "您指出问题挽全属实我们感到十份惭愧诚挚歉", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "货被卡在海关两天了这个我们也没办法抱腔", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "H"}
+{"text": "十分杆激您的宽容我们将不负所托", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "您说要秋赔偿这方面我们会再请示上级", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "H"}
+{"text": "我们不灰让您白等这次一定准时周三到", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["formal", "asr_sim"], "note": "", "set": "H"}
+{"text": "对不起我们不能保证周五能到只能说尽力", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["negation", "asr_sim"], "note": "", "set": "H"}
+{"text": "请您发给我快递单号我再催一下", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["casual", "asr_sim"], "note": "", "set": "H"}
+{"text": "哎呀老板对不起哈伙晚聊是我闷搞瞒了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "晓得你急我今天下午就给你重新发一蛋", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "莫得办法嘛海关扣了几天我也浊急", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "你把订单号发我看一哈", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "您好您好我是店里的老狸", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "周四一定到我给你包住", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "不是我们不发噻是仓库那边缺货了嘛", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["trap", "negation", "asr_sim"], "note": "decision 19", "set": "I"}
+{"text": "这个嘛打折我们搞不赢真的美有这个规定", "frames": [{"act": "discount", "pol": "-", "pct": null}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "你时候要骂我好安排", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "I"}
+{"text": "可以中按你说的办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "快递钱我出你莫管了", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "给你加急嘞走空运明天就到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "我给拟算九泽吗莫生气了", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "谢谢你体谅哈亦常来噻", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "好嘛好嘛在溅哈", "frames": [{"act": "closing", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "天今天好热哦我这铺子里头像蒸笼", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "I"}
+{"text": "你说我们没发货哺是的早就发了是物流压在中转站了", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["quote", "trap", "asr_sim"], "note": "quote part none", "set": "I"}
+{"text": "如果货遭点到就好了嘛我也愁得很", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "I"}
+{"text": "咋个办嘛我也不晓得……哎", "frames": [{"act": "none", "pol": "+"}], "tags": ["emotion", "asr_sim"], "note": "", "set": "I"}
+{"text": "不是我们的错哈世快公司拖的", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "补发一件给你今天就寄出去", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "送你一张五十块的券下回用", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "颓款我现在就给你退莫生气", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "我们不会退钱的哈柜定摆在那", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "你想要啥时候到嘛", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "I"}
+{"text": "号发来我查矣哈子", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "优惠肯鼎给你少售一点嘛", "frames": [{"act": "discount", "pol": "+", "pct": null}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "这个事情我们孔趴做不实在没办法", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["polite", "asr_sim"], "note": "", "set": "I"}
+{"text": "对不住对不住式我们没做好", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "我们没做好哈", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "要是没下雨也不会晚唉", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "I"}
+{"text": "昨天我屋头睡管抱了搞了一晚上", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "decision 22", "set": "I"}
+{"text": "如果你现就却认我给你打八折", "frames": [{"act": "discount", "pol": "+", "pct": 20}], "tags": ["conditional", "asr_sim"], "note": "", "set": "I"}
+{"text": "只要你同意嘞命天就给你发出去", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["conditional", "asr_sim"], "note": "", "set": "I"}
+{"text": "本来想今发的但是子坏了没走成", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["trap", "asr_sim"], "note": "本来想...但是: failed plan, only cause", "set": "I"}
+{"text": "您别着急盲慢来", "frames": [{"act": "none", "pol": "+"}], "tags": ["soothing", "asr_sim"], "note": "", "set": "I"}
+{"text": "请放心后天肯叮送到你手上", "frames": [{"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "三天内到我保挣", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "您梭客服荐今天那阁是她说错了我给你问清楚", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "I"}
+{"text": "空运费我们承担你不用畜钱", "frames": [{"act": "compensate", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "decision 21", "set": "I"}
+{"text": "换个快递优先几你发", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "喂你好拟好", "frames": [{"act": "greet", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "嗯那个对不起让鲤等久了嘛", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["filler", "asr_sim"], "note": "", "set": "I"}
+{"text": "这事跟我们没得关系是厂子那边没出货", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "你讲得对货是迟到了我们要责", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "decision 24", "set": "I"}
+{"text": "吃了没得嘛我这儿正在吃面", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "I"}
+{"text": "订耽号多少哇我帮你钉", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "I"}
+{"text": "好的好的没问题你说了", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "不是不想给你加急是空运那边满舱了实在做不到", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["trap", "negation", "asr_sim"], "note": "denies expedite; 满舱 explains refusal not delay", "set": "I"}
+{"text": "赔礼嘛灸五折再送你个小玩意儿", "frames": [{"act": "discount", "pol": "+", "pct": 5}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "decision 20, gift is other compensation", "set": "I"}
+{"text": "您要的折扣我们给不了镇的没有这个嫁", "frames": [{"act": "discount", "pol": "-", "pct": null}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "加急这个事嘛窝们没得这个服舞", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "补发不得行哦库里头已经空了", "frames": [{"act": "resend", "pol": "-"}], "tags": ["negation", "question", "asr_sim"], "note": "", "set": "I"}
+{"text": "今天肯定到不了莫指望哈", "frames": [{"act": "promise_time", "pol": "-", "when": "today"}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "赔偿的话没瓦没有这个规矩", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "我也莫得办法拱司规定不让退", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["polite", "asr_sim"], "note": "decision 8", "set": "I"}
+{"text": "免运费这个事我们不钢的哈", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "你说是我们德错这个我不认", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "I"}
+{"text": "捕是我们拖的是你地址写错了嘛", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "我们没有说今天发嘛你听岔了", "frames": [{"act": "resend", "pol": "-", "when": "today"}, {"act": "deny_fault", "pol": "+"}], "tags": ["negation", "trap", "asr_sim"], "note": "", "set": "I"}
+{"text": "重新发货可以不过得等到下周一", "frames": [{"act": "resend", "pol": "+", "when": "monday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "下周一发周三到你看嘛", "frames": [{"act": "resend", "pol": "+", "when": "monday"}, {"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "那个您的订单号是多少还有收火人手机尾号", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "I"}
+{"text": "嗯…那个…就是…们这编…唉", "frames": [{"act": "none", "pol": "+"}], "tags": ["filler", "asr_sim"], "note": "", "set": "I"}
+{"text": "哎呀这个快递哟真是的哦", "frames": [{"act": "none", "pol": "+"}], "tags": ["emotion", "asr_sim"], "note": "decision 23", "set": "I"}
+{"text": "要不要我给你打个折哟", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "decision 3", "set": "I"}
+{"text": "您什么时候要货嘛说个准日子", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "I"}
+{"text": "要是藏库不搬夹就好了唉", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "I"}
+{"text": "九五折补偿你骂真的不好意思", "frames": [{"act": "discount", "pol": "+", "pct": 5}, {"act": "apologize", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "decision 20", "set": "I"}
+{"text": "八五折哈舅这个价了", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "立减一绊我亏本卖给你", "frames": [{"act": "discount", "pol": "+", "pct": 50}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "十个点嘛你优惠百分支十", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "抱歉哈实在是抱歉让您久等", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "请原谅哈我们人手实在不够", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "工敞那边停点所以生产推迟了嘛", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "台风来了航班全停与我们无关哈", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}, {"act": "deny_fault", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "货压灾海关没放行我们天天催", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "仓库盘点库寸对不上唆以拖了", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "货已经到你们那个市了快递员今晚送", "frames": [{"act": "promise_time", "pol": "+", "when": "today"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "快递公司已经发出来了哈", "frames": [{"act": "none", "pol": "+"}], "tags": ["trap", "asr_sim"], "note": "decision 12: no delay explanation", "set": "I"}
+{"text": "快递拱司把豁弄丢了我们重新给你发", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}, {"act": "resend", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "明天一早保证出现在你门口", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "星期五之前一准儿到我给你盯着", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "谢谢谢谢你人真好里解我们", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "感谢您的耐心期待下次再合作", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "弦这样哈有事再说拜拜", "frames": [{"act": "closing", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "您好哇上次那单是不是", "frames": [{"act": "greet", "pol": "+"}], "tags": ["truncated", "asr_sim"], "note": "", "set": "I"}
+{"text": "行就这么办我听你的", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "好嘛你要退那就退沃没意见", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "不起你哈不过责个真不施我们的责任", "frames": [{"act": "apologize", "pol": "+"}, {"act": "deny_fault", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "你讲我们骗逆我们做生意十几年了不得骗人", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "I"}
+{"text": "今天中午吃的挥锅肉安逸得很", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "I"}
+{"text": "要不要加急你说嘛", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "decision 3", "set": "I"}
+{"text": "退款一到两天到账我这就去办", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "免单是不刻能的哈打个折还行", "frames": [{"act": "compensate", "pol": "-"}, {"act": "discount", "pol": "+", "pct": null}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "涡们没有说过要给你退钱哦", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "不说不赔是你先把单好给我噻", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["trap", "negation", "asr_sim"], "note": "不是说不赔 does not assert refusal", "set": "I"}
+{"text": "空运不是不可以是要加钱", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["conditional", "trap", "asr_sim"], "note": "double negation, offer conditional on payment", "set": "I"}
+{"text": "我们会尽快处理走优先通道", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "您的货仅天已重发了运单号稍厚给麟", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "你喊我们赔布行嘛真的赔不起", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["quote", "negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "九折都怖行我们来就没装啥", "frames": [{"act": "discount", "pol": "-", "pct": 10}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "我晓得你生气换我我页但湿今天震发不了", "frames": [{"act": "resend", "pol": "-", "when": "today"}], "tags": ["negation", "trap", "asr_sim"], "note": "", "set": "I"}
+{"text": "你问啥时候到这个我现栽说不准哈", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "trap", "asr_sim"], "note": "no concrete promise", "set": "I"}
+{"text": "客服说周三到那个失她乱讲的周五才得行", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["quote", "trap", "asr_sim"], "note": "", "set": "I"}
+{"text": "退握们收钱给你原路退回去", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "老板您好我是李记的专门给您回话", "frames": [{"act": "greet", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "不好意饲哈给您添麻烦了实在抱歉", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "是我们仓库搞错了发成别家的了", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "责任我们这个我认", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "这事怪我是我首松了没点发货", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "重发一份吗今晚就打包", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "补一新的给您周一发出周三到", "frames": [{"act": "resend", "pol": "+", "when": "monday"}, {"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "迟三天货就到您手赡", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "麻烦把你的订单编号给我吗", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "你盗底要得急告苏我嘛", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "I"}
+{"text": "您大概需要几号收到", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "嗯那个钦翁下单的时候留的手己号是多少", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["filler", "question", "asr_sim"], "note": "phone number to find the order", "set": "I"}
+{"text": "周末到行不行", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "short", "asr_sim"], "note": "asks the buyer's need", "set": "I"}
+{"text": "今天太阳好大哦我在门口快递都出汗了", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "I"}
+{"text": "我昨天看了个电影好看得很", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "I"}
+{"text": "中武吃火锅没的这几天太忙了", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "I"}
+{"text": "你说我要给差评莫急麻我们好好说", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "soothing", "asr_sim"], "note": "", "set": "I"}
+{"text": "果当时多备点货就不会这了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "I"}
+{"text": "假入你早一电下单说不定就赶上了嘛", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "I"}
+{"text": "您别急哈别急别急", "frames": [{"act": "none", "pol": "+"}], "tags": ["soothing", "asr_sim"], "note": "", "set": "I"}
+{"text": "嗯……这个……我们……哎真是……", "frames": [{"act": "none", "pol": "+"}], "tags": ["truncated", "emotion", "asr_sim"], "note": "", "set": "I"}
+{"text": "要不要换个快递顺丰还是京东", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "decision 3", "set": "I"}
+{"text": "想不想要个礼物蚂", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "decision 3", "set": "I"}
+{"text": "那就送你个充电算赔礼", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "昨天路堵车我孩子上靴都迟到了", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "decision 22", "set": "I"}
+{"text": "暴雨那天库进水你则单的货也泡了所依才拖", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "厂里头机器坏了排期往后了嘛", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "货缺得很纤在断码料你那个尺码没得", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "海关查得焰我们也没得办法只能等", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "路上雪车开不动这个老甜爷说了酸", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "不是我们压着不发是快递站爆仓了噻", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["trap", "negation", "asr_sim"], "note": "decision 19", "set": "I"}
+{"text": "不是我们偷懒是货振的还在海关", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["trap", "negation", "asr_sim"], "note": "decision 19", "set": "I"}
+{"text": "这个不关我们的事哈是物流那边没送", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "你那是错怪我们了我们早发了", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "九折嘛这个我们真给不了哈利润太薄", "frames": [{"act": "discount", "pol": "-", "pct": 10}], "tags": ["negation", "asr_sim"], "note": "", "set": "I"}
+{"text": "那好我答应你退一半的钱", "frames": [{"act": "agree", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "可以可以旧这样你发我地址", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "中中中你说对就这么整", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "咋整麻那我现在就联系快递给你换条线快一点", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "走顺丰特快邮费我们出明天上午到", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "费算我们的你不用管", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "decision 21", "set": "I"}
+{"text": "我是王姐对捕起哈货的事我们办砸了运费泉免", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "谢谢你哈下次宰来慢走", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "就者样哈我先挂了有事你喊我", "frames": [{"act": "closing", "pol": "+"}], "tags": ["short", "asr_sim"], "note": "", "set": "I"}
+{"text": "哎呀您好您好实在对不住哈", "frames": [{"act": "greet", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "您稍等我给您查一订单号能再说一遍吗", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question", "formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "优先给你出库明早第一册就走", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "补发的这个单今天下午四点前发走证", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "货到了你给我拍个照我再送你乙包小令食", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["conditional", "asr_sim"], "note": "", "set": "I"}
+{"text": "你要是不满意我就给你打七择", "frames": [{"act": "discount", "pol": "+", "pct": 30}], "tags": ["conditional", "asr_sim"], "note": "", "set": "I"}
+{"text": "五折你想得美哦不可能的", "frames": [{"act": "discount", "pol": "-", "pct": 50}], "tags": ["negation", "quote", "asr_sim"], "note": "", "set": "I"}
+{"text": "还有那个你要的发票我们开不了", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["filler", "asr_sim"], "note": "", "set": "I"}
+{"text": "实在没办法了折个要求我们办不到对不起哈", "frames": [{"act": "refuse", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["polite", "asr_sim"], "note": "", "set": "I"}
+{"text": "我闷没做好让你受气了该打", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "您说得对我们晚了两天是我们不对", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "对啊幄闷也着急货在转运中心压了三天", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "抬风过境渡轮停开货过不来海", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "你说的退钱我听懂了不过先让我查差", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "I"}
+{"text": "哎今天一堆事锅都要烧干了", "frames": [{"act": "none", "pol": "+"}], "tags": ["emotion", "asr_sim"], "note": "", "set": "I"}
+{"text": "星期四对骤四下午你就能签收辽", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "好的没得问题明天我让人给你重发晚上你就收到", "frames": [{"act": "agree", "pol": "+"}, {"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "I"}
+{"text": "感谢您再次抱歉我萌会改进再见", "frames": [{"act": "thanks", "pol": "+"}, {"act": "apologize", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "不是我们不愿意给赔偿是真没有这一项顷理解", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["trap", "negation", "asr_sim"], "note": "Y is a denial, not a cause", "set": "I"}
+{"text": "您好请问您是几号下的单我这边帮您看", "frames": [{"act": "greet", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["question", "formal", "asr_sim"], "note": "", "set": "I"}
+{"text": "尊敬的客户您好我司客服专员在此向您致意", "frames": [{"act": "greet", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "鉴于贵司订单延误给您造成困饶司深表歉意", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "兢核实该批货物因海关查验滞留目前已经放行", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "兹认已为您安派重新发货将于今天内由仓库发出", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "特此说明本次延误并非我司原因系逞运方分拨中心爆仓所指", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "按柳程我司将于三个工作日内将货物耸达贵处", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "在符合退货调件的前提下我司可为您办理全额退款", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "请您提供订单编号以便我司核查物流轨迹", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "敬请您耐心等待我司已协仓储部门加急处梨", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "我司现行制度中并无现金赔付一想望邻见谅", "frames": [{"act": "compensate", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["formal", "negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "公司规定不允许在发货后更改收货缔址湿在爱莫能助", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "您说我们根本没发货这一点我们十分理解您的着急", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "J"}
+{"text": "如果贵方现在确认地址无误我司即客为您声级空运", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["formal", "conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "倘若天气没有突变货物该按崎送答的", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "J"}
+{"text": "谢谢您的粒解屿支持期待日后既续合作", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "我丝不此延误提供任何折扣", "frames": [{"act": "discount", "pol": "-", "pct": null}], "tags": ["formal", "negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "兹因仓库盘点库存暂时不足步霍蓄要时间", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "请问贵司最挽身么时候要这批活", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "J"}
+{"text": "您看是否需要我们给您打各八五折呢", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "以疑问形式提议", "set": "J"}
+{"text": "经公司演究决定表歉意赠送您一张五十元无门抗优惠劝", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "本司不是不愿意加及而撕承运商旺季全线爆满", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["trap", "asr_sim"], "note": "规则19", "set": "J"}
+{"text": "好的就按贵方提初的方案办理我们没有异易", "frames": [{"act": "agree", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "今天中午食堂的红烧肉特别好吃您友空也可以来尝尝", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "J"}
+{"text": "经核实已为您优先安排发货并免除本单全部运费", "frames": [{"act": "expedite", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "在贵司雀认收货地址的前提下明天一早补发后天可以到", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}, {"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["formal", "conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "抱此次系我撕疏忽", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "本公司对此次问题负全部责任", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "哎这个快递公司真是让人无语", "frames": [{"act": "none", "pol": "+"}], "tags": ["emotion", "asr_sim"], "note": "", "set": "J"}
+{"text": "此事与我司无关完全是供应商工厂停工所致", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "我们将依约陪偿您因延五所产生的合理损失", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "九五折优惠已为您申请您留意查收", "frames": [{"act": "discount", "pol": "+", "pct": 5}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "请贵司放我司一定全程跟进此事", "frames": [{"act": "none", "pol": "+"}], "tags": ["reassure", "asr_sim"], "note": "", "set": "J"}
+{"text": "目前我司无法承诺具体的到货日期", "frames": [{"act": "promise_time", "pol": "-", "when": null}], "tags": ["negation", "asr_sim"], "note": "否定承诺", "set": "J"}
+{"text": "如您愿意再等两天我们这边林打九折", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "嗯那个订单号能不能麻烦您发给我看一下", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "J"}
+{"text": "就是说这单我们不会再哺发了印为系统显示谊签收", "frames": [{"act": "resend", "pol": "-", "when": null}], "tags": ["negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "谨此向您致歉并恳请您予以谅解", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "棵服专员说今天一定送到耽这并非司的正肆答复", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "trap", "asr_sim"], "note": "引用同事的话并否认", "set": "J"}
+{"text": "您讲得对货确实持到了", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "本批次已改走顺逢鱼计周四抵达", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "麻烦您提躬一下收货人手机号我好脸系快递员", "frames": [{"act": "none", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "敬请见谅本次延误由连日暴雨导致并非人为因素", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "weather"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "可以办理款请贵司于七日内提交俗面申请", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "好没问题我们接受您的安排", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "在裤存允许的前提下客为您优先发或仅限本次", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["formal", "conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "感泄贵司长期以来对我们的信任", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "祝您商祺吼会有期", "frames": [{"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "我们并没有说过不给您退款请不药误会", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation", "trap", "asr_sim"], "note": "只是澄清,未提供退款", "set": "J"}
+{"text": "不是我们不想补发是仓库反馈那个款市已经下架了", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["trap", "asr_sim"], "note": "规则19", "set": "J"}
+{"text": "请您的订单编号是多少", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "J"}
+{"text": "经核查是因为三单合并发货所逸多耽误了三天", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "本司载明日中午十二时前完成补发手续", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "本公司愿意承担全部空运费用", "frames": [{"act": "compensate", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "如果当初早一天报关或物也就不会被扣了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "J"}
+{"text": "我司并没有这样的补偿政策敬请理解", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["formal", "negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "请问您细望几号以前收到货", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "J"}
+{"text": "实在没法再提前了公司流程就是这痒", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "您好这里匙华栋区客户关惜部感谢您的来电反馈", "frames": [{"act": "greet", "pol": "+"}, {"act": "thanks", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "鉴于您多次来电特向您通报最新进展货今逞已由转运中薪发出预计后天送达", "frames": [{"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "兹因贵方所订商品属定制类依合同约定不侍用七日无理由退谎恕难照板", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "我们不提供加急服务这是总部统一规定", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "空运费用将由我司全额承当请贵无需龄行支付", "frames": [{"act": "compensate", "pol": "+"}, {"act": "expedite", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "鉴于此次为首次延误我司特予赔礼久折望贵司笑纳", "frames": [{"act": "discount", "pol": "+", "pct": 10}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "在贵司今日下班前回复确的提下我闷周四前保证送达", "frames": [{"act": "promise_time", "pol": "+", "when": "thursday"}], "tags": ["formal", "conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "麟提出的三天内必须到货恕我司无法作厨此种承诺", "frames": [{"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["quote", "negation", "asr_sim"], "note": "引用要求后否定承诺", "set": "J"}
+{"text": "除非龟司另行付费否则我司不栽提供急痛道", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["formal", "conditional", "asr_sim"], "note": "付费才可加急,仍是真实选项", "set": "J"}
+{"text": "请原谅我们工作上的疏漏", "frames": [{"act": "apologize", "pol": "+"}, {"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "关于贵司提出的泉额赔偿并公开道歉一事已上报法务部门尚待回复", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "您是不是觉得我们在故意拖延", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "J"}
+{"text": "那个嗯仓库的同事说货已经装上车了", "frames": [{"act": "none", "pol": "+"}], "tags": ["filler", "asr_sim"], "note": "", "set": "J"}
+{"text": "承运车辆途中顾障晚了一填这个我们也很无奈", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "哺好意思啊让您白白蹬了这么久", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "需要说明的是我们并非没有尽力而是上游原料迟迟不到位", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["trap", "asr_sim"], "note": "规则19", "set": "J"}
+{"text": "咱们公司没有延误即赔偿这一条规定", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["negation", "quote", "asr_sim"], "note": "", "set": "J"}
+{"text": "愿夷接受换获的话我们三天内补发欣品", "frames": [{"act": "resend", "pol": "+", "when": "3_days"}], "tags": ["conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "本月内您的下一笔订单可享八折", "frames": [{"act": "discount", "pol": "+", "pct": 20}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "感激尽贵司的体谅让我们压力小了很多", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "如蒙同意我司今日即安排补发", "frames": [{"act": "resend", "pol": "+", "when": "today"}], "tags": ["formal", "conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "好的好的您说怎么办就怎么扮", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "此致敬礼", "frames": [{"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "请您稍候容我司与承运方核对后再行回复", "frames": [{"act": "none", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "经与海关沟通清惯预计还需两到三天我闷会持续催办", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "要势您早点告知截止日期我们就能安排空运了", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "J"}
+{"text": "敬请贵司告知期望的收货截止日期", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "退旷这一项没有可嫩因为货物已经出库", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "抱歉抱歉系统出错漏了林那一单今晚重新下淡发出", "frames": [{"act": "apologize", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}, {"act": "resend", "pol": "+", "when": "today"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "责任不在我司是贵司预留德收货址有误", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "下周一之前我们一定把货送到您手里", "frames": [{"act": "promise_time", "pol": "+", "when": "monday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "我方愿意先行垫付差价湾能平息贵司的怒火", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "小意思啦运费算我们的您别客气", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "谢谢您的提醒辙个问题我们记下了", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "您杠才说在不发货就投诉我们听到了也已转交主管", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "J"}
+{"text": "此次延误我们给您的订金额再减百分之二十", "frames": [{"act": "discount", "pol": "+", "pct": 20}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "恕我直言这个要求已超出本人的权限范围", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "问题可以按您的时间来您定就好", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "不是不给您赔偿尔是虚要先走完内部核定流程", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["trap", "conditional", "asr_sim"], "note": "赔偿待流程后给,视为承诺", "set": "J"}
+{"text": "货在路上了憋急别急", "frames": [{"act": "none", "pol": "+"}], "tags": ["reassure", "asr_sim"], "note": "", "set": "J"}
+{"text": "工厂那边排产冲我司已多次催促", "frames": [{"act": "cause", "pol": "+", "reason": "factory"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "今天甜气不错希望您的心情也能好已些", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "J"}
+{"text": "请提供下单时使用的手机号或订单浩", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "若您对处理结果不满意可拨打总部投诉热线", "frames": [{"act": "none", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "我们承诺迸周五前送达若超时全额退款", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}, {"act": "compensate", "pol": "+"}], "tags": ["formal", "conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "绝不可能再补发了您请回吧", "frames": [{"act": "resend", "pol": "-", "when": null}], "tags": ["negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "所有的损适公司都会陪您尽管贩心", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "明白了我们尽快给您答复先这样吧", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "幄司已将您的订单置顶今湾就走加急通道", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "谢谢祝您愉快", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "贵司的订单是按先到先得理的所以排在了后面", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "此事我司毫无责请贵司向物流方追", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "请您见谅我们实在是嗯没有办法再快了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "refuse", "pol": "+"}], "tags": ["filler", "asr_sim"], "note": "", "set": "J"}
+{"text": "经理批示同意给您免单一次", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "大喉天一定到我拿公司信誉担保", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "我们不接受货物延误系我司责任这一硕法", "frames": [{"act": "deny_fault", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "这批货下周才能到仓所以您的单子也跟着往后拖了", "frames": [{"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "早上好这里是售后服务仲心", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "您好您豪上次通话的肆情我们已经跟进了", "frames": [{"act": "greet", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "我司不予题供任何形式的现金补偿", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["formal", "negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "本司无法安排急请贵司谅解", "frames": [{"act": "expedite", "pol": "-"}, {"act": "apologize", "pol": "+"}], "tags": ["formal", "negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "不会酱价的这是我们的底线", "frames": [{"act": "discount", "pol": "-", "pct": null}], "tags": ["negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "恐怕无法为您重新发货因为该商品已经停颤了", "frames": [{"act": "resend", "pol": "-", "when": null}, {"act": "cause", "pol": "+", "reason": "stock"}], "tags": ["negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "兹证明本次延期因台凤登陆所致属不可抗历与我司无关", "frames": [{"act": "cause", "pol": "+", "reason": "weather"}, {"act": "deny_fault", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "鉴于港口罢工货柜滞留们也在等通知", "frames": [{"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "经核实贵方所撑唯收到短信通知束实是我们的短星通故障", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "other"}], "tags": ["quote", "formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "贵公司具体需要在哪一天之前收到请告知", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "麻烦报一下快递单号", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "J"}
+{"text": "可以您的建议我们采纳", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "行那就这么办吧", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "您硕得没错我们的流程实有问题责任在我们", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "对不起给您添麻烦了窝们一改进", "frames": [{"act": "apologize", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "请贵方查收附件中得哺偿方案内含两百元代金券", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "鉴于您是我们的重要客户可享受八五折优惠", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "立减一半算坐我们的一点诚意", "frames": [{"act": "discount", "pol": "+", "pct": 50}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "辛期三最迟星期三货必到", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "再给我门五添时艰五天内一定送到", "frames": [{"act": "promise_time", "pol": "+", "when": "5_days"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "补发的货将语明早发出请注意签收", "frames": [{"act": "resend", "pol": "+", "when": "tomorrow"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "如果您满意这个方案我们这边立刻执行不染纠按原计划走", "frames": [{"act": "none", "pol": "+"}], "tags": ["conditional", "trap", "asr_sim"], "note": "方案内容未说明,无具体动作", "set": "J"}
+{"text": "您心的货被调包完全没有依据们这里全程有监控", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "asr_sim"], "note": "", "set": "J"}
+{"text": "倘若我们当初多备些库存也不至逾此", "frames": [{"act": "none", "pol": "+"}], "tags": ["hypothetical", "asr_sim"], "note": "", "set": "J"}
+{"text": "不撕我们的疏忽是快递员兀投到了隔壁村", "frames": [{"act": "deny_fault", "pol": "+"}, {"act": "cause", "pol": "+", "reason": "logistics"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "我并没有说要推卸责韧", "frames": [{"act": "none", "pol": "+"}], "tags": ["negation", "trap", "asr_sim"], "note": "", "set": "J"}
+{"text": "您是想折扣对吧能不给点折扣您是这个意思吧", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "trap", "asr_sim"], "note": "复述对方诉求", "set": "J"}
+{"text": "该翁题已提交上稽处理在此之前恕我无法作答", "frames": [{"act": "refuse", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "午饭吃了没哈哈扯远了扯远了", "frames": [{"act": "none", "pol": "+"}], "tags": ["offtopic", "asr_sim"], "note": "", "set": "J"}
+{"text": "我司将于收到货物回寄后三日内发放退款", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "倘若贵司不接受我们也尊重您的决定", "frames": [{"act": "none", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "加急件需额外收费价格另议", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["formal", "conditional", "asr_sim"], "note": "收费的加急选项", "set": "J"}
+{"text": "说实话这事儿确实是我们没好", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "真是得这鬼天气", "frames": [{"act": "none", "pol": "+"}], "tags": ["emotion", "asr_sim"], "note": "", "set": "J"}
+{"text": "您刚才提到客辐说三天到这与我们记录不一致该铜事未获授权作此承诺", "frames": [{"act": "none", "pol": "+"}], "tags": ["quote", "trap", "asr_sim"], "note": "", "set": "J"}
+{"text": "感您的宝贵意见我们绎记录在", "frames": [{"act": "thanks", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "再次感谢祝贵司生易兴隆", "frames": [{"act": "thanks", "pol": "+"}, {"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "那我们先挂了有事您随时联系我们", "frames": [{"act": "closing", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "此次系我放原因造沉延迟深感抱歉并自即日起为您的订单免收运费", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "抱歉啊我这遍只能做到这样了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "refuse", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "您看周三送货可以吗", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "以疑问形式提议", "set": "J"}
+{"text": "要不我们即您换承顺丰", "frames": [{"act": "none", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "J"}
+{"text": "您几号需咬货能告诉我吗", "frames": [{"act": "ask_deadline", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "J"}
+{"text": "您那边的订单号是几开头的", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question", "asr_sim"], "note": "", "set": "J"}
+{"text": "批准货物将撰为空运明天午抵达", "frames": [{"act": "expedite", "pol": "+"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "请放心后天上午十点前送到", "frames": [{"act": "promise_time", "pol": "+", "when": "dayafter"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "我们承诺本月底前不收取任何仓储费蒜是胚罪", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "若贵司签署谅姐备王司愿再赠送一件同款赠品", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["formal", "conditional", "asr_sim"], "note": "", "set": "J"}
+{"text": "说好的周二到是我们说话不算数真对不住", "frames": [{"act": "acknowledge", "pol": "+"}, {"act": "apologize", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "与其说是焰误不如说是海贯例行抽检我们也没办法", "frames": [{"act": "cause", "pol": "+", "reason": "customs"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "嗯…就是那个系统系统卡住了所以没发出去", "frames": [{"act": "cause", "pol": "+", "reason": "other"}], "tags": ["filler", "asr_sim"], "note": "", "set": "J"}
+{"text": "鲸天补发明天一定到", "frames": [{"act": "resend", "pol": "+", "when": "today"}, {"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
+{"text": "对不起我们不能把这割价格再往下压了", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-", "pct": null}], "tags": ["negation", "asr_sim"], "note": "", "set": "J"}
+{"text": "对于拧的投诉我们完全接受并会严肃处理相关责扔人", "frames": [{"act": "acknowledge", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "敬请关注后续通知祝生活愉快", "frames": [{"act": "closing", "pol": "+"}], "tags": ["formal", "asr_sim"], "note": "", "set": "J"}
+{"text": "嗯好这样可以我们尽快办", "frames": [{"act": "agree", "pol": "+"}], "tags": ["fluent", "asr_sim"], "note": "", "set": "J"}
