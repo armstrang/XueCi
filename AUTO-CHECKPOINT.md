@@ -1,60 +1,51 @@
 # AUTO-CHECKPOINT — XueCi
-Diperbarui: 24 November 2026 (Asia/Makassar), oleh ChatGPT/Codex.
+
+24 November 2026 (Asia/Makassar), ChatGPT/Codex.
 
 ## Tujuan proyek
-XueCi Mandarin: aplikasi Android Flutter untuk belajar Mandarin, kosakata HSK dan BCT, latihan serta progres belajar. Pertahankan struktur, desain, data pengguna, dan keputusan proyek dalam `CLAUDE.md`. Tujuan rilis Google Play dan keputusan terkait ada di `docs/play-store.md`.
 
-## Titik lanjut yang diperiksa
-- Repositori: https://github.com/armstrang/XueCi
-- Branch kerja: `main`, mengikuti aturan proyek.
-- Commit kode acuan: `c2a1317d114a83523085507a6b4b41e0e05ce9db`.
-- Commit tersebut: "Talk: simulated recognizer noise sets and robustness results [skip ci]".
-- Checkpoint ini adalah dokumentasi awal kolaborasi, bukan implementasi fitur baru. Periksa HEAD terbaru sebelum mulai karena AI lain mungkin sudah bekerja.
-- PR terbuka saat pemeriksaan: #2 cleanup/old-releases dan #3 cleanup/old-branches. Bukan bukti tugas aktif; jangan merge atau hapus tanpa instruksi pengguna.
+XueCi Mandarin adalah aplikasi Android Flutter untuk belajar Mandarin. Bicara BCT melatih percakapan bisnis luring. Mesin perlu memahami beberapa tindakan dalam satu ucapan serta membedakan janji, keputusan, permintaan, kutipan, dan dugaan. Skor singkat ditampilkan saat latihan dan koreksi kosakata di akhir. Target evaluasi terbaru adalah F1 minimal 97% dan salah terima di bawah 3% pada putaran yang sama.
 
-## Fitur/progres yang sudah ada
-Berdasarkan README, catatan proyek dan riwayat commit; bukan klaim sudah diuji ulang:
-- Aplikasi Flutter beserta mesin belajar, kosakata, kartu, kuis, ujian, tata bahasa, latihan berbicara, progres, cadangan dan dukungan Android.
-- Commit `5581251f53ba5f6ed177c4d3e271e00633f92b51` mencatat perpindahan mode HSK/BCT, peringkat/statistik BCT, dan contoh untuk 4.579 kata.
-- Mesin Bicara BCT: NLU aturan + model kecil luring, dialog klien, coach, data latih, spesifikasi label dan alat evaluasi sudah masuk Git.
-- Ronde 4/model terbaru dan simulasi derau tersimpan. Menurut laporan, mesin belum dipasang ke layar mana pun.
-- Model sumber: `content/talk/model/talk_model.json`. Aset aplikasi dihasilkan; jangan hanya mengedit salinan generated.
+## Titik lanjut di GitHub
 
-## File dibuat/diubah pada sesi checkpoint ini
-- Dibuat: `AUTO-CHECKPOINT.md`.
-- Tidak ada kode aplikasi yang diubah.
+- Repo `armstrang/XueCi`, branch `main`. Commit kode acuan `08748d4`.
+- Mesin dan model Bicara BCT sudah terintegrasi ke layar suara. Pintu masuk ada di halaman BCT. Layar memakai transkrip, kartu konfirmasi, dan laporan akhir. Baca `mobile/lib/ui/talk.dart`, `mobile/lib/ui/bct_study.dart`, dan `mobile/lib/app/talk/`.
+- Model aktif berasal dari `content/talk/model/talk_model.json`. Aset Flutter digenerasi dengan `mobile/tool/make_assets.py`.
+- Setelah sesi berganti, checkout yang tersedia hanya memuat perubahan lokal sampai v11. Patch, model, dan kode kandidat putaran berikutnya tidak ditemukan di checkout itu. Penyimpanan ini hanya memperbarui `AUTO-CHECKPOINT.md` dan memakai `[skip ci]`. Eksperimen ini belum dipasang di aplikasi. PR cleanup #2 dan #3 bukan tugas aktif.
 
-## Referensi file untuk AI pengganti
-- Aturan, struktur, desain, migrasi, build: `CLAUDE.md`.
-- Gambaran aplikasi: `README.md`; rilis: `CHANGELOG.md`, `docs/play-store.md`.
-- Progres mesin terbaru: `content/talk/REPORT.md` (baca sampai bagian Ronde 4 dan simulasi).
-- Label dan penilaian terkini: `content/talk/SPEC_v4.md`, `content/talk/ADJUDICATION_v4.md`.
-- Mesin: `mobile/lib/app/talk/{nlu,lexicon,model,dialog,coach,sound.g}.dart`.
-- Tes: `mobile/test/talk_nlu_test.dart`, `mobile/test/talk_dialog_test.dart`, `mobile/test/talk_coach_test.dart`; evaluasi: `mobile/test/talk/eval.dart`.
-- Alat: `mobile/tool/talk_eval.dart`, `make_talk_model.py`, `fit_talk_stack.py`, `make_asr_sim.py`, `talk_web.dart`.
-- Data: `content/talk/corpus/`; model: `content/talk/model/`.
-- CI: `.github/workflows/flutter.yml`.
+## Hasil putaran verifikasi bukti ucapan
 
-## Bug/kekurangan yang belum selesai
-- Target F1 >=90% belum tercapai. REPORT mencatat ronde 4: presisi 85,5%, recall 92,0%, F1 88,7%; angka ini hasil AI sebelumnya, belum direproduksi sesi ini.
-- Salah terima terbesar menurut laporan: deny_fault, cause, promise_time; negasi dan slot waktu rentan terhadap derau.
-- Simulasi derau bukan bukti kinerja pengenal suara asli. Rekaman/uji HP pengguna masih belum dilakukan menurut laporan.
-- Integrasi layar Bicara BCT belum selesai menurut laporan dan pesan commit.
-- REPORT mengandung status historis "belum di-commit"; riwayat Git membuktikan file sudah di-commit pada titik acuan. Baca urutan laporan dan Git, jangan menganggap status lama sebagai keadaan terkini.
-- Belum ada bug aplikasi yang direproduksi pada sesi ini.
+Putaran terakhir menambah 960 contoh sintetis berpasangan untuk membedakan konfirmasi langsung dari dugaan, rujukan ucapan orang lain, penyelidikan, dan penawaran yang belum diputuskan. Pelatihan memakai 17.179 transkrip sumber dan 8.741 varian homofon. Kelima set di bawah dikeluarkan dari pelatihan kandidat baru. Pengecekan setelah normalisasi menemukan nol transkrip yang cocok persis. Bobot kandidat v11 lama pernah melihat 493 dari 493 baris `blind_val`. Angka kalibrasi bobot v11 lama tidak dipakai sebagai bukti independen.
 
-## Pengujian dan bukti
-- Sesi ini hanya membaca repositori, riwayat commit, dan file dokumentasi/kode terkait.
-- Tidak menjalankan Flutter/Dart, analyzer, unit test, evaluasi model, build APK, atau uji perangkat.
-- Klaim hasil tes dan metrik dalam REPORT adalah catatan sebelumnya, bukan hasil baru.
-- Perubahan checkpoint memakai commit [skip ci]; tidak meminta build atau rilis.
-- Setelah perubahan kode: jalankan pemeriksaan relevan sesuai CLAUDE.md; catat perintah, hasil, serta keterbatasan lingkungan secara nyata.
+| Set historis | F1 kandidat | Salah terima |
+|---|---:|---:|
+| `blind4_all` | 91,9% | 0,0% (0/152) |
+| `asr_sim_light` | 90,5% | 1,3% (2/152) |
+| `asr_sim_heavy` | 88,7% | 1,3% (2/152) |
+| `blind_val` (kalibrasi) | 85,6% | 2,6% (5/195) |
+| `blind_final` (pembanding) | 84,0% | 7,5% (15/201) |
+
+Pada `blind_final`, putaran sebelumnya melaporkan 11,4% (23/201). Aset aktif dengan kode lokal v11 menghasilkan F1 83,7% dan 16,9% salah terima (34/201). Profil eksperimental yang lebih ketat menghasilkan 3,5% salah terima (7/201), dengan F1 72,3%. Target belum tercapai. Pengurangan skor kepercayaan pada konteks berisiko juga membuang 16 tindakan yang benar pada pembanding, termasuk tujuh penjelasan sebab. Empat bingkai penyebab, empat pengakuan tanggung jawab, dan tiga permintaan maaf muncul di antara deteksi positif keliru yang masih tersisa.
+
+Pada sesi uji tersebut, `dart analyze` bersih dan 231 tes lulus dari `test/talk_*_test.dart`, `test/i18n_test.dart`, dan `test/secret_test.dart`. Kedua set simulasi derau berasal dari teks korpus utama. Uji suara asli dari penutur baru di Android belum dilakukan. Tidak ada APK yang dibuat pada putaran pelatihan atau penyimpanan ini.
+
+## Berkas eksperimen dan cara mereproduksi setelah dipulihkan
+
+Putaran yang menghasilkan angka di atas mengubah `mobile/lib/app/talk/nlu.dart`, `mobile/tool/talk_eval.dart`, dan `mobile/test/talk_verification_test.dart`. Perbaikan homofon melindungi `致歉` (meminta maaf) agar tidak terbaca `之前` (sebelumnya). Mode bukti diterapkan per klausa dan aktif hanya untuk eksperimen. Contohnya, konfirmasi pengiriman terpisah dapat diterima ketika pengembalian dana masih bersyarat.
+
+Berkas tambahan yang perlu dipulihkan adalah `mobile/tool/make_talk_evidence_corpus.py`, `content/talk/corpus/evidence_train.jsonl`, dan `mobile/tool/talk_risk_eval.dart`. Nama patch terakhir `XueCi-Uji-Salah-Terima-BCT.patch`. Nama bobot kandidat `xueci-evidence-candidate.json` dengan SHA-256 `a8579a533807c52f2a453b5b901f42ea8434cb5acca8c06237ae90f4090d2138`. Kedua artefak belum tersimpan di GitHub.
+
+- Data latih: `train5_all`, `context_v5_train`, `billing_v8_train`, `composition_v9_train`, `scope_v10_train`, `verification_v11_train`, dan `evidence_train` di `content/talk/corpus/`.
+- Latih dengan `mobile/tool/make_talk_model.py`, opsi `--full --scope-features --min_df 3 --C 5 --prune .14 --asr-augment .06`. Keluarkan kelima set evaluasi melalui `--exclude` dan simpan probabilitas antarlipatan melalui `--oof`.
+- Ekspor keluaran aturan dengan `mobile/tool/talk_rules_dump.dart` dan kalibrasi bobot dengan `mobile/tool/fit_talk_stack.py` memakai probabilitas antarlipatan dan data latih. Baca `content/talk/ADJUDICATION.md` untuk aturan evaluasi.
+- Profil `guard+new_weights` menimbang mesin dengan aset aktif 55% dan kandidat 45%, keduanya dengan pemeriksaan bukti. Bingkai yang absen memakai kepercayaan 0,37 saat digabung. Penalti sebesar 0,25 berlaku pada bingkai positif di ucapan yang memuat tanda risiko seperti pengandaian, kutipan, pertanyaan, atau negasi. Penalti dipilih pada `blind_val`. Jalankan `STRICT=1 dart run tool/talk_risk_eval.dart KANDIDAT.json` dari `mobile/` setelah alat dipulihkan.
 
 ## Langkah berikutnya
-1. Pengguna belum menentukan fitur/perbaikan berikutnya. Minta arah kerja sebelum memilih implementasi besar (misalnya meningkatkan akurasi atau integrasi layar).
-2. Baca ulang checkpoint, CLAUDE.md, HEAD dan diff sejak commit acuan. Jika ada checkpoint baru dari Claude, cocokkan dengan kode terkini.
-3. Untuk melanjutkan mesin Bicara: reproduksi baseline dan periksa spesifikasi/aturan evaluasi sebelum mengubah model. Jangan menyebut set yang telah dilihat sebagai uji buta baru.
-4. Selesaikan dalam perubahan kecil; perbarui checkpoint setelah setiap fitur/perubahan penting bersama referensi commit dan status tes.
+
+1. Baca `CLAUDE.md`, periksa HEAD dan file lokal, dan pulihkan artefak jika salinannya ditemukan. Jangan mengulang pelatihan sebelum memastikan eksperimen terdahulu tersedia.
+2. Perbaiki pembedaan antara penyebab yang sudah dipastikan dan alasan yang sedang diselidiki. Prioritaskan juga pengakuan tanggung jawab ketika ucapan hanya mengutip atau menyangkal pendapat pihak lain.
+3. Siapkan transkrip dan audio dari penutur baru. Pisahkan data latihan, kalibrasi, dan uji penerimaan berdasarkan penutur dan keluarga kalimat. Laporkan kedua metrik pada uji baru dan pertahankan angka historis sebagai pembanding.
+4. Tunggu **Simpan** sebelum commit/push dan **build sekarang** sebelum membuat APK. Pertahankan aturan proyek, termasuk data pengguna dan konten yang dirahasiakan.
 
 ## Aturan kolaborasi pengguna (ChatGPT dan Claude)
 1. Lanjutkan progres AI sebelumnya dan jangan ulang pekerjaan yang selesai.
