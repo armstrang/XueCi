@@ -61,6 +61,15 @@ Berkas inti: `mobile/lib/ui/{shell,splash,talk,bct_study,bct_words,bct_stats,run
 
 Model aktif tetap memakai bobot lama. Target F1 97% dan salah terima di bawah 3% ditunda sesuai arahan. Kandidat 7,5% masih belum dipulihkan. Commit ini memakai `[skip ci]` karena pengguna meminta push dan instruksi build tetap terpisah. Jangan menyatakan APK atau rilis tersedia sebelum verifikasi.
 
+## Metode kerja untuk sesi berikutnya
+
+1. Mulai dari `main` terbaru dan baca checkpoint ini. Acuan kode paket gabungan Bicara BCT adalah `ad99fac`. Cocokkan kode dengan daftar keputusan, termasuk pembahasan sebelum pesan terakhir.
+2. Sebelum implementasi, build, push, atau rilis, rangkum seluruh cakupan dan tunggu konfirmasi pengguna. Izin untuk satu tindakan tidak sekaligus mengizinkan tindakan lain. Pisahkan pekerjaan yang selesai, tertunda, dan belum teruji.
+3. Setelah perubahan penting, perbarui checkpoint dengan daftar berkas, hasil tes yang benar-benar dijalankan, bug tersisa, langkah berikutnya, dan instruksi handoff. Simpan sumber lengkap pada commit GitHub yang dapat diambil kembali. Bila push tertahan, simpan patch lengkap dengan commit basis dan bagikan tautannya. Workspace sementara dapat kembali ke versi lama.
+4. Jika ChatGPT tertahan saat push, gunakan paket lengkap yang telah diverifikasi untuk handoff ke sesi Claude yang punya akses GitHub. Setelah Claude push, cek HEAD dan isi commit di GitHub sebelum menandai pekerjaan tersimpan. Kasus acuan `ad99fac` memuat seluruh paket, dengan symlink lokal `node_modules` dikeluarkan.
+5. Build harus memakai commit yang sudah diverifikasi dan mencakup semua fitur yang dikonfirmasi. Catat versi, tanda tangan, tautan APK atau AAB, dan status uji perangkat. Push dengan `[skip ci]` ketika pengguna hanya mengizinkan penyimpanan atau push.
+6. Pertahankan desain Claude dan jalur ujian HSKK panjang. Model aktif tetap dipakai. Target F1 97% dan salah terima di bawah 3% tetap ditunda sampai pengguna meminta pelatihan dilanjutkan.
+
 ## Langkah berikutnya
 
 1. Baca `CLAUDE.md`, periksa HEAD dan file lokal, dan pulihkan artefak jika salinannya ditemukan. Jangan mengulang pelatihan sebelum memastikan eksperimen terdahulu tersedia.
