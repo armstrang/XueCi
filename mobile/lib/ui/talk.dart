@@ -95,6 +95,7 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
   bool _audioReview = false, _playing = false, _sending = false, _audioUnavailable = false;
   int _recordedMs = 0, _positionMs = 0;
   List<int> _peaks = const [];
+  List<String> _reviewHeard = const [];
   Timer? _playClock;
 
 
@@ -145,11 +146,12 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
       return true;
     }
     if (_listening && !_audioReview) Native.I.listenStop();
-    if (_audioReview) _clearAudio();
+    _clearAudio();
     setState(() {
       _session++;
       _level = null;
       _listening = false;
+      _sending = false;
     });
     return true;
   }
@@ -189,7 +191,8 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (_audioReview && state == AppLifecycleState.paused) {
+    if (state == AppLifecycleState.paused) {
+      if (_listening && !_audioReview) unawaited(Native.I.listenStop());
       setState(() {
         _session++;
         _listening = false;
@@ -207,7 +210,8 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
     _playing = false;
     _audioUnavailable = false;
     _peaks = const [];
-    unawaited(Native.I.talkAudioClear());
+    _reviewHeard = const [];
+    if (_audioReview) unawaited(Native.I.talkAudioClear());
   }
 
   Future<void> _recordAnswer() async {
@@ -228,7 +232,11 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
       _recordedMs = (recording?['ms'] as num?)?.toInt() ?? 0;
       _peaks = (recording?['peaks'] as List?)?.whereType<int>().toList() ?? const [];
     });
-    if (_recordedMs == 0) app.toast(app.t.talkNoHear, 2500);
+    if (_recordedMs == 0) {
+      app.toast(app.t.talkNoHear, 2500);
+      return;
+    }
+    await _transcribeRecording();
   }
 
   Future<void> _toggleAudioPlayback() async {
@@ -263,22 +271,27 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
     });
   }
 
-  Future<void> _sendAudio() async {
-    if (_sending || _recordedMs == 0) return;
+  Future<void> _transcribeRecording() async {
     final session = _session;
-    _playClock?.cancel();
-    setState(() {
-      _sending = true;
-      _playing = false;
-    });
+    setState(() => _sending = true);
     final heard = await Native.I.talkAudioSend();
     if (!mounted || session != _session) return;
-    setState(() => _sending = false);
-    if (heard == null || heard.isEmpty || heard.first.trim().isEmpty) {
-      if (heard == null) setState(() => _audioUnavailable = true);
-      app.toast(heard == null ? _reviewLabel('unavailable') : app.t.talkNoHear, 4000);
-      return;
-    }
+    setState(() {
+      _sending = false;
+      _audioUnavailable = heard == null;
+      _reviewHeard = _cleanHypotheses(heard);
+    });
+  }
+
+  List<String> _cleanHypotheses(List<String>? heard) => [
+    if (heard != null)
+      for (final text in heard)
+        if (RegExp(r'[㐀-鿿]').hasMatch(text)) text.trim(),
+  ];
+
+  void _sendAudio() {
+    if (_sending || _reviewHeard.isEmpty) return;
+    final heard = _reviewHeard;
     setState(_clearAudio);
     _submit(heard);
   }
@@ -295,6 +308,7 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
     setState(() {
       _listening = true;
       _live = '';
+      _reviewHeard = const [];
     });
     final session = _session;
     void onEvent(Map ev) {
@@ -315,11 +329,12 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
       setState(() => _noMic = true);
       return;
     }
-    if (heard.isEmpty || heard.first.trim().isEmpty) {
+    final hypotheses = _cleanHypotheses(heard);
+    if (hypotheses.isEmpty) {
       app.toast(app.t.talkNoHear, 2500);
       return;
     }
-    _submit(heard);
+    setState(() => _reviewHeard = hypotheses);
   }
 
   void _submit(List<String> heard) {
@@ -692,11 +707,47 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
     return '${seconds ~/ 60}:${(seconds % 60).toString().padLeft(2, '0')}';
   }
 
+  Widget _transcriptPreview(Th th) {
+    final (label, check) = switch (app.lang) {
+      'id' => ('Yang terdengar', 'Periksa Hanzi sebelum mengirim.'),
+      'th' => ('ข้อความที่ได้ยิน', 'ตรวจอักษรจีนก่อนส่ง'),
+      'vi' => ('Nội dung nghe được', 'Kiểm tra chữ Hán trước khi gửi.'),
+      _ => ('Recognized speech', 'Check the Hanzi before sending.'),
+    };
+    final preview = _reviewHeard.isEmpty ? null : readTalkSpeech(_nlu, _d, _reviewHeard).primary.text;
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        if (preview != null) ...[
+          Text(label, style: F.s(13, w: FontWeight.w800, c: th.p.fg)),
+          const SizedBox(height: 4),
+          ConstrainedBox(
+            constraints: const BoxConstraints(maxHeight: 92),
+            child: SingleChildScrollView(
+              child: Text(preview, style: F.s(20, family: F.hz, c: th.p.fg, h: 1.35)),
+            ),
+          ),
+          Text(check, style: F.s(12, c: th.p.soft)),
+        ] else
+          Text(_sending ? _reviewLabel('sending') : _audioUnavailable ? _reviewLabel('unavailable') : app.t.talkNoHear,
+            style: F.s(13, c: th.p.soft)),
+      ]),
+    );
+  }
+
+  Widget _reviewAction(String name, IconData icon, VoidCallback? action, {bool primary = false}) {
+    return primary
+      ? IconButton.filled(tooltip: _reviewLabel(name), icon: Icon(icon), onPressed: action)
+      : IconButton(tooltip: _reviewLabel(name), icon: Icon(icon), onPressed: action);
+  }
+
   Widget _recordingReview(Th th, EdgeInsets pad) => Padding(
     padding: pad,
     child: Glass(
       radius: 22, padding: const EdgeInsets.fromLTRB(12, 10, 12, 10),
-      child: Column(children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+        _transcriptPreview(th),
+        if (_recordedMs > 0) ...[
         SizedBox(height: 28, child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           for (final peak in _peaks)
             Expanded(child: Padding(
@@ -717,24 +768,14 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
             Text(_audioTime(_recordedMs), style: F.s(12, c: th.p.soft)),
           ]),
         ),
+        ],
         Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          IconButton(
-            tooltip: _reviewLabel(_playing ? 'pause' : 'play'),
-            icon: Icon(_playing ? Icons.pause_rounded : Icons.play_arrow_rounded, color: th.p.fg),
-            onPressed: _sending ? null : _toggleAudioPlayback,
-          ),
-          IconButton(
-            tooltip: _reviewLabel('redo'),
-            icon: Icon(Icons.replay_rounded, color: th.p.fg),
-            onPressed: _sending ? null : _recordAnswer,
-          ),
-          IconButton.filled(
-            tooltip: _reviewLabel('send'),
-            icon: const Icon(Icons.send_outlined),
-            onPressed: _sending ? null : _sendAudio,
-          ),
+          if (_recordedMs > 0)
+            _reviewAction(_playing ? 'pause' : 'play', _playing ? Icons.pause_rounded : Icons.play_arrow_rounded,
+              _sending ? null : _toggleAudioPlayback),
+          _reviewAction('redo', Icons.replay_rounded, _sending ? null : _listen),
+          _reviewAction('send', Icons.send_outlined, _sending || _reviewHeard.isEmpty ? null : _sendAudio, primary: true),
         ]),
-        if (_sending) Text(_reviewLabel('sending'), style: F.s(12, c: th.p.soft)),
         if (_audioUnavailable)
           GhostBtn(switch (app.lang) {
             'id' => 'Bicara langsung',
@@ -766,7 +807,7 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
       );
     }
     if (_pending != null || _choice != null) return const SizedBox.shrink();
-    if (_recordedMs > 0) return _recordingReview(th, pad);
+    if (_recordedMs > 0 || _reviewHeard.isNotEmpty) return _recordingReview(th, pad);
     // the practice is spoken: without a recognizer there is nothing to do here but say so
     if ((!app.canListen && !_audioReview) || _noMic) {
       return Padding(

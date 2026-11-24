@@ -123,7 +123,18 @@ class _BctStudyState extends State<BctStudyScreen> {
     super.dispose();
   }
 
+  String _beforeWords = 'home';
+
+  void _openWords() {
+    _beforeWords = mode;
+    setState(() => mode = 'words');
+  }
+
   bool _back() {
+    if (mode == 'words') {
+      setState(() => mode = _beforeWords);
+      return true;
+    }
     if (mode != 'home') {
       setState(() => mode = 'home');
       return true;
@@ -156,12 +167,23 @@ class _BctStudyState extends State<BctStudyScreen> {
     return out..shuffle(_rnd);
   }
 
-  void _startCards() {
-    deck = _pick(12);
+  void _startCards() => _openCards(_pick(12), 'cards');
+
+  void _startReview() {
+    final due = [
+      for (final word in _words)
+        if (app.bprog.reviewAt(_id(word)) case final minute?)
+          if (minute <= app.lm.now()) (word, minute),
+    ]..sort((a, b) => a.$2.compareTo(b.$2));
+    _openCards([for (final (word, _) in due) word], 'review');
+  }
+
+  void _openCards(List<BctW> words, String type) {
+    deck = words;
     i = 0;
     right = 0;
     flipped = false;
-    kind = 'cards';
+    kind = type;
     setState(() => mode = deck.isEmpty ? 'home' : 'cards');
   }
 
@@ -364,6 +386,9 @@ class _BctStudyState extends State<BctStudyScreen> {
     final p = th.p;
     final t = app.t;
     app.backHook = _back;
+    if (mode == 'words') {
+      return BctWordsPage(app.bctBook, onBack: _back);
+    }
     final bottom = MediaQuery.paddingOf(context).bottom + 98;
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -373,10 +398,10 @@ class _BctStudyState extends State<BctStudyScreen> {
           constraints.maxHeight - top - bottom - 96,
         );
         Widget body = switch (mode) {
-          'cards' => _cards(th, available),
+          'cards' => _cards(th, kind == 'review' ? 0 : available),
           'quiz' => _quiz(th),
           'done' => _done(th),
-          _ => _home(th, available),
+          _ => _home(th),
         };
         return SingleChildScrollView(
           padding: EdgeInsets.fromLTRB(
@@ -422,7 +447,112 @@ class _BctStudyState extends State<BctStudyScreen> {
   }
 
   // ------------------------------------------------------------ home
-  Widget _home(Th th, double available) {
+  Widget _reviewSchedule(Th th) {
+    final ids = _words.map(_id).toSet();
+    final now = app.lm.now();
+    final ready = ids
+        .where((id) => (app.bprog.reviewAt(id) ?? double.infinity) <= now)
+        .length;
+    final counts = app.bprog.reviewDays(ids);
+    final n = app.fmt(ready);
+    final reviewLabel = switch (app.lang) {
+      'id' => 'Ulangi $n kata',
+      'th' => 'ทบทวน $n คำ',
+      'vi' => 'Ôn $n từ',
+      _ => 'Review $n ${ready == 1 ? 'word' : 'words'}',
+    };
+    final highest = counts.fold<int>(0, math.max);
+    final (title, today, tomorrow, empty) = switch (app.lang) {
+      'id' => (
+        'Jadwal ulang',
+        'Hari ini',
+        'Besok',
+        'Belum ada kata yang dijadwalkan dalam 7 hari.',
+      ),
+      'th' => (
+        'กำหนดทบทวน',
+        'วันนี้',
+        'พรุ่งนี้',
+        'ไม่มีคำที่กำหนดให้ทบทวนใน 7 วัน',
+      ),
+      'vi' => (
+        'Lịch ôn tập',
+        'Hôm nay',
+        'Ngày mai',
+        'Chưa có từ cần ôn trong 7 ngày tới.',
+      ),
+      _ => (
+        'Review forecast',
+        'Today',
+        'Tomorrow',
+        'No reviews scheduled in the next 7 days.',
+      ),
+    };
+    final p = th.p;
+    return Glass(
+      radius: 22,
+      padding: const EdgeInsets.all(14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: F.s(16, w: FontWeight.w800, c: p.fg),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            '$today ${app.fmt(counts[0])}  ·  $tomorrow ${app.fmt(counts[1])}',
+            style: F.s(13, c: p.soft),
+          ),
+          const SizedBox(height: 10),
+          if (highest == 0)
+            Text(empty, style: F.s(12.5, c: p.mute))
+          else
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                for (final (day, count) in counts.indexed)
+                  Expanded(
+                    child: Semantics(
+                      label:
+                          '${day == 0
+                              ? today
+                              : day == 1
+                              ? tomorrow
+                              : '+$day'} · $count',
+                      child: Column(
+                        children: [
+                          Text(app.fmt(count), style: F.s(11, c: p.soft)),
+                          const SizedBox(height: 4),
+                          Container(
+                            width: 10,
+                            height: count == 0 ? 2 : 4 + 40 * count / highest,
+                            decoration: BoxDecoration(
+                              color: count == 0 ? p.line : th.acc,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            day == 0 ? '0' : '+$day',
+                            style: F.s(11, c: p.mute),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          if (ready > 0) ...[
+            const SizedBox(height: 12),
+            MainBtn(reviewLabel, wide: true, radius: 16, onTap: _startReview),
+          ],
+        ],
+      ),
+    );
+  }
+
+  Widget _home(Th th) {
     final p = th.p;
     final t = app.t;
     final ws = _words;
@@ -482,75 +612,73 @@ class _BctStudyState extends State<BctStudyScreen> {
       ),
     );
 
-    return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: available),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Text(t.bsSub, style: F.s(14, c: p.soft, h: 1.4)),
-              const SizedBox(height: 14),
-              Row(children: [book('a'), const SizedBox(width: 10), book('b')]),
-              const SizedBox(height: 14),
-              const BctRankCard(),
-              const SizedBox(height: 14),
-            ],
-          ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  tile(
-                    t.list,
-                    Icon2(I.list, size: 22, color: th.acc, width: 1.9),
-                    () => openBctWords(context, app.bctBook),
-                  ),
-                  const SizedBox(width: 10),
-                  tile(
-                    t.card,
-                    Icon2(I.cards, size: 22, color: th.acc, width: 1.9),
-                    _startCards,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  tile(
-                    t.quiz,
-                    Icon2(I.quiz, size: 22, color: th.acc, width: 1.9),
-                    _startQuiz,
-                  ),
-                  const SizedBox(width: 10),
-                  tile(
-                    t.gram,
-                    MediaQuery.withNoTextScaling(
-                      child: Text(
-                        '语',
-                        locale: const Locale('zh', 'CN'),
-                        style: F.s(
-                          21,
-                          w: FontWeight.w800,
-                          c: th.acc,
-                          family: F.zh,
-                          h: 1.05,
-                        ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(t.bsSub, style: F.s(14, c: p.soft, h: 1.4)),
+            const SizedBox(height: 14),
+            Row(children: [book('a'), const SizedBox(width: 10), book('b')]),
+            const SizedBox(height: 14),
+            const BctRankCard(),
+            const SizedBox(height: 14),
+            _reviewSchedule(th),
+            const SizedBox(height: 14),
+          ],
+        ),
+        Column(
+          children: [
+            Row(
+              children: [
+                tile(
+                  t.list,
+                  Icon2(I.list, size: 22, color: th.acc, width: 1.9),
+                  _openWords,
+                ),
+                const SizedBox(width: 10),
+                tile(
+                  t.card,
+                  Icon2(I.cards, size: 22, color: th.acc, width: 1.9),
+                  _startCards,
+                ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            Row(
+              children: [
+                tile(
+                  t.quiz,
+                  Icon2(I.quiz, size: 22, color: th.acc, width: 1.9),
+                  _startQuiz,
+                ),
+                const SizedBox(width: 10),
+                tile(
+                  t.gram,
+                  MediaQuery.withNoTextScaling(
+                    child: Text(
+                      '语',
+                      locale: const Locale('zh', 'CN'),
+                      style: F.s(
+                        21,
+                        w: FontWeight.w800,
+                        c: th.acc,
+                        family: F.zh,
+                        h: 1.05,
                       ),
                     ),
-                    () {
-                      app.gramBook = 'bct';
-                      app.go('grammar');
-                    },
                   ),
-                ],
-              ),
-            ],
-          ),
-        ],
-      ),
+                  () {
+                    app.gramBook = 'bct';
+                    app.go('grammar');
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
     );
   }
 
@@ -809,17 +937,17 @@ class _BctStudyState extends State<BctStudyScreen> {
           ),
           const SizedBox(height: 20),
           MainBtn(
-            t.bsAgain,
+            kind == 'review' ? t.back : t.bsAgain,
             wide: true,
             radius: 16,
-            onTap: kind == 'quiz' ? _startQuiz : _startCards,
+            onTap: switch (kind) {
+              'review' => _back,
+              'quiz' => _startQuiz,
+              _ => _startCards,
+            },
           ),
           const SizedBox(height: 10),
-          GhostBtn(
-            t.bsWordsBtn,
-            wide: true,
-            onTap: () => openBctWords(context, app.bctBook),
-          ),
+          GhostBtn(t.bsWordsBtn, wide: true, onTap: _openWords),
         ],
       ),
     );

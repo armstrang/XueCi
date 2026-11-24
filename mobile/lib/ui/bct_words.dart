@@ -1,29 +1,68 @@
-/// The business word list of BCT B (data/bct.dart `BctW`): a sheet with a search field and the topics as chips.
-/// It only shows words (hanzi, pinyin, meaning in the study language); nothing here touches the learner's memory.
 library;
 
 import 'package:flutter/material.dart';
 
 import '../app/app.dart';
 import '../data/bct.dart';
+import 'focus.dart';
 import 'glass.dart';
 import 'icons.dart';
 import 'sheet.dart';
 import 'word_ui.dart' show Spk;
 import 'theme.dart';
 
-void openBctWords(BuildContext context, [String book = 'b']) => openSheet(context, name: 'bctwords', (c) => _Words(book));
+void openBctWords(BuildContext context, [String book = 'b']) =>
+    openSheet(context, name: 'bctwords', (c) => BctWordsPage(book));
 
-class _Words extends StatefulWidget {
+class BctWordsPage extends StatefulWidget {
   final String book;
-  const _Words(this.book);
+  final VoidCallback? onBack;
+  const BctWordsPage(this.book, {super.key, this.onBack});
   @override
-  State<_Words> createState() => _WordsState();
+  State<BctWordsPage> createState() => _WordsState();
 }
 
-class _WordsState extends State<_Words> {
+class _WordsState extends State<BctWordsPage> {
   final q = TextEditingController();
   String topic = '';
+  late String book = widget.book;
+
+  Widget _picker(
+    Th th,
+    String value,
+    Map<String, String> choices,
+    ValueChanged<String> change, {
+    bool expand = false,
+  }) {
+    return Glass(
+      radius: 999,
+      padding: const EdgeInsets.symmetric(horizontal: 14),
+      child: DropdownButtonHideUnderline(
+        child: DropdownButton<String>(
+          isExpanded: expand,
+          value: value,
+          dropdownColor: th.p.bg,
+          menuMaxHeight: 360,
+          style: F.s(14, w: FontWeight.w700, c: th.p.fg),
+          icon: Icon(
+            Icons.keyboard_arrow_down_rounded,
+            size: 18,
+            color: th.p.soft,
+          ),
+          onChanged: (next) {
+            if (next != null) change(next);
+          },
+          items: [
+            for (final entry in choices.entries)
+              DropdownMenuItem(
+                value: entry.key,
+                child: Text(entry.value, overflow: TextOverflow.ellipsis),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   void dispose() {
@@ -38,92 +77,236 @@ class _WordsState extends State<_Words> {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final all = app.lm.bct?.wordsOf(widget.book) ?? const <BctW>[];
-    final topics = {for (final w in all) if (w.s.isNotEmpty) w.s}.toList()..sort();
+    final all = app.lm.bct?.wordsOf(book) ?? const <BctW>[];
+    final topics = {
+      for (final w in all)
+        if (w.s.isNotEmpty) w.s,
+    }.toList()..sort();
     final query = q.text.trim().toLowerCase();
     final shown = [
       for (final w in all)
         if ((topic.isEmpty || w.s == topic) &&
-            (query.isEmpty || w.h.contains(query) || w.p.toLowerCase().contains(query) || _m(w).toLowerCase().contains(query))) w,
+            (query.isEmpty ||
+                w.h.contains(query) ||
+                w.p.toLowerCase().contains(query) ||
+                _m(w).toLowerCase().contains(query)))
+          w,
     ];
     final cap = shown.length > 120 ? 120 : shown.length;
-    return SheetBody(
-      titleW: Text('${t.exBctW} · BCT ${widget.book.toUpperCase()}', style: F.s(19, w: FontWeight.w800, c: p.fg, h: 1.25)),
-      children: [
+    final onBack = widget.onBack;
+    final title = '${t.exBctW} · BCT ${book.toUpperCase()}';
+    final search = TextField(
+      controller: q,
+      autocorrect: false,
+      enableSuggestions: false,
+      style: F.s(15, c: p.fg),
+      decoration: InputDecoration(
+        border: InputBorder.none,
+        prefixIcon: onBack == null
+            ? null
+            : Icon(Icons.search, size: 20, color: p.mute),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 14,
+          vertical: 12,
+        ),
+        hintText: t.bwSearch,
+        hintStyle: F.s(15, c: p.mute),
+      ),
+      onChanged: (_) => setState(() {}),
+    );
+    final controls = <Widget>[
+      if (onBack != null) ...[
+        Capsule(title: t.list, onBack: onBack),
+        const SizedBox(height: 8),
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _picker(
+                th,
+                book,
+                {'a': 'BCT A', 'b': 'BCT B'},
+                (next) => setState(() {
+                  book = next;
+                  topic = '';
+                }),
+              ),
+              if (topics.isNotEmpty) ...[
+                const SizedBox(width: 8),
+                ConstrainedBox(
+                  constraints: BoxConstraints(
+                    maxWidth: MediaQuery.sizeOf(context).width < 360
+                        ? 180
+                        : 220,
+                  ),
+                  child: _picker(
+                    th,
+                    topic,
+                    {'': t.bwAll, for (final name in topics) name: name},
+                    (next) => setState(() => topic = next),
+                    expand: true,
+                  ),
+                ),
+              ],
+            ],
+          ),
+        ),
+        const SizedBox(height: 12),
+      ] else
         Padding(
           padding: const EdgeInsets.only(bottom: 10),
-          child: Text(t.exBctWD, style: F.s(13.5, c: p.soft, h: 1.45)),
+          child: Text(
+            t.exBctWD.replaceAll('BCT B', 'BCT ${book.toUpperCase()}'),
+            style: F.s(13.5, c: p.soft, h: 1.45),
+          ),
         ),
+      if (onBack == null)
         Container(
-          decoration: BoxDecoration(color: p.sunk, borderRadius: BorderRadius.circular(16), border: Border.all(color: p.gEdge)),
-          child: TextField(
-            controller: q,
-            autocorrect: false,
-            enableSuggestions: false,
-            style: F.s(15, c: p.fg),
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-              hintText: t.bwSearch,
-              hintStyle: F.s(15, c: p.mute),
+          decoration: BoxDecoration(
+            color: p.sunk,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: p.gEdge),
+          ),
+          child: search,
+        )
+      else
+        Glass(radius: 999, child: search),
+      const SizedBox(height: 10),
+      if (onBack == null && topics.isNotEmpty)
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 14),
+          decoration: BoxDecoration(
+            color: p.sunk,
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(color: p.gEdge),
+          ),
+          child: DropdownButtonHideUnderline(
+            child: DropdownButton<String>(
+              isExpanded: true,
+              value: topic,
+              dropdownColor: p.bg,
+              style: F.s(14, w: FontWeight.w700, c: p.fg),
+              icon: RotatedBox(
+                quarterTurns: 1,
+                child: Icon2(I.chev, size: 16, color: p.soft, width: 2),
+              ),
+              onChanged: (value) {
+                if (value != null) setState(() => topic = value);
+              },
+              items: [
+                DropdownMenuItem(value: '', child: Text(t.bwAll)),
+                for (final name in topics)
+                  DropdownMenuItem(
+                    value: name,
+                    child: Text(name, overflow: TextOverflow.ellipsis),
+                  ),
+              ],
             ),
-            onChanged: (_) => setState(() {}),
           ),
         ),
-        const SizedBox(height: 10),
-        if (topics.isNotEmpty)
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 14),
-            decoration: BoxDecoration(color: p.sunk, borderRadius: BorderRadius.circular(16), border: Border.all(color: p.gEdge)),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                isExpanded: true, value: topic, dropdownColor: p.bg, style: F.s(14, w: FontWeight.w700, c: p.fg),
-                icon: RotatedBox(quarterTurns: 1, child: Icon2(I.chev, size: 16, color: p.soft, width: 2)),
-                onChanged: (value) { if (value != null) setState(() => topic = value); },
-                items: [
-                  DropdownMenuItem(value: '', child: Text(t.bwAll)),
-                  for (final name in topics) DropdownMenuItem(value: name, child: Text(name, overflow: TextOverflow.ellipsis)),
-                ],
-              ),
-            ),
-          ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(2, 12, 2, 6),
-          child: Text(t.bwCount(app.fmt(shown.length)), style: F.s(12.5, c: p.mute)),
+      Padding(
+        padding: const EdgeInsets.fromLTRB(2, 12, 2, 6),
+        child: Text(
+          t.bwCount(app.fmt(shown.length)),
+          style: F.s(12.5, c: p.mute),
         ),
-        if (shown.isEmpty)
-          Padding(padding: const EdgeInsets.symmetric(vertical: 16), child: Text(t.bwNone, style: F.s(14, c: p.soft)))
-        else
-          for (var i = 0; i < cap; i++)
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 9),
-              decoration: BoxDecoration(border: Border(top: BorderSide(color: p.gEdge.withValues(alpha: .5)))),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    width: 112,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(shown[i].h, style: F.s(20, w: FontWeight.w800, c: p.fg, h: 1.2)),
-                        Text(shown[i].p, style: F.s(12.5, c: p.mute, h: 1.3)),
-                      ],
-                    ),
+      ),
+    ];
+    final empty = Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: Text(t.bwNone, style: F.s(14, c: p.soft)),
+    );
+    Widget card(BctW word) => Padding(
+      padding: const EdgeInsets.only(bottom: 10),
+      child: Glass(
+        radius: 22,
+        padding: const EdgeInsets.all(14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 4,
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      Text(
+                        word.h,
+                        style: F.s(
+                          24,
+                          family: F.hz,
+                          w: FontWeight.w800,
+                          c: th.acc,
+                        ),
+                      ),
+                      Text(
+                        word.p,
+                        style: F.s(14, w: FontWeight.w600, c: p.soft),
+                      ),
+                    ],
                   ),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(_m(shown[i]), style: F.s(14.5, c: p.soft, h: 1.4)),
-                        if (shown[i].z != null) ...[const SizedBox(height: 6), BctExample(shown[i], small: true)],
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(width: 8),
+                Spk(word.h, size: 30),
+              ],
             ),
-      ],
+            const SizedBox(height: 5),
+            Text(
+              _m(word),
+              style: F.s(15, w: FontWeight.w700, c: p.fg),
+            ),
+            if (word.z != null) ...[
+              const SizedBox(height: 8),
+              Divider(height: 1, color: p.line),
+              const SizedBox(height: 8),
+              BctExample(word, small: true),
+            ],
+          ],
+        ),
+      ),
+    );
+    if (onBack == null) {
+      return SheetBody(
+        titleW: Text(
+          title,
+          style: F.s(19, w: FontWeight.w800, c: p.fg, h: 1.25),
+        ),
+        children: [
+          ...controls,
+          if (cap == 0)
+            empty
+          else
+            for (final word in shown.take(cap)) card(word),
+        ],
+      );
+    }
+    final media = MediaQuery.of(context);
+    final keyboard = media.viewInsets.bottom;
+    return Center(
+      child: ConstrainedBox(
+        constraints: const BoxConstraints(maxWidth: 640),
+        child: ListView.builder(
+          keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+          padding: EdgeInsets.fromLTRB(
+            16,
+            media.padding.top + 10,
+            16,
+            keyboard > 0 ? keyboard + 16 : media.padding.bottom + 98,
+          ),
+          itemCount: 1 + (shown.isEmpty ? 1 : shown.length),
+          itemBuilder: (context, index) {
+            if (index == 0) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: controls,
+              );
+            }
+            return shown.isEmpty ? empty : card(shown[index - 1]);
+          },
+        ),
+      ),
     );
   }
 }
@@ -146,7 +329,9 @@ class BctExample extends StatelessWidget {
     final zs = small ? 15.0 : 19.0;
     final base = F.s(zs, family: F.hz, w: FontWeight.w600, c: p.fg, h: 1.45);
     return Column(
-      crossAxisAlignment: small ? CrossAxisAlignment.start : CrossAxisAlignment.center,
+      crossAxisAlignment: small
+          ? CrossAxisAlignment.start
+          : CrossAxisAlignment.center,
       children: [
         Row(
           mainAxisSize: MainAxisSize.min,
@@ -157,7 +342,14 @@ class BctExample extends StatelessWidget {
                 TextSpan(
                   children: [
                     TextSpan(text: i < 0 ? z : z.substring(0, i)),
-                    if (i >= 0) TextSpan(text: w.h, style: TextStyle(color: th.acc, fontWeight: FontWeight.w800)),
+                    if (i >= 0)
+                      TextSpan(
+                        text: w.h,
+                        style: TextStyle(
+                          color: th.acc,
+                          fontWeight: FontWeight.w800,
+                        ),
+                      ),
                     if (i >= 0) TextSpan(text: z.substring(i + w.h.length)),
                   ],
                 ),
@@ -179,7 +371,11 @@ class BctExample extends StatelessWidget {
         ],
         if (tr.isNotEmpty) ...[
           const SizedBox(height: 3),
-          Text(tr, textAlign: small ? TextAlign.start : TextAlign.center, style: F.s(small ? 13 : 15, c: p.soft, h: 1.4)),
+          Text(
+            tr,
+            textAlign: small ? TextAlign.start : TextAlign.center,
+            style: F.s(small ? 13 : 15, c: p.soft, h: 1.4),
+          ),
         ],
       ],
     );

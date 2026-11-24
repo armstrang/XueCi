@@ -23,9 +23,17 @@ class BProg {
   void answer(String id, bool ok) {
     final t = lm.now();
     final cur = j[id];
-    final st = cur == null ? null : [cur[0].toDouble(), cur[1].toDouble(), cur[2].toDouble()];
+    final st = cur == null
+        ? null
+        : [cur[0].toDouble(), cur[1].toDouble(), cur[2].toDouble()];
     final s = lm.step(st, ok ? 3 : 1, t);
-    j[id] = [s[0], s[1], s[2], (cur?[3] ?? 0) + 1, (cur?[4] ?? 0) + (ok ? 1 : 0)];
+    j[id] = [
+      s[0],
+      s[1],
+      s[2],
+      (cur?[3] ?? 0) + 1,
+      (cur?[4] ?? 0) + (ok ? 1 : 0),
+    ];
     ls.set('xc_bct', j);
   }
 
@@ -40,10 +48,32 @@ class BProg {
   bool seen(String id) => j.containsKey(id);
   bool due(String id) => j.containsKey(id) && recall(id) < 0.85;
 
+  double? reviewAt(String id) {
+    final state = j[id];
+    if (state == null || state[1] <= 0) return null;
+    final minute = state[2] + fsrs.ivl(state[1].toDouble(), .85) * 1440;
+    return minute.isFinite ? minute : null;
+  }
+
+  /// Predicted first review day by local study day. Index zero includes the backlog.
+  List<int> reviewDays(Iterable<String> ids, {int days = 7}) {
+    final counts = List.filled(days, 0);
+    final today = lm.today();
+    for (final id in ids.toSet()) {
+      final minute = reviewAt(id);
+      if (minute == null) continue;
+      final day = math.max(0, lm.dayOf(minute) - today);
+      if (day < days) counts[day]++;
+    }
+    return counts;
+  }
+
   /// 0–20 like a word's level
   int level(String id) {
     final s = stab(id);
-    return s <= 0 ? 0 : math.min(20, jsRound(20 * math.log(1 + s) / math.log(121)));
+    return s <= 0
+        ? 0
+        : math.min(20, jsRound(20 * math.log(1 + s) / math.log(121)));
   }
 
   /// from a backup code or the store: entries checked one by one
@@ -51,7 +81,12 @@ class BProg {
     if (o is! Map) return;
     final out = <String, List<num>>{};
     o.forEach((k, v) {
-      if (k is String && v is List && v.length == 5 && v.every((x) => x is num && x.isFinite)) out[k] = v.cast<num>();
+      if (k is String &&
+          v is List &&
+          v.length == 5 &&
+          v.every((x) => x is num && x.isFinite)) {
+        out[k] = v.cast<num>();
+      }
     });
     j = out;
     if (save) ls.set('xc_bct', j);

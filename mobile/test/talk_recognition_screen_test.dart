@@ -57,6 +57,7 @@ void main() {
     await t.tap(find.text('Bicara'));
     await t.pump();
     expect(find.byType(Slider), findsOneWidget);
+    expect(find.text('因为海关查验。'), findsOneWidget);
     expect(find.text('8/10'), findsNothing);
     t.widget<Slider>(find.byType(Slider)).onChangeEnd!(750);
     await t.pump();
@@ -69,9 +70,33 @@ void main() {
     expect(commands.where((name) => name == 'talkRecord'), hasLength(2));
     await t.tap(find.byIcon(Icons.send_outlined));
     await t.pump(const Duration(milliseconds: 500));
-    expect(commands.where((name) => name == 'talkAudioSend'), hasLength(1));
+    expect(commands.where((name) => name == 'talkAudioSend'), hasLength(2));
     expect(find.text('8/10'), findsOneWidget);
     expect(find.byType(Slider), findsNothing);
+  });
+
+  testWidgets('an unsupported recording keeps send disabled and live speech requires review', (t) async {
+    Native.talkAudioTest = (method, _) async => switch (method) {
+      'talkAudioSupported' => true,
+      'talkRecord' => <Object?, Object?>{'ms': 1500, 'peaks': [20]},
+      'talkAudioSend' => '!',
+      _ => null,
+    };
+    await openTalk(t);
+    await t.tap(find.text('Bicara'));
+    await t.pump();
+    expect(find.textContaining('belum bisa membaca rekaman'), findsOneWidget);
+    expect(find.text('8/10'), findsNothing);
+    await t.tap(find.text('Bicara langsung'));
+    await t.pump();
+    talkListen = ({onEvent, limitMs = 0}) async => ['因为海关查验。'];
+    await t.tap(find.text('Bicara'));
+    await t.pump();
+    expect(find.text('因为海关查验。'), findsOneWidget);
+    expect(find.text('8/10'), findsNothing);
+    await t.tap(find.byIcon(Icons.send_outlined));
+    await t.pump(const Duration(milliseconds: 500));
+    expect(find.text('8/10'), findsOneWidget);
   });
 
   testWidgets('level selection shows the recording limit before a scenario opens', (t) async {
@@ -100,6 +125,8 @@ void main() {
     talkListen = ({onEvent, limitMs = 0}) async => ['周四送到。', '周六送到。'];
     await t.tap(find.text('Bicara'));
     await t.pump(const Duration(milliseconds: 500));
+    await t.tap(find.byIcon(Icons.send_outlined));
+    await t.pump(const Duration(milliseconds: 500));
     expect(find.text('Mana yang kamu ucapkan?'), findsOneWidget);
     expect(find.text('3/10'), findsNothing);
     expect(find.text('Bicara'), findsNothing);
@@ -109,6 +136,8 @@ void main() {
     expect(find.text('Mana yang kamu ucapkan?'), findsNothing);
     expect(find.text('Bicara'), findsOneWidget);
     await t.tap(find.text('Bicara'));
+    await t.pump(const Duration(milliseconds: 500));
+    await t.tap(find.byIcon(Icons.send_outlined));
     await t.pump(const Duration(milliseconds: 500));
     await t.ensureVisible(find.text('周六送到。'));
     await t.tap(find.text('周六送到。'));
@@ -122,6 +151,8 @@ void main() {
     talkListen = ({onEvent, limitMs = 0}) async => ['你好玩学校每个是在路上'];
     await t.tap(find.text('Bicara'));
     await t.pump(const Duration(milliseconds: 500));
+    await t.tap(find.byIcon(Icons.send_outlined));
+    await t.pump(const Duration(milliseconds: 500));
     expect(find.text('1/10'), findsNothing);
     expect(find.text('Bicara'), findsOneWidget);
     expect(find.text('Belum terdengar jelas. Coba lagi.'), findsOneWidget);
@@ -129,6 +160,8 @@ void main() {
     await t.pump(const Duration(milliseconds: 300));
     talkListen = ({onEvent, limitMs = 0}) async => ['因为海关查验。'];
     await t.tap(find.text('Bicara'));
+    await t.pump(const Duration(milliseconds: 500));
+    await t.tap(find.byIcon(Icons.send_outlined));
     await t.pump(const Duration(milliseconds: 500));
     expect(find.text('8/10'), findsOneWidget);
   });
@@ -138,6 +171,8 @@ void main() {
     expect(find.textContaining('pesan yang biru'), findsOneWidget);
     talkListen = ({onEvent, limitMs = 0}) async => ['我们给您换成蓝色款，周四送到。'];
     await t.tap(find.text('Bicara'));
+    await t.pump(const Duration(milliseconds: 500));
+    await t.tap(find.byIcon(Icons.send_outlined));
     await t.pump(const Duration(milliseconds: 500));
     expect(find.text('9/10'), findsOneWidget);
     expect(find.text('Barang salah'), findsNothing);
@@ -149,6 +184,8 @@ void main() {
     const correct = '给您原路退二百元，发票我会重开。';
     talkListen = ({onEvent, limitMs = 0}) async => ['给您原路退一百元，发票我会重开。', correct];
     await t.tap(find.text('Bicara'));
+    await t.pump(const Duration(milliseconds: 500));
+    await t.tap(find.byIcon(Icons.send_outlined));
     await t.pump(const Duration(milliseconds: 500));
     expect(find.text('Mana yang kamu ucapkan?'), findsOneWidget);
     expect(find.text('9/10'), findsNothing);

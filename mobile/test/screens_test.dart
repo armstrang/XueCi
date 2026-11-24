@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart' show Icons;
 import 'dart:math' as math;
 // The screens drawn with the real fonts and data, at phone sizes, in each theme: screenshots for review
 // (test/goldens/*.png, written with --update-goldens) and a check that nothing overflows.
@@ -296,7 +297,10 @@ void runs() {
     await t.runAsync(() async {
       await bootApp({...sample(), 'hsk16_theme': '"dark"'}, lang: 'id');
     });
-    await shot(t, 'bct-study', before: () => app.setStudy('bct'));
+    await shot(t, 'bct-study', before: () => app.setStudy('bct'), act: () async {
+      expect(find.text('Jadwal ulang'), findsOneWidget);
+      expect(find.text('Belum ada kata yang dijadwalkan dalam 7 hari.'), findsOneWidget);
+    });
     await shot(t, 'bct-study-cards', before: () => app.setStudy('bct'), act: () async {
       await t.tap(find.text('Kartu'));
       await t.pump(const Duration(milliseconds: 300));
@@ -326,6 +330,8 @@ void runs() {
         return [text];
       };
       await t.tap(find.text('Bicara'));
+      await t.pump(const Duration(milliseconds: 400));
+      await t.tap(find.byIcon(Icons.send_outlined));
       await t.pump(const Duration(milliseconds: 400));
     }
 

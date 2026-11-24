@@ -91,3 +91,31 @@ Model aktif tetap memakai bobot lama. Target F1 97% dan salah terima di bawah 3%
 
 ## Instruksi praktis bagi AI pengganti
 Baca file ini dan CLAUDE.md terlebih dahulu. Periksa branch, HEAD, perubahan belum di-commit, dan checkpoint yang lebih baru. Hormati kunci progres, migrasi, package Android, desain dan aturan konten proyek. Jangan membocorkan konten yang sengaja disembunyikan lewat dokumentasi pengguna. Jangan merilis resmi, menghapus branch/tag/rilis, atau menggabungkan PR cleanup hanya karena tercantum di sini. Balas pengguna dalam bahasa Indonesia. Perbarui file ini setelah perubahan penting, lalu berikan tautan file/commit yang benar-benar berhasil disimpan.
+
+## AUTO-CHECKPOINT · 25 November 2026 · Umpan balik BCT
+- Tujuan: memperbaiki latihan BCT sambil mengikuti tampilan XueCi yang sudah dipakai.
+- Basis Git: `1d8fb5a` dari `main`, perubahan ini masih di worktree tanpa commit. APK yang memberi umpan balik dibangun dari `ad99fac`.
+- Selesai: beranda BCT menampilkan jadwal FSRS tujuh hari untuk buku yang dipilih dengan tunggakan masuk ke hari ini. Daftar memakai kartu bergaya HSK dengan pencarian dan kategori BCT. Bicara BCT menampilkan Hanzi hasil pengenal sebelum kirim dan skor. Saat pengenal gagal membaca berkas, rekaman masih bisa diputar dan Bicara langsung bisa dipakai untuk mencoba lagi.
+- File: `mobile/lib/app/bct_prog.dart`, `mobile/lib/ui/{bct_study,bct_words,talk}.dart`, `mobile/test/{screens_test,talk_recognition_screen_test}.dart`, `docs/privacy/index.html`, dan checkpoint ini.
+- Verifikasi: `dart analyze` bersih. 235 tes terarah lulus, serta dua tes layar BCT lulus dengan acuan visual lokal yang dibuat ulang. Belum diuji di HP yang menolak transkripsi berkas.
+- Berikutnya: untuk melanjutkan dari basis Git, terapkan patch inkremental `XueCi-BCT-Jadwal-Kartu-Transkrip.patch` dan cek status. Tunggu persetujuan build dan push, lalu uji alur rekaman dan alur Bicara langsung di HP pengguna. Target model F1 97% dan salah terima di bawah 3% tetap ditunda.
+
+## AUTO-CHECKPOINT · 25 November 2026 · Revisi tata letak BCT
+- Tujuan: dekatkan empat kotak tindakan ke grafik dan buat Daftar dari beranda BCT menjadi halaman penuh seperti Daftar HSK.
+- Selesai: Daftar, Kartu, Kuis, dan Tata Bahasa kini mengikuti kartu jadwal dengan spasi 14 dp. Halaman Daftar memiliki tombol kembali, pilihan A/B dan kategori, pencarian, dan daftar kartu yang dimuat saat digulir. Tautan referensi dari mode ujian masih memakai panel agar sesi ujian tetap terbuka. Tampilan Bicara BCT mengikuti revisi sebelumnya.
+- File tambahan yang diubah: `mobile/lib/ui/bct_study.dart`, `mobile/lib/ui/bct_words.dart`, serta checkpoint ini.
+- Verifikasi: analisis Dart UI bersih. Tes widget Flutter memeriksa jarak kotak, pembukaan halaman tanpa panel, dan penggantian BCT A ke B. Screenshot diambil dengan jadwal contoh. Belum ada build APK.
+- Lanjutan: gunakan patch kumulatif `XueCi-BCT-UI-Revisi.patch` pada basis `1d8fb5a` atau tinjau diff sebelum menerapkan bila patch sebelumnya sudah masuk. Tunggu persetujuan terpisah untuk build atau push.
+
+## AUTO-CHECKPOINT · 25 November 2026 · Latihan terjadwal dan kontrol kaca BCT
+- Tujuan: buka latihan ulang langsung dari grafik beranda BCT dan samakan kontrol Daftar dengan gaya kaca XueCi.
+- Selesai: tombol Ulangi menghitung kata yang jatuh tempo pada level aktif, memakai jadwal FSRS BCT. Sesi kartu dimulai dari tenggat terlama, menyimpan jawaban dengan alur BCT yang sudah ada, dan kembali ke jadwal yang dihitung ulang. Grafik tetap mencakup jadwal tujuh hari, termasuk kata yang belum jatuh tempo saat ini. Pemilih level, filter kategori, dan pencarian halaman penuh memakai komponen Glass.
+- File perubahan putaran ini: `mobile/lib/app/bct_prog.dart`, `mobile/lib/ui/bct_study.dart`, `mobile/lib/ui/bct_words.dart`, dan checkpoint.
+- Verifikasi: `dart analyze lib` bersih. Tes widget memeriksa pemisahan A/B, urutan tunggakan, pembaruan setelah latihan, dan merender dua screenshot dengan data contoh. Bicara BCT tetap mengikuti revisi sebelumnya.
+- Lanjutan: pakai patch kumulatif `XueCi-BCT-Jadwal-Glass.patch` pada basis `1d8fb5a`. Verifikasi patch yang sudah terpasang sebelum menimpa perubahan. Tunggu konfirmasi build atau push dan uji di perangkat setelah APK tersedia.
+
+## AUTO-CHECKPOINT · 25 November 2026 · Alpha BCT
+- Tujuan: rilis uji Android dari main dengan jadwal ulang BCT, daftar kaca layar penuh, dan pratinjau Hanzi sebelum pengiriman.
+- Perubahan yang diuji sebelum penggabungan: alur pengulangan, pemisahan A/B, grafis dan kontrol Daftar, serta pengenalan suara tiruan. Sembilan tes Flutter lulus dan analisis Dart kode aplikasi bersih.
+- Rilis: push yang disetujui pengguna memicu workflow Flutter untuk pre-release alpha. Tempatkan hasil verifikasi commit, workflow, dan APK di laporan penyerahan. Versi Play Store dan pelatihan model tetap di luar rilis uji ini.
+- Lanjutan: uji pengenal suara rekaman di HP yang sebelumnya gagal membacanya dan pastikan progres BCT tetap tersimpan setelah pemasangan.
