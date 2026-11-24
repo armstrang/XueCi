@@ -13,12 +13,13 @@ class TalkModel {
   /// per label: how the rules' confidence and the model's logit are mixed ([a_rule, a_model, bias]), and the shift
   final Map<String, List<double>> stack;
   final double shift;
+  final bool _scopeFeatures;
 
   /// n-gram -> flat list of (label index, weight) pairs
   final Map<String, List<int>> _w;
   final Map<int, int> _fold;
 
-  TalkModel._(this.labels, this.bias, this.scale, this._w, this._fold, this.stack, this.shift);
+  TalkModel._(this.labels, this.bias, this.scale, this._w, this._fold, this.stack, this.shift, this._scopeFeatures);
 
   /// [foldFrom] / [foldTo]: the homophone fold (`soundFrom` / `soundTo`)
   factory TalkModel.fromJson(String json, String foldFrom, String foldTo) {
@@ -43,13 +44,37 @@ class TalkModel {
           e.key: [for (final x in e.value as List) (x as num).toDouble()]
       },
       ((m['shift'] ?? 0) as num).toDouble(),
+      m['scope'] == true,
     );
   }
 
   static final _keep = RegExp('[一-鿿0-9]');
+  static final _scope = RegExp(r'不是不|不会不|不能不|不可能|没有|并非|并无|没法|无法|不能|不会|不再|不确定|会不会|能不能|能否|可不可以|是否|想|考虑|如果|假如|要是|确认|决定|保证|承诺|说|问');
+  static final _clauseDelimiters = RegExp(r'[，。！？；：,.!?;:、…\s]+|但是|不过|而是|然而|否则|然后|另外');
+
+  static String _clean(String text) => _keep.allMatches(text).map((m) => m[0]!).join();
+
+  // Keep this feature extraction in sync with make_talk_model.py.
+  static void _addScopeFeatures(Set<String> features, String text) {
+    for (final clause in text.split(_clauseDelimiters)) {
+      for (final match in _scope.allMatches(clause)) {
+        final marker = match[0]!;
+        final lead = _clean(clause.substring(0, match.start));
+        final tail = _clean(clause.substring(match.end));
+        final end = min(14, tail.length);
+        for (var start = 0; start + 2 <= end; start++) {
+          final distance = start < 4 ? 0 : 1;
+          for (var width = 2; width <= 3 && start + width <= end; width++) {
+            features.add('!$marker$distance${tail.substring(start, start + width)}');
+          }
+        }
+        if (lead.isNotEmpty) features.add('!${lead.substring(max(0, lead.length - 3))}>$marker');
+      }
+    }
+  }
 
   Set<String> _feats(String text) {
-    final t = _keep.allMatches(text).map((m) => m[0]!).join();
+    final t = _clean(text);
     final out = <String>{};
     final s = '^$t\$';
     for (var n = 1; n <= 4; n++) {
@@ -64,6 +89,7 @@ class TalkModel {
         out.add('~${sf.substring(i, i + n)}');
       }
     }
+    if (_scopeFeatures) _addScopeFeatures(out, text);
     return out;
   }
 

@@ -1,0 +1,21 @@
+[
+  {"name":"hari tiba berbeda","hyp":["周四送到。","周六送到。"],"choose":true,"slot":"arrival"},
+  {"name":"pekan ini dan pekan depan berbeda","hyp":["周四送到。","下周四送到。"],"choose":true,"slot":"arrival"},
+  {"name":"janji tiba versus pembatalan","hyp":["周四能到。","周四不能送到。"],"choose":true,"slot":"arrival"},
+  {"name":"frasa waktu yang sepadan","hyp":["周四会送到。","后天会送到。"],"choose":false},
+  {"name":"parafrasa dengan tanggal yang sama","hyp":["我们周四一定送到。","星期四保证送到。"],"choose":false},
+  {"name":"dua potongan harga berbeda","hyp":["给您打九折。","给您打八折。"],"choose":true,"slot":"discount"},
+  {"name":"diskon diterima atau disangkal","hyp":["我们会给您打九折。","我们不会给您打九折。"],"choose":true,"slot":"discount"},
+  {"name":"kompensasi tanpa diskon atau ditolak","hyp":["快递费我们承担。","快递费我们不能承担。"],"choose":true,"slot":"compensate"},
+  {"name":"dua sumber keterlambatan berbeda","hyp":["因为海关查验耽误了。","因为仓库缺货耽误了。"],"choose":true,"slot":"cause"},
+  {"name":"salah dengar di bagian awal","hyp":["你好玩学校每个是在路上。","您好，货已经发出，周四送到。"],"choose":true},
+  {"name":"basa basi sama makna","hyp":["您好。","你好。"],"choose":false},
+  {"name":"hipotesis kedua yang terpotong","hyp":["周四发货，周六收到。","周四发货。"],"choose":false},
+  {"name":"tanggung jawab diterima atau disangkal","hyp":["这确实是我们的错。","这不是我们的错。"],"choose":true,"slot":"responsibility"},
+  {"name":"penjelasan utuh dan kata topik tambahan","hyp":["海关查验了，所以晚了。","海关查验造成耽误。"],"choose":false},
+  {"name":"kata maaf dipertahankan jika tanggal hanya ada pada alternatif","hyp":["不好意思，货还在路上。","不好意思，货还在路上，周四送到。"],"choose":false},
+  {"name":"tenggat yang berbeda setelah koreksi","hyp":["本来周四到，现在最早周六。","本来周四到，现在最早周日。"],"choose":true,"slot":"arrival"},
+  {"name":"beda jadwal dikirim","hyp":["周四发货。","周五发货。"],"choose":true,"slot":"dispatch"},
+  {"name":"hipotesis kosong dan duplikat","hyp":["","周四到。"," 周四到。 "],"choose":false},
+  {"name":"tidak menggabungkan tujuan tambahan dari teks berbeda","hyp":["因为海关查验，周四送到。","因为海关查验，周四送到，免运费。"],"choose":false}
+]

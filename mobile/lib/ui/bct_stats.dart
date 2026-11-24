@@ -247,18 +247,21 @@ class _BctStatsState extends State<BctStatsScreen> {
                     Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        i.answers == 0 ? t.bstSeen(app.fmt(i.seen)) : '${t.bstSeen(app.fmt(i.seen))} · ${t.bstAcc(pct, app.fmt(i.answers))}',
+                        t.bstSeen(app.fmt(i.seen)),
                         style: F.s(13, c: p.soft, h: 1.4),
                       ),
                     ),
-                    if (i.due > 0)
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Text(t.bsDue(app.fmt(i.due)), style: F.s(13, w: FontWeight.w600, c: p.mute)),
-                        ),
-                      ),
+                    Align(alignment: Alignment.centerLeft, child: Text(
+                      i.answers > 0 ? t.bstAcc(pct, app.fmt(i.answers)) : switch (app.lang) {
+                        'id' => 'Belum ada jawaban kartu atau kuis.',
+                        'th' => 'ยังไม่มีคำตอบจากบัตรคำหรือแบบทดสอบ',
+                        'vi' => 'Chưa có câu trả lời từ thẻ hoặc câu đố.',
+                        _ => 'No card or quiz answers yet.',
+                      }, style: F.s(13, c: p.soft, h: 1.4),
+                    )),
+                    Align(alignment: Alignment.centerLeft, child: Text(
+                      t.bsDue(app.fmt(i.due)), style: F.s(13, w: FontWeight.w600, c: p.mute),
+                    )),
                   ],
                 ),
               ),

@@ -1,7 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:xueci/app/talk/coach.dart';
+import 'package:xueci/app/talk/dialog.dart';
+import 'package:xueci/app/talk/nlu.dart';
 
 void main() {
+  test('report scores known expressions and flags corrected wording', () {
+    final dialog = TalkDialog(lateDelivery);
+    dialog.reply('很抱歉的。', [const Frame('apologize', '+', 1)]);
+    dialog.reply('谢谢您的理解。', [const Frame('thanks', '+', 1)]);
+    expect({for (final term in coach(dialog).terms) term.term: term.score}, {'抱歉': 5, '谢谢': 10});
+  });
+
   test('common slips get the better wording', () {
     String fix(String s) => slipsOf(s).map((x) => '${x.said}→${x.better}').join(' ');
     expect(fix('我们道歉您'), '道歉您→向您道歉');

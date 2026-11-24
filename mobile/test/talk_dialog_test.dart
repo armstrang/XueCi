@@ -39,7 +39,9 @@ void main() {
 
   test('the client asks for what is missing, in order', () {
     final d = run(['我们明天发货。']);
-    expect(d.turns.last.situation, 'wantSorry');
+    expect(d.turns.last.situation, 'whichDay');
+    expect(d.st.dispatchDays, 1);
+    expect(d.st.delivery, isFalse);
     final e = run(['对不起。', '因为下大雨。', '我们下周一送到。']);
     expect(e.turns.last.situation, 'tooLate');
     final f = run(['对不起。', '因为下大雨。', '我们会尽快送到。']);

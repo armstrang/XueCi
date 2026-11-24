@@ -161,6 +161,7 @@ class _ShellState extends State<Shell> {
     app.addListener(_on);
     // before Home is built, so its pieces start hidden
     splashT.value = _splash ? 0 : splashDone;
+    splashPlaying.value = _splash;
   }
 
   @override
@@ -238,6 +239,7 @@ class _ShellState extends State<Shell> {
                       child: Splash(
                         onDone: () {
                           if (!mounted) return;
+                          splashPlaying.value = false;
                           setState(() => _splash = false);
                           startTasks(context);
                         },
@@ -286,7 +288,7 @@ class TabBar2 extends StatefulWidget {
   /// the tab a screen belongs to (List, Cards and Quiz live under HSK)
   static int tabOf(String s) => switch (s) {
     'home' || 'list' || 'card' || 'quiz' || 'grammar' || 'bct' || 'bctstats' => 0,
-    'hskk' => 1,
+    'hskk' || 'talk' => 1,
     'exam' => 2,
     _ => -1,
   };
@@ -333,7 +335,8 @@ class _TabBar2State extends State<TabBar2> with SingleTickerProviderStateMixin {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
-    final names = [_bct ? t.tabBct : t.tabHsk, t.tabHskk, t.tabExam];
+    final names = [_bct ? t.tabBct : t.tabHsk, _bct ? t.talkTitle : t.tabHskk, t.tabExam];
+    final destinations = [tabs[0], _bct ? 'talk' : tabs[1], tabs[2]];
     const icons = [I.cards, I.mic, I.qExam];
     final cur = TabBar2.tabOf(app.screen);
     final bottom = MediaQuery.paddingOf(context).bottom;
@@ -362,19 +365,13 @@ class _TabBar2State extends State<TabBar2> with SingleTickerProviderStateMixin {
                       return LayoutBuilder(
                         builder: (context, bc) {
                           final full = bc.maxWidth;
-                          final pillW = full * (3 - k) / 3;
+                          final pillW = full;
                           // a faint squeeze while the water moves
                           final sq = 1 - .05 * math.sin(math.pi * k);
                           return Stack(
                             alignment: Alignment.center,
                             clipBehavior: Clip.none,
                             children: [
-                              if (k > 0 && k < 1)
-                                Positioned.fill(
-                                  child: IgnorePointer(
-                                    child: CustomPaint(painter: _DropPainter(k, height, p.dark, pillW)),
-                                  ),
-                                ),
                               Transform.scale(
                                 scaleY: sq,
                                 scaleX: 1 + .02 * math.sin(math.pi * k),
@@ -393,32 +390,26 @@ class _TabBar2State extends State<TabBar2> with SingleTickerProviderStateMixin {
                                         height: height,
                                         padding: const EdgeInsets.all(5),
                                         widths: (total, sel) {
-                                          final u = total / (3 - k);
-                                          return [u, u * (1 - k), u];
+                                          final u = total / 3;
+                                          return [u, u, u];
                                         },
                                         onSelect: (i) {
-                                          if (i == 1 && _bct) return;
-                                          app.go(tabs[i]);
+                                          app.go(destinations[i]);
                                         },
                                         lens: (c, sel, drag) => sel < 0 ? const SizedBox() : TabLens(lc: th.acc),
                                         item: (c, i, on) {
                                           final col = on ? th.acc : p.soft;
-                                          final gone = i == 1;
-                                          return Opacity(
-                                            opacity: gone ? (1 - k * 1.6).clamp(0.0, 1.0) : 1,
-                                            child: ClipRect(
-                                              child: Press(
+                                          return Press(
                                                 onTap: () {
-                                                  if (gone && _bct) return;
-                                                  if (app.screen == tabs[i]) {
+                                                  if (app.screen == destinations[i]) {
                                                     app.scrollTop++;
                                                     app.changed();
                                                   } else {
-                                                    app.go(tabs[i]);
+                                                    app.go(destinations[i]);
                                                   }
                                                 },
                                                 scale: .9,
-                                                label: gone && _bct ? '' : names[i],
+                                                label: names[i],
                                                 selected: on,
                                                 child: Padding(
                                                   padding: const EdgeInsets.symmetric(horizontal: 2),
@@ -438,8 +429,6 @@ class _TabBar2State extends State<TabBar2> with SingleTickerProviderStateMixin {
                                                     ],
                                                   ),
                                                 ),
-                                              ),
-                                            ),
                                           );
                                         },
                                       ),
@@ -463,49 +452,6 @@ class _TabBar2State extends State<TabBar2> with SingleTickerProviderStateMixin {
       ),
     );
   }
-}
-
-/// the drop of water that pinches off the middle of the bar and rises away (k 0 → 1), or falls back in (1 → 0)
-class _DropPainter extends CustomPainter {
-  final double k, h;
-  final bool dark;
-  final double pillW;
-  _DropPainter(this.k, this.h, this.dark, this.pillW);
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    final cx = size.width / 2;
-    final top = (size.height - h) / 2; // the pill's top edge
-    final r = (h * .44) * (1 - math.pow(k, 1.6));
-    if (r < .5) return;
-    final rise = h * .66 * Curves.easeOut.transform(k);
-    final cy = top + h * .5 - rise;
-    final a = (1 - k).clamp(0.0, 1.0);
-    final fill = Paint()..color = Color.fromRGBO(255, 255, 255, (dark ? .34 : .75) * (.3 + .7 * a));
-    final rim = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = 1
-      ..color = Color.fromRGBO(255, 255, 255, (dark ? .55 : .95) * (.4 + .6 * a));
-    // the neck: a waist from the pill's top edge up to the drop, thinner as it rises
-    final neck = r * .8 * (1 - k * .8);
-    final path = Path()
-      ..addOval(Rect.fromCircle(center: Offset(cx, cy), radius: r));
-    if (k < .55 && neck > .6) {
-      final y0 = top + 2, y1 = cy;
-      final n = Path()
-        ..moveTo(cx - r * .9, y1 + r * .2)
-        ..quadraticBezierTo(cx - neck, (y0 + y1) / 2, cx - r * 1.4, y0)
-        ..lineTo(cx + r * 1.4, y0)
-        ..quadraticBezierTo(cx + neck, (y0 + y1) / 2, cx + r * .9, y1 + r * .2)
-        ..close();
-      path.addPath(n, Offset.zero);
-    }
-    canvas.drawPath(path, fill);
-    canvas.drawPath(path, rim);
-  }
-
-  @override
-  bool shouldRepaint(_DropPainter o) => o.k != k || o.dark != dark || o.pillW != pillW;
 }
 
 /// the Soul Sea button beside the tab bar: the realm's red seal (see _SoulStampState)

@@ -1,0 +1,22 @@
+[
+  {"text":"九五折这个办法您看这样可以吗？", "forbidden":["discount+"]},
+  {"text":"我们正式确认给您九五折，您觉得这样合适吗？", "expected":["discount+"]},
+  {"text":"您看是否需要我们给贵司减一点费用", "forbidden":["discount+","compensate+"]},
+  {"text":"承运人说明晚送达，这个还没确认。", "forbidden":["promise_time+"]},
+  {"text":"司机说今天到，但我确认星期四送到。", "expected":["promise_time+"]},
+  {"text":"您刚才说的‘星期五前必须到’，我没法作这个保证。", "expected":["promise_time-"], "forbidden":["promise_time+"]},
+  {"text":"没法保证明天，但是我们周五一定送到。", "expected":["promise_time+"]},
+  {"text":"就算补寄也未必能先收到。", "forbidden":["resend+","promise_time+"]},
+  {"text":"就算原来的货找不到，另外我们今天会补寄一箱。", "expected":["resend+"]},
+  {"text":"您是不是觉得是我方故意拖延？", "forbidden":["deny_fault+"]},
+  {"text":"这并不是我们的问题，是工厂机器坏了。", "expected":["deny_fault+","cause+"]},
+  {"text":"你说都是我的错？这个我不认。", "forbidden":["acknowledge+"]},
+  {"text":"这次的错误是我方造成的，我们承担责任。", "expected":["acknowledge+"], "forbidden":["deny_fault+"]},
+  {"text":"总公司不予提供现金赔偿。", "expected":["compensate-"], "forbidden":["compensate+"]},
+  {"text":"不能给您打折，不过退还运费没问题。", "expected":["discount-","compensate+"]},
+  {"text":"重寄？我们这会儿实在办不到。", "expected":["resend-"], "forbidden":["resend+"]},
+  {"text":"仓库说的是补寄，不是加急发货。我这就用专车先给您送。", "expected":["expedite+"]},
+  {"text":"请问这个订单几号下的？", "forbidden":["ask_order+"]},
+  {"text":"麻烦发一下订单编号和下单日期。", "expected":["ask_order+"]},
+  {"text":"今天隔壁办公室电脑坏了，我找同事过来修。", "forbidden":["cause+"]}
+]

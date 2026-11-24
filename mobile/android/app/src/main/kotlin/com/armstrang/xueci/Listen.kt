@@ -4,6 +4,10 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
+import android.media.AudioFormat
+import android.os.Build
+import android.os.ParcelFileDescriptor
+import java.io.File
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -29,7 +33,7 @@ import org.json.JSONObject
  * The recognizer plays its own "ding" at every start and stop, and it is restarted at every pause, so a long answer
  * rang many times. While listening the media volume is muted ([Quiet]) and given back a moment after the end.
  */
-class Listen(private val act: MainActivity, private val event: (String) -> Unit) {
+class Listen(private val act: Context, private val event: (String) -> Unit) {
     private var rec: SpeechRecognizer? = null
     private val main = Handler(Looper.getMainLooper())
     private var done: ((String?) -> Unit)? = null
@@ -40,16 +44,24 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
     private var serviceFound = false
 
     private val pieces = mutableListOf<String>() // the best guess of each finished piece
+    private val talkHypotheses = TalkHypotheses()
+    private var conversation = false
     private var lastAlts: List<String> = emptyList() // the other guesses of the last piece
     private var stopping = false
     private var startedAt = 0L
     private var heardAny = false
     private var limitMs = LIMIT_MS
+    private var session = 0L
     private var offline = true // ask for the phone's own language pack first
 
     private val quiet = Quiet(act.applicationContext)
+    private var recording: File? = null
+    private var source: ParcelFileDescriptor? = null
 
     fun available(): Boolean = SpeechRecognizer.isRecognitionAvailable(act)
+
+    fun canTranscribeRecording(): Boolean =
+        Build.VERSION.SDK_INT >= 33 && SpeechRecognizer.isOnDeviceRecognitionAvailable(act)
 
     /** at app start: give back the volume if the app was killed while it was muted */
     fun recover() = quiet.recover()
@@ -69,22 +81,27 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
         return list
     }
 
-    fun start(limit: Long = LIMIT_MS, done: (String?) -> Unit) {
+    fun start(limit: Long = LIMIT_MS, conversation: Boolean = false, audio: File? = null, done: (String?) -> Unit) {
         finish(null)
-        if (!available()) {
+        session++
+        if (audio == null && !available() || audio != null && !canTranscribeRecording()) {
+            audio?.delete()
             done("!")
             return
         }
         this.done = done
+        recording = audio
         pieces.clear()
+        talkHypotheses.reset()
+        this.conversation = conversation
         lastAlts = emptyList()
         stopping = false
         heardAny = false
         serviceFound = false
         startedAt = SystemClock.uptimeMillis()
-        limitMs = limit.coerceIn(3000L, MAX_MS)
+        limitMs = limit.coerceIn(3000L, if (conversation) TALK_MAX_MS else MAX_MS)
         offline = true
-        tries = services()
+        tries = if (audio != null) listOf(null) else services()
         quiet.on()
         main.postDelayed(this.limit, limitMs)
         nextService()
@@ -106,7 +123,16 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
 
     private val late = Runnable { finish(answer()) }
 
+    private fun schedule(delay: Long = 0, action: () -> Unit) {
+        val current = session
+        main.postDelayed({
+            if (done != null && session == current) action()
+        }, delay)
+    }
+
     fun end() = finish(null)
+
+    fun cancelRecordingTranscription() { if (recording != null) finish(null) }
 
     /** the recognizer before failed without hearing anything: the next one; none left = "!" */
     private fun nextService() {
@@ -130,9 +156,11 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
         destroy()
         val cn = service
         val r = try {
-            if (cn != null) SpeechRecognizer.createSpeechRecognizer(act, cn) else SpeechRecognizer.createSpeechRecognizer(act)
+            if (recording != null && Build.VERSION.SDK_INT >= 33) SpeechRecognizer.createOnDeviceSpeechRecognizer(act)
+            else if (cn != null) SpeechRecognizer.createSpeechRecognizer(act, cn)
+            else SpeechRecognizer.createSpeechRecognizer(act)
         } catch (_: Exception) {
-            main.post { nextService() }
+            schedule { nextService() }
             return
         }
         rec = r
@@ -153,6 +181,10 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
             override fun onError(error: Int) {
                 if (rec !== r) return
                 send("err", error)
+                if (recording != null) {
+                    finish(if (pieces.isEmpty()) "!" else answer())
+                    return
+                }
                 when (error) {
                     SpeechRecognizer.ERROR_INSUFFICIENT_PERMISSIONS -> finish("denied")
                     SpeechRecognizer.ERROR_NO_MATCH, SpeechRecognizer.ERROR_SPEECH_TIMEOUT -> restart()
@@ -160,24 +192,45 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
                         // no offline pack (or the recognizer won't work offline): the same one again, online allowed
                         offline && !heardAny && pieces.isEmpty() && error in OFFLINE_ERRORS -> {
                             offline = false
-                            main.postDelayed({ listen() }, 120)
+                            schedule(120) { listen() }
                         }
                         // this recognizer can't do it here (no Mandarin, busy, offline): the next one
-                        !serviceFound && !heardAny && pieces.isEmpty() -> main.post { nextService() }
+                        !serviceFound && !heardAny && pieces.isEmpty() -> schedule { nextService() }
                         else -> restart()
                     }
                 }
             }
 
-            override fun onResults(results: Bundle?) {
+            override fun onSegmentResults(segmentResults: Bundle) {
+                if (rec !== r || recording == null) return
+                recordSegment(segmentResults)
+            }
+
+            override fun onEndOfSegmentedSession() {
+                if (rec === r && recording != null) finish(answer())
+            }
+
+            private fun recordSegment(results: Bundle?) {
                 if (rec !== r) return
                 val heard = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) ?: arrayListOf()
                 val best = heard.firstOrNull()?.trim().orEmpty()
                 if (best.isNotEmpty()) {
                     pieces.add(best)
+                    if (conversation) talkHypotheses.add(heard)
                     lastAlts = heard.drop(1).map { it.trim() }.filter { it.isNotEmpty() }
                     send("partial", pieces.joinToString(""))
                 }
+            }
+
+            override fun onResults(results: Bundle?) {
+                if (rec !== r) return
+                // Captured audio requires a service that supports audio input. A live-mic
+                // result must never be credited as if it came from the saved take.
+                if (recording != null) {
+                    finish(if (pieces.isEmpty()) "!" else answer())
+                    return
+                }
+                recordSegment(results)
                 restart()
             }
 
@@ -203,9 +256,18 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
             putExtra(RecognizerIntent.EXTRA_SPEECH_INPUT_MINIMUM_LENGTH_MILLIS, 15000L)
         }
         try {
+            source?.close()
+            source = recording?.let { ParcelFileDescriptor.open(it, ParcelFileDescriptor.MODE_READ_ONLY) }
+            if (Build.VERSION.SDK_INT >= 33) source?.let {
+                i.putExtra(RecognizerIntent.EXTRA_AUDIO_SOURCE, it)
+                i.putExtra(RecognizerIntent.EXTRA_AUDIO_SOURCE_CHANNEL_COUNT, 1)
+                i.putExtra(RecognizerIntent.EXTRA_AUDIO_SOURCE_ENCODING, AudioFormat.ENCODING_PCM_16BIT)
+                i.putExtra(RecognizerIntent.EXTRA_AUDIO_SOURCE_SAMPLING_RATE, TalkRecording.RATE)
+                i.putExtra(RecognizerIntent.EXTRA_SEGMENTED_SESSION, RecognizerIntent.EXTRA_AUDIO_SOURCE)
+            }
             r.startListening(i)
         } catch (_: Exception) {
-            main.post { nextService() }
+            schedule { nextService() }
         }
     }
 
@@ -216,12 +278,13 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
             finish(answer())
             return
         }
-        main.postDelayed({ listen() }, 120)
+        schedule(120) { listen() }
     }
 
-    /** the joined best guesses first, then the same with the last piece's other guesses */
+    /** Complete hypotheses in rank order, with an expanded beam for conversation. */
     private fun answer(): String {
         if (pieces.isEmpty()) return "[]"
+        if (conversation) return JSONArray(talkHypotheses.answers()).toString()
         val head = pieces.dropLast(1).joinToString("")
         val all = mutableListOf(pieces.joinToString(""))
         for (a in lastAlts) all.add(head + a)
@@ -250,12 +313,17 @@ class Listen(private val act: MainActivity, private val event: (String) -> Unit)
         val d = done
         done = null
         destroy()
+        runCatching { source?.close() }
+        source = null
+        recording?.delete()
+        recording = null
         quiet.off(700) // the recognizer's last "ding" is played a moment after it is stopped
         d?.invoke(answer)
     }
 
     companion object {
         const val LIMIT_MS = 15000L
+        private const val TALK_MAX_MS = 30000L
         const val MAX_MS = 300000L // five minutes at most, whatever is asked
         // what a recognizer answers when it can't work offline here (language pack missing or not offered)
         private val OFFLINE_ERRORS = setOf(

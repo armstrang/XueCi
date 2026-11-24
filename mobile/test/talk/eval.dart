@@ -43,6 +43,7 @@ class Score {
   double get p => tp / max(1, tp + fp);
   double get r => tp / max(1, tp + fn);
   double get f1 => 2 * p * r / max(1e-9, p + r);
+  double? get falseAcceptance => advItems == 0 ? null : advFalse / advItems;
   String pc(double x) => '${(x * 100).toStringAsFixed(1)}%';
   String report(String name) {
     final b = StringBuffer();
@@ -50,7 +51,9 @@ class Score {
     b.writeln('presisi ${pc(p)}  perolehan ${pc(r)}  F1 ${pc(f1)}  (tp $tp fp $fp fn $fn, opsional $opt)');
     b.writeln('ucapan tepat seluruhnya ${pc(exact / max(1, items))}');
     b.writeln('negasi (bingkai -) tertangkap ${pc(negHit / max(1, negTot))} dari $negTot');
-    b.writeln('salah terima di ucapan sulit ${pc(advFalse / max(1, advItems))} dari $advItems');
+    final rate = falseAcceptance;
+    b.writeln(rate == null ? 'salah terima di ucapan sulit: tidak ada sampel' :
+        'salah terima di ucapan sulit ${pc(rate)} ($advFalse/$advItems)');
     b.writeln('slot pct ${pc(pctOk / max(1, pctN))} ($pctN)  when ${pc(whenOk2 / max(1, whenN))} ($whenN)  reason ${pc(reasonOk / max(1, reasonN))} ($reasonN)');
     b.writeln('zona konfirmasi $confirm bingkai; waktu ${(ms / max(1, items)).toStringAsFixed(2)} ms/ucapan');
     final acts = perAct.keys.toList()..sort();

@@ -24,7 +24,7 @@ if (!acorn) throw new Error('acorn missing: npm install --prefix mobile/tool aco
 
 const ROOT = path.join(__dirname, '..', '..');
 const OUT = process.argv[2] || path.join(__dirname, '..', 'build', 'gen');
-const FILES = ['base.js', 'id.js', 'en.js', 'th.js', 'vi.js'];
+const FILES = ['base.js', 'id.js', 'en.js', 'th.js', 'vi.js', 'bct_talk.js'];
 const SEAL = /\/\*<seal>\*\/([\s\S]*?)\/\*<\/seal>\*\//g;
 const LANGS = ['id', 'en', 'th', 'vi'];
 

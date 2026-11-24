@@ -42,7 +42,7 @@ const fxModes = ['auto', 'low', 'full'];
 // a saved 'exam' (the quick exam, removed) and 'u' (speaking, moved to the HSKK tab in v1.4) fall back to 'm'
 /// the practice question types of the Quiz. The HSK simulation is not one of them: it is started from the Tests tab
 /// ([App.mockMode]), so a saved 'mock' from an earlier version falls back to the default
-const qTypes = ['m', 'f', 's', 'l', 'c', 'p', 't'];
+const qTypes = ['m', 'f', 's', 'l', 'c', 't'];
 
 class App extends ChangeNotifier {
   final Store store;
@@ -501,10 +501,10 @@ class App extends ChangeNotifier {
 
   /// listens once inside the app: the recognizer's guesses (best first), [] when nothing was heard, null when
   /// listening isn't possible (no permission, no recognizer: the learner was told)
-  Future<List<String>?> listenRaw({void Function(Map ev)? onEvent, int limitMs = 15000}) async {
+  Future<List<String>?> listenRaw({void Function(Map ev)? onEvent, int limitMs = 15000, bool conversation = false}) async {
     Native.I.listenEv = onEvent;
     Native.I.bgmHush(true); // the microphone must not hear the music
-    var h = await Native.I.listenIn(limitMs: limitMs);
+    var h = await Native.I.listenIn(limitMs: limitMs, conversation: conversation);
     Native.I.listenEv = null;
     if (h != null && h.length == 1 && h.first == 'denied') {
       micOK = false;

@@ -1,0 +1,480 @@
+{"text": "我方决定把遗漏的货重新寄出。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会把遗漏的货重新寄出。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法把遗漏的货重新寄出。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定把遗漏的货重新寄出。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会把遗漏的货重新寄出。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法把遗漏的货重新寄出。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定把遗漏的货重新寄出。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会把遗漏的货重新寄出。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法把遗漏的货重新寄出。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定把遗漏的货重新寄出。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会把遗漏的货重新寄出。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法把遗漏的货重新寄出。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能把遗漏的货重新寄出，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑把遗漏的货重新寄出，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“把遗漏的货重新寄出”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能把遗漏的货重新寄出，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑把遗漏的货重新寄出，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“把遗漏的货重新寄出”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能把遗漏的货重新寄出，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑把遗漏的货重新寄出，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“把遗漏的货重新寄出”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能把遗漏的货重新寄出，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑把遗漏的货重新寄出，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“把遗漏的货重新寄出”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想把遗漏的货重新寄出，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否把遗漏的货重新寄出。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能把遗漏的货重新寄出，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想把遗漏的货重新寄出，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否把遗漏的货重新寄出。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能把遗漏的货重新寄出，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想把遗漏的货重新寄出，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否把遗漏的货重新寄出。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能把遗漏的货重新寄出，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想把遗漏的货重新寄出，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否把遗漏的货重新寄出。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能把遗漏的货重新寄出，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能把遗漏的货重新寄出。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能把遗漏的货重新寄出。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法把遗漏的货重新寄出。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能把遗漏的货重新寄出。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能把遗漏的货重新寄出。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法把遗漏的货重新寄出。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能把遗漏的货重新寄出。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能把遗漏的货重新寄出。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法把遗漏的货重新寄出。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能把遗漏的货重新寄出。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能把遗漏的货重新寄出。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法把遗漏的货重新寄出。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定再发一箱新的货。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会再发一箱新的货。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法再发一箱新的货。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定再发一箱新的货。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会再发一箱新的货。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法再发一箱新的货。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定再发一箱新的货。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会再发一箱新的货。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法再发一箱新的货。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定再发一箱新的货。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会再发一箱新的货。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法再发一箱新的货。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能再发一箱新的货，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑再发一箱新的货，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“再发一箱新的货”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能再发一箱新的货，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑再发一箱新的货，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“再发一箱新的货”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能再发一箱新的货，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑再发一箱新的货，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“再发一箱新的货”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能再发一箱新的货，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑再发一箱新的货，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“再发一箱新的货”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想再发一箱新的货，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否再发一箱新的货。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能再发一箱新的货，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想再发一箱新的货，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否再发一箱新的货。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能再发一箱新的货，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想再发一箱新的货，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否再发一箱新的货。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能再发一箱新的货，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想再发一箱新的货，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否再发一箱新的货。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能再发一箱新的货，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能再发一箱新的货。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能再发一箱新的货。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法再发一箱新的货。等我核实完会给您回电。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能再发一箱新的货。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能再发一箱新的货。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法再发一箱新的货。至于其他情况，我还在了解。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能再发一箱新的货。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能再发一箱新的货。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法再发一箱新的货。请问您手上的订单编号是多少？", "frames": [{"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能再发一箱新的货。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能再发一箱新的货。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法再发一箱新的货。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定给这票件走加急通道。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会给这票件走加急通道。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法给这票件走加急通道。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定给这票件走加急通道。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会给这票件走加急通道。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法给这票件走加急通道。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定给这票件走加急通道。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会给这票件走加急通道。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法给这票件走加急通道。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定给这票件走加急通道。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会给这票件走加急通道。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法给这票件走加急通道。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能给这票件走加急通道，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑给这票件走加急通道，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“给这票件走加急通道”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能给这票件走加急通道，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑给这票件走加急通道，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“给这票件走加急通道”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能给这票件走加急通道，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑给这票件走加急通道，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“给这票件走加急通道”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能给这票件走加急通道，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑给这票件走加急通道，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“给这票件走加急通道”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想给这票件走加急通道，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否给这票件走加急通道。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能给这票件走加急通道，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想给这票件走加急通道，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否给这票件走加急通道。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能给这票件走加急通道，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想给这票件走加急通道，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否给这票件走加急通道。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能给这票件走加急通道，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想给这票件走加急通道，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否给这票件走加急通道。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能给这票件走加急通道，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能给这票件走加急通道。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能给这票件走加急通道。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法给这票件走加急通道。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能给这票件走加急通道。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能给这票件走加急通道。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法给这票件走加急通道。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能给这票件走加急通道。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能给这票件走加急通道。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法给这票件走加急通道。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能给这票件走加急通道。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能给这票件走加急通道。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法给这票件走加急通道。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定用专车优先发。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会用专车优先发。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法用专车优先发。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定用专车优先发。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会用专车优先发。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法用专车优先发。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定用专车优先发。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会用专车优先发。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法用专车优先发。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定用专车优先发。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会用专车优先发。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法用专车优先发。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能用专车优先发，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑用专车优先发，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“用专车优先发”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能用专车优先发，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑用专车优先发，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“用专车优先发”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能用专车优先发，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑用专车优先发，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“用专车优先发”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能用专车优先发，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑用专车优先发，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“用专车优先发”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想用专车优先发，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否用专车优先发。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能用专车优先发，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想用专车优先发，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否用专车优先发。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能用专车优先发，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想用专车优先发，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否用专车优先发。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能用专车优先发，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想用专车优先发，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否用专车优先发。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能用专车优先发，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能用专车优先发。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能用专车优先发。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法用专车优先发。等我核实完会给您回电。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能用专车优先发。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能用专车优先发。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法用专车优先发。至于其他情况，我还在了解。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能用专车优先发。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能用专车优先发。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法用专车优先发。请问您手上的订单编号是多少？", "frames": [{"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能用专车优先发。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能用专车优先发。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法用专车优先发。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定给您的订单打七五折。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "+", "pct": 25}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会给您的订单打七五折。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "+", "pct": 25}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法给您的订单打七五折。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "+", "pct": 25}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定给您的订单打七五折。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "+", "pct": 25}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会给您的订单打七五折。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "+", "pct": 25}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法给您的订单打七五折。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "+", "pct": 25}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定给您的订单打七五折。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "+", "pct": 25}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会给您的订单打七五折。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "+", "pct": 25}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法给您的订单打七五折。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "+", "pct": 25}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定给您的订单打七五折。", "frames": [{"act": "discount", "pol": "+", "pct": 25}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会给您的订单打七五折。", "frames": [{"act": "discount", "pol": "+", "pct": 25}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法给您的订单打七五折。", "frames": [{"act": "discount", "pol": "+", "pct": 25}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能给您的订单打七五折，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑给您的订单打七五折，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“给您的订单打七五折”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能给您的订单打七五折，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑给您的订单打七五折，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“给您的订单打七五折”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能给您的订单打七五折，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑给您的订单打七五折，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“给您的订单打七五折”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能给您的订单打七五折，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑给您的订单打七五折，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“给您的订单打七五折”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想给您的订单打七五折，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否给您的订单打七五折。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能给您的订单打七五折，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想给您的订单打七五折，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否给您的订单打七五折。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能给您的订单打七五折，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想给您的订单打七五折，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否给您的订单打七五折。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能给您的订单打七五折，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想给您的订单打七五折，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否给您的订单打七五折。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能给您的订单打七五折，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能给您的订单打七五折。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "-", "pct": 25}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能给您的订单打七五折。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-", "pct": 25}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法给您的订单打七五折。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "-", "pct": 25}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能给您的订单打七五折。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "-", "pct": 25}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能给您的订单打七五折。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-", "pct": 25}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法给您的订单打七五折。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "-", "pct": 25}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能给您的订单打七五折。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "-", "pct": 25}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能给您的订单打七五折。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-", "pct": 25}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法给您的订单打七五折。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "-", "pct": 25}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能给您的订单打七五折。", "frames": [{"act": "discount", "pol": "-", "pct": 25}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能给您的订单打七五折。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-", "pct": 25}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法给您的订单打七五折。", "frames": [{"act": "discount", "pol": "-", "pct": 25}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定直接给贵司减百分之十二。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会直接给贵司减百分之十二。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法直接给贵司减百分之十二。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定直接给贵司减百分之十二。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会直接给贵司减百分之十二。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法直接给贵司减百分之十二。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定直接给贵司减百分之十二。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "+", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会直接给贵司减百分之十二。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "+", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法直接给贵司减百分之十二。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "+", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定直接给贵司减百分之十二。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会直接给贵司减百分之十二。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法直接给贵司减百分之十二。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能直接给贵司减百分之十二，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑直接给贵司减百分之十二，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“直接给贵司减百分之十二”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能直接给贵司减百分之十二，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑直接给贵司减百分之十二，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“直接给贵司减百分之十二”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能直接给贵司减百分之十二，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑直接给贵司减百分之十二，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“直接给贵司减百分之十二”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能直接给贵司减百分之十二，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑直接给贵司减百分之十二，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“直接给贵司减百分之十二”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想直接给贵司减百分之十二，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否直接给贵司减百分之十二。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能直接给贵司减百分之十二，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想直接给贵司减百分之十二，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否直接给贵司减百分之十二。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能直接给贵司减百分之十二，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想直接给贵司减百分之十二，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否直接给贵司减百分之十二。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能直接给贵司减百分之十二，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想直接给贵司减百分之十二，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否直接给贵司减百分之十二。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能直接给贵司减百分之十二，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能直接给贵司减百分之十二。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能直接给贵司减百分之十二。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-", "pct": 12}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法直接给贵司减百分之十二。等我核实完会给您回电。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能直接给贵司减百分之十二。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能直接给贵司减百分之十二。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-", "pct": 12}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法直接给贵司减百分之十二。至于其他情况，我还在了解。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能直接给贵司减百分之十二。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "-", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能直接给贵司减百分之十二。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法直接给贵司减百分之十二。请问您手上的订单编号是多少？", "frames": [{"act": "discount", "pol": "-", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能直接给贵司减百分之十二。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能直接给贵司减百分之十二。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "discount", "pol": "-", "pct": 12}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法直接给贵司减百分之十二。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定把多收的钱原路退回。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会把多收的钱原路退回。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法把多收的钱原路退回。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定把多收的钱原路退回。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会把多收的钱原路退回。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法把多收的钱原路退回。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定把多收的钱原路退回。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会把多收的钱原路退回。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法把多收的钱原路退回。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定把多收的钱原路退回。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会把多收的钱原路退回。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法把多收的钱原路退回。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能把多收的钱原路退回，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑把多收的钱原路退回，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“把多收的钱原路退回”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能把多收的钱原路退回，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑把多收的钱原路退回，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“把多收的钱原路退回”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能把多收的钱原路退回，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑把多收的钱原路退回，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“把多收的钱原路退回”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能把多收的钱原路退回，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑把多收的钱原路退回，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“把多收的钱原路退回”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想把多收的钱原路退回，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否把多收的钱原路退回。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能把多收的钱原路退回，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想把多收的钱原路退回，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否把多收的钱原路退回。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能把多收的钱原路退回，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想把多收的钱原路退回，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否把多收的钱原路退回。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能把多收的钱原路退回，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想把多收的钱原路退回，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否把多收的钱原路退回。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能把多收的钱原路退回，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能把多收的钱原路退回。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能把多收的钱原路退回。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法把多收的钱原路退回。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能把多收的钱原路退回。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能把多收的钱原路退回。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法把多收的钱原路退回。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能把多收的钱原路退回。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能把多收的钱原路退回。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法把多收的钱原路退回。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能把多收的钱原路退回。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能把多收的钱原路退回。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法把多收的钱原路退回。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定由我们报销这笔额外运费。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会由我们报销这笔额外运费。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法由我们报销这笔额外运费。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定由我们报销这笔额外运费。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会由我们报销这笔额外运费。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法由我们报销这笔额外运费。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定由我们报销这笔额外运费。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会由我们报销这笔额外运费。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法由我们报销这笔额外运费。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定由我们报销这笔额外运费。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会由我们报销这笔额外运费。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法由我们报销这笔额外运费。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能由我们报销这笔额外运费，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑由我们报销这笔额外运费，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“由我们报销这笔额外运费”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能由我们报销这笔额外运费，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑由我们报销这笔额外运费，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“由我们报销这笔额外运费”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能由我们报销这笔额外运费，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑由我们报销这笔额外运费，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“由我们报销这笔额外运费”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能由我们报销这笔额外运费，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑由我们报销这笔额外运费，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“由我们报销这笔额外运费”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想由我们报销这笔额外运费，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否由我们报销这笔额外运费。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能由我们报销这笔额外运费，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想由我们报销这笔额外运费，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否由我们报销这笔额外运费。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能由我们报销这笔额外运费，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想由我们报销这笔额外运费，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否由我们报销这笔额外运费。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能由我们报销这笔额外运费，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想由我们报销这笔额外运费，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否由我们报销这笔额外运费。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能由我们报销这笔额外运费，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能由我们报销这笔额外运费。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能由我们报销这笔额外运费。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法由我们报销这笔额外运费。等我核实完会给您回电。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能由我们报销这笔额外运费。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能由我们报销这笔额外运费。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法由我们报销这笔额外运费。至于其他情况，我还在了解。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能由我们报销这笔额外运费。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能由我们报销这笔额外运费。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法由我们报销这笔额外运费。请问您手上的订单编号是多少？", "frames": [{"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能由我们报销这笔额外运费。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能由我们报销这笔额外运费。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法由我们报销这笔额外运费。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定周五中午前把这批货交到贵司。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会周五中午前把这批货交到贵司。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法周五中午前把这批货交到贵司。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定周五中午前把这批货交到贵司。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会周五中午前把这批货交到贵司。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法周五中午前把这批货交到贵司。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定周五中午前把这批货交到贵司。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会周五中午前把这批货交到贵司。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法周五中午前把这批货交到贵司。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定周五中午前把这批货交到贵司。", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会周五中午前把这批货交到贵司。", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法周五中午前把这批货交到贵司。", "frames": [{"act": "promise_time", "pol": "+", "when": "friday"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能周五中午前把这批货交到贵司，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑周五中午前把这批货交到贵司，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“周五中午前把这批货交到贵司”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能周五中午前把这批货交到贵司，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑周五中午前把这批货交到贵司，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“周五中午前把这批货交到贵司”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能周五中午前把这批货交到贵司，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑周五中午前把这批货交到贵司，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“周五中午前把这批货交到贵司”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能周五中午前把这批货交到贵司，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑周五中午前把这批货交到贵司，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“周五中午前把这批货交到贵司”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想周五中午前把这批货交到贵司，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否周五中午前把这批货交到贵司。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能周五中午前把这批货交到贵司，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想周五中午前把这批货交到贵司，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否周五中午前把这批货交到贵司。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能周五中午前把这批货交到贵司，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想周五中午前把这批货交到贵司，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否周五中午前把这批货交到贵司。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能周五中午前把这批货交到贵司，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想周五中午前把这批货交到贵司，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否周五中午前把这批货交到贵司。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能周五中午前把这批货交到贵司，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能周五中午前把这批货交到贵司。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能周五中午前把这批货交到贵司。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法周五中午前把这批货交到贵司。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能周五中午前把这批货交到贵司。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能周五中午前把这批货交到贵司。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法周五中午前把这批货交到贵司。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能周五中午前把这批货交到贵司。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "-", "when": "friday"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能周五中午前把这批货交到贵司。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "friday"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法周五中午前把这批货交到贵司。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "-", "when": "friday"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能周五中午前把这批货交到贵司。", "frames": [{"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能周五中午前把这批货交到贵司。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法周五中午前把这批货交到贵司。", "frames": [{"act": "promise_time", "pol": "-", "when": "friday"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定在三天内把原来的箱子送到。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会在三天内把原来的箱子送到。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法在三天内把原来的箱子送到。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定在三天内把原来的箱子送到。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会在三天内把原来的箱子送到。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法在三天内把原来的箱子送到。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定在三天内把原来的箱子送到。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会在三天内把原来的箱子送到。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法在三天内把原来的箱子送到。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我方决定在三天内把原来的箱子送到。", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们做完核对了，这次会在三天内把原来的箱子送到。", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们这边已经定了，就按这个办法在三天内把原来的箱子送到。", "frames": [{"act": "promise_time", "pol": "+", "when": "3_days"}], "tags": ["confirmed"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能在三天内把原来的箱子送到，我还没回应。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑在三天内把原来的箱子送到，还没报批。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“在三天内把原来的箱子送到”。我还没确认。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能在三天内把原来的箱子送到，我还没回应。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑在三天内把原来的箱子送到，还没报批。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“在三天内把原来的箱子送到”。我还没确认。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能在三天内把原来的箱子送到，我还没回应。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑在三天内把原来的箱子送到，还没报批。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“在三天内把原来的箱子送到”。我还没确认。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "买家问能不能在三天内把原来的箱子送到，我还没回应。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "同事的意见是考虑在三天内把原来的箱子送到，还没报批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我转述一下，经理刚才说“在三天内把原来的箱子送到”。我还没确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想在三天内把原来的箱子送到，需要走审批。我先核实。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否在三天内把原来的箱子送到。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能在三天内把原来的箱子送到，我还在等回复。等我核实完会给您回电。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想在三天内把原来的箱子送到，需要走审批。我先核实。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否在三天内把原来的箱子送到。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能在三天内把原来的箱子送到，我还在等回复。至于其他情况，我还在了解。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想在三天内把原来的箱子送到，需要走审批。我先核实。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否在三天内把原来的箱子送到。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能在三天内把原来的箱子送到，我还在等回复。请问您手上的订单编号是多少？", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "想在三天内把原来的箱子送到，需要走审批。我先核实。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "现在讨论的是能否在三天内把原来的箱子送到。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "是否能在三天内把原来的箱子送到，我还在等回复。", "frames": [{"act": "none", "pol": "+"}], "tags": ["pending"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能在三天内把原来的箱子送到。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能在三天内把原来的箱子送到。等我核实完会给您回电。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法在三天内把原来的箱子送到。等我核实完会给您回电。", "frames": [{"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能在三天内把原来的箱子送到。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能在三天内把原来的箱子送到。至于其他情况，我还在了解。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法在三天内把原来的箱子送到。至于其他情况，我还在了解。", "frames": [{"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能在三天内把原来的箱子送到。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "-", "when": "3_days"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能在三天内把原来的箱子送到。请问您手上的订单编号是多少？", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "3_days"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法在三天内把原来的箱子送到。请问您手上的订单编号是多少？", "frames": [{"act": "promise_time", "pol": "-", "when": "3_days"}, {"act": "ask_order", "pol": "+"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "我们不可能在三天内把原来的箱子送到。", "frames": [{"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "抱歉，我们不能在三天内把原来的箱子送到。", "frames": [{"act": "apologize", "pol": "+"}, {"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}
+{"text": "本次明确无法在三天内把原来的箱子送到。", "frames": [{"act": "promise_time", "pol": "-", "when": "3_days"}], "tags": ["declined"], "set": "scope_v10_train", "source": "composed_contrast"}

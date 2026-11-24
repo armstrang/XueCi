@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import '../app/app.dart';
 import '../data/bct.dart';
 import 'glass.dart';
+import 'icons.dart';
 import 'sheet.dart';
 import 'word_ui.dart' show Spk;
 import 'theme.dart';
@@ -38,33 +39,14 @@ class _WordsState extends State<_Words> {
     final p = th.p;
     final t = app.t;
     final all = app.lm.bct?.wordsOf(widget.book) ?? const <BctW>[];
-    final topics = <String>[];
-    for (final w in all) {
-      if (w.s.isNotEmpty && !topics.contains(w.s)) topics.add(w.s);
-    }
+    final topics = {for (final w in all) if (w.s.isNotEmpty) w.s}.toList()..sort();
     final query = q.text.trim().toLowerCase();
     final shown = [
       for (final w in all)
-        if (query.isEmpty
-            ? (topic.isEmpty || w.s == topic)
-            : (w.h.contains(query) || w.p.toLowerCase().contains(query) || _m(w).toLowerCase().contains(query)))
-          w,
+        if ((topic.isEmpty || w.s == topic) &&
+            (query.isEmpty || w.h.contains(query) || w.p.toLowerCase().contains(query) || _m(w).toLowerCase().contains(query))) w,
     ];
     final cap = shown.length > 120 ? 120 : shown.length;
-    Widget chip(String label, bool on, VoidCallback f) => Press(
-      onTap: f,
-      scale: .96,
-      label: label,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-        decoration: BoxDecoration(
-          color: on ? th.acc.withValues(alpha: .16) : p.sunk,
-          borderRadius: BorderRadius.circular(999),
-          border: Border.all(color: on ? th.acc : p.gEdge),
-        ),
-        child: Text(label, style: F.s(13, w: FontWeight.w700, c: on ? th.acc : p.soft)),
-      ),
-    );
     return SheetBody(
       titleW: Text('${t.exBctW} · BCT ${widget.book.toUpperCase()}', style: F.s(19, w: FontWeight.w800, c: p.fg, h: 1.25)),
       children: [
@@ -89,14 +71,22 @@ class _WordsState extends State<_Words> {
           ),
         ),
         const SizedBox(height: 10),
-        Wrap(
-          spacing: 8,
-          runSpacing: 8,
-          children: [
-            chip(t.bwAll, topic.isEmpty, () => setState(() => topic = '')),
-            for (final s in topics) chip(s, topic == s, () => setState(() => topic = s)),
-          ],
-        ),
+        if (topics.isNotEmpty)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14),
+            decoration: BoxDecoration(color: p.sunk, borderRadius: BorderRadius.circular(16), border: Border.all(color: p.gEdge)),
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                isExpanded: true, value: topic, dropdownColor: p.bg, style: F.s(14, w: FontWeight.w700, c: p.fg),
+                icon: RotatedBox(quarterTurns: 1, child: Icon2(I.chev, size: 16, color: p.soft, width: 2)),
+                onChanged: (value) { if (value != null) setState(() => topic = value); },
+                items: [
+                  DropdownMenuItem(value: '', child: Text(t.bwAll)),
+                  for (final name in topics) DropdownMenuItem(value: name, child: Text(name, overflow: TextOverflow.ellipsis)),
+                ],
+              ),
+            ),
+          ),
         Padding(
           padding: const EdgeInsets.fromLTRB(2, 12, 2, 6),
           child: Text(t.bwCount(app.fmt(shown.length)), style: F.s(12.5, c: p.mute)),

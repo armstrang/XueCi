@@ -47,6 +47,20 @@ Berkas tambahan yang perlu dipulihkan adalah `mobile/tool/make_talk_evidence_cor
 - Tahap rilis mencakup pemulihan kandidat, commit dan push sumber ke GitHub, lalu build APK dan AAB bertanda tangan. Artefak untuk GitHub dan Play Console harus berasal dari commit rilis yang sama.
 - Patch dan bobot 7,5% masih belum ditemukan. Checkout berisi perubahan lokal sampai v11. Verifikasi kembali kandidat sebelum membuat APK atau AAB rilis agar versi yang dipilih pengguna dapat dipastikan.
 
+## Rekaman dan rincian skor Bicara BCT
+
+Paket gabungan sebelumnya dipulihkan di checkout terpisah berbasis `cd2616b`. Kontrol audio menampilkan gelombang dan timeline, putar/jeda, rekam ulang, serta kirim. Setelah memilih level, satu skenario tetap ditarik dari 10 skenario A atau 10 skenario B. Perekam berhenti saat tap kedua atau 30 detik. Pada Android yang mendukung input audio ke pengenal luring, jawaban baru diproses saat dikirim. Jika pengenal gagal membaca rekaman, pengguna dapat beralih ke Bicara langsung. HSKK memakai jalur lama. Rekaman sementara dihapus setelah pemrosesan sukses, rekam ulang, atau keluar. Laporan memberi skor /10 untuk ungkapan yang memiliki aturan evaluasi berdasarkan transkrip, bukan pengukuran pelafalan untuk setiap kata.
+
+Berkas baru `mobile/android/app/src/main/kotlin/com/armstrang/xueci/TalkRecording.kt`. Perubahan terpusat di `MainActivity.kt`, `Listen.kt`, `mobile/lib/app/native.dart`, `mobile/lib/ui/talk.dart`, `mobile/lib/app/talk/coach.dart`, tes coach dan layar Bicara, serta `docs/privacy/index.html`. Analyzer, 234 tes terarah, enam tes layar terpilih, dan kompilasi Kotlin dengan dependensi Android/Flutter lulus. APK belum dibuat. Uji perangkat untuk izin mikrofon, bunyi, playback, seek, pengiriman rekaman, dan fallback masih menunggu. GitHub masih tertahan oleh penolakan unggahan dua berkas inti dari paket awal. Bobot aktif tidak diganti. Target F1 97% dan salah terima di bawah 3% tetap ditunda. Terapkan patch gabungan ini pada `cd2616b` dan tunggu otorisasi sebelum build atau rilis.
+
+## Paket gabungan BCT
+
+Paket ini mempertahankan tampilan Claude dan memuat perbaikan splash, navbar Bicara, pemilih BCT A/B dengan 10 skenario per tingkat, batas rekam 30 detik, filter kosakata, statistik, tombol beranda dan kartu, serta kuis ala HSK dengan Arti, Recall pilihan Hanzi, Dengar, Tone, dan Sentence. Opsi Ketik Pinyin di HSK dihapus. Durasi ujian HSKK tetap memakai jalur lama. Generator teks memuat teks konfirmasi transkrip dari berkas publik tersendiri.
+
+Berkas inti: `mobile/lib/ui/{shell,splash,talk,bct_study,bct_words,bct_stats,run_view}.dart`, `mobile/lib/app/talk/{dialog,practice,coach}.dart`, `mobile/lib/app/app.dart`, dan `mobile/android/app/src/main/kotlin/com/armstrang/xueci/Listen.kt`. Analyzer bersih, 232 tes Flutter terarah lulus, dan Kotlin pengenal suara berhasil dikompilasi. Kontrol timeline, penyimpanan sementara audio, pemutaran ulang, kirim, dan penilaian angka per kosakata belum selesai. Uji bunyi mikrofon pada perangkat belum dilakukan.
+
+Model aktif tetap memakai bobot lama. Target F1 97% dan salah terima di bawah 3% ditunda sesuai arahan. Kandidat 7,5% masih belum dipulihkan. Commit ini memakai `[skip ci]` karena pengguna meminta push dan instruksi build tetap terpisah. Jangan menyatakan APK atau rilis tersedia sebelum verifikasi.
+
 ## Langkah berikutnya
 
 1. Baca `CLAUDE.md`, periksa HEAD dan file lokal, dan pulihkan artefak jika salinannya ditemukan. Jangan mengulang pelatihan sebelum memastikan eksperimen terdahulu tersedia.

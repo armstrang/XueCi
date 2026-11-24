@@ -132,3 +132,90 @@ Belum diuji: ucapan hasil pengenal suara sungguhan.
 | berat, aturan saja | 68,3 | | |
 
 Kelemahan: negasi dan slot waktu paling rentan. Ini tebakan saya tentang jenis kesalahan; hanya rekaman asli yang membuktikan.
+
+## Iterasi v7 (24 November 2026)
+
+Interpretasi membedakan waktu keluar gudang, waktu tiba, waktu paling awal, batas akhir, dan janji yang hanya dikutip. Untuk jendela tanggal, tenggat diuji terhadap ujung paling akhir. Hari kerja dalam skenario melewati Sabtu dan Minggu. Revisi serta pengiriman susulan diproses tanpa mengganti komitmen yang masih berlaku pada bagian mendesak. Pada skenario barang salah, kutipan dari gudang hanya memberi informasi, dan pernyataan tentang kemampuan mengganti memerlukan tindak lanjut yang tegas untuk dihitung sebagai solusi.
+
+Model mendampingi aturan per klausa. Janji dari pengklasifikasi disaring ketika kalimat menjelaskan penolakan, pertanyaan, pengiriman, atau jadwal administratif. Penyangkalan waktu tiba yang eksplisit dibedakan dari komitmen. Diskon dan kompensasi dipisah, termasuk perbaikan arti `五五折` menjadi potongan 45%.
+
+| Tolok ukur | v6 | v7 |
+|---|---:|---:|
+| F1 `blind4_all` (510 transkrip) | 88,7% | **90,2%** |
+| F1 simulasi derau ringan | 86,3% | 87,1% |
+| F1 simulasi derau berat | 84,3% | 84,5% |
+| F1 `blind_final` setelah menyisihkan 1 tumpang tindih persis dari 507 transkrip | 83,5% | 83,6% |
+| Salah terima pada 152 ucapan sulit di `blind4_all` | 19,1% | 15,1% |
+| Keputusan benar pada 32 kasus regresi dialog baru | 16 | 32 |
+
+Angka transkrip memakai `STRICT=1`. Korpus lama sudah dikenal dari iterasi sebelumnya. Kasus dialog sengaja menargetkan kegagalan pemrosesan waktu dan status barang. F1 90,2% berlaku pada satu tolok ukur teks. Target 9/10 untuk keseluruhan pengalaman Bicara BCT masih memerlukan pengukuran baru dengan rekaman nyata, penutur berbeda, dan penilai manusia.
+
+Dua kandidat dilatih ulang dari 13.571 ucapan sumber bersih dengan 6.343 dan 4.831 varian homofon sintetis. Varian mewarisi partisi ucapan sumber saat prediksi di luar lipatan dan sampel evaluasi persis dikeluarkan. Model v7 yang dipilih memakai bobot ronde 4. Dalam evaluasi `blind4_all` dengan aturan v7, kandidat ringkas memperoleh F1 89,1% dan salah terima 18,4%. Kandidat kedua memperoleh F1 89,5% dan salah terima 19,7%.
+
+## Iterasi v8 (24 November 2026)
+
+Skenario tagihan salah menambahkan latihan selisih pembayaran dan penerbitan faktur. Klien mengecek pengembalian 200 yuan dan faktur yang benar (1.000 yuan) sebagai dua komitmen independen. Pengguna dapat menyelesaikan keduanya dalam satu ucapan atau beberapa giliran. Klien bisa menjawab pertanyaan tentang nominal serta nomor faktur, meminta nominal yang tepat, dan menerima pelunasan eksplisit yang dicicil. Angka desimal, satuan 毛/分, dan bentuk lisan seperti 两百五 diproses sebagai jumlah uang. Ucapan yang dikutip, transaksi yang menunggu persetujuan, keterangan dokumen, diskon, voucher, dan mata uang berbeda tidak menyelesaikan janji pengembalian.
+
+Korpus bertambah 599 teks terlabel hasil penyusunan keluarga contoh. Variasi mencakup pengembalian sebenarnya, usulan dan laporan pihak ketiga, penolakan kompensasi, sapaan dengan nomor pesanan, serta diskon yang terpisah dari pengembalian. Kandidat memakai 14.168 teks sumber setelah pengecualian evaluasi, ditambah 4.217 varian homofon sintetis, total 18.385 contoh. Fixture skenario dikecualikan saat membangkitkan korpus. Pengujian skenario memakai 41 kasus sintetis terarah. Angka ini tidak mewakili pengujian pada penutur baru.
+
+| Tolok ukur | Bobot aktif | Kandidat v8 |
+|---|---:|---:|
+| F1 transkrip `blind4_all` | 90,2% | 90,1% |
+| Salah terima pada 152 ucapan sulit | 15,1% | 17,1% |
+| F1 simulasi derau ringan | 87,1% | 87,0% |
+| F1 simulasi derau berat | 84,5% | 84,0% |
+
+Bobot ronde 4 masih aktif. Model kandidat dilatih kembali, tetapi hasil uji tidak mendukung mengganti bobot bawaan. Perlu uji suara nyata pada versi Android dan contoh dari penutur independen untuk menilai cakupan pengetahuan bahasa di luar keluarga yang sudah diuji.
+
+## Iterasi v9 (24 November 2026)
+
+Pemrosesan klausa bisnis menangani peralihan penutur, perubahan topik tagihan, dan revisi penawaran ketika pengenal suara tidak menuliskan tanda baca. Parser yang sama digunakan untuk jadwal, pengganti barang, faktur, pengembalian, potongan harga, dan biaya lain. Diskon terbaru menggantikan diskon lama, sedangkan pengembalian dan tanggungan ongkos diproses sebagai kewajiban tersendiri. Syarat pembayaran diproses di bagian tagihan yang relevan. Tawaran bersyarat untuk kasus pengiriman tetap mengikuti aturan NLU sebelumnya.
+
+Generator per klausa menyusun 1.272 ucapan tambahan dari blok positif dan negatif untuk penyebab, kedatangan, pengiriman, ungkapan sosial, diskon, dan kompensasi. Setiap blok membawa label dan slotnya. Generator mengubah urutan dan tanda baca untuk menguji kombinasi. Dataset kandidat setelah deduplikasi dan pengecualian evaluasi berisi 15.440 teks sumber dan 5.562 varian homofon, total 21.002 contoh. Ini data sintetis dengan keluarga blok berulang.
+
+| Tolok ukur | v8/bobot aktif | v9/kandidat |
+|---|---:|---:|
+| Keputusan dialog pada 27 kasus sintetis terarah | 15/27 (v8) | 27/27 (v9 dengan bobot aktif) |
+| F1 `blind4_all` | 90,2% | 90,1% |
+| Salah terima pada 152 ucapan sulit `blind4_all` | 15,1% | 17,1% |
+| F1 derau simulasi berat | 84,5% | 84,1% |
+| F1 `blind_final` tanpa satu duplikat latih persis | 83,6% | 83,4% |
+
+Kandidat berukuran 3.745.691 byte. Bobot yang aktif dipertahankan karena hasil lintas korpus dan derau lebih baik. Kasus keputusan dialog disusun untuk iterasi ini. Setelah normalisasi, 27 teks tersebut tidak cocok persis dengan hasil generator baru. Tidak ada putaran uji buta baru atau pengukuran dari mikrofon Android.
+
+## Iterasi v10 (24 November 2026)
+
+Mesin memisahkan rencana bersyarat dari komitmen yang sudah berlaku. Ketika syarat menyangkut stok, izin atasan, atau persetujuan pihak ketiga, klien menunggu keputusan yang tegas. Koreksi penjual dapat memperbarui tanggal, nominal, atau persentase tanpa membawa kutipan lama. Permintaan konfirmasi dan tindak lanjut ke kurir tidak dianggap penjelasan penyebab. Negasi tentang diskon atau pengiriman tidak otomatis mengubah permintaan maaf yang muncul kemudian dalam transkrip tanpa tanda baca.
+
+Ditambahkan 480 contoh sintetis berpasangan. Dua kandidat memakai 15.919 dan 16.413 contoh sumber yang lolos pengecualian, ditambah masing-masing 8.161 dan 7.088 variasi homofon. Keduanya belajar fitur hubungan antara penanda lingkup dan n-gram pada klausa yang sama. Kandidat kedua juga memakai korpus validasi historis `blind_val` sebagai sumber tambahan. Korpus evaluasi keputusan dan korpus pembanding lama tidak dijadikan sumber label untuk kedua hasil akhir. Kalibrasi gabungan dua model juga diuji terpisah dan menurunkan hasil lintas korpus.
+
+| Ukuran | v9 | v10 dengan bobot aktif | Kandidat 3,61 MB | Kandidat 4,64 MB |
+|---|---:|---:|---:|---:|
+| F1 `blind4_all`, 510 transkrip | 90,2% | 90,6% | 90,5% | 90,2% |
+| F1 simulasi derau ringan | 87,1% | 88,8% | 88,3% | 88,6% |
+| F1 simulasi derau berat | 84,5% | 86,0% | 85,4% | 85,8% |
+| Salah terima, 152 ucapan sulit `blind4_all` | 15,1% | 13,2% | 14,5% | 15,1% |
+| F1 `blind_final` tanpa satu duplikat latih persis | 83,6% | 83,4% | 83,0% | 84,1% |
+| Keputusan pada 18 kasus sintetis terarah | 12/18 | 18/18 | — | — |
+
+Bobot yang aktif dipertahankan karena hasil bersih, derau, dan kesalahan pada ucapan sulit lebih andal. Kenaikan pada pengujian keputusan hanya terukur untuk kasus yang dibuat pada iterasi ini. Tolok ukur utama masih di bawah 95%; opsi `target=.95` membuat evaluator gagal bila F1 kurang dari target. Uji suara pengguna dengan Android dan penilaian oleh penutur independen belum tersedia.
+
+## Iterasi v11 (24 November 2026)
+
+Sesudah pemahaman awal, mesin mengecek apakah pembicara sendiri mengonfirmasi tindakan. Tawaran yang masih meminta persetujuan, ucapan pihak ketiga, pengandaian, contoh kalimat, dan penolakan tidak diperlakukan sebagai janji. Jika konteks menolaknya secara jelas, mesin mempertahankan tindakan negatif seperti menolak kirim ulang. Pemeriksaan konfirmasi tawaran juga dipakai parser kompensasi agar dialog tidak memberi kredit ulang pada tawaran yang belum disepakati.
+
+| Ukuran | v10 | v11 |
+|---|---:|---:|
+| F1 `blind4_all`, 510 transkrip | 90,6% | 92,8% |
+| Salah terima sulit pada transkrip bersih | 13,2% | 0,7% (1/152) |
+| F1 simulasi derau ringan | 88,8% | 90,8% |
+| Salah terima sulit pada simulasi derau ringan | 14,5% | 3,3% (5/152) |
+| F1 simulasi derau berat | 86,0% | 88,8% |
+| Salah terima sulit pada simulasi derau berat | 16,4% | 2,0% (3/152) |
+| F1 korpus lama lain, 506 transkrip | 83,4% | 83,7% |
+| Salah terima sulit pada korpus lama lain | 21,4% | 16,9% (34/201) |
+| Kasus regresi tuturan terarah | 14/20 | 20/20 |
+
+Ketiga set yang berasal dari corpus utama lulus batas salah terima di bawah 5%. Ketiganya dan korpus pembanding masih gagal pada F1 minimal 95%. Versi derau berasal dari teks utama yang sama. Angka tersebut belum menunjukkan kinerja pada penutur baru atau suara Android sungguhan. `target=.95 false-max=.05` memakai rasio asli tanpa pembulatan dan mengecek kedua sasaran secara terpisah.
+
+Ditambahkan 300 contoh sintetis berlabel untuk membedakan kutipan, pertanyaan, opsi belum dipilih, keputusan, dan penolakan. Kandidat 4,32 MB dilatih pada 16.713 teks sumber dan 7.752 variasi homofon. Pada bobot kandidat, F1 bersih 92,3%, derau ringan 90,5%, dan derau berat 88,2%. Salah terima bersih 3,9%, ringan 5,3%, dan berat 5,9%. Korpus pembanding naik ke F1 84,3% dan salah terima 14,4%. Bobot aktif yang lama dipertahankan karena hasil utama dan simulasi lebih andal. Percobaan menurunkan ambang pengakuan juga masih di bawah target dan menambah salah terima pada korpus pembanding.

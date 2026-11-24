@@ -105,8 +105,9 @@ class Native {
 
   /// listening inside the app (no window): the heard texts; [] nothing heard; ['!'] no recognizer; ['denied'] no
   /// microphone permission; null stopped or failed. Asks for the microphone the first time.
-  Future<List<String>?> listenIn({int limitMs = 15000}) async {
-    final s = await _call<String>('listenStart', limitMs);
+  Future<List<String>?> listenIn({int limitMs = 15000, bool conversation = false}) async {
+    final args = conversation ? {'limitMs': limitMs, 'conversation': true} : limitMs;
+    final s = await _call<String>('listenStart', args);
     if (s == null) return null;
     if (s == '!' || s == 'denied') return [s];
     try {
@@ -114,6 +115,29 @@ class Native {
     } catch (_) {
       return null;
     }
+  }
+
+  @visibleForTesting
+  static Future<Object?> Function(String method, Object? argument)? talkAudioTest;
+
+  Future<T?> _talkCall<T>(String method, [Object? argument]) async {
+    final mock = talkAudioTest;
+    return mock == null ? _call<T>(method, argument) : await mock(method, argument) as T?;
+  }
+
+  Future<bool> talkAudioSupported() async => await _talkCall<bool>('talkAudioSupported') ?? false;
+  Future<Map<Object?, Object?>?> talkRecord() => _talkCall<Map<Object?, Object?>>('talkRecord');
+  Future<void> talkRecordStop() => _talkCall('talkRecordStop');
+  Future<bool> talkAudioPlay() async => await _talkCall<bool>('talkAudioPlay') ?? false;
+  Future<void> talkAudioPause() => _talkCall('talkAudioPause');
+  Future<void> talkAudioSeek(int ms) => _talkCall('talkAudioSeek', ms);
+  Future<int> talkAudioPosition() async => await _talkCall<int>('talkAudioPosition') ?? 0;
+  Future<void> talkAudioClear() => _talkCall('talkAudioClear');
+
+  Future<List<String>?> talkAudioSend() async {
+    final result = await _talkCall<String>('talkAudioSend');
+    if (result == null || result == '!') return null;
+    return [for (final text in json.decode(result) as List) '$text'];
   }
 
   Future<void> listenStop() => _call('listenStop');

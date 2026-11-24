@@ -9,8 +9,11 @@ stored as int8. Needs numpy, scipy, scikit-learn (training only; the app only re
   python3 mobile/tool/make_talk_model.py --train content/talk/corpus/train/*.jsonl --hold 0.1 [--out PATH] [--oof PATH]
 
 --hold: share of the training lines (by hash) kept out to measure and to fit the blend of rules and model.
---oof:  writes out-of-fold probabilities (5 folds) for every training line, for fitting the blend."""
+--oof: writes out-of-fold probabilities (5 folds) for every training line, for fitting the blend.
+--asr-augment: adds synthetic homophone variants to each source's training fold.
+--exclude: removes exact normalized matches to evaluation texts, including from augmentation."""
 import sys, os, re, json, glob, hashlib, argparse, collections
+import random
 import numpy as np
 from scipy import sparse
 from sklearn.linear_model import LogisticRegression
@@ -27,6 +30,11 @@ def load_fold():
 
 FOLD = load_fold()
 KEEP = re.compile(r'[^一-鿿0-9]')
+HOMOPHONES = collections.defaultdict(list)
+for char, sound in sorted(FOLD.items()):
+    HOMOPHONES[sound].append(char)
+# Keep short words that decide who spoke, polarity or numeric commitments.
+ASR_ANCHORS = set('不没无未非不能会要可是否别我你您他她它们一二两三四五六七八九十零百半折日月年')
 
 
 def clean(t):
@@ -46,6 +54,27 @@ def feats(text):
         for i in range(len(sf) - n + 1):
             out.add('~' + sf[i:i + n])
     return out
+
+
+_scope = re.compile(r'不是不|不会不|不能不|不可能|没有|并非|并无|没法|无法|不能|不会|不再|不确定|会不会|能不能|能否|可不可以|是否|想|考虑|如果|假如|要是|确认|决定|保证|承诺|说|问')
+_clause_delimiters = re.compile(r'[，。！？；：,.!?;:、…\s]+|但是|不过|而是|然而|否则|然后|另外')
+
+
+def scope_feats(text):
+    result = set()
+    for clause in _clause_delimiters.split(text):
+        for m in _scope.finditer(clause):
+            before = clean(clause[:m.start()])[-3:]
+            after = clean(clause[m.end():])[:14]
+            for start in range(len(after) - 1):
+                for length in (2, 3):
+                    window = after[start:start + length]
+                    if len(window) == length:
+                        distance = 0 if start < 4 else 1
+                        result.add(f'!{m[0]}{distance}{window}')
+            if before:
+                result.add(f'!{before}>{m[0]}')
+    return result
 
 
 def label_of(fr):
@@ -69,6 +98,20 @@ def hash_hold(text, share):
     return int(hashlib.sha256(text.encode()).hexdigest(), 16) % 1000 < share * 1000
 
 
+def asr_variant(text, rate):
+    """Generate a repeatable training variant from the training text's sound fold."""
+    rng = random.Random(text)
+    result = []
+    for char in text:
+        if char not in ASR_ANCHORS and rng.random() < rate:
+            sound = FOLD.get(char, char)
+            choices = [c for c in HOMOPHONES[sound] if c != char and c not in ASR_ANCHORS]
+            if choices:
+                char = rng.choice(choices)
+        result.append(char)
+    return ''.join(result)
+
+
 def f1(tp, fp, fn):
     p = tp / (tp + fp) if tp + fp else 0
     r = tp / (tp + fn) if tp + fn else 0
@@ -84,15 +127,26 @@ def main():
     ap.add_argument('--prune', type=float, default=0.12)
     ap.add_argument('--out', default=os.path.join(root, 'mobile/assets/data/talk_model.json'))
     ap.add_argument('--oof')
+    ap.add_argument('--asr-augment', type=float, default=0,
+                    help='character substitution rate for one extra variant per training text')
+    ap.add_argument('--exclude', nargs='+', default=[], help='corpora reserved for evaluation')
+    ap.add_argument('--scope-features', action='store_true', help='learn clause-local relations to modal verbs and negation')
     ap.add_argument('--full', action='store_true', help='train on everything (no hold-out) for the shipped model')
     a = ap.parse_args()
+
+    def features(text):
+        base = feats(text)
+        if a.scope_features:
+            base.update(scope_feats(text))
+        return base
 
     files = []
     for p in a.train: files += glob.glob(p)
     rows = read(files)
+    reserved = {clean(t) for t, _ in read(a.exclude)}
     seen = set(); uniq = []
     for t, l in rows:
-        if t in seen: continue
+        if t in seen or clean(t) in reserved: continue
         seen.add(t); uniq.append((t, l))
     rows = uniq
     hold = [r for r in rows if not a.full and hash_hold(r[0], a.hold)]
@@ -105,7 +159,7 @@ def main():
     L = {l: i for i, l in enumerate(labels)}
 
     df = collections.Counter()
-    tf = [feats(t) for t, _ in train]
+    tf = [features(t) for t, _ in train]
     for f in tf: df.update(f)
     vocab = sorted(g for g, c in df.items() if c >= a.min_df)
     V = {g: i for i, g in enumerate(vocab)}
@@ -129,11 +183,31 @@ def main():
         for l in ls:
             if l in L: Y[r, L[l]] = 1
 
-    def fit(X, Y):
-        W = np.zeros((len(labels), X.shape[1]), dtype=np.float32); B = np.zeros(len(labels), dtype=np.float32)
+    augmented_rows = []
+    augmented_features = []
+    if a.asr_augment:
+        used = reserved | {clean(t) for t, _ in rows}
+        for i, (text, _) in enumerate(train):
+            variant = asr_variant(text, a.asr_augment)
+            key = clean(variant)
+            if key in used:
+                continue
+            used.add(key)
+            augmented_rows.append(i)
+            augmented_features.append(features(variant))
+        print('ASR variants', len(augmented_rows))
+    source = np.array(augmented_rows, dtype=int)
+    X_aug = norm(mat(augmented_features))
+
+    def fit(indices):
+        variants = np.flatnonzero(np.isin(source, indices))
+        x = sparse.vstack((X[indices], X_aug[variants]), format='csr')
+        y = np.vstack((Y[indices], Y[source[variants]]))
+        weight = np.concatenate((np.ones(len(indices)), np.full(len(variants), .6)))
+        W = np.zeros((len(labels), x.shape[1]), dtype=np.float32); B = np.zeros(len(labels), dtype=np.float32)
         for k in range(len(labels)):
             m = LogisticRegression(C=a.C, solver='liblinear', max_iter=200, class_weight=None)
-            m.fit(X, Y[:, k]); W[k] = m.coef_[0]; B[k] = m.intercept_[0]
+            m.fit(x, y[:, k], sample_weight=weight); W[k] = m.coef_[0]; B[k] = m.intercept_[0]
         return W, B
 
     def prob(W, B, X):
@@ -141,18 +215,19 @@ def main():
 
     if a.oof:
         P = np.zeros(Y.shape, dtype=np.float32)
-        idx = np.arange(len(train)); rng = np.random.RandomState(1); rng.shuffle(idx)
-        folds = np.array_split(idx, 5)
+        groups = np.array([int(hashlib.sha256(clean(t).encode()).hexdigest(), 16) % 5 for t, _ in train])
+        idx = np.arange(len(train))
+        folds = [idx[groups == fold] for fold in range(5)]
         for fi, te in enumerate(folds):
             tr = np.setdiff1d(idx, te)
-            W, B = fit(X[tr], Y[tr]); P[te] = prob(W, B, X[te])
+            W, B = fit(tr); P[te] = prob(W, B, X[te])
             print('fold', fi, 'done')
         with open(a.oof, 'w', encoding='utf8') as fh:
             for r, (t, ls) in enumerate(train):
                 fh.write(json.dumps({'text': t, 'p': {labels[k]: round(float(P[r, k]), 4) for k in range(len(labels))}}, ensure_ascii=False) + '\n')
         print('oof written', a.oof)
 
-    W, B = fit(X, Y)
+    W, B = fit(np.arange(len(train)))
     # prune and quantize
     scale = np.maximum(np.abs(W).max(axis=1), 1e-6) / 127
     Q = np.round(W / scale[:, None]).astype(np.int8)
@@ -162,7 +237,7 @@ def main():
     Wq = Q.astype(np.float32) * scale[:, None]
 
     if hold:
-        Xh = norm(mat([feats(t) for t, _ in hold]))
+        Xh = norm(mat([features(t) for t, _ in hold]))
         Ph = prob(Wq, B, Xh)
         print('hold-out (utterance-level presence, threshold .5):')
         tot = [0, 0, 0]
@@ -183,6 +258,8 @@ def main():
             entries.setdefault(vocab[j], []).append([k, int(Q[k, j])])
     out = {'v': 1, 'labels': labels, 'bias': [round(float(b), 4) for b in B], 'scale': [round(float(s), 6) for s in scale],
            'w': entries}
+    if a.scope_features:
+        out['scope'] = True
     os.makedirs(os.path.dirname(a.out), exist_ok=True)
     with open(a.out, 'w', encoding='utf8') as fh:
         json.dump(out, fh, ensure_ascii=False, separators=(',', ':'))

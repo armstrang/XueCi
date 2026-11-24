@@ -12,6 +12,10 @@ void main() {
   List<String> said(String t) => nlu.said([t]).map((f) => f.key).toList();
 
   group('cases', () {
+    test('a denial about price does not cancel an apology in an unpunctuated transcript', () {
+      expect(said('我们不给您打折真的很抱歉'), containsAll(['apologize+', 'discount-']));
+      expect(said('我们并不觉得抱歉'), isNot(contains('apologize+')));
+    });
     test('several acts in one voice note', () {
       expect(said('对不起，货物在路上耽误了，我们马上重新发货。'), ['apologize+', 'cause+', 'resend+']);
     });
@@ -51,6 +55,8 @@ void main() {
       expect(f.firstWhere((x) => x.act == 'promise_time').when, 'friday');
       expect(TalkNlu.readPct('优惠百分之二十'), 20);
       expect(TalkNlu.readPct('打对折'), 50);
+      expect(TalkNlu.readPct('打五五折'), 45);
+      expect(TalkNlu.readPct('打5.5折'), 45);
       expect(TalkNlu.readWhen('三个工作日内送到'), '3_days');
       expect(TalkNlu.repair('给您打久折'), '给您打九折');
       expect(TalkNlu.repair('对不其'), '对不起');

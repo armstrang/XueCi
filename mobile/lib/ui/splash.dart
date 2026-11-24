@@ -17,6 +17,7 @@ bool splashOn = true;
 
 /// the splash clock in seconds; [splashDone] once it is over (Home then draws as always)
 final splashT = ValueNotifier<double>(splashDone);
+final splashPlaying = ValueNotifier<bool>(false);
 const splashDone = 99.0;
 const _end = 1.76;
 

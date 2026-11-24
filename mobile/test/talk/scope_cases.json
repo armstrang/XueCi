@@ -1,0 +1,20 @@
+[
+  {"text":"我们不能周四送到但周六会送到", "arrival":4},
+  {"text":"明早没法送到不过周五能送上门", "arrival":3},
+  {"text":"我们不会在周三收到货但我保证礼拜五送上门", "arrival":3},
+  {"text":"周四肯定赶不上我已经确认周五下午送到", "arrival":3},
+  {"text":"周四能送到如果海关放行", "arrival":null},
+  {"text":"如果银行确认了我们就礼拜四送到", "arrival":null},
+  {"text":"周四才发货之前说周三到的安排取消了", "arrival":null,"dispatch":2},
+  {"text":"给贵司打八折这只是提案现在还没答应", "discount":null},
+  {"text":"这次我给您打九折同时会承担额外运费", "discount":10,"compensation":true},
+  {"text":"这次我们出运费但是不能打九折", "discount":null,"compensation":true},
+  {"text":"对方问是不是打八折我已经确认这次只给九五折", "discount":5,"compensation":false},
+  {"text":"我司退回两百元可是这得先经过主管审批", "case":"billing","refund":null,"invoice":false},
+  {"text":"财务提过能退三百元我刚核实最后退的是两百块并且我给您重开一千元的发票", "case":"billing","refund":20000,"invoice":true},
+  {"text":"如果仓库还有蓝色款就给您换成蓝色款，周四能送到", "case":"replacement","replacement":false,"arrival":null},
+  {"text":"我会给您发蓝色款，得先查库存", "case":"replacement","replacement":false,"arrival":null},
+  {"text":"不是不能补蓝色只是还没决定能不能给您换", "case":"replacement","replacement":false,"arrival":null},
+  {"text":"麻烦给我运单号，以便我们去向快递公司核实。", "reason":false},
+  {"text":"这批货因为在中转站滞留才晚了，请把运单号给我，以便我们向快递公司核实。", "reason":true}
+]

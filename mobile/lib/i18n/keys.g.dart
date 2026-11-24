@@ -771,6 +771,7 @@ mixin L10Keys {
   String get talkAgain => s('talkAgain');
   String talkAsk(Object? a0) => f('talkAsk', [a0]);
   String get talkBtn => s('talkBtn');
+  String get talkChooseSpeech => s('talkChooseSpeech');
   String get talkDone => s('talkDone');
   String get talkEndFair => s('talkEndFair');
   String get talkEndGood => s('talkEndGood');
@@ -785,6 +786,7 @@ mixin L10Keys {
   String get talkNoHear => s('talkNoHear');
   String get talkNoMic => s('talkNoMic');
   String get talkNote => s('talkNote');
+  String get talkRetrySpeech => s('talkRetrySpeech');
   String talkScore(Object? a0) => f('talkScore', [a0]);
   String get talkSit => s('talkSit');
   String get talkSpeak => s('talkSpeak');

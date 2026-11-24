@@ -56,9 +56,12 @@ class MainActivity : FlutterActivity() {
     private val bgm: Bgm by lazy { Bgm(applicationContext) }
     private var listenResult: MethodChannel.Result? = null
     private var micResult: MethodChannel.Result? = null
+    private var talkMicResult: MethodChannel.Result? = null
+    private val talkRecording by lazy { TalkRecording(applicationContext) }
     /** a word the word widget asked to open ("<level>:<hanzi>"), until the app takes it */
     private var widgetWord: String? = null
     private var listenLimit = Listen.LIMIT_MS
+    private var listenConversation = false
     private val listener: Listen by lazy { Listen(this) { ev -> main.post { channel.invokeMethod("listenEv", ev) } } }
 
     /** Google Play Billing, connected the first time the donation sheet asks */
@@ -145,14 +148,36 @@ class MainActivity : FlutterActivity() {
                 "canListen" -> result.success(canListen() || listener.available())
                 "micGranted" -> result.success(micGranted())
                 "listenStart" -> {
-                    listenLimit = (call.arguments as? Number)?.toLong() ?: Listen.LIMIT_MS
+                    val args = call.arguments as? Map<*, *>
+                    listenLimit = ((args?.get("limitMs") ?: call.arguments) as? Number)?.toLong() ?: Listen.LIMIT_MS
+                    listenConversation = args?.get("conversation") == true
                     if (micGranted()) {
-                        listener.start(listenLimit) { main.post { result.success(it) } }
+                        listener.start(listenLimit, listenConversation) { main.post { result.success(it) } }
                     } else {
                         micResult?.success("denied")
                         micResult = result
                         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), REQ_MIC)
                     }
+                }
+                "talkAudioSupported" -> result.success(listener.canTranscribeRecording())
+                "talkRecord" -> {
+                    if (micGranted()) recordTalk(result)
+                    else if (talkMicResult == null) {
+                        talkMicResult = result
+                        ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.RECORD_AUDIO), REQ_TALK_MIC)
+                    } else result.success(null)
+                }
+                "talkRecordStop" -> { talkRecording.stop(); result.success(null) }
+                "talkAudioPlay" -> result.success(talkRecording.play())
+                "talkAudioPause" -> { talkRecording.pause(); result.success(null) }
+                "talkAudioSeek" -> { talkRecording.seek((call.arguments as? Number)?.toInt() ?: 0); result.success(null) }
+                "talkAudioPosition" -> result.success(talkRecording.position())
+                "talkAudioClear" -> { clearTalkAudio(); result.success(null) }
+                "talkAudioSend" -> {
+                    talkRecording.pause()
+                    val audio = runCatching { talkRecording.raw() }.getOrNull()
+                    if (audio == null) result.success(null)
+                    else listener.start(30_000, conversation = true, audio = audio) { result.success(it) }
                 }
                 "listenStop" -> { listener.stop(); result.success(null) }
                 "openAppSettings" -> {
@@ -169,6 +194,22 @@ class MainActivity : FlutterActivity() {
     }
 
     // ---------------------------------------------------------------- speaking practice
+    private fun recordTalk(result: MethodChannel.Result) {
+        tts?.stop()
+        bgm.hush(true)
+        talkRecording.start {
+            bgm.hush(false)
+            result.success(it)
+        }
+    }
+
+    private fun clearTalkAudio() {
+        talkMicResult?.success(null)
+        talkMicResult = null
+        talkRecording.clear()
+        listener.cancelRecordingTranscription()
+    }
+
     private fun recognizeIntent(prompt: String) = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH).apply {
         putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
         putExtra(RecognizerIntent.EXTRA_LANGUAGE, "zh-CN")
@@ -350,10 +391,15 @@ class MainActivity : FlutterActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == NOTIF_REQUEST) notifResult(notificationsAllowed())
+        if (requestCode == REQ_TALK_MIC) {
+            val pending = talkMicResult ?: return
+            talkMicResult = null
+            if (micGranted()) recordTalk(pending) else pending.success(null)
+        }
         if (requestCode == REQ_MIC) {
             val r = micResult ?: return
             micResult = null
-            if (micGranted()) listener.start(listenLimit) { main.post { r.success(it) } } else r.success("denied")
+            if (micGranted()) listener.start(listenLimit, listenConversation) { main.post { r.success(it) } } else r.success("denied")
         }
     }
 
@@ -430,7 +476,13 @@ class MainActivity : FlutterActivity() {
         super.onPause()
     }
 
+    override fun onStop() {
+        clearTalkAudio()
+        super.onStop()
+    }
+
     override fun onDestroy() {
+        clearTalkAudio()
         listener.release()
         tts?.stop()
         tts?.shutdown()
@@ -446,6 +498,7 @@ class MainActivity : FlutterActivity() {
     companion object {
         private const val REQ_LISTEN = 7301
         private const val REQ_MIC = 7302
+        private const val REQ_TALK_MIC = 7303
         private const val NOTIF_REQUEST = 7
     }
 }

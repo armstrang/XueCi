@@ -14,9 +14,14 @@ import 'focus.dart';
 import 'glass.dart';
 import 'home.dart' show HomeHeader;
 import 'icons.dart';
+import 'run_view.dart' show OptBtn, qtIcon;
+import 'splash.dart';
 import 'theme.dart';
 import 'widgets.dart';
 import 'word_ui.dart';
+
+@visibleForTesting
+int? bctStudySeed;
 
 /// the HSK | BCT switch at the top of Home and of the BCT screen
 class StudyPick extends StatelessWidget {
@@ -37,19 +42,32 @@ class StudyPick extends StatelessWidget {
           color: on ? th.acc.withValues(alpha: .2) : Colors.transparent,
           borderRadius: BorderRadius.circular(999),
         ),
-        child: Text(label, style: F.s(13.5, w: FontWeight.w800, c: p.fg)),
+        child: Text(
+          label,
+          style: F.s(13.5, w: FontWeight.w800, c: p.fg),
+        ),
       ),
     );
-    return Glass(
-      frost: true,
-      radius: 999,
-      padding: const EdgeInsets.all(3),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          seg('HSK', !bct, () => app.setStudy('hsk')),
-          seg('BCT', bct, () => app.setStudy('bct')),
-        ],
+    return ValueListenableBuilder<bool>(
+      valueListenable: splashPlaying,
+      builder: (_, playing, child) => Visibility(
+        visible: !playing,
+        maintainSize: true,
+        maintainAnimation: true,
+        maintainState: true,
+        child: child!,
+      ),
+      child: Glass(
+        frost: true,
+        radius: 999,
+        padding: const EdgeInsets.all(3),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            seg('HSK', !bct, () => app.setStudy('hsk')),
+            seg('BCT', bct, () => app.setStudy('bct')),
+          ],
+        ),
       ),
     );
   }
@@ -61,13 +79,15 @@ class BctStudyScreen extends StatefulWidget {
   State<BctStudyScreen> createState() => _BctStudyState();
 }
 
+enum _QuizKind { meaning, recall, listen, tone, sentence }
+
 class _Q {
   final BctW w;
-  final bool toMeaning; // word → meaning, else meaning → word
-  final List<BctW> opts;
+  final _QuizKind kind;
+  final List<String> opts;
   final int ans;
   int? pick;
-  _Q(this.w, this.toMeaning, this.opts, this.ans);
+  _Q(this.w, this.kind, this.opts, this.ans);
 }
 
 class _BctStudyState extends State<BctStudyScreen> {
@@ -77,7 +97,8 @@ class _BctStudyState extends State<BctStudyScreen> {
   bool flipped = false;
   List<_Q> qs = [];
   String kind = 'cards';
-  final _rnd = math.Random();
+  _QuizKind? _quizKind;
+  final _rnd = math.Random(bctStudySeed);
 
   @override
   void initState() {
@@ -89,7 +110,9 @@ class _BctStudyState extends State<BctStudyScreen> {
       app.note['bctr'] = r;
       app.saveNote();
       if (seen is num && r > seen) {
-        WidgetsBinding.instance.addPostFrameCallback((_) => app.toast(app.t.brUp(rankMeaning(r)), 3200));
+        WidgetsBinding.instance.addPostFrameCallback(
+          (_) => app.toast(app.t.brUp(rankMeaning(r)), 3200),
+        );
       }
     }
   }
@@ -115,7 +138,10 @@ class _BctStudyState extends State<BctStudyScreen> {
   /// 12 words: the ones that have faded most first, then new ones
   List<BctW> _pick(int n) {
     final all = [..._words]..shuffle(_rnd);
-    final seen = all.where((w) => app.bprog.seen(_id(w))).toList()..sort((a, b) => app.bprog.recall(_id(a)).compareTo(app.bprog.recall(_id(b))));
+    final seen = all.where((w) => app.bprog.seen(_id(w))).toList()
+      ..sort(
+        (a, b) => app.bprog.recall(_id(a)).compareTo(app.bprog.recall(_id(b))),
+      );
     final fresh = all.where((w) => !app.bprog.seen(_id(w))).toList();
     final due = seen.where((w) => app.bprog.due(_id(w))).toList();
     final out = <BctW>[...due.take(n)];
@@ -139,21 +165,168 @@ class _BctStudyState extends State<BctStudyScreen> {
     setState(() => mode = deck.isEmpty ? 'home' : 'cards');
   }
 
+  List<String> _toneChoices(String pinyin) {
+    for (var i = 0; i < pinyin.length; i++) {
+      for (final row in const [
+        'āáǎà',
+        'ēéěè',
+        'īíǐì',
+        'ōóǒò',
+        'ūúǔù',
+        'ǖǘǚǜ',
+        'ĀÁǍÀ',
+        'ĒÉĚÈ',
+        'ĪÍǏÌ',
+        'ŌÓǑÒ',
+        'ŪÚǓÙ',
+        'ǕǗǙǛ',
+      ]) {
+        if (row.contains(pinyin[i])) {
+          return [
+            for (final mark in row.split(''))
+              pinyin.replaceRange(i, i + 1, mark),
+          ];
+        }
+      }
+    }
+    return const [];
+  }
+
+  bool _supports(BctW word, _QuizKind kind) => switch (kind) {
+    _QuizKind.tone => _toneChoices(word.p).isNotEmpty,
+    _QuizKind.sentence => word.z?.contains(word.h) ?? false,
+    _QuizKind.meaning => _m(word).isNotEmpty,
+    _ => true,
+  };
+
+  List<_QuizKind> get _available => [
+    _QuizKind.meaning,
+    _QuizKind.recall,
+    if (app.canSpeak()) _QuizKind.listen,
+    if (_words.any((word) => _supports(word, _QuizKind.tone))) _QuizKind.tone,
+    if (_words.any((word) => _supports(word, _QuizKind.sentence)))
+      _QuizKind.sentence,
+  ];
+
   void _startQuiz() {
-    final ws = _pick(10);
-    final pool = _words;
+    final available = _available;
+    final selected = _quizKind;
+    final modes = selected != null && available.contains(selected)
+        ? [selected]
+        : available;
+    final preferred = _pick(10);
+    final pool = [..._words]..shuffle(_rnd);
+    final remaining = [
+      ...preferred,
+      ...pool.where((word) => !preferred.contains(word)),
+    ];
+    final planned = List.generate(
+      preferred.length,
+      (index) => modes[index % modes.length],
+    )..shuffle(_rnd);
     qs = [];
-    for (final w in ws) {
-      final toM = _rnd.nextBool();
-      final others = [...pool.where((x) => x.h != w.h && _m(x) != _m(w))]..shuffle(_rnd);
-      final opts = [w, ...others.take(3)]..shuffle(_rnd);
-      qs.add(_Q(w, toM, opts, opts.indexOf(w)));
+    for (final kind in planned) {
+      final index = remaining.indexWhere((word) => _supports(word, kind));
+      if (index == -1) continue;
+      final word = remaining.removeAt(index);
+      final meaning = kind == _QuizKind.meaning;
+      final answer = kind == _QuizKind.tone
+          ? word.p
+          : meaning
+          ? _m(word)
+          : word.h;
+      final choices = kind == _QuizKind.tone
+          ? _toneChoices(word.p)
+          : [
+              answer,
+              ...pool
+                  .map((other) => meaning ? _m(other) : other.h)
+                  .where((value) => value.isNotEmpty && value != answer)
+                  .toSet()
+                  .take(3),
+            ];
+      choices.shuffle(_rnd);
+      qs.add(_Q(word, kind, choices, choices.indexOf(answer)));
     }
     i = 0;
     right = 0;
     kind = 'quiz';
     setState(() => mode = qs.isEmpty ? 'home' : 'quiz');
   }
+
+  String _label(_QuizKind? kind) => switch (kind) {
+    null => switch (app.lang) {
+      'id' => 'Campuran',
+      'th' => 'รวม',
+      'vi' => 'Hỗn hợp',
+      _ => 'Mixed',
+    },
+    _QuizKind.meaning => app.t.tMean,
+    _QuizKind.recall => app.t.tHz,
+    _QuizKind.listen => app.t.tListen,
+    _QuizKind.tone => app.t.tTone,
+    _QuizKind.sentence => app.t.tCloze,
+  };
+
+  String _icon(_QuizKind? kind) => switch (kind) {
+    _QuizKind.recall => 'f',
+    _QuizKind.listen => 'l',
+    _QuizKind.tone => 's',
+    _QuizKind.sentence => 'c',
+    _ => 'm',
+  };
+
+  Widget _quizPicker(Th th) => Press(
+    label: '${app.t.qTypeL}: ${_label(_quizKind)}',
+    onTap: () async {
+      app.menuOpen = true;
+      app.changed();
+      try {
+        final result = await openMenu<(_QuizKind?,)>(
+          context,
+          (menu) => SingleChildScrollView(
+            child: Column(
+              children: [
+                for (final type in [null, ..._available])
+                  Press(
+                    label: _label(type),
+                    selected: type == _quizKind,
+                    onTap: () => Navigator.pop(menu, (type,)),
+                    child: ListTile(
+                      title: Text(_label(type), style: F.s(14, c: th.p.fg)),
+                      leading: qtIcon(_icon(type), th.p.fg),
+                      trailing: type == _quizKind
+                          ? Icon2(I.check, size: 18, color: th.acc)
+                          : null,
+                    ),
+                  ),
+              ],
+            ),
+          ),
+        );
+        if (mounted && result != null && result.$1 != _quizKind) {
+          _quizKind = result.$1;
+          _startQuiz();
+        }
+      } finally {
+        app.menuOpen = false;
+        app.changed();
+      }
+    },
+    child: Glass(
+      radius: 22,
+      width: 58,
+      height: 44,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          qtIcon(_icon(_quizKind), th.p.fg),
+          const SizedBox(width: 2),
+          Icon2(I.chev, size: 12, color: th.p.mute),
+        ],
+      ),
+    ),
+  );
 
   void _cardAnswer(bool ok) {
     app.bprog.answer(_id(deck[i]), ok);
@@ -192,41 +365,64 @@ class _BctStudyState extends State<BctStudyScreen> {
     final t = app.t;
     app.backHook = _back;
     final bottom = MediaQuery.paddingOf(context).bottom + 98;
-    Widget body = switch (mode) {
-      'cards' => _cards(th),
-      'quiz' => _quiz(th),
-      'done' => _done(th),
-      _ => _home(th),
-    };
-    return SingleChildScrollView(
-      padding: EdgeInsets.fromLTRB(16, MediaQuery.paddingOf(context).top + 10, 16, bottom),
-      child: Center(
-        child: ConstrainedBox(
-          constraints: const BoxConstraints(maxWidth: 640),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              if (mode == 'home') ...[
-                const HomeHeader(short: false),
-                const SizedBox(height: 16),
-                Semantics(
-                  header: true,
-                  child: Text(t.bsTitle, style: F.s(28, w: FontWeight.w800, c: p.fg, ls: -.5)),
-                ),
-              ]
-              else
-                Capsule(title: t.bsBook(app.bctBook.toUpperCase()), onBack: () => setState(() => mode = 'home')),
-              const SizedBox(height: 14),
-              body,
-            ],
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final top = MediaQuery.paddingOf(context).top + 10;
+        final available = math.max(
+          0.0,
+          constraints.maxHeight - top - bottom - 96,
+        );
+        Widget body = switch (mode) {
+          'cards' => _cards(th, available),
+          'quiz' => _quiz(th),
+          'done' => _done(th),
+          _ => _home(th, available),
+        };
+        return SingleChildScrollView(
+          padding: EdgeInsets.fromLTRB(
+            16,
+            MediaQuery.paddingOf(context).top + 10,
+            16,
+            bottom,
           ),
-        ),
-      ),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 640),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  if (mode == 'home') ...[
+                    const HomeHeader(short: false),
+                    const SizedBox(height: 16),
+                    Rise(
+                      1,
+                      child: Semantics(
+                        header: true,
+                        child: Text(
+                          t.bsTitle,
+                          style: F.s(28, w: FontWeight.w800, c: p.fg, ls: -.5),
+                        ),
+                      ),
+                    ),
+                  ] else
+                    Capsule(
+                      title: t.bsBook(app.bctBook.toUpperCase()),
+                      lead: [if (mode == 'quiz') _quizPicker(th)],
+                      onBack: () => setState(() => mode = 'home'),
+                    ),
+                  const SizedBox(height: 14),
+                  if (mode == 'home') Rise(2, child: body) else body,
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 
   // ------------------------------------------------------------ home
-  Widget _home(Th th) {
+  Widget _home(Th th, double available) {
     final p = th.p;
     final t = app.t;
     final ws = _words;
@@ -245,7 +441,10 @@ class _BctStudyState extends State<BctStudyScreen> {
             padding: const EdgeInsets.symmetric(vertical: 12),
             child: Column(
               children: [
-                Text(t.bsBook(b.toUpperCase()), style: F.s(17, w: FontWeight.w800, c: on ? th.acc : p.fg)),
+                Text(
+                  t.bsBook(b.toUpperCase()),
+                  style: F.s(17, w: FontWeight.w800, c: on ? th.acc : p.fg),
+                ),
                 Text(t.bwCount(app.fmt(n)), style: F.s(12.5, c: p.soft)),
               ],
             ),
@@ -268,7 +467,14 @@ class _BctStudyState extends State<BctStudyScreen> {
               children: [
                 icon,
                 const SizedBox(height: 4),
-                FittedBox(fit: BoxFit.scaleDown, child: Text(label, maxLines: 1, style: F.s(13, w: FontWeight.w800, c: p.fg))),
+                FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    label,
+                    maxLines: 1,
+                    style: F.s(13, w: FontWeight.w800, c: p.fg),
+                  ),
+                ),
               ],
             ),
           ),
@@ -276,49 +482,75 @@ class _BctStudyState extends State<BctStudyScreen> {
       ),
     );
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(t.bsSub, style: F.s(14, c: p.soft, h: 1.4)),
-        const SizedBox(height: 14),
-        Row(children: [book('a'), const SizedBox(width: 10), book('b')]),
-        const SizedBox(height: 14),
-        const BctRankCard(),
-        const SizedBox(height: 14),
-        Row(
-          children: [
-            tile(t.list, Icon2(I.list, size: 22, color: th.acc, width: 1.9), () => openBctWords(context, app.bctBook)),
-            const SizedBox(width: 10),
-            tile(t.card, Icon2(I.cards, size: 22, color: th.acc, width: 1.9), _startCards),
-            const SizedBox(width: 10),
-            tile(t.quiz, Icon2(I.quiz, size: 22, color: th.acc, width: 1.9), _startQuiz),
-            const SizedBox(width: 10),
-            tile(
-              t.gram,
-              MediaQuery.withNoTextScaling(
-                child: Text('语', locale: const Locale('zh', 'CN'), style: F.s(21, w: FontWeight.w800, c: th.acc, family: F.zh, h: 1.05)),
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: available),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(t.bsSub, style: F.s(14, c: p.soft, h: 1.4)),
+              const SizedBox(height: 14),
+              Row(children: [book('a'), const SizedBox(width: 10), book('b')]),
+              const SizedBox(height: 14),
+              const BctRankCard(),
+              const SizedBox(height: 14),
+            ],
+          ),
+          Column(
+            children: [
+              Row(
+                children: [
+                  tile(
+                    t.list,
+                    Icon2(I.list, size: 22, color: th.acc, width: 1.9),
+                    () => openBctWords(context, app.bctBook),
+                  ),
+                  const SizedBox(width: 10),
+                  tile(
+                    t.card,
+                    Icon2(I.cards, size: 22, color: th.acc, width: 1.9),
+                    _startCards,
+                  ),
+                ],
               ),
-              () {
-                app.gramBook = 'bct';
-                app.go('grammar');
-              },
-            ),
-          ],
-        ),
-        const SizedBox(height: 14),
-        GhostBtn(
-          t.bsExam,
-          wide: true,
-          onTap: () {
-            app.mockMode = true;
-            app.mockPick = 'bct';
-            app.mockSec = null;
-            app.go('quiz');
-          },
-        ),
-        const SizedBox(height: 10),
-        GhostBtn(t.talkBtn, wide: true, lead: Icon2(I.mic, size: 18, color: th.acc, width: 1.9), onTap: () => app.go('talk')),
-      ],
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  tile(
+                    t.quiz,
+                    Icon2(I.quiz, size: 22, color: th.acc, width: 1.9),
+                    _startQuiz,
+                  ),
+                  const SizedBox(width: 10),
+                  tile(
+                    t.gram,
+                    MediaQuery.withNoTextScaling(
+                      child: Text(
+                        '语',
+                        locale: const Locale('zh', 'CN'),
+                        style: F.s(
+                          21,
+                          w: FontWeight.w800,
+                          c: th.acc,
+                          family: F.zh,
+                          h: 1.05,
+                        ),
+                      ),
+                    ),
+                    () {
+                      app.gramBook = 'bct';
+                      app.go('grammar');
+                    },
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -330,61 +562,109 @@ class _BctStudyState extends State<BctStudyScreen> {
         Expanded(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(99),
-            child: LinearProgressIndicator(value: total == 0 ? 0 : n / total, minHeight: 6, backgroundColor: th.p.sunk, valueColor: AlwaysStoppedAnimation(th.acc)),
+            child: LinearProgressIndicator(
+              value: total == 0 ? 0 : n / total,
+              minHeight: 6,
+              backgroundColor: th.p.sunk,
+              valueColor: AlwaysStoppedAnimation(th.acc),
+            ),
           ),
         ),
         const SizedBox(width: 10),
-        Text('${n + 1}/$total', style: F.s(13, w: FontWeight.w700, c: th.p.soft, feat: F.tab)),
+        Text(
+          '${n + 1}/$total',
+          style: F.s(13, w: FontWeight.w700, c: th.p.soft, feat: F.tab),
+        ),
       ],
     ),
   );
 
-  Widget _cards(Th th) {
+  Widget _cards(Th th, double available) {
     final p = th.p;
     final t = app.t;
     final w = deck[i];
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        _count(th, i, deck.length),
-        Press(
-          onTap: () => setState(() => flipped = !flipped),
-          label: flipped ? _m(w) : '${w.h}. ${t.bsFlip}',
-          child: Glass(
-            solid: true,
-            radius: 30,
-            padding: const EdgeInsets.fromLTRB(20, 34, 20, 30),
-            child: Column(
-              children: [
-                Text(w.h, textAlign: TextAlign.center, style: F.s(w.h.length > 4 ? 40 : 54, family: F.hz, w: FontWeight.w700, c: p.fg, h: 1.15)),
-                const SizedBox(height: 6),
-                Text(w.p, style: F.s(18, c: p.soft)),
-                const SizedBox(height: 10),
-                Spk(w.h, size: 40),
-                const SizedBox(height: 18),
-                if (flipped) ...[
-                  Text(_m(w), textAlign: TextAlign.center, style: F.s(21, w: FontWeight.w800, c: th.acc, h: 1.3)),
-                  if (w.z != null) ...[
-                    const SizedBox(height: 16),
-                    Divider(height: 1, thickness: 1, color: p.line),
-                    const SizedBox(height: 14),
-                    BctExample(w),
-                  ],
-                ] else
-                  Text(t.bsFlip, style: F.s(13.5, c: p.mute)),
-              ],
-            ),
+    return ConstrainedBox(
+      constraints: BoxConstraints(minHeight: available),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _count(th, i, deck.length),
+              Press(
+                onTap: () => setState(() => flipped = !flipped),
+                label: flipped ? _m(w) : '${w.h}. ${t.bsFlip}',
+                child: Glass(
+                  solid: true,
+                  radius: 30,
+                  padding: const EdgeInsets.fromLTRB(20, 34, 20, 30),
+                  child: Column(
+                    children: [
+                      Text(
+                        w.h,
+                        textAlign: TextAlign.center,
+                        style: F.s(
+                          w.h.length > 4 ? 40 : 54,
+                          family: F.hz,
+                          w: FontWeight.w700,
+                          c: p.fg,
+                          h: 1.15,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(w.p, style: F.s(18, c: p.soft)),
+                      const SizedBox(height: 10),
+                      Spk(w.h, size: 40),
+                      const SizedBox(height: 18),
+                      if (flipped) ...[
+                        Text(
+                          _m(w),
+                          textAlign: TextAlign.center,
+                          style: F.s(21, w: FontWeight.w800, c: th.acc, h: 1.3),
+                        ),
+                        if (w.z != null) ...[
+                          const SizedBox(height: 16),
+                          Divider(height: 1, thickness: 1, color: p.line),
+                          const SizedBox(height: 14),
+                          BctExample(w),
+                        ],
+                      ] else
+                        Text(t.bsFlip, style: F.s(13.5, c: p.mute)),
+                    ],
+                  ),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
           ),
-        ),
-        const SizedBox(height: 16),
-        Row(
-          children: [
-            Expanded(child: GhostBtn(t.fcDont, wide: true, onTap: () => _cardAnswer(false))),
-            const SizedBox(width: 10),
-            Expanded(child: MainBtn(t.fcKnow, wide: true, radius: 16, onTap: () => _cardAnswer(true))),
-          ],
-        ),
-      ],
+          Column(
+            children: [
+              Row(
+                children: [
+                  Expanded(
+                    child: GhostBtn(
+                      t.fcDont,
+                      wide: true,
+                      onTap: () => _cardAnswer(false),
+                    ),
+                  ),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: MainBtn(
+                      t.fcKnow,
+                      wide: true,
+                      radius: 16,
+                      onTap: () => _cardAnswer(true),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
@@ -394,64 +674,112 @@ class _BctStudyState extends State<BctStudyScreen> {
     final t = app.t;
     final q = qs[i];
     final done = q.pick != null;
-    Widget opt(int k) {
-      final o = q.opts[k];
-      final good = done && k == q.ans, bad = done && k == q.pick && k != q.ans;
-      final col = good ? p.good : (bad ? p.bad : null);
-      return Padding(
-        padding: const EdgeInsets.only(bottom: 10),
-        child: Press(
-          onTap: () => _quizPick(k),
-          label: q.toMeaning ? _m(o) : o.h,
-          child: Glass(
-            radius: 20,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            child: Row(
-              children: [
-                Expanded(
-                  child: q.toMeaning
-                      ? Text(_m(o), style: F.s(16, w: FontWeight.w700, c: col ?? p.fg, h: 1.3))
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(o.h, style: F.s(22, family: F.hz, w: FontWeight.w700, c: col ?? p.fg)),
-                            if (done) Text(o.p, style: F.s(12.5, c: p.soft)),
-                          ],
-                        ),
-                ),
-                if (good) Icon2(I.check, size: 20, color: p.good) else if (bad) Icon2(I.close, size: 20, color: p.bad),
-              ],
-            ),
-          ),
+    final tile =
+        q.opts.length == 4 &&
+        q.kind != _QuizKind.meaning &&
+        q.kind != _QuizKind.sentence;
+    Widget opt(int index) => OptBtn(
+      key: ValueKey('bct-quiz-option-$index'),
+      n: index + 1,
+      tile: tile,
+      label: Text(
+        q.opts[index],
+        textAlign: tile ? TextAlign.center : TextAlign.start,
+        style: F.s(
+          tile ? 22 : 16,
+          family: q.kind == _QuizKind.meaning || q.kind == _QuizKind.tone
+              ? F.ui
+              : F.hz,
+          w: FontWeight.w700,
+          c: p.fg,
         ),
-      );
-    }
-
+      ),
+      state: !done
+          ? null
+          : index == q.ans
+          ? true
+          : index == q.pick
+          ? false
+          : null,
+      picked: done && index == q.pick,
+      onTap: done ? null : () => _quizPick(index),
+    );
+    final prompt = switch (q.kind) {
+      _QuizKind.meaning => t.bsQM,
+      _QuizKind.recall => t.bsQH,
+      _QuizKind.listen => t.listen,
+      _QuizKind.tone => t.qTone,
+      _QuizKind.sentence => t.tCloze,
+    };
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         _count(th, i, qs.length),
         Glass(
           solid: true,
-          radius: 28,
-          padding: const EdgeInsets.fromLTRB(20, 22, 20, 22),
+          radius: 32,
+          padding: const EdgeInsets.fromLTRB(20, 22, 20, 24),
           child: Column(
             children: [
-              Text(q.toMeaning ? t.bsQM : t.bsQH, style: F.s(13, w: FontWeight.w700, c: p.mute)),
+              Text(
+                prompt,
+                style: F.s(13, w: FontWeight.w700, c: p.mute),
+              ),
               const SizedBox(height: 10),
-              if (q.toMeaning) ...[
-                Text(q.w.h, textAlign: TextAlign.center, style: F.s(q.w.h.length > 4 ? 34 : 46, family: F.hz, w: FontWeight.w700, c: p.fg, h: 1.15)),
-                Text(q.w.p, style: F.s(16, c: p.soft)),
-                const SizedBox(height: 8),
-                Spk(q.w.h, size: 36),
-              ] else
-                Text(_m(q.w), textAlign: TextAlign.center, style: F.s(21, w: FontWeight.w800, c: p.fg, h: 1.3)),
+              if (q.kind == _QuizKind.meaning || q.kind == _QuizKind.tone) ...[
+                Text(
+                  q.w.h,
+                  textAlign: TextAlign.center,
+                  style: F.s(39, family: F.hz, c: p.fg),
+                ),
+                if (q.kind == _QuizKind.meaning || done)
+                  Text(q.w.p, style: F.s(16, c: p.soft)),
+                if (q.kind == _QuizKind.meaning) Spk(q.w.h, size: 36),
+              ] else if (q.kind == _QuizKind.listen)
+                Spk(q.w.h, size: 42)
+              else ...[
+                if (q.kind == _QuizKind.sentence) ...[
+                  Text(
+                    q.w.z!.replaceAll(q.w.h, '＿＿'),
+                    textAlign: TextAlign.center,
+                    style: F.s(23, family: F.hz, c: p.fg),
+                  ),
+                  const SizedBox(height: 8),
+                ],
+                Text(
+                  _m(q.w),
+                  textAlign: TextAlign.center,
+                  style: F.s(19, c: p.fg),
+                ),
+              ],
             ],
           ),
         ),
         const SizedBox(height: 14),
-        for (var k = 0; k < q.opts.length; k++) opt(k),
-        if (done) MainBtn(t.bsNext, wide: true, radius: 16, big: true, onTap: _quizNext),
+        if (tile) ...[
+          for (var k = 0; k < q.opts.length; k += 2) ...[
+            Row(
+              children: [
+                Expanded(child: opt(k)),
+                const SizedBox(width: 10),
+                Expanded(child: opt(k + 1)),
+              ],
+            ),
+            const SizedBox(height: 10),
+          ],
+        ] else
+          for (var k = 0; k < q.opts.length; k++) ...[
+            opt(k),
+            const SizedBox(height: 10),
+          ],
+        if (done)
+          MainBtn(
+            t.bsNext,
+            wide: true,
+            radius: 16,
+            big: true,
+            onTap: _quizNext,
+          ),
       ],
     );
   }
@@ -468,13 +796,30 @@ class _BctStudyState extends State<BctStudyScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(t.bsDone, textAlign: TextAlign.center, style: F.s(22, w: FontWeight.w800, c: p.fg)),
+          Text(
+            t.bsDone,
+            textAlign: TextAlign.center,
+            style: F.s(22, w: FontWeight.w800, c: p.fg),
+          ),
           const SizedBox(height: 8),
-          Text(t.bsScore(right, total), textAlign: TextAlign.center, style: F.s(16, c: p.soft)),
+          Text(
+            t.bsScore(right, total),
+            textAlign: TextAlign.center,
+            style: F.s(16, c: p.soft),
+          ),
           const SizedBox(height: 20),
-          MainBtn(t.bsAgain, wide: true, radius: 16, onTap: kind == 'quiz' ? _startQuiz : _startCards),
+          MainBtn(
+            t.bsAgain,
+            wide: true,
+            radius: 16,
+            onTap: kind == 'quiz' ? _startQuiz : _startCards,
+          ),
           const SizedBox(height: 10),
-          GhostBtn(t.bsWordsBtn, wide: true, onTap: () => openBctWords(context, app.bctBook)),
+          GhostBtn(
+            t.bsWordsBtn,
+            wide: true,
+            onTap: () => openBctWords(context, app.bctBook),
+          ),
         ],
       ),
     );

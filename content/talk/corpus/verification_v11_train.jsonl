@@ -1,0 +1,300 @@
+{"text": "承运人说可以返还这笔额外仓储费。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以返还这笔额外仓储费，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以返还这笔额外仓储费。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以返还这笔额外仓储费，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以返还这笔额外仓储费。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以返还这笔额外仓储费，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们返还这笔额外仓储费？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要返还这笔额外仓储费？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们返还这笔额外仓储费？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要返还这笔额外仓储费？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们返还这笔额外仓储费？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要返还这笔额外仓储费？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过返还这笔额外仓储费。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以返还这笔额外仓储费，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过返还这笔额外仓储费。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以返还这笔额外仓储费，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过返还这笔额外仓储费。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以返还这笔额外仓储费，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定返还这笔额外仓储费。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定返还这笔额外仓储费。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定返还这笔额外仓储费。明早我会再联系您。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定返还这笔额外仓储费。明早我会再联系您。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定返还这笔额外仓储费。麻烦报一下运单号码。", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定返还这笔额外仓储费。麻烦报一下运单号码。", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能返还这笔额外仓储费。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法返还这笔额外仓储费。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能返还这笔额外仓储费。明早我会再联系您。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法返还这笔额外仓储费。明早我会再联系您。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能返还这笔额外仓储费。麻烦报一下运单号码。", "frames": [{"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法返还这笔额外仓储费。麻烦报一下运单号码。", "frames": [{"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以免费补偿一张礼券。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以免费补偿一张礼券，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以免费补偿一张礼券。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以免费补偿一张礼券，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以免费补偿一张礼券。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以免费补偿一张礼券，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们免费补偿一张礼券？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要免费补偿一张礼券？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们免费补偿一张礼券？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要免费补偿一张礼券？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们免费补偿一张礼券？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要免费补偿一张礼券？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过免费补偿一张礼券。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以免费补偿一张礼券，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过免费补偿一张礼券。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以免费补偿一张礼券，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过免费补偿一张礼券。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以免费补偿一张礼券，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定免费补偿一张礼券。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定免费补偿一张礼券。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定免费补偿一张礼券。明早我会再联系您。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定免费补偿一张礼券。明早我会再联系您。", "frames": [{"act": "compensate", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定免费补偿一张礼券。麻烦报一下运单号码。", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定免费补偿一张礼券。麻烦报一下运单号码。", "frames": [{"act": "compensate", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能免费补偿一张礼券。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法免费补偿一张礼券。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能免费补偿一张礼券。明早我会再联系您。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法免费补偿一张礼券。明早我会再联系您。", "frames": [{"act": "compensate", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能免费补偿一张礼券。麻烦报一下运单号码。", "frames": [{"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法免费补偿一张礼券。麻烦报一下运单号码。", "frames": [{"act": "compensate", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以为您补寄那六件商品。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以为您补寄那六件商品，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以为您补寄那六件商品。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以为您补寄那六件商品，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以为您补寄那六件商品。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以为您补寄那六件商品，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们为您补寄那六件商品？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要为您补寄那六件商品？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们为您补寄那六件商品？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要为您补寄那六件商品？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们为您补寄那六件商品？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要为您补寄那六件商品？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过为您补寄那六件商品。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以为您补寄那六件商品，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过为您补寄那六件商品。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以为您补寄那六件商品，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过为您补寄那六件商品。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以为您补寄那六件商品，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定为您补寄那六件商品。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定为您补寄那六件商品。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定为您补寄那六件商品。明早我会再联系您。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定为您补寄那六件商品。明早我会再联系您。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定为您补寄那六件商品。麻烦报一下运单号码。", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定为您补寄那六件商品。麻烦报一下运单号码。", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能为您补寄那六件商品。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法为您补寄那六件商品。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能为您补寄那六件商品。明早我会再联系您。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法为您补寄那六件商品。明早我会再联系您。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能为您补寄那六件商品。麻烦报一下运单号码。", "frames": [{"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法为您补寄那六件商品。麻烦报一下运单号码。", "frames": [{"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以给贵公司另发一批。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以给贵公司另发一批，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以给贵公司另发一批。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以给贵公司另发一批，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以给贵公司另发一批。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以给贵公司另发一批，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们给贵公司另发一批？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要给贵公司另发一批？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们给贵公司另发一批？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要给贵公司另发一批？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们给贵公司另发一批？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要给贵公司另发一批？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过给贵公司另发一批。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以给贵公司另发一批，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过给贵公司另发一批。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以给贵公司另发一批，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过给贵公司另发一批。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以给贵公司另发一批，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定给贵公司另发一批。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定给贵公司另发一批。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定给贵公司另发一批。明早我会再联系您。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定给贵公司另发一批。明早我会再联系您。", "frames": [{"act": "resend", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定给贵公司另发一批。麻烦报一下运单号码。", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定给贵公司另发一批。麻烦报一下运单号码。", "frames": [{"act": "resend", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能给贵公司另发一批。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法给贵公司另发一批。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能给贵公司另发一批。明早我会再联系您。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法给贵公司另发一批。明早我会再联系您。", "frames": [{"act": "resend", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能给贵公司另发一批。麻烦报一下运单号码。", "frames": [{"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法给贵公司另发一批。麻烦报一下运单号码。", "frames": [{"act": "resend", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以把这批件改成航空加急。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以把这批件改成航空加急，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以把这批件改成航空加急。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以把这批件改成航空加急，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以把这批件改成航空加急。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以把这批件改成航空加急，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们把这批件改成航空加急？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要把这批件改成航空加急？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们把这批件改成航空加急？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要把这批件改成航空加急？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们把这批件改成航空加急？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要把这批件改成航空加急？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过把这批件改成航空加急。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以把这批件改成航空加急，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过把这批件改成航空加急。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以把这批件改成航空加急，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过把这批件改成航空加急。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以把这批件改成航空加急，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定把这批件改成航空加急。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定把这批件改成航空加急。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定把这批件改成航空加急。明早我会再联系您。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定把这批件改成航空加急。明早我会再联系您。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定把这批件改成航空加急。麻烦报一下运单号码。", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定把这批件改成航空加急。麻烦报一下运单号码。", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能把这批件改成航空加急。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法把这批件改成航空加急。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能把这批件改成航空加急。明早我会再联系您。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法把这批件改成航空加急。明早我会再联系您。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能把这批件改成航空加急。麻烦报一下运单号码。", "frames": [{"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法把这批件改成航空加急。麻烦报一下运单号码。", "frames": [{"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以安排次日达专线优先发货。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以安排次日达专线优先发货，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以安排次日达专线优先发货。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以安排次日达专线优先发货，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以安排次日达专线优先发货。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以安排次日达专线优先发货，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们安排次日达专线优先发货？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要安排次日达专线优先发货？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们安排次日达专线优先发货？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要安排次日达专线优先发货？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们安排次日达专线优先发货？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要安排次日达专线优先发货？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过安排次日达专线优先发货。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以安排次日达专线优先发货，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过安排次日达专线优先发货。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以安排次日达专线优先发货，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过安排次日达专线优先发货。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以安排次日达专线优先发货，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定安排次日达专线优先发货。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定安排次日达专线优先发货。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定安排次日达专线优先发货。明早我会再联系您。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定安排次日达专线优先发货。明早我会再联系您。", "frames": [{"act": "expedite", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定安排次日达专线优先发货。麻烦报一下运单号码。", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定安排次日达专线优先发货。麻烦报一下运单号码。", "frames": [{"act": "expedite", "pol": "+"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能安排次日达专线优先发货。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法安排次日达专线优先发货。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能安排次日达专线优先发货。明早我会再联系您。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法安排次日达专线优先发货。明早我会再联系您。", "frames": [{"act": "expedite", "pol": "-"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能安排次日达专线优先发货。麻烦报一下运单号码。", "frames": [{"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法安排次日达专线优先发货。麻烦报一下运单号码。", "frames": [{"act": "expedite", "pol": "-"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以给这个订单减百分之十五。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以给这个订单减百分之十五，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以给这个订单减百分之十五。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以给这个订单减百分之十五，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以给这个订单减百分之十五。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以给这个订单减百分之十五，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们给这个订单减百分之十五？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要给这个订单减百分之十五？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们给这个订单减百分之十五？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要给这个订单减百分之十五？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们给这个订单减百分之十五？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要给这个订单减百分之十五？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过给这个订单减百分之十五。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以给这个订单减百分之十五，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过给这个订单减百分之十五。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以给这个订单减百分之十五，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过给这个订单减百分之十五。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以给这个订单减百分之十五，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定给这个订单减百分之十五。", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定给这个订单减百分之十五。", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定给这个订单减百分之十五。明早我会再联系您。", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定给这个订单减百分之十五。明早我会再联系您。", "frames": [{"act": "discount", "pol": "+", "pct": 15}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定给这个订单减百分之十五。麻烦报一下运单号码。", "frames": [{"act": "discount", "pol": "+", "pct": 15}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定给这个订单减百分之十五。麻烦报一下运单号码。", "frames": [{"act": "discount", "pol": "+", "pct": 15}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能给这个订单减百分之十五。", "frames": [{"act": "discount", "pol": "-", "pct": 15}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法给这个订单减百分之十五。", "frames": [{"act": "discount", "pol": "-", "pct": 15}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能给这个订单减百分之十五。明早我会再联系您。", "frames": [{"act": "discount", "pol": "-", "pct": 15}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法给这个订单减百分之十五。明早我会再联系您。", "frames": [{"act": "discount", "pol": "-", "pct": 15}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能给这个订单减百分之十五。麻烦报一下运单号码。", "frames": [{"act": "discount", "pol": "-", "pct": 15}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法给这个订单减百分之十五。麻烦报一下运单号码。", "frames": [{"act": "discount", "pol": "-", "pct": 15}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以这批货按八八折结账。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以这批货按八八折结账，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以这批货按八八折结账。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以这批货按八八折结账，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以这批货按八八折结账。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以这批货按八八折结账，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们这批货按八八折结账？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要这批货按八八折结账？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们这批货按八八折结账？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要这批货按八八折结账？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们这批货按八八折结账？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要这批货按八八折结账？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过这批货按八八折结账。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以这批货按八八折结账，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过这批货按八八折结账。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以这批货按八八折结账，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过这批货按八八折结账。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以这批货按八八折结账，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定这批货按八八折结账。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定这批货按八八折结账。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定这批货按八八折结账。明早我会再联系您。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定这批货按八八折结账。明早我会再联系您。", "frames": [{"act": "discount", "pol": "+", "pct": 12}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定这批货按八八折结账。麻烦报一下运单号码。", "frames": [{"act": "discount", "pol": "+", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定这批货按八八折结账。麻烦报一下运单号码。", "frames": [{"act": "discount", "pol": "+", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能这批货按八八折结账。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法这批货按八八折结账。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能这批货按八八折结账。明早我会再联系您。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法这批货按八八折结账。明早我会再联系您。", "frames": [{"act": "discount", "pol": "-", "pct": 12}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能这批货按八八折结账。麻烦报一下运单号码。", "frames": [{"act": "discount", "pol": "-", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法这批货按八八折结账。麻烦报一下运单号码。", "frames": [{"act": "discount", "pol": "-", "pct": 12}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以星期三之前把商品运到贵司。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以星期三之前把商品运到贵司，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以星期三之前把商品运到贵司。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以星期三之前把商品运到贵司，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以星期三之前把商品运到贵司。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以星期三之前把商品运到贵司，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们星期三之前把商品运到贵司？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要星期三之前把商品运到贵司？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们星期三之前把商品运到贵司？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要星期三之前把商品运到贵司？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们星期三之前把商品运到贵司？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要星期三之前把商品运到贵司？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过星期三之前把商品运到贵司。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以星期三之前把商品运到贵司，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过星期三之前把商品运到贵司。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以星期三之前把商品运到贵司，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过星期三之前把商品运到贵司。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以星期三之前把商品运到贵司，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定星期三之前把商品运到贵司。", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定星期三之前把商品运到贵司。", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定星期三之前把商品运到贵司。明早我会再联系您。", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定星期三之前把商品运到贵司。明早我会再联系您。", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定星期三之前把商品运到贵司。麻烦报一下运单号码。", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定星期三之前把商品运到贵司。麻烦报一下运单号码。", "frames": [{"act": "promise_time", "pol": "+", "when": "wednesday"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能星期三之前把商品运到贵司。", "frames": [{"act": "promise_time", "pol": "-", "when": "wednesday"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法星期三之前把商品运到贵司。", "frames": [{"act": "promise_time", "pol": "-", "when": "wednesday"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能星期三之前把商品运到贵司。明早我会再联系您。", "frames": [{"act": "promise_time", "pol": "-", "when": "wednesday"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法星期三之前把商品运到贵司。明早我会再联系您。", "frames": [{"act": "promise_time", "pol": "-", "when": "wednesday"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能星期三之前把商品运到贵司。麻烦报一下运单号码。", "frames": [{"act": "promise_time", "pol": "-", "when": "wednesday"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法星期三之前把商品运到贵司。麻烦报一下运单号码。", "frames": [{"act": "promise_time", "pol": "-", "when": "wednesday"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以明晚前交到贵司库房。我司还没有确认。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以明晚前交到贵司库房，我只转达一下。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以明晚前交到贵司库房。我司还没有确认。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以明晚前交到贵司库房，我只转达一下。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "承运人说可以明晚前交到贵司库房。我司还没有确认。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "有人提出可以明晚前交到贵司库房，我只转达一下。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["reported"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们明晚前交到贵司库房？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要明晚前交到贵司库房？", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们明晚前交到贵司库房？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要明晚前交到贵司库房？明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "您看是否需要我们明晚前交到贵司库房？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "还没定，要不要明晚前交到贵司库房？麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["question"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过明晚前交到贵司库房。我们还在等审批。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以明晚前交到贵司库房，情况也未必会改变。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过明晚前交到贵司库房。我们还在等审批。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以明晚前交到贵司库房，情况也未必会改变。明早我会再联系您。", "frames": [{"act": "none", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "他们讨论过明晚前交到贵司库房。我们还在等审批。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "就算可以明晚前交到贵司库房，情况也未必会改变。麻烦报一下运单号码。", "frames": [{"act": "ask_order", "pol": "+"}], "tags": ["consideration"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定明晚前交到贵司库房。", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定明晚前交到贵司库房。", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定明晚前交到贵司库房。明早我会再联系您。", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定明晚前交到贵司库房。明早我会再联系您。", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "我已经核实并获批，这次确定明晚前交到贵司库房。麻烦报一下运单号码。", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "前面的说法有误，我方决定明晚前交到贵司库房。麻烦报一下运单号码。", "frames": [{"act": "promise_time", "pol": "+", "when": "tomorrow"}, {"act": "ask_order", "pol": "+"}], "tags": ["confirmed"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能明晚前交到贵司库房。", "frames": [{"act": "promise_time", "pol": "-", "when": "tomorrow"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法明晚前交到贵司库房。", "frames": [{"act": "promise_time", "pol": "-", "when": "tomorrow"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能明晚前交到贵司库房。明早我会再联系您。", "frames": [{"act": "promise_time", "pol": "-", "when": "tomorrow"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法明晚前交到贵司库房。明早我会再联系您。", "frames": [{"act": "promise_time", "pol": "-", "when": "tomorrow"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "不用再等，本次确实不能明晚前交到贵司库房。麻烦报一下运单号码。", "frames": [{"act": "promise_time", "pol": "-", "when": "tomorrow"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}
+{"text": "说实话，这回我们无法明晚前交到贵司库房。麻烦报一下运单号码。", "frames": [{"act": "promise_time", "pol": "-", "when": "tomorrow"}, {"act": "ask_order", "pol": "+"}], "tags": ["denied"], "set": "verification_v11_train", "source": "constructed_pairs"}

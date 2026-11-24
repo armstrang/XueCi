@@ -67,6 +67,9 @@ class TalkNlu {
     final ruled = _rules(hyps);
     final m = model;
     if (m == null || hyps.isEmpty) return ruled;
+    final primary = repair(hyps.first);
+    final framing = splitClauses(withoutQuotes(primary));
+    final arrivalDenied = _arrivalRefusal(framing);
     // the model's view: the guesses' probabilities, best guess weighing most
     final p = <String, double>{};
     var tw = 0.0;
@@ -93,7 +96,25 @@ class TalkNlu {
       if (c < ask) return;
       final pol = k.substring(k.length - 1);
       final act = k.substring(0, k.length - 1);
-      final t = repair(hyps[0]);
+      if (pol == '+' && offerActsNlu.contains(act) && !framing.any(_isOfferClause)) return;
+      if (act == 'deny_fault' &&
+          !_explicitFault.hasMatch(primary) &&
+          (_explainsAnInability(framing) || _takesResponsibility.hasMatch(primary) ||
+              _correctsServiceHistory.hasMatch(primary))) {
+        return;
+      }
+      if (act == 'promise_time' && pol == '+' && _differentDeadline.hasMatch(primary) &&
+          !framing.any((c) => _isOfferClause(c) && _arrivalCommitment.hasMatch(c.text))) {
+        return;
+      }
+      if (act == 'compensate' && pol == '+' && byKey.containsKey('discount+') &&
+          !_separateCompensation.hasMatch(primary)) {
+        return;
+      }
+      if (act == 'agree' && byKey.containsKey('promise_time+') && framing.any((c) => _reassuresDate.hasMatch(c.text))) {
+        return;
+      }
+      final t = primary;
       String? why;
       if (act == 'cause') {
         for (final e in _reasons.entries) {
@@ -119,6 +140,15 @@ class TalkNlu {
       if (fRule != oRule) return !fRule && o.conf >= ok;
       return o.conf > f.conf;
     });
+    if (arrivalDenied != null && !byKey.containsKey('promise_time+')) {
+      out.removeWhere((f) => f.act == 'promise_time');
+      out.add(arrivalDenied);
+    }
+    if (framing.any((c) => _followUp.hasMatch(c.text)) &&
+        !framing.any((c) => !c.q && !c.cond && _reportedIncident.hasMatch(c.text))) {
+      out.removeWhere((f) => f.act == 'cause' && f.pol == '+');
+    }
+    _verifySpeechActs(primary, framing, out);
     out.sort((a, b) => talkActs.indexOf(a.act).compareTo(talkActs.indexOf(b.act)));
     return out;
   }
@@ -154,7 +184,7 @@ class TalkNlu {
 
   List<Frame> parseOne(String text) {
     // words quoted from someone else say nothing of the speaker
-    text = repair(text.replaceAll(RegExp('[“"「『][^”"」』]*[”"」』]'), '，'));
+    text = repair(withoutQuotes(text));
     final out = <Frame>[];
     final clauses = splitClauses(text);
     for (var ci = 0; ci < clauses.length; ci++) {
@@ -181,22 +211,27 @@ class TalkNlu {
     '个点', '之前', '以前', '之内', '以内', '因为', '由于', '所以', '导致', '耽误', '延误', '耽搁', '推迟', '原因', '问题', '晚了', //
     '如果', '要是', '假如', '的话', '本来', '原本', '难道', '已经', '上次', '缺货', '断货', '爆仓', '台风', '下雨', '海关', '清关', //
     '物流', '快递', '工厂', '故障', '天气', '堵车', '库存', '仓库',
+    '客服', '办公室', '就算', '是否需要', '无法送到', '正式答复', '服务',
   ];
   static final List<(String, String)> _repairFold = [for (final w in repairWords) (fold(w), w)];
   static const _nums = '零一二两三四五六七八九十';
   static final Map<String, String> _numOf = {for (final n in _nums.split('')) fold(n): n};
   static final _numCtx = RegExp('^(折|天|号|个点|小时|个工作日|工作日|个小时)');
+  static final _moneyNumber = RegExp(r'[零〇一二两三四五六七八九十百千万]{2,}(?=元|块|角|毛|分|原路退|退|[，。！？,!?]|$)');
 
-  static String repair(String t) {
+  static String repair(String t, {bool protectAmounts = false}) {
     if (t.isEmpty) return t;
     final f = fold(t);
     final out = t.split('');
     if (out.length != f.length) return t;
+    final amounts = protectAmounts ? _moneyNumber.allMatches(t).toList() : const <RegExpMatch>[];
     for (final (fw, w) in _repairFold) {
       var i = f.indexOf(fw);
       while (i >= 0) {
-        for (var k = 0; k < w.length; k++) {
-          out[i + k] = w[k];
+        if (!amounts.any((amount) => amount.start < i + w.length && i < amount.end)) {
+          for (var k = 0; k < w.length; k++) {
+            out[i + k] = w[k];
+          }
         }
         i = f.indexOf(fw, i + w.length);
       }
@@ -222,7 +257,7 @@ class TalkNlu {
 
   // ---------------------------------------------------------------- clauses
 
-  static final _punct = RegExp(r'[，。！？；：,.!?;:、\s…—~～"“”‘’（）()\[\]【】]+');
+  static final _punct = RegExp(r'(?:[，。！？；：,!?;:、\s…—~～"“”‘’（）()\[\]【】]|(?<![0-9])\.|\.(?![0-9]))+');
   static final _conn = RegExp('(但是|可是|不过|然而|而且|并且|然后|所以|因此|另外|还有就是|同时|再说|而是|否则|要不然|不然)');
   static final _ifMark = RegExp('(如果|要是|假如|假设|万一|若是|倘若|如若|只要)');
   static final _then = RegExp('(的话|就|那么|那就|那)');
@@ -270,11 +305,18 @@ class TalkNlu {
 
   // ---------------------------------------------------------------- one clause
 
-  static final _negWord = RegExp('(不|没有|没|别|未|无法|绝不|并不|并非|甭|休想|拒绝)');
+  static final _quotedWords = RegExp(r'[“"「『][^”"」』]*[”"」』]|‘[^’]*’');
+  static final _courtesy = RegExp(r'对不起|对不住|抱歉|歉意|不好意思|见谅|谅解|原谅');
+  static final _negatesCourtesy = RegExp(r'(?:毫不|并不|一点也不|并无|毫无|没有|不想|不愿|不觉得|不必|不用|无需|不)(?:再|向.{0,4}|表现出|表示|感到|觉得|有|让.{0,3})?$|不(?:会|愿|想|肯)(?:向|跟|对)(?:您|你|贵司)说$');
+
+  /// A quoted example is separate from the speaker's own commitment.
+  static String withoutQuotes(String text) => text.replaceAll(_quotedWords, '，');
+
+  static final _negWord = RegExp('(没有|绝不|并不|并非|并无|不|没|别|未|无法|甭|休想|拒绝)');
   // not negations: fixed words that hold 不/没
   static final _notNeg = RegExp('(能不能|要不要|可不可以|可以不可以|是不是|会不会|有没有|行不行|好不好|需不需要|愿不愿意|该不该|'
       '着不着急|急不急|赶不赶|对不对|来不来得及|来不及|要不然|要不|不然的话|不一会|不论|不如|不仅仅|'
-      '不好意思|对不起|不客气|不错|不久|不断|不仅|不少|不管|不过|不然|差不多|了不起|不得了|不一定|不舒服|不便|'
+      '不好意思|对不起|对不住|对[您你]不住|不客气|不错|不久|不断|不仅|不少|不管|不过|不然|差不多|了不起|不得了|不一定|不舒服|不便|'
       '不满|不愉快|不高兴|不对|不够|不足|不了解|没关系|没事|没问题|不用谢|不止|不只|没多久|不知道|不清楚|不太清楚|免不了|少不了|'
       '不得不|不能不|不会不|不可能不|没有不|不是不|不应该不)');
   static final _mustDouble = RegExp('(不得不|不能不|不会不|不可能不|没有不|不是不|不应该不)');
@@ -302,6 +344,158 @@ class TalkNlu {
   static const _hides = {'deny_fault', 'refuse', 'ask_deadline', 'ask_order', 'acknowledge', 'agree'};
   static final _notButIs = RegExp('不是(我们|我)?(不想|不愿意|不肯|不愿|不能|不会|故意不|不给|不发|没)');
   static final _explain = RegExp('^(是|只是|而是|实在是|真的是|就是|但是|可是|不过|主要是|确实是|因为|实在|真的)');
+  static final _explicitFault = RegExp(r'(?:不是|并非|不在|无关|没关系).{0,7}(?:错|责任|过失)|(?:错|责任|过失).{0,5}(?:不在|无关|不是)|与.{0,4}(?:我们|本司|我方)无关');
+  static final _takesResponsibility = RegExp(r'我们的错|我的错|我们要负责|我们有责任|我方承担责任|(?:负|承担)(?:全部|主要|所有)?责任|责任在我');
+  static final _correctsServiceHistory = RegExp(r'不是(?:我们)?(?:偷懒|故意拖延|压着不发)|不是的.{0,5}(?:早就发|已经发|早发)');
+  static final _followUp = RegExp(r'(?:以便|方便|好让|我们好|请.{0,18}我(?:们)?).{0,7}(?:联系|向|跟|查一下|核对|核实)|(?:我|我们)(?:先去|这就去|再去|会去).{0,5}(?:核实|问一下|查一下)');
+  static final _reportedIncident = RegExp(r'因为|由于|是.{0,14}(?:耽误|晚到|晚了|延误|搞错|弄错)|导致|造成|出了问题|压在|卡在|卡住|库存不足|缺货|坏了|抛锚|封路|滞留|暴雨|台风|爆仓|海关查验|海关扣');
+  static final _arrivalCommitment = RegExp(r'送到|送上门|送达|到达|到货|收到|抵达|交货|交到|拿到|到手|运到|寄到|落地|准时|按时|晚不了|不会再晚|到[货了]?$|到(?:您|你|贵司|门口)');
+  static final _differentDeadline = RegExp(r'放行|发车|出库|寄出|发货|发给|寄给|发不了|寄不了|发不出|寄不出|联系您|联系你|回复|回电|通知|查收|您说|你说|您提到|你提到');
+  static final _cannotArrive = RegExp(r'(?:不能|没法|无法|不会|不可能|没办法|来不及).{0,8}(?:送到|送达|抵达|交货|交付|收到|到货)|(?:送|运|寄|交)不到|到不了');
+  static final _separateCompensation = RegExp(r'退款|退钱|退回|退还|免单|免邮|赔偿|赔付|赔钱|赔款|补发款|券|红包|礼品|礼物|积分|延保|(?:快递|邮|运|配送)费');
+  static final _waitForAnswer = RegExp(r'^(?:请问|不知|能不能|要不要|是否|假设|就算|即使)|(?:会不会|可不可以|行不行|怎么样|如何|吗|么)[啊呀吧]?$');
+  static final _reassuresDate = RegExp(r'^(?:这次|这样|这个时间|这个安排)没问题');
+
+  static bool _isOfferClause(Clause clause) => !clause.cond && !clause.q &&
+      !_waitForAnswer.hasMatch(clause.text) && (!_quote.hasMatch(clause.text) || _ourQuote.hasMatch(clause.text));
+
+  static bool _explainsAnInability(List<Clause> clauses) => clauses.indexed.any(
+      (entry) => entry.$1 + 1 < clauses.length && _notButIs.hasMatch(entry.$2.text) && _explain.hasMatch(clauses[entry.$1 + 1].text));
+
+  static final _reportedSpeaker = RegExp(r'^(?:(?:那个|听说|之前)[，,]?)?(?:客服|快递员|司机|承运人|仓库.{0,4}(?:同事|主管)|客户|对方|同事).{0,5}(?:说|讲|表示|提过|问)');
+  static final _sellerRestatement = RegExp(r'我(?:们)?(?:刚|已经|已|现在)?(?:核实|确认|决定|承诺|保证)|(?:但|不过|后来)(?:我|我们)(?:会|一定|可以)');
+  static final _uncommittedReport = RegExp(r'听说|(?:没|没有|并非).{0,4}(?:说过|正式答复|确认|同意)|尚待.{0,5}(?:回复|批准|审核)|请以我.{0,4}为准|还没.{0,4}(?:确认|批准)');
+  static final _counterfactual = RegExp(r'^(?:(?:退一步讲|那|可|但)?(?:就算|即使|即便|哪怕|倘若|假使)|(?:也)?(?:未必|不至于))');
+  static final _acceptanceQuestion = RegExp(r'^(?:请问)?(?:您|你)?(?:觉.{0,2}|看)?(?:这样|这么做|这种方案|这个安排)?(?:合适吗|如何|可以吗|可不可以|行吗|行不行)$');
+  static final _unmarkedProposal = RegExp(r'^(?:请问|您看|您觉得|你看|是否|能否|可不可以).{0,6}(?:是否需要|要不要|需不需要|给不给)|(?:您|你)(?:觉得|觉的|看这样|觉得这样).{0,3}(?:如何|怎么样|可以吗)$');
+  static final _confirmedOffer = RegExp(r'我们(?:已经|确定|承诺|保证)|我(?:已经|确定|承诺|保证)|一定|正式确认');
+  static final _separateDecision = RegExp(r'^(?:但是|不过|然而|另外|现在|实际|结果|我们|我).{0,6}(?:愿意|决定|还是会|仍然会|会|肯定|一定|可以).{0,10}(?:发|寄|送|承担|退|赔|打折|改)');
+  static final _askingAboutFault = RegExp(r'^(?:您|你|客户)(?:是|会|难道|是否|是不是)?.{0,4}(?:觉得|认为|以为).{0,16}(?:故意|拖延|责任|错|骗)');
+  static final _orderDate = RegExp(r'(?:订单|单子).{0,8}(?:哪一天|哪天|几号|什么时候).{0,4}(?:下|订|买)|(?:哪一天|哪天|几号|什么时候).{0,6}(?:下单|订购)');
+  static final _orderId = RegExp(r'编号|号码|单号|运单|订单号|快递号|物流号|手机号|身份证|电话号码');
+  static final _personalContext = RegExp(r'公室.{0,4}电脑|在门口.{0,6}收快递|太阳.{0,9}(?:在门口|都出汗)|(?:我|我们).{0,4}(?:放学|上学|下班).{0,4}(?:顺便|的时候)|我在家.{0,6}(?:收|等)');
+  static final _businessContext = RegExp(r'贵司|订单|货款|货物|货车|批货|库存|欠款|发票|补发|我们公司|我方|贵公司|客户|代您|为您|给您|您这单');
+  static final _approvalOnly = RegExp(r'(?:上报|提交|已报).{0,10}(?:主管|领导|法务|财务)|尚待.{0,5}(?:回复|审批)|(?:没有|没|并未)说过');
+  static final _moneyDenial = RegExp(r'不予(?:提供|办理|承担|支付|给付)?|无法(?:提供|办理|承担|支付)|拒绝(?:提供|办理|承担|支付)|(?:真|确实)?给不了|不得行|不接受');
+  static final _priceRefused = RegExp(r'(?:折|优惠).{0,4}(?:都|也)?[不怖布步]行|(?:不|没法|无法)(?:再)?(?:降价|减价)|(?:价钱|价格).{0,8}底线');
+  static final _pricePosition = RegExp(r'这是(?:我方|我们|公司)的底线|价格.{0,5}到底了');
+  static final _denialQuestion = RegExp(r'^(?:您|你).{0,4}(?:说|讲|认为)|^(?:这个|这点)?我不认');
+  static final _refundWords = RegExp(r'补偿|赔偿|退款|退钱|退回|赔付|免运费|承担.{0,6}(?:费用|运费)|礼券|差价');
+  static final _discountWords = RegExp(r'折扣|降价|减价|优惠|打折|[零一二三四五六七八九0-9]折');
+  static final _refuseWords = RegExp(r'恐怕.{0,4}(?:不行|做不到|办不到)|没法|无法|不认|不可能|不同意|不能|不接受|拒绝');
+  static final _delayTerms = RegExp(r'送到|送达|到货|抵达|交货|交付|到您|到你|运到|(?:必须|一定|能|得到|要)到');
+  static final _declinesPromise = RegExp(r'(?:无法|不能|没法|不敢|不便).{0,10}(?:承诺|保证|确认)|(?:承诺|保证).{0,6}(?:做不到|办不到)');
+  static final _speedTerms = RegExp(r'加急|提速|加快|空运|优先(?:发|寄|配送)|插单|特快');
+  static final _repeatTerms = RegExp(r'补发|补寄|重发|重寄|重新发货|重新寄|再寄一次|再发一次');
+  static final _unavailable = RegExp(r'做不到|办不到|不得行|没得.{0,7}(?:服务|渠道|选项)|(?:不能|没法|无法|拒绝).{0,8}(?:加急|提速|加快|插单|补发|补寄|重发|重寄)|(?:加急|补发|补寄|重发|重寄).{0,6}(?:不行|不可以|做不到)');
+  static final _rejectsAccusation = RegExp(r'^(?:您|你).{0,5}(?:讲|说).{0,9}(?:骗|故意|撒谎)');
+  static final _externalDeal = RegExp(r'^(?:我(?:刚)?听说|据说).{0,10}(?:有的店|别家|有的公司|那家店|其他卖家)|^(?:别家|隔壁|另一家|其他)(?:店铺|店家|商家|公司)');
+  static final _refersToApology = RegExp(r'道歉(?:信|函|模板)|^(?:我同事|同事|我妈|他|她).{0,8}(?:道歉|致歉|跟.{0,8}道歉)');
+  static final _deniesExcuse = RegExp(r'不是在找借口|并不是找借口|我们没有骗|我们并没有骗');
+
+  /// A trailing request for approval can make an earlier phrase a proposal.
+  static bool seeksOfferApproval(String text, List<Clause> clauses) {
+    final asks = clauses.length > 1 && _acceptanceQuestion.hasMatch(clauses.last.text) || _unmarkedProposal.hasMatch(text);
+    if (!asks) return false;
+    return !clauses.any((c) => _isOfferClause(c) && !_reportedSpeaker.hasMatch(c.text) &&
+        !_counterfactual.hasMatch(c.text) && (_confirmedOffer.hasMatch(c.text) || _separateDecision.hasMatch(c.text)));
+  }
+
+  static void _verifySpeechActs(String text, List<Clause> clauses, List<Frame> frames) {
+    final visible = withoutQuotes(text);
+    final independent = clauses.where((c) => !_reportedSpeaker.hasMatch(c.text) && !_quote.hasMatch(c.text) && !_counterfactual.hasMatch(c.text));
+    final claims = independent.where(_isOfferClause).toList();
+    final confirmed = claims.any((c) => _confirmedOffer.hasMatch(c.text) || _separateDecision.hasMatch(c.text));
+    final acceptanceQuestion = seeksOfferApproval(visible, clauses);
+    final reported = clauses.any((c) => _reportedSpeaker.hasMatch(c.text));
+    final reportsWithoutDecision = reported && !confirmed && !_sellerRestatement.hasMatch(visible) &&
+        (claims.isEmpty || _uncommittedReport.hasMatch(visible));
+    final counterfactualOnly = clauses.any((c) => _counterfactual.hasMatch(c.text)) && !confirmed;
+    final orderDateOnly = _orderDate.hasMatch(visible) && !_orderId.hasMatch(visible);
+    final ownFault = independent.any((c) => !c.q && !_denialQuestion.hasMatch(c.text) && _takesResponsibility.hasMatch(c.text));
+    final denialOfReportedFault = clauses.any((c) => _denialQuestion.hasMatch(c.text)) &&
+        clauses.any((c) => c.q || c.text.endsWith('不认')) && !ownFault;
+    final quotedMaterial = visible != text;
+    final anyArrivalDate = claims.any((c) => readWhen(c.text) != null && _arrivalCommitment.hasMatch(c.text) && !_declinesPromise.hasMatch(c.text));
+    final orderAsked = _orderId.hasMatch(visible);
+    final hasDeadlineRequest = frames.any((f) => f.key == 'ask_deadline+' && f.conf >= ok);
+    final dateRefused = _declinesPromise.hasMatch(visible) && _delayTerms.hasMatch(text) && readWhen(text) != null && !anyArrivalDate;
+    final agrees = frames.any((f) => f.key == 'agree+' && f.conf >= ok);
+    final otherVendorsOnly = clauses.any((c) => _externalDeal.hasMatch(c.text)) && !confirmed;
+    final directApology = claims.any((c) => !_refersToApology.hasMatch(c.text) && _courtesy.hasMatch(c.text));
+
+    frames.removeWhere((f) {
+      if (f.pol != '+') return false;
+      if (offerActsNlu.contains(f.act) && (acceptanceQuestion || reportsWithoutDecision || counterfactualOnly || otherVendorsOnly)) return true;
+      if (f.act == 'promise_time' && quotedMaterial && !anyArrivalDate &&
+          claims.any((c) => _refuseWords.hasMatch(c.text))) {
+        return true;
+      }
+      if (f.act == 'promise_time' && dateRefused) return true;
+      if (f.act == 'ask_order' && (orderDateOnly || hasDeadlineRequest && !orderAsked)) return true;
+      if (f.act == 'acknowledge' && denialOfReportedFault) return true;
+      if (f.act == 'acknowledge' && f.span == '·' && _pricePosition.hasMatch(visible) && !ownFault) return true;
+      if (f.act == 'deny_fault' && independent.isEmpty && !_explicitFault.hasMatch(visible)) return true;
+      if (f.act == 'deny_fault' && (_askingAboutFault.hasMatch(visible) || _rejectsAccusation.hasMatch(visible)) && !_explicitFault.hasMatch(visible)) return true;
+      if (f.act == 'deny_fault' && (otherVendorsOnly || _deniesExcuse.hasMatch(visible)) && !_explicitFault.hasMatch(visible)) return true;
+      if (f.act == 'apologize' && !directApology && clauses.any((c) => _refersToApology.hasMatch(c.text))) return true;
+      if (f.act == 'cause' && (_personalContext.hasMatch(visible) && !_businessContext.hasMatch(visible) || counterfactualOnly)) return true;
+      if (const {'apologize', 'compensate', 'deny_fault'}.contains(f.act) && _approvalOnly.hasMatch(visible) &&
+          (quotedMaterial || _uncommittedReport.hasMatch(visible)) &&
+          !claims.any((c) => _confirmedOffer.hasMatch(c.text) || f.act == 'apologize' && _courtesy.hasMatch(c.text))) {
+        return true;
+      }
+      if (f.act == 'refuse' && agrees && !claims.any((c) => _refuseWords.hasMatch(c.text))) return true;
+      return false;
+    });
+
+    if (dateRefused && !frames.any((f) => f.key == 'promise_time-')) {
+      frames.add(Frame('promise_time', '-', ok, when: readWhen(text), span: _declinesPromise.firstMatch(visible)![0]!));
+    }
+
+    for (final (act, words) in [('resend', _repeatTerms), ('expedite', _speedTerms)]) {
+      final denial = clauses.indexed.any((entry) {
+        final (index, current) = entry;
+        if (!claims.contains(current) || !_unavailable.hasMatch(current.text)) return false;
+        if (words.hasMatch(current.text)) return true;
+        return !_repeatTerms.hasMatch(current.text) && !_speedTerms.hasMatch(current.text) &&
+            index > 0 && independent.contains(clauses[index - 1]) && words.hasMatch(clauses[index - 1].text);
+      });
+      if (!denial || claims.any((c) => words.hasMatch(c.text) && _confirmedOffer.hasMatch(c.text))) {
+        continue;
+      }
+      final positive = frames.where((f) => f.act == act && f.pol == '+').firstOrNull;
+      final negative = frames.where((f) => f.act == act && f.pol == '-' && f.conf >= ok).firstOrNull;
+      frames.removeWhere((f) => f.act == act && f != negative);
+      if (negative == null) {
+        frames.add(Frame(act, '-', max(ok, positive?.conf ?? 0), when: positive?.when, span: words.firstMatch(visible)![0]!));
+      }
+    }
+
+    for (final c in claims) {
+      if (_mustDouble.hasMatch(c.text) || _approvalOnly.hasMatch(c.text)) continue;
+      for (final (act, terms) in [('discount', _discountWords), ('compensate', _refundWords)]) {
+        bool declined(Clause clause) => _moneyDenial.hasMatch(clause.text) || act == 'discount' && _priceRefused.hasMatch(clause.text);
+        if (!declined(c)) continue;
+        if (!terms.hasMatch(c.text)) continue;
+        final positive = frames.where((f) => f.act == act && f.pol == '+').firstOrNull;
+        if (positive == null || claims.any((other) => other != c && terms.hasMatch(other.text) && !declined(other))) continue;
+        frames.removeWhere((f) => f.act == act);
+        frames.add(Frame(act, '-', max(ok, positive.conf), pct: positive.pct, span: positive.span));
+      }
+    }
+  }
+
+  static Frame? _arrivalRefusal(List<Clause> clauses) {
+    for (final clause in clauses.reversed) {
+      if (!_isOfferClause(clause)) continue;
+      final text = clause.text;
+      if (_mustDouble.hasMatch(text)) continue;
+      final denied = _cannotArrive.firstMatch(text);
+      if (denied != null) return Frame('promise_time', '-', .9, when: readWhen(text), span: denied[0]!);
+    }
+    return null;
+  }
 
   List<Frame> _clause(Clause c, Clause? prev, Clause? next) {
     final t = c.text;
@@ -351,14 +545,14 @@ class TalkNlu {
         if (!h.cue.c.re.contains(m[0]!)) n++;
       }
       if (n.isOdd) pol = -pol;
-      // 不是不想给您加急，是真的没车: an offer not made, with its excuse
-      if (pol > 0 && offerActsNlu.contains(act) && _notButIs.hasMatch(before) && next != null && _explain.hasMatch(next.text)) {
-        // 不是我们不想给你发，是海关不让出: the blame is put elsewhere; 不是不想给您加急，是真的没车: the offer is not made
-        if (RegExp('(您|你|海关|平台|快递|物流|天气|工厂|厂家|银行|系统|对方|公司规定|规定)').hasMatch(next.text)) {
-          out.add(Frame('deny_fault', '+', conf, span: t.substring(h.s, h.e)));
-          continue;
-        }
-        pol = -1;
+      if (act == 'apologize' && pol < 0 && _courtesy.hasMatch(t.substring(h.s, h.e)) && !_negatesCourtesy.hasMatch(before)) {
+        // A denial elsewhere in an unpunctuated transcript does not negate a courtesy formula.
+        pol = 1;
+      }
+      // Explaining why a proposal is unavailable does not make the proposal or assign blame.
+      if (next != null && _explain.hasMatch(next.text) && _notButIs.hasMatch(t) &&
+          (offerActsNlu.contains(act) || (act == 'deny_fault' && !_explicitFault.hasMatch(t)))) {
+        continue;
       }
       // negation after: 道歉是不可能的 / 折扣没有
       if (_postNeg.hasMatch(after) && (offerActsNlu.contains(act) || act == 'apologize' || act == 'agree')) pol = -pol;
@@ -499,9 +693,7 @@ class TalkNlu {
 
   /// the discount in percent off the price, if the words say it (九折 10, 八五折 15, 8.5折 15, 对折 50, 百分之十 10)
   static int? readPct(String t) {
-    if (t.contains('对折') || t.contains('半价') || t.contains('五折')) {
-      if (!t.contains('五折') || !RegExp('[零一二两三四六七八九\\d]五折').hasMatch(t)) return 50;
-    }
+    if (t.contains('对折') || t.contains('半价')) return 50;
     final m = _zhe.firstMatch(t);
     if (m != null) {
       final v = readNumber(m[1]!);

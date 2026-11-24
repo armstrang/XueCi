@@ -9,6 +9,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:xueci/app/hskk.dart';
 import 'package:xueci/ui/hskk.dart';
 import 'package:xueci/app/app.dart';
+import 'package:xueci/app/talk/dialog.dart' show lateDelivery;
 import 'package:xueci/app/native.dart';
 import 'package:xueci/app/speech.dart';
 import 'package:xueci/ui/word_ui.dart';
@@ -17,11 +18,13 @@ import 'package:xueci/engine/fsrs.dart' as fsrs;
 import 'package:xueci/engine/js.dart';
 import 'package:xueci/ui/glass.dart';
 import 'package:xueci/ui/backup_sheet.dart';
+import 'package:xueci/ui/bct_study.dart' show StudyPick, bctStudySeed;
+import 'package:xueci/ui/qi.dart' show qiOn, qiT;
 import 'package:xueci/ui/settings.dart';
 import 'package:xueci/ui/share.dart';
 import 'package:xueci/ui/shell.dart';
 import 'package:xueci/ui/splash.dart';
-import 'package:xueci/ui/talk.dart' show talkSeed, talkListen;
+import 'package:xueci/ui/talk.dart' show talkScenarioOverride, talkSeed, talkListen;
 import 'package:xueci/ui/tests.dart' show btJump, gateShow, ptJump;
 import 'package:xueci/ui/run_view.dart' show OptBtn;
 
@@ -83,6 +86,17 @@ Future<void> shot(
   await t.pump(const Duration(seconds: 8));
 }
 
+void freezeBctBackground() {
+  final effectsWereOn = qiOn;
+  final previousTime = qiT.value;
+  qiOn = false;
+  qiT.value = 0;
+  addTearDown(() {
+    qiT.value = previousTime;
+    qiOn = effectsWereOn;
+  });
+}
+
 void main() {
   setUpAll(() async {
     noBlur = true;
@@ -116,9 +130,11 @@ void main() {
   });
 
   // the opening: the drop of ink and the letters, everything in, the lockup on its way, Home
-  for (final th in ['dark', 'light']) {
-    testWidgets('splash, $th', (t) async {
+  for (final (th, bct) in [('dark', false), ('light', false), ('dark', true)]) {
+    final name = bct ? '$th-bct' : th;
+    testWidgets('splash, $name', (t) async {
       await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"$th"'}, lang: 'id'));
+      if (bct) app.study = 'bct';
       t.view.physicalSize = const Size(412, 892) * 2.625;
       t.view.devicePixelRatio = 2.625;
       t.platformDispatcher.textScaleFactorTestValue = 1;
@@ -128,7 +144,9 @@ void main() {
       for (final ms in th == 'dark' ? [300, 1000, 1380, 2000] : [1000, 1380]) {
         await t.pump(Duration(milliseconds: ms - at));
         at = ms;
-        await expectLater(find.byType(XueCiApp), matchesGoldenFile('goldens/splash-$th-$ms.png'));
+        expect(splashPlaying.value, ms < 1760);
+        expect(find.byType(StudyPick).hitTestable(), ms < 1760 ? findsNothing : findsOneWidget);
+        await expectLater(find.byType(XueCiApp), matchesGoldenFile('goldens/splash-$name-$ms.png'));
       }
       splashOn = false;
       await t.pumpWidget(const SizedBox());
@@ -161,7 +179,7 @@ void runs() {
       app.runner.cardDont(it);
     });
   });
-  for (final q in ['m', 's', 'c', 'p', 't', 'f']) {
+  for (final q in ['m', 's', 'c', 't', 'f']) {
     testWidgets('quiz $q', (t) async {
       await t.runAsync(() => bootApp({...sample(), 'hsk16_ui': '{"level":2,"qt":"$q"}'}, lang: 'id'));
       await shot(t, 'quiz-$q', before: () => app.go('quiz'));
@@ -272,6 +290,9 @@ void runs() {
     await shot(t, 'exam-tab', before: () => app.go('exam'));
   });
   testWidgets('BCT study: home, cards, quiz', (t) async {
+    freezeBctBackground();
+    bctStudySeed = 3;
+    addTearDown(() => bctStudySeed = null);
     await t.runAsync(() async {
       await bootApp({...sample(), 'hsk16_theme': '"dark"'}, lang: 'id');
     });
@@ -286,8 +307,14 @@ void runs() {
     });
   });
   testWidgets('Bicara BCT: entry, thread, report', (t) async {
+    freezeBctBackground();
     talkSeed = 5;
-    addTearDown(() => talkListen = null);
+    talkScenarioOverride = lateDelivery;
+    addTearDown(() {
+      talkSeed = null;
+      talkScenarioOverride = null;
+      talkListen = null;
+    });
     await t.runAsync(() async {
       await bootApp({...sample(), 'hsk16_theme': '"light"'}, lang: 'id');
     });
@@ -319,8 +346,9 @@ void runs() {
       await say('真的非常抱歉，给您添麻烦了。');
       await say('因为海关查验，所以晚了三天。');
       await say('我们今天重新发货，星期四之前送到。');
-      expect(find.text('Minta maaf'), findsOneWidget);
-      expect(find.text('Janji hari tiba'), findsOneWidget);
+      expect(find.text('4/10'), findsOneWidget);
+      expect(find.text('8/10'), findsNWidgets(2));
+      expect(find.text('Janji hari tiba'), findsNothing);
     });
     await shot(t, 'talk-report', size: const Size(412, 1500), before: () {
       app.canListen = true;
