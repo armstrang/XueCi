@@ -40,6 +40,13 @@ Berkas tambahan yang perlu dipulihkan adalah `mobile/tool/make_talk_evidence_cor
 - Ekspor keluaran aturan dengan `mobile/tool/talk_rules_dump.dart` dan kalibrasi bobot dengan `mobile/tool/fit_talk_stack.py` memakai probabilitas antarlipatan dan data latih. Baca `content/talk/ADJUDICATION.md` untuk aturan evaluasi.
 - Profil `guard+new_weights` menimbang mesin dengan aset aktif 55% dan kandidat 45%, keduanya dengan pemeriksaan bukti. Bingkai yang absen memakai kepercayaan 0,37 saat digabung. Penalti sebesar 0,25 berlaku pada bingkai positif di ucapan yang memuat tanda risiko seperti pengandaian, kutipan, pertanyaan, atau negasi. Penalti dipilih pada `blind_val`. Jalankan `STRICT=1 dart run tool/talk_risk_eval.dart KANDIDAT.json` dari `mobile/` setelah alat dipulihkan.
 
+## Keputusan menuju rilis final
+
+- Pengguna menunda pelatihan lanjutan dan memilih memakai kandidat terbaru jika berhasil dipulihkan. Target lanjutan tetap F1 minimal 97% dan salah terima di bawah 3%.
+- Pengguna melaporkan pengenal suara cukup baik pada uji sendiri. Versi APK yang diuji belum diidentifikasi, sehingga hasil tersebut belum mengonfirmasi bobot kandidat 7,5%.
+- Tahap rilis mencakup pemulihan kandidat, commit dan push sumber ke GitHub, lalu build APK dan AAB bertanda tangan. Artefak untuk GitHub dan Play Console harus berasal dari commit rilis yang sama.
+- Patch dan bobot 7,5% masih belum ditemukan. Checkout berisi perubahan lokal sampai v11. Verifikasi kembali kandidat sebelum membuat APK atau AAB rilis agar versi yang dipilih pengguna dapat dipastikan.
+
 ## Langkah berikutnya
 
 1. Baca `CLAUDE.md`, periksa HEAD dan file lokal, dan pulihkan artefak jika salinannya ditemukan. Jangan mengulang pelatihan sebelum memastikan eksperimen terdahulu tersedia.
