@@ -107,7 +107,9 @@ class TalkDialog {
   final ClientState st;
   final Random _rnd;
   final List<Turn> turns = [];
-  TalkDialog(this.sc, {int seed = 1})
+  final bool forwardOnly;
+  final Set<String> _asked = {};
+  TalkDialog(this.sc, {int seed = 1, this.forwardOnly = false})
       : st = ClientState(sc.patience),
         _rnd = Random(seed);
 
@@ -131,7 +133,11 @@ class TalkDialog {
   }
 
   /// the client's opening line
-  Line open() => sc.practice?.prompt ?? _say('open');
+  Line open() {
+    final line = sc.practice?.prompt ?? _say('open');
+    _asked.add(line.zh);
+    return line;
+  }
 
   bool practiceAccepted(String text) {
     final goal = sc.practice!;
@@ -278,7 +284,7 @@ class TalkDialog {
     final goal = sc.practice;
     if (goal != null) {
       if (practiceAccepted(text)) return RegExp(r'您|请|谢谢').hasMatch(text) ? 10 : 8;
-      return goal.action.hasMatch(text) ? 4 : 1;
+      return goal.action.hasMatch(text) ? 4 : (forwardOnly ? 0 : 1);
     }
     final frames = contextualFrames(text, recognized);
     final keys = frames.map((f) => f.key).toSet();
@@ -308,7 +314,7 @@ class TalkDialog {
     if (transport.dispatch != null || transport.needsDate || question) return 5;
     if (apologized || closing) return 4;
     if (keys.contains('greet+')) return 2;
-    return 1;
+    return forwardOnly ? 0 : 1;
   }
 
   int _billingScore(BillingTerms bill, Set<String> keys) {
@@ -321,7 +327,7 @@ class TalkDialog {
     if (bill.refund != null) return invoice ? 5 : 3;
     if (invoice) return next == Need.invoice ? 8 : 6;
     if (bill.asksAmount || bill.asksInvoice || keys.contains('ask_order+')) return 5;
-    return polite ? 4 : 1;
+    return polite ? 4 : (forwardOnly ? 0 : 1);
   }
 
   /// one turn: [frames] are what the engine took as said (conf >= ok); [text] is what was heard
@@ -336,7 +342,11 @@ class TalkDialog {
           ? const Line('好，我确认了，谢谢。', 'Baik, saya sudah mengonfirmasi. Terima kasih.')
           : st.end != null
               ? const Line('这次先到这里吧。', 'Kita cukupkan sampai di sini dulu.')
-              : goal.prompt;
+              : !forwardOnly
+                  ? goal.prompt
+                  : st.turns == 1
+                      ? const Line('请说明你们具体能怎么安排。', 'Tolong jelaskan tindakan yang bisa kamu ambil.')
+                      : const Line('有哪些细节是现在就能确认的？', 'Detail apa yang bisa kamu konfirmasi sekarang?');
       turns.add(Turn(text, frames, line, passed ? 'settled' : 'open', st.mood));
       return line;
     }
@@ -515,7 +525,32 @@ class TalkDialog {
   static final _billingFarewell = RegExp(r'谢谢|感谢|再见|拜拜|期待.{0,5}合作');
 
   Line _record(String text, List<Frame> frames, String situation) {
-    final l = _say(situation);
+    var l = _say(situation);
+    if (forwardOnly && st.end == null) {
+      final seenNeed = turns.any((turn) => turn.situation == situation);
+      if (seenNeed || !_asked.add(l.zh)) {
+        final followUps = sc.requiresBilling
+            ? const ['amountAnswer', 'correctInvoice', 'invoiceAnswer']
+            : sc.requiresReplacement
+                ? const ['whichItem', 'when', 'orderAnswer']
+                : const ['whyDirect', 'when', 'comp', 'settled'];
+        var found = false;
+        for (final key in followUps) {
+          if (!sc.lines.containsKey(key) || turns.any((turn) => turn.situation == key)) continue;
+          final candidate = _say(key);
+          if (!_asked.add(candidate.zh)) continue;
+          l = candidate;
+          situation = key;
+          found = true;
+          break;
+        }
+        if (!found) {
+          st.end = 'lost';
+          situation = 'lost';
+          l = const Line('谢谢，今天先谈到这里。', 'Terima kasih, kita cukupkan pembicaraan hari ini.');
+        }
+      }
+    }
     turns.add(Turn(text, frames, l, situation, st.mood));
     return l;
   }

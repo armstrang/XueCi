@@ -94,7 +94,10 @@ class _BctStudyState extends State<BctStudyScreen> {
   String mode = 'home'; // home | cards | quiz | done
   List<BctW> deck = [];
   int i = 0, right = 0;
-  bool flipped = false;
+  _Q? _cardCheck;
+  String? _cardResult;
+  bool _cardHeard = false;
+  final Set<String> _requeued = {};
   List<_Q> qs = [];
   String kind = 'cards';
   _QuizKind? _quizKind;
@@ -182,7 +185,8 @@ class _BctStudyState extends State<BctStudyScreen> {
     deck = words;
     i = 0;
     right = 0;
-    flipped = false;
+    _resetCard();
+    _requeued.clear();
     kind = type;
     setState(() => mode = deck.isEmpty ? 'home' : 'cards');
   }
@@ -350,17 +354,69 @@ class _BctStudyState extends State<BctStudyScreen> {
     ),
   );
 
-  void _cardAnswer(bool ok) {
-    app.bprog.answer(_id(deck[i]), ok);
-    if (ok) right++;
-    if (i + 1 >= deck.length) {
-      setState(() => mode = 'done');
-    } else {
-      setState(() {
-        i++;
-        flipped = false;
-      });
+  void _resetCard() {
+    _cardCheck = null;
+    _cardResult = null;
+    _cardHeard = false;
+  }
+
+  void _claimCard(BctW word) {
+    final seen = app.bprog.seen(_id(word));
+    if (_rnd.nextDouble() < (seen ? .35 : .65)) {
+      final tones = _cardHeard ? <String>[] : _toneChoices(word.p);
+      final tone = tones.isNotEmpty && _rnd.nextBool();
+      final answer = tone ? word.p : _m(word);
+      final pool = [..._words]..shuffle(_rnd);
+      final choices = tone
+          ? tones
+          : [
+              answer,
+              ...pool
+                  .map(_m)
+                  .where((x) => x.isNotEmpty && x != answer)
+                  .toSet()
+                  .take(3),
+            ];
+      if (answer.isNotEmpty && choices.length > 1) {
+        choices.shuffle(_rnd);
+        setState(
+          () => _cardCheck = _Q(
+            word,
+            tone ? _QuizKind.tone : _QuizKind.meaning,
+            choices,
+            choices.indexOf(answer),
+          ),
+        );
+        return;
+      }
     }
+    _cardAnswer('trust');
+  }
+
+  void _cardAnswer(String result) {
+    if (_cardResult != null) return;
+    final word = deck[i];
+    final ok = result == 'ok' || result == 'trust';
+    app.bprog.answer(_id(word), ok, verified: result != 'trust');
+    setState(() {
+      _cardResult = result;
+      if (ok) {
+        right++;
+      } else if (_requeued.add(_id(word))) {
+        deck.insert(math.min(i + 5, deck.length), word);
+      }
+    });
+  }
+
+  void _cardNext() {
+    setState(() {
+      if (i + 1 >= deck.length) {
+        mode = 'done';
+      } else {
+        i++;
+        _resetCard();
+      }
+    });
   }
 
   void _quizPick(int k) {
@@ -390,59 +446,66 @@ class _BctStudyState extends State<BctStudyScreen> {
       return BctWordsPage(app.bctBook, onBack: _back);
     }
     final bottom = MediaQuery.paddingOf(context).bottom + 98;
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final top = MediaQuery.paddingOf(context).top + 10;
-        final available = math.max(
-          0.0,
-          constraints.maxHeight - top - bottom - 96,
-        );
-        Widget body = switch (mode) {
-          'cards' => _cards(th, kind == 'review' ? 0 : available),
-          'quiz' => _quiz(th),
-          'done' => _done(th),
-          _ => _home(th),
-        };
-        return SingleChildScrollView(
-          padding: EdgeInsets.fromLTRB(
-            16,
-            MediaQuery.paddingOf(context).top + 10,
-            16,
-            bottom,
-          ),
-          child: Center(
-            child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 640),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (mode == 'home') ...[
-                    const HomeHeader(short: false),
-                    const SizedBox(height: 16),
-                    Rise(
-                      1,
-                      child: Semantics(
-                        header: true,
+    Widget body = switch (mode) {
+      'cards' => _cards(th),
+      'quiz' => _quiz(th),
+      'done' => _done(th),
+      _ => _home(th),
+    };
+    return SingleChildScrollView(
+      padding: EdgeInsets.fromLTRB(
+        16,
+        MediaQuery.paddingOf(context).top + 10,
+        16,
+        bottom,
+      ),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 640),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              if (mode == 'home') ...[
+                const HomeHeader(short: false),
+                const SizedBox(height: 16),
+                Rise(
+                  1,
+                  child: Semantics(
+                    header: true,
+                    child: Text(
+                      t.bsTitle,
+                      style: F.s(28, w: FontWeight.w800, c: p.fg, ls: -.5),
+                    ),
+                  ),
+                ),
+              ] else
+                Capsule(
+                  title: mode == 'cards'
+                      ? t.card
+                      : t.bsBook(app.bctBook.toUpperCase()),
+                  lead: [
+                    if (mode == 'quiz') _quizPicker(th),
+                    if (mode == 'cards')
+                      Glass(
+                        radius: 999,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 14,
+                          vertical: 9,
+                        ),
                         child: Text(
-                          t.bsTitle,
-                          style: F.s(28, w: FontWeight.w800, c: p.fg, ls: -.5),
+                          t.bsBook(app.bctBook.toUpperCase()),
+                          style: F.s(15, w: FontWeight.w800, c: th.acc),
                         ),
                       ),
-                    ),
-                  ] else
-                    Capsule(
-                      title: t.bsBook(app.bctBook.toUpperCase()),
-                      lead: [if (mode == 'quiz') _quizPicker(th)],
-                      onBack: () => setState(() => mode = 'home'),
-                    ),
-                  const SizedBox(height: 14),
-                  if (mode == 'home') Rise(2, child: body) else body,
-                ],
-              ),
-            ),
+                  ],
+                  onBack: () => setState(() => mode = 'home'),
+                ),
+              const SizedBox(height: 14),
+              if (mode == 'home') Rise(2, child: body) else body,
+            ],
           ),
-        );
-      },
+        ),
+      ),
     );
   }
 
@@ -707,92 +770,190 @@ class _BctStudyState extends State<BctStudyScreen> {
     ),
   );
 
-  Widget _cards(Th th, double available) {
+  Widget _cards(Th th) {
     final p = th.p;
     final t = app.t;
-    final w = deck[i];
-    return ConstrainedBox(
-      constraints: BoxConstraints(minHeight: available),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _count(th, i, deck.length),
-              Press(
-                onTap: () => setState(() => flipped = !flipped),
-                label: flipped ? _m(w) : '${w.h}. ${t.bsFlip}',
-                child: Glass(
-                  solid: true,
-                  radius: 30,
-                  padding: const EdgeInsets.fromLTRB(20, 34, 20, 30),
-                  child: Column(
+    final word = deck[i];
+    final result = _cardResult;
+    final check = _cardCheck;
+    final mq = MediaQuery.of(context);
+    final height = result == null && check != null
+        ? 228.0
+        : (mq.size.height - mq.padding.vertical - 365).clamp(280.0, 520.0);
+    final message = switch (result) {
+      'ok' => t.resOk,
+      'over' => t.resOver,
+      'no' => t.resNo,
+      _ => t.resTrust,
+    };
+    final color = switch (result) {
+      'ok' => p.good,
+      'over' => p.bad,
+      _ => p.soft,
+    };
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _count(th, i, deck.length),
+        AnimatedContainer(
+          duration: const Duration(milliseconds: 260),
+          curve: Curves.easeOutCubic,
+          height: height,
+          child: Glass(
+            solid: true,
+            radius: 32,
+            padding: const EdgeInsets.all(22),
+            child: result == null
+                ? Stack(
                     children: [
-                      Text(
-                        w.h,
-                        textAlign: TextAlign.center,
-                        style: F.s(
-                          w.h.length > 4 ? 40 : 54,
-                          family: F.hz,
-                          w: FontWeight.w700,
-                          c: p.fg,
-                          h: 1.15,
+                      if (!app.bprog.seen(_id(word)))
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Text(
+                            t.newWord,
+                            style: F.s(12.5, w: FontWeight.w800, c: th.acc),
+                          ),
+                        ),
+                      Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                word.h,
+                                locale: const Locale('zh', 'CN'),
+                                style: F.s(
+                                  word.h.length > 2 ? 82 : 120,
+                                  family: F.hz,
+                                  w: FontWeight.w900,
+                                  h: 1,
+                                  c: p.fg,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(height: 10),
+                            Spk(
+                              word.h,
+                              size: 46,
+                              onSpoken: () => _cardHeard = true,
+                            ),
+                          ],
                         ),
                       ),
-                      const SizedBox(height: 6),
-                      Text(w.p, style: F.s(18, c: p.soft)),
-                      const SizedBox(height: 10),
-                      Spk(w.h, size: 40),
-                      const SizedBox(height: 18),
-                      if (flipped) ...[
-                        Text(
-                          _m(w),
-                          textAlign: TextAlign.center,
-                          style: F.s(21, w: FontWeight.w800, c: th.acc, h: 1.3),
-                        ),
-                        if (w.z != null) ...[
-                          const SizedBox(height: 16),
-                          Divider(height: 1, thickness: 1, color: p.line),
-                          const SizedBox(height: 14),
-                          BctExample(w),
-                        ],
-                      ] else
-                        Text(t.bsFlip, style: F.s(13.5, c: p.mute)),
                     ],
+                  )
+                : Center(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Wrap(
+                            spacing: 8,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              Text(
+                                word.h,
+                                style: F.s(
+                                  52,
+                                  family: F.hz,
+                                  w: FontWeight.w900,
+                                  c: th.acc,
+                                ),
+                              ),
+                              Text(
+                                word.p,
+                                style: F.s(16, w: FontWeight.w700, c: p.soft),
+                              ),
+                              Spk(word.h, size: 34),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            _m(word),
+                            style: F.s(20, w: FontWeight.w800, c: p.fg),
+                          ),
+                          if (word.z != null) ...[
+                            const SizedBox(height: 10),
+                            Divider(height: 1, color: p.line),
+                            const SizedBox(height: 12),
+                            BctExample(word, small: true),
+                          ],
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 16),
-            ],
           ),
-          Column(
-            children: [
-              Row(
-                children: [
-                  Expanded(
-                    child: GhostBtn(
-                      t.fcDont,
-                      wide: true,
-                      onTap: () => _cardAnswer(false),
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: MainBtn(
-                      t.fcKnow,
-                      wide: true,
-                      radius: 16,
-                      onTap: () => _cardAnswer(true),
-                    ),
+        ),
+        const SizedBox(height: 12),
+        if (result != null) ...[
+          Semantics(
+            liveRegion: true,
+            child: Glass(
+              radius: 14,
+              padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 10),
+              color: color.withValues(alpha: .10),
+              child: Rich(
+                message,
+                style: F.s(13.5, w: FontWeight.w700, c: color),
+              ),
+            ),
+          ),
+          const SizedBox(height: 10),
+          MainBtn(t.next, wide: true, big: true, onTap: _cardNext),
+        ] else if (check != null)
+          Glass(
+            radius: 22,
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  check.kind == _QuizKind.tone ? t.chkTone : t.chkMean,
+                  textAlign: TextAlign.center,
+                  style: F.s(13, w: FontWeight.w800, c: th.acc),
+                ),
+                for (final (index, option) in check.opts.indexed) ...[
+                  const SizedBox(height: 8),
+                  OptBtn(
+                    n: index,
+                    label: Text(option),
+                    onTap: () =>
+                        _cardAnswer(index == check.ans ? 'ok' : 'over'),
                   ),
                 ],
+              ],
+            ),
+          )
+        else ...[
+          Text(
+            t.fcHint,
+            textAlign: TextAlign.center,
+            style: F.s(15, c: p.soft, h: 1.35),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: GhostBtn(
+                  t.fcDont,
+                  wide: true,
+                  onTap: () => _cardAnswer('no'),
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: MainBtn(
+                  t.fcKnow,
+                  wide: true,
+                  big: true,
+                  onTap: () => _claimCard(word),
+                ),
               ),
             ],
           ),
         ],
-      ),
+      ],
     );
   }
 

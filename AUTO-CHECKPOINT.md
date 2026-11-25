@@ -119,3 +119,11 @@ Baca file ini dan CLAUDE.md terlebih dahulu. Periksa branch, HEAD, perubahan bel
 - Perubahan yang diuji sebelum penggabungan: alur pengulangan, pemisahan A/B, grafis dan kontrol Daftar, serta pengenalan suara tiruan. Sembilan tes Flutter lulus dan analisis Dart kode aplikasi bersih.
 - Rilis: push yang disetujui pengguna memicu workflow Flutter untuk pre-release alpha. Tempatkan hasil verifikasi commit, workflow, dan APK di laporan penyerahan. Versi Play Store dan pelatihan model tetap di luar rilis uji ini.
 - Lanjutan: uji pengenal suara rekaman di HP yang sebelumnya gagal membacanya dan pastikan progres BCT tetap tersimpan setelah pemasangan.
+
+## AUTO-CHECKPOINT · 25 November 2026 · Final v1.13
+- Tujuan: rilis APK final dan bundel upload Play setelah memperbaiki alur Kartu dan Bicara BCT.
+- Kartu BCT membuka Hanzi dan audio dahulu. Cek arti/nada pada sebagian klaim, umpan balik dan tombol Lanjut, serta satu pengulangan dalam sesi untuk tiap kata yang salah. FSRS memberi bobot berbeda pada jawaban diperiksa dan klaim. Data BCT lama tetap kompatibel.
+- Bicara BCT menilai setiap transkrip yang dikirim pada skala 0–10. Alur aplikasi mencegah pertanyaan yang sama muncul kembali, menyelesaikan percakapan yang buntu, dan menampilkan laporan akhir.
+- Perubahan kode ada di `mobile/lib/{app/bct_prog.dart,app/talk/dialog.dart,ui/bct_study.dart,ui/talk.dart}`. Tes regresi ada di `mobile/test/{screens,talk_dialog,talk_recognition_screen}_test.dart`. Catatan versi dan pemisahan CI final ada di `CHANGELOG.md` dan workflow GitHub.
+- Basis: `dd373ce`. Analisis Dart bersih. Verifikasi set tes penuh, status rilis, aset APK, dan bundel terenkripsi sesuai hasil workflow.
+- Handoff: finalisasi hanya untuk versi v1.13 yang diizinkan. Periksa commit di main dan jalankan rilis `Build APK` hanya bila run final belum ada. Ambil bundel dari `aab-out` memakai prosedur enkripsi repo. Unggahan atau publikasi Google Play memerlukan instruksi tersendiri.

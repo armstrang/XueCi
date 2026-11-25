@@ -20,13 +20,13 @@ class BProg {
   int n(String id) => (j[id]?[3] ?? 0).toInt();
   double stab(String id) => (j[id]?[1] ?? 0).toDouble();
 
-  void answer(String id, bool ok) {
+  void answer(String id, bool ok, {bool verified = true}) {
     final t = lm.now();
     final cur = j[id];
     final st = cur == null
         ? null
         : [cur[0].toDouble(), cur[1].toDouble(), cur[2].toDouble()];
-    final s = lm.step(st, ok ? 3 : 1, t);
+    final s = lm.step(st, ok ? (verified ? 3 : 2) : 1, t);
     j[id] = [
       s[0],
       s[1],

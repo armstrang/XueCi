@@ -32,28 +32,7 @@ Scenario? talkScenarioOverride;
 /// in tests: stands in for the phone's recognizer
 Future<List<String>?> Function({void Function(Map ev)? onEvent, int limitMs})? talkListen;
 
-String _actName(String a) {
-  final t = app.t;
-  return switch (a) {
-    'greet' => t.talkA_greet,
-    'apologize' => t.talkA_apologize,
-    'acknowledge' => t.talkA_acknowledge,
-    'cause' => t.talkA_cause,
-    'deny_fault' => t.talkA_deny_fault,
-    'resend' => t.talkA_resend,
-    'expedite' => t.talkA_expedite,
-    'promise_time' => t.talkA_promise_time,
-    'discount' => t.talkA_discount,
-    'compensate' => t.talkA_compensate,
-    'ask_deadline' => t.talkA_ask_deadline,
-    'ask_order' => t.talkA_ask_order,
-    'agree' => t.talkA_agree,
-    'refuse' => t.talkA_refuse,
-    'thanks' => t.talkA_thanks,
-    'closing' => t.talkA_closing,
-    _ => a,
-  };
-}
+
 
 /// one message in the thread: the client's voice note (left) or the learner's reply (right)
 class _Msg {
@@ -100,8 +79,6 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
 
 
   /// the engine was only half sure of one act: ask before counting it
-  ({String text, Frame f})? _pending;
-  TalkRecognition? _choice;
 
   @override
   void initState() {
@@ -170,14 +147,12 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
     _lastByLevel[level] = id;
     final (scenario, hint) = pool.firstWhere((entry) => entry.$1.id == id);
     _hint = hint;
-    _d = TalkDialog(scenario, seed: talkSeed ?? _random.nextInt(100000));
+    _d = TalkDialog(scenario, seed: talkSeed ?? _random.nextInt(100000), forwardOnly: true);
     final l = _d.open();
     _msgs
       ..clear()
       ..add(_Msg.client(l.zh, l.id));
     _rep = null;
-    _pending = null;
-    _choice = null;
     _live = '';
   }
 
@@ -286,7 +261,7 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
   List<String> _cleanHypotheses(List<String>? heard) => [
     if (heard != null)
       for (final text in heard)
-        if (RegExp(r'[㐀-鿿]').hasMatch(text)) text.trim(),
+        if (RegExp(r'[\p{L}\p{N}]', unicode: true).hasMatch(text)) text.trim(),
   ];
 
   void _sendAudio() {
@@ -338,60 +313,12 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
   }
 
   void _submit(List<String> heard) {
-    final recognition = readTalkSpeech(_nlu, _d, heard);
-    final primary = recognition.primary;
-    final tentative = recognition.tentative;
+    final reading = readTalkSpeech(_nlu, _d, heard).primary;
     setState(() {
-      if (recognition.alternative != null) {
-        _choice = recognition;
-      } else if (tentative != null) {
-        _msgs.add(_Msg.mine(primary.text, null));
-        _pending = (text: primary.text, f: tentative);
-      } else {
-        _submitReading(primary);
-      }
-    });
-    _down();
-  }
-
-  void _submitReading(TalkReading reading) {
-    if (!_d.understandsReply(reading.text, reading.frames)) {
-      app.toast(app.t.talkNoHear, 2500);
-      return;
-    }
-    _reply(reading.text, reading.frames);
-  }
-
-  void _resolveChoice(TalkReading? reading) {
-    setState(() {
-      _choice = null;
-      if (reading != null) _submitReading(reading);
-    });
-    _down();
-  }
-
-  void _reply(String text, List<Frame> frames, {bool replacePending = false}) {
-    final answer = _Msg.mine(text, _d.turnScore(text, frames));
-    if (replacePending) {
-      _msgs[_msgs.length - 1] = answer;
-    } else {
-      _msgs.add(answer);
-    }
-    final l = _d.reply(text, frames);
-    _msgs.add(_Msg.client(l.zh, l.id));
-    if (_d.over) _rep = coach(_d);
-  }
-
-  void _confirm(bool yes) {
-    final p = _pending;
-    if (p == null) return;
-    setState(() {
-      _pending = null;
-      if (yes) {
-        _reply(p.text, [p.f], replacePending: true);
-      } else {
-        app.toast(app.t.talkNoHear, 2500);
-      }
+      _msgs.add(_Msg.mine(reading.text, _d.turnScore(reading.text, reading.frames)));
+      final line = _d.reply(reading.text, reading.frames);
+      _msgs.add(_Msg.client(line.zh, line.id));
+      if (_d.over) _rep = coach(_d);
     });
     _down();
   }
@@ -463,8 +390,6 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
               padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
               children: [
                 for (final m in _msgs) _bubble(m, th),
-                if (_pending != null) _confirmCard(th),
-                if (_choice != null) _choiceCard(th, _choice!),
                 if (_level == PracticeLevel.a && _rep == null && _hint.isNotEmpty)
                   Text(_hint, style: F.s(12, c: p.soft, h: 1.4)),
                 if (_rep != null) _report(_rep!, th),
@@ -533,53 +458,6 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
                 padding: const EdgeInsets.only(top: 6),
                 child: Text('${m.score}/10', style: F.s(13, w: FontWeight.w800, c: p.soft)),
               ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _choiceCard(Th th, TalkRecognition choice) {
-    final t = app.t;
-    return Glass(
-      radius: 22,
-      padding: const EdgeInsets.all(12),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(t.talkChooseSpeech, style: F.s(14, w: FontWeight.w700, c: th.p.fg)),
-          for (final reading in [choice.primary, choice.alternative!]) ...[
-            const SizedBox(height: 8),
-            GhostBtn(reading.text, wide: true, onTap: () => _resolveChoice(reading)),
-          ],
-          const SizedBox(height: 8),
-          GhostBtn(t.talkRetrySpeech, wide: true, onTap: () => _resolveChoice(null)),
-        ],
-      ),
-    );
-  }
-
-  Widget _confirmCard(Th th) {
-    final p = th.p;
-    final t = app.t;
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 10),
-      child: Glass(
-        radius: 20,
-        color: p.gold.withValues(alpha: .12),
-        padding: const EdgeInsets.all(14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(t.talkAsk(_actName(_pending!.f.act)), style: F.s(15, w: FontWeight.w700, c: p.fg)),
-            const SizedBox(height: 10),
-            Row(
-              children: [
-                Expanded(child: MainBtn(t.talkYes, wide: true, onTap: () => _confirm(true))),
-                const SizedBox(width: 8),
-                Expanded(child: GhostBtn(t.talkNo, wide: true, onTap: () => _confirm(false))),
-              ],
-            ),
           ],
         ),
       ),
@@ -806,7 +684,6 @@ class _TalkState extends State<TalkScreen> with WidgetsBindingObserver {
         ),
       );
     }
-    if (_pending != null || _choice != null) return const SizedBox.shrink();
     if (_recordedMs > 0 || _reviewHeard.isNotEmpty) return _recordingReview(th, pad);
     // the practice is spoken: without a recognizer there is nothing to do here but say so
     if ((!app.canListen && !_audioReview) || _noMic) {

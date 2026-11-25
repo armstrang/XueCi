@@ -305,6 +305,18 @@ void runs() {
       await t.tap(find.text('Kartu'));
       await t.pump(const Duration(milliseconds: 300));
     });
+    await shot(t, 'bct-study-card-retry', before: () => app.setStudy('bct'), act: () async {
+      await t.tap(find.text(app.t.card));
+      await t.pump(const Duration(milliseconds: 400));
+      expect(find.text(app.t.fcHint), findsOneWidget);
+      expect(find.text('1/12'), findsOneWidget);
+      await t.ensureVisible(find.text(app.t.fcDont));
+      await t.tap(find.text(app.t.fcDont));
+      await t.pump(const Duration(milliseconds: 400));
+      expect(find.text('1/13'), findsOneWidget);
+      expect(find.text(app.t.next), findsOneWidget);
+      expect(find.text(app.t.fcDont), findsNothing);
+    });
     await shot(t, 'bct-study-quiz', before: () => app.setStudy('bct'), act: () async {
       await t.tap(find.text('Kuis'));
       await t.pump(const Duration(milliseconds: 300));

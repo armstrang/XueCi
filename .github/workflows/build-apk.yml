@@ -3,9 +3,10 @@ name: Build APK
 # The app in mobile/. Official release: assets from content/ (word data, interface text, the sealed part) → analyzer →
 # tests (engine against its recorded runs, screens, contrast, backup, the secret) → a signed APK and the Play bundle →
 # GitHub release v1.N. Only when Josh says a version is ready; test builds come from flutter.yml as v1.0-alpha-N.
-# Run by hand only (Actions → Build APK → Run workflow on main), when Josh says a version is ready: main carries the
-# current code, but a push to it never publishes anything by itself.
+# Run by hand or with an explicitly authorized [release final 1.N] commit on main.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
     inputs:
       version:
@@ -22,6 +23,7 @@ permissions:
 
 jobs:
   build:
+    if: github.ref_name == 'main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[release final '))
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -47,10 +49,20 @@ jobs:
       # v1.N from run 19 of this workflow. versionCode = 2000 + run: above every earlier build (100 + run) and every test
       # build (1000 + run), so each release installs over what is on the phone.
       - name: Version
+        env:
+          INPUT_VERSION: ${{ inputs.version }}
+          RELEASE_MESSAGE: ${{ github.event.head_commit.message }}
         run: |
           n=$(( GITHUB_RUN_NUMBER - 19 ))
           if [ "$n" -lt 0 ]; then n=0; fi
-          v="${{ inputs.version }}"
+          v="$INPUT_VERSION"
+          if [ "$GITHUB_EVENT_NAME" = push ]; then
+            v=$(printf '%s\n' "$RELEASE_MESSAGE" | sed -nE 's/.*\[release final ([0-9]+\.[0-9]+(\.[0-9]+)?)\].*/\1/p' | head -1)
+            test -n "$v"
+          fi
+          if [ -n "$v" ] && ! printf '%s\n' "$v" | grep -Eq '^[0-9]+\.[0-9]+(\.[0-9]+)?$'; then
+            exit 1
+          fi
           echo "VER=${v:-1.$n}" >> "$GITHUB_ENV"
           echo "CODE=$(( 2000 + GITHUB_RUN_NUMBER ))" >> "$GITHUB_ENV"
 
@@ -101,10 +113,12 @@ jobs:
             export XC_UPLOAD_KEYSTORE="$RUNNER_TEMP/upload.jks"
             echo "Signing the bundle with the Play upload key"
           else
-            echo "::notice title=No upload key::XC_UPLOAD_KEYSTORE_B64 is not set; the bundle is signed with the sideload key (not for Play)"
+            echo "::error title=Missing Play upload key::XC_UPLOAD_KEYSTORE_B64 is required for a final Play bundle"
+            exit 1
           fi
           XC_PLAY=1 flutter build appbundle --release --build-number=$CODE --build-name=$VER
           cp build/app/outputs/bundle/release/app-release.aab ../XueCiMandarin.aab
+          jarsigner -verify ../XueCiMandarin.aab
           rm -f "$RUNNER_TEMP/upload.jks"
 
       # The Play bundle is not published on GitHub (Josh: it goes to him in chat). When .github/aab-public.pem is in the

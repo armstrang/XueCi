@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:xueci/app/talk/coach.dart';
 import 'package:xueci/app/talk/dialog.dart';
 import 'package:xueci/app/talk/nlu.dart';
+import 'package:xueci/app/talk/practice.dart';
 
 void main() {
   final nlu = TalkNlu();
@@ -17,6 +18,20 @@ void main() {
     }
     return d;
   }
+
+  test('forward-only practice scores every miss and never repeats a visible line', () {
+    for (final level in PracticeLevel.values) {
+      for (final (scenario, _) in practicePool(level, Random(3))) {
+        final dialog = TalkDialog(scenario, forwardOnly: true);
+        final prompts = {dialog.open().zh};
+        for (var i = 0; i < scenario.patience && !dialog.over; i++) {
+          expect(dialog.turnScore('苹果香蕉', []), 0);
+          expect(prompts.add(dialog.reply('苹果香蕉', []).zh), isTrue);
+        }
+        expect(dialog.over, isTrue);
+      }
+    }
+  });
 
   test('a good seller: apology, reason, a day in time, a discount, thanks', () {
     final d = run([
