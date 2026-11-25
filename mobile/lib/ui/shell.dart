@@ -423,7 +423,7 @@ class _TabBar2State extends State<TabBar2> with SingleTickerProviderStateMixin {
                                                         child: Text(
                                                           names[i],
                                                           maxLines: 1,
-                                                          style: F.s(10.5, w: on ? FontWeight.w800 : FontWeight.w600, c: col, ls: -.1),
+                                                          style: F.s(10.5, w: on ? FontWeight.w800 : FontWeight.w600, c: on && p.dark ? Color.lerp(col, p.fg, .65) : col, ls: -.1),
                                                         ),
                                                       ),
                                                     ],

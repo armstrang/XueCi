@@ -2,6 +2,10 @@
 
 Regular changes to main produce alpha test builds. An explicitly authorized final release publishes the signed APK to GitHub and prepares a Play-signed bundle.
 
+## v1.13.1
+
+- Improve the contrast of Study tab labels and HSK test markers. Includes the BCT study and conversation changes in v1.13 below.
+
 ## v1.13
 
 **Business Mandarin study and conversation practice**

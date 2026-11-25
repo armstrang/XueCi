@@ -897,7 +897,7 @@ class _TribScreenState extends State<TribScreen> {
                     height: 34,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(shape: BoxShape.circle, border: Border.all(color: th.acc.withValues(alpha: .5), width: 1.5)),
-                    child: Text(s.hz, style: F.s(17, w: FontWeight.w900, family: F.hz, c: th.acc, h: 1)),
+                    child: Text(s.hz, style: F.s(17, w: FontWeight.w900, family: F.hz, c: p.dark ? th.acc : Color.lerp(th.acc, p.fg, .50), h: 1)),
                   ),
                   const SizedBox(width: 11),
                   Expanded(

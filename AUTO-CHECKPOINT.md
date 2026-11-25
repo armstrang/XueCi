@@ -127,3 +127,7 @@ Baca file ini dan CLAUDE.md terlebih dahulu. Periksa branch, HEAD, perubahan bel
 - Perubahan kode ada di `mobile/lib/{app/bct_prog.dart,app/talk/dialog.dart,ui/bct_study.dart,ui/talk.dart}`. Tes regresi ada di `mobile/test/{screens,talk_dialog,talk_recognition_screen}_test.dart`. Catatan versi dan pemisahan CI final ada di `CHANGELOG.md` dan workflow GitHub.
 - Basis: `dd373ce`. Analisis Dart bersih. Verifikasi set tes penuh, status rilis, aset APK, dan bundel terenkripsi sesuai hasil workflow.
 - Handoff: finalisasi hanya untuk versi v1.13 yang diizinkan. Periksa commit di main dan jalankan rilis `Build APK` hanya bila run final belum ada. Ambil bundel dari `aab-out` memakai prosedur enkripsi repo. Unggahan atau publikasi Google Play memerlukan instruksi tersendiri.
+
+## AUTO-CHECKPOINT · 25 November 2026 · Perbaikan kontras rilis
+- Tes lengkap lokal menemukan tiga kegagalan kontras HSK. Perbaikan di `mobile/lib/ui/shell.dart` dan `mobile/lib/ui/tests.dart` membuat 51 tes kontras lulus.
+- Kandidat final v1.13.1 menyertakan perbaikan ini di atas v1.13. Rilis sebelumnya dipertahankan. Verifikasi commit, APK, dan AAB terenkripsi dari run v1.13.1.
