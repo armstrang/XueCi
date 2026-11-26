@@ -60,6 +60,7 @@ class StatsScreenState extends State<StatsScreen> {
     final th = Th.of(context);
     final p = th.p;
     final t = app.t;
+    final detailColor = p.dark ? p.fg : p.soft;
     final arr = app.by(lv);
     final s = app.summary(arr);
     final d = sel == null ? null : app.vocab.idx[sel];
@@ -75,13 +76,19 @@ class StatsScreenState extends State<StatsScreen> {
             Glass(
               radius: 22,
               padding: const EdgeInsets.all(2),
-              child: LevelLens(
-                level: lv,
-                onPick: (l) => setState(() {
-                  lv = l;
-                  sel = null;
-                  confirm = false;
-                }),
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  color: p.dark ? p.sunk.withValues(alpha: .85) : Colors.transparent,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: LevelLens(
+                  level: lv,
+                  onPick: (l) => setState(() {
+                    lv = l;
+                    sel = null;
+                    confirm = false;
+                  }),
+                ),
               ),
             ),
             const SizedBox(height: 14),
@@ -89,13 +96,13 @@ class StatsScreenState extends State<StatsScreen> {
               TextSpan(
                 children: [
                   TextSpan(text: app.pctTxt(s.p), style: F.s(28, w: FontWeight.w800, c: p.fg, ls: -.5, feat: F.tab)),
-                  TextSpan(text: ' ${t.memoWord}', style: F.s(13, c: p.soft)),
+                  TextSpan(text: ' ${t.memoWord}', style: F.s(13, c: detailColor)),
                 ],
               ),
             ),
             Text(
               'HSK $lv · ${t.words(app.fmt(s.n))} · ${t.practiced(app.fmt(s.n - s.none))} · ${t.matureN(app.fmt(s.mature))}',
-              style: F.s(12.5, c: p.soft),
+              style: F.s(12.5, c: detailColor),
             ),
             const SizedBox(height: 10),
             SizedBox(height: 12, child: MiniBar(s, width: double.infinity)),
@@ -123,7 +130,7 @@ class StatsScreenState extends State<StatsScreen> {
                         Text(
                           '${L10.text(t.band[b])}${r.isNotEmpty ? ' · ${t.lvlWord} $r' : ''}',
                           maxLines: 2,
-                          style: F.s(12.5, c: p.soft, h: 1.25),
+                          style: F.s(12.5, c: detailColor, h: 1.25),
                         ),
                       ],
                     ),

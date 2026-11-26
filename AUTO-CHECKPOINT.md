@@ -150,5 +150,5 @@ Baca file ini dan CLAUDE.md terlebih dahulu. Periksa branch, HEAD, perubahan bel
 
 ## AUTO-CHECKPOINT · 26 November 2026 · Rilis v1.13.2
 - Tujuan: menyiapkan APK final dan AAB bertanda tangan Play dari optimasi desain yang telah diverifikasi.
-- Perubahan rilis: catatan versi di `CHANGELOG.md`. Perubahan aplikasi dan status pengujian ada pada bagian optimasi desain di atas.
+- Perubahan rilis: catatan versi di `CHANGELOG.md`. Setelah CI mendeteksi kontras rendah pada Statistik HSK tema gelap dan hitam, `mobile/lib/ui/stats.dart` menambahkan dasar gelap di bawah pemilih level dan meningkatkan kontras ringkasan serta teks band.
 - Handoff: gunakan workflow `Build APK` pada commit persis rilis ini. Verifikasi hasil workflow, APK yang diterbitkan, dan checksum AAB dari transport terenkripsi sebelum mengirim. Belum ada validasi pengenal suara di perangkat pengguna. Publikasi ke Google Play memerlukan instruksi terpisah.
