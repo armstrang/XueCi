@@ -511,6 +511,7 @@ class _BctStudyState extends State<BctStudyScreen> {
 
   // ------------------------------------------------------------ home
   Widget _reviewSchedule(Th th) {
+    final t = app.t;
     final ids = _words.map(_id).toSet();
     final now = app.lm.now();
     final ready = ids
@@ -564,10 +565,17 @@ class _BctStudyState extends State<BctStudyScreen> {
           ),
           const SizedBox(height: 8),
           Text(
-            '$today ${app.fmt(counts[0])}  ·  $tomorrow ${app.fmt(counts[1])}',
+            '${t.bsReadyNow} · ${app.fmt(ready)}',
             style: F.s(13, c: p.soft),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 6),
+          if (highest > 0) ...[
+            Text(
+              '${t.bsScheduled} · $today ${app.fmt(counts[0])} · $tomorrow ${app.fmt(counts[1])}',
+              style: F.s(12.5, c: p.soft),
+            ),
+            const SizedBox(height: 8),
+          ],
           if (highest == 0)
             Text(empty, style: F.s(12.5, c: p.mute))
           else
@@ -779,7 +787,11 @@ class _BctStudyState extends State<BctStudyScreen> {
     final mq = MediaQuery.of(context);
     final height = result == null && check != null
         ? 228.0
-        : (mq.size.height - mq.padding.vertical - 365).clamp(280.0, 520.0);
+        : (mq.size.height -
+                  mq.padding.vertical -
+                  365 -
+                  80 * (mq.textScaler.scale(1) - 1).clamp(0, 1))
+              .clamp(218.0, 520.0);
     final message = switch (result) {
       'ok' => t.resOk,
       'over' => t.resOver,

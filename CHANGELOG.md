@@ -2,6 +2,12 @@
 
 Regular changes to main produce alpha test builds. An explicitly authorized final release publishes the signed APK to GitHub and prepares a Play-signed bundle.
 
+## v1.13.2
+
+- Redesigned the Speak BCT level picker and recording controls. Choose an alternative transcript when your device offers one, and open a dedicated results page.
+- Improved study layouts, review statistics, and contrast, and fixed answer effects highlighting the wrong option.
+- Removed ambient background audio and its setting. Pronunciation, listening exercises, and voice practice audio remain available.
+
 ## v1.13.1
 
 - Improve the contrast of Study tab labels and HSK test markers. Includes the BCT study and conversation changes in v1.13 below.

@@ -26,7 +26,7 @@ import 'package:xueci/ui/share.dart';
 import 'package:xueci/ui/shell.dart';
 import 'package:xueci/ui/splash.dart';
 import 'package:xueci/ui/talk.dart' show talkScenarioOverride, talkSeed, talkListen;
-import 'package:xueci/ui/tests.dart' show btJump, gateShow, ptJump;
+import 'package:xueci/ui/tests.dart' show boltV, btJump, gateShow, ptJump;
 import 'package:xueci/ui/run_view.dart' show OptBtn;
 
 Future<void> loadFonts() async {
@@ -322,6 +322,20 @@ void runs() {
       await t.pump(const Duration(milliseconds: 300));
     });
   });
+  testWidgets('Bicara BCT: level cards on a small phone', (t) async {
+    freezeBctBackground();
+    await t.runAsync(() => bootApp({...sample(), 'hsk16_theme': '"dark"'}, lang: 'id'));
+    await shot(t, 'talk-level-small', size: const Size(360, 680), fs: 1.2, before: () {
+      app.setStudy('bct');
+      app.go('talk');
+    }, act: () async {
+      expect(find.text(app.t.talkLevelPick), findsOneWidget);
+      final a = t.getCenter(find.text('BCT A'));
+      final b = t.getCenter(find.text('BCT B'));
+      expect((a.dy - b.dy).abs(), lessThan(1));
+      expect(a.dy, inInclusiveRange(240, 450));
+    });
+  });
   testWidgets('Bicara BCT: entry, thread, report', (t) async {
     freezeBctBackground();
     talkSeed = 5;
@@ -454,6 +468,22 @@ void runs() {
       });
     });
   }
+  testWidgets('placement highlights the actual third choice', (t) async {
+    await t.runAsync(() => bootApp({'xc_onb': '1'}));
+    await shot(t, 'placement-third-choice', before: () {
+      app.go('placement');
+      ptJump((it) => it.q == 'm' && (it.words?.length ?? 0) >= 3);
+    }, act: () async {
+      final options = find.byType(OptBtn);
+      expect(options, findsAtLeastNWidgets(3));
+      await t.ensureVisible(options.at(2));
+      await t.tap(options.at(2));
+      await t.pump();
+      expect(t.widgetList<OptBtn>(options).where((option) => option.selected).map((option) => option.n), [3]);
+      await t.pump(const Duration(milliseconds: 180));
+      expect(t.widgetList<OptBtn>(find.byType(OptBtn)).any((option) => option.selected), isFalse);
+    });
+  });
   testWidgets('placement result', (t) async {
     await t.runAsync(() => bootApp({'xc_onb': '1'}));
     await shot(t, 'placement-result', size: const Size(412, 1300), before: () {
@@ -486,10 +516,12 @@ void runs() {
       'bt-yu',
       before: () => app.go('bt'),
       act: () async {
+        final effectBefore = boltV.value;
         await t.tap(find.text(app.t.btBegin));
         await t.pump(const Duration(milliseconds: 100));
         btJump('yu');
         await t.pump(const Duration(milliseconds: 100));
+        expect(boltV.value, same(effectBefore));
       },
     );
   });

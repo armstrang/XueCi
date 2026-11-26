@@ -1286,6 +1286,8 @@ class LevelLens extends StatelessWidget {
         item: (c, i, on) {
           final l = lv[i];
           final pc = app.pctTxt(app.summary(app.by(l)).p);
+          final selectedText = p.dark ? Colors.white : p.fg;
+          final selectedNumber = p.dark ? Color.lerp(p.l(l), Colors.white, .55)! : p.l(l);
           return Press(
             onTap: on ? null : () => onPick(l),
             scale: .95,
@@ -1297,16 +1299,16 @@ class LevelLens extends StatelessWidget {
                 if (!nine)
                   Text(
                     'HSK',
-                    style: F.s(9.5, w: FontWeight.w700, c: on ? p.fg : p.soft, ls: .2, h: 1.1),
+                    style: F.s(9.5, w: FontWeight.w700, c: on ? selectedText : p.soft, ls: .2, h: 1.1),
                   ),
                 Text(
                   '$l',
-                  style: F.s(nine ? 16 : 20, w: on ? FontWeight.w800 : FontWeight.w500, c: on ? p.l(l) : p.fg, h: 1.05),
+                  style: F.s(nine ? 16 : 20, w: on ? FontWeight.w800 : FontWeight.w500, c: on ? selectedNumber : p.fg, h: 1.05),
                 ),
                 if (showPct)
                   Text(
                     pc,
-                    style: F.s(10, w: FontWeight.w700, c: on ? p.fg : p.soft, feat: F.tab, h: 1.2),
+                    style: F.s(10, w: FontWeight.w700, c: on ? selectedText : p.soft, feat: F.tab, h: 1.2),
                   ),
               ],
             ),

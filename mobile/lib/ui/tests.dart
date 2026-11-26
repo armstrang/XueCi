@@ -415,7 +415,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
   }
 
   /// the answer to the current question: right or not; "don't know" (idk) and out of time (to) are wrong
-  void _answer(Item it, bool ok, {String? r, String? x}) {
+  void _answer(Item it, bool ok, {String? r, String? x, int? option}) {
     if (_ptIt != it || pick != null) return;
     _tm?.cancel();
     final lm = app.lm;
@@ -424,7 +424,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
     lm.ptAnswer(_pt!, it, res);
     it.done = true;
     app.runner.studied();
-    setState(() => pick = res == 'idk' ? -1 : 0);
+    setState(() => pick = option ?? (res == 'idk' ? -1 : -2));
     Timer(const Duration(milliseconds: 160), () {
       if (!mounted || _ptIt != it) return;
       _ptIt = null;
@@ -443,7 +443,7 @@ class _PlacementScreenState extends State<PlacementScreen> {
     if (i < 0) return _answer(it, false, r: 'idk');
     final ok = i == it.ans && (it.q != 'pm' || it.extra == true);
     final x = !ok && it.q != 's' && it.q != 'pm' && it.words != null ? it.words![i].id : null;
-    _answer(it, ok, x: x);
+    _answer(it, ok, x: x, option: i);
   }
 
   void _typed(String v) {
@@ -942,11 +942,9 @@ class _TribScreenState extends State<TribScreen> {
     }
     final it = st.items[st.i];
     final s = st.strikes.firstWhere((x) => x.k == it.strike);
-    final first = st.items.indexWhere((x) => x.strike == it.strike) == st.i;
     if (!identical(bolted, it) && pick == null) {
       bolted = it;
       t0 = nowMs();
-      if (first) WidgetsBinding.instance.addPostFrameCallback((_) => bolt(s.hz));
       _btTimer?.cancel();
       if (it.limit != null) {
         _btTimer = Timer(Duration(seconds: it.limit!), () {

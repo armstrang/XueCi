@@ -118,38 +118,50 @@ class _WordsState extends State<BctWordsPage> {
       if (onBack != null) ...[
         Capsule(title: t.list, onBack: onBack),
         const SizedBox(height: 8),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              _picker(
+        LayoutBuilder(
+          builder: (context, constraints) {
+            final bookPicker = _picker(
+              th,
+              book,
+              {'a': 'BCT A', 'b': 'BCT B'},
+              (next) => setState(() {
+                book = next;
+                topic = '';
+              }),
+            );
+            if (topics.isEmpty) {
+              return Align(alignment: Alignment.centerLeft, child: bookPicker);
+            }
+            final categoryPicker = Tooltip(
+              message: topic.isEmpty ? t.bwAll : topic,
+              child: _picker(
                 th,
-                book,
-                {'a': 'BCT A', 'b': 'BCT B'},
-                (next) => setState(() {
-                  book = next;
-                  topic = '';
-                }),
+                topic,
+                {'': t.bwAll, for (final name in topics) name: name},
+                (next) => setState(() => topic = next),
+                expand: true,
               ),
-              if (topics.isNotEmpty) ...[
+            );
+            if (constraints.maxWidth /
+                    MediaQuery.textScalerOf(context).scale(1) <
+                245) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Align(alignment: Alignment.centerLeft, child: bookPicker),
+                  const SizedBox(height: 8),
+                  categoryPicker,
+                ],
+              );
+            }
+            return Row(
+              children: [
+                bookPicker,
                 const SizedBox(width: 8),
-                ConstrainedBox(
-                  constraints: BoxConstraints(
-                    maxWidth: MediaQuery.sizeOf(context).width < 360
-                        ? 180
-                        : 220,
-                  ),
-                  child: _picker(
-                    th,
-                    topic,
-                    {'': t.bwAll, for (final name in topics) name: name},
-                    (next) => setState(() => topic = next),
-                    expand: true,
-                  ),
-                ),
+                Expanded(child: categoryPicker),
               ],
-            ],
-          ),
+            );
+          },
         ),
         const SizedBox(height: 12),
       ] else

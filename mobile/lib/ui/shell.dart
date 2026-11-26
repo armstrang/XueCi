@@ -57,13 +57,10 @@ class _XueCiAppState extends State<XueCiApp> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     wireSheets();
-    app.addListener(app.syncBgm);
-    app.syncBgm();
   }
 
   @override
   void dispose() {
-    app.removeListener(app.syncBgm);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

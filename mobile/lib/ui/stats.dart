@@ -72,8 +72,6 @@ class StatsScreenState extends State<StatsScreen> {
           children: [
             Capsule(title: t.stTitle),
             const SizedBox(height: 12),
-            const _Insights(),
-            const SizedBox(height: 12),
             Glass(
               radius: 22,
               padding: const EdgeInsets.all(2),
@@ -146,6 +144,8 @@ class StatsScreenState extends State<StatsScreen> {
             ),
             const SizedBox(height: 12),
             _Scale(big: th.fs >= 1.15),
+            const SizedBox(height: 14),
+            const _Insights(),
             const SizedBox(height: 14),
             // how to read the dots, above them (not floating over them)
             Padding(padding: const EdgeInsets.only(bottom: 10), child: Text(t.dotHint, style: F.s(13.5, c: p.soft))),

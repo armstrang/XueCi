@@ -257,82 +257,6 @@ class _SettingsState extends State<_Settings> {
     return SheetBody(
       title: t.setT,
       children: [
-        SGroup(t.setLook, [
-          Glass(
-            solid: true,
-            radius: 18,
-            padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  t.theme,
-                  style: F.s(15, w: FontWeight.w700, c: p.fg),
-                ),
-                const SizedBox(height: 8),
-                Seg(
-                  label: t.theme,
-                  value: app.theme,
-                  options: [
-                    for (final k in themes)
-                      (k, L10.text(t.th[k]), Icon2(themeIc[k]!, size: 15, color: k == app.theme ? p.fg : p.soft)),
-                  ],
-                  onPick: (v) {
-                    if (v != app.theme) app.setTheme(v);
-                  },
-                ),
-              ],
-            ),
-          ),
-          Glass(
-            solid: true,
-            radius: 18,
-            padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  t.fxT,
-                  style: F.s(15, w: FontWeight.w700, c: p.fg),
-                ),
-                const SizedBox(height: 8),
-                Seg(
-                  label: t.fxT,
-                  value: app.fxPref,
-                  options: [for (final k in fxModes) (k, L10.text(t.fxM[k]), null)],
-                  onPick: (v) {
-                    if (v != app.fxPref) app.setFx(v);
-                  },
-                ),
-                const SizedBox(height: 8),
-                Text(t.fxNote(app.fxPref, app.fxDetect()), style: F.s(13.5, c: p.soft, h: 1.45)),
-              ],
-            ),
-          ),
-          if (Native.I.isAndroid || Native.off)
-            Glass(
-              solid: true,
-              radius: 18,
-              padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(t.bgmT, style: F.s(15, w: FontWeight.w700, c: p.fg)),
-                  const SizedBox(height: 8),
-                  Seg(
-                    label: t.bgmT,
-                    value: '${app.bgm}',
-                    options: [for (var i = 0; i < 4; i++) ('$i', L10.text(t.bgmM['$i']), null)],
-                    onPick: (v) {
-                      if (v != '${app.bgm}') app.setBgm(int.parse(v));
-                    },
-                  ),
-                  const SizedBox(height: 8),
-                  Text(t.bgmNote, style: F.s(13.5, c: p.soft, h: 1.45)),
-                ],
-              ),
-            ),
-        ]),
         SGroup(t.langHead, [
           SRow(
             icon: Icon2(I.globe, size: 22, color: th.acc),
@@ -402,6 +326,59 @@ class _SettingsState extends State<_Settings> {
             icon: Icon2(I.flask, size: 22, color: th.acc),
             title: t.rsT,
             onTap: () => from(openResearch),
+          ),
+        ]),
+        SGroup(t.setLook, [
+          Glass(
+            solid: true,
+            radius: 18,
+            padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  t.theme,
+                  style: F.s(15, w: FontWeight.w700, c: p.fg),
+                ),
+                const SizedBox(height: 8),
+                Seg(
+                  label: t.theme,
+                  value: app.theme,
+                  options: [
+                    for (final k in themes)
+                      (k, L10.text(t.th[k]), Icon2(themeIc[k]!, size: 15, color: k == app.theme ? p.fg : p.soft)),
+                  ],
+                  onPick: (v) {
+                    if (v != app.theme) app.setTheme(v);
+                  },
+                ),
+              ],
+            ),
+          ),
+          Glass(
+            solid: true,
+            radius: 18,
+            padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  t.fxT,
+                  style: F.s(15, w: FontWeight.w700, c: p.fg),
+                ),
+                const SizedBox(height: 8),
+                Seg(
+                  label: t.fxT,
+                  value: app.fxPref,
+                  options: [for (final k in fxModes) (k, L10.text(t.fxM[k]), null)],
+                  onPick: (v) {
+                    if (v != app.fxPref) app.setFx(v);
+                  },
+                ),
+                const SizedBox(height: 8),
+                Text(t.fxNote(app.fxPref, app.fxDetect()), style: F.s(13.5, c: p.soft, h: 1.45)),
+              ],
+            ),
           ),
         ]),
         SGroup(t.setHelp, [

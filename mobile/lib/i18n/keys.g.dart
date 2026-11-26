@@ -50,9 +50,6 @@ mixin L10Keys {
   String get back => s('back');
   String backMsg(Object? a0, Object? a1) => f('backMsg', [a0, a1]);
   Map<String, dynamic> get band => (v('band') as Map?)?.cast<String, dynamic>() ?? const {};
-  Map<String, dynamic> get bgmM => (v('bgmM') as Map?)?.cast<String, dynamic>() ?? const {};
-  String get bgmNote => s('bgmNote');
-  String get bgmT => s('bgmT');
   String get bkApply => s('bkApply');
   String get bkBad => s('bkBad');
   String get bkBtn => s('bkBtn');
@@ -116,6 +113,8 @@ mixin L10Keys {
   String get bsNone => s('bsNone');
   String get bsQH => s('bsQH');
   String get bsQM => s('bsQM');
+  String get bsReadyNow => s('bsReadyNow');
+  String get bsScheduled => s('bsScheduled');
   String bsScore(Object? a0, Object? a1) => f('bsScore', [a0, a1]);
   String get bsSub => s('bsSub');
   String get bsTitle => s('bsTitle');
@@ -225,8 +224,10 @@ mixin L10Keys {
   String get exHskk => s('exHskk');
   String get exHskkD => s('exHskkD');
   String get exNone => s('exNone');
+  String get exPracticeGroup => s('exPracticeGroup');
   String get exRealm => s('exRealm');
   String get exRealmD => s('exRealmD');
+  String get exRealmGroup => s('exRealmGroup');
   String get exSub => s('exSub');
   String get exTitle => s('exTitle');
   String get fcAllDone => s('fcAllDone');
@@ -770,6 +771,7 @@ mixin L10Keys {
   String get talkA_thanks => s('talkA_thanks');
   String get talkAgain => s('talkAgain');
   String talkAsk(Object? a0) => f('talkAsk', [a0]);
+  String get talkBackResults => s('talkBackResults');
   String get talkBtn => s('talkBtn');
   String get talkChooseSpeech => s('talkChooseSpeech');
   String get talkDone => s('talkDone');
@@ -779,6 +781,9 @@ mixin L10Keys {
   String get talkFix => s('talkFix');
   String get talkGuide => s('talkGuide');
   String get talkHeard => s('talkHeard');
+  String get talkLevelAHint => s('talkLevelAHint');
+  String get talkLevelBHint => s('talkLevelBHint');
+  String get talkLevelPick => s('talkLevelPick');
   String get talkListen => s('talkListen');
   String get talkMeaning => s('talkMeaning');
   String get talkModels => s('talkModels');
@@ -786,6 +791,7 @@ mixin L10Keys {
   String get talkNoHear => s('talkNoHear');
   String get talkNoMic => s('talkNoMic');
   String get talkNote => s('talkNote');
+  String get talkResults => s('talkResults');
   String get talkRetrySpeech => s('talkRetrySpeech');
   String talkScore(Object? a0) => f('talkScore', [a0]);
   String get talkSit => s('talkSit');
@@ -793,6 +799,7 @@ mixin L10Keys {
   String get talkStop => s('talkStop');
   String get talkSub => s('talkSub');
   String get talkTitle => s('talkTitle');
+  String get talkViewThread => s('talkViewThread');
   String get talkYes => s('talkYes');
   String get terms => s('terms');
   String get testLocked => s('testLocked');

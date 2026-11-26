@@ -26,34 +26,19 @@ final qiT = ValueNotifier<double>(0);
 bool qiOn = true;
 bool _running = false;
 
-class _Burst {
-  final int kind; // 0 qi (right), 1 ink (wrong), 2 the wash of ink across the screen
-  final Offset at;
+class _Sweep {
   final double t0;
-  final Color c;
-  final int seed;
-  _Burst(this.kind, this.at, this.t0, this.c, this.seed);
-  double get life => kind == 0 ? 1.1 : (kind == 1 ? .9 : .42);
+  final Color color;
+  const _Sweep(this.t0, this.color);
+
+  static const duration = .42;
 }
 
-final _bursts = <_Burst>[];
-int _seed = 0;
+_Sweep? _sweep;
 
-/// a right answer gives off qi, a wrong one leaves a blot of ink, at the middle of [context]'s widget
-void qiBurst(BuildContext context, {required bool ok}) {
-  if (!_running) return;
-  final box = context.findRenderObject();
-  if (box is! RenderBox || !box.hasSize) return;
-  final p = Th.pal(context);
-  final at = box.localToGlobal(box.size.center(Offset.zero));
-  _bursts.add(_Burst(ok ? 0 : 1, at, qiT.value, ok ? (p.dark ? p.gold : const Color(0xffc8922a)) : p.soft, _seed++));
-}
-
-/// ink washes across as a new screen comes in
-void qiSweep(Color c) {
-  if (!_running) return;
-  _bursts.removeWhere((b) => b.kind == 2);
-  _bursts.add(_Burst(2, Offset.zero, qiT.value, c, _seed++));
+/// Ink washes across as a new screen comes in.
+void qiSweep(Color color) {
+  if (_running) _sweep = _Sweep(qiT.value, color);
 }
 
 double _h(int i, int k) {
@@ -94,7 +79,7 @@ class _QiFieldState extends State<QiField> with SingleTickerProviderStateMixin {
     if (!_may) {
       if (_ticker.isActive) _ticker.stop();
       _running = false;
-      _bursts.clear();
+      _sweep = null;
       return;
     }
     _awake = qiT.value + 90;
@@ -110,15 +95,15 @@ class _QiFieldState extends State<QiField> with SingleTickerProviderStateMixin {
   void _tick(Duration d) {
     if (_from == Duration.zero) _from = d;
     final now = _base + (d - _from).inMicroseconds / 1e6;
-    if (_bursts.isNotEmpty) {
-      _bursts.removeWhere((b) => now - b.t0 > b.life);
+    if (_sweep case final sweep?) {
+      if (now - sweep.t0 > _Sweep.duration) _sweep = null;
       qiT.value = now;
       _last = now;
     } else if (now - _last >= 1 / 30) {
       qiT.value = now;
       _last = now;
     }
-    if (now > _awake && _bursts.isEmpty) {
+    if (now > _awake && _sweep == null) {
       _ticker.stop();
       _running = false;
     }
@@ -210,7 +195,7 @@ class _AirPainter extends CustomPainter {
   bool shouldRepaint(_AirPainter o) => o.p != p || o.rc != rc || o.storm != storm || o.low != low;
 }
 
-/// On top of everything: the bursts.
+/// The transition wash sits above the screen.
 class QiOver extends StatelessWidget {
   const QiOver({super.key});
   @override
@@ -222,64 +207,25 @@ class _OverPainter extends CustomPainter {
   _OverPainter() : super(repaint: qiT);
   @override
   void paint(Canvas c, Size s) {
-    if (_bursts.isEmpty) return;
-    final t = qiT.value;
-    for (final b in _bursts) {
-      final u = ((t - b.t0) / b.life).clamp(0.0, 1.0);
-      switch (b.kind) {
-        case 0:
-          // a soft bloom of gold light that opens and fades (Josh, Nov 2026: calm, no sparks)
-          final e = _eo(u);
-          final a0 = math.sin(u * math.pi);
-          c.drawCircle(
-            b.at,
-            24 + 46 * e,
-            Paint()
-              ..shader = ui.Gradient.radial(b.at, 24 + 46 * e, [
-                b.c.withValues(alpha: .26 * a0),
-                b.c.withValues(alpha: .1 * a0),
-                b.c.withValues(alpha: 0),
-              ], const [0, .55, 1]),
-          );
-        case 1:
-          // a thin ripple, like a drop on still water
-          final e = _eo(u);
-          for (var i = 0; i < 2; i++) {
-            final k = (e - i * .22).clamp(0.0, 1.0);
-            if (k <= 0) continue;
-            c.save();
-            c.translate(b.at.dx, b.at.dy);
-            c.scale(1, .55);
-            c.drawCircle(
-              Offset.zero,
-              12 + 52 * k,
-              Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 1.3
-                ..color = b.c.withValues(alpha: .32 * (1 - k)),
-            );
-            c.restore();
-          }
-        default:
-          // a wash of ink: a soft slanted band crosses the screen once
-          final x = (-.5 + 2.0 * _eo(u)) * s.width;
-          final a = math.sin(u * math.pi) * .1;
-          c.save();
-          c.translate(x, 0);
-          c.transform(Matrix4.skewX(-.32).storage);
-          c.drawRect(
-            Rect.fromLTWH(-s.width * .45, -20, s.width * .9, s.height + 40),
-            Paint()
-              ..shader = ui.Gradient.linear(Offset(-s.width * .45, 0), Offset(s.width * .45, 0), [
-                b.c.withValues(alpha: 0),
-                b.c.withValues(alpha: a),
-                b.c.withValues(alpha: a * .5),
-                b.c.withValues(alpha: 0),
-              ], const [0, .55, .8, 1]),
-          );
-          c.restore();
-      }
-    }
+    final sweep = _sweep;
+    if (sweep == null) return;
+    final u = ((qiT.value - sweep.t0) / _Sweep.duration).clamp(0.0, 1.0);
+    final x = (-.5 + 2.0 * _eo(u)) * s.width;
+    final alpha = math.sin(u * math.pi) * .1;
+    c.save();
+    c.translate(x, 0);
+    c.transform(Matrix4.skewX(-.32).storage);
+    c.drawRect(
+      Rect.fromLTWH(-s.width * .45, -20, s.width * .9, s.height + 40),
+      Paint()
+        ..shader = ui.Gradient.linear(Offset(-s.width * .45, 0), Offset(s.width * .45, 0), [
+          sweep.color.withValues(alpha: 0),
+          sweep.color.withValues(alpha: alpha),
+          sweep.color.withValues(alpha: alpha * .5),
+          sweep.color.withValues(alpha: 0),
+        ], const [0, .55, .8, 1]),
+    );
+    c.restore();
   }
 
   @override

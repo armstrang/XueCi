@@ -646,7 +646,7 @@ class _HkRunState extends State<HkRunScreen> {
                   child: SizedBox(width: 48, height: 48, child: Center(child: Icon2(I.close, size: 20, color: p.fg, width: 2.2))),
                 ),
                 Expanded(
-                  child: Text(title, maxLines: 1, overflow: TextOverflow.ellipsis, style: F.s(16, w: FontWeight.w800, c: p.fg)),
+                  child: Text(title, maxLines: 2, overflow: TextOverflow.ellipsis, style: F.s(16, w: FontWeight.w800, c: p.fg)),
                 ),
                 if (tasks.isNotEmpty && ph != _Ph.intro && ph != _Ph.mockEnd && ph != _Ph.end)
                   Text('${i + 1}/${tasks.length}', style: F.s(13.5, w: FontWeight.w700, c: p.soft, feat: F.tab)),

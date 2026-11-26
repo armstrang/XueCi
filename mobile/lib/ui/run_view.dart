@@ -20,7 +20,6 @@ import 'focus.dart';
 import 'bct_words.dart';
 import 'glass.dart';
 import 'icons.dart';
-import 'qi.dart';
 import 'theme.dart';
 import 'widgets.dart';
 import 'word_ui.dart';
@@ -484,8 +483,8 @@ class _CardView extends StatelessWidget {
     final checking = it.st == 'check';
     // the card takes the room the screen has (head, pills, buttons and the tab bar around it)
     final mq = MediaQuery.of(context);
-    final room = mq.size.height - mq.padding.vertical - 370;
-    final h = checking ? 230.0 : room.clamp(320.0, 520.0);
+    final room = mq.size.height - mq.padding.vertical - 370 - 80 * (mq.textScaler.scale(1) - 1).clamp(0, 1);
+    final h = checking ? 230.0 : room.clamp(228.0, 520.0);
     final front = _Face(
       child: Stack(
         children: [
@@ -867,18 +866,17 @@ class _OptBtnState extends State<OptBtn> with SingleTickerProviderStateMixin {
   @override
   void didUpdateWidget(OptBtn o) {
     super.didUpdateWidget(o);
-    if (o.state == null && widget.state != null) {
-      if (widget.state == false) {
-        HapticFeedback.mediumImpact();
-        qiBurst(context, ok: false); // a blot of ink
-      } else if (widget.picked) {
+    if (o.state != null || widget.state == null) return;
+    if (!widget.picked || MediaQuery.of(context).disableAnimations) {
+      _a.value = 1;
+    } else {
+      _a.forward(from: 0);
+    }
+    if (widget.picked) {
+      if (widget.state == true) {
         HapticFeedback.lightImpact();
-        qiBurst(context, ok: true); // qi flies off the right answer
-      }
-      if (MediaQuery.of(context).disableAnimations) {
-        _a.value = 1;
       } else {
-        _a.forward(from: 0);
+        HapticFeedback.mediumImpact();
       }
     }
   }

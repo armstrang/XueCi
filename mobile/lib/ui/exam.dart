@@ -48,6 +48,13 @@ class ExamScreen extends StatelessWidget {
           score: '${m[2]}/100',
         ),
     ]..sort((a, b) => b.at.compareTo(a.at));
+    Widget section(String title) => Semantics(
+      header: true,
+      child: Text(
+        title,
+        style: F.s(15, w: FontWeight.w800, c: p.fg),
+      ),
+    );
     return SafeArea(
       bottom: false,
       child: ListView(
@@ -60,9 +67,9 @@ class ExamScreen extends StatelessWidget {
               style: F.s(31, w: FontWeight.w800, c: p.fg, ls: -.6),
             ),
           ),
-          const SizedBox(height: 2),
-          Text(t.exSub, style: F.s(14, c: p.soft)),
           const SizedBox(height: 18),
+          section(t.exPracticeGroup),
+          const SizedBox(height: 8),
           Rise(
             1,
             child: _ExamCard(
@@ -91,7 +98,8 @@ class ExamScreen extends StatelessWidget {
                   app.startHk(app.hkLv.clamp(1, app.hkOpenTo), mock: true),
             ),
           ),
-          if ((app.lm.bct?.of('a').length ?? 0) >= 70 || (app.lm.bct?.of('b').length ?? 0) >= 150) ...[
+          if ((app.lm.bct?.of('a').length ?? 0) >= 70 ||
+              (app.lm.bct?.of('b').length ?? 0) >= 150) ...[
             const SizedBox(height: 12),
             Rise(
               3,
@@ -110,7 +118,9 @@ class ExamScreen extends StatelessWidget {
               ),
             ),
           ],
-          const SizedBox(height: 12),
+          const SizedBox(height: 18),
+          section(t.exRealmGroup),
+          const SizedBox(height: 8),
           Rise(
             4,
             child: _ExamCard(
@@ -214,7 +224,7 @@ class _ExamCard extends StatelessWidget {
       label: '$title. $sub. $foot',
       child: Glass(
         radius: 26,
-        padding: const EdgeInsets.fromLTRB(16, 16, 14, 16),
+        padding: const EdgeInsets.fromLTRB(14, 12, 12, 12),
         child: Row(
           children: [
             Container(

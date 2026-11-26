@@ -162,6 +162,26 @@ void main() {
     },
   );
 
+  testWidgets('the learner can change the transcript before sending', (
+    t,
+  ) async {
+    await openTalk(t);
+    talkListen = ({onEvent, limitMs = 0}) async => ['周六送到。', '周四送到。'];
+    await t.tap(find.text('Bicara'));
+    await t.pump(const Duration(milliseconds: 500));
+    final change = find.text(app.t.talkChooseSpeech);
+    await t.tap(change);
+    await t.pumpAndSettle();
+    await t.tap(find.text('周四送到。'));
+    await t.pumpAndSettle();
+    expect(find.text('周四送到。'), findsOneWidget);
+    expect(find.text('周六送到。'), findsNothing);
+    await t.tap(find.byIcon(Icons.send_outlined));
+    await t.pump(const Duration(milliseconds: 500));
+    expect(find.text('周四送到。'), findsOneWidget);
+    expect(find.text('3/10'), findsNothing);
+  });
+
   testWidgets(
     'off-topic speech scores zero and repeated misses finish the session',
     (t) async {
@@ -169,9 +189,18 @@ void main() {
       for (var i = 0; i < lateDelivery.patience; i++) {
         await send(t, ['苹果香蕉']);
       }
-      expect(find.text('0/10'), findsNWidgets(lateDelivery.patience));
+      expect(find.text(app.t.talkResults), findsOneWidget);
       expect(find.text('Bicara'), findsNothing);
       expect(find.text('Selesai'), findsOneWidget);
+      final history = find.text(app.t.talkViewThread);
+      await t.ensureVisible(history);
+      await t.tap(history);
+      await t.pump(const Duration(milliseconds: 500));
+      expect(find.text('0/10'), findsWidgets);
+      expect(find.text('苹果香蕉'), findsWidgets);
+      await t.tap(find.text(app.t.talkBackResults));
+      await t.pump();
+      expect(find.text(app.t.talkResults), findsOneWidget);
     },
   );
 

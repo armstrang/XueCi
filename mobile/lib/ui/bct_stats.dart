@@ -177,8 +177,8 @@ class _BctStatsState extends State<BctStatsScreen> {
           Row(
             children: [
               Text(label, style: F.s(15, w: FontWeight.w800, c: p.fg)),
-              const Spacer(),
-              Text(t.bstSolid(app.fmt(a), app.fmt(b)), style: F.s(13, w: FontWeight.w600, c: p.soft, feat: F.tab)),
+              const SizedBox(width: 8),
+              Expanded(child: Text(t.bstSolid(app.fmt(a), app.fmt(b)), textAlign: TextAlign.end, style: F.s(13, w: FontWeight.w600, c: p.soft, feat: F.tab))),
             ],
           ),
           const SizedBox(height: 6),
@@ -206,35 +206,6 @@ class _BctStatsState extends State<BctStatsScreen> {
               Capsule(title: t.bstTitle, onBack: () => app.go('home')),
               const SizedBox(height: 14),
               const BctRankCard(),
-              head(t.bstPath),
-              Glass(
-                radius: 24,
-                padding: const EdgeInsets.fromLTRB(12, 14, 12, 14),
-                child: Row(
-                  children: [
-                    for (var r = 0; r < BctRank.names.length; r++)
-                      Expanded(
-                        child: Semantics(
-                          label: '${rankMeaning(r)}${r == i.rank ? ', ✓' : ''}',
-                          child: Opacity(
-                            opacity: r <= i.rank ? 1 : .45,
-                            child: Column(
-                              children: [
-                                RankSeal(rank: r, size: r == i.rank ? 50 : 40),
-                                const SizedBox(height: 6),
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text(rankMeaning(r), maxLines: 1, style: F.s(11.5, w: r == i.rank ? FontWeight.w800 : FontWeight.w600, c: p.fg)),
-                                ),
-                                Text(BctRank.pinyin[r], maxLines: 1, style: F.s(10, c: p.mute)),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                  ],
-                ),
-              ),
               head(t.bstBooks),
               Glass(
                 radius: 24,
@@ -262,6 +233,35 @@ class _BctStatsState extends State<BctStatsScreen> {
                     Align(alignment: Alignment.centerLeft, child: Text(
                       t.bsDue(app.fmt(i.due)), style: F.s(13, w: FontWeight.w600, c: p.mute),
                     )),
+                  ],
+                ),
+              ),
+              head(t.bstPath),
+              Glass(
+                radius: 24,
+                padding: const EdgeInsets.fromLTRB(12, 14, 12, 14),
+                child: Row(
+                  children: [
+                    for (var r = 0; r < BctRank.names.length; r++)
+                      Expanded(
+                        child: Semantics(
+                          label: '${rankMeaning(r)}${r == i.rank ? ', ✓' : ''}',
+                          child: Opacity(
+                            opacity: r <= i.rank ? 1 : .45,
+                            child: Column(
+                              children: [
+                                RankSeal(rank: r, size: r == i.rank ? 50 : 40),
+                                const SizedBox(height: 6),
+                                FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(rankMeaning(r), maxLines: 1, style: F.s(11.5, w: r == i.rank ? FontWeight.w800 : FontWeight.w600, c: p.fg)),
+                                ),
+                                Text(BctRank.pinyin[r], maxLines: 1, style: F.s(10, c: p.mute)),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                   ],
                 ),
               ),

@@ -197,19 +197,11 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   invited. After a passed breakthrough (not placement, not the make-up, not the gate) a quiet invitation once per realm
   (`DonateAsk`); donors get a 护法 seal in the Soul Sea. Off Google Play (GitHub APK) the sheet says donations need Play.
   Never an outside donation link in the app (Play payments policy).
-- **Background sound = nature, not music** (Josh, Nov 2026: three kinds of music, synthesised, sampled zither/flute/
-  bells/strings, then sparse guqin and xiao, were all "tiring to the ear"; **don't bring music back** unless he asks):
-  `art/make_bgm.py` synthesises `res/raw/bgm_0…7.ogg` from shaped noise and small models (no recordings, no licence):
-  凡人 wind in grass, 炼气 bamboo grove, 筑基 small stream, 金丹 fine rain on a roof, 元婴 far waterfall, 化神 thin
-  mountain wind, 渡劫 steady rain (no thunder), 飞升 morning stream with a few far birds. Warm (little above 5 kHz), no
-  insects, no near birds, quiet, 160 s loops that close on themselves. `Bgm.kt` plays them (cross-fade, quieter while
-  a word is spoken, silent while the app listens, in the background and when another app already plays music; never
-  takes the audio focus). `App.syncBgm`: the realm's place, 渡劫 during a tribulation, none in an HSK simulation;
-  realms past 7 play piece 7 at another pitch. Setting `bgm` 0–3 in `hsk16_ui` (volumes .14/.3/.55).
+- **Background sound removed** (Nov 2026). Keep pronunciation audio, HSKK prompts, and speaking-practice audio. Old ambience preferences are ignored.
 - **The living layer** (`ui/qi.dart`, Josh, Nov 2026: alive but calm, "not over the top", **no lightning anywhere**):
   one clock `qiT` (one ticker in `QiField`, 30 fps, asleep 90 s after the last touch) drives 14 slow motes and thin
-  mist behind every screen, `QiAura` around Home's orb (one breath per 6 s), `qiBurst` (a soft gold glow for right, a
-  thin ripple for wrong), `qiSweep` (a light ink wash on a screen change), `QiSmoke`, `QiSpin`. The tribulation's
+  mist behind every screen, `QiAura` around Home's orb (one breath per 6 s), `qiSweep` (a light ink wash on a screen change),
+  `QiSmoke`, `QiSpin`. Answer animations stay inside the selected option. The tribulation's
   strike shows its sign softly (no bolt, no flash). Canvas only, in repaint boundaries. Still with light effects or "remove animations";
   `qiOn = false` in the measuring tests. `QI=1 flutter test --update-goldens test/qi_film_test.dart` films it into
   `test/qi/` (not committed).
@@ -250,7 +242,7 @@ After a change: `python3 mobile/tool/make_assets.py` (if `content/` changed) →
   (`git fetch origin "+refs/heads/ci-out/main:refs/remotes/origin/ci-out/main"`). When everything passes, the APK is
   published as pre-release **`v1.0-alpha-N`** (N = highest + 1, versionName 1.0.0-alpha.N, `XueCiMandarin-alpha.apk`,
   never latest; the first was plain `v1.0-alpha`). `[skip ci]` in a commit message = no build, no alpha.
-- `.github/workflows/build-apk.yml`: the official release, **run by hand only** when Josh says so (APK + Play bundle,
+- `.github/workflows/build-apk.yml`: the official release, triggered manually or with an explicitly authorized `[release final 1.N]` commit on main (APK + Play bundle,
   release `v1.N`, notes from `CHANGELOG.md`; since v1.4 the release carries the APK only: the Play bundle is
   encrypted for `.github/aab-public.pem` (AES-256 + RSA-OAEP key) and force-pushed alone to branch `aab-out`; the
   session that made the key pair decrypts it and sends it to Josh in chat (a new session: new key pair, commit the

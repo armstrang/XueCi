@@ -131,3 +131,24 @@ Baca file ini dan CLAUDE.md terlebih dahulu. Periksa branch, HEAD, perubahan bel
 ## AUTO-CHECKPOINT · 25 November 2026 · Perbaikan kontras rilis
 - Tes lengkap lokal menemukan tiga kegagalan kontras HSK. Perbaikan di `mobile/lib/ui/shell.dart` dan `mobile/lib/ui/tests.dart` membuat 51 tes kontras lulus.
 - Kandidat final v1.13.1 menyertakan perbaikan ini di atas v1.13. Rilis sebelumnya dipertahankan. Verifikasi commit, APK, dan AAB terenkripsi dari run v1.13.1.
+
+## AUTO-CHECKPOINT · 26 November 2026 · Audit audio dan penghapusan suara latar
+- Tujuan: audit XueCi berbasis `main` (`f7042c8`), hilangkan suara latar, dan tinjau penyebab transkrip Speak BCT meleset.
+- Selesai: pilihan Suara latar, setting lama, pemutar Android, channel, pengait lifecycle, generator, dan delapan aset OGG dihapus. Setting lama diabaikan. Pelafalan, prompt HSKK dan jalur rekam/putar tetap ada. Catatan Speak BCT di empat bahasa menyebut bahwa pengenal dalam Bicara langsung mungkin memerlukan internet.
+- File: `mobile/lib/app/{app,native}.dart`, `mobile/lib/ui/{settings,shell}.dart`, `mobile/lib/i18n/keys.g.dart`, `content/i18n/{id,en,th,vi}.js`, `MainActivity.kt`, penghapusan `Bgm.kt`, aset `res/raw/bgm_*.ogg`, dan `art/make_bgm.py`. `CLAUDE.md` dan `CHANGELOG.md` diperbarui.
+- Temuan: cek ketersediaan ASR rekaman bersifat umum dan belum membuktikan dukungan input berkas Mandarin. Android dapat memilih jalur berbeda untuk rekaman dan Bicara langsung. Flutter menampilkan kandidat pertama yang dipilih pengenal tanpa pemilih alternatif. Penyebab transkrip yang meleset belum direproduksi pada HP pengguna. Penilaian BCT dan model yang dipakai di main tetap berlaku.
+- Verifikasi: analisis Dart bersih, kompilasi Kotlin Android berhasil, tes pembentukan kandidat ASR lulus, dan 14 tes terarah Speak BCT, i18n, serta backup lulus. Suite Flutter `--update-goldens`: 518 lulus, 130 dilewati.
+- Handoff: terapkan `XueCi-Audit-Hapus-Suara-Latar.patch` pada basis di atas setelah cek status main. Uji rekaman dan Bicara langsung dengan kalimat referensi yang sama di HP pengguna. Kumpulkan hasil mentah transkrip sebelum kirim untuk menentukan apakah masalah ada pada audio, layanan, atau pemilihan kandidat. Tunggu izin terpisah untuk push dan build paket.
+
+## AUTO-CHECKPOINT · 26 November 2026 · Optimasi desain XueCi
+- Tujuan: menindaklanjuti audit desain lintas layar dan menggabungkan penghapusan suara latar serta perbaikan efek jawaban dari patch sebelumnya.
+- Speak BCT: kartu level besar di tengah yang bertumpuk saat ruang sempit, alternatif transkrip dipilih sebelum Kirim bila pengenal menyediakan lebih dari satu, tombol Putar/Rekam ulang/Kirim berlabel, prompt berhenti saat mikrofon aktif, serta halaman hasil yang bisa kembali ke riwayat. Teks pratinjau dipakai langsung sehingga tidak menjalankan NLU ulang setiap pembaruan posisi audio. Penilaian dilakukan pada transkrip pilihan pengguna.
+- Layar lain: kelompok Simulasi dan Progres Ranah di Ujian, indikator siap diulang terpisah dari prakiraan BCT, statistik inti tampil lebih awal, filter Daftar menyesuaikan lebar, kartu merespons ukuran layar dan teks, judul HSKK dapat membungkus, pengaturan Bahasa dan Cadangan lebih awal. Beranda HSK, tata bahasa, splash, akses cadangan, dan tema diperiksa melalui tes layar/fungsi yang tersedia.
+- Patch gabungan menghapus Suara latar dari UI dan Android. Efek jawaban Tes Penempatan, Tes Ranah, dan kuis dibetulkan. Perubahan terdapat di `mobile/lib/ui/`, jembatan Android `MainActivity.kt`, lokalisasi empat bahasa, dan tes layar/suara.
+- Verifikasi: suite Flutter dengan pembaruan golden mencatat 521 tes lulus dan 130 dilewati. Pemeriksaan kontras mencatat 51 tes lulus. Analisis Dart bersih dan kompilasi Kotlin Android berhasil.
+- Handoff: basis `f7042c8`. Terapkan `XueCi-Optimasi-Desain.patch` dan cek perbedaan bila salah satu patch lama telah masuk. Jalankan tes dan build rilis hanya setelah persetujuan. Belum ada pengukuran jangkauan jempol atau akurasi pengenal asli di HP pengguna.
+
+## AUTO-CHECKPOINT · 26 November 2026 · Rilis v1.13.2
+- Tujuan: menyiapkan APK final dan AAB bertanda tangan Play dari optimasi desain yang telah diverifikasi.
+- Perubahan rilis: catatan versi di `CHANGELOG.md`. Perubahan aplikasi dan status pengujian ada pada bagian optimasi desain di atas.
+- Handoff: gunakan workflow `Build APK` pada commit persis rilis ini. Verifikasi hasil workflow, APK yang diterbitkan, dan checksum AAB dari transport terenkripsi sebelum mengirim. Belum ada validasi pengenal suara di perangkat pengguna. Publikasi ke Google Play memerlukan instruksi terpisah.
